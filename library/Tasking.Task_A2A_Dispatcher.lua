@@ -1,0 +1,319 @@
+---@meta
+
+---<img src="https://flightcontrol-master.github.io/MOOSE_DOCS_DEVELOP/Images/Task_A2A_Dispatcher.JPG" width="100%">
+---
+---**Tasking** - Dynamically allocates A2A tasks to human players, based on detected airborne targets through an EWR network.
+---
+---**Features:**
+---
+---  * Dynamically assign tasks to human players based on detected targets.
+---  * Dynamically change the tasks as the tactical situation evolves during the mission.
+---  * Dynamically assign (CAP) Control Air Patrols tasks for human players to perform CAP.
+---  * Dynamically assign (GCI) Ground Control Intercept tasks for human players to perform GCI.
+---  * Dynamically assign Engage tasks for human players to engage on close-by airborne bogeys.
+---  * Define and use an EWR (Early Warning Radar) network.
+---  * Define different ranges to engage upon intruders.
+---  * Keep task achievements.
+---  * Score task achievements.
+---
+---===
+---
+---### Author: **FlightControl**
+---
+---### Contributions:
+---
+---===
+---Orchestrates the dynamic dispatching of tasks upon groups of detected units determined a Core.Set of EWR installation groups.
+---
+---![Banner Image](..\Images\deprecated.png)
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia3.JPG)
+---
+---The EWR will detect units, will group them, and will dispatch Tasking.Tasks to groups. Depending on the type of target detected, different tasks will be dispatched.
+---Find a summary below describing for which situation a task type is created:
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia9.JPG)
+---
+---  * **INTERCEPT Task**: Is created when the target is known, is detected and within a danger zone, and there is no friendly airborne in range.
+---  * **SWEEP Task**: Is created when the target is unknown, was detected and the last position is only known, and within a danger zone, and there is no friendly airborne in range.
+---  * **ENGAGE Task**: Is created when the target is known, is detected and within a danger zone, and there is a friendly airborne in range, that will receive this task.
+---
+---## 1. TASK\_A2A\_DISPATCHER constructor:
+---
+---The #TASK_A2A_DISPATCHER.New() method creates a new TASK\_A2A\_DISPATCHER instance.
+---
+---### 1.1. Define or set the **Mission**:
+---
+---Tasking is executed to accomplish missions. Therefore, a MISSION object needs to be given as the first parameter.
+---
+---    local HQ = GROUP:FindByName( "HQ", "Bravo" )
+---    local CommandCenter = COMMANDCENTER:New( HQ, "Lima" )
+---    local Mission = MISSION:New( CommandCenter, "A2A Mission", "High", "Watch the air enemy units being detected.", coalition.side.RED )
+---
+---Missions are governed by COMMANDCENTERS, so, ensure you have a COMMANDCENTER object installed and setup within your mission.
+---Create the MISSION object, and hook it under the command center.
+---
+---### 1.2. Build a set of the groups seated by human players:
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia6.JPG)
+---
+---A set or collection of the groups wherein human players can be seated, these can be clients or units that can be joined as a slot or jumping into.
+---
+---    local AttackGroups = SET_GROUP:New():FilterCoalitions( "red" ):FilterPrefixes( "Defender" ):FilterStart()
+---
+---The set is built using the SET_GROUP class. Apply any filter criteria to identify the correct groups for your mission.
+---Only these slots or units will be able to execute the mission and will receive tasks for this mission, once available.
+---
+---### 1.3. Define the **EWR network**:
+---
+---As part of the TASK\_A2A\_DISPATCHER constructor, an EWR network must be given as the third parameter.
+---An EWR network, or, Early Warning Radar network, is used to early detect potential airborne targets and to understand the position of patrolling targets of the enemy.
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia5.JPG)
+---
+---Typically EWR networks are setup using 55G6 EWR, 1L13 EWR, Hawk sr and Patriot str ground based radar units. 
+---These radars have different ranges and 55G6 EWR and 1L13 EWR radars are Eastern Bloc units (eg Russia, Ukraine, Georgia) while the Hawk and Patriot radars are Western (eg US).
+---Additionally, ANY other radar capable unit can be part of the EWR network! Also AWACS airborne units, planes, helicopters can help to detect targets, as long as they have radar.
+---The position of these units is very important as they need to provide enough coverage 
+---to pick up enemy aircraft as they approach so that CAP and GCI flights can be tasked to intercept them.
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia7.JPG)
+---
+---Additionally in a hot war situation where the border is no longer respected the placement of radars has a big effect on how fast the war escalates.
+---For example if they are a long way forward and can detect enemy planes on the ground and taking off
+---they will start to vector CAP and GCI flights to attack them straight away which will immediately draw a response from the other coalition.
+---Having the radars further back will mean a slower escalation because fewer targets will be detected and
+---therefore less CAP and GCI flights will spawn and this will tend to make just the border area active rather than a melee over the whole map.
+---It all depends on what the desired effect is.
+---
+---EWR networks are **dynamically constructed**, that is, they form part of the Functional.Detection#DETECTION_BASE object that is given as the input parameter of the TASK\_A2A\_DISPATCHER class.
+---By defining in a **smart way the names or name prefixes of the groups** with EWR capable units, these groups will be **automatically added or deleted** from the EWR network,
+---increasing or decreasing the radar coverage of the Early Warning System.
+---
+---See the following example to setup an EWR network containing EWR stations and AWACS.
+---
+---    local EWRSet = SET_GROUP:New():FilterPrefixes( "EWR" ):FilterCoalitions("red"):FilterStart()
+---
+---    local EWRDetection = DETECTION_AREAS:New( EWRSet, 6000 )
+---    EWRDetection:SetFriendliesRange( 10000 )
+---    EWRDetection:SetRefreshTimeInterval(30)
+---
+---    -- Setup the A2A dispatcher, and initialize it.
+---    A2ADispatcher = TASK_A2A_DISPATCHER:New( Mission, AttackGroups, EWRDetection )
+---
+---The above example creates a SET_GROUP instance, and stores this in the variable (object) **EWRSet**.
+---**EWRSet** is then being configured to filter all active groups with a group name starting with **EWR** to be included in the Set.
+---**EWRSet** is then being ordered to start the dynamic filtering. Note that any destroy or new spawn of a group with the above names will be removed or added to the Set.
+---Then a new **EWRDetection** object is created from the class DETECTION_AREAS. A grouping radius of 6000 is chosen, which is 6 km.
+---The **EWRDetection** object is then passed to the #TASK_A2A_DISPATCHER.New() method to indicate the EWR network configuration and setup the A2A tasking and detection mechanism.
+---
+---### 2. Define the detected **target grouping radius**:
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia8.JPG)
+---
+---The target grouping radius is a property of the Detection object, that was passed to the AI\_A2A\_DISPATCHER object, but can be changed.
+---The grouping radius should not be too small, but also depends on the types of planes and the era of the simulation.
+---Fast planes like in the 80s, need a larger radius than WWII planes.
+---Typically I suggest to use 30000 for new generation planes and 10000 for older era aircraft.
+---
+---Note that detected targets are constantly re-grouped, that is, when certain detected aircraft are moving further than the group radius, then these aircraft will become a separate
+---group being detected. This may result in additional GCI being started by the dispatcher! So don't make this value too small!
+---
+---## 3. Set the **Engage radius**:
+---
+---Define the radius to engage any target by airborne friendlies, which are executing cap or returning from an intercept mission.
+---
+---![Banner Image](..\Presentations\TASK_A2A_DISPATCHER\Dia11.JPG)
+---
+---So, if there is a target area detected and reported,
+---then any friendlies that are airborne near this target area,
+---will be commanded to (re-)engage that target when available (if no other tasks were commanded).
+---For example, if 100000 is given as a value, then any friendly that is airborne within 100km from the detected target,
+---will be considered to receive the command to engage that target area.
+---You need to evaluate the value of this parameter carefully.
+---If too small, more intercept missions may be triggered upon detected target areas.
+---If too large, any airborne cap may not be able to reach the detected target area in time, because it is too far.
+---
+---## 4. Set **Scoring** and **Messages**:
+---
+---The TASK\_A2A\_DISPATCHER is a state machine. It triggers the event Assign when a new player joins a Tasking.Task dispatched by the TASK\_A2A\_DISPATCHER.
+---An _event handler_ can be defined to catch the **Assign** event, and add **additional processing** to set _scoring_ and to _define messages_,
+---when the player reaches certain achievements in the task.
+---
+---The prototype to handle the **Assign** event needs to be developed as follows:
+---
+---     TaskDispatcher = TASK_A2A_DISPATCHER:New( ... )
+---
+---     -- @param #TaskDispatcher self
+---     -- @param #string From Contains the name of the state from where the Event was triggered.
+---     -- @param #string Event Contains the name of the event that was triggered. In this case Assign.
+---     -- @param #string To Contains the name of the state that will be transitioned to.
+---     -- @param Tasking.Task_A2A#TASK_A2A Task The Task object, which is any derived object from TASK_A2A.
+---     -- @param Wrapper.Unit#UNIT TaskUnit The Unit or Client that contains the Player.
+---     -- @param #string PlayerName The name of the Player that joined the TaskUnit.
+---     function TaskDispatcher:OnAfterAssign( From, Event, To, Task, TaskUnit, PlayerName )
+---       Task:SetScoreOnProgress( PlayerName, 20, TaskUnit )
+---       Task:SetScoreOnSuccess( PlayerName, 200, TaskUnit )
+---       Task:SetScoreOnFail( PlayerName, -100, TaskUnit )
+---     end
+---
+---The **OnAfterAssign** method (function) is added to the TaskDispatcher object.
+---This method will be called when a new player joins a unit in the set of groups in scope of the dispatcher.
+---So, this method will be called only **ONCE** when a player joins a unit in scope of the task.
+---
+---The TASK class implements various methods to additional **set scoring** for player achievements:
+---
+---  * Tasking.Task#TASK.SetScoreOnProgress() will add additional scores when a player achieves **Progress** while executing the task.
+---    Examples of **task progress** can be destroying units, arriving at zones etc.
+---
+---  * Tasking.Task#TASK.SetScoreOnSuccess() will add additional scores when the task goes into **Success** state.
+---    This means the **task has been successfully completed**.
+---
+---  * Tasking.Task#TASK.SetScoreOnSuccess() will add additional (negative) scores when the task goes into **Failed** state.
+---    This means the **task has not been successfully completed**, and the scores must be given with a negative value!
+---
+---# Developer Note
+---
+---Note while this class still works, it is no longer supported as the original author stopped active development of MOOSE
+---Therefore, this class is considered to be deprecated
+---TASK_A2A_DISPATCHER class.
+---@deprecated
+---@class TASK_A2A_DISPATCHER : DETECTION_MANAGER
+---@field Detection  
+---@field FlashNewTask boolean 
+---@field Mission  
+TASK_A2A_DISPATCHER = {}
+
+---Creates an ENGAGE task when there are human friendlies airborne near the targets.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param DetectedItem DETECTION_BASE.DetectedItem 
+---@return SET_UNIT #TargetSetUnit: The target set of units.
+---@return nil #If there are no targets to be set.
+function TASK_A2A_DISPATCHER:EvaluateENGAGE(DetectedItem) end
+
+---Creates an INTERCEPT task when there are targets for it.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param DetectedItem DETECTION_BASE.DetectedItem 
+---@return SET_UNIT #TargetSetUnit: The target set of units.
+---@return nil #If there are no targets to be set.
+function TASK_A2A_DISPATCHER:EvaluateINTERCEPT(DetectedItem) end
+
+---Evaluates the removal of the Task from the Mission.
+---Can only occur when the DetectedItem is Changed AND the state of the Task is "Planned".
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param Mission MISSION 
+---@param Task TASK 
+---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
+---@param DetectedItemID boolean 
+---@param DetectedItemChange boolean 
+---@param DetectedItem NOTYPE 
+---@param DetectedItemIndex NOTYPE 
+---@param DetectedItemChanged NOTYPE 
+---@return TASK #
+function TASK_A2A_DISPATCHER:EvaluateRemoveTask(Mission, Task, Detection, DetectedItemID, DetectedItemChange, DetectedItem, DetectedItemIndex, DetectedItemChanged) end
+
+---Creates an SWEEP task when there are targets for it.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param DetectedItem DETECTION_BASE.DetectedItem 
+---@return SET_UNIT #TargetSetUnit: The target set of units.
+---@return nil #If there are no targets to be set.
+function TASK_A2A_DISPATCHER:EvaluateSWEEP(DetectedItem) end
+
+---Calculates which friendlies are nearby the area
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param DetectedItem NOTYPE 
+---@return REPORT #
+function TASK_A2A_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
+
+---Calculates which HUMAN friendlies are nearby the area
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param DetectedItem NOTYPE 
+---@return REPORT #
+function TASK_A2A_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
+
+---TASK_A2A_DISPATCHER constructor.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param Mission MISSION The mission for which the task dispatching is done.
+---@param SetGroup SET_GROUP The set of groups that can join the tasks within the mission.
+---@param Detection DETECTION_BASE The detection results that are used to dynamically assign new tasks to human players.
+---@return TASK_A2A_DISPATCHER #self
+function TASK_A2A_DISPATCHER:New(Mission, SetGroup, Detection) end
+
+---OnAfter Transition Handler for Event Assign.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param From string The From State string.
+---@param Event string The Event string.
+---@param To string The To State string.
+---@param Task TASK_A2A 
+---@param TaskUnit UNIT 
+---@param PlayerName string 
+function TASK_A2A_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, PlayerName) end
+
+---Assigns tasks in relation to the detected items to the Core.Set#SET_GROUP.
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
+---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
+function TASK_A2A_DISPATCHER:ProcessDetected(Detection) end
+
+
+---
+------
+---@param self NOTYPE 
+---@param TaskIndex NOTYPE 
+function TASK_A2A_DISPATCHER:RemoveTask(TaskIndex) end
+
+---Define the radius to when an ENGAGE task will be generated for any nearby by airborne friendlies, which are executing cap or returning from an intercept mission.
+---So, if there is a target area detected and reported,
+---then any friendlies that are airborne near this target area,
+---will be commanded to (re-)engage that target when available (if no other tasks were commanded).
+---An ENGAGE task will be created for those pilots.
+---For example, if 100000 is given as a value, then any friendly that is airborne within 100km from the detected target, 
+---will be considered to receive the command to engage that target area.
+---You need to evaluate the value of this parameter carefully.
+---If too small, more intercept missions may be triggered upon detected target areas.
+---If too large, any airborne cap may not be able to reach the detected target area in time, because it is too far.
+---
+------
+---
+---USAGE
+---```
+---
+---  -- Set 50km as the radius to engage any target by airborne friendlies.
+---  TaskA2ADispatcher:SetEngageRadius( 50000 )
+---
+---  -- Set 100km as the radius to engage any target by airborne friendlies.
+---  TaskA2ADispatcher:SetEngageRadius() -- 100000 is the default value.
+---```
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param EngageRadius number (Optional, Default = 100000) The radius to report friendlies near the target.
+---@return TASK_A2A_DISPATCHER #
+function TASK_A2A_DISPATCHER:SetEngageRadius(EngageRadius) end
+
+---Set flashing player messages on or off
+---
+------
+---@param self TASK_A2A_DISPATCHER 
+---@param onoff boolean Set messages on (true) or off (false)
+function TASK_A2A_DISPATCHER:SetSendMessages(onoff) end
+
+
+

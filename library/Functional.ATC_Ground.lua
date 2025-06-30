@@ -1,0 +1,961 @@
+---@meta
+
+---<img src="https://flightcontrol-master.github.io/MOOSE_DOCS_DEVELOP/Images/Air_Traffic_Control_Ground_Operations.JPG" width="100%">
+---
+---**Functional** - Monitor airbase traffic and regulate speed while taxiing.
+---
+---===
+---
+---## Features:
+---
+---  * Monitor speed of the airplanes of players during taxi.
+---  * Communicate ATC ground operations.
+---  * Kick speeding players during taxi.
+---
+---===
+---
+---## Missions: None
+---
+---===
+---
+---### Contributions: Dutch Baron - Concept & Testing
+---### Author: FlightControl - Framework Design &  Programming
+---### Refactoring to use the Runway auto-detection: Applevangelist
+---[DEPRECATED, use ATC_GROUND_UNIVERSAL] Base class for ATC\_GROUND implementations.
+---@deprecated
+---@class ATC_GROUND : BASE
+---@field AirbaseList  
+---@field Airbases  
+---@field KickSpeed  
+---@field MaximumKickSpeed  
+---@field SetClient SET_CLIENT 
+ATC_GROUND = {}
+
+---[DEPRECATED, use ATC_GROUND_UNIVERSAL] Creates a new ATC\_GROUND object.
+---
+------
+---@param self ATC_GROUND 
+---@param Airbases NOTYPE A table of Airbase Names.
+---@param AirbaseList NOTYPE 
+---@return ATC_GROUND #self
+function ATC_GROUND:New(Airbases, AirbaseList) end
+
+---Set the maximum speed in meters per second (Mps) until the player gets kicked.
+---An airbase can be specified to set the kick speed for.
+---
+------
+---
+---USAGE
+---```
+---
+---  -- Declare Atc_Ground using one of those, depending on the map.
+---
+---  Atc_Ground = ATC_GROUND_CAUCAUS:New()
+---  Atc_Ground = ATC_GROUND_NEVADA:New()
+---  Atc_Ground = ATC_GROUND_NORMANDY:New()
+---  Atc_Ground = ATC_GROUND_PERSIANGULF:New()
+---  
+---  -- Then use one of these methods...
+---
+---  Atc_Ground:SetKickSpeed( UTILS.KmphToMps( 80 ) ) -- Kick the players at 80 kilometers per hour
+---
+---  Atc_Ground:SetKickSpeed( UTILS.MiphToMps( 100 ) ) -- Kick the players at 100 miles per hour
+---
+---  Atc_Ground:SetKickSpeed( 24 ) -- Kick the players at 24 meters per second ( 24 * 3.6 = 86.4 kilometers per hour )
+---```
+------
+---@param self ATC_GROUND 
+---@param KickSpeed number The speed in Mps.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self
+function ATC_GROUND:SetKickSpeed(KickSpeed, Airbase) end
+
+---Set the maximum speed in Kmph until the player gets kicked.
+---
+------
+---@param self ATC_GROUND 
+---@param KickSpeed number Set the speed in Kmph.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self    Atc_Ground:SetKickSpeedKmph( 80 ) -- Kick the players at 80 kilometers per hour 
+function ATC_GROUND:SetKickSpeedKmph(KickSpeed, Airbase) end
+
+---Set the maximum speed in Miph until the player gets kicked.
+---
+------
+---@param self ATC_GROUND 
+---@param KickSpeedMiph number Set the speed in Mph.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self    Atc_Ground:SetKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
+function ATC_GROUND:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
+
+---Set the maximum kick speed in meters per second (Mps) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---
+---USAGE
+---```
+---
+---  -- Declare Atc_Ground using one of those, depending on the map.
+---
+---  Atc_Ground = ATC_GROUND_CAUCAUS:New()
+---  Atc_Ground = ATC_GROUND_NEVADA:New()
+---  Atc_Ground = ATC_GROUND_NORMANDY:New()
+---  Atc_Ground = ATC_GROUND_PERSIANGULF:New()
+---  
+---  -- Then use one of these methods...
+---
+---  Atc_Ground:SetMaximumKickSpeed( UTILS.KmphToMps( 80 ) ) -- Kick the players at 80 kilometers per hour
+---
+---  Atc_Ground:SetMaximumKickSpeed( UTILS.MiphToMps( 100 ) ) -- Kick the players at 100 miles per hour
+---
+---  Atc_Ground:SetMaximumKickSpeed( 24 ) -- Kick the players at 24 meters per second ( 24 * 3.6 = 86.4 kilometers per hour )
+---```
+------
+---@param self ATC_GROUND 
+---@param MaximumKickSpeed number The speed in Mps.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self
+function ATC_GROUND:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
+
+---Set the maximum kick speed in kilometers per hour (Kmph) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---@param self ATC_GROUND 
+---@param MaximumKickSpeed number Set the speed in Kmph.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self    Atc_Ground:SetMaximumKickSpeedKmph( 150 ) -- Kick the players at 150 kilometers per hour 
+function ATC_GROUND:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase) end
+
+---Set the maximum kick speed in miles per hour (Miph) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---@param self ATC_GROUND 
+---@param MaximumKickSpeedMiph number Set the speed in Mph.
+---@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@return ATC_GROUND #self    Atc_Ground:SetMaximumKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
+function ATC_GROUND:SetMaximumKickSpeedMiph(MaximumKickSpeedMiph, Airbase) end
+
+---Smoke the airbases runways.
+---
+------
+---@param self ATC_GROUND 
+---@param SmokeColor SMOKECOLOR The color of the smoke around the runways.
+---@return ATC_GROUND #self
+function ATC_GROUND:SmokeRunways(SmokeColor) end
+
+
+---
+------
+---@param self NOTYPE 
+function ATC_GROUND:_AirbaseMonitor() end
+
+
+---# ATC\_GROUND\_CAUCASUS, extends #ATC_GROUND_UNIVERSAL
+---
+---The ATC\_GROUND\_CAUCASUS class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+------
+---
+---![Banner Image](..\Presentations\ATC_GROUND\Dia1.JPG)
+---
+------
+--- 
+---The default maximum speed for the airbases at Caucasus is **50 km/h**. Warnings are given if this speed limit is trespassed.
+---Players will be immediately kicked when driving faster than **150 km/h** on the taxi way.
+---
+---
+---The pilot will receive 3 times a warning during speeding. After the 3rd warning, if the pilot is still driving
+---faster than the maximum allowed speed, the pilot will be kicked.
+---
+---Different airbases have different maximum speeds, according safety regulations.
+---
+---# Airbases monitored
+---
+---The following airbases are monitored at the Caucasus region.
+---Use the Wrapper.Airbase#AIRBASE.Caucasus enumeration to select the airbases to be monitored.
+---
+---  * `AIRBASE.Caucasus.Anapa_Vityazevo`
+---  * `AIRBASE.Caucasus.Batumi`
+---  * `AIRBASE.Caucasus.Beslan`
+---  * `AIRBASE.Caucasus.Gelendzhik`
+---  * `AIRBASE.Caucasus.Gudauta`
+---  * `AIRBASE.Caucasus.Kobuleti`
+---  * `AIRBASE.Caucasus.Krasnodar_Center`
+---  * `AIRBASE.Caucasus.Krasnodar_Pashkovsky`
+---  * `AIRBASE.Caucasus.Krymsk`
+---  * `AIRBASE.Caucasus.Kutaisi`
+---  * `AIRBASE.Caucasus.Maykop_Khanskaya`
+---  * `AIRBASE.Caucasus.Mineralnye_Vody`
+---  * `AIRBASE.Caucasus.Mozdok`
+---  * `AIRBASE.Caucasus.Nalchik`
+---  * `AIRBASE.Caucasus.Novorossiysk`
+---  * `AIRBASE.Caucasus.Senaki_Kolkhi`
+---  * `AIRBASE.Caucasus.Sochi_Adler`
+---  * `AIRBASE.Caucasus.Soganlug`
+---  * `AIRBASE.Caucasus.Sukhumi_Babushara`
+---  * `AIRBASE.Caucasus.Tbilisi_Lochini`
+---  * `AIRBASE.Caucasus.Vaziani`
+---
+---
+---# Installation
+---
+---## In Single Player Missions
+---
+---ATC\_GROUND is fully functional in single player.
+---
+---## In Multi Player Missions
+---
+---ATC\_GROUND is functional in multi player, however ...
+---
+---Due to a bug in DCS since release 1.5, the despawning of clients are not anymore working in multi player.
+---To **work around this problem**, a much better solution has been made, using the **slot blocker** script designed
+---by Ciribob. 
+---
+---With the help of __Ciribob__, this script has been extended to also kick client players while in flight.
+---ATC\_GROUND is communicating with this modified script to kick players!
+---
+---Install the file **SimpleSlotBlockGameGUI.lua** on the server, following the installation instructions described by Ciribob.
+---
+---[Simple Slot Blocker from Ciribob & FlightControl](https://github.com/ciribob/DCS-SimpleSlotBlock)
+---
+---# Script it!
+---
+---## 1. ATC\_GROUND\_CAUCASUS Constructor
+---
+---Creates a new ATC_GROUND_CAUCASUS object that will monitor pilots taxiing behaviour.
+---
+---    -- This creates a new ATC_GROUND_CAUCASUS object.
+---
+---    -- Monitor all the airbases.
+---    ATC_Ground = ATC_GROUND_CAUCASUS:New()
+---    
+---    -- Monitor specific airbases only.
+---
+---    ATC_Ground = ATC_GROUND_CAUCASUS:New(
+---      { AIRBASE.Caucasus.Gelendzhik,     
+---        AIRBASE.Caucasus.Krymsk          
+---      }                                  
+---    )                                    
+---
+---## 2. Set various options
+---
+---There are various methods that you can use to tweak the behaviour of the ATC\_GROUND classes.
+---
+---### 2.1 Speed limit at an airbase.
+---
+---  * #ATC_GROUND.SetKickSpeed(): Set the speed limit allowed at an airbase in meters per second.
+---  * #ATC_GROUND.SetKickSpeedKmph(): Set the speed limit allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetKickSpeedMiph(): Set the speed limit allowed at an airbase in miles per hour.
+---  
+---### 2.2 Prevent Takeoff at an airbase. Players will be kicked immediately.
+---
+---  * #ATC_GROUND.SetMaximumKickSpeed(): Set the maximum speed allowed at an airbase in meters per second. 
+---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
+---@class ATC_GROUND_CAUCASUS : ATC_GROUND
+---@field AirbaseMonitor  
+ATC_GROUND_CAUCASUS = {}
+
+---Creates a new ATC_GROUND_CAUCASUS object.
+---
+------
+---@param self ATC_GROUND_CAUCASUS 
+---@param AirbaseNames NOTYPE A list {} of airbase names (Use AIRBASE.Caucasus enumerator).
+---@return ATC_GROUND_CAUCASUS #self
+function ATC_GROUND_CAUCASUS:New(AirbaseNames) end
+
+---Start SCHEDULER for ATC_GROUND_CAUCASUS object.
+---
+------
+---@param self ATC_GROUND_CAUCASUS 
+---@param RepeatScanSeconds NOTYPE Time in second for defining occurency of alerts.
+---@return  #nothing
+function ATC_GROUND_CAUCASUS:Start(RepeatScanSeconds) end
+
+
+---# ATC\_GROUND\_MARIANA, extends #ATC_GROUND
+---
+---The ATC\_GROUND\_MARIANA class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+------
+---
+---![Banner Image](..\Presentations\ATC_GROUND\Dia1.JPG)
+---
+------
+---
+---The default maximum speed for the airbases at Persian Gulf is **50 km/h**. Warnings are given if this speed limit is trespassed.
+---Players will be immediately kicked when driving faster than **150 km/h** on the taxi way.
+---
+---The ATC\_GROUND\_MARIANA class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+---The pilot will receive 3 times a warning during speeding. After the 3rd warning, if the pilot is still driving
+---faster than the maximum allowed speed, the pilot will be kicked.
+---
+---Different airbases have different maximum speeds, according safety regulations.
+---
+---# Airbases monitored
+---
+---The following airbases are monitored at the Mariana Island region.
+---Use the Wrapper.Airbase#AIRBASE.MarianaIslands enumeration to select the airbases to be monitored.
+---
+---* AIRBASE.MarianaIslands.Rota_Intl
+---* AIRBASE.MarianaIslands.Andersen_AFB
+---* AIRBASE.MarianaIslands.Antonio_B_Won_Pat_Intl
+---* AIRBASE.MarianaIslands.Saipan_Intl
+---* AIRBASE.MarianaIslands.Tinian_Intl
+---* AIRBASE.MarianaIslands.Olf_Orote
+---
+---# Installation
+---
+---## In Single Player Missions
+---
+---ATC\_GROUND is fully functional in single player.
+---
+---## In Multi Player Missions
+---
+---ATC\_GROUND is functional in multi player, however ...
+---
+---Due to a bug in DCS since release 1.5, the despawning of clients are not anymore working in multi player.
+---To **work around this problem**, a much better solution has been made, using the **slot blocker** script designed
+---by Ciribob. 
+---
+---With the help of __Ciribob__, this script has been extended to also kick client players while in flight.
+---ATC\_GROUND is communicating with this modified script to kick players!
+---
+---Install the file **SimpleSlotBlockGameGUI.lua** on the server, following the installation instructions described by Ciribob.
+---
+---[Simple Slot Blocker from Ciribob & FlightControl](https://github.com/ciribob/DCS-SimpleSlotBlock)
+---
+---# Script it!
+---
+---## 1. ATC_GROUND_MARIANAISLANDS Constructor
+---
+---Creates a new ATC_GROUND_MARIANAISLANDS object that will monitor pilots taxiing behaviour.
+---
+---    -- This creates a new ATC_GROUND_MARIANAISLANDS object.
+---
+---    -- Monitor for these clients the airbases.
+---    AirbasePoliceCaucasus = ATC_GROUND_MARIANAISLANDS:New()
+---    
+---    ATC_Ground = ATC_GROUND_MARIANAISLANDS:New( 
+---      { AIRBASE.MarianaIslands.Andersen_AFB,
+---        AIRBASE.MarianaIslands.Saipan_Intl 
+---      } 
+---    )
+---
+---    
+---## 2. Set various options
+---
+---There are various methods that you can use to tweak the behaviour of the ATC\_GROUND classes.
+---
+---### 2.1 Speed limit at an airbase.
+---
+---  * #ATC_GROUND.SetKickSpeed(): Set the speed limit allowed at an airbase in meters per second.
+---  * #ATC_GROUND.SetKickSpeedKmph(): Set the speed limit allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetKickSpeedMiph(): Set the speed limit allowed at an airbase in miles per hour.
+---  
+---### 2.2 Prevent Takeoff at an airbase. Players will be kicked immediately.
+---
+---  * #ATC_GROUND.SetMaximumKickSpeed(): Set the maximum speed allowed at an airbase in meters per second. 
+---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
+---@class ATC_GROUND_MARIANAISLANDS : ATC_GROUND
+---@field AirbaseMonitor  
+ATC_GROUND_MARIANAISLANDS = {}
+
+---Creates a new ATC_GROUND_MARIANAISLANDS object.
+---
+------
+---@param self ATC_GROUND_MARIANAISLANDS 
+---@param AirbaseNames NOTYPE A list {} of airbase names (Use AIRBASE.MarianaIslands enumerator).
+---@return ATC_GROUND_MARIANAISLANDS #self
+function ATC_GROUND_MARIANAISLANDS:New(AirbaseNames) end
+
+---Start SCHEDULER for ATC_GROUND_MARIANAISLANDS object.
+---
+------
+---@param self ATC_GROUND_MARIANAISLANDS 
+---@param RepeatScanSeconds NOTYPE Time in second for defining occurency of alerts.
+---@return  #nothing
+function ATC_GROUND_MARIANAISLANDS:Start(RepeatScanSeconds) end
+
+
+---# ATC\_GROUND\_NEVADA, extends #ATC_GROUND
+---
+---The ATC\_GROUND\_NEVADA class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+------
+---
+---![Banner Image](..\Presentations\ATC_GROUND\Dia1.JPG)
+---
+------
+---
+---The default maximum speed for the airbases at Nevada is **50 km/h**. Warnings are given if this speed limit is trespassed.
+---Players will be immediately kicked when driving faster than **150 km/h** on the taxi way.
+---
+---The ATC\_GROUND\_NEVADA class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+---The pilot will receive 3 times a warning during speeding. After the 3rd warning, if the pilot is still driving
+---faster than the maximum allowed speed, the pilot will be kicked.
+---
+---Different airbases have different maximum speeds, according safety regulations.
+---
+---# Airbases monitored
+---
+---The following airbases are monitored at the Nevada region.
+---Use the Wrapper.Airbase#AIRBASE.Nevada enumeration to select the airbases to be monitored.
+---
+---   * `AIRBASE.Nevada.Beatty`
+---   * `AIRBASE.Nevada.Boulder_City`
+---   * `AIRBASE.Nevada.Creech`
+---   * `AIRBASE.Nevada.Echo_Bay`
+---   * `AIRBASE.Nevada.Groom_Lake`
+---   * `AIRBASE.Nevada.Henderson_Executive`
+---   * `AIRBASE.Nevada.Jean`
+---   * `AIRBASE.Nevada.Laughlin`
+---   * `AIRBASE.Nevada.Lincoln_County`
+---   * `AIRBASE.Nevada.McCarran_International`
+---   * `AIRBASE.Nevada.Mesquite`
+---   * `AIRBASE.Nevada.Mina`
+---   * `AIRBASE.Nevada.Nellis`
+---   * `AIRBASE.Nevada.North_Las_Vegas`
+---   * `AIRBASE.Nevada.Pahute_Mesa`
+---   * `AIRBASE.Nevada.Tonopah`
+---   * `AIRBASE.Nevada.Tonopah_Test_Range`
+---
+---# Installation
+---
+---## In Single Player Missions
+---
+---ATC\_GROUND is fully functional in single player.
+---
+---## In Multi Player Missions
+---
+---ATC\_GROUND is functional in multi player, however ...
+---
+---Due to a bug in DCS since release 1.5, the despawning of clients are not anymore working in multi player.
+---To **work around this problem**, a much better solution has been made, using the **slot blocker** script designed
+---by Ciribob. 
+---
+---With the help of __Ciribob__, this script has been extended to also kick client players while in flight.
+---ATC\_GROUND is communicating with this modified script to kick players!
+---
+---Install the file **SimpleSlotBlockGameGUI.lua** on the server, following the installation instructions described by Ciribob.
+---
+---[Simple Slot Blocker from Ciribob & FlightControl](https://github.com/ciribob/DCS-SimpleSlotBlock)
+---
+---# Script it!
+---
+---## 1. ATC_GROUND_NEVADA Constructor
+---
+---Creates a new ATC_GROUND_NEVADA object that will monitor pilots taxiing behaviour.
+---
+---    -- This creates a new ATC_GROUND_NEVADA object.
+---
+---    -- Monitor all the airbases.
+---    ATC_Ground = ATC_GROUND_NEVADA:New()
+---
+---   
+---    -- Monitor specific airbases.
+---    ATC_Ground = ATC_GROUND_NEVADA:New(              
+---      { AIRBASE.Nevada.Laughlin,                        
+---        AIRBASE.Nevada.Lincoln_County,               
+---        AIRBASE.Nevada.North_Las_Vegas,              
+---        AIRBASE.Nevada.McCarran_International
+---      }                                              
+---    )                                                
+---
+---## 2. Set various options
+---
+---There are various methods that you can use to tweak the behaviour of the ATC\_GROUND classes.
+---
+---### 2.1 Speed limit at an airbase.
+---
+---  * #ATC_GROUND.SetKickSpeed(): Set the speed limit allowed at an airbase in meters per second.
+---  * #ATC_GROUND.SetKickSpeedKmph(): Set the speed limit allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetKickSpeedMiph(): Set the speed limit allowed at an airbase in miles per hour.
+---  
+---### 2.2 Prevent Takeoff at an airbase. Players will be kicked immediately.
+---
+---  * #ATC_GROUND.SetMaximumKickSpeed(): Set the maximum speed allowed at an airbase in meters per second. 
+---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
+---
+---@class ATC_GROUND_NEVADA : ATC_GROUND
+---@field AirbaseMonitor  
+ATC_GROUND_NEVADA = {}
+
+---Creates a new ATC_GROUND_NEVADA object.
+---
+------
+---@param self ATC_GROUND_NEVADA 
+---@param AirbaseNames NOTYPE A list {} of airbase names (Use AIRBASE.Nevada enumerator).
+---@return ATC_GROUND_NEVADA #self
+function ATC_GROUND_NEVADA:New(AirbaseNames) end
+
+---Start SCHEDULER for ATC_GROUND_NEVADA object.
+---
+------
+---@param self ATC_GROUND_NEVADA 
+---@param RepeatScanSeconds NOTYPE Time in second for defining occurency of alerts.
+---@return  #nothing
+function ATC_GROUND_NEVADA:Start(RepeatScanSeconds) end
+
+
+---# ATC\_GROUND\_NORMANDY, extends #ATC_GROUND
+---
+---The ATC\_GROUND\_NORMANDY class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+------
+---
+---![Banner Image](..\Presentations\ATC_GROUND\Dia1.JPG)
+---
+------
+---
+---The default maximum speed for the airbases at Normandy is **40 km/h**. Warnings are given if this speed limit is trespassed.
+---Players will be immediately kicked when driving faster than **100 km/h** on the taxi way.
+---
+---The ATC\_GROUND\_NORMANDY class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+---The pilot will receive 3 times a warning during speeding. After the 3rd warning, if the pilot is still driving
+---faster than the maximum allowed speed, the pilot will be kicked.
+---
+---Different airbases have different maximum speeds, according safety regulations.
+---
+---# Airbases monitored
+---
+---The following airbases are monitored at the Normandy region.
+---Use the Wrapper.Airbase#AIRBASE.Normandy enumeration to select the airbases to be monitored.
+---
+---  * `AIRBASE.Normandy.Azeville`
+---  * `AIRBASE.Normandy.Bazenville`
+---  * `AIRBASE.Normandy.Beny_sur_Mer`
+---  * `AIRBASE.Normandy.Beuzeville`
+---  * `AIRBASE.Normandy.Biniville`
+---  * `AIRBASE.Normandy.Brucheville`
+---  * `AIRBASE.Normandy.Cardonville`
+---  * `AIRBASE.Normandy.Carpiquet`
+---  * `AIRBASE.Normandy.Chailey`
+---  * `AIRBASE.Normandy.Chippelle`
+---  * `AIRBASE.Normandy.Cretteville`
+---  * `AIRBASE.Normandy.Cricqueville_en_Bessin`
+---  * `AIRBASE.Normandy.Deux_Jumeaux`
+---  * `AIRBASE.Normandy.Evreux`
+---  * `AIRBASE.Normandy.Ford`
+---  * `AIRBASE.Normandy.Funtington`
+---  * `AIRBASE.Normandy.Lantheuil`
+---  * `AIRBASE.Normandy.Le_Molay`
+---  * `AIRBASE.Normandy.Lessay`
+---  * `AIRBASE.Normandy.Lignerolles`
+---  * `AIRBASE.Normandy.Longues_sur_Mer`
+---  * `AIRBASE.Normandy.Maupertus`
+---  * `AIRBASE.Normandy.Meautis`
+---  * `AIRBASE.Normandy.Needs_Oar_Point`
+---  * `AIRBASE.Normandy.Picauville`
+---  * `AIRBASE.Normandy.Rucqueville`
+---  * `AIRBASE.Normandy.Saint_Pierre_du_Mont`
+---  * `AIRBASE.Normandy.Sainte_Croix_sur_Mer`
+---  * `AIRBASE.Normandy.Sainte_Laurent_sur_Mer`
+---  * `AIRBASE.Normandy.Sommervieu`
+---  * `AIRBASE.Normandy.Tangmere`
+---  * `AIRBASE.Normandy.Argentan`
+---  * `AIRBASE.Normandy.Goulet`
+---  * `AIRBASE.Normandy.Essay`
+---  * `AIRBASE.Normandy.Hauterive`
+---  * `AIRBASE.Normandy.Barville`
+---  * `AIRBASE.Normandy.Conches`
+---  * `AIRBASE.Normandy.Vrigny`
+---
+---# Installation
+---
+---## In Single Player Missions
+---
+---ATC\_GROUND is fully functional in single player.
+---
+---## In Multi Player Missions
+---
+---ATC\_GROUND is functional in multi player, however ...
+---
+---Due to a bug in DCS since release 1.5, the despawning of clients are not anymore working in multi player.
+---To **work around this problem**, a much better solution has been made, using the **slot blocker** script designed
+---by Ciribob. 
+---
+---With the help of __Ciribob__, this script has been extended to also kick client players while in flight.
+---ATC\_GROUND is communicating with this modified script to kick players!
+---
+---Install the file **SimpleSlotBlockGameGUI.lua** on the server, following the installation instructions described by Ciribob.
+---
+---[Simple Slot Blocker from Ciribob & FlightControl](https://github.com/ciribob/DCS-SimpleSlotBlock)
+---
+---# Script it!
+---
+---## 1. ATC_GROUND_NORMANDY Constructor
+---
+---Creates a new ATC_GROUND_NORMANDY object that will monitor pilots taxiing behaviour.
+---
+---    -- This creates a new ATC_GROUND_NORMANDY object.
+---
+---    -- Monitor for these clients the airbases.
+---    AirbasePoliceCaucasus = ATC_GROUND_NORMANDY:New()
+---    
+---    ATC_Ground = ATC_GROUND_NORMANDY:New( 
+---      { AIRBASE.Normandy.Chippelle,
+---        AIRBASE.Normandy.Beuzeville 
+---      } 
+---    )
+---
+---    
+---## 2. Set various options
+---
+---There are various methods that you can use to tweak the behaviour of the ATC\_GROUND classes.
+---
+---### 2.1 Speed limit at an airbase.
+---
+---  * #ATC_GROUND.SetKickSpeed(): Set the speed limit allowed at an airbase in meters per second.
+---  * #ATC_GROUND.SetKickSpeedKmph(): Set the speed limit allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetKickSpeedMiph(): Set the speed limit allowed at an airbase in miles per hour.
+---  
+---### 2.2 Prevent Takeoff at an airbase. Players will be kicked immediately.
+---
+---  * #ATC_GROUND.SetMaximumKickSpeed(): Set the maximum speed allowed at an airbase in meters per second. 
+---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
+---@class ATC_GROUND_NORMANDY : ATC_GROUND
+---@field AirbaseMonitor  
+ATC_GROUND_NORMANDY = {}
+
+---Creates a new ATC_GROUND_NORMANDY object.
+---
+------
+---@param self ATC_GROUND_NORMANDY 
+---@param AirbaseNames NOTYPE A list {} of airbase names (Use AIRBASE.Normandy enumerator).
+---@return ATC_GROUND_NORMANDY #self
+function ATC_GROUND_NORMANDY:New(AirbaseNames) end
+
+---Start SCHEDULER for ATC_GROUND_NORMANDY object.
+---
+------
+---@param self ATC_GROUND_NORMANDY 
+---@param RepeatScanSeconds NOTYPE Time in second for defining occurency of alerts.
+---@return  #nothing
+function ATC_GROUND_NORMANDY:Start(RepeatScanSeconds) end
+
+
+---# ATC\_GROUND\_PERSIANGULF, extends #ATC_GROUND
+---
+---The ATC\_GROUND\_PERSIANGULF class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+------
+---
+---![Banner Image](..\Presentations\ATC_GROUND\Dia1.JPG)
+---
+------
+---
+---The default maximum speed for the airbases at Persian Gulf is **50 km/h**. Warnings are given if this speed limit is trespassed.
+---Players will be immediately kicked when driving faster than **150 km/h** on the taxi way.
+---
+---The ATC\_GROUND\_PERSIANGULF class monitors the speed of the airplanes at the airbase during taxi.
+---The pilots may not drive faster than the maximum speed for the airbase, or they will be despawned.
+---
+---The pilot will receive 3 times a warning during speeding. After the 3rd warning, if the pilot is still driving
+---faster than the maximum allowed speed, the pilot will be kicked.
+---
+---Different airbases have different maximum speeds, according safety regulations.
+---
+---# Airbases monitored
+---
+---The following airbases are monitored at the PersianGulf region.
+---Use the Wrapper.Airbase#AIRBASE.PersianGulf enumeration to select the airbases to be monitored.
+---
+---  * `AIRBASE.PersianGulf.Abu_Musa_Island`
+---  * `AIRBASE.PersianGulf.Al_Dhafra_AFB`
+---  * `AIRBASE.PersianGulf.Al_Maktoum_Intl`
+---  * `AIRBASE.PersianGulf.Al_Minhad_AFB`
+---  * `AIRBASE.PersianGulf.Bandar_Abbas_Intl`
+---  * `AIRBASE.PersianGulf.Bandar_Lengeh`
+---  * `AIRBASE.PersianGulf.Dubai_Intl`
+---  * `AIRBASE.PersianGulf.Fujairah_Intl`
+---  * `AIRBASE.PersianGulf.Havadarya`
+---  * `AIRBASE.PersianGulf.Kerman`
+---  * `AIRBASE.PersianGulf.Khasab`
+---  * `AIRBASE.PersianGulf.Lar`
+---  * `AIRBASE.PersianGulf.Qeshm_Island`
+---  * `AIRBASE.PersianGulf.Sharjah_Intl`
+---  * `AIRBASE.PersianGulf.Shiraz_Intl`
+---  * `AIRBASE.PersianGulf.Sir_Abu_Nuayr`
+---  * `AIRBASE.PersianGulf.Sirri_Island`
+---  * `AIRBASE.PersianGulf.Tunb_Island_AFB`
+---  * `AIRBASE.PersianGulf.Tunb_Kochak`
+---  * `AIRBASE.PersianGulf.Sas_Al_Nakheel`
+---  * `AIRBASE.PersianGulf.Bandar_e_Jask`
+---  * `AIRBASE.PersianGulf.Abu_Dhabi_Intl`
+---  * `AIRBASE.PersianGulf.Al_Bateen`
+---  * `AIRBASE.PersianGulf.Kish_Intl`
+---  * `AIRBASE.PersianGulf.Al_Ain_Intl`
+---  * `AIRBASE.PersianGulf.Lavan_Island`
+---  * `AIRBASE.PersianGulf.Jiroft`
+---
+---# Installation
+---
+---## In Single Player Missions
+---
+---ATC\_GROUND is fully functional in single player.
+---
+---## In Multi Player Missions
+---
+---ATC\_GROUND is functional in multi player, however ...
+---
+---Due to a bug in DCS since release 1.5, the despawning of clients are not anymore working in multi player.
+---To **work around this problem**, a much better solution has been made, using the **slot blocker** script designed
+---by Ciribob. 
+---
+---With the help of __Ciribob__, this script has been extended to also kick client players while in flight.
+---ATC\_GROUND is communicating with this modified script to kick players!
+---
+---Install the file **SimpleSlotBlockGameGUI.lua** on the server, following the installation instructions described by Ciribob.
+---
+---[Simple Slot Blocker from Ciribob & FlightControl](https://github.com/ciribob/DCS-SimpleSlotBlock)
+---
+---# Script it!
+---
+---## 1. ATC_GROUND_PERSIANGULF Constructor
+---
+---Creates a new ATC_GROUND_PERSIANGULF object that will monitor pilots taxiing behaviour.
+---
+---    -- This creates a new ATC_GROUND_PERSIANGULF object.
+---
+---    -- Monitor for these clients the airbases.
+---    AirbasePoliceCaucasus = ATC_GROUND_PERSIANGULF:New()
+---    
+---    ATC_Ground = ATC_GROUND_PERSIANGULF:New( 
+---      { AIRBASE.PersianGulf.Kerman,
+---        AIRBASE.PersianGulf.Al_Minhad_AFB 
+---      } 
+---    )
+---
+---    
+---## 2. Set various options
+---
+---There are various methods that you can use to tweak the behaviour of the ATC\_GROUND classes.
+---
+---### 2.1 Speed limit at an airbase.
+---
+---  * #ATC_GROUND.SetKickSpeed(): Set the speed limit allowed at an airbase in meters per second.
+---  * #ATC_GROUND.SetKickSpeedKmph(): Set the speed limit allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetKickSpeedMiph(): Set the speed limit allowed at an airbase in miles per hour.
+---  
+---### 2.2 Prevent Takeoff at an airbase. Players will be kicked immediately.
+---
+---  * #ATC_GROUND.SetMaximumKickSpeed(): Set the maximum speed allowed at an airbase in meters per second. 
+---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
+---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
+---@class ATC_GROUND_PERSIANGULF : ATC_GROUND
+---@field AirbaseMonitor  
+ATC_GROUND_PERSIANGULF = {}
+
+---Creates a new ATC_GROUND_PERSIANGULF object.
+---
+------
+---@param self ATC_GROUND_PERSIANGULF 
+---@param AirbaseNames NOTYPE A list {} of airbase names (Use AIRBASE.PersianGulf enumerator).
+---@return ATC_GROUND_PERSIANGULF #self
+function ATC_GROUND_PERSIANGULF:New(AirbaseNames) end
+
+---Start SCHEDULER for ATC_GROUND_PERSIANGULF object.
+---
+------
+---@param self ATC_GROUND_PERSIANGULF 
+---@param RepeatScanSeconds NOTYPE Time in second for defining occurency of alerts.
+---@return  #nothing
+function ATC_GROUND_PERSIANGULF:Start(RepeatScanSeconds) end
+
+
+---Base class for ATC\_GROUND\_UNIVERSAL implementations.
+---@class ATC_GROUND_UNIVERSAL : BASE
+---@field AirbaseMonitor  
+---@field ClassName string 
+---@field KickSpeed number 
+---@field MaximumKickSpeed  
+---@field SetClient SET_CLIENT 
+---@field Version string 
+ATC_GROUND_UNIVERSAL = {}
+
+---Draw the airbases boundaries.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param Color table The color of the line around the runways, in RGB, e.g `{1,0,0}` for red.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:DrawBoundaries(Color) end
+
+---Draw the airbases runways.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param Color table The color of the line around the runways, in RGB, e.g `{1,0,0}` for red.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:DrawRunways(Color) end
+
+---Creates a new ATC\_GROUND\_UNIVERSAL object.
+---This works on any map.
+---
+------
+---
+---USAGE
+---```
+---           -- define monitoring for one airbase
+---           local atc=ATC_GROUND_UNIVERSAL:New({AIRBASE.Syria.Gecitkale})
+---           -- set kick speed
+---           atc:SetKickSpeed(UTILS.KnotsToMps(20))
+---           -- start monitoring evey 10 secs
+---           atc:Start(10)
+---```
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param AirbaseList NOTYPE A table of Airbase Names. Leave empty to cover **all** airbases of the map.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:New(AirbaseList) end
+
+---Add a specific Airbase Boundary if you don't want to use the round zone that is auto-created.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param Airbase string The name of the Airbase
+---@param Zone ZONE The ZONE object to be used, e.g. a ZONE_POLYGON
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:SetAirbaseBoundaries(Airbase, Zone) end
+
+---Set the maximum speed in meters per second (Mps) until the player gets kicked.
+---An airbase can be specified to set the kick speed for.
+---
+------
+---
+---USAGE
+---```
+---
+---  -- Declare Atc_Ground
+---
+---  Atc_Ground = ATC_GROUND_UNIVERSAL:New()
+---  
+---  -- Then use one of these methods...
+---
+---  Atc_Ground:SetKickSpeed( UTILS.KmphToMps( 80 ) ) -- Kick the players at 80 kilometers per hour
+---
+---  Atc_Ground:SetKickSpeed( UTILS.MiphToMps( 100 ) ) -- Kick the players at 100 miles per hour
+---
+---  Atc_Ground:SetKickSpeed( 24 ) -- Kick the players at 24 meters per second ( 24 * 3.6 = 86.4 kilometers per hour )
+---```
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param KickSpeed number The speed in Mps.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:SetKickSpeed(KickSpeed, Airbase) end
+
+---Set the maximum speed in Kmph until the player gets kicked.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param KickSpeed number Set the speed in Kmph.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetKickSpeedKmph( 80 ) -- Kick the players at 80 kilometers per hour 
+function ATC_GROUND_UNIVERSAL:SetKickSpeedKmph(KickSpeed, Airbase) end
+
+---Set the maximum speed in Miph until the player gets kicked.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param KickSpeedMiph number Set the speed in Mph.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
+function ATC_GROUND_UNIVERSAL:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
+
+---Set the maximum kick speed in meters per second (Mps) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---
+---USAGE
+---```
+---
+---  -- Declare Atc_Ground
+---
+---  Atc_Ground = ATC_GROUND_UNIVERSAL:New()
+---  
+---  -- Then use one of these methods...
+---
+---  Atc_Ground:SetMaximumKickSpeed( UTILS.KmphToMps( 80 ) ) -- Kick the players at 80 kilometers per hour
+---
+---  Atc_Ground:SetMaximumKickSpeed( UTILS.MiphToMps( 100 ) ) -- Kick the players at 100 miles per hour
+---
+---  Atc_Ground:SetMaximumKickSpeed( 24 ) -- Kick the players at 24 meters per second ( 24 * 3.6 = 86.4 kilometers per hour )
+---```
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param MaximumKickSpeed number The speed in Mps.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
+
+---Set the maximum kick speed in kilometers per hour (Kmph) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param MaximumKickSpeed number Set the speed in Kmph.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetMaximumKickSpeedKmph( 150 ) -- Kick the players at 150 kilometers per hour 
+function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase) end
+
+---Set the maximum kick speed in miles per hour (Miph) until the player gets kicked.
+---There are no warnings given if this speed is reached, and is to prevent players to take off from the airbase!
+---An airbase can be specified to set the maximum kick speed for.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param MaximumKickSpeedMiph number Set the speed in Mph.
+---@param Airbase string (optional) The airbase name to set the kick speed for.
+---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetMaximumKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
+function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeedMiph(MaximumKickSpeedMiph, Airbase) end
+
+---Smoke the airbases runways.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param SmokeColor SMOKECOLOR The color of the smoke around the runways.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:SmokeRunways(SmokeColor) end
+
+---Start SCHEDULER for ATC_GROUND_UNIVERSAL object.
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@param RepeatScanSeconds NOTYPE Time in second for defining schedule of alerts.
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:Start(RepeatScanSeconds) end
+
+---[Internal] Monitoring function
+---
+------
+---@param self ATC_GROUND_UNIVERSAL 
+---@return ATC_GROUND_UNIVERSAL #self
+function ATC_GROUND_UNIVERSAL:_AirbaseMonitor() end
+
+
+

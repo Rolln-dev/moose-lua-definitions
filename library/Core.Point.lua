@@ -190,9 +190,12 @@
 ---@field Heading number Heading in degrees. Needs to be set first.
 ---@field SmokeOffset boolean 
 ---@field Velocity number Velocity in meters per second. Needs to be set first.
----@field x number Component of the 3D vector.
----@field y number Component of the 3D vector.
----@field z number Component of the 3D vector.
+---@field WaypointAction COORDINATE.WaypointAction 
+---@field WaypointAltType COORDINATE.WaypointAltType 
+---@field WaypointType COORDINATE.WaypointType 
+---@field private x number Component of the 3D vector.
+---@field private y number Component of the 3D vector.
+---@field private z number Component of the 3D vector.
 COORDINATE = {}
 
 ---Add to the current land height an altitude.
@@ -239,8 +242,8 @@ function COORDINATE:AddZ(z) end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:ArrowToAll(Endpoint, Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, Text) end
 
@@ -249,10 +252,10 @@ function COORDINATE:ArrowToAll(Endpoint, Coalition, Color, Alpha, FillColor, Fil
 ------
 ---@param self COORDINATE 
 ---@param Preset number Smoke preset (1=small smoke and fire, 2=medium smoke and fire, 3=large smoke and fire, 4=huge smoke and fire, 5=small smoke, 6=medium smoke, 7=large smoke, 8=huge smoke).
----@param Density number (Optional) Smoke density. Number in [0,...,1]. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number in [0,...,1]. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeAndFire(Preset, Density, Duration, Delay, Name) end
 
@@ -260,10 +263,10 @@ function COORDINATE:BigSmokeAndFire(Preset, Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeAndFireHuge(Density, Duration, Delay, Name) end
 
@@ -271,10 +274,10 @@ function COORDINATE:BigSmokeAndFireHuge(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeAndFireLarge(Density, Duration, Delay, Name) end
 
@@ -282,10 +285,10 @@ function COORDINATE:BigSmokeAndFireLarge(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeAndFireMedium(Density, Duration, Delay, Name) end
 
@@ -293,10 +296,10 @@ function COORDINATE:BigSmokeAndFireMedium(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeAndFireSmall(Density, Duration, Delay, Name) end
 
@@ -304,10 +307,10 @@ function COORDINATE:BigSmokeAndFireSmall(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeHuge(Density, Duration, Delay, Name) end
 
@@ -315,10 +318,10 @@ function COORDINATE:BigSmokeHuge(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeLarge(Density, Duration, Delay, Name) end
 
@@ -326,10 +329,10 @@ function COORDINATE:BigSmokeLarge(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeMedium(Density, Duration, Delay, Name) end
 
@@ -337,10 +340,10 @@ function COORDINATE:BigSmokeMedium(Density, Duration, Delay, Name) end
 ---
 ------
 ---@param self COORDINATE 
----@param Density number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
----@param Duration number (Optional) Duration of the smoke and fire in seconds.
----@param Delay number (Optional) Delay before the smoke and fire is started in seconds.
----@param Name string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
+---@param Density? number (Optional) Smoke density. Number between 0 and 1. Default 0.5.
+---@param Duration? number (Optional) Duration of the smoke and fire in seconds.
+---@param Delay? number (Optional) Delay before the smoke and fire is started in seconds.
+---@param Name? string (Optional) Name of the fire to stop it later again if not using the same COORDINATE object. Defaults to "Fire-" plus a random 5-digit-number.
 ---@return COORDINATE #self
 function COORDINATE:BigSmokeSmall(Density, Duration, Delay, Name) end
 
@@ -356,8 +359,8 @@ function COORDINATE:BigSmokeSmall(Density, Duration, Delay, Name) end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:CircleToAll(Radius, Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, Text) end
 
@@ -374,7 +377,7 @@ function COORDINATE:DistanceFromPointVec2(PointVec2Reference) end
 ------
 ---@param self COORDINATE 
 ---@param ExplosionIntensity number Intensity of the explosion in kg TNT. Default 100 kg.
----@param Delay number (Optional) Delay before explosion is triggered in seconds.
+---@param Delay? number (Optional) Delay before explosion is triggered in seconds.
 ---@return COORDINATE #self
 function COORDINATE:Explosion(ExplosionIntensity, Delay) end
 
@@ -407,35 +410,35 @@ function COORDINATE:FindClosestUnit(radius) end
 ------
 ---@param self COORDINATE 
 ---@param FlareColor FLARECOLOR 
----@param Azimuth Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
+---@param Azimuth? Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
 function COORDINATE:Flare(FlareColor, Azimuth) end
 
 ---Flare the COORDINATE Green.
 ---
 ------
 ---@param self COORDINATE 
----@param Azimuth Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
+---@param Azimuth? Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
 function COORDINATE:FlareGreen(Azimuth) end
 
 ---Flare the COORDINATE Red.
 ---
 ------
 ---@param self COORDINATE 
----@param Azimuth Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
+---@param Azimuth? Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
 function COORDINATE:FlareRed(Azimuth) end
 
 ---Flare the COORDINATE White.
 ---
 ------
 ---@param self COORDINATE 
----@param Azimuth Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
+---@param Azimuth? Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
 function COORDINATE:FlareWhite(Azimuth) end
 
 ---Flare the COORDINATE Yellow.
 ---
 ------
 ---@param self COORDINATE 
----@param Azimuth Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
+---@param Azimuth? Azimuth (optional) The azimuth of the flare direction. The default azimuth is 0.
 function COORDINATE:FlareYellow(Azimuth) end
 
 ---Return the 2D distance in meters between the target COORDINATE and the COORDINATE.
@@ -499,7 +502,7 @@ function COORDINATE:GetAngleRadians(DirectionVec3) end
 ---@param AngleRadians number The angle in randians
 ---@param Distance number The distance
 ---@param Settings SETTINGS 
----@param Language string (Optional) Language "en" or "ru"
+---@param Language? string (Optional) Language "en" or "ru"
 ---@param MagVar boolean If true, also state angle in magnetic
 ---@return string #The BRA Text
 function COORDINATE:GetBRAText(AngleRadians, Distance, Settings, Language, MagVar) end
@@ -511,7 +514,7 @@ function COORDINATE:GetBRAText(AngleRadians, Distance, Settings, Language, MagVa
 ---@param AngleRadians number The angle in randians
 ---@param Distance number The distance
 ---@param Settings SETTINGS 
----@param Language string (Optional) Language "en" or "ru"
+---@param Language? string (Optional) Language "en" or "ru"
 ---@param MagVar boolean If true, also state angle in magnetic
 ---@param Precision number Rounding precision, defaults to 0
 ---@return string #The BR Text
@@ -546,8 +549,8 @@ function COORDINATE.GetBullseyeCoordinate(Coalition) end
 ---
 ------
 ---@param self COORDINATE 
----@param Category number (Optional) Category of the airbase. Enumerator of @{Wrapper.Airbase#AIRBASE.Category}.
----@param Coalition number (Optional) Coalition of the airbase.
+---@param Category? number (Optional) Category of the airbase. Enumerator of @{Wrapper.Airbase#AIRBASE.Category}.
+---@param Coalition? number (Optional) Coalition of the airbase.
 ---@return AIRBASE #Closest Airbase to the given coordinate.
 ---@return number #Distance to the closest airbase in meters.
 function COORDINATE:GetClosestAirbase(Category, Coalition) end
@@ -556,8 +559,8 @@ function COORDINATE:GetClosestAirbase(Category, Coalition) end
 ---
 ------
 ---@param self COORDINATE 
----@param Category number (Optional) Category of the airbase. Enumerator of @{Wrapper.Airbase#AIRBASE.Category}.
----@param Coalition number (Optional) Coalition of the airbase.
+---@param Category? number (Optional) Category of the airbase. Enumerator of @{Wrapper.Airbase#AIRBASE.Category}.
+---@param Coalition? number (Optional) Coalition of the airbase.
 ---@return AIRBASE #Closest Airbase to the given coordinate.
 ---@return number #Distance to the closest airbase in meters.
 function COORDINATE:GetClosestAirbase2(Category, Coalition) end
@@ -566,8 +569,8 @@ function COORDINATE:GetClosestAirbase2(Category, Coalition) end
 ---
 ------
 ---@param self COORDINATE 
----@param airbase AIRBASE (Optional) Search only parking spots at that airbase.
----@param terminaltype Terminaltype (Optional) Type of the terminal.
+---@param airbase? AIRBASE (Optional) Search only parking spots at that airbase.
+---@param terminaltype? Terminaltype (Optional) Type of the terminal.
 ---@return COORDINATE #Coordinate of the nearest free parking spot.
 ---@return number #Terminal ID.
 ---@return number #Distance to closest free parking spot in meters.
@@ -577,8 +580,8 @@ function COORDINATE:GetClosestFreeParkingSpot(airbase, terminaltype) end
 ---
 ------
 ---@param self COORDINATE 
----@param airbase AIRBASE (Optional) Search only parking spots at that airbase.
----@param terminaltype Terminaltype (Optional) Type of the terminal.
+---@param airbase? AIRBASE (Optional) Search only parking spots at that airbase.
+---@param terminaltype? Terminaltype (Optional) Type of the terminal.
 ---@return COORDINATE #Coordinate of the nearest occupied parking spot.
 ---@return number #Terminal ID.
 ---@return number #Distance to closest occupied parking spot in meters.
@@ -588,9 +591,9 @@ function COORDINATE:GetClosestOccupiedParkingSpot(airbase, terminaltype) end
 ---
 ------
 ---@param self COORDINATE 
----@param airbase AIRBASE (Optional) Search only parking spots at this airbase.
----@param terminaltype Terminaltype (Optional) Type of the terminal. Default any execpt valid spawn points on runway.
----@param free boolean (Optional) If true, returns the closest free spot. If false, returns the closest occupied spot. If nil, returns the closest spot regardless of free or occupied.
+---@param airbase? AIRBASE (Optional) Search only parking spots at this airbase.
+---@param terminaltype? Terminaltype (Optional) Type of the terminal. Default any execpt valid spawn points on runway.
+---@param free? boolean (Optional) If true, returns the closest free spot. If false, returns the closest occupied spot. If nil, returns the closest spot regardless of free or occupied.
 ---@return COORDINATE #Coordinate of the nearest parking spot.
 ---@return number #Terminal ID.
 ---@return number #Distance to closest parking spot in meters.
@@ -601,7 +604,7 @@ function COORDINATE:GetClosestParkingSpot(airbase, terminaltype, free) end
 ---
 ------
 ---@param self COORDINATE 
----@param Railroad boolean (Optional) If true, closest point to railroad is returned rather than closest point to conventional road. Default false.
+---@param Railroad? boolean (Optional) If true, closest point to railroad is returned rather than closest point to conventional road. Default false.
 ---@return COORDINATE #Coordinate of the nearest road.
 function COORDINATE:GetClosestPointToRoad(Railroad) end
 
@@ -627,8 +630,8 @@ function COORDINATE:GetDirectionVec3(TargetCoordinate) end
 ---@param self COORDINATE 
 ---@param Distance number The distance in meters.
 ---@param Settings SETTINGS 
----@param Language string (optional) "EN" or "RU"
----@param Precision number (optional) round to this many decimal places
+---@param Language? string (optional) "EN" or "RU"
+---@param Precision? number (optional) round to this many decimal places
 ---@return string #The distance text expressed in the units of measurement.
 function COORDINATE:GetDistanceText(Distance, Settings, Language, Precision) end
 
@@ -690,8 +693,8 @@ function COORDINATE:GetLon() end
 ---
 ------
 ---@param self COORDINATE 
----@param Month number (Optional) The month at which the declination is calculated. Default is the mission month.
----@param Year number (Optional) The year at which the declination is calculated. Default is the mission year.
+---@param Month? number (Optional) The month at which the declination is calculated. Default is the mission month.
+---@param Year? number (Optional) The year at which the declination is calculated. Default is the mission year.
 ---@return number #Magnetic declination in degrees.
 function COORDINATE:GetMagneticDeclination(Month, Year) end
 
@@ -741,10 +744,10 @@ function COORDINATE:GetNorthCorrectionRadians() end
 ------
 ---@param self COORDINATE 
 ---@param ToCoord COORDINATE Coordinate of destination.
----@param IncludeEndpoints boolean (Optional) Include the coordinate itself and the ToCoordinate in the path.
----@param Railroad boolean (Optional) If true, path on railroad is returned. Default false.
----@param MarkPath boolean (Optional) If true, place markers on F10 map along the path.
----@param SmokePath boolean (Optional) If true, put (green) smoke along the
+---@param IncludeEndpoints? boolean (Optional) Include the coordinate itself and the ToCoordinate in the path.
+---@param Railroad? boolean (Optional) If true, path on railroad is returned. Default false.
+---@param MarkPath? boolean (Optional) If true, place markers on F10 map along the path.
+---@param SmokePath? boolean (Optional) If true, put (green) smoke along the
 ---@return table #Table of coordinates on road. If no path on road can be found, nil is returned or just the endpoints.
 ---@return number #Tonal length of path.
 ---@return boolean #If true a valid path on road/rail was found. If false, only the direct way is possible.
@@ -754,7 +757,7 @@ function COORDINATE:GetPathOnRoad(ToCoord, IncludeEndpoints, Railroad, MarkPath,
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL. E.g. set height=0 for QNH.
+---@param height? number (Optional) parameter specifying the height ASL. E.g. set height=0 for QNH.
 ---@return  #Pressure in hPa.
 function COORDINATE:GetPressure(height) end
 
@@ -771,7 +774,7 @@ function COORDINATE:GetPressure(height) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL. E.g. set height=0 for QNH.
+---@param height? number (Optional) parameter specifying the height ASL. E.g. set height=0 for QNH.
 ---@param Settings SETTINGS 
 ---@return string #Pressure in hPa and mmHg or inHg depending on the measurement system @{Core.Settings}.
 function COORDINATE:GetPressureText(height, Settings) end
@@ -893,7 +896,7 @@ function COORDINATE:GetSurfaceType() end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL.
+---@param height? number (Optional) parameter specifying the height ASL.
 ---@return  #Temperature in Degrees Celsius.
 function COORDINATE:GetTemperature(height) end
 
@@ -910,7 +913,7 @@ function COORDINATE:GetTemperature(height) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL.
+---@param height? number (Optional) parameter specifying the height ASL.
 ---@param Settings SETTINGS 
 ---@return string #Temperature according the measurement system @{Core.Settings}.
 function COORDINATE:GetTemperatureText(height, Settings) end
@@ -948,7 +951,7 @@ function COORDINATE:GetVelocityText(Settings) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
+---@param height? number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
 ---@param turbulence boolean If `true`, include turbulence. If `false` or `nil`, wind without turbulence.
 ---@return number #Direction the wind is blowing from in degrees.
 ---@return number #Wind strength in m/s.
@@ -967,7 +970,7 @@ function COORDINATE:GetWind(height, turbulence) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
+---@param height? number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
 ---@param Settings SETTINGS 
 ---@return string #Wind direction and strength according the measurement system @{Core.Settings}.
 function COORDINATE:GetWindText(height, Settings) end
@@ -977,8 +980,8 @@ function COORDINATE:GetWindText(height, Settings) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL in meters. The minimum height will be always be the land height since the wind is zero below the ground.
----@param turbulence boolean (Optional) If `true`, include turbulence.
+---@param height? number (Optional) parameter specifying the height ASL in meters. The minimum height will be always be the land height since the wind is zero below the ground.
+---@param turbulence? boolean (Optional) If `true`, include turbulence.
 ---@return Vec3 #Wind 3D vector. Components in m/s.
 function COORDINATE:GetWindVec3(height, turbulence) end
 
@@ -986,7 +989,7 @@ function COORDINATE:GetWindVec3(height, turbulence) end
 ---
 ------
 ---@param self COORDINATE 
----@param height number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
+---@param height? number (Optional) parameter specifying the height ASL. The minimum height will be always be the land height since the wind is zero below the ground.
 ---@return  #Direction the wind is blowing from in degrees.
 function COORDINATE:GetWindWithTurbulenceVec3(height) end
 
@@ -1024,7 +1027,7 @@ function COORDINATE:HeadingTo(ToCoordinate) end
 ------
 ---@param self COORDINATE 
 ---@param Power number Power of illumination bomb in Candela. Default 1000 cd.
----@param Delay number (Optional) Delay before bomb is ignited in seconds.
+---@param Delay? number (Optional) Delay before bomb is ignited in seconds.
 ---@return COORDINATE #self
 function COORDINATE:IlluminationBomb(Power, Delay) end
 
@@ -1042,7 +1045,7 @@ function COORDINATE:IsAtCoordinate2D(Coordinate, Precision) end
 ---
 ------
 ---@param self COORDINATE 
----@param Clock string (Optional) Time in format "HH:MM:SS+D", e.g. "05:40:00+3" to check if is day at 5:40 at third day after mission start. Default is to check right now.
+---@param Clock? string (Optional) Time in format "HH:MM:SS+D", e.g. "05:40:00+3" to check if is day at 5:40 at third day after mission start. Default is to check right now.
 ---@return boolean #If true, it is day. If false, it is night time.
 function COORDINATE:IsDay(Clock) end
 
@@ -1050,8 +1053,8 @@ function COORDINATE:IsDay(Clock) end
 ---
 ------
 ---@param self COORDINATE 
----@param Radius number (Optional) Radius to check around the coordinate, defaults to 50m (100m diameter)
----@param Minelevation number (Optional) Elevation from which on a area is defined as steep, defaults to 8% (8m height gain across 100 meters)
+---@param Radius? number (Optional) Radius to check around the coordinate, defaults to 50m (100m diameter)
+---@param Minelevation? number (Optional) Elevation from which on a area is defined as steep, defaults to 8% (8m height gain across 100 meters)
 ---@return boolean #IsFlat If true, area is flat
 ---@return number #MaxElevation Elevation in meters measured over 100m
 function COORDINATE:IsInFlatArea(Radius, Minelevation) end
@@ -1079,8 +1082,8 @@ function COORDINATE:IsInSphere(Coordinate, Radius) end
 ---
 ------
 ---@param self COORDINATE 
----@param Radius number (Optional) Radius to check around the coordinate, defaults to 50m (100m diameter)
----@param Minelevation number (Optional) Elevation from which on a area is defined as steep, defaults to 8% (8m height gain across 100 meters)
+---@param Radius? number (Optional) Radius to check around the coordinate, defaults to 50m (100m diameter)
+---@param Minelevation? number (Optional) Elevation from which on a area is defined as steep, defaults to 8% (8m height gain across 100 meters)
 ---@return boolean #IsSteep If true, area is steep
 ---@return number #MaxElevation Elevation in meters measured over 100m
 function COORDINATE:IsInSteepArea(Radius, Minelevation) end
@@ -1099,7 +1102,7 @@ function COORDINATE:IsLOS(ToCoordinate, Offset) end
 ---
 ------
 ---@param self COORDINATE 
----@param Clock string (Optional) Time in format "HH:MM:SS+D", e.g. "05:40:00+3" to check if is night at 5:40 at third day after mission start. Default is to check right now.
+---@param Clock? string (Optional) Time in format "HH:MM:SS+D", e.g. "05:40:00+3" to check if is night at 5:40 at third day after mission start. Default is to check right now.
 ---@return boolean #If true, it is night. If false, it is day time.
 function COORDINATE:IsNight(Clock) end
 
@@ -1148,8 +1151,8 @@ function COORDINATE:IsSurfaceTypeWater() end
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red (default).
 ---@param Alpha number Transparency [0,1]. Default 1.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:LineToAll(Endpoint, Coalition, Color, Alpha, LineType, ReadOnly, Text) end
 
@@ -1165,8 +1168,8 @@ function COORDINATE:LineToAll(Endpoint, Coalition, Color, Alpha, LineType, ReadO
 ------
 ---@param self COORDINATE 
 ---@param MarkText string Free format text that shows the marking clarification.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID which is a number.
 function COORDINATE:MarkToAll(MarkText, ReadOnly, Text) end
 
@@ -1183,8 +1186,8 @@ function COORDINATE:MarkToAll(MarkText, ReadOnly, Text) end
 ---@param self COORDINATE 
 ---@param MarkText string Free format text that shows the marking clarification.
 ---@param Coalition coalition 
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID which is a number.
 function COORDINATE:MarkToCoalition(MarkText, Coalition, ReadOnly, Text) end
 
@@ -1200,8 +1203,8 @@ function COORDINATE:MarkToCoalition(MarkText, Coalition, ReadOnly, Text) end
 ------
 ---@param self COORDINATE 
 ---@param MarkText string Free format text that shows the marking clarification.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID which is a number.
 function COORDINATE:MarkToCoalitionBlue(MarkText, ReadOnly, Text) end
 
@@ -1217,8 +1220,8 @@ function COORDINATE:MarkToCoalitionBlue(MarkText, ReadOnly, Text) end
 ------
 ---@param self COORDINATE 
 ---@param MarkText string Free format text that shows the marking clarification.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID which is a number.
 function COORDINATE:MarkToCoalitionRed(MarkText, ReadOnly, Text) end
 
@@ -1236,8 +1239,8 @@ function COORDINATE:MarkToCoalitionRed(MarkText, ReadOnly, Text) end
 ---@param self COORDINATE 
 ---@param MarkText string Free format text that shows the marking clarification.
 ---@param MarkGroup GROUP The @{Wrapper.Group} that receives the mark.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID which is a number.
 function COORDINATE:MarkToGroup(MarkText, MarkGroup, ReadOnly, Text) end
 
@@ -1253,8 +1256,8 @@ function COORDINATE:MarkToGroup(MarkText, MarkGroup, ReadOnly, Text) end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:MarkupToAllFreeForm(Coordinates, Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, Text) end
 
@@ -1282,7 +1285,7 @@ function COORDINATE:NewFromCoordinate(Coordinate) end
 ---@param self COORDINATE 
 ---@param latitude number Latitude in decimal degrees.
 ---@param longitude number Longitude in decimal degrees.
----@param altitude number (Optional) Altitude in meters. Default is the land height at the coordinate.
+---@param altitude? number (Optional) Altitude in meters. Default is the land height at the coordinate.
 ---@return COORDINATE #
 function COORDINATE:NewFromLLDD(latitude, longitude, altitude) end
 
@@ -1310,7 +1313,7 @@ function COORDINATE:NewFromMGRSString(MGRSString) end
 ------
 ---@param self COORDINATE 
 ---@param Vec2 Vec2 The Vec2 point.
----@param LandHeightAdd Distance (Optional) The default height if required to be evaluated will be the land height of the x, y coordinate. You can specify an extra height to be added to the land height.
+---@param LandHeightAdd? Distance (Optional) The default height if required to be evaluated will be the land height of the x, y coordinate. You can specify an extra height to be added to the land height.
 ---@return COORDINATE #self
 function COORDINATE:NewFromVec2(Vec2, LandHeightAdd) end
 
@@ -1349,8 +1352,8 @@ function COORDINATE:NewFromWaypoint(Waypoint) end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:QuadToAll(Coord2, Coord3, Coord4, Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, Text) end
 
@@ -1367,8 +1370,8 @@ function COORDINATE:QuadToAll(Coord2, Coord3, Coord4, Coalition, Color, Alpha, F
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
----@param Text string (Optional) Text displayed when mark is added. Default none.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param Text? string (Optional) Text displayed when mark is added. Default none.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:RectToAll(Endpoint, Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, Text) end
 
@@ -1401,10 +1404,10 @@ function COORDINATE:Rotate2D(Angle) end
 ---
 ------
 ---@param self COORDINATE 
----@param radius number (Optional) Scan radius in meters. Default 100 m.
----@param scanunits boolean (Optional) If true scan for units. Default true.
----@param scanstatics boolean (Optional) If true scan for static objects. Default true.
----@param scanscenery boolean (Optional) If true scan for scenery objects. Default false.
+---@param radius? number (Optional) Scan radius in meters. Default 100 m.
+---@param scanunits? boolean (Optional) If true scan for units. Default true.
+---@param scanstatics? boolean (Optional) If true scan for static objects. Default true.
+---@param scanscenery? boolean (Optional) If true scan for scenery objects. Default false.
 ---@return boolean #True if units were found.
 ---@return boolean #True if statics were found.
 ---@return boolean #True if scenery objects were found.
@@ -1417,7 +1420,7 @@ function COORDINATE:ScanObjects(radius, scanunits, scanstatics, scanscenery) end
 ---
 ------
 ---@param self COORDINATE 
----@param radius number (Optional) Scan radius in meters. Default 100 m.
+---@param radius? number (Optional) Scan radius in meters. Default 100 m.
 ---@return  #table Table of SCENERY objects.
 function COORDINATE:ScanScenery(radius) end
 
@@ -1425,7 +1428,7 @@ function COORDINATE:ScanScenery(radius) end
 ---
 ------
 ---@param self COORDINATE 
----@param radius number (Optional) Scan radius in meters. Default 100 m.
+---@param radius? number (Optional) Scan radius in meters. Default 100 m.
 ---@return SET_UNIT #Set of units.
 function COORDINATE:ScanStatics(radius) end
 
@@ -1433,7 +1436,7 @@ function COORDINATE:ScanStatics(radius) end
 ---
 ------
 ---@param self COORDINATE 
----@param radius number (Optional) Scan radius in meters. Default 100 m.
+---@param radius? number (Optional) Scan radius in meters. Default 100 m.
 ---@return SET_UNIT #Set of units.
 function COORDINATE:ScanUnits(radius) end
 
@@ -1488,7 +1491,7 @@ function COORDINATE:SetLon(z) end
 ---
 ------
 ---@param self COORDINATE 
----@param Direction number (Optional) This is the direction of the offset, 1-359 (degrees). Default random.
+---@param Direction? number (Optional) This is the direction of the offset, 1-359 (degrees). Default random.
 ---@return COORDINATE #self
 function COORDINATE:SetSmokeOffsetDirection(Direction) end
 
@@ -1496,7 +1499,7 @@ function COORDINATE:SetSmokeOffsetDirection(Direction) end
 ---
 ------
 ---@param self COORDINATE 
----@param Distance number (Optional) This is the distance of the offset in meters. Default random 10-20.
+---@param Distance? number (Optional) This is the distance of the offset in meters. Default random 10-20.
 ---@return COORDINATE #self
 function COORDINATE:SetSmokeOffsetDistance(Distance) end
 
@@ -1537,12 +1540,12 @@ function COORDINATE:SetZ(z) end
 ------
 ---@param self COORDINATE 
 ---@param SmokeColor number Color of smoke, e.g. `SMOKECOLOR.Green` for green smoke.
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
----@param Name string (Optional) Name if you want to stop the smoke early (normal duration: 5mins)
----@param Offset boolean (Optional) If true, offset the smokle a bit.
----@param Direction number (Optional) If Offset is true this is the direction of the offset, 1-359 (degrees). Default random.
----@param Distance number (Optional) If Offset is true this is the distance of the offset in meters. Default random 10-20.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
+---@param Name? string (Optional) Name if you want to stop the smoke early (normal duration: 5mins)
+---@param Offset? boolean (Optional) If true, offset the smokle a bit.
+---@param Direction? number (Optional) If Offset is true this is the direction of the offset, 1-359 (degrees). Default random.
+---@param Distance? number (Optional) If Offset is true this is the distance of the offset in meters. Default random 10-20.
 ---@return COORDINATE #self
 function COORDINATE:Smoke(SmokeColor, Duration, Delay, Name, Offset, Direction, Distance) end
 
@@ -1550,8 +1553,8 @@ function COORDINATE:Smoke(SmokeColor, Duration, Delay, Name, Offset, Direction, 
 ---
 ------
 ---@param self COORDINATE 
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
 ---@return COORDINATE #self
 function COORDINATE:SmokeBlue(Duration, Delay) end
 
@@ -1559,8 +1562,8 @@ function COORDINATE:SmokeBlue(Duration, Delay) end
 ---
 ------
 ---@param self COORDINATE 
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
 ---@return COORDINATE #self
 function COORDINATE:SmokeGreen(Duration, Delay) end
 
@@ -1568,8 +1571,8 @@ function COORDINATE:SmokeGreen(Duration, Delay) end
 ---
 ------
 ---@param self COORDINATE 
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
 ---@return COORDINATE #self
 function COORDINATE:SmokeOrange(Duration, Delay) end
 
@@ -1577,8 +1580,8 @@ function COORDINATE:SmokeOrange(Duration, Delay) end
 ---
 ------
 ---@param self COORDINATE 
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
 ---@return COORDINATE #self
 function COORDINATE:SmokeRed(Duration, Delay) end
 
@@ -1586,8 +1589,8 @@ function COORDINATE:SmokeRed(Duration, Delay) end
 ---
 ------
 ---@param self COORDINATE 
----@param Duration number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
----@param Delay number (Optional) Delay before the smoke is started in seconds.
+---@param Duration? number (Optional) Duration of the smoke in seconds. DCS stopps the smoke automatically after 5 min.
+---@param Delay? number (Optional) Delay before the smoke is started in seconds.
 ---@return COORDINATE #self 
 function COORDINATE:SmokeWhite(Duration, Delay) end
 
@@ -1595,14 +1598,14 @@ function COORDINATE:SmokeWhite(Duration, Delay) end
 ---
 ------
 ---@param self COORDINATE 
----@param name string (Optional) Name of the fire to stop it, if not using the same COORDINATE object.
+---@param name? string (Optional) Name of the fire to stop it, if not using the same COORDINATE object.
 function COORDINATE:StopBigSmokeAndFire(name) end
 
 ---Stops smoking the point in a color.
 ---
 ------
 ---@param self COORDINATE 
----@param name string (Optional) Name if you want to stop the smoke early (normal duration: 5mins)
+---@param name? string (Optional) Name if you want to stop the smoke early (normal duration: 5mins)
 function COORDINATE:StopSmoke(name) end
 
 ---Set the offset off when using `COORDINATE:Smoke()`.
@@ -1631,7 +1634,7 @@ function COORDINATE:SwitchSmokeOffsetOn() end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.3.
 ---@param FontSize number Font size. Default 14.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
 ---@return number #The resulting Mark ID, which is a number. Can be used to remove the object again.
 function COORDINATE:TextToAll(Text, Coalition, Color, Alpha, FillColor, FillAlpha, FontSize, ReadOnly) end
 
@@ -1642,7 +1645,7 @@ function COORDINATE:TextToAll(Text, Coalition, Color, Alpha, FillColor, FillAlph
 ------
 ---@param self COORDINATE 
 ---@param Controllable CONTROLLABLE The controllable to retrieve the settings from, otherwise the default settings will be chosen.
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The coordinate Text in the configured coordinate system.
 function COORDINATE:ToString(Controllable, Settings) end
 
@@ -1651,7 +1654,7 @@ function COORDINATE:ToString(Controllable, Settings) end
 ------
 ---@param self COORDINATE 
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true, also get angle in MagVar for BR/BRA
 ---@return string #The coordinate Text in the configured coordinate system.
 function COORDINATE:ToStringA2A(Controllable, Settings, MagVar) end
@@ -1661,7 +1664,7 @@ function COORDINATE:ToStringA2A(Controllable, Settings, MagVar) end
 ------
 ---@param self COORDINATE 
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true, also get angle in MagVar for BR/BRA
 ---@return string #The coordinate Text in the configured coordinate system.
 function COORDINATE:ToStringA2G(Controllable, Settings, MagVar) end
@@ -1679,7 +1682,7 @@ function COORDINATE:ToStringAspect(TargetCoordinate) end
 ------
 ---@param self COORDINATE 
 ---@param FromCoordinate COORDINATE The coordinate to measure the distance and the bearing from.
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true, also get angle in MagVar for BR/BRA
 ---@param Precision number Rounding precision, currently full km as default (=0)
 ---@return string #The BR text.
@@ -1690,7 +1693,7 @@ function COORDINATE:ToStringBR(FromCoordinate, Settings, MagVar, Precision) end
 ------
 ---@param self COORDINATE 
 ---@param FromCoordinate COORDINATE The coordinate to measure the distance and the bearing from.
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true, also get angle in MagVar for BR/BRA
 ---@return string #The BR text.
 function COORDINATE:ToStringBRA(FromCoordinate, Settings, MagVar) end
@@ -1714,7 +1717,7 @@ function COORDINATE:ToStringBRAANATO(FromCoordinate, Bogey, Spades, SSML, Angels
 ------
 ---@param self COORDINATE 
 ---@param Coalition coalition.side The coalition.
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true, als get angle in magnetic
 ---@return string #The BR text.
 function COORDINATE:ToStringBULLS(Coalition, Settings, MagVar) end
@@ -1728,7 +1731,7 @@ function COORDINATE:ToStringBULLS(Coalition, Settings, MagVar) end
 ---@param ReferenceCoord COORDINATE The reference coordinate.
 ---@param ReferenceName string The reference name.
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true also show angle in magnetic
 ---@return string #The coordinate Text in the configured coordinate system.
 function COORDINATE:ToStringFromRP(ReferenceCoord, ReferenceName, Controllable, Settings, MagVar) end
@@ -1742,7 +1745,7 @@ function COORDINATE:ToStringFromRP(ReferenceCoord, ReferenceName, Controllable, 
 ---@param ReferenceCoord COORDINATE The reference coordinate.
 ---@param ReferenceName string The reference name.
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@param MagVar boolean If true also get the angle as magnetic
 ---@return string #The coordinate Text in the configured coordinate system.
 function COORDINATE:ToStringFromRPShort(ReferenceCoord, ReferenceName, Controllable, Settings, MagVar) end
@@ -1751,7 +1754,7 @@ function COORDINATE:ToStringFromRPShort(ReferenceCoord, ReferenceName, Controlla
 ---
 ------
 ---@param self COORDINATE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #LLText
 function COORDINATE:ToStringLL(Settings) end
 
@@ -1759,7 +1762,7 @@ function COORDINATE:ToStringLL(Settings) end
 ---
 ------
 ---@param self COORDINATE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The LL DDM Text
 function COORDINATE:ToStringLLDDM(Settings) end
 
@@ -1767,7 +1770,7 @@ function COORDINATE:ToStringLLDDM(Settings) end
 ---
 ------
 ---@param self COORDINATE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The LL DMS Text
 function COORDINATE:ToStringLLDMS(Settings) end
 
@@ -1775,7 +1778,7 @@ function COORDINATE:ToStringLLDMS(Settings) end
 ---
 ------
 ---@param self COORDINATE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The MGRS Text
 function COORDINATE:ToStringMGRS(Settings) end
 
@@ -1786,7 +1789,7 @@ function COORDINATE:ToStringMGRS(Settings) end
 ------
 ---@param self COORDINATE 
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The pressure text in the configured measurement system.
 function COORDINATE:ToStringPressure(Controllable, Settings) end
 
@@ -1808,7 +1811,7 @@ function COORDINATE:ToStringTemperature(Controllable, Settings) end
 ------
 ---@param self COORDINATE 
 ---@param Controllable CONTROLLABLE 
----@param Settings SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
+---@param Settings? SETTINGS (optional) The settings. Can be nil, and in this case the default settings are used. If you want to specify your own settings, use the _SETTINGS object.
 ---@return string #The wind text in the configured measurement system.
 function COORDINATE:ToStringWind(Controllable, Settings) end
 
@@ -1939,8 +1942,8 @@ function COORDINATE:WaypointAirTakeOffRunway(AltType, Speed) end
 ---@param self COORDINATE 
 ---@param AltType COORDINATE.WaypointAltType The altitude type.
 ---@param Speed Speed Airspeed in km/h.
----@param DCSTasks table (Optional) A table of @{DCS#Task} items which are executed at the waypoint.
----@param description string (Optional) A text description of the waypoint, which will be shown on the F10 map.
+---@param DCSTasks? table (Optional) A table of @{DCS#Task} items which are executed at the waypoint.
+---@param description? string (Optional) A text description of the waypoint, which will be shown on the F10 map.
 ---@return table #The route point.
 function COORDINATE:WaypointAirTurningPoint(AltType, Speed, DCSTasks, description) end
 
@@ -1948,9 +1951,9 @@ function COORDINATE:WaypointAirTurningPoint(AltType, Speed, DCSTasks, descriptio
 ---
 ------
 ---@param self COORDINATE 
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param Formation string (Optional) The route point Formation, which is a text string that specifies exactly the Text in the Type of the route point, like "Vee", "Echelon Right".
----@param DCSTasks table (Optional) A table of DCS tasks that are executed at the waypoints. Mind the curly brackets {}!
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param Formation? string (Optional) The route point Formation, which is a text string that specifies exactly the Text in the Type of the route point, like "Vee", "Echelon Right".
+---@param DCSTasks? table (Optional) A table of DCS tasks that are executed at the waypoints. Mind the curly brackets {}!
 ---@return table #The route point.
 function COORDINATE:WaypointGround(Speed, Formation, DCSTasks) end
 
@@ -1958,9 +1961,9 @@ function COORDINATE:WaypointGround(Speed, Formation, DCSTasks) end
 ---
 ------
 ---@param self COORDINATE 
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param Depth string (Optional) Dive depth in meters. Only for submarines. Default is COORDINATE.y component.
----@param DCSTasks table (Optional) A table of DCS tasks that are executed at the waypoints. Mind the curly brackets {}!
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param Depth? string (Optional) Dive depth in meters. Only for submarines. Default is COORDINATE.y component.
+---@param DCSTasks? table (Optional) A table of DCS tasks that are executed at the waypoints. Mind the curly brackets {}!
 ---@return table #The route point.
 function COORDINATE:WaypointNaval(Speed, Depth, DCSTasks) end
 
@@ -2026,8 +2029,8 @@ COORDINATE.WaypointType = {}
 ---     local Vec2 = PointVec2:AddX( 100 ):AddY( 2000 ):GetVec2()
 ---@deprecated
 ---@class POINT_VEC2 : COORDINATE
----@field x Distance The x coordinate in meters.
----@field y Distance the y coordinate in meters.
+---@field private x Distance The x coordinate in meters.
+---@field private y Distance the y coordinate in meters.
 POINT_VEC2 = {}
 
 ---POINT_VEC2 constructor.
@@ -2036,7 +2039,7 @@ POINT_VEC2 = {}
 ---@param self POINT_VEC2 
 ---@param x Distance The x coordinate of the Vec3 point, pointing to the North.
 ---@param y Distance The y coordinate of the Vec3 point, pointing to the Right.
----@param LandHeightAdd Distance (optional) The default height if required to be evaluated will be the land height of the x, y coordinate. You can specify an extra height to be added to the land height.
+---@param LandHeightAdd? Distance (optional) The default height if required to be evaluated will be the land height of the x, y coordinate. You can specify an extra height to be added to the land height.
 ---@return POINT_VEC2 #
 function POINT_VEC2:New(x, y, LandHeightAdd) end
 
@@ -2087,10 +2090,13 @@ function POINT_VEC2:New(x, y, LandHeightAdd) end
 ---@deprecated
 ---@class POINT_VEC3 : COORDINATE
 ---@field FlareColor FLARECOLOR 
+---@field RoutePointAction POINT_VEC3.RoutePointAction 
+---@field RoutePointAltType POINT_VEC3.RoutePointAltType 
+---@field RoutePointType POINT_VEC3.RoutePointType 
 ---@field SmokeColor SMOKECOLOR 
----@field x number The x coordinate in 3D space.
----@field y number The y coordinate in 3D space.
----@field z number The z COORDINATE in 3D space.
+---@field private x number The x coordinate in 3D space.
+---@field private y number The y coordinate in 3D space.
+---@field private z number The z COORDINATE in 3D space.
 POINT_VEC3 = {}
 
 ---Create a new POINT_VEC3 object.

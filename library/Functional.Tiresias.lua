@@ -76,8 +76,9 @@
 ---@field SAMSet SET_GROUP 
 ---@field SwitchAAA boolean 
 ---@field VehicleSet SET_GROUP 
----@field lid  
----@field version string 
+---@field private debug booelan 
+---@field private lid NOTYPE 
+---@field private version string 
 TIRESIAS = {}
 
 ---[USER] Add a SET_GROUP of GROUP objects as exceptions.
@@ -204,6 +205,7 @@ function TIRESIAS:__Stop(delay) end
 ---@param Event string 
 ---@param To string 
 ---@return TIRESIAS #self
+---@private
 function TIRESIAS:onafterStart(From, Event, To) end
 
 ---[INTERNAL] FSM Function
@@ -214,6 +216,7 @@ function TIRESIAS:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return TIRESIAS #self
+---@private
 function TIRESIAS:onafterStatus(From, Event, To) end
 
 ---[INTERNAL] FSM Function
@@ -224,6 +227,7 @@ function TIRESIAS:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return TIRESIAS #self
+---@private
 function TIRESIAS:onafterStop(From, Event, To) end
 
 ---[INTERNAL] FSM Function
@@ -234,15 +238,16 @@ function TIRESIAS:onafterStop(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return TIRESIAS #self
+---@private
 function TIRESIAS:onbeforeStatus(From, Event, To) end
 
 
 ---@class TIRESIAS.Data 
 ---@field AIOff boolean 
----@field exception boolean 
----@field invisible boolean 
----@field range number 
----@field type string 
+---@field private exception boolean 
+---@field private invisible boolean 
+---@field private range number 
+---@field private type string 
 TIRESIAS.Data = {}
 
 

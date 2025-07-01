@@ -5,7 +5,7 @@
 ---**Functional** - Captures the class DETECTION_ZONES.
 ---@class DETECTION_BASE.DetectedItem 
 ---@field Changed boolean 
----@field InterceptCoord  
+---@field InterceptCoord NOTYPE 
 DETECTION_BASE.DetectedItem = {}
 
 
@@ -39,8 +39,8 @@ DETECTION_BASE.DetectedItem = {}
 ---  
 ---the detected zones when a new detection has taken place.
 ---@class DETECTION_ZONES 
----@field CountryID  
----@field DetectionCoalition  
+---@field CountryID NOTYPE 
+---@field DetectionCoalition NOTYPE 
 ---@field DetectionSetZone SET_ZONE 
 ---@field _BoundDetectedZones boolean 
 ---@field _FlareDetectedUnits boolean 
@@ -83,7 +83,7 @@ function DETECTION_ZONES:CreateDetectionItems() end
 ---@param self DETECTION_ZONES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
----@param Settings SETTINGS (Optional) Message formatting settings to use.
+---@param Settings? SETTINGS (Optional) Message formatting settings to use.
 ---@return REPORT #The report of the detection items.
 function DETECTION_ZONES:DetectedItemReportSummary(DetectedItem, AttackGroup, Settings) end
 
@@ -166,6 +166,7 @@ function DETECTION_ZONES:UpdateDetectedItemDetection(DetectedItem) end
 ---@param To NOTYPE 
 ---@param Detection NOTYPE 
 ---@param DetectionTimeStamp NOTYPE 
+---@private
 function DETECTION_ZONES:onafterDetection(From, Event, To, Detection, DetectionTimeStamp) end
 
 

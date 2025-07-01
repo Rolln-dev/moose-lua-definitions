@@ -157,10 +157,10 @@
 ---@deprecated
 ---@class TASK_CAPTURE_DISPATCHER : TASK_MANAGER
 ---@field AI_A2G_Dispatcher AI_A2G_DISPATCHER 
----@field DefenseAIA2GDispatcher  
----@field DefenseTaskCaptureDispatcher  
+---@field DefenseAIA2GDispatcher NOTYPE 
+---@field DefenseTaskCaptureDispatcher NOTYPE 
 ---@field FlashNewTask boolean 
----@field Mission  
+---@field Mission NOTYPE 
 TASK_CAPTURE_DISPATCHER = {}
 
 ---Add a capture zone task.
@@ -173,7 +173,7 @@ TASK_CAPTURE_DISPATCHER = {}
 ---```
 ------
 ---@param self TASK_CAPTURE_DISPATCHER 
----@param TaskPrefix string (optional) The prefix of the capture zone task.  If no TaskPrefix is given, then "Capture" will be used as the TaskPrefix.  The TaskPrefix will be appended with a . + a number of 3 digits, if the TaskPrefix already exists in the task collection.
+---@param TaskPrefix? string (optional) The prefix of the capture zone task.  If no TaskPrefix is given, then "Capture" will be used as the TaskPrefix.  The TaskPrefix will be appended with a . + a number of 3 digits, if the TaskPrefix already exists in the task collection.
 ---@param CaptureZone ZONE_CAPTURE_COALITION The zone of the coalition to be captured as the task goal.
 ---@param Briefing string The briefing of the task to be shown to the player.
 ---@return TASK_CAPTURE_ZONE #

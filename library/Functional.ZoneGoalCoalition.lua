@@ -29,7 +29,8 @@
 ---
 ---### 2.3 ZONE_GOAL_COALITION State Machine
 ---@class ZONE_GOAL_COALITION 
----@field Coalition  
+---@field Coalition NOTYPE 
+---@field States table 
 ZONE_GOAL_COALITION = {}
 
 ---Get the owning coalition of the zone.

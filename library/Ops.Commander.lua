@@ -100,12 +100,24 @@
 ---COMMANDER class.
 ---@class COMMANDER : FSM
 ---@field ClassName string Name of the class.
----@field alias string Alias name.
----@field chief CHIEF Chief of staff.
----@field coalition number Coalition side of the commander.
----@field lid string Class id string for output to DCS log file.
----@field verbose number Verbosity level.
----@field version string COMMANDER class version.
+---@field private alias string Alias name.
+---@field private awacsZones table AWACS zones. Each element is of type `#AIRWING.PatrolZone`.
+---@field private capZones table CAP zones. Each element is of type `#AIRWING.PatrolZone`.
+---@field private chief CHIEF Chief of staff.
+---@field private coalition number Coalition side of the commander.
+---@field private gcicapZones table GCICAP zones. Each element is of type `#AIRWING.PatrolZone`.
+---@field private legions table Table of legions which are commanded.
+---@field private lid string Class id string for output to DCS log file.
+---@field private limitMission table Table of limits for mission types.
+---@field private missionqueue table Mission queue.
+---@field private opsqueue table Operations queue.
+---@field private rearmingZones table Rearming zones. Each element is of type `#BRIGADE.SupplyZone`.
+---@field private refuellingZones table Refuelling zones. Each element is of type `#BRIGADE.SupplyZone`.
+---@field private tankerZones table Tanker zones. Each element is of type `#AIRWING.TankerZone`.
+---@field private targetqueue table Target queue.
+---@field private transportqueue table Transport queue.
+---@field private verbose number Verbosity level.
+---@field private version string COMMANDER class version.
 COMMANDER = {}
 
 ---Add an AIRWING to the commander.
@@ -266,8 +278,8 @@ function COMMANDER:CheckTransportQueue() end
 ------
 ---@param self COMMANDER 
 ---@param InStock boolean If true, only assets that are in the warehouse stock/inventory are counted.
----@param MissionTypes table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
----@param Attributes table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
+---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
+---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
 ---@return number #Amount of asset groups.
 function COMMANDER:CountAssets(InStock, MissionTypes, Attributes) end
 
@@ -275,7 +287,7 @@ function COMMANDER:CountAssets(InStock, MissionTypes, Attributes) end
 ---
 ------
 ---@param self COMMANDER 
----@param MissionTypes table (Optional) Count only missions of these types. Default is all types.
+---@param MissionTypes? table (Optional) Count only missions of these types. Default is all types.
 ---@param OnlyRunning boolean If `true`, only count running missions.
 ---@return number #Amount missions.
 function COMMANDER:CountMissions(MissionTypes, OnlyRunning) end
@@ -285,9 +297,9 @@ function COMMANDER:CountMissions(MissionTypes, OnlyRunning) end
 ------
 ---@param self COMMANDER 
 ---@param InStock boolean If true, only assets that are in the warehouse stock/inventory are counted.
----@param Legions table (Optional) Table of legions. Default is all legions.
----@param MissionTypes table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
----@param Attributes table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
+---@param Legions? table (Optional) Table of legions. Default is all legions.
+---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
+---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
 ---@return number #Amount of asset groups.
 function COMMANDER:GetAssets(InStock, Legions, MissionTypes, Attributes) end
 
@@ -700,6 +712,7 @@ function COMMANDER:__TransportCancel(delay, Transport) end
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The Legion(s) to which the mission is assigned.
+---@private
 function COMMANDER:onafterMissionAssign(From, Event, To, Mission, Legions) end
 
 ---On after "MissionCancel" event.
@@ -710,6 +723,7 @@ function COMMANDER:onafterMissionAssign(From, Event, To, Mission, Legions) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission.
+---@private
 function COMMANDER:onafterMissionCancel(From, Event, To, Mission) end
 
 ---On after "OpsOnMission".
@@ -721,6 +735,7 @@ function COMMANDER:onafterMissionCancel(From, Event, To, Mission) end
 ---@param To string To state.
 ---@param OpsGroup OPSGROUP Ops group on mission
 ---@param Mission AUFTRAG The requested mission.
+---@private
 function COMMANDER:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 
 ---On after Start event.
@@ -732,6 +747,7 @@ function COMMANDER:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function COMMANDER:onafterStart(Group, From, Event, To) end
 
 ---On after "Status" event.
@@ -742,6 +758,7 @@ function COMMANDER:onafterStart(Group, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function COMMANDER:onafterStatus(Group, From, Event, To) end
 
 ---On after "TransportAssign" event.
@@ -754,6 +771,7 @@ function COMMANDER:onafterStatus(Group, From, Event, To) end
 ---@param To string To state.
 ---@param Transport OPSTRANSPORT The transport.
 ---@param Legions table The legion(s) to which this transport is assigned.
+---@private
 function COMMANDER:onafterTransportAssign(From, Event, To, Transport, Legions) end
 
 ---On after "TransportCancel" event.
@@ -764,6 +782,7 @@ function COMMANDER:onafterTransportAssign(From, Event, To, Transport, Legions) e
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Transport OPSTRANSPORT The transport.
+---@private
 function COMMANDER:onafterTransportCancel(From, Event, To, Transport) end
 
 

@@ -87,10 +87,10 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class AI_BALANCER 
----@field Earliest  
----@field Latest  
----@field ReturnAirbaseSet  
----@field ReturnThresholdRange  
+---@field Earliest NOTYPE 
+---@field Latest NOTYPE 
+---@field ReturnAirbaseSet NOTYPE 
+---@field ReturnThresholdRange NOTYPE 
 ---@field ToHomeAirbase boolean 
 ---@field ToNearestAirbase boolean 
 AI_BALANCER = {}
@@ -139,6 +139,7 @@ function AI_BALANCER:ReturnToNearestAirbases(ReturnThresholdRange, ReturnAirbase
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param ClientName NOTYPE 
+---@private
 function AI_BALANCER:onenterDestroying(SetGroup, AIGroup, From, Event, To, ClientName) end
 
 ---AI_BALANCER:onenterMonitoring
@@ -146,6 +147,7 @@ function AI_BALANCER:onenterDestroying(SetGroup, AIGroup, From, Event, To, Clien
 ------
 ---@param self AI_BALANCER 
 ---@param SetGroup NOTYPE 
+---@private
 function AI_BALANCER:onenterMonitoring(SetGroup) end
 
 ---RTB
@@ -157,6 +159,7 @@ function AI_BALANCER:onenterMonitoring(SetGroup) end
 ---@param Event string 
 ---@param To string 
 ---@param AIGroup GROUP 
+---@private
 function AI_BALANCER:onenterReturning(SetGroup, From, Event, To, AIGroup) end
 
 ---AI_BALANCER:onenterSpawning
@@ -169,6 +172,7 @@ function AI_BALANCER:onenterReturning(SetGroup, From, Event, To, AIGroup) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_BALANCER:onenterSpawning(SetGroup, ClientName, AIGroup, From, Event, To) end
 
 

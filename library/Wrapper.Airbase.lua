@@ -47,16 +47,610 @@
 ---As of the time of writing (Oct 2024, DCS DCS 2.9.8.1107), these 143 objects have the **same name and object ID**, which makes them unusable in Moose, e.g. you cannot find a specific one for spawning etc.
 ---Waiting for Ugra and ED to fix this issue.
 ---@class AIRBASE : POSITIONABLE
+---@field Afghanistan table Airbases of the Afghanistan map
+
+* AIRBASE.Afghanistan.Bost
+* AIRBASE.Afghanistan.Bagram
+* AIRBASE.Afghanistan.Bamyan
+* AIRBASE.Afghanistan.Camp_Bastion
+* AIRBASE.Afghanistan.Camp_Bastion_Heliport
+* AIRBASE.Afghanistan.Chaghcharan
+* AIRBASE.Afghanistan.Dwyer
+* AIRBASE.Afghanistan.Farah
+* AIRBASE.Afghanistan.Herat
+* AIRBASE.Afghanistan.Gardez
+* AIRBASE.Afghanistan.Ghazni_Heliport
+* AIRBASE.Afghanistan.Jalalabad
+* AIRBASE.Afghanistan.Kabul
+* AIRBASE.Afghanistan.Kandahar
+* AIRBASE.Afghanistan.Kandahar_Heliport
+* AIRBASE.Afghanistan.Khost
+* AIRBASE.Afghanistan.Khost_Heliport
+* AIRBASE.Afghanistan.Maymana_Zahiraddin_Faryabi
+* AIRBASE.Afghanistan.Nimroz
+* AIRBASE.Afghanistan.Qala_i_Naw
+* AIRBASE.Afghanistan.Shindand
+* AIRBASE.Afghanistan.Shindand_Heliport
+* AIRBASE.Afghanistan.Tarinkot
+* AIRBASE.Afghanistan.Urgoon_Heliport
 ---@field AirbaseID number Airbase ID.
 ---@field AirbaseName string Name of the airbase.
 ---@field AirbaseZone ZONE Circular zone around the airbase with a radius of 2500 meters. For ships this is a ZONE_UNIT object.
+---@field CategoryName table Names of airbase categories.
+---@field Caucasus table Enumeration to identify the airbases in the Caucasus region.
 ---@field ClassName string Name of the class, i.e. "AIRBASE".
+---@field GermanyCW table Airbases of the Germany Cold War map  
+* AIRBASE.GermanyCW.Airracing_Frankfurt  
+* AIRBASE.GermanyCW.Airracing_Frankfurt  
+* AIRBASE.GermanyCW.Airracing_Koblenz  
+* AIRBASE.GermanyCW.Airracing_Luebeck  
+* AIRBASE.GermanyCW.Allstedt  
+* AIRBASE.GermanyCW.Altes_Lager  
+* AIRBASE.GermanyCW.Bad_Duerkheim  
+* AIRBASE.GermanyCW.Barth  
+* AIRBASE.GermanyCW.Bienenfarm  
+* AIRBASE.GermanyCW.Bindersleben  
+* AIRBASE.GermanyCW.Bitburg  
+* AIRBASE.GermanyCW.Braunschweig  
+* AIRBASE.GermanyCW.Bremen  
+* AIRBASE.GermanyCW.Briest  
+* AIRBASE.GermanyCW.Buechel  
+* AIRBASE.GermanyCW.Bueckeburg  
+* AIRBASE.GermanyCW.Celle  
+* AIRBASE.GermanyCW.Cochstedt  
+* AIRBASE.GermanyCW.Damgarten  
+* AIRBASE.GermanyCW.Dedelow  
+* AIRBASE.GermanyCW.Dessau  
+* AIRBASE.GermanyCW.Fassberg  
+* AIRBASE.GermanyCW.Finow  
+* AIRBASE.GermanyCW.Frankfurt  
+* AIRBASE.GermanyCW.Fritzlar  
+* AIRBASE.GermanyCW.Fulda  
+* AIRBASE.GermanyCW.Gardelegen  
+* AIRBASE.GermanyCW.Garz  
+* AIRBASE.GermanyCW.Gatow  
+* AIRBASE.GermanyCW.Gelnhausen  
+* AIRBASE.GermanyCW.Giebelstadt  
+* AIRBASE.GermanyCW.Glindbruchkippe
+* AIRBASE.GermanyCW.Gross_Mohrdorf  
+* AIRBASE.GermanyCW.Grosse_Wiese  
+* AIRBASE.GermanyCW.Guetersloh  
+* AIRBASE.GermanyCW.H_FRG_01  
+* AIRBASE.GermanyCW.H_FRG_02  
+* AIRBASE.GermanyCW.H_FRG_03  
+* AIRBASE.GermanyCW.H_FRG_04  
+* AIRBASE.GermanyCW.H_FRG_05  
+* AIRBASE.GermanyCW.H_FRG_06  
+* AIRBASE.GermanyCW.H_FRG_07  
+* AIRBASE.GermanyCW.H_FRG_08  
+* AIRBASE.GermanyCW.H_FRG_09  
+* AIRBASE.GermanyCW.H_FRG_10  
+* AIRBASE.GermanyCW.H_FRG_11  
+* AIRBASE.GermanyCW.H_FRG_12  
+* AIRBASE.GermanyCW.H_FRG_13  
+* AIRBASE.GermanyCW.H_FRG_14  
+* AIRBASE.GermanyCW.H_FRG_15  
+* AIRBASE.GermanyCW.H_FRG_16  
+* AIRBASE.GermanyCW.H_FRG_17  
+* AIRBASE.GermanyCW.H_FRG_18  
+* AIRBASE.GermanyCW.H_FRG_19  
+* AIRBASE.GermanyCW.H_FRG_20  
+* AIRBASE.GermanyCW.H_FRG_21  
+* AIRBASE.GermanyCW.H_FRG_23  
+* AIRBASE.GermanyCW.H_FRG_25  
+* AIRBASE.GermanyCW.H_FRG_27  
+* AIRBASE.GermanyCW.H_FRG_30  
+* AIRBASE.GermanyCW.H_FRG_31  
+* AIRBASE.GermanyCW.H_FRG_32  
+* AIRBASE.GermanyCW.H_FRG_34  
+* AIRBASE.GermanyCW.H_FRG_38  
+* AIRBASE.GermanyCW.H_FRG_39  
+* AIRBASE.GermanyCW.H_FRG_40  
+* AIRBASE.GermanyCW.H_FRG_41  
+* AIRBASE.GermanyCW.H_FRG_42  
+* AIRBASE.GermanyCW.H_FRG_43  
+* AIRBASE.GermanyCW.H_FRG_44  
+* AIRBASE.GermanyCW.H_FRG_45  
+* AIRBASE.GermanyCW.H_FRG_46  
+* AIRBASE.GermanyCW.H_FRG_47  
+* AIRBASE.GermanyCW.H_FRG_48  
+* AIRBASE.GermanyCW.H_FRG_49  
+* AIRBASE.GermanyCW.H_FRG_50  
+* AIRBASE.GermanyCW.H_FRG_51  
+* AIRBASE.GermanyCW.H_GDR_01  
+* AIRBASE.GermanyCW.H_GDR_02  
+* AIRBASE.GermanyCW.H_GDR_03  
+* AIRBASE.GermanyCW.H_GDR_04  
+* AIRBASE.GermanyCW.H_GDR_05  
+* AIRBASE.GermanyCW.H_GDR_06  
+* AIRBASE.GermanyCW.H_GDR_07  
+* AIRBASE.GermanyCW.H_GDR_08  
+* AIRBASE.GermanyCW.H_GDR_09  
+* AIRBASE.GermanyCW.H_GDR_10  
+* AIRBASE.GermanyCW.H_GDR_11  
+* AIRBASE.GermanyCW.H_GDR_12  
+* AIRBASE.GermanyCW.H_GDR_13  
+* AIRBASE.GermanyCW.H_GDR_14  
+* AIRBASE.GermanyCW.H_GDR_15  
+* AIRBASE.GermanyCW.H_GDR_16  
+* AIRBASE.GermanyCW.H_GDR_17  
+* AIRBASE.GermanyCW.H_GDR_18  
+* AIRBASE.GermanyCW.H_GDR_19  
+* AIRBASE.GermanyCW.H_GDR_21  
+* AIRBASE.GermanyCW.H_GDR_22  
+* AIRBASE.GermanyCW.H_GDR_24  
+* AIRBASE.GermanyCW.H_GDR_25  
+* AIRBASE.GermanyCW.H_GDR_26  
+* AIRBASE.GermanyCW.H_GDR_30  
+* AIRBASE.GermanyCW.H_GDR_31  
+* AIRBASE.GermanyCW.H_GDR_32  
+* AIRBASE.GermanyCW.H_GDR_33  
+* AIRBASE.GermanyCW.H_GDR_34  
+* AIRBASE.GermanyCW.H_Med_FRG_01  
+* AIRBASE.GermanyCW.H_Med_FRG_02  
+* AIRBASE.GermanyCW.H_Med_FRG_04  
+* AIRBASE.GermanyCW.H_Med_FRG_06  
+* AIRBASE.GermanyCW.H_Med_FRG_11  
+* AIRBASE.GermanyCW.H_Med_FRG_12  
+* AIRBASE.GermanyCW.H_Med_FRG_13  
+* AIRBASE.GermanyCW.H_Med_FRG_14  
+* AIRBASE.GermanyCW.H_Med_FRG_15  
+* AIRBASE.GermanyCW.H_Med_FRG_16  
+* AIRBASE.GermanyCW.H_Med_FRG_17  
+* AIRBASE.GermanyCW.H_Med_FRG_21  
+* AIRBASE.GermanyCW.H_Med_FRG_24  
+* AIRBASE.GermanyCW.H_Med_FRG_26  
+* AIRBASE.GermanyCW.H_Med_FRG_27  
+* AIRBASE.GermanyCW.H_Med_FRG_29  
+* AIRBASE.GermanyCW.H_Med_GDR_01  
+* AIRBASE.GermanyCW.H_Med_GDR_02  
+* AIRBASE.GermanyCW.H_Med_GDR_03  
+* AIRBASE.GermanyCW.H_Med_GDR_08  
+* AIRBASE.GermanyCW.H_Med_GDR_09  
+* AIRBASE.GermanyCW.H_Med_GDR_10  
+* AIRBASE.GermanyCW.H_Med_GDR_11  
+* AIRBASE.GermanyCW.H_Med_GDR_12  
+* AIRBASE.GermanyCW.H_Med_GDR_13  
+* AIRBASE.GermanyCW.H_Med_GDR_14  
+* AIRBASE.GermanyCW.H_Med_GDR_16  
+* AIRBASE.GermanyCW.H_Radar_FRG_02  
+* AIRBASE.GermanyCW.H_Radar_GDR_01  
+* AIRBASE.GermanyCW.H_Radar_GDR_02  
+* AIRBASE.GermanyCW.H_Radar_GDR_03  
+* AIRBASE.GermanyCW.H_Radar_GDR_04  
+* AIRBASE.GermanyCW.H_Radar_GDR_05  
+* AIRBASE.GermanyCW.H_Radar_GDR_06  
+* AIRBASE.GermanyCW.H_Radar_GDR_07  
+* AIRBASE.GermanyCW.H_Radar_GDR_08  
+* AIRBASE.GermanyCW.H_Radar_GDR_09  
+* AIRBASE.GermanyCW.Hahn  
+* AIRBASE.GermanyCW.Haina  
+* AIRBASE.GermanyCW.Hamburg  
+* AIRBASE.GermanyCW.Hamburg_Finkenwerder  
+* AIRBASE.GermanyCW.Hannover  
+* AIRBASE.GermanyCW.Hasselfelde  
+* AIRBASE.GermanyCW.Herrenteich  
+* AIRBASE.GermanyCW.Hildesheim  
+* AIRBASE.GermanyCW.Hockenheim  
+* AIRBASE.GermanyCW.Holzdorf  
+* AIRBASE.GermanyCW.Kammermark  
+* AIRBASE.GermanyCW.Koethen  
+* AIRBASE.GermanyCW.Laage  
+* AIRBASE.GermanyCW.Langenselbold  
+* AIRBASE.GermanyCW.Laerz  
+* AIRBASE.GermanyCW.Leipzig_Halle  
+* AIRBASE.GermanyCW.Leipzig_Mockau  
+* AIRBASE.GermanyCW.Luebeck  
+* AIRBASE.GermanyCW.Lueneburg  
+* AIRBASE.GermanyCW.Mahlwinkel  
+* AIRBASE.GermanyCW.Mendig  
+* AIRBASE.GermanyCW.Merseburg  
+* AIRBASE.GermanyCW.Neubrandenburg  
+* AIRBASE.GermanyCW.Neuruppin  
+* AIRBASE.GermanyCW.Northeim  
+* AIRBASE.GermanyCW.Ober_Moerlen  
+* AIRBASE.GermanyCW.Obermehler_Schlotheim  
+* AIRBASE.GermanyCW.Parchim  
+* AIRBASE.GermanyCW.Peenemuende  
+* AIRBASE.GermanyCW.Pferdsfeld  
+* AIRBASE.GermanyCW.Pinnow  
+* AIRBASE.GermanyCW.Pottschutthoehe  
+* AIRBASE.GermanyCW.Ramstein  
+* AIRBASE.GermanyCW.Rinteln  
+* AIRBASE.GermanyCW.Schoenefeld  
+* AIRBASE.GermanyCW.Schweinfurt  
+* AIRBASE.GermanyCW.Sembach  
+* AIRBASE.GermanyCW.Spangdahlem  
+* AIRBASE.GermanyCW.Sperenberg  
+* AIRBASE.GermanyCW.Stendal  
+* AIRBASE.GermanyCW.Tegel  
+* AIRBASE.GermanyCW.Tempelhof  
+* AIRBASE.GermanyCW.Templin  
+* AIRBASE.GermanyCW.Tutow  
+* AIRBASE.GermanyCW.Uelzen  
+* AIRBASE.GermanyCW.Uetersen  
+* AIRBASE.GermanyCW.Ummern  
+* AIRBASE.GermanyCW.Verden_Scharnhorst  
+* AIRBASE.GermanyCW.Walldorf  
+* AIRBASE.GermanyCW.Waren_Vielist  
+* AIRBASE.GermanyCW.Werneuchen  
+* AIRBASE.GermanyCW.Weser_Wuemme  
+* AIRBASE.GermanyCW.Wiesbaden  
+* AIRBASE.GermanyCW.Wismar  
+* AIRBASE.GermanyCW.Wittstock  
+* AIRBASE.GermanyCW.Worms  
+* AIRBASE.GermanyCW.Wunstorf  
+* AIRBASE.GermanyCW.Zerbst  
+* AIRBASE.GermanyCW.Zweibruecken  
+---@field Iraq table Airbases of the Iraq map
+
+* AIRBASE.Iraq.Baghdad_International_Airport
+* AIRBASE.Iraq.Sulaimaniyah_International_Airport
+* AIRBASE.Iraq.Al_Sahra_Airport
+* AIRBASE.Iraq.Erbil_International_Airpor
+* AIRBASE.Iraq.Al_Taji_Airport
+* AIRBASE.Iraq.Al_Asad_Airbase
+* AIRBASE.Iraq.Al_Salam_Airbase
+* AIRBASE.Iraq.Balad_Airbase
+* AIRBASE.Iraq.Kirkuk_International_Airport
+* AIRBASE.Iraq.Bashur_Airport
+* AIRBASE.Iraq.Al_Taquddum_Airport
+* AIRBASE.Iraq.Qayyarah_Airfield_West
+* AIRBASE.Iraq.K1_Base
+---@field Kola table Airbases of the Kola map
+
+* AIRBASE.Kola.Banak
+* AIRBASE.Kola.Bodo
+* AIRBASE.Kola.Ivalo
+* AIRBASE.Kola.Jokkmokk
+* AIRBASE.Kola.Kalixfors
+* AIRBASE.Kola.Kallax
+* AIRBASE.Kola.Kemi_Tornio
+* AIRBASE.Kola.Kirkenes
+* AIRBASE.Kola.Kiruna
+* AIRBASE.Kola.Kuusamo
+* AIRBASE.Kola.Monchegorsk
+* AIRBASE.Kola.Murmansk_International
+* AIRBASE.Kola.Olenya
+* AIRBASE.Kola.Rovaniemi
+* AIRBASE.Kola.Severomorsk_1
+* AIRBASE.Kola.Severomorsk_3
+* AIRBASE.Kola.Vidsel
+* AIRBASE.Kola.Vuojarvi
+* AIRBASE.Kola.Andoya
+* AIRBASE.Kola.Alakurtti
+* AIRBASE.Kola.Kittila
+* AIRBASE.Kola.Bardufoss
+* AIRBASE.Kola.Alta
+* AIRBASE.Kola.Sodankyla
+* AIRBASE.Kola.Enontekio
+* AIRBASE.Kola.Evenes
+* AIRBASE.Kola.Hosio
+---@field MarianaIslands table Airbases of the Mariana Islands map:
+
+* AIRBASE.MarianaIslands.Andersen_AFB
+* AIRBASE.MarianaIslands.Antonio_B_Won_Pat_Intl
+* AIRBASE.MarianaIslands.North_West_Field
+* AIRBASE.MarianaIslands.Olf_Orote
+* AIRBASE.MarianaIslands.Pagan_Airstrip
+* AIRBASE.MarianaIslands.Rota_Intl
+* AIRBASE.MarianaIslands.Saipan_Intl
+* AIRBASE.MarianaIslands.Tinian_Intl
+---@field MarianaIslandsWWII table 
+---@field Nevada table Airbases of the Nevada map:
+
+* AIRBASE.Nevada.Beatty
+* AIRBASE.Nevada.Boulder_City
+* AIRBASE.Nevada.Creech
+* AIRBASE.Nevada.Echo_Bay
+* AIRBASE.Nevada.Groom_Lake
+* AIRBASE.Nevada.Henderson_Executive
+* AIRBASE.Nevada.Jean
+* AIRBASE.Nevada.Laughlin
+* AIRBASE.Nevada.Lincoln_County
+* AIRBASE.Nevada.McCarran_International
+* AIRBASE.Nevada.Mesquite
+* AIRBASE.Nevada.Mina
+* AIRBASE.Nevada.Nellis
+* AIRBASE.Nevada.North_Las_Vegas
+* AIRBASE.Nevada.Pahute_Mesa
+* AIRBASE.Nevada.Tonopah
+* AIRBASE.Nevada.Tonopah_Test_Range
+---@field Normandy table Airbases of the Normandy map:
+
+* AIRBASE.Normandy.Abbeville_Drucat
+* AIRBASE.Normandy.Amiens_Glisy
+* AIRBASE.Normandy.Argentan
+* AIRBASE.Normandy.Avranches_Le_Val_Saint_Pere
+* AIRBASE.Normandy.Azeville
+* AIRBASE.Normandy.Barville
+* AIRBASE.Normandy.Bazenville
+* AIRBASE.Normandy.Beaumont_le_Roger
+* AIRBASE.Normandy.Beauvais_Tille
+* AIRBASE.Normandy.Beny_sur_Mer
+* AIRBASE.Normandy.Bernay_Saint_Martin
+* AIRBASE.Normandy.Beuzeville
+* AIRBASE.Normandy.Biggin_Hill
+* AIRBASE.Normandy.Biniville
+* AIRBASE.Normandy.Broglie
+* AIRBASE.Normandy.Brucheville
+* AIRBASE.Normandy.Cardonville
+* AIRBASE.Normandy.Carpiquet
+* AIRBASE.Normandy.Chailey
+* AIRBASE.Normandy.Chippelle
+* AIRBASE.Normandy.Conches
+* AIRBASE.Normandy.Cormeilles_en_Vexin
+* AIRBASE.Normandy.Creil
+* AIRBASE.Normandy.Cretteville
+* AIRBASE.Normandy.Cricqueville_en_Bessin
+* AIRBASE.Normandy.Deanland
+* AIRBASE.Normandy.Deauville
+* AIRBASE.Normandy.Detling
+* AIRBASE.Normandy.Deux_Jumeaux
+* AIRBASE.Normandy.Dinan_Trelivan
+* AIRBASE.Normandy.Dunkirk_Mardyck
+* AIRBASE.Normandy.Essay
+* AIRBASE.Normandy.Evreux
+* AIRBASE.Normandy.Farnborough
+* AIRBASE.Normandy.Fecamp_Benouville
+* AIRBASE.Normandy.Flers
+* AIRBASE.Normandy.Ford
+* AIRBASE.Normandy.Friston
+* AIRBASE.Normandy.Funtington
+* AIRBASE.Normandy.Goulet
+* AIRBASE.Normandy.Gravesend
+* AIRBASE.Normandy.Guyancourt
+* AIRBASE.Normandy.Hauterive
+* AIRBASE.Normandy.Heathrow
+* AIRBASE.Normandy.High_Halden
+* AIRBASE.Normandy.Kenley
+* AIRBASE.Normandy.Lantheuil
+* AIRBASE.Normandy.Le_Molay
+* AIRBASE.Normandy.Lessay
+* AIRBASE.Normandy.Lignerolles
+* AIRBASE.Normandy.Longues_sur_Mer
+* AIRBASE.Normandy.Lonrai
+* AIRBASE.Normandy.Lymington
+* AIRBASE.Normandy.Lympne
+* AIRBASE.Normandy.Manston
+* AIRBASE.Normandy.Maupertus
+* AIRBASE.Normandy.Meautis
+* AIRBASE.Normandy.Merville_Calonne
+* AIRBASE.Normandy.Needs_Oar_Point
+* AIRBASE.Normandy.Odiham
+* AIRBASE.Normandy.Orly
+* AIRBASE.Normandy.Picauville
+* AIRBASE.Normandy.Poix
+* AIRBASE.Normandy.Ronai
+* AIRBASE.Normandy.Rouen_Boos
+* AIRBASE.Normandy.Rucqueville
+* AIRBASE.Normandy.Saint_Andre_de_lEure
+* AIRBASE.Normandy.Saint_Aubin
+* AIRBASE.Normandy.Saint_Omer_Wizernes
+* AIRBASE.Normandy.Saint_Pierre_du_Mont
+* AIRBASE.Normandy.Sainte_Croix_sur_Mer
+* AIRBASE.Normandy.Sainte_Laurent_sur_Mer
+* AIRBASE.Normandy.Sommervieu
+* AIRBASE.Normandy.Stoney_Cross
+* AIRBASE.Normandy.Tangmere
+* AIRBASE.Normandy.Triqueville
+* AIRBASE.Normandy.Villacoublay
+* AIRBASE.Normandy.Vrigny
+* AIRBASE.Normandy.West_Malling
+* AIRBASE.Normandy.Eastchurch
+* AIRBASE.Normandy.Headcorn
+* AIRBASE.Normandy.Hawkinge
+---@field NparkingTerminal table 
 ---@field NparkingTotal number 
----@field category number Airbase category.
----@field isAirdrome boolean Airbase is an airdrome.
----@field isHelipad boolean Airbase is a helipad.
----@field isShip boolean Airbase is a ship.
----@field storage STORAGE The DCS warehouse storage.
+---@field PersianGulf table Airbases of the Persion Gulf Map:
+
+* AIRBASE.PersianGulf.Abu_Dhabi_Intl
+* AIRBASE.PersianGulf.Abu_Musa_Island
+* AIRBASE.PersianGulf.Al_Ain_Intl
+* AIRBASE.PersianGulf.Al_Bateen
+* AIRBASE.PersianGulf.Al_Dhafra_AFB
+* AIRBASE.PersianGulf.Al_Maktoum_Intl
+* AIRBASE.PersianGulf.Al_Minhad_AFB
+* AIRBASE.PersianGulf.Bandar_Abbas_Intl
+* AIRBASE.PersianGulf.Bandar_Lengeh
+* AIRBASE.PersianGulf.Bandar_e_Jask
+* AIRBASE.PersianGulf.Dubai_Intl
+* AIRBASE.PersianGulf.Fujairah_Intl
+* AIRBASE.PersianGulf.Havadarya
+* AIRBASE.PersianGulf.Jiroft
+* AIRBASE.PersianGulf.Kerman
+* AIRBASE.PersianGulf.Khasab
+* AIRBASE.PersianGulf.Kish_Intl
+* AIRBASE.PersianGulf.Lar
+* AIRBASE.PersianGulf.Lavan_Island
+* AIRBASE.PersianGulf.Liwa_AFB
+* AIRBASE.PersianGulf.Qeshm_Island
+* AIRBASE.PersianGulf.Quasoura_airport
+* AIRBASE.PersianGulf.Ras_Al_Khaimah_Intl
+* AIRBASE.PersianGulf.Sas_Al_Nakheel
+* AIRBASE.PersianGulf.Sharjah_Intl
+* AIRBASE.PersianGulf.Shiraz_Intl
+* AIRBASE.PersianGulf.Sir_Abu_Nuayr
+* AIRBASE.PersianGulf.Sirri_Island
+* AIRBASE.PersianGulf.Tunb_Island_AFB
+* AIRBASE.PersianGulf.Tunb_Kochak
+---@field Sinai table Airbases of the Sinai map:
+
+* AIRBASE.Sinai.Abu_Rudeis
+* AIRBASE.Sinai.Abu_Suwayr
+* AIRBASE.Sinai.Al_Bahr_al_Ahmar
+* AIRBASE.Sinai.Al_Ismailiyah
+* AIRBASE.Sinai.Al_Khatatbah
+* AIRBASE.Sinai.Al_Mansurah
+* AIRBASE.Sinai.Al_Rahmaniyah_Air_Base
+* AIRBASE.Sinai.As_Salihiyah
+* AIRBASE.Sinai.AzZaqaziq
+* AIRBASE.Sinai.Baluza
+* AIRBASE.Sinai.Ben_Gurion
+* AIRBASE.Sinai.Beni_Suef
+* AIRBASE.Sinai.Bilbeis_Air_Base
+* AIRBASE.Sinai.Bir_Hasanah
+* AIRBASE.Sinai.Birma_Air_Base
+* AIRBASE.Sinai.Borg_El_Arab_International_Airport
+* AIRBASE.Sinai.Cairo_International_Airport
+* AIRBASE.Sinai.Cairo_West
+* AIRBASE.Sinai.Difarsuwar_Airfield
+* AIRBASE.Sinai.El_Arish
+* AIRBASE.Sinai.El_Gora
+* AIRBASE.Sinai.El_Minya
+* AIRBASE.Sinai.Fayed
+* AIRBASE.Sinai.Gebel_El_Basur_Air_Base
+* AIRBASE.Sinai.Hatzerim
+* AIRBASE.Sinai.Hatzor
+* AIRBASE.Sinai.Hurghada_International_Airport
+* AIRBASE.Sinai.Inshas_Airbase
+* AIRBASE.Sinai.Jiyanklis_Air_Base
+* AIRBASE.Sinai.Kedem
+* AIRBASE.Sinai.Kibrit_Air_Base
+* AIRBASE.Sinai.Kom_Awshim
+* AIRBASE.Sinai.Melez
+* AIRBASE.Sinai.Nevatim
+* AIRBASE.Sinai.Ovda
+* AIRBASE.Sinai.Palmachim
+* AIRBASE.Sinai.Quwaysina
+* AIRBASE.Sinai.Ramon_Airbase
+* AIRBASE.Sinai.Ramon_International_Airport
+* AIRBASE.Sinai.Sde_Dov
+* AIRBASE.Sinai.Sharm_El_Sheikh_International_Airport
+* AIRBASE.Sinai.St_Catherine
+* AIRBASE.Sinai.Tel_Nof
+* AIRBASE.Sinai.Wadi_Abu_Rish
+* AIRBASE.Sinai.Wadi_al_Jandali
+---@field SouthAtlantic table  Airbases of the South Atlantic map:
+
+ * AIRBASE.SouthAtlantic.Almirante_Schroeders
+ * AIRBASE.SouthAtlantic.Comandante_Luis_Piedrabuena
+ * AIRBASE.SouthAtlantic.Cullen
+ * AIRBASE.SouthAtlantic.El_Calafate
+ * AIRBASE.SouthAtlantic.Franco_Bianco
+ * AIRBASE.SouthAtlantic.Gobernador_Gregores
+ * AIRBASE.SouthAtlantic.Goose_Green
+ * AIRBASE.SouthAtlantic.Gull_Point
+ * AIRBASE.SouthAtlantic.Hipico_Flying_Club
+ * AIRBASE.SouthAtlantic.Mount_Pleasant
+ * AIRBASE.SouthAtlantic.O_Higgins
+ * AIRBASE.SouthAtlantic.Pampa_Guanaco
+ * AIRBASE.SouthAtlantic.Port_Stanley
+ * AIRBASE.SouthAtlantic.Porvenir
+ * AIRBASE.SouthAtlantic.Puerto_Natales
+ * AIRBASE.SouthAtlantic.Puerto_Santa_Cruz
+ * AIRBASE.SouthAtlantic.Puerto_Williams
+ * AIRBASE.SouthAtlantic.Punta_Arenas
+ * AIRBASE.SouthAtlantic.Rio_Chico
+ * AIRBASE.SouthAtlantic.Rio_Gallegos
+ * AIRBASE.SouthAtlantic.Rio_Grande
+ * AIRBASE.SouthAtlantic.Rio_Turbio
+ * AIRBASE.SouthAtlantic.San_Carlos_FOB
+ * AIRBASE.SouthAtlantic.San_Julian
+ * AIRBASE.SouthAtlantic.Tolhuin
+ * AIRBASE.SouthAtlantic.Ushuaia
+ * AIRBASE.SouthAtlantic.Ushuaia_Helo_Port
+---@field SpotStatus AIRBASE.SpotStatus 
+---@field Syria table  Airbases of the Syria map:
+
+ * AIRBASE.Syria.Abu_al_Duhur
+ * AIRBASE.Syria.Adana_Sakirpasa
+ * AIRBASE.Syria.Akrotiri
+ * AIRBASE.Syria.Al_Dumayr
+ * AIRBASE.Syria.Al_Qusayr
+ * AIRBASE.Syria.Aleppo
+ * AIRBASE.Syria.An_Nasiriyah
+ * AIRBASE.Syria.At_Tanf
+ * AIRBASE.Syria.Bassel_Al_Assad
+ * AIRBASE.Syria.Beirut_Rafic_Hariri
+ * AIRBASE.Syria.Damascus
+ * AIRBASE.Syria.Deir_ez_Zor
+ * AIRBASE.Syria.Ercan
+ * AIRBASE.Syria.Eyn_Shemer
+ * AIRBASE.Syria.Gaziantep
+ * AIRBASE.Syria.Gazipasa
+ * AIRBASE.Syria.Gecitkale
+ * AIRBASE.Syria.H
+ * AIRBASE.Syria.H3
+ * AIRBASE.Syria.H3_Northwest
+ * AIRBASE.Syria.H3_Southwest
+ * AIRBASE.Syria.H4
+ * AIRBASE.Syria.Haifa
+ * AIRBASE.Syria.Hama
+ * AIRBASE.Syria.Hatay
+ * AIRBASE.Syria.Herzliya
+ * AIRBASE.Syria.Incirlik
+ * AIRBASE.Syria.Jirah
+ * AIRBASE.Syria.Khalkhalah
+ * AIRBASE.Syria.Kharab_Ishk
+ * AIRBASE.Syria.King_Abdullah_II
+ * AIRBASE.Syria.King_Hussein_Air_College
+ * AIRBASE.Syria.Kingsfield
+ * AIRBASE.Syria.Kiryat_Shmona
+ * AIRBASE.Syria.Kuweires
+ * AIRBASE.Syria.Lakatamia
+ * AIRBASE.Syria.Larnaca
+ * AIRBASE.Syria.Marj_Ruhayyil
+ * AIRBASE.Syria.Marj_as_Sultan_North
+ * AIRBASE.Syria.Marj_as_Sultan_South
+ * AIRBASE.Syria.Megiddo
+ * AIRBASE.Syria.Mezzeh
+ * AIRBASE.Syria.Minakh
+ * AIRBASE.Syria.Muwaffaq_Salti
+ * AIRBASE.Syria.Naqoura
+ * AIRBASE.Syria.Nicosia
+ * AIRBASE.Syria.Palmyra
+ * AIRBASE.Syria.Paphos
+ * AIRBASE.Syria.Pinarbashi
+ * AIRBASE.Syria.Prince_Hassan
+ * AIRBASE.Syria.Qabr_as_Sitt
+ * AIRBASE.Syria.Ramat_David
+ * AIRBASE.Syria.Rayak
+ * AIRBASE.Syria.Rene_Mouawad
+ * AIRBASE.Syria.Rosh_Pina
+ * AIRBASE.Syria.Ruwayshid
+ * AIRBASE.Syria.Sanliurfa
+ * AIRBASE.Syria.Sayqal
+ * AIRBASE.Syria.Shayrat
+ * AIRBASE.Syria.Tabqa
+ * AIRBASE.Syria.Taftanaz
+ * AIRBASE.Syria.Tal_Siman
+ * AIRBASE.Syria.Tha_lah
+ * AIRBASE.Syria.Tiyas
+ * AIRBASE.Syria.Wujah_Al_Hajar
+ * AIRBASE.Syria.Ben_Gurion 
+ * AIRBASE.Syria.Hatzor
+ * AIRBASE.Syria.Palmachim
+ * AIRBASE.Syria.Tel_Nof
+ * AIRBASE.Syria.Marka
+---@field TerminalType AIRBASE.TerminalType 
+---@field TheChannel table Airbases of The Channel Map:
+
+* AIRBASE.TheChannel.Abbeville_Drucat
+* AIRBASE.TheChannel.Biggin_Hill
+* AIRBASE.TheChannel.Detling
+* AIRBASE.TheChannel.Dunkirk_Mardyck
+* AIRBASE.TheChannel.Eastchurch
+* AIRBASE.TheChannel.Hawkinge
+* AIRBASE.TheChannel.Headcorn
+* AIRBASE.TheChannel.High_Halden
+* AIRBASE.TheChannel.Lympne
+* AIRBASE.TheChannel.Manston
+* AIRBASE.TheChannel.Merville_Calonne
+* AIRBASE.TheChannel.Saint_Omer_Longuenesse
+---@field private category number Airbase category.
+---@field private descriptors table DCS descriptors.
+---@field private isAirdrome boolean Airbase is an airdrome.
+---@field private isHelipad boolean Airbase is a helipad.
+---@field private isShip boolean Airbase is a ship.
+---@field private parking table Parking spot data.
+---@field private parkingBlacklist table List of parking spot terminal IDs **not** considered for spawning.
+---@field private parkingByID table Parking spot data table with ID as key.
+---@field private parkingWhitelist table List of parking spot terminal IDs considered for spawning.
+---@field private runwayLanding AIRBASE.Runway Runway used for landing.
+---@field private runwayTakeoff AIRBASE.Runway Runway used for takeoff.
+---@field private runways table Runways of airdromes.
+---@field private storage STORAGE The DCS warehouse storage.
 AIRBASE = {}
 
 ---Function that checks if at leat one unit of a group has been spawned close to a spawn point on the runway.
@@ -100,14 +694,14 @@ function AIRBASE:FindByName(AirbaseName) end
 ------
 ---@param self AIRBASE 
 ---@param group GROUP Aircraft group for which the parking spots are requested.
----@param terminaltype AIRBASE.TerminalType (Optional) Only search spots at a specific terminal type. Default is all types execpt on runway.
----@param scanradius number (Optional) Radius in meters around parking spot to scan for obstacles. Default 50 m.
----@param scanunits boolean (Optional) Scan for units as obstacles. Default true.
----@param scanstatics boolean (Optional) Scan for statics as obstacles. Default true.
----@param scanscenery boolean (Optional) Scan for scenery as obstacles. Default false. Can cause problems with e.g. shelters.
----@param verysafe boolean (Optional) If true, wait until an aircraft has taken off until the parking spot is considered to be free. Defaul false.
----@param nspots number (Optional) Number of freeparking spots requested. Default is the number of aircraft in the group.
----@param parkingdata table (Optional) Parking spots data table. If not given it is automatically derived from the GetParkingSpotsTable() function.
+---@param terminaltype? AIRBASE.TerminalType (Optional) Only search spots at a specific terminal type. Default is all types execpt on runway.
+---@param scanradius? number (Optional) Radius in meters around parking spot to scan for obstacles. Default 50 m.
+---@param scanunits? boolean (Optional) Scan for units as obstacles. Default true.
+---@param scanstatics? boolean (Optional) Scan for statics as obstacles. Default true.
+---@param scanscenery? boolean (Optional) Scan for scenery as obstacles. Default false. Can cause problems with e.g. shelters.
+---@param verysafe? boolean (Optional) If true, wait until an aircraft has taken off until the parking spot is considered to be free. Defaul false.
+---@param nspots? number (Optional) Number of freeparking spots requested. Default is the number of aircraft in the group.
+---@param parkingdata? table (Optional) Parking spots data table. If not given it is automatically derived from the GetParkingSpotsTable() function.
 ---@return table #Table of coordinates and terminal IDs of free parking spots. Each table entry has the elements .Coordinate and .TerminalID.
 function AIRBASE:FindFreeParkingSpotForAircraft(group, terminaltype, scanradius, scanunits, scanstatics, scanscenery, verysafe, nspots, parkingdata) end
 
@@ -144,8 +738,8 @@ function AIRBASE:GetAirbaseCategory() end
 ---This includes ships and FARPS.
 ---
 ------
----@param coalition Coalition (Optional) Return only airbases belonging to the specified coalition. By default, all airbases of the map are returned.
----@param category number (Optional) Return only airbases of a certain category, e.g. `Airbase.Category.HELIPAD`.
+---@param coalition? Coalition (Optional) Return only airbases belonging to the specified coalition. By default, all airbases of the map are returned.
+---@param category? number (Optional) Return only airbases of a certain category, e.g. `Airbase.Category.HELIPAD`.
 ---@return table #Table containing all airbase names of the current map.
 function AIRBASE.GetAllAirbaseNames(coalition, category) end
 
@@ -153,8 +747,8 @@ function AIRBASE.GetAllAirbaseNames(coalition, category) end
 ---This includes ships and FARPS.
 ---
 ------
----@param coalition Coalition (Optional) Return only airbases belonging to the specified coalition. By default, all airbases of the map are returned.
----@param category number (Optional) Return only airbases of a certain category, e.g. Airbase.Category.FARP
+---@param coalition? Coalition (Optional) Return only airbases belonging to the specified coalition. By default, all airbases of the map are returned.
+---@param category? number (Optional) Return only airbases of a certain category, e.g. Airbase.Category.FARP
 ---@return table #Table containing all airbase objects of the current map.
 function AIRBASE.GetAllAirbases(coalition, category) end
 
@@ -210,7 +804,7 @@ function AIRBASE:GetFreeParkingSpotsTable(termtype, allowTOAC) end
 ---
 ------
 ---@param self AIRBASE 
----@param unique boolean (Optional) If true, ships will get a negative sign as the unit ID might be the same as an airbase ID. Default off!
+---@param unique? boolean (Optional) If true, ships will get a negative sign as the unit ID might be the same as an airbase ID. Default off!
 ---@return number #The airbase ID.
 function AIRBASE:GetID(unique) end
 
@@ -251,7 +845,7 @@ function AIRBASE:GetParkingSpotData(TerminalID) end
 ---
 ------
 ---@param self AIRBASE 
----@param termtype AIRBASE.TerminalType (Optional) Terminal type. Default all.
+---@param termtype? AIRBASE.TerminalType (Optional) Terminal type. Default all.
 ---@return table #Table of coordinates of parking spots.
 function AIRBASE:GetParkingSpotsCoordinates(termtype) end
 
@@ -292,8 +886,8 @@ function AIRBASE:GetRunwayByName(Name) end
 ---
 ------
 ---@param self AIRBASE 
----@param magvar number (Optional) Magnetic variation in degrees.
----@param mark boolean (Optional) Place markers with runway data on F10 map.
+---@param magvar? number (Optional) Magnetic variation in degrees.
+---@param mark? boolean (Optional) Place markers with runway data on F10 map.
 ---@return table #Runway data.
 function AIRBASE:GetRunwayData(magvar, mark) end
 
@@ -553,23 +1147,24 @@ function AIRBASE:_InitRunways(IncludeInverse) end
 ---@field TOAC boolean Takeoff or landing aircarft. I.e. this stop is occupied currently by an aircraft until it took of or until it landed.
 ---@field TerminalID number Terminal ID of the spot. Generally, this is not the same number as displayed in the mission editor.
 ---@field TerminalID0 number Unknown what this means. If you know, please tell us!
----@field Vec3  
+---@field TerminalType AIRBASE.TerminalType Type of the spot, i.e. for which type of aircraft it can be used.
+---@field Vec3 NOTYPE 
 AIRBASE.ParkingSpot = {}
 
 
 ---Runway data.
 ---@class AIRBASE.Runway 
----@field center COORDINATE Center of the runway.
----@field endpoint COORDINATE End point of runway.
----@field heading number True heading of the runway in degrees.
----@field idx string Runway ID: heading 070° ==> idx="07".
----@field isLeft boolean If `true`, this is the left of two parallel runways. If `false`, this is the right of two runways. If `nil`, no parallel runway exists.
----@field length number Length of runway in meters.
----@field magheading number Magnetic heading of the runway in degrees. This is what is marked on the runway.
----@field name string Runway name.
----@field position COORDINATE Position of runway start.
----@field width number Width of runway in meters.
----@field zone ZONE_POLYGON Runway zone.
+---@field private center COORDINATE Center of the runway.
+---@field private endpoint COORDINATE End point of runway.
+---@field private heading number True heading of the runway in degrees.
+---@field private idx string Runway ID: heading 070° ==> idx="07".
+---@field private isLeft boolean If `true`, this is the left of two parallel runways. If `false`, this is the right of two runways. If `nil`, no parallel runway exists.
+---@field private length number Length of runway in meters.
+---@field private magheading number Magnetic heading of the runway in degrees. This is what is marked on the runway.
+---@field private name string Runway name.
+---@field private position COORDINATE Position of runway start.
+---@field private width number Width of runway in meters.
+---@field private zone ZONE_POLYGON Runway zone.
 AIRBASE.Runway = {}
 
 

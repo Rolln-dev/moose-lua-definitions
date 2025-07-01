@@ -76,6 +76,7 @@
 ---Use the method #CLEANUP_AIRBASE.SetCleanMissiles() to control the cleaning of missiles, which will prevent airbases to stop.
 ---Note that this method will not allow anymore airbases to be attacked, so there is a trade-off here to do.
 ---@class CLEANUP_AIRBASE : CLEANUP_AIRBASE.__
+---@field __ table 
 CLEANUP_AIRBASE = {}
 
 ---Adds an airbase to the airbase validation list.
@@ -128,6 +129,7 @@ function CLEANUP_AIRBASE:SetCleanMissiles(CleanMissiles) end
 
 
 ---@class CLEANUP_AIRBASE.__ : BASE
+---@field Airbases map Map of Airbases.
 CLEANUP_AIRBASE.__ = {}
 
 

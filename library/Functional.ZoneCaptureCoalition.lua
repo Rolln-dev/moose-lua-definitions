@@ -328,12 +328,13 @@
 ---       
 ---     ZoneCaptureCoalition:Start( 5, 30 )
 ---@class ZONE_CAPTURE_COALITION 
----@field HitsOn  
----@field MarkBlue  
+---@field HitTimeLast NOTYPE 
+---@field HitsOn NOTYPE 
+---@field MarkBlue NOTYPE 
 ---@field MarkOn boolean 
----@field MarkRed  
----@field ScheduleStatusZone  
----@field SmokeScheduler  
+---@field MarkRed NOTYPE 
+---@field ScheduleStatusZone NOTYPE 
+---@field SmokeScheduler NOTYPE 
 ZONE_CAPTURE_COALITION = {}
 
 ---Attack Trigger for ZONE_CAPTURE_COALITION
@@ -514,7 +515,7 @@ function ZONE_CAPTURE_COALITION:SetMarkZone(Switch) end
 ------
 ---@param self ZONE_CAPTURE_COALITION 
 ---@param Switch boolean If *true*, hit events are monitored. If *false* or *nil*, hit events are not monitored.
----@param TimeAttackOver number (Optional) Time in seconds after an attack is over after the last hit and the zone state goes to "Guarded". Default is 300 sec = 5 min.
+---@param TimeAttackOver? number (Optional) Time in seconds after an attack is over after the last hit and the zone state goes to "Guarded". Default is 300 sec = 5 min.
 ---@return ZONE_CAPTURE_COALITION #self
 function ZONE_CAPTURE_COALITION:SetMonitorHits(Switch, TimeAttackOver) end
 
@@ -542,8 +543,8 @@ function ZONE_CAPTURE_COALITION:SetMonitorHits(Switch, TimeAttackOver) end
 ---```
 ------
 ---@param self ZONE_CAPTURE_COALITION 
----@param StartInterval number (optional) Specifies the start time interval in seconds when the zone state will be checked for the first time.
----@param RepeatInterval number (optional) Specifies the repeat time interval in seconds when the zone state will be checked repeatedly.
+---@param StartInterval? number (optional) Specifies the start time interval in seconds when the zone state will be checked for the first time.
+---@param RepeatInterval? number (optional) Specifies the repeat time interval in seconds when the zone state will be checked repeatedly.
 ---@return ZONE_CAPTURE_COALITION #self
 function ZONE_CAPTURE_COALITION:Start(StartInterval, RepeatInterval) end
 
@@ -609,30 +610,35 @@ function ZONE_CAPTURE_COALITION:__Guard(Delay) end
 ---
 ------
 ---@param self ZONE_CAPTURE_COALITION 
+---@private
 function ZONE_CAPTURE_COALITION:onafterGuard() end
 
 ---On enter "Attacked" state.
 ---
 ------
 ---@param self ZONE_CAPTURE_COALITION    
+---@private
 function ZONE_CAPTURE_COALITION:onenterAttacked() end
 
 ---On enter "Captured" state.
 ---
 ------
 ---@param self ZONE_CAPTURE_COALITION  
+---@private
 function ZONE_CAPTURE_COALITION:onenterCaptured() end
 
 ---On enter "Empty" state.
 ---
 ------
 ---@param self ZONE_CAPTURE_COALITION    
+---@private
 function ZONE_CAPTURE_COALITION:onenterEmpty() end
 
 ---On enter "Guarded" state.
 ---
 ------
 ---@param self ZONE_CAPTURE_COALITION 
+---@private
 function ZONE_CAPTURE_COALITION:onenterGuarded() end
 
 

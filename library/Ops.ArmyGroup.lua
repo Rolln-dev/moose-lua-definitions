@@ -39,29 +39,30 @@
 ---@field TsuppressAve number Bla
 ---@field TsuppressMax number Bla
 ---@field TsuppressMin number Bla
----@field adinfinitum boolean Resume route at first waypoint when final waypoint is reached.
----@field ammo  
----@field formationPerma boolean Formation that is used permanently and overrules waypoint formations.
----@field groupinitialized boolean 
----@field isAI boolean 
----@field isDead boolean 
----@field isDestroyed boolean 
----@field isLateActivated  
----@field isMobile boolean If true, group is mobile.
----@field isSuppressed boolean Bla
----@field isUncontrolled boolean 
----@field lid  
----@field retreatZones SET_ZONE Set of retreat zones.
----@field speedMax  
----@field speedWp  
----@field suppressOn boolean Bla
----@field suppressionOn boolean 
----@field suppressionROE  
----@field tacan  
----@field timerCheckZone  
----@field timerQueueUpdate  
----@field timerStatus  
----@field version string Army Group version.
+---@field private adinfinitum boolean Resume route at first waypoint when final waypoint is reached.
+---@field private ammo NOTYPE 
+---@field private engage ARMYGROUP.Target Engage target.
+---@field private formationPerma boolean Formation that is used permanently and overrules waypoint formations.
+---@field private groupinitialized boolean 
+---@field private isAI boolean 
+---@field private isDead boolean 
+---@field private isDestroyed boolean 
+---@field private isLateActivated NOTYPE 
+---@field private isMobile boolean If true, group is mobile.
+---@field private isSuppressed boolean Bla
+---@field private isUncontrolled boolean 
+---@field private lid NOTYPE 
+---@field private retreatZones SET_ZONE Set of retreat zones.
+---@field private speedMax NOTYPE 
+---@field private speedWp NOTYPE 
+---@field private suppressOn boolean Bla
+---@field private suppressionOn boolean 
+---@field private suppressionROE NOTYPE 
+---@field private tacan NOTYPE 
+---@field private timerCheckZone NOTYPE 
+---@field private timerQueueUpdate NOTYPE 
+---@field private timerStatus NOTYPE 
+---@field private version string Army Group version.
 ARMYGROUP = {}
 
 ---Add a zone to the retreat zone set.
@@ -406,8 +407,8 @@ function ARMYGROUP:Rearming() end
 ---
 ------
 ---@param self ARMYGROUP 
----@param Zone ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
----@param Formation number (Optional) Formation of the group.
+---@param Zone? ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
+---@param Formation? number (Optional) Formation of the group.
 function ARMYGROUP:Retreat(Zone, Formation) end
 
 ---Triggers the FSM event "Retreated".
@@ -452,8 +453,8 @@ function ARMYGROUP:SetSuppressionOff() end
 ------
 ---@param self ARMYGROUP 
 ---@param Tave number Average time [seconds] a group will be suppressed. Default is 15 seconds.
----@param Tmin number (Optional) Minimum time [seconds] a group will be suppressed. Default is 5 seconds.
----@param Tmax number (Optional) Maximum time a group will be suppressed. Default is 25 seconds.
+---@param Tmin? number (Optional) Minimum time [seconds] a group will be suppressed. Default is 5 seconds.
+---@param Tmax? number (Optional) Maximum time a group will be suppressed. Default is 25 seconds.
 ---@return ARMYGROUP #self
 function ARMYGROUP:SetSuppressionOn(Tave, Tmin, Tmax) end
 
@@ -576,8 +577,8 @@ function ARMYGROUP:__Rearming(delay) end
 ---
 ------
 ---@param self ARMYGROUP 
----@param Zone ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
----@param Formation number (Optional) Formation of the group.
+---@param Zone? ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
+---@param Formation? number (Optional) Formation of the group.
 ---@param delay number Delay in seconds.
 function ARMYGROUP:__Retreat(Zone, Formation, delay) end
 
@@ -604,6 +605,7 @@ function ARMYGROUP:__Returned(delay) end
 ---@param To string To state.
 ---@param Speed number Speed in knots.
 ---@param Formation number Formation.
+---@private
 function ARMYGROUP:onafterCruise(From, Event, To, Speed, Formation) end
 
 ---On after "Detour" event.
@@ -617,6 +619,7 @@ function ARMYGROUP:onafterCruise(From, Event, To, Speed, Formation) end
 ---@param Speed number Speed in knots. Default cruise speed.
 ---@param Formation number Formation of the group.
 ---@param ResumeRoute number If true, resume route after detour point was reached. If false, the group will stop at the detour point and wait for futher commands.
+---@private
 function ARMYGROUP:onafterDetour(From, Event, To, Coordinate, Speed, Formation, ResumeRoute) end
 
 ---On after "DetourReached" event.
@@ -626,6 +629,7 @@ function ARMYGROUP:onafterDetour(From, Event, To, Coordinate, Speed, Formation, 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterDetourReached(From, Event, To) end
 
 ---On after "Disengage" event.
@@ -635,6 +639,7 @@ function ARMYGROUP:onafterDetourReached(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterDisengage(From, Event, To) end
 
 ---On after "ElementSpawned" event.
@@ -645,6 +650,7 @@ function ARMYGROUP:onafterDisengage(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The group element.
+---@private
 function ARMYGROUP:onafterElementSpawned(From, Event, To, Element) end
 
 ---On after "EngageTarget" event.
@@ -657,6 +663,7 @@ function ARMYGROUP:onafterElementSpawned(From, Event, To, Element) end
 ---@param Target TARGET The target to be engaged. Can also be a group or unit.
 ---@param Speed number Attack speed in knots.
 ---@param Formation string Formation used in the engagement. Default `ENUMS.Formation.Vehicle.Vee`.
+---@private
 function ARMYGROUP:onafterEngageTarget(From, Event, To, Target, Speed, Formation) end
 
 ---On after "FullStop" event.
@@ -666,6 +673,7 @@ function ARMYGROUP:onafterEngageTarget(From, Event, To, Target, Speed, Formation
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterFullStop(From, Event, To) end
 
 ---On after "GotoWaypoint" event.
@@ -677,8 +685,9 @@ function ARMYGROUP:onafterFullStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param UID number The goto waypoint unique ID.
----@param Speed number (Optional) Speed to waypoint in knots.
----@param Formation number (Optional) Formation to waypoint.
+---@param Speed? number (Optional) Speed to waypoint in knots.
+---@param Formation? number (Optional) Formation to waypoint.
+---@private
 function ARMYGROUP:onafterGotoWaypoint(From, Event, To, UID, Speed, Formation) end
 
 ---On after "Hit" event.
@@ -689,6 +698,7 @@ function ARMYGROUP:onafterGotoWaypoint(From, Event, To, UID, Speed, Formation) e
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Enemy UNIT Unit that hit the element or `nil`.
+---@private
 function ARMYGROUP:onafterHit(From, Event, To, Enemy) end
 
 ---On after "OutOfAmmo" event.
@@ -698,6 +708,7 @@ function ARMYGROUP:onafterHit(From, Event, To, Enemy) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterOutOfAmmo(From, Event, To) end
 
 ---On after "RTZ" event.
@@ -709,6 +720,7 @@ function ARMYGROUP:onafterOutOfAmmo(From, Event, To) end
 ---@param To string To state.
 ---@param Zone ZONE The zone to return to.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onafterRTZ(From, Event, To, Zone, Formation) end
 
 ---On after "Rearm" event.
@@ -720,6 +732,7 @@ function ARMYGROUP:onafterRTZ(From, Event, To, Zone, Formation) end
 ---@param To string To state.
 ---@param Coordinate COORDINATE Coordinate where to rearm.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onafterRearm(From, Event, To, Coordinate, Formation) end
 
 ---On after "Rearmed" event.
@@ -729,6 +742,7 @@ function ARMYGROUP:onafterRearm(From, Event, To, Coordinate, Formation) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterRearmed(From, Event, To) end
 
 ---On after "Rearming" event.
@@ -738,6 +752,7 @@ function ARMYGROUP:onafterRearmed(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterRearming(From, Event, To) end
 
 ---On after "Retreat" event.
@@ -747,8 +762,9 @@ function ARMYGROUP:onafterRearming(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param Zone ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
----@param Formation number (Optional) Formation of the group.
+---@param Zone? ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
+---@param Formation? number (Optional) Formation of the group.
+---@private
 function ARMYGROUP:onafterRetreat(From, Event, To, Zone, Formation) end
 
 ---On after "Retreated" event.
@@ -758,6 +774,7 @@ function ARMYGROUP:onafterRetreat(From, Event, To, Zone, Formation) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterRetreated(From, Event, To) end
 
 ---On after "Returned" event.
@@ -767,6 +784,7 @@ function ARMYGROUP:onafterRetreated(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterReturned(From, Event, To) end
 
 ---On after "Spawned" event.
@@ -776,6 +794,7 @@ function ARMYGROUP:onafterReturned(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterSpawned(From, Event, To) end
 
 ---After "Recovered" event.
@@ -786,6 +805,7 @@ function ARMYGROUP:onafterSpawned(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ARMYGROUP:onafterUnsuppressed(From, Event, To) end
 
 ---On after "UpdateRoute" event.
@@ -799,6 +819,7 @@ function ARMYGROUP:onafterUnsuppressed(From, Event, To) end
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
 ---@param Speed number Speed in knots. Default cruise speed.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onafterUpdateRoute(From, Event, To, n, N, Speed, Formation) end
 
 ---On after "EngageTarget" event.
@@ -812,6 +833,7 @@ function ARMYGROUP:onafterUpdateRoute(From, Event, To, n, N, Speed, Formation) e
 ---@param Speed number Speed in knots.
 ---@param Formation string Formation used in the engagement. Default `ENUMS.Formation.Vehicle.Vee`.
 ---@param Target NOTYPE 
+---@private
 function ARMYGROUP:onbeforeEngageTarget(From, Event, To, Group, Speed, Formation, Target) end
 
 ---On before "RTZ" event.
@@ -823,6 +845,7 @@ function ARMYGROUP:onbeforeEngageTarget(From, Event, To, Group, Speed, Formation
 ---@param To string To state.
 ---@param Zone ZONE The zone to return to.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onbeforeRTZ(From, Event, To, Zone, Formation) end
 
 ---On before "Rearm" event.
@@ -834,6 +857,7 @@ function ARMYGROUP:onbeforeRTZ(From, Event, To, Zone, Formation) end
 ---@param To string To state.
 ---@param Coordinate COORDINATE Coordinate where to rearm.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onbeforeRearm(From, Event, To, Coordinate, Formation) end
 
 ---On before "Retreat" event.
@@ -843,8 +867,9 @@ function ARMYGROUP:onbeforeRearm(From, Event, To, Coordinate, Formation) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param Zone ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
----@param Formation number (Optional) Formation of the group.
+---@param Zone? ZONE_BASE (Optional) Zone where to retreat. Default is the closest retreat zone.
+---@param Formation? number (Optional) Formation of the group.
+---@private
 function ARMYGROUP:onbeforeRetreat(From, Event, To, Zone, Formation) end
 
 ---Before "Recovered" event.
@@ -856,6 +881,7 @@ function ARMYGROUP:onbeforeRetreat(From, Event, To, Zone, Formation) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@return boolean #
+---@private
 function ARMYGROUP:onbeforeUnsuppressed(From, Event, To) end
 
 ---On before "UpdateRoute" event.
@@ -869,6 +895,7 @@ function ARMYGROUP:onbeforeUnsuppressed(From, Event, To) end
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
 ---@param Speed number Speed in knots. Default cruise speed.
 ---@param Formation number Formation of the group.
+---@private
 function ARMYGROUP:onbeforeUpdateRoute(From, Event, To, n, N, Speed, Formation) end
 
 
@@ -879,8 +906,8 @@ function ARMYGROUP:onbeforeUpdateRoute(From, Event, To, n, N, Speed, Formation) 
 ---@field Speed number Speed in knots.
 ---@field Target TARGET The target.
 ---@field Waypoint OPSGROUP.Waypoint the waypoint created to go to the target.
----@field alarmstate number Alarm state backup.
----@field roe number ROE backup.
+---@field private alarmstate number Alarm state backup.
+---@field private roe number ROE backup.
 ARMYGROUP.Target = {}
 
 

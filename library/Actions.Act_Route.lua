@@ -84,12 +84,12 @@
 ---===
 ---ACT_ROUTE class
 ---@class ACT_ROUTE : FSM_PROCESS
----@field CancelMenuGroupCommand  
+---@field CancelMenuGroupCommand NOTYPE 
 ---@field ClassName string 
 ---@field Coordinate COORDINATE 
 ---@field DisplayCount number 
 ---@field ProcessUnit UNIT 
----@field RouteMode  
+---@field RouteMode NOTYPE 
 ---@field TASK TASK 
 ---@field Zone ZONE_BASE 
 ACT_ROUTE = {}
@@ -149,6 +149,7 @@ function ACT_ROUTE:SetRouteMode(RouteMode) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ROUTE:onafterStart(ProcessUnit, Event, From, To) end
 
 ---StateMachine callback function
@@ -159,6 +160,7 @@ function ACT_ROUTE:onafterStart(ProcessUnit, Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ROUTE:onbeforeRoute(ProcessUnit, Event, From, To) end
 
 ---Check if the controllable has arrived.
@@ -167,13 +169,14 @@ function ACT_ROUTE:onbeforeRoute(ProcessUnit, Event, From, To) end
 ---@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
+---@private
 function ACT_ROUTE:onfuncHasArrived(ProcessUnit) end
 
 
 ---ACT_ROUTE_POINT class
 ---@class ACT_ROUTE_POINT : ACT_ROUTE
 ---@field ClassName string 
----@field Coordinate  
+---@field Coordinate NOTYPE 
 ---@field DisplayCount number 
 ---@field DisplayInterval number 
 ---@field DisplayMessage boolean 
@@ -236,6 +239,7 @@ function ACT_ROUTE_POINT:SetRange(Range) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ROUTE_POINT:onafterReport(ProcessUnit, Event, From, To) end
 
 ---Method override to check if the controllable has arrived.
@@ -244,18 +248,19 @@ function ACT_ROUTE_POINT:onafterReport(ProcessUnit, Event, From, To) end
 ---@param self ACT_ROUTE_POINT 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
+---@private
 function ACT_ROUTE_POINT:onfuncHasArrived(ProcessUnit) end
 
 
 ---ACT_ROUTE_ZONE class
 ---@class ACT_ROUTE_ZONE : ACT_ROUTE
----@field Altitude  
+---@field Altitude NOTYPE 
 ---@field ClassName string 
 ---@field DisplayCount number 
 ---@field DisplayInterval number 
 ---@field DisplayMessage boolean 
 ---@field DisplayTime number 
----@field Heading  
+---@field Heading NOTYPE 
 ---@field ProcessUnit UNIT 
 ---@field TASK TASK 
 ---@field Zone ZONE_BASE 
@@ -300,6 +305,7 @@ function ACT_ROUTE_ZONE:SetZone(Zone, Altitude, Heading) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ROUTE_ZONE:onafterReport(ProcessUnit, Event, From, To) end
 
 ---Method override to check if the controllable has arrived.
@@ -308,6 +314,7 @@ function ACT_ROUTE_ZONE:onafterReport(ProcessUnit, Event, From, To) end
 ---@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
+---@private
 function ACT_ROUTE_ZONE:onfuncHasArrived(ProcessUnit) end
 
 

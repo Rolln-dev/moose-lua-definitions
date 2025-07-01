@@ -23,20 +23,22 @@
 ---@field Debugmode boolean Debug mode. More info.
 ---@field RQid string The radio queue scheduler ID.
 ---@field Tlast number Time (abs) when the last transmission finished.
----@field alias string Name of the radio.
----@field checking boolean Scheduler is checking the radio queue. 
----@field delay number Time delay before starting the radio queue. 
----@field dt number Time interval in seconds for checking the radio queue.
----@field frequency number The radio frequency in Hz.
----@field lid string ID for dcs.log.
----@field modulation number The radio modulation. Either radio.modulation.AM or radio.modulation.FM.
----@field msrs MSRS Moose SRS class.
----@field power number Power of radio station in Watts. Default 100 W.
----@field schedonce boolean Call ScheduleOnce instead of normal scheduler.
----@field scheduler SCHEDULER The scheduler.
----@field sendercoord COORDINATE Coordinate from where transmissions are broadcasted.
----@field senderinit boolean Set frequency was initialized.
----@field sendername number Name of the sending unit or static.
+---@field private alias string Name of the radio.
+---@field private checking boolean Scheduler is checking the radio queue. 
+---@field private delay number Time delay before starting the radio queue. 
+---@field private dt number Time interval in seconds for checking the radio queue.
+---@field private frequency number The radio frequency in Hz.
+---@field private lid string ID for dcs.log.
+---@field private modulation number The radio modulation. Either radio.modulation.AM or radio.modulation.FM.
+---@field private msrs MSRS Moose SRS class.
+---@field private numbers table Table of number transmission parameters.
+---@field private power number Power of radio station in Watts. Default 100 W.
+---@field private queue table The queue of transmissions.
+---@field private schedonce boolean Call ScheduleOnce instead of normal scheduler.
+---@field private scheduler SCHEDULER The scheduler.
+---@field private sendercoord COORDINATE Coordinate from where transmissions are broadcasted.
+---@field private senderinit boolean Set frequency was initialized.
+---@field private sendername number Name of the sending unit or static.
 RADIOQUEUE = {}
 
 ---Add a SOUNDFILE to the radio queue.
@@ -79,8 +81,8 @@ function RADIOQUEUE:Broadcast(transmission) end
 ------
 ---@param self RADIOQUEUE 
 ---@param frequency number The radio frequency in MHz.
----@param modulation number (Optional) The radio modulation. Default `radio.modulation.AM` (=0).
----@param alias string (Optional) Name of the radio queue.
+---@param modulation? number (Optional) The radio modulation. Default `radio.modulation.AM` (=0).
+---@param alias? string (Optional) Name of the radio queue.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:New(frequency, modulation, alias) end
 
@@ -160,8 +162,8 @@ function RADIOQUEUE:SetSenderUnitName(name) end
 ---
 ------
 ---@param self RADIOQUEUE 
----@param delay number (Optional) Delay in seconds, before the radio queue is started. Default 1 sec.
----@param dt number (Optional) Time step in seconds for checking the queue. Default 0.01 sec.
+---@param delay? number (Optional) Delay in seconds, before the radio queue is started. Default 1 sec.
+---@param dt? number (Optional) Time step in seconds for checking the queue. Default 0.01 sec.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:Start(delay, dt) end
 
@@ -214,15 +216,15 @@ function RADIOQUEUE:_GetRadioSenderCoord() end
 ---@class RADIOQUEUE.Transmission 
 ---@field Tplay number Mission time (abs) in seconds when the transmission should be played.
 ---@field Tstarted number Mission time (abs) in seconds when the transmission started.
----@field duration number Duration in seconds.
----@field filename string Name of the file to be transmitted.
----@field interval number Interval in seconds before next transmission.
----@field isplaying boolean If true, transmission is currently playing.
----@field path string Path in miz file where the file is located.
----@field soundfile SOUNDFILE Sound file object to play via SRS.
----@field soundtext SOUNDTEXT Sound TTS object to play via SRS.
----@field subduration number Duration of the subtitle being displayed.
----@field subtitle string Subtitle of the transmission.
+---@field private duration number Duration in seconds.
+---@field private filename string Name of the file to be transmitted.
+---@field private interval number Interval in seconds before next transmission.
+---@field private isplaying boolean If true, transmission is currently playing.
+---@field private path string Path in miz file where the file is located.
+---@field private soundfile SOUNDFILE Sound file object to play via SRS.
+---@field private soundtext SOUNDTEXT Sound TTS object to play via SRS.
+---@field private subduration number Duration of the subtitle being displayed.
+---@field private subtitle string Subtitle of the transmission.
 RADIOQUEUE.Transmission = {}
 
 

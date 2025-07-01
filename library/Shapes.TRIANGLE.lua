@@ -24,7 +24,7 @@ TRIANGLE = {}
 ---
 ------
 ---@param pt table The point to check
----@param points table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
+---@param points? table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@param self NOTYPE 
 ---@return bool #True if the point is contained, false otherwise
 function TRIANGLE.ContainsPoint(pt, points, self) end

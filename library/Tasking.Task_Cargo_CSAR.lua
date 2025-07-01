@@ -322,6 +322,7 @@ function TASK_CARGO_CSAR:ReportOrder(ReportGroup) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_CARGO_CSAR:onafterGoal(TaskUnit, From, Event, To) end
 
 

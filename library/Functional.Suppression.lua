@@ -181,13 +181,14 @@
 ---* #SUPPRESSION.MenuON() is mainly for debugging. Activates a radio menu item where certain functions like retreat etc. can be triggered manually.
 ---SUPPRESSION class
 ---@class SUPPRESSION : FSM_CONTROLLABLE
+---@field AlarmState SUPPRESSION.AlarmState 
 ---@field AutoEngage boolean 
 ---@field BattleZone ZONE 
 ---@field ClassName string Name of the class.
 ---@field Controllable CONTROLLABLE Controllable of the FSM. Must be a ground group.
 ---@field CurrentAlarmState string Alam state the group is currently in.
 ---@field CurrentROE string ROE the group currently has.
----@field DCSdesc  
+---@field DCSdesc NOTYPE 
 ---@field Debug boolean Write Debug messages to DCS log file and send Debug messages to all players.
 ---@field DefaultAlarmState string Alarm state the group will go to when it is changed back from another state. Default is "Auto".
 ---@field DefaultROE string ROE the group will get once suppression is over. Default is "Free".
@@ -203,6 +204,7 @@
 ---@field Nhit number Number of times the group was hit.
 ---@field PmaxFlee number Maximum probability in percent that a group will flee (fall back or take cover) at each hit event. Default is 90 %.
 ---@field PminFlee number Minimum probability in percent that a group will flee (fall back or take cover) at each hit event. Default is 10 %.
+---@field ROE SUPPRESSION.ROE 
 ---@field RetreatDamage number Damage in percent at which the group will be ordered to retreat.
 ---@field RetreatWait number Time in seconds the group will wait in the retreat zone before it resumes its mission. Default two hours. 
 ---@field RetreatZone ZONE Zone to which a group retreats.
@@ -216,12 +218,13 @@
 ---@field Tsuppress_min number Minimum time in seconds the group gets suppressed.
 ---@field TsuppressionOver number Time at which the suppression will be over.
 ---@field Type string Type of the group.
----@field eventmoose boolean If true, events are handled by MOOSE. If false, events are handled directly by DCS eventhandler. Default true.
----@field flare boolean Flare units when they get hit or die.
----@field hideout COORDINATE Coordinate/place where the group will try to take cover.
----@field lid string String for DCS log file.
----@field smoke boolean Smoke places to which the group retreats, falls back or hides.
----@field version number PSEUDOATC version.
+---@field private eventmoose boolean If true, events are handled by MOOSE. If false, events are handled directly by DCS eventhandler. Default true.
+---@field private flare boolean Flare units when they get hit or die.
+---@field private hideout COORDINATE Coordinate/place where the group will try to take cover.
+---@field private lid string String for DCS log file.
+---@field private smoke boolean Smoke places to which the group retreats, falls back or hides.
+---@field private version number PSEUDOATC version.
+---@field private waypoints table Waypoints of the group as defined in the ME.
 SUPPRESSION = {}
 
 ---Trigger "Dead" event.
@@ -602,8 +605,8 @@ function SUPPRESSION:SetSpeed(speed) end
 ------
 ---@param self SUPPRESSION 
 ---@param Tave number Average time [seconds] a group will be suppressed. Default is 15 seconds.
----@param Tmin number (Optional) Minimum time [seconds] a group will be suppressed. Default is 5 seconds.
----@param Tmax number (Optional) Maximum time a group will be suppressed. Default is 25 seconds.
+---@param Tmin? number (Optional) Minimum time [seconds] a group will be suppressed. Default is 5 seconds.
+---@param Tmax? number (Optional) Maximum time a group will be suppressed. Default is 25 seconds.
 function SUPPRESSION:SetSuppressionTime(Tave, Tmin, Tmax) end
 
 ---Set hideout place explicitly.
@@ -728,9 +731,9 @@ function SUPPRESSION._Passing_Waypoint(group, Fsm, i, final) end
 ------
 ---@param self SUPPRESSION 
 ---@param x0 number Expectation value of distribution.
----@param sigma number (Optional) Standard deviation. Default 10.
----@param xmin number (Optional) Lower cut-off value.
----@param xmax number (Optional) Upper cut-off value.
+---@param sigma? number (Optional) Standard deviation. Default 10.
+---@param xmin? number (Optional) Lower cut-off value.
+---@param xmax? number (Optional) Upper cut-off value.
 ---@return number #Gaussian random number.
 function SUPPRESSION:_Random_Gaussian(x0, sigma, xmin, xmax) end
 
@@ -846,6 +849,7 @@ function SUPPRESSION:__TakeCover(Delay, Hideout) end
 ------
 ---@param self SUPPRESSION 
 ---@param Event NOTYPE 
+---@private
 function SUPPRESSION:onEvent(Event) end
 
 ---After "Dead" event, when a unit has died.
@@ -857,6 +861,7 @@ function SUPPRESSION:onEvent(Event) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterDead(Controllable, From, Event, To) end
 
 ---After "FallBack" event.
@@ -869,6 +874,7 @@ function SUPPRESSION:onafterDead(Controllable, From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param AttackUnit UNIT Attacking unit. We will move away from this.
+---@private
 function SUPPRESSION:onafterFallBack(Controllable, From, Event, To, AttackUnit) end
 
 ---After "FightBack" event.
@@ -880,6 +886,7 @@ function SUPPRESSION:onafterFallBack(Controllable, From, Event, To, AttackUnit) 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterFightBack(Controllable, From, Event, To) end
 
 ---After "Hit" event.
@@ -892,6 +899,7 @@ function SUPPRESSION:onafterFightBack(Controllable, From, Event, To) end
 ---@param To string To state.
 ---@param Unit UNIT Unit that was hit.
 ---@param AttackUnit UNIT Unit that attacked.
+---@private
 function SUPPRESSION:onafterHit(Controllable, From, Event, To, Unit, AttackUnit) end
 
 ---After "OutOfAmmo" event.
@@ -903,6 +911,7 @@ function SUPPRESSION:onafterHit(Controllable, From, Event, To, Unit, AttackUnit)
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterOutOfAmmo(Controllable, From, Event, To) end
 
 ---After "Recovered" event.
@@ -914,6 +923,7 @@ function SUPPRESSION:onafterOutOfAmmo(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterRecovered(Controllable, From, Event, To) end
 
 ---After "Retreat" event.
@@ -925,6 +935,7 @@ function SUPPRESSION:onafterRecovered(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterRetreat(Controllable, From, Event, To) end
 
 ---After "Retreateded" event.
@@ -936,6 +947,7 @@ function SUPPRESSION:onafterRetreat(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterRetreated(Controllable, From, Event, To) end
 
 ---After "Start" event.
@@ -947,6 +959,7 @@ function SUPPRESSION:onafterRetreated(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterStart(Controllable, From, Event, To) end
 
 ---After "Status" event.
@@ -957,6 +970,7 @@ function SUPPRESSION:onafterStart(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterStatus(Controllable, From, Event, To) end
 
 ---After "Stop" event.
@@ -967,6 +981,7 @@ function SUPPRESSION:onafterStatus(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onafterStop(Controllable, From, Event, To) end
 
 ---After "TakeCover" event.
@@ -979,6 +994,7 @@ function SUPPRESSION:onafterStop(Controllable, From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Hideout COORDINATE Place where the group will hide.
+---@private
 function SUPPRESSION:onafterTakeCover(Controllable, From, Event, To, Hideout) end
 
 ---Before "FallBack" event.
@@ -992,6 +1008,7 @@ function SUPPRESSION:onafterTakeCover(Controllable, From, Event, To, Hideout) en
 ---@param To string To state.
 ---@param AttackUnit UNIT Attacking unit. We will move away from this.
 ---@return boolean #
+---@private
 function SUPPRESSION:onbeforeFallBack(Controllable, From, Event, To, AttackUnit) end
 
 ---Before "Recovered" event.
@@ -1004,6 +1021,7 @@ function SUPPRESSION:onbeforeFallBack(Controllable, From, Event, To, AttackUnit)
 ---@param Event string Event.
 ---@param To string To state.
 ---@return boolean #
+---@private
 function SUPPRESSION:onbeforeRecovered(Controllable, From, Event, To) end
 
 ---Before "Retreat" event.
@@ -1016,6 +1034,7 @@ function SUPPRESSION:onbeforeRecovered(Controllable, From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@return boolean #True if transition is allowed, False if transition is forbidden.
+---@private
 function SUPPRESSION:onbeforeRetreat(Controllable, From, Event, To) end
 
 ---Before "Retreateded" event.
@@ -1027,6 +1046,7 @@ function SUPPRESSION:onbeforeRetreat(Controllable, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SUPPRESSION:onbeforeRetreated(Controllable, From, Event, To) end
 
 ---Before "TakeCover" event.
@@ -1040,6 +1060,7 @@ function SUPPRESSION:onbeforeRetreated(Controllable, From, Event, To) end
 ---@param To string To state.
 ---@param Hideout COORDINATE Place where the group will hide.
 ---@return boolean #
+---@private
 function SUPPRESSION:onbeforeTakeCover(Controllable, From, Event, To, Hideout) end
 
 

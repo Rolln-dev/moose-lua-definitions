@@ -127,7 +127,7 @@
 ---@class AI_CAS_ZONE : AI_PATROL_ZONE
 ---@field AIControllable CONTROLLABLE The @{Wrapper.Controllable} patrolling.
 ---@field Accomplished boolean 
----@field EngageZone  
+---@field EngageZone NOTYPE 
 ---@field TargetZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 AI_CAS_ZONE = {}
 
@@ -153,11 +153,11 @@ function AI_CAS_ZONE:Destroy() end
 ---
 ------
 ---@param self AI_CAS_ZONE 
----@param EngageSpeed number (optional) The speed the Group will hold when engaging to the target zone.
----@param EngageAltitude Distance (optional) Desired altitude to perform the unit engagement.
----@param EngageWeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
----@param EngageAttackQty number (optional) This parameter limits maximal quantity of attack. The aicraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aicraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param EngageDirection Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
+---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
+---@param EngageWeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
+---@param EngageAttackQty? number (optional) This parameter limits maximal quantity of attack. The aicraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aicraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param EngageDirection? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
 function AI_CAS_ZONE:Engage(EngageSpeed, EngageAltitude, EngageWeaponExpend, EngageAttackQty, EngageDirection) end
 
 
@@ -355,11 +355,11 @@ function AI_CAS_ZONE:__Destroy(Delay) end
 ------
 ---@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.
----@param EngageSpeed number (optional) The speed the Group will hold when engaging to the target zone.
----@param EngageAltitude Distance (optional) Desired altitude to perform the unit engagement.
----@param EngageWeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
----@param EngageAttackQty number (optional) This parameter limits maximal quantity of attack. The aicraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aicraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param EngageDirection Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
+---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
+---@param EngageWeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
+---@param EngageAttackQty? number (optional) This parameter limits maximal quantity of attack. The aicraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aicraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param EngageDirection? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
 function AI_CAS_ZONE:__Engage(Delay, EngageSpeed, EngageAltitude, EngageWeaponExpend, EngageAttackQty, EngageDirection) end
 
 ---Asynchronous Event Trigger for Event Fired.
@@ -377,6 +377,7 @@ function AI_CAS_ZONE:__Fired(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAS_ZONE:onafterAbort(Controllable, From, Event, To) end
 
 
@@ -387,6 +388,7 @@ function AI_CAS_ZONE:onafterAbort(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAS_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 
 
@@ -398,6 +400,7 @@ function AI_CAS_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param EventData NOTYPE 
+---@private
 function AI_CAS_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) end
 
 
@@ -413,6 +416,7 @@ function AI_CAS_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) en
 ---@param EngageWeaponExpend NOTYPE 
 ---@param EngageAttackQty NOTYPE 
 ---@param EngageDirection NOTYPE 
+---@private
 function AI_CAS_ZONE:onafterEngage(Controllable, From, Event, To, EngageSpeed, EngageAltitude, EngageWeaponExpend, EngageAttackQty, EngageDirection) end
 
 ---onafter State Transition for Event Start.
@@ -423,6 +427,7 @@ function AI_CAS_ZONE:onafterEngage(Controllable, From, Event, To, EngageSpeed, E
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_CAS_ZONE:onafterStart(Controllable, From, Event, To) end
 
 
@@ -433,6 +438,7 @@ function AI_CAS_ZONE:onafterStart(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAS_ZONE:onafterTarget(Controllable, From, Event, To) end
 
 
@@ -443,6 +449,7 @@ function AI_CAS_ZONE:onafterTarget(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAS_ZONE:onbeforeEngage(Controllable, From, Event, To) end
 
 

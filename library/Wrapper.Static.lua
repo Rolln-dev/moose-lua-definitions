@@ -38,7 +38,7 @@
 --- 
 ---IMPORTANT: ONE SHOULD NEVER SANITIZE these STATIC OBJECT REFERENCES! (make the STATIC object references nil).
 ---@class STATIC : POSITIONABLE
----@field StaticName  
+---@field StaticName NOTYPE 
 STATIC = {}
 
 ---Destroys the STATIC.
@@ -53,7 +53,7 @@ STATIC = {}
 ---```
 ------
 ---@param self STATIC 
----@param GenerateEvent boolean (Optional) true if you want to generate a crash or dead event for the static.
+---@param GenerateEvent? boolean (Optional) true if you want to generate a crash or dead event for the static.
 ---@return nil #The DCS StaticObject is not existing or alive.  
 function STATIC:Destroy(GenerateEvent) end
 
@@ -173,8 +173,8 @@ function STATIC:GetUnits() end
 ---
 ------
 ---@param self STATIC 
----@param CountryID country.id (Optional) The country ID used for spawning the new static. Default is same as currently.
----@param Delay number (Optional) Delay in seconds before static is respawned. Default now.
+---@param CountryID? country.id (Optional) The country ID used for spawning the new static. Default is same as currently.
+---@param Delay? number (Optional) Delay in seconds before static is respawned. Default now.
 function STATIC:ReSpawn(CountryID, Delay) end
 
 ---Respawn the Wrapper.Unit at a defined Coordinate with an optional heading.
@@ -182,8 +182,8 @@ function STATIC:ReSpawn(CountryID, Delay) end
 ------
 ---@param self STATIC 
 ---@param Coordinate COORDINATE The coordinate where to spawn the new Static.
----@param Heading number (Optional) The heading of the static respawn in degrees. Default the current heading.
----@param Delay number (Optional) Delay in seconds before static is respawned. Default now.
+---@param Heading? number (Optional) The heading of the static respawn in degrees. Default the current heading.
+---@param Delay? number (Optional) Delay in seconds before static is respawned. Default now.
 function STATIC:ReSpawnAt(Coordinate, Heading, Delay) end
 
 ---Register a static object.

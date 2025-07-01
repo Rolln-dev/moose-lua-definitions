@@ -219,23 +219,26 @@
 ---
 ---===
 ---@class SCORING : BASE
----@field AutoSavePath  
----@field CoalitionChangePenalty  
----@field Fratricide  
----@field GameName  
+---@field AutoSave NOTYPE 
+---@field AutoSavePath NOTYPE 
+---@field CoalitionChangePenalty NOTYPE 
+---@field Fratricide NOTYPE 
+---@field GameName NOTYPE 
 ---@field MessagesAudience number 
----@field MessagesDestroy  
----@field MessagesHit  
----@field MessagesScore  
----@field MessagesZone  
----@field RunTime  
----@field ScaleDestroyPenalty  
----@field ScaleDestroyScore  
----@field ScoreIncrementOnHit  
----@field ScoringCSV  
----@field ScoringPlayerScan  
----@field penaltyoncoalitionchange boolean 
----@field penaltyonfratricide boolean 
+---@field MessagesDestroy NOTYPE 
+---@field MessagesHit NOTYPE 
+---@field MessagesScore NOTYPE 
+---@field MessagesZone NOTYPE 
+---@field RunTime NOTYPE 
+---@field ScaleDestroyPenalty NOTYPE 
+---@field ScaleDestroyScore NOTYPE 
+---@field ScoreIncrementOnHit NOTYPE 
+---@field ScoringCSV NOTYPE 
+---@field ScoringObjects table 
+---@field ScoringPlayerScan NOTYPE 
+---@field ScoringZones table 
+---@field private penaltyoncoalitionchange NOTYPE 
+---@field private penaltyonfratricide boolean 
 SCORING = {}
 
 ---Add a goal score for a player.
@@ -379,8 +382,8 @@ function SCORING:IfMessagesZone() end
 ------
 ---@param self SCORING 
 ---@param GameName string The name of the game. This name is also logged in the CSV score file.
----@param SavePath string (Optional) Path where to save the CSV file, defaults to your **<User>\\Saved Games\\DCS\\Logs** folder.
----@param AutoSave boolean (Optional) If passed as `false`, then swith autosave off.
+---@param SavePath? string (Optional) Path where to save the CSV file, defaults to your **<User>\\Saved Games\\DCS\\Logs** folder.
+---@param AutoSave? boolean (Optional) If passed as `false`, then swith autosave off.
 ---@return SCORING #self
 function SCORING:New(GameName, SavePath, AutoSave) end
 

@@ -35,7 +35,7 @@
 ---@field SA342M number 
 ---@field SA342Minigun number 
 ---@field SA342Mistral number 
----@field typename string Unit type name
+---@field private typename string Unit type name
 Cameraheight = {}
 
 
@@ -47,22 +47,29 @@ Cameraheight = {}
 ---@field SA342M boolean 
 ---@field SA342Minigun boolean 
 ---@field SA342Mistral boolean 
----@field typename string Unit type name
+---@field private typename string Unit type name
 CanLase = {}
 
 
 ---@class FlareColor 
----@field color string 
----@field highflare  
----@field laserflare  
----@field lowflare  
----@field medflare  
----@field ownflare  
+---@field private color string 
+---@field private highflare NOTYPE 
+---@field private laserflare NOTYPE 
+---@field private lowflare NOTYPE 
+---@field private medflare NOTYPE 
+---@field private ownflare NOTYPE 
 FlareColor = {}
 
 
 ---@class LaserRelativePos 
----@field typename string Unit type name
+---@field Ka-50 table 
+---@field Ka-50_3 table 
+---@field OH58D table 
+---@field SA342L table 
+---@field SA342M table 
+---@field SA342Minigun table 
+---@field SA342Mistral table 
+---@field private typename string Unit type name
 LaserRelativePos = {}
 
 
@@ -74,7 +81,7 @@ LaserRelativePos = {}
 ---@field SA342M number 
 ---@field SA342Minigun number 
 ---@field SA342Mistral number 
----@field typename string Unit type name
+---@field private typename string Unit type name
 MaxViewDistance = {}
 
 
@@ -97,17 +104,30 @@ MaxViewDistance = {}
 ---PLAYERRECCE class.
 ---@class PLAYERRECCE : FSM
 ---@field AttackSet SET_CLIENT 
----@field BCFrequency  
----@field BCModulation  
----@field CallsignCustomFunc  
+---@field AutoLase table 
+---@field BCFrequency NOTYPE 
+---@field BCModulation NOTYPE 
+---@field CallsignCustomFunc NOTYPE 
+---@field CallsignTranslations table 
+---@field Cameraheight Cameraheight 
+---@field CanLase CanLase 
 ---@field ClassName string Name of the class.
+---@field ClientMenus table 
 ---@field Coalition number 
 ---@field CoalitionName string 
 ---@field Controller PLAYERTASKCONTROLLER 
+---@field FlareColor FlareColor 
 ---@field Keepnumber boolean 
----@field MenuName  
+---@field LaserCodes table 
+---@field LaserFOV table 
+---@field LaserRelativePos LaserRelativePos 
+---@field LaserSpots table 
+---@field LaserTarget table 
+---@field MaxViewDistance MaxViewDistance 
+---@field MenuName NOTYPE 
 ---@field Name string 
----@field PathToGoogleKey  
+---@field OnStation table 
+---@field PathToGoogleKey NOTYPE 
 ---@field PlayerSet SET_CLIENT 
 ---@field RPMarker MARKER 
 ---@field RPName string 
@@ -115,21 +135,27 @@ MaxViewDistance = {}
 ---@field SRS MSRS 
 ---@field SRSQueue MSRSQUEUE 
 ---@field ShortCallsign boolean 
+---@field SmokeColor SmokeColor 
+---@field SmokeOwn table 
 ---@field TForget number 
 ---@field TargetCache FIFO 
 ---@field TransmitOnlyWithPlayers boolean 
+---@field UnitLaserCodes table 
 ---@field UseController boolean 
 ---@field UseSRS boolean 
----@field debug boolean 
----@field lasingtime number 
----@field lid string Class id string for output to DCS log file.
----@field minthreatlevel number 
----@field reporttostringbullsonly boolean 
----@field smokeaveragetargetpos boolean 
----@field smokeownposition boolean 
----@field timestamp  
----@field verbose boolean Switch verbosity.
----@field version string 
+---@field ViewZone table 
+---@field ViewZoneLaser table 
+---@field ViewZoneVisual table 
+---@field private debug boolean 
+---@field private lasingtime number 
+---@field private lid string Class id string for output to DCS log file.
+---@field private minthreatlevel number 
+---@field private reporttostringbullsonly boolean 
+---@field private smokeaveragetargetpos boolean 
+---@field private smokeownposition boolean 
+---@field private timestamp NOTYPE 
+---@field private verbose boolean Switch verbosity.
+---@field private version string 
 PLAYERRECCE = {}
 
 ---[User] Disable smoking of average target positions, instead of all targets visible.
@@ -346,9 +372,9 @@ function PLAYERRECCE:SetAttackSet(AttackSet) end
 ---@param self PLAYERRECCE 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
----@param CallsignTranslations table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
----@param CallsignCustomFunc func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
----@param ... arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
+---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
+---@param CallsignCustomFunc? func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
+---@param ...? arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations, CallsignCustomFunc, ...) end
 
@@ -403,13 +429,13 @@ function PLAYERRECCE:SetReportBullsOnly(OnOff) end
 ---@param Frequency number Frequency to be used. Can also be given as a table of multiple frequencies, e.g. 271 or {127,251}. There needs to be exactly the same number of modulations!
 ---@param Modulation number Modulation to be used. Can also be given as a table of multiple modulations, e.g. radio.modulation.AM or {radio.modulation.FM,radio.modulation.AM}. There needs to be exactly the same number of frequencies!
 ---@param PathToSRS string Defaults to "C:\\Program Files\\DCS-SimpleRadio-Standalone"
----@param Gender string (Optional) Defaults to "male"
----@param Culture string (Optional) Defaults to "en-US"
----@param Port number (Optional) Defaults to 5002
----@param Voice string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
----@param Volume number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
----@param PathToGoogleKey string (Optional) Path to your google key if you want to use google TTS
----@param Backend string (optional) Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
+---@param Gender? string (Optional) Defaults to "male"
+---@param Culture? string (Optional) Defaults to "en-US"
+---@param Port? number (Optional) Defaults to 5002
+---@param Voice? string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
+---@param Volume? number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
+---@param PathToGoogleKey? string (Optional) Path to your google key if you want to use google TTS
+---@param Backend? string (optional) Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:SetSRS(Frequency, Modulation, PathToSRS, Gender, Culture, Port, Voice, Volume, PathToGoogleKey, Backend) end
 
@@ -432,7 +458,7 @@ function PLAYERRECCE:Start() end
 ---
 ------
 ---@param self PLAYERRECCE 
----@param Client CLIENT (optional) Client object
+---@param Client? CLIENT (optional) Client object
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:_BuildMenus(Client) end
 
@@ -723,6 +749,7 @@ function PLAYERRECCE:__Stop(delay) end
 ---@param Playername string 
 ---@param TargetSet SET_UNIT 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterIllumination(From, Event, To, Client, Playername, TargetSet) end
 
 ---[Internal] Recce off station
@@ -735,6 +762,7 @@ function PLAYERRECCE:onafterIllumination(From, Event, To, Client, Playername, Ta
 ---@param Client CLIENT 
 ---@param Playername string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterRecceOffStation(From, Event, To, Client, Playername) end
 
 ---[Internal] Recce on station
@@ -747,6 +775,7 @@ function PLAYERRECCE:onafterRecceOffStation(From, Event, To, Client, Playername)
 ---@param Client CLIENT 
 ---@param Playername string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterRecceOnStation(From, Event, To, Client, Playername) end
 
 ---[Internal] Lased target destroyed
@@ -759,6 +788,7 @@ function PLAYERRECCE:onafterRecceOnStation(From, Event, To, Client, Playername) 
 ---@param Client CLIENT 
 ---@param Target UNIT 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterShack(From, Event, To, Client, Target) end
 
 ---[Internal] Status Loop
@@ -769,6 +799,7 @@ function PLAYERRECCE:onafterShack(From, Event, To, Client, Target) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterStatus(From, Event, To) end
 
 ---[Internal] Stop
@@ -779,6 +810,7 @@ function PLAYERRECCE:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterStop(From, Event, To) end
 
 ---[Internal] Target Detected
@@ -792,6 +824,7 @@ function PLAYERRECCE:onafterStop(From, Event, To) end
 ---@param Client CLIENT 
 ---@param Playername string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetDetected(From, Event, To, Targetsbyclock, Client, Playername) end
 
 ---[Internal] Laser lost LOS
@@ -804,6 +837,7 @@ function PLAYERRECCE:onafterTargetDetected(From, Event, To, Targetsbyclock, Clie
 ---@param Client CLIENT 
 ---@param Target UNIT 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetLOSLost(From, Event, To, Client, Target) end
 
 ---[Internal] Target lasing
@@ -818,6 +852,7 @@ function PLAYERRECCE:onafterTargetLOSLost(From, Event, To, Client, Target) end
 ---@param Lasercode number 
 ---@param Lasingtime number 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetLasing(From, Event, To, Client, Target, Lasercode, Lasingtime) end
 
 ---[Internal] Target report
@@ -832,6 +867,7 @@ function PLAYERRECCE:onafterTargetLasing(From, Event, To, Client, Target, Laserc
 ---@param Target UNIT 
 ---@param Text string 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetReport(From, Event, To, Client, TargetSet, Target, Text) end
 
 ---[Internal] Target data upload
@@ -845,6 +881,7 @@ function PLAYERRECCE:onafterTargetReport(From, Event, To, Client, TargetSet, Tar
 ---@param Playername string Player name
 ---@param TargetSet SET_UNIT Set of targets
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetReportSent(From, Event, To, Client, Playername, TargetSet) end
 
 ---[Internal] Targets Flared
@@ -858,6 +895,7 @@ function PLAYERRECCE:onafterTargetReportSent(From, Event, To, Client, Playername
 ---@param Playername string 
 ---@param TargetSet SET_UNIT 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetsFlared(From, Event, To, Client, Playername, TargetSet) end
 
 ---[Internal] Targets Smoked
@@ -871,24 +909,25 @@ function PLAYERRECCE:onafterTargetsFlared(From, Event, To, Client, Playername, T
 ---@param Playername string 
 ---@param TargetSet SET_UNIT 
 ---@return PLAYERRECCE #self
+---@private
 function PLAYERRECCE:onafterTargetsSmoked(From, Event, To, Client, Playername, TargetSet) end
 
 
 ---@class PlayerRecceDetected 
----@field detected boolean 
----@field playername string 
----@field recce CLIENT 
----@field timestamp number 
+---@field private detected boolean 
+---@field private playername string 
+---@field private recce CLIENT 
+---@field private timestamp number 
 PlayerRecceDetected = {}
 
 
 ---@class SmokeColor 
----@field color string 
----@field highsmoke  
----@field lasersmoke  
----@field lowsmoke  
----@field medsmoke  
----@field ownsmoke  
+---@field private color string 
+---@field private highsmoke NOTYPE 
+---@field private lasersmoke NOTYPE 
+---@field private lowsmoke NOTYPE 
+---@field private medsmoke NOTYPE 
+---@field private ownsmoke NOTYPE 
 SmokeColor = {}
 
 

@@ -109,45 +109,47 @@
 ---WEAPON class.
 ---@class WEAPON : POSITIONABLE
 ---@field ClassName string Name of the class.
----@field category number Weapon category 0=SHELL, 1=MISSILE, 2=ROCKET, 3=BOMB, 4=TORPEDO (Weapon.Category.X).
----@field categoryMissile number Missile category 0=AAM, 1=SAM, 2=BM, 3=ANTI_SHIP, 4=CRUISE, 5=OTHER (Weapon.MissileCategory.X).
----@field coalition number Coalition ID.
----@field coordinate COORDINATE Coordinate object of the weapon. Can be used in other classes.
----@field country number Country ID.
----@field desc Desc Descriptor table.
----@field distIP number Distance in meters for the intercept point estimation.
----@field dtTrack number Time step in seconds for tracking scheduler.
----@field guidance Desc Missile guidance descriptor.
----@field impactCoord COORDINATE Impact coordinate.
----@field impactDestroy boolean If `true`, destroy weapon before impact. Requires tracking to be started and sufficiently small time step.
----@field impactDestroyDist number Distance in meters to the estimated impact point. If smaller, then weapon is destroyed.
----@field impactFunc function Callback function for weapon impact.
----@field impactHeading  
----@field impactMark boolean If `true`, the impact point is marked on the F10 map. Requires tracking to be started.
----@field impactSmoke boolean If `true`, the impact point is marked by smoke. Requires tracking to be started.
----@field impactSmokeColor number Colour of impact point smoke.
----@field impactVec3 Vec3 Impact 3D vector.
----@field last_velocity  
----@field launcher Unit Launcher DCS unit.
----@field launcherName string Name of launcher unit.
----@field launcherUnit UNIT Launcher Unit.
----@field lid string Class id string for output to DCS log file.
----@field name string Name of the weapon object.
----@field pos3 Position3 Last known 3D position and direction vector of the tracked weapon.
----@field releaseAltitudeAGL  
----@field releaseAltitudeASL  
----@field releaseCoordinate  
----@field releaseHeading  
----@field releasePitch  
----@field target UNIT Last known target.
----@field trackFunc function Callback function when weapon is tracked and alive.
----@field trackScheduleID number Tracking scheduler ID. Can be used to remove/destroy the scheduler function.
----@field tracking boolean If `true`, scheduler will keep tracking. Otherwise, function will return nil and stop tracking.
----@field typeName string Type name of the weapon.
----@field vec3 Vec3 Last known 3D position vector of the tracked weapon.
----@field verbose number Verbosity level.
----@field version string WEAPON class version.
----@field weapon Weapon The DCS weapon object.
+---@field private category number Weapon category 0=SHELL, 1=MISSILE, 2=ROCKET, 3=BOMB, 4=TORPEDO (Weapon.Category.X).
+---@field private categoryMissile number Missile category 0=AAM, 1=SAM, 2=BM, 3=ANTI_SHIP, 4=CRUISE, 5=OTHER (Weapon.MissileCategory.X).
+---@field private coalition number Coalition ID.
+---@field private coordinate COORDINATE Coordinate object of the weapon. Can be used in other classes.
+---@field private country number Country ID.
+---@field private desc Desc Descriptor table.
+---@field private distIP number Distance in meters for the intercept point estimation.
+---@field private dtTrack number Time step in seconds for tracking scheduler.
+---@field private guidance Desc Missile guidance descriptor.
+---@field private impactArg table Optional arguments for the impact callback function.
+---@field private impactCoord COORDINATE Impact coordinate.
+---@field private impactDestroy boolean If `true`, destroy weapon before impact. Requires tracking to be started and sufficiently small time step.
+---@field private impactDestroyDist number Distance in meters to the estimated impact point. If smaller, then weapon is destroyed.
+---@field private impactFunc function Callback function for weapon impact.
+---@field private impactHeading NOTYPE 
+---@field private impactMark boolean If `true`, the impact point is marked on the F10 map. Requires tracking to be started.
+---@field private impactSmoke boolean If `true`, the impact point is marked by smoke. Requires tracking to be started.
+---@field private impactSmokeColor number Colour of impact point smoke.
+---@field private impactVec3 Vec3 Impact 3D vector.
+---@field private last_velocity NOTYPE 
+---@field private launcher Unit Launcher DCS unit.
+---@field private launcherName string Name of launcher unit.
+---@field private launcherUnit UNIT Launcher Unit.
+---@field private lid string Class id string for output to DCS log file.
+---@field private name string Name of the weapon object.
+---@field private pos3 Position3 Last known 3D position and direction vector of the tracked weapon.
+---@field private releaseAltitudeAGL NOTYPE 
+---@field private releaseAltitudeASL NOTYPE 
+---@field private releaseCoordinate NOTYPE 
+---@field private releaseHeading NOTYPE 
+---@field private releasePitch NOTYPE 
+---@field private target UNIT Last known target.
+---@field private trackArg table Optional arguments for the track callback function.
+---@field private trackFunc function Callback function when weapon is tracked and alive.
+---@field private trackScheduleID number Tracking scheduler ID. Can be used to remove/destroy the scheduler function.
+---@field private tracking boolean If `true`, scheduler will keep tracking. Otherwise, function will return nil and stop tracking.
+---@field private typeName string Type name of the weapon.
+---@field private vec3 Vec3 Last known 3D position vector of the tracked weapon.
+---@field private verbose number Verbosity level.
+---@field private version string WEAPON class version.
+---@field private weapon Weapon The DCS weapon object.
 WEAPON = {}
 
 ---Destroy the weapon object.
@@ -192,7 +194,7 @@ function WEAPON:GetImpactCoordinate() end
 ---
 ------
 ---@param self WEAPON 
----@param AccountForMagneticInclination bool (Optional) If true will account for the magnetic declination of the current map. Default is true
+---@param AccountForMagneticInclination? bool (Optional) If true will account for the magnetic declination of the current map. Default is true
 ---@return number #Heading
 function WEAPON:GetImpactHeading(AccountForMagneticInclination) end
 
@@ -236,7 +238,7 @@ function WEAPON:GetReleaseCoordinate() end
 ---
 ------
 ---@param self WEAPON 
----@param AccountForMagneticInclination bool (Optional) If true will account for the magnetic declination of the current map. Default is true
+---@param AccountForMagneticInclination? bool (Optional) If true will account for the magnetic declination of the current map. Default is true
 ---@return number #Heading
 function WEAPON:GetReleaseHeading(AccountForMagneticInclination) end
 
@@ -251,7 +253,7 @@ function WEAPON:GetReleasePitch() end
 ---
 ------
 ---@param self WEAPON 
----@param ConversionFunction function (Optional) Conversion function from m/s to desired unit, *e.g.* `UTILS.MpsToKmph`.
+---@param ConversionFunction? function (Optional) Conversion function from m/s to desired unit, *e.g.* `UTILS.MpsToKmph`.
 ---@return number #Speed in meters per second.
 function WEAPON:GetSpeed(ConversionFunction) end
 
@@ -266,7 +268,7 @@ function WEAPON:GetTarget() end
 ---
 ------
 ---@param self WEAPON 
----@param ConversionFunction function (Optional) Conversion function from meters to desired unit, *e.g.* `UTILS.MpsToKmph`.
+---@param ConversionFunction? function (Optional) Conversion function from meters to desired unit, *e.g.* `UTILS.MpsToKmph`.
 ---@return number #Distance from weapon to target in meters.
 function WEAPON:GetTargetDistance(ConversionFunction) end
 
@@ -481,7 +483,7 @@ function WEAPON:StartTrack(Delay) end
 ---
 ------
 ---@param self WEAPON 
----@param Delay number (Optional) Delay in seconds before the tracking is stopped.
+---@param Delay? number (Optional) Delay in seconds before the tracking is stopped.
 ---@return WEAPON #self
 function WEAPON:StopTrack(Delay) end
 

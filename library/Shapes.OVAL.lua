@@ -26,7 +26,7 @@ function OVAL.ContainsPoint(point, self) end
 ---Draws the oval on the map, for debugging
 ---
 ------
----@param angle number (Optional) The angle of the oval. If nil will use self.Angle
+---@param angle? number (Optional) The angle of the oval. If nil will use self.Angle
 ---@param self NOTYPE 
 function OVAL.Draw(angle, self) end
 

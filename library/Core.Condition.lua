@@ -29,14 +29,17 @@
 ---CONDITON class.
 ---@class CONDITION : BASE
 ---@field ClassName string Name of the class.
----@field defaultPersist boolean Default persistence of condition functions.
----@field functionCounter number Running number to determine the unique ID of condition functions.
----@field isAny boolean General functions are evaluated as any condition.
----@field lid string Class id string for output to DCS log file.
----@field name string Name of the condition.
----@field negateResult boolean Negate result of evaluation.
----@field noneResult boolean Boolean that is returned if no condition functions at all were specified.
----@field version string CONDITION class version.
+---@field private defaultPersist boolean Default persistence of condition functions.
+---@field private functionCounter number Running number to determine the unique ID of condition functions.
+---@field private functionsAll table All condition functions.
+---@field private functionsAny table Any condition functions.
+---@field private functionsGen table General condition functions.
+---@field private isAny boolean General functions are evaluated as any condition.
+---@field private lid string Class id string for output to DCS log file.
+---@field private name string Name of the condition.
+---@field private negateResult boolean Negate result of evaluation.
+---@field private noneResult boolean Boolean that is returned if no condition functions at all were specified.
+---@field private version string CONDITION class version.
 CONDITION = {}
 
 ---Add a function that is evaluated.
@@ -55,7 +58,7 @@ CONDITION = {}
 ------
 ---@param self CONDITION 
 ---@param Function function The function to call.
----@param ... NOTYPE (Optional) Parameters passed to the function (if any). 
+---@param ...? NOTYPE (Optional) Parameters passed to the function (if any). 
 ---@return CONDITION.Function #Condition function table.
 function CONDITION:AddFunction(Function, ...) end
 
@@ -65,7 +68,7 @@ function CONDITION:AddFunction(Function, ...) end
 ------
 ---@param self CONDITION 
 ---@param Function function The function to call.
----@param ... NOTYPE (Optional) Parameters passed to the function (if any).
+---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
 ---@return CONDITION.Function #Condition function table.
 function CONDITION:AddFunctionAll(Function, ...) end
 
@@ -75,7 +78,7 @@ function CONDITION:AddFunctionAll(Function, ...) end
 ------
 ---@param self CONDITION 
 ---@param Function function The function to call.
----@param ... NOTYPE (Optional) Parameters passed to the function (if any).
+---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
 ---@return CONDITION.Function #Condition function table.
 function CONDITION:AddFunctionAny(Function, ...) end
 
@@ -108,7 +111,7 @@ function CONDITION.IsTimeGreater(Time, Absolute) end
 ---
 ------
 ---@param self CONDITION 
----@param Name string (Optional) Name used in the logs. 
+---@param Name? string (Optional) Name used in the logs. 
 ---@return CONDITION #self
 function CONDITION:New(Name) end
 
@@ -179,7 +182,7 @@ function CONDITION:SetNoneResult(ReturnValue) end
 ---@param self CONDITION 
 ---@param Ftype number Function type: 0=Gen, 1=All, 2=Any.
 ---@param Function function The function to call.
----@param ... NOTYPE (Optional) Parameters passed to the function (if any).
+---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
 ---@return CONDITION.Function #Condition function.
 function CONDITION:_CreateCondition(Ftype, Function, ...) end
 
@@ -202,10 +205,11 @@ function CONDITION:_EvalConditionsAny(functions) end
 
 ---Condition function.
 ---@class CONDITION.Function 
----@field func function Callback function to check for a condition. Must return a `#boolean`.
----@field persistence boolean If `true`, this is persistent.
----@field type string Type of the condition function: "gen", "any", "all".
----@field uid number Unique ID of the condition function.
+---@field private arg table (Optional) Arguments passed to the condition callback function if any.
+---@field private func function Callback function to check for a condition. Must return a `#boolean`.
+---@field private persistence boolean If `true`, this is persistent.
+---@field private type string Type of the condition function: "gen", "any", "all".
+---@field private uid number Unique ID of the condition function.
 CONDITION.Function = {}
 
 

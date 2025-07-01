@@ -12,9 +12,11 @@
 ---the main DCS execution core of your CPU is fully utilized. So, this class will limit the amount of simultaneous moving GROUND units
 ---on defined intervals (currently every minute).
 ---@class MOVEMENT : BASE
+---@field AliveUnits number 
 ---@field MoveCount number 
----@field MoveMaximum  
----@field MovePrefixes  
+---@field MoveMaximum NOTYPE 
+---@field MovePrefixes NOTYPE 
+---@field MoveUnits table 
 MOVEMENT = {}
 
 

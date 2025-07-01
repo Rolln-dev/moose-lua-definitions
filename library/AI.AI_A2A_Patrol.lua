@@ -118,11 +118,11 @@
 ---===
 ---@deprecated
 ---@class AI_A2A_PATROL 
----@field PatrolCeilingAltitude  
----@field PatrolFloorAltitude  
----@field PatrolMaxSpeed  
----@field PatrolMinSpeed  
----@field PatrolZone  
+---@field PatrolCeilingAltitude NOTYPE 
+---@field PatrolFloorAltitude NOTYPE 
+---@field PatrolMaxSpeed NOTYPE 
+---@field PatrolMinSpeed NOTYPE 
+---@field PatrolZone NOTYPE 
 AI_A2A_PATROL = {}
 
 ---Creates a new AI_A2A_PATROL object
@@ -272,6 +272,7 @@ function AI_A2A_PATROL:__Route(Delay) end
 ---@param Event string The Event string.
 ---@param To string The To State string.
 ---@return AI_A2A_PATROL #self
+---@private
 function AI_A2A_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
@@ -282,6 +283,7 @@ function AI_A2A_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_A2A_PATROL:onafterRoute(AIPatrol, From, Event, To) end
 
 

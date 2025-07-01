@@ -25,7 +25,7 @@
 ---  
 ---  * #USERSOUND.New(): Creates a new USERSOUND object.
 ---@class USERSOUND 
----@field UserSoundFileName  
+---@field UserSoundFileName NOTYPE 
 USERSOUND = {}
 
 ---USERSOUND Constructor.
@@ -78,7 +78,7 @@ function USERSOUND:ToAll() end
 ------
 ---@param self USERSOUND 
 ---@param The CLIENT @{Wrapper.Client} to play the usersound to.
----@param Delay number (Optional) Delay in seconds, before the sound is played. Default 0.
+---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@param Client NOTYPE 
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToClient(The, Delay, Client) end
@@ -126,7 +126,7 @@ function USERSOUND:ToCountry(Country) end
 ------
 ---@param self USERSOUND 
 ---@param Group GROUP The @{Wrapper.Group} to play the usersound to.
----@param Delay number (Optional) Delay in seconds, before the sound is played. Default 0.
+---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToGroup(Group, Delay) end
 
@@ -143,7 +143,7 @@ function USERSOUND:ToGroup(Group, Delay) end
 ------
 ---@param self USERSOUND 
 ---@param Unit UNIT The @{Wrapper.Unit} to play the usersound to.
----@param Delay number (Optional) Delay in seconds, before the sound is played. Default 0.
+---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToUnit(Unit, Delay) end
 

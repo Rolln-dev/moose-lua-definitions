@@ -46,9 +46,8 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class AI_CARGO_AIRPLANE 
----@field Airbase  
 ---@field Airplane GROUP 
----@field Coalition  
+---@field Coalition NOTYPE 
 ---@field RouteDeploy boolean 
 ---@field RouteHome boolean 
 ---@field RoutePickup boolean 
@@ -224,6 +223,7 @@ function AI_CARGO_AIRPLANE:__Pickup(Delay, Coordinate, Speed, Height, PickupZone
 ---@param Speed number Speed in km/h for travelling to the deploy base.
 ---@param Height number Height in meters to move to the home coordinate.
 ---@param DeployZone ZONE_AIRBASE The airbase zone where the cargo will be deployed.
+---@private
 function AI_CARGO_AIRPLANE:onafterDeploy(Airplane, From, Event, To, Coordinate, Speed, Height, DeployZone) end
 
 ---On after Home event.
@@ -239,6 +239,7 @@ function AI_CARGO_AIRPLANE:onafterDeploy(Airplane, From, Event, To, Coordinate, 
 ---@param Speed number Speed in km/h to fly to the home airbase (zone). Default is 80% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the home coordinate.
 ---@param HomeZone ZONE_AIRBASE The home airbase (zone) where the plane should return to.
+---@private
 function AI_CARGO_AIRPLANE:onafterHome(Airplane, From, Event, To, Coordinate, Speed, Height, HomeZone) end
 
 ---On after "Landed" event.
@@ -250,6 +251,7 @@ function AI_CARGO_AIRPLANE:onafterHome(Airplane, From, Event, To, Coordinate, Sp
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CARGO_AIRPLANE:onafterLanded(Airplane, From, Event, To) end
 
 ---On after "Pickup" event.
@@ -265,6 +267,7 @@ function AI_CARGO_AIRPLANE:onafterLanded(Airplane, From, Event, To) end
 ---@param Speed number Speed in km/h for travelling to pickup base.
 ---@param Height number Height in meters to move to the pickup coordinate.
 ---@param PickupZone ZONE_AIRBASE The airbase zone where the cargo will be picked up.
+---@private
 function AI_CARGO_AIRPLANE:onafterPickup(Airplane, From, Event, To, Coordinate, Speed, Height, PickupZone) end
 
 ---On after Unload event.
@@ -277,6 +280,7 @@ function AI_CARGO_AIRPLANE:onafterPickup(Airplane, From, Event, To, Coordinate, 
 ---@param Event string Event.
 ---@param To string To state.
 ---@param DeployZone ZONE_AIRBASE The airbase zone where the cargo will be deployed.
+---@private
 function AI_CARGO_AIRPLANE:onafterUnload(Airplane, From, Event, To, DeployZone) end
 
 

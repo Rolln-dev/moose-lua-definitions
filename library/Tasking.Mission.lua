@@ -122,7 +122,8 @@
 ---@class MISSION : FSM
 ---@field MissionBriefing string 
 ---@field MissionMenu MENU_COALITION 
----@field Scoring  
+---@field Scoring NOTYPE 
+---@field _Clients MISSION.Clients 
 MISSION = {}
 
 ---Aborts a PlayerUnit from the Mission.
@@ -778,6 +779,7 @@ function MISSION:__Stop(Delay) end
 ---@param From string 
 ---@param Event string 
 ---@param To string 
+---@private
 function MISSION:onenterCOMPLETED(From, Event, To) end
 
 

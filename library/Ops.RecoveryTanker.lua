@@ -226,37 +226,37 @@
 ---@field TACANmorse string TACAN morse code. Three letters identifying the TACAN station. Default "TKR".
 ---@field TACANon boolean If true, TACAN is automatically activated. If false, TACAN is disabled.
 ---@field Tupdate number Last time the pattern was updated.
----@field airbase AIRBASE The home airbase object of the tanker. Normally the aircraft carrier.
----@field alias string Alias of the spawn group.
----@field altitude number Tanker orbit pattern altitude.
----@field awacs boolean If true, the groups gets the enroute task AWACS instead of tanker.
----@field beacon BEACON Tanker TACAN beacon.
----@field callsignname number Number for the callsign name.
----@field callsignnumber number Number of the callsign name.
----@field carrier UNIT The carrier the tanker is attached to.
----@field carriertype string Carrier type.
----@field dTupdate number Minimum time interval in seconds before the next pattern update can happen.
----@field distBow number Race-track distance bow. distBow is >0.
----@field distStern number Race-track distance astern. distStern is <0.
----@field eplrs boolean If true, enable data link, e.g. if used as AWACS.
----@field lid string Log debug id text.
----@field lowfuel number Low fuel threshold in percent.
----@field modex string Tail number of the tanker.
----@field orientation Vec3 Orientation of the carrier. Used to monitor changes and update the pattern if heading changes significantly.
----@field orientlast Vec3 Orientation of the carrier for checking if carrier is currently turning.
----@field position COORDINATE Position of carrier. Used to monitor if carrier significantly changed its position and then update the tanker pattern.
----@field recovery boolean If true, tanker will recover using the AIRBOSS marshal pattern.
----@field respawn boolean If true, tanker be respawned (default). If false, no respawning will happen.
----@field respawninair boolean If true, tanker will always be respawned in air. This has no impact on the initial spawn setting.
----@field speed number Tanker speed when flying pattern.
----@field takeoff number Takeoff type (cold, hot, air).
----@field tanker GROUP Tanker group.
----@field tankergroupname string Name of the late activated tanker template group.
----@field terminaltype number Terminal type of used parking spots on airbases.
----@field uid number Unique ID of this tanker.
----@field uncontrolledac boolean If true, use and uncontrolled tanker group already present in the mission.
----@field unlimitedfuel boolean If true, the tanker will have unlimited fuel.
----@field version string Class version.
+---@field private airbase AIRBASE The home airbase object of the tanker. Normally the aircraft carrier.
+---@field private alias string Alias of the spawn group.
+---@field private altitude number Tanker orbit pattern altitude.
+---@field private awacs boolean If true, the groups gets the enroute task AWACS instead of tanker.
+---@field private beacon BEACON Tanker TACAN beacon.
+---@field private callsignname number Number for the callsign name.
+---@field private callsignnumber number Number of the callsign name.
+---@field private carrier UNIT The carrier the tanker is attached to.
+---@field private carriertype string Carrier type.
+---@field private dTupdate number Minimum time interval in seconds before the next pattern update can happen.
+---@field private distBow number Race-track distance bow. distBow is >0.
+---@field private distStern number Race-track distance astern. distStern is <0.
+---@field private eplrs boolean If true, enable data link, e.g. if used as AWACS.
+---@field private lid string Log debug id text.
+---@field private lowfuel number Low fuel threshold in percent.
+---@field private modex string Tail number of the tanker.
+---@field private orientation Vec3 Orientation of the carrier. Used to monitor changes and update the pattern if heading changes significantly.
+---@field private orientlast Vec3 Orientation of the carrier for checking if carrier is currently turning.
+---@field private position COORDINATE Position of carrier. Used to monitor if carrier significantly changed its position and then update the tanker pattern.
+---@field private recovery boolean If true, tanker will recover using the AIRBOSS marshal pattern.
+---@field private respawn boolean If true, tanker be respawned (default). If false, no respawning will happen.
+---@field private respawninair boolean If true, tanker will always be respawned in air. This has no impact on the initial spawn setting.
+---@field private speed number Tanker speed when flying pattern.
+---@field private takeoff number Takeoff type (cold, hot, air).
+---@field private tanker GROUP Tanker group.
+---@field private tankergroupname string Name of the late activated tanker template group.
+---@field private terminaltype number Terminal type of used parking spots on airbases.
+---@field private uid number Unique ID of this tanker.
+---@field private uncontrolledac boolean If true, use and uncontrolled tanker group already present in the mission.
+---@field private unlimitedfuel boolean If true, the tanker will have unlimited fuel.
+---@field private version string Class version.
 RECOVERYTANKER = {}
 
 ---Alias of tanker spawn group.
@@ -485,7 +485,7 @@ function RECOVERYTANKER:SetDebugModeON() end
 ------
 ---@param self RECOVERYTANKER 
 ---@param airbase AIRBASE The home airbase. Can be the airbase name or a Moose AIRBASE object.
----@param terminaltype number (Optional) The terminal type of parking spots used for spawning at airbases. Default AIRBASE.TerminalType.OpenMedOrBig.
+---@param terminaltype? number (Optional) The terminal type of parking spots used for spawning at airbases. Default AIRBASE.TerminalType.OpenMedOrBig.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetHomeBase(airbase, terminaltype) end
 
@@ -805,6 +805,7 @@ function RECOVERYTANKER:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RECOVERYTANKER:onafterPatternUpdate(From, Event, To) end
 
 ---On after "RTB" event.
@@ -816,6 +817,7 @@ function RECOVERYTANKER:onafterPatternUpdate(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The airbase where the tanker should return to.
+---@private
 function RECOVERYTANKER:onafterRTB(From, Event, To, airbase) end
 
 ---On after Returned event.
@@ -827,6 +829,7 @@ function RECOVERYTANKER:onafterRTB(From, Event, To, airbase) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The base at which the tanker landed.
+---@private
 function RECOVERYTANKER:onafterReturned(From, Event, To, airbase) end
 
 ---On after Start event.
@@ -837,6 +840,7 @@ function RECOVERYTANKER:onafterReturned(From, Event, To, airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RECOVERYTANKER:onafterStart(From, Event, To) end
 
 ---On after Status event.
@@ -847,6 +851,7 @@ function RECOVERYTANKER:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RECOVERYTANKER:onafterStatus(From, Event, To) end
 
 ---On after Stop event.
@@ -857,6 +862,7 @@ function RECOVERYTANKER:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RECOVERYTANKER:onafterStop(From, Event, To) end
 
 

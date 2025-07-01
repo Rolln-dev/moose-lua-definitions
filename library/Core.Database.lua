@@ -52,7 +52,13 @@
 ---The singleton object **_DATABASE** is automatically created by MOOSE, that administers all objects within the mission.
 ---Moose refers to **_DATABASE** within the framework extensively, but you can also refer to the _DATABASE object within your missions if required.
 ---@class DATABASE : BASE
+---@field CLIENTS table Clients.
 ---@field ClassName string Name of the class.
+---@field DYNAMICCARGO table Dynamic Cargo objects.
+---@field SADL table Used Link16 octal numbers for A10/C-II planes.
+---@field STNS table Used Link16 octal numbers for F16/15/18/AWACS planes.
+---@field STORAGES table DCS warehouse storages.
+---@field Templates table Templates: Units, Groups, Statics, ClientsByName, ClientsByID.
 ---@field UNITS_Position number 
 DATABASE = {}
 
@@ -91,7 +97,7 @@ function DATABASE:AddCargo(CargoName, Cargo) end
 ------
 ---@param self DATABASE 
 ---@param ClientName string Name of the Client unit.
----@param Force boolean (optional) Force registration of client.
+---@param Force? boolean (optional) Force registration of client.
 ---@return CLIENT #The client object.
 function DATABASE:AddClient(ClientName, Force) end
 
@@ -838,7 +844,7 @@ function DATABASE:_RegisterDynamicGroup(Groupname) end
 ---@param CoalitionSide coalition.side The coalition.side of the object.
 ---@param CategoryID Object.Category The Object.category of the object.
 ---@param CountryID country.id the country ID of the object.
----@param GroupName string (Optional) The name of the group. Default is `GroupTemplate.name`.
+---@param GroupName? string (Optional) The name of the group. Default is `GroupTemplate.name`.
 ---@return DATABASE #self
 function DATABASE:_RegisterGroupTemplate(GroupTemplate, CoalitionSide, CategoryID, CountryID, GroupName) end
 

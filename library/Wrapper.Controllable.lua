@@ -176,10 +176,10 @@
 ---@class CONTROLLABLE : POSITIONABLE
 ---@field ControllableName string The name of the controllable.
 ---@field DCSControllable Controllable The DCS controllable class.
----@field IRMarkerUnit boolean 
----@field TaskScheduler  
----@field WayPoints  
----@field timer  
+---@field IRMarkerGroup boolean 
+---@field TaskScheduler NOTYPE 
+---@field WayPoints NOTYPE 
+---@field private spot NOTYPE 
 CONTROLLABLE = {}
 
 ---Clear all tasks from the controllable.
@@ -194,9 +194,9 @@ function CONTROLLABLE:ClearTasks() end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param UnitID number (Optional) The DCS UNIT ID of the unit the ACLS system is attached to. Defaults to the UNIT itself.
----@param Name string (Optional) Name of the ACLS Beacon
----@param Delay number (Optional) Delay in seconds before the ICLS is activated.
+---@param UnitID? number (Optional) The DCS UNIT ID of the unit the ACLS system is attached to. Defaults to the UNIT itself.
+---@param Name? string (Optional) Name of the ACLS Beacon
+---@param Delay? number (Optional) Delay in seconds before the ICLS is activated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandActivateACLS(UnitID, Name, Delay) end
 
@@ -216,7 +216,7 @@ function CONTROLLABLE:CommandActivateACLS(UnitID, Name, Delay) end
 ---@param AA boolean If true, create and Air-Air beacon. IF nil, automatically set if CONTROLLABLE depending on whether unit is and aircraft or not.
 ---@param Callsign string Morse code identification callsign.
 ---@param Bearing boolean If true, beacon provides bearing information - if supported by the unit the beacon is attached to.
----@param Delay number (Optional) Delay in seconds before the beacon is activated.
+---@param Delay? number (Optional) Delay in seconds before the beacon is activated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandActivateBeacon(Type, System, Frequency, UnitID, Channel, ModeChannel, AA, Callsign, Bearing, Delay) end
 
@@ -228,7 +228,7 @@ function CONTROLLABLE:CommandActivateBeacon(Type, System, Frequency, UnitID, Cha
 ---@param Channel number ICLS channel.
 ---@param UnitID number The DCS UNIT ID of the unit the ICLS system is attached to. Useful if more units are in one group.
 ---@param Callsign string Morse code identification callsign.
----@param Delay number (Optional) Delay in seconds before the ICLS is activated.
+---@param Delay? number (Optional) Delay in seconds before the ICLS is activated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandActivateICLS(Channel, UnitID, Callsign, Delay) end
 
@@ -238,9 +238,9 @@ function CONTROLLABLE:CommandActivateICLS(Channel, UnitID, Callsign, Delay) end
 ------
 ---@param self CONTROLLABLE 
 ---@param Frequency number Link4 Frequency in MHz, e.g. 336 (defaults to 336 MHz)
----@param UnitID number (Optional) The DCS UNIT ID of the unit the LINK4 system is attached to. Defaults to the UNIT itself.
----@param Callsign string (Optional) Morse code identification callsign.
----@param Delay number (Optional) Delay in seconds before the LINK4 is activated.
+---@param UnitID? number (Optional) The DCS UNIT ID of the unit the LINK4 system is attached to. Defaults to the UNIT itself.
+---@param Callsign? string (Optional) Morse code identification callsign.
+---@param Delay? number (Optional) Delay in seconds before the LINK4 is activated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandActivateLink4(Frequency, UnitID, Callsign, Delay) end
 
@@ -249,7 +249,7 @@ function CONTROLLABLE:CommandActivateLink4(Frequency, UnitID, Callsign, Delay) e
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay in seconds before the ICLS is deactivated.
+---@param Delay? number (Optional) Delay in seconds before the ICLS is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateACLS(Delay) end
 
@@ -257,7 +257,7 @@ function CONTROLLABLE:CommandDeactivateACLS(Delay) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay in seconds before the beacon is deactivated.
+---@param Delay? number (Optional) Delay in seconds before the beacon is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateBeacon(Delay) end
 
@@ -265,7 +265,7 @@ function CONTROLLABLE:CommandDeactivateBeacon(Delay) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay in seconds before the ICLS is deactivated.
+---@param Delay? number (Optional) Delay in seconds before the ICLS is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateICLS(Delay) end
 
@@ -273,7 +273,7 @@ function CONTROLLABLE:CommandDeactivateICLS(Delay) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay in seconds before the Link4 is deactivated.
+---@param Delay? number (Optional) Delay in seconds before the Link4 is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateLink4(Delay) end
 
@@ -291,7 +291,7 @@ function CONTROLLABLE:CommandDoScript(DoScript) end
 ------
 ---@param self CONTROLLABLE 
 ---@param SwitchOnOff boolean If true (or nil) switch EPLRS on. If false switch off.
----@param Delay number (Optional) Delay in seconds before the callsign is set. Default is immediately.
+---@param Delay? number (Optional) Delay in seconds before the callsign is set. Default is immediately.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandEPLRS(SwitchOnOff, Delay) end
 
@@ -302,7 +302,7 @@ function CONTROLLABLE:CommandEPLRS(SwitchOnOff, Delay) end
 ---@param self CONTROLLABLE 
 ---@param CallName CALLSIGN Number corresponding the the callsign identifier you wish this group to be called.
 ---@param CallNumber number The number value the group will be referred to as. Only valid numbers are 1-9. For example Uzi **5**-1. Default 1.
----@param Delay number (Optional) Delay in seconds before the callsign is set. Default is immediately.
+---@param Delay? number (Optional) Delay in seconds before the callsign is set. Default is immediately.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSetCallsign(CallName, CallNumber, Delay) end
 
@@ -313,8 +313,8 @@ function CONTROLLABLE:CommandSetCallsign(CallName, CallNumber, Delay) end
 ---@param self CONTROLLABLE 
 ---@param Frequency number Radio frequency in MHz.
 ---@param Modulation number Radio modulation. Default `radio.modulation.AM`.
----@param Power number (Optional) Power of the Radio in Watts. Defaults to 10.
----@param Delay number (Optional) Delay in seconds before the frequency is set. Default is immediately.
+---@param Power? number (Optional) Power of the Radio in Watts. Defaults to 10.
+---@param Delay? number (Optional) Delay in seconds before the frequency is set. Default is immediately.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSetFrequency(Frequency, Modulation, Power, Delay) end
 
@@ -325,9 +325,9 @@ function CONTROLLABLE:CommandSetFrequency(Frequency, Modulation, Power, Delay) e
 ---@param self CONTROLLABLE 
 ---@param Frequency number Radio frequency in MHz.
 ---@param Modulation number Radio modulation. Default `radio.modulation.AM`.
----@param Power number (Optional) Power of the Radio in Watts. Defaults to 10.
+---@param Power? number (Optional) Power of the Radio in Watts. Defaults to 10.
 ---@param UnitID number (Optional, if your object is a UNIT) The UNIT ID this is for.
----@param Delay number (Optional) Delay in seconds before the frequency is set. Default is immediately.
+---@param Delay? number (Optional) Delay in seconds before the frequency is set. Default is immediately.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSetFrequencyForUnit(Frequency, Modulation, Power, UnitID, Delay) end
 
@@ -337,7 +337,7 @@ function CONTROLLABLE:CommandSetFrequencyForUnit(Frequency, Modulation, Power, U
 ------
 ---@param self CONTROLLABLE 
 ---@param OnOff boolean Set unlimited fuel on = true or off = false.
----@param Delay number (Optional) Set the option only after x seconds.
+---@param Delay? number (Optional) Set the option only after x seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSetUnlimitedFuel(OnOff, Delay) end
 
@@ -346,7 +346,7 @@ function CONTROLLABLE:CommandSetUnlimitedFuel(OnOff, Delay) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay the command by this many seconds.
+---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSmokeOFF(Delay) end
 
@@ -355,7 +355,7 @@ function CONTROLLABLE:CommandSmokeOFF(Delay) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param Delay number (Optional) Delay the command by this many seconds.
+---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSmokeON(Delay) end
 
@@ -365,7 +365,7 @@ function CONTROLLABLE:CommandSmokeON(Delay) end
 ------
 ---@param self CONTROLLABLE 
 ---@param OnOff boolean Set to true for on and false for off. Defaults to true.
----@param Delay number (Optional) Delay the command by this many seconds.
+---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSmokeOnOff(OnOff, Delay) end
 
@@ -448,7 +448,7 @@ function CONTROLLABLE:EnRouteTaskAWACS() end
 ------
 ---@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Ships"}`.
----@param Priority number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
+---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskAntiShip(TargetTypes, Priority) end
 
@@ -457,7 +457,7 @@ function CONTROLLABLE:EnRouteTaskAntiShip(TargetTypes, Priority) end
 ------
 ---@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Air"}`.
----@param Priority number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
+---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskCAP(TargetTypes, Priority) end
 
@@ -479,12 +479,12 @@ function CONTROLLABLE:EnRouteTaskEWR() end
 ---@param self CONTROLLABLE 
 ---@param AttackGroup CONTROLLABLE The Controllable to be attacked.
 ---@param Priority number All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first.
----@param WeaponType number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude Distance (optional) Desired attack start altitude. Controllable/aircraft will make its attacks from the altitude. If the altitude is too low or too high to use weapon aircraft/controllable will choose closest altitude to the desired attack start altitude. If the desired altitude is defined controllable/aircraft will not attack from safe altitude.
----@param AttackQtyLimit boolean (optional) The flag determines how to interpret attackQty parameter. If the flag is true then attackQty is a limit on maximal attack quantity for "AttackGroup" and "AttackUnit" tasks. If the flag is false then attackQty is a desired attack quantity for "Bombing" and "BombingRunway" tasks.
+---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? Distance (optional) Desired attack start altitude. Controllable/aircraft will make its attacks from the altitude. If the altitude is too low or too high to use weapon aircraft/controllable will choose closest altitude to the desired attack start altitude. If the desired altitude is defined controllable/aircraft will not attack from safe altitude.
+---@param AttackQtyLimit? boolean (optional) The flag determines how to interpret attackQty parameter. If the flag is true then attackQty is a limit on maximal attack quantity for "AttackGroup" and "AttackUnit" tasks. If the flag is false then attackQty is a desired attack quantity for "Bombing" and "BombingRunway" tasks.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskEngageGroup(AttackGroup, Priority, WeaponType, WeaponExpend, AttackQty, Direction, Altitude, AttackQtyLimit) end
 
@@ -504,8 +504,8 @@ function CONTROLLABLE:EnRouteTaskEngageTargets(Distance, TargetTypes, Priority) 
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the zone.
 ---@param Radius Distance Radius of the zone.
----@param TargetTypes AttributeNameArray (Optional) Array of target categories allowed to engage. Default {"Air"}.
----@param Priority number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
+---@param TargetTypes? AttributeNameArray (Optional) Array of target categories allowed to engage. Default {"Air"}.
+---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskEngageTargetsInZone(Vec2, Radius, TargetTypes, Priority) end
 
@@ -515,14 +515,14 @@ function CONTROLLABLE:EnRouteTaskEngageTargetsInZone(Vec2, Radius, TargetTypes, 
 ------
 ---@param self CONTROLLABLE 
 ---@param EngageUnit UNIT The UNIT.
----@param Priority number (optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first.
----@param GroupAttack boolean (optional) If true, all units in the group will attack the Unit when found.
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude Distance (optional) Desired altitude to perform the unit engagement.
----@param Visible boolean (optional) Unit must be visible.
----@param ControllableAttack boolean (optional) Flag indicates that the target must be engaged by all aircrafts of the controllable. Has effect only if the task is assigned to a controllable, not to a single aircraft.
+---@param Priority? number (optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first.
+---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? Distance (optional) Desired altitude to perform the unit engagement.
+---@param Visible? boolean (optional) Unit must be visible.
+---@param ControllableAttack? boolean (optional) Flag indicates that the target must be engaged by all aircrafts of the controllable. Has effect only if the task is assigned to a controllable, not to a single aircraft.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskEngageUnit(EngageUnit, Priority, GroupAttack, WeaponExpend, AttackQty, Direction, Altitude, Visible, ControllableAttack) end
 
@@ -549,10 +549,10 @@ function CONTROLLABLE:EnRouteTaskFAC(Frequency, Modulation, CallsignID, Callsign
 ------
 ---@param self CONTROLLABLE 
 ---@param AttackGroup CONTROLLABLE Target CONTROLLABLE.
----@param Priority number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default is 0.
----@param WeaponType number (Optional) Bitmask of weapon types those allowed to use. Default is "Auto".
----@param Designation AI.Task.Designation (Optional) Designation type.
----@param Datalink boolean (optional) Allows to use datalink to send the target information to attack aircraft. Enabled by default.
+---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default is 0.
+---@param WeaponType? number (Optional) Bitmask of weapon types those allowed to use. Default is "Auto".
+---@param Designation? AI.Task.Designation (Optional) Designation type.
+---@param Datalink? boolean (optional) Allows to use datalink to send the target information to attack aircraft. Enabled by default.
 ---@param CallsignID number CallsignID, e.g. `CALLSIGN.JTAC.Anvil` for ground or `CALLSIGN.Aircraft.Ford` for air.
 ---@param CallsignNumber number Callsign first number, e.g. 2 for `Ford-2`.
 ---@param Frequency NOTYPE 
@@ -565,7 +565,7 @@ function CONTROLLABLE:EnRouteTaskFAC_EngageGroup(AttackGroup, Priority, WeaponTy
 ------
 ---@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Air Defence"}`.
----@param Priority number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
+---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskSEAD(TargetTypes, Priority) end
 
@@ -600,12 +600,12 @@ function CONTROLLABLE:EnableIRMarkerForGroup(Runtime) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 ---@return SET_GROUP #Set of detected groups.
 function CONTROLLABLE:GetDetectedGroupSet(DetectVisual, DetectOptical, DetectRadar, DetectIRST, DetectRWR, DetectDLINK) end
 
@@ -615,12 +615,12 @@ function CONTROLLABLE:GetDetectedGroupSet(DetectVisual, DetectOptical, DetectRad
 ---
 ------
 ---@param self CONTROLLABLE 
----@param DetectVisual boolean (optional)
----@param DetectOptical boolean (optional)
----@param DetectRadar boolean (optional)
----@param DetectIRST boolean (optional)
----@param DetectRWR boolean (optional)
----@param DetectDLINK boolean (optional)
+---@param DetectVisual? boolean (optional)
+---@param DetectOptical? boolean (optional)
+---@param DetectRadar? boolean (optional)
+---@param DetectIRST? boolean (optional)
+---@param DetectRWR? boolean (optional)
+---@param DetectDLINK? boolean (optional)
 ---@return table #DetectedTargets
 function CONTROLLABLE:GetDetectedTargets(DetectVisual, DetectOptical, DetectRadar, DetectIRST, DetectRWR, DetectDLINK) end
 
@@ -631,12 +631,12 @@ function CONTROLLABLE:GetDetectedTargets(DetectVisual, DetectOptical, DetectRada
 ---
 ------
 ---@param self CONTROLLABLE 
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 ---@return SET_UNIT #Set of detected units.
 function CONTROLLABLE:GetDetectedUnitSet(DetectVisual, DetectOptical, DetectRadar, DetectIRST, DetectRWR, DetectDLINK) end
 
@@ -731,12 +731,12 @@ function CONTROLLABLE:IsAirPlane() end
 ------
 ---@param self CONTROLLABLE 
 ---@param Group GROUP The group that is supposed to be detected.
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 ---@return boolean #True if any unit of the group is detected.
 function CONTROLLABLE:IsGroupDetected(Group, DetectVisual, DetectOptical, DetectRadar, DetectIRST, DetectRWR, DetectDLINK) end
 
@@ -764,12 +764,12 @@ function CONTROLLABLE:IsSubmarine() end
 ------
 ---@param self CONTROLLABLE 
 ---@param DCSObject Object The DCS object that is checked.
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 ---@return boolean #`true` if target is detected.
 ---@return boolean #`true` if target is *currently* visible by line of sight. Target must be detected (first parameter returns `true`).
 ---@return boolean #`true` if target type is known. Target must be detected (first parameter returns `true`).
@@ -788,12 +788,12 @@ function CONTROLLABLE:IsTargetDetected(DCSObject, DetectVisual, DetectOptical, D
 ------
 ---@param self CONTROLLABLE 
 ---@param Unit UNIT The unit that is supposed to be detected.
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 ---@return boolean #`true` if target is detected.
 ---@return boolean #`true` if target is *currently* visible by line of sight. Target must be detected (first parameter returns `true`).
 ---@return boolean #`true` if target type is known. Target must be detected (first parameter returns `true`).
@@ -1125,11 +1125,11 @@ function CONTROLLABLE:OptionRestrictBurner(RestrictBurner) end
 ---@param self CONTROLLABLE 
 ---@param Point1 COORDINATE Start point.
 ---@param Point2 COORDINATE End point.
----@param Altitude number (Optional) Altitude in meters. Defaults to the altitude of the coordinate.
----@param Speed number (Optional) Speed in kph. Defaults to 500 kph.
----@param Formation number (Optional) Formation to take, e.g. ENUMS.Formation.FixedWing.Trail.Close, also see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_option_formation).
----@param AGL boolean (Optional) If true, set altitude to above ground level (AGL), not above sea level (ASL).
----@param Delay number  (Optional) Set the task after delay seconds only.
+---@param Altitude? number (Optional) Altitude in meters. Defaults to the altitude of the coordinate.
+---@param Speed? number (Optional) Speed in kph. Defaults to 500 kph.
+---@param Formation? number (Optional) Formation to take, e.g. ENUMS.Formation.FixedWing.Trail.Close, also see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_option_formation).
+---@param AGL? boolean (Optional) If true, set altitude to above ground level (AGL), not above sea level (ASL).
+---@param Delay? number  (Optional) Set the task after delay seconds only.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:PatrolRaceTrack(Point1, Point2, Altitude, Speed, Formation, AGL, Delay) end
 
@@ -1158,7 +1158,7 @@ function CONTROLLABLE:PatrolRouteRandom(Speed, Formation, ToWaypoint) end
 ---@param self CONTROLLABLE 
 ---@param ZoneList table Table of zones.
 ---@param Speed number Speed in km/h the group moves at.
----@param Formation string (Optional) Formation the group should use.
+---@param Formation? string (Optional) Formation the group should use.
 ---@param DelayMin number Delay in seconds before the group progresses to the next route point. Default 1 sec.
 ---@param DelayMax number Max. delay in seconds. Actual delay is randomly chosen between DelayMin and DelayMax. Default equal to DelayMin.
 ---@return CONTROLLABLE #
@@ -1189,7 +1189,7 @@ function CONTROLLABLE:PushTask(DCSTask, WaitTime) end
 ---@param onroad boolean If true, route on road (less problems with AI way finding), default true
 ---@param shortcut boolean If true and onroad is set, take a shorter route - if available - off road, default false
 ---@param formation string Formation string as in the mission editor, e.g. "Vee", "Diamond", "Line abreast", etc. Defaults to "Off Road"
----@param onland boolean (optional) If true, try up to 50 times to get a coordinate on land.SurfaceType.LAND. Note - this descriptor value is not reliably implemented on all maps.
+---@param onland? boolean (optional) If true, try up to 50 times to get a coordinate on land.SurfaceType.LAND. Note - this descriptor value is not reliably implemented on all maps.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:RelocateGroundRandomInRadius(speed, radius, onroad, shortcut, formation, onland) end
 
@@ -1198,7 +1198,7 @@ function CONTROLLABLE:RelocateGroundRandomInRadius(speed, radius, onroad, shortc
 ------
 ---@param self CONTROLLABLE 
 ---@param Route table A table of Route Points.
----@param DelaySeconds number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
+---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:Route(Route, DelaySeconds) end
 
@@ -1210,7 +1210,7 @@ function CONTROLLABLE:Route(Route, DelaySeconds) end
 ---@param AltType COORDINATE.RoutePointAltType The altitude type.
 ---@param Type COORDINATE.RoutePointType The route point type.
 ---@param Action COORDINATE.RoutePointAction The route point action.
----@param Speed number (optional) Speed in km/h. The default speed is 500 km/h.
+---@param Speed? number (optional) Speed in km/h. The default speed is 500 km/h.
 ---@param DelaySeconds number Wait for the specified seconds before executing the Route.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:RouteAirTo(ToCoordinate, AltType, Type, Action, Speed, DelaySeconds) end
@@ -1220,10 +1220,10 @@ function CONTROLLABLE:RouteAirTo(ToCoordinate, AltType, Type, Action, Speed, Del
 ------
 ---@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param DelaySeconds number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
----@param WaypointFunction function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
----@param WaypointFunctionArguments table (Optional) List of parameters passed to the *WaypointFunction*.
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
+---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
+---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:RouteGroundOnRailRoads(ToCoordinate, Speed, DelaySeconds, WaypointFunction, WaypointFunctionArguments) end
 
@@ -1232,11 +1232,11 @@ function CONTROLLABLE:RouteGroundOnRailRoads(ToCoordinate, Speed, DelaySeconds, 
 ------
 ---@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param DelaySeconds number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
----@param OffRoadFormation string (Optional) The formation at initial and final waypoint. Default is "Off Road".
----@param WaypointFunction function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
----@param WaypointFunctionArguments table (Optional) List of parameters passed to the *WaypointFunction*.
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
+---@param OffRoadFormation? string (Optional) The formation at initial and final waypoint. Default is "Off Road".
+---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
+---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:RouteGroundOnRoad(ToCoordinate, Speed, DelaySeconds, OffRoadFormation, WaypointFunction, WaypointFunctionArguments) end
 
@@ -1245,11 +1245,11 @@ function CONTROLLABLE:RouteGroundOnRoad(ToCoordinate, Speed, DelaySeconds, OffRo
 ------
 ---@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
----@param Speed number (optional) Speed in km/h. The default speed is 20 km/h.
----@param Formation string (optional) The route point Formation, which is a text string that specifies exactly the Text in the Type of the route point, like "Vee", "Echelon Right".
+---@param Speed? number (optional) Speed in km/h. The default speed is 20 km/h.
+---@param Formation? string (optional) The route point Formation, which is a text string that specifies exactly the Text in the Type of the route point, like "Vee", "Echelon Right".
 ---@param DelaySeconds number Wait for the specified seconds before executing the Route.
----@param WaypointFunction function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
----@param WaypointFunctionArguments table (Optional) List of parameters passed to the *WaypointFunction*.
+---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
+---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:RouteGroundTo(ToCoordinate, Speed, Formation, DelaySeconds, WaypointFunction, WaypointFunctionArguments) end
 
@@ -1258,7 +1258,7 @@ function CONTROLLABLE:RouteGroundTo(ToCoordinate, Speed, Formation, DelaySeconds
 ------
 ---@param self CONTROLLABLE 
 ---@param Route table A table of Route Points.
----@param DelaySeconds number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
+---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
 ---@return CONTROLLABLE #The CONTROLLABLE.
 function CONTROLLABLE:RoutePush(Route, DelaySeconds) end
 
@@ -1299,8 +1299,8 @@ function CONTROLLABLE:RouteToVec3(Point, Speed) end
 ------
 ---@param self CONTROLLABLE 
 ---@param Altitude number Altitude in meters.
----@param Keep boolean (Optional) When set to true, will maintain the altitude on passing waypoints. If not present or false, the controlled group will return to the altitude as defined by their route.
----@param AltType string (Optional) Specifies the altitude type used. If nil, the altitude type of the current waypoint will be used. Accepted values are "BARO" and "RADIO".
+---@param Keep? boolean (Optional) When set to true, will maintain the altitude on passing waypoints. If not present or false, the controlled group will return to the altitude as defined by their route.
+---@param AltType? string (Optional) Specifies the altitude type used. If nil, the altitude type of the current waypoint will be used. Accepted values are "BARO" and "RADIO".
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetAltitude(Altitude, Keep, AltType) end
 
@@ -1403,7 +1403,7 @@ function CONTROLLABLE:SetOptionWaypointPassReport(OnOff) end
 ------
 ---@param self CONTROLLABLE 
 ---@param Speed number Speed in meters per second
----@param Keep boolean (Optional) When set to true, will maintain the speed on passing waypoints. If not present or false, the controlled group will return to the speed as defined by their route.
+---@param Keep? boolean (Optional) When set to true, will maintain the speed on passing waypoints. If not present or false, the controlled group will return to the speed as defined by their route.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetSpeed(Speed, Keep) end
 
@@ -1429,7 +1429,7 @@ function CONTROLLABLE:SetTaskWaypoint(Waypoint, Task) end
 ---
 ------
 ---@param self CONTROLLABLE 
----@param delay number (Optional) Delay before start command in seconds.
+---@param delay? number (Optional) Delay before start command in seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:StartUncontrolled(delay) end
 
@@ -1459,15 +1459,15 @@ function CONTROLLABLE:TaskAerobatics() end
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param RollRate number (Optional) How many degrees to roll per sec(?), can be between 15 and 450, defaults to 90.
----@param TurnAngle number (Optional) Angles to turn overall, defaults to 360.
----@param FixAngle number (Optional) No idea what this does, can be between 0 and 180 degrees, defaults to 180.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param RollRate? number (Optional) How many degrees to roll per sec(?), can be between 15 and 450, defaults to 90.
+---@param TurnAngle? number (Optional) Angles to turn overall, defaults to 360.
+---@param FixAngle? number (Optional) No idea what this does, can be between 0 and 180 degrees, defaults to 180.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsAileronRoll(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side, RollRate, TurnAngle, FixAngle) end
 
@@ -1476,14 +1476,14 @@ function CONTROLLABLE:TaskAerobaticsAileronRoll(TaskAerobatics, Repeats, InitAlt
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param RollRate number (Optional) How many degrees to roll per sec(?), can be between 15 and 450, defaults to 90.
----@param TurnAngle number (Optional) Turn angle, defaults to 360 degrees.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param RollRate? number (Optional) How many degrees to roll per sec(?), can be between 15 and 450, defaults to 90.
+---@param TurnAngle? number (Optional) Turn angle, defaults to 360 degrees.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsBarrelRoll(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side, RollRate, TurnAngle) end
 
@@ -1492,11 +1492,11 @@ function CONTROLLABLE:TaskAerobaticsBarrelRoll(TaskAerobatics, Repeats, InitAlti
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsCandle(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately) end
 
@@ -1505,13 +1505,13 @@ function CONTROLLABLE:TaskAerobaticsCandle(TaskAerobatics, Repeats, InitAltitude
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Angle number (Optional) Angle to climb. Can be between 15 and 90 degrees. Defaults to 45 degrees.
----@param FinalAltitude number (Optional) Altitude to climb to in meters. Defaults to 5000m.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Angle? number (Optional) Angle to climb. Can be between 15 and 90 degrees. Defaults to 45 degrees.
+---@param FinalAltitude? number (Optional) Altitude to climb to in meters. Defaults to 5000m.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsClimb(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Angle, FinalAltitude) end
 
@@ -1520,13 +1520,13 @@ function CONTROLLABLE:TaskAerobaticsClimb(TaskAerobatics, Repeats, InitAltitude,
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 5000.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Angle number (Optional) With how many degrees to dive, defaults to 45. Can be 15 to 90 degrees.
----@param FinalAltitude number (Optional) Final altitude in meters, defaults to 1000.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 5000.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Angle? number (Optional) With how many degrees to dive, defaults to 45. Can be 15 to 90 degrees.
+---@param FinalAltitude? number (Optional) Final altitude in meters, defaults to 1000.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsDive(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Angle, FinalAltitude) end
 
@@ -1535,13 +1535,13 @@ function CONTROLLABLE:TaskAerobaticsDive(TaskAerobatics, Repeats, InitAltitude, 
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param FlightTime number (Optional) Time to fly this manoever in seconds, defaults to 10.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param FlightTime? number (Optional) Time to fly this manoever in seconds, defaults to 10.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsEdgeFlight(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, FlightTime, Side) end
 
@@ -1550,15 +1550,15 @@ function CONTROLLABLE:TaskAerobaticsEdgeFlight(TaskAerobatics, Repeats, InitAlti
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param TurnAngle number (Optional) Angles to turn, defaults to 360.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param FlightTime number (Optional) Flight time in seconds for thos maneuver. Defaults to 30.
----@param MinSpeed number (Optional) Minimum speed to keep in kph, defaults to 250 kph.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param TurnAngle? number (Optional) Angles to turn, defaults to 360.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param FlightTime? number (Optional) Flight time in seconds for thos maneuver. Defaults to 30.
+---@param MinSpeed? number (Optional) Minimum speed to keep in kph, defaults to 250 kph.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsForcedTurn(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, TurnAngle, Side, FlightTime, MinSpeed) end
 
@@ -1567,12 +1567,12 @@ function CONTROLLABLE:TaskAerobaticsForcedTurn(TaskAerobatics, Repeats, InitAlti
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsHammerhead(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side) end
 
@@ -1581,13 +1581,13 @@ function CONTROLLABLE:TaskAerobaticsHammerhead(TaskAerobatics, Repeats, InitAlti
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param RollDeg number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param RollDeg? number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsHorizontalEight(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side, RollDeg) end
 
@@ -1596,11 +1596,11 @@ function CONTROLLABLE:TaskAerobaticsHorizontalEight(TaskAerobatics, Repeats, Ini
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsImmelmann(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately) end
 
@@ -1609,11 +1609,11 @@ function CONTROLLABLE:TaskAerobaticsImmelmann(TaskAerobatics, Repeats, InitAltit
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsLoop(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately) end
 
@@ -1622,11 +1622,11 @@ function CONTROLLABLE:TaskAerobaticsLoop(TaskAerobatics, Repeats, InitAltitude, 
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsMilitaryTurn(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately) end
 
@@ -1635,13 +1635,13 @@ function CONTROLLABLE:TaskAerobaticsMilitaryTurn(TaskAerobatics, Repeats, InitAl
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param RollDeg number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param RollDeg? number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsSkewedLoop(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side, RollDeg) end
 
@@ -1650,16 +1650,16 @@ function CONTROLLABLE:TaskAerobaticsSkewedLoop(TaskAerobatics, Repeats, InitAlti
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param TurnAngle number (Optional) Turn angle, defaults to 360 degrees.
----@param Roll number (Optional) Roll to take, defaults to 60 degrees.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param UpDown number (Optional) Spiral upwards (1) or downwards (0). Defaults to 0 - downwards.
----@param Angle number (Optional) Angle to spiral. Can be between 15 and 90 degrees. Defaults to 45 degrees.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param TurnAngle? number (Optional) Turn angle, defaults to 360 degrees.
+---@param Roll? number (Optional) Roll to take, defaults to 60 degrees.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param UpDown? number (Optional) Spiral upwards (1) or downwards (0). Defaults to 0 - downwards.
+---@param Angle? number (Optional) Angle to spiral. Can be between 15 and 90 degrees. Defaults to 45 degrees.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsSpiral(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, TurnAngle, Roll, Side, UpDown, Angle) end
 
@@ -1668,12 +1668,12 @@ function CONTROLLABLE:TaskAerobaticsSpiral(TaskAerobatics, Repeats, InitAltitude
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param FinalSpeed number (Optional) Final speed to reach in KPH. Defaults to 500 kph.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param FinalSpeed? number (Optional) Final speed to reach in KPH. Defaults to 500 kph.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsSplitS(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, FinalSpeed) end
 
@@ -1682,12 +1682,12 @@ function CONTROLLABLE:TaskAerobaticsSplitS(TaskAerobatics, Repeats, InitAltitude
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param FlightTime number (Optional) Time to fly this manoever in seconds, defaults to 10.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param FlightTime? number (Optional) Time to fly this manoever in seconds, defaults to 10.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsStraightFlight(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, FlightTime) end
 
@@ -1696,15 +1696,15 @@ function CONTROLLABLE:TaskAerobaticsStraightFlight(TaskAerobatics, Repeats, Init
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param Side number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
----@param RollDeg number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
----@param Pull number (Optional) How many Gs to pull in this, defaults to 2.
----@param Angle number (Optional) How many degrees to turn, defaults to 180.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param Side? number (Optional) On which side to fly,  0 == left, 1 == right side, defaults to 0.
+---@param RollDeg? number (Optional) Roll degrees for Roll 1 and 2, defaults to 60.
+---@param Pull? number (Optional) How many Gs to pull in this, defaults to 2.
+---@param Angle? number (Optional) How many degrees to turn, defaults to 180.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsTurn(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, Side, RollDeg, Pull, Angle) end
 
@@ -1713,12 +1713,12 @@ function CONTROLLABLE:TaskAerobaticsTurn(TaskAerobatics, Repeats, InitAltitude, 
 ------
 ---@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
----@param Repeats number (Optional) The number of repeats, defaults to 1.
----@param InitAltitude number (Optional) Starting altitude in meters, defaults to 0.
----@param InitSpeed number (Optional) Starting speed in KPH, defaults to 0.
----@param UseSmoke boolean (Optional)  Using smoke, defaults to false.
----@param StartImmediately boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
----@param FlightTime number (Optional) Time to fly this manoever in seconds, defaults to 10.
+---@param Repeats? number (Optional) The number of repeats, defaults to 1.
+---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
+---@param InitSpeed? number (Optional) Starting speed in KPH, defaults to 0.
+---@param UseSmoke? boolean (Optional)  Using smoke, defaults to false.
+---@param StartImmediately? boolean (Optional) If true, start immediately and ignore  InitAltitude and InitSpeed.
+---@param FlightTime? number (Optional) Time to fly this manoever in seconds, defaults to 10.
 ---@return Task #
 function CONTROLLABLE:TaskAerobaticsWingoverFlight(TaskAerobatics, Repeats, InitAltitude, InitSpeed, UseSmoke, StartImmediately, FlightTime) end
 
@@ -1727,13 +1727,13 @@ function CONTROLLABLE:TaskAerobaticsWingoverFlight(TaskAerobatics, Repeats, Init
 ------
 ---@param self CONTROLLABLE 
 ---@param AttackGroup GROUP The Group to be attacked.
----@param WeaponType number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude Distance (optional) Desired attack start altitude. Controllable/aircraft will make its attacks from the altitude. If the altitude is too low or too high to use weapon aircraft/controllable will choose closest altitude to the desired attack start altitude. If the desired altitude is defined controllable/aircraft will not attack from safe altitude.
----@param AttackQtyLimit boolean (optional) The flag determines how to interpret attackQty parameter. If the flag is true then attackQty is a limit on maximal attack quantity for "AttackGroup" and "AttackUnit" tasks. If the flag is false then attackQty is a desired attack quantity for "Bombing" and "BombingRunway" tasks.
----@param GroupAttack boolean (Optional) If true, attack as group.
+---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? Distance (optional) Desired attack start altitude. Controllable/aircraft will make its attacks from the altitude. If the altitude is too low or too high to use weapon aircraft/controllable will choose closest altitude to the desired attack start altitude. If the desired altitude is defined controllable/aircraft will not attack from safe altitude.
+---@param AttackQtyLimit? boolean (optional) The flag determines how to interpret attackQty parameter. If the flag is true then attackQty is a limit on maximal attack quantity for "AttackGroup" and "AttackUnit" tasks. If the flag is false then attackQty is a desired attack quantity for "Bombing" and "BombingRunway" tasks.
+---@param GroupAttack? boolean (Optional) If true, attack as group.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskAttackGroup(AttackGroup, WeaponType, WeaponExpend, AttackQty, Direction, Altitude, AttackQtyLimit, GroupAttack) end
 
@@ -1742,12 +1742,12 @@ function CONTROLLABLE:TaskAttackGroup(AttackGroup, WeaponType, WeaponExpend, Att
 ------
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
----@param GroupAttack boolean (Optional) If true, all units in the group will attack the Unit when found.
----@param WeaponExpend AI.Task.WeaponExpend (Optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
----@param AttackQty number (Optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (Optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude number (Optional) The altitude [meters] from where to attack. Default 30 m.
----@param WeaponType number (Optional) The WeaponType. Default Auto=1073741822.
+---@param GroupAttack? boolean (Optional) If true, all units in the group will attack the Unit when found.
+---@param WeaponExpend? AI.Task.WeaponExpend (Optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
+---@param AttackQty? number (Optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (Optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? number (Optional) The altitude [meters] from where to attack. Default 30 m.
+---@param WeaponType? number (Optional) The WeaponType. Default Auto=1073741822.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskAttackMapObject(Vec2, GroupAttack, WeaponExpend, AttackQty, Direction, Altitude, WeaponType) end
 
@@ -1756,12 +1756,12 @@ function CONTROLLABLE:TaskAttackMapObject(Vec2, GroupAttack, WeaponExpend, Attac
 ------
 ---@param self CONTROLLABLE 
 ---@param AttackUnit UNIT The UNIT to be attacked
----@param GroupAttack boolean (Optional) If true, all units in the group will attack the Unit when found. Default false.
----@param WeaponExpend AI.Task.WeaponExpend (Optional) Determines how many weapons will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
----@param AttackQty number (Optional) Limits maximal quantity of attack. The aircraft/controllable will not make more attacks than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (Optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction.
----@param Altitude number (Optional) The (minimum) altitude in meters from where to attack. Default is altitude of unit to attack but at least 1000 m.
----@param WeaponType number (optional) The WeaponType. See [DCS Enumerator Weapon Type](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag) on Hoggit.
+---@param GroupAttack? boolean (Optional) If true, all units in the group will attack the Unit when found. Default false.
+---@param WeaponExpend? AI.Task.WeaponExpend (Optional) Determines how many weapons will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
+---@param AttackQty? number (Optional) Limits maximal quantity of attack. The aircraft/controllable will not make more attacks than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (Optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction.
+---@param Altitude? number (Optional) The (minimum) altitude in meters from where to attack. Default is altitude of unit to attack but at least 1000 m.
+---@param WeaponType? number (optional) The WeaponType. See [DCS Enumerator Weapon Type](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag) on Hoggit.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskAttackUnit(AttackUnit, GroupAttack, WeaponExpend, AttackQty, Direction, Altitude, WeaponType) end
 
@@ -1770,13 +1770,13 @@ function CONTROLLABLE:TaskAttackUnit(AttackUnit, GroupAttack, WeaponExpend, Atta
 ------
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
----@param GroupAttack boolean (optional) If true, all units in the group will attack the Unit when found.
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude number (optional) The altitude from where to attack.
----@param WeaponType number (optional) The WeaponType.
----@param Divebomb boolean (optional) Perform dive bombing. Default false.
+---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? number (optional) The altitude from where to attack.
+---@param WeaponType? number (optional) The WeaponType.
+---@param Divebomb? boolean (optional) Perform dive bombing. Default false.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskBombing(Vec2, GroupAttack, WeaponExpend, AttackQty, Direction, Altitude, WeaponType, Divebomb) end
 
@@ -1795,11 +1795,11 @@ function CONTROLLABLE:TaskBombing(Vec2, GroupAttack, WeaponExpend, AttackQty, Di
 ------
 ---@param self CONTROLLABLE 
 ---@param Airbase AIRBASE Airbase to attack.
----@param WeaponType number (optional) Bitmask of weapon types those allowed to use. See [DCS enum weapon flag](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag). Default 2147485694 = AnyBomb (GuidedBomb + AnyUnguidedBomb).
+---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. See [DCS enum weapon flag](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag). Default 2147485694 = AnyBomb (GuidedBomb + AnyUnguidedBomb).
 ---@param WeaponExpend AI.Task.WeaponExpend Enum AI.Task.WeaponExpend that defines how much munitions the AI will expend per attack run. Default "ALL".
 ---@param AttackQty number Number of times the group will attack if the target. Default 1.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param GroupAttack boolean (optional) Flag indicates that the target must be engaged by all aircrafts of the controllable. Has effect only if the task is assigned to a group and not to a single aircraft.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param GroupAttack? boolean (optional) Flag indicates that the target must be engaged by all aircrafts of the controllable. Has effect only if the task is assigned to a group and not to a single aircraft.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskBombingRunway(Airbase, WeaponType, WeaponExpend, AttackQty, Direction, GroupAttack) end
 
@@ -1808,13 +1808,13 @@ function CONTROLLABLE:TaskBombingRunway(Airbase, WeaponType, WeaponExpend, Attac
 ------
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
----@param GroupAttack boolean (optional) If true, all units in the group will attack the Unit when found.
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param Altitude number (optional) The altitude from where to attack.
----@param WeaponType number (optional) The WeaponType.
----@param CarpetLength number (optional) default to 500 m.
+---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param Altitude? number (optional) The altitude from where to attack.
+---@param WeaponType? number (optional) The WeaponType.
+---@param CarpetLength? number (optional) default to 500 m.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskCarpetBombing(Vec2, GroupAttack, WeaponExpend, AttackQty, Direction, Altitude, WeaponType, CarpetLength) end
 
@@ -1885,8 +1885,8 @@ function CONTROLLABLE:TaskEmbarkToTransport(Coordinate, Radius, UnitType) end
 ---@param self CONTROLLABLE 
 ---@param Coordinate COORDINATE The point where to pickup the troops.
 ---@param GroupSetForEmbarking SET_GROUP Set of groups to embark.
----@param Duration number (Optional) The maximum duration in seconds to wait until all groups have embarked.
----@param Distribution table (Optional) Distribution used to put the infantry groups into specific carrier units.
+---@param Duration? number (Optional) The maximum duration in seconds to wait until all groups have embarked.
+---@param Distribution? table (Optional) Distribution used to put the infantry groups into specific carrier units.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskEmbarking(Coordinate, GroupSetForEmbarking, Duration, Distribution) end
 
@@ -1920,8 +1920,8 @@ function CONTROLLABLE:TaskEscort(FollowControllable, Vec3, LastWaypointIndex, En
 ---@param self CONTROLLABLE 
 ---@param AttackGroup GROUP Target GROUP object.
 ---@param WeaponType number Bitmask of weapon types, which are allowed to use.
----@param Designation AI.Task.Designation (Optional) Designation type.
----@param Datalink boolean (Optional) Allows to use datalink to send the target information to attack aircraft. Enabled by default.
+---@param Designation? AI.Task.Designation (Optional) Designation type.
+---@param Datalink? boolean (Optional) Allows to use datalink to send the target information to attack aircraft. Enabled by default.
 ---@param Frequency number Frequency in MHz used to communicate with the FAC. Default 133 MHz.
 ---@param Modulation number Modulation of radio for communication. Default 0=AM.
 ---@param CallsignName number Callsign enumerator name of the FAC. (CALLSIGN.Aircraft.{name} for airborne controllables, CALLSIGN.JTACS.{name} for ground units)
@@ -1935,9 +1935,9 @@ function CONTROLLABLE:TaskFAC_AttackGroup(AttackGroup, WeaponType, Designation, 
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 The point to fire at.
 ---@param Radius Distance The radius of the zone to deploy the fire at.
----@param AmmoCount number (optional) Quantity of ammunition to expand (omit to fire until ammunition is depleted).
----@param WeaponType number (optional) Enum for weapon type ID. This value is only required if you want the group firing to use a specific weapon, for instance using the task on a ship to force it to fire guided missiles at targets within cannon range. See http://wiki.hoggit.us/view/DCS_enum_weapon_flag
----@param Altitude number (Optional) Altitude in meters.
+---@param AmmoCount? number (optional) Quantity of ammunition to expand (omit to fire until ammunition is depleted).
+---@param WeaponType? number (optional) Enum for weapon type ID. This value is only required if you want the group firing to use a specific weapon, for instance using the task on a ship to force it to fire guided missiles at targets within cannon range. See http://wiki.hoggit.us/view/DCS_enum_weapon_flag
+---@param Altitude? number (Optional) Altitude in meters.
 ---@param ASL number Altitude is above mean sea level. Default is above ground level.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskFireAtPoint(Vec2, Radius, AmmoCount, WeaponType, Altitude, ASL) end
@@ -2028,9 +2028,9 @@ function CONTROLLABLE:TaskFunction(FunctionString, ...) end
 ------
 ---@param self CONTROLLABLE 
 ---@param FollowControllable CONTROLLABLE The controllable to be escorted.
----@param LastWaypointIndex number (optional) Detach waypoint of another controllable. Once reached the unit / controllable Escort task is finished.
----@param OrbitDistance number (optional) Maximum distance helo will orbit around the ground unit in meters. Defaults to 2000 meters.
----@param TargetTypes AttributeNameArray (optional) Array of AttributeName that is contains threat categories allowed to engage. Default {"Ground vehicles"}. See [https://wiki.hoggit.us/view/DCS_enum_attributes](https://wiki.hoggit.us/view/DCS_enum_attributes)
+---@param LastWaypointIndex? number (optional) Detach waypoint of another controllable. Once reached the unit / controllable Escort task is finished.
+---@param OrbitDistance? number (optional) Maximum distance helo will orbit around the ground unit in meters. Defaults to 2000 meters.
+---@param TargetTypes? AttributeNameArray (optional) Array of AttributeName that is contains threat categories allowed to engage. Default {"Ground vehicles"}. See [https://wiki.hoggit.us/view/DCS_enum_attributes](https://wiki.hoggit.us/view/DCS_enum_attributes)
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskGroundEscort(FollowControllable, LastWaypointIndex, OrbitDistance, TargetTypes) end
 
@@ -2039,9 +2039,9 @@ function CONTROLLABLE:TaskGroundEscort(FollowControllable, LastWaypointIndex, Or
 ------
 ---@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param WaypointFunction function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
----@param WaypointFunctionArguments table (Optional) List of parameters passed to the *WaypointFunction*.
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
+---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
 ---@return  #Task
 function CONTROLLABLE:TaskGroundOnRailRoads(ToCoordinate, Speed, WaypointFunction, WaypointFunctionArguments) end
 
@@ -2050,12 +2050,12 @@ function CONTROLLABLE:TaskGroundOnRailRoads(ToCoordinate, Speed, WaypointFunctio
 ------
 ---@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
----@param Speed number (Optional) Speed in km/h. The default speed is 20 km/h.
----@param OffRoadFormation string (Optional) The formation at initial and final waypoint. Default is "Off Road".
----@param Shortcut boolean (Optional) If true, controllable will take the direct route if the path on road is 10x longer or path on road is less than 5% of total path.
----@param FromCoordinate COORDINATE (Optional) Explicit initial coordinate. Default is the position of the controllable.
----@param WaypointFunction function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
----@param WaypointFunctionArguments table (Optional) List of parameters passed to the *WaypointFunction*.
+---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
+---@param OffRoadFormation? string (Optional) The formation at initial and final waypoint. Default is "Off Road".
+---@param Shortcut? boolean (Optional) If true, controllable will take the direct route if the path on road is 10x longer or path on road is less than 5% of total path.
+---@param FromCoordinate? COORDINATE (Optional) Explicit initial coordinate. Default is the position of the controllable.
+---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
+---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
 ---@return Task #Task.
 ---@return boolean #If true, path on road is possible. If false, task will route the group directly to its destination.
 function CONTROLLABLE:TaskGroundOnRoad(ToCoordinate, Speed, OffRoadFormation, Shortcut, FromCoordinate, WaypointFunction, WaypointFunctionArguments) end
@@ -2082,8 +2082,8 @@ function CONTROLLABLE:TaskHoldPosition(Duration) end
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 The point where to land.
 ---@param Duration number The duration in seconds to stay on the ground.
----@param CombatLanding boolean (optional) If true, set the Combat Landing option.
----@param DirectionAfterLand number (optional) Heading after landing in degrees.
+---@param CombatLanding? boolean (optional) If true, set the Combat Landing option.
+---@param DirectionAfterLand? number (optional) Heading after landing in degrees.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:TaskLandAtVec2(Vec2, Duration, CombatLanding, DirectionAfterLand) end
 
@@ -2093,9 +2093,9 @@ function CONTROLLABLE:TaskLandAtVec2(Vec2, Duration, CombatLanding, DirectionAft
 ---@param self CONTROLLABLE 
 ---@param Zone ZONE The zone where to land.
 ---@param Duration number The duration in seconds to stay on the ground.
----@param RandomPoint boolean (optional) If true,land at a random point inside of the zone. 
----@param CombatLanding boolean (optional) If true, set the Combat Landing option.
----@param DirectionAfterLand number (optional) Heading after landing in degrees.
+---@param RandomPoint? boolean (optional) If true,land at a random point inside of the zone. 
+---@param CombatLanding? boolean (optional) If true, set the Combat Landing option.
+---@param DirectionAfterLand? number (optional) Heading after landing in degrees.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskLandAtZone(Zone, Duration, RandomPoint, CombatLanding, DirectionAfterLand) end
 
@@ -2115,7 +2115,7 @@ function CONTROLLABLE:TaskMission(TaskMission) end
 ---@param Coord COORDINATE Coordinate at which the CONTROLLABLE orbits. Can also be given as a `DCS#Vec3` or `DCS#Vec2` object.
 ---@param Altitude number Altitude in meters of the orbit pattern. Default y component of Coord.
 ---@param Speed number Speed [m/s] flying the orbit pattern. Default 128 m/s = 250 knots.
----@param CoordRaceTrack COORDINATE (Optional) If this coordinate is specified, the CONTROLLABLE will fly a race-track pattern using this and the initial coordinate.
+---@param CoordRaceTrack? COORDINATE (Optional) If this coordinate is specified, the CONTROLLABLE will fly a race-track pattern using this and the initial coordinate.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:TaskOrbit(Coord, Altitude, Speed, CoordRaceTrack) end
 
@@ -2125,7 +2125,7 @@ function CONTROLLABLE:TaskOrbit(Coord, Altitude, Speed, CoordRaceTrack) end
 ---@param self CONTROLLABLE 
 ---@param Altitude number The altitude [m] to hold the position.
 ---@param Speed number The speed [m/s] flying when holding the position.
----@param Coordinate COORDINATE (Optional) The coordinate where to orbit. If the coordinate is not given, then the current position of the controllable is used.
+---@param Coordinate? COORDINATE (Optional) The coordinate where to orbit. If the coordinate is not given, then the current position of the controllable is used.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:TaskOrbitCircle(Altitude, Speed, Coordinate) end
 
@@ -2146,7 +2146,7 @@ function CONTROLLABLE:TaskOrbitCircleAtVec2(Point, Altitude, Speed) end
 ---@param CarrierGroup GROUP 
 ---@param Speed number Speed in meters per second
 ---@param Altitude number Altitude the tanker orbits at in meters
----@param LastWptNumber number (optional) Waypoint of carrier group that when reached, ends the recovery tanker task
+---@param LastWptNumber? number (optional) Waypoint of carrier group that when reached, ends the recovery tanker task
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskRecoveryTanker(CarrierGroup, Speed, Altitude, LastWptNumber) end
 
@@ -2205,12 +2205,12 @@ function CONTROLLABLE:TaskRouteToZone(Zone, Randomize, Speed, Formation) end
 ------
 ---@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver strafing at.
----@param AttackQty number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
----@param Length number (optional) Length of the strafing area.
----@param WeaponType number (optional) The WeaponType. WeaponType is a number associated with a [corresponding weapons flags](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag)
----@param WeaponExpend AI.Task.WeaponExpend (optional) Determines how much ammunition will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion, e.g. AI.Task.WeaponExpend.ALL.
----@param Direction Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
----@param GroupAttack boolean (optional) If true, all units in the group will attack the Unit when found.
+---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
+---@param Length? number (optional) Length of the strafing area.
+---@param WeaponType? number (optional) The WeaponType. WeaponType is a number associated with a [corresponding weapons flags](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag)
+---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much ammunition will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion, e.g. AI.Task.WeaponExpend.ALL.
+---@param Direction? Azimuth (optional) Desired ingress direction from the target to the attacking aircraft. Controllable/aircraft will make its attacks from the direction. Of course if there is no way to attack from the direction due the terrain controllable/aircraft will choose another direction.
+---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskStrafing(Vec2, AttackQty, Length, WeaponType, WeaponExpend, Direction, GroupAttack) end
 

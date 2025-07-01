@@ -161,12 +161,12 @@
 ---
 --- * #AI_ESCORT_REQUEST.New: Creates a new AI_ESCORT_REQUEST object from a Wrapper.Group#GROUP for a Wrapper.Client#CLIENT, with an optional briefing text.
 ---@class AI_ESCORT_REQUEST 
----@field Detection  
----@field EscortAirbase  
----@field EscortGroupSet  
----@field EscortSpawn  
----@field LeaderGroup  
----@field SpawnMode  
+---@field Detection NOTYPE 
+---@field EscortAirbase NOTYPE 
+---@field EscortGroupSet NOTYPE 
+---@field EscortSpawn NOTYPE 
+---@field LeaderGroup NOTYPE 
+---@field SpawnMode NOTYPE 
 AI_ESCORT_REQUEST = {}
 
 ---AI_ESCORT_REQUEST class constructor for an AI group
@@ -212,6 +212,7 @@ function AI_ESCORT_REQUEST:SpawnEscort() end
 ------
 ---@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
+---@private
 function AI_ESCORT_REQUEST:onafterStart(EscortGroupSet) end
 
 
@@ -219,6 +220,7 @@ function AI_ESCORT_REQUEST:onafterStart(EscortGroupSet) end
 ------
 ---@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
+---@private
 function AI_ESCORT_REQUEST:onafterStop(EscortGroupSet) end
 
 
@@ -231,8 +233,10 @@ AI_ESCORT_REQUEST.MODE = {}
 
 ---MENUPARAM type
 ---@class MENUPARAM 
+---@field ParamDistance Distance 
 ---@field ParamFunction function 
 ---@field ParamMessage string 
+---@field ParamSelf AI_ESCORT_REQUEST 
 MENUPARAM = {}
 
 

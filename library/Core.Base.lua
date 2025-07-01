@@ -184,6 +184,8 @@
 ---@field ClassName string The name of the class.
 ---@field ClassNameAndID string The name of the class concatenated with the ID number of the class.
 ---@field Scheduler SCHEDULER The scheduler object.
+---@field _ table 
+---@field __ table 
 BASE = {}
 
 ---Clear the state of an object.
@@ -367,7 +369,7 @@ function BASE:GetEventPriority() end
 ------
 ---@param self BASE 
 ---@param Child BASE This is the Child class from which the Parent class needs to be retrieved.
----@param FromClass BASE (Optional) The class from which to get the parent.
+---@param FromClass? BASE (Optional) The class from which to get the parent.
 ---@return BASE #
 function BASE:GetParent(Child, FromClass) end
 
@@ -401,7 +403,7 @@ function BASE:GetState(Object, Key) end
 ------
 ---@param self BASE 
 ---@param EventID EVENTS Event ID.
----@param EventFunction function (optional) The function to be called when the event occurs for the unit.
+---@param EventFunction? function (optional) The function to be called when the event occurs for the unit.
 ---@return BASE #
 function BASE:HandleEvent(EventID, EventFunction) end
 
@@ -860,7 +862,7 @@ function BASE:ScheduleRepeat(Start, Repeat, RandomizeFactor, Stop, SchedulerFunc
 ---
 ------
 ---@param self BASE 
----@param SchedulerID string (Optional) Scheduler ID to be stopped. If nil, all pending schedules are stopped.
+---@param SchedulerID? string (Optional) Scheduler ID to be stopped. If nil, all pending schedules are stopped.
 function BASE:ScheduleStop(SchedulerID) end
 
 ---Set the Class Core.Event processing Priority.
@@ -1034,6 +1036,7 @@ function BASE:_T(Arguments, DebugInfoCurrentParam, DebugInfoFromParam) end
 ------
 ---@param self BASE 
 ---@param event Event 
+---@private
 function BASE:onEvent(event) end
 
 

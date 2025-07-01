@@ -311,50 +311,61 @@
 ---ATIS class.
 ---@class ATIS : FSM
 ---@field ATISforFARPs boolean Will be set to true if the base given is a FARP/Helipad
----@field AdditionalInformation  
+---@field AdditionalInformation NOTYPE 
+---@field Alphabet ATIS.Alphabet 
 ---@field ClassName string Name of the class.
+---@field ICAOPhraseology ATIS.ICAOPhraseology 
+---@field Messages table 
 ---@field PmmHg boolean If true, give pressure in millimeters of Mercury. Default is inHg for imperial and hectopascal (hPa, which is the same as millibar - mbar) for metric units.
 ---@field ReportmBar boolean Report mBar/hpa even if not metric, i.e. for Mirage flights
+---@field RunwayM2T ATIS.RunwayM2T 
 ---@field SRSText string Text of the complete SRS message (if done at least once, else nil)
+---@field Sound ATIS.Sound 
 ---@field TDegF boolean If true, give temperature in degrees Fahrenheit. Default is in degrees Celsius independent of chosen unit system.
 ---@field TransmitOnlyWithPlayers boolean For SRS - If true, only transmit if there are alive Players.
----@field activerunway string The active runway specified by the user.
----@field airbase AIRBASE The airbase object.
----@field airbasename string The name of the airbase.
----@field altimeterQNH boolean Report altimeter QNH.
----@field dTQueueCheck number Time interval to check the radio queue. Default 5 sec or 90 sec if SRS is used.
----@field elevation boolean If true, give info on airfield elevation.
----@field frequency number Radio frequency in MHz.
----@field gettext TEXTANDSOUND Gettext for localization
----@field lid string Class id string for output to DCS log file.
----@field locale string Current locale
----@field magvar number Magnetic declination/variation at the airport in degrees.
----@field markerid number Numerical ID of the F10 map mark point.
----@field metric boolean If true, use metric units. If false, use imperial (default).
----@field modulation number Radio modulation 0=AM or 1=FM.
----@field msrs MSRS Moose SRS object.
----@field msrsQ  
----@field power number Radio power in Watts. Default 100 W.
----@field qnhonly boolean If true, suppresses reporting QFE. Default is to report both QNH and QFE.
----@field radioqueue RADIOQUEUE Radio queue for broadcasing messages.
----@field relHumidity number Relative humidity (used to approximately calculate the dew point).
----@field relayunitname string Name of the radio relay unit.
----@field rsbn number RSBN channel.
----@field runwaym2t number Optional correction for magnetic to true runway heading conversion (and vice versa) in degrees.
----@field rwylength boolean If true, give info on runway length.
----@field soundpath string Path to sound files.
----@field soundpathAirports string Path to airport names sound files.
----@field soundpathNato string Path to NATO alphabet sound files.
----@field subduration number Duration how long subtitles are displayed in seconds.
----@field tacan number TACAN channel.
----@field theatre string DCS map name.
----@field useSRS boolean If true, use SRS for transmission.
----@field usemarker boolean Use mark on the F10 map.
----@field version string ATIS class version.
----@field vor number VOR frequency.
----@field windtrue boolean Report true (from) heading of wind. Default is magnetic.
----@field zuludiff number Time difference local vs. zulu in hours.
----@field zulutimeonly boolean If true, suppresses report of local time, sunrise, and sunset.
+---@field private activerunway string The active runway specified by the user.
+---@field private airbase AIRBASE The airbase object.
+---@field private airbasename string The name of the airbase.
+---@field private altimeterQNH boolean Report altimeter QNH.
+---@field private dTQueueCheck number Time interval to check the radio queue. Default 5 sec or 90 sec if SRS is used.
+---@field private elevation boolean If true, give info on airfield elevation.
+---@field private frequency number Radio frequency in MHz.
+---@field private gettext TEXTANDSOUND Gettext for localization
+---@field private ils table Table of ILS frequencies (can be runway specific).
+---@field private lid string Class id string for output to DCS log file.
+---@field private locale string Current locale
+---@field private magvar number Magnetic declination/variation at the airport in degrees.
+---@field private markerid number Numerical ID of the F10 map mark point.
+---@field private metric boolean If true, use metric units. If false, use imperial (default).
+---@field private modulation number Radio modulation 0=AM or 1=FM.
+---@field private msrs MSRS Moose SRS object.
+---@field private msrsQ NOTYPE 
+---@field private ndbinner table Table of inner NDB frequencies (can be runway specific).
+---@field private ndbouter table Table of outer NDB frequencies (can be runway specific).
+---@field private power number Radio power in Watts. Default 100 W.
+---@field private prmg table PRMG channels (can be runway specific).
+---@field private qnhonly boolean If true, suppresses reporting QFE. Default is to report both QNH and QFE.
+---@field private radioqueue RADIOQUEUE Radio queue for broadcasing messages.
+---@field private relHumidity number Relative humidity (used to approximately calculate the dew point).
+---@field private relayunitname string Name of the radio relay unit.
+---@field private rsbn number RSBN channel.
+---@field private runwaym2t number Optional correction for magnetic to true runway heading conversion (and vice versa) in degrees.
+---@field private runwaymag table Table of magnetic runway headings.
+---@field private rwylength boolean If true, give info on runway length.
+---@field private soundpath string Path to sound files.
+---@field private soundpathAirports string Path to airport names sound files.
+---@field private soundpathNato string Path to NATO alphabet sound files.
+---@field private subduration number Duration how long subtitles are displayed in seconds.
+---@field private tacan number TACAN channel.
+---@field private theatre string DCS map name.
+---@field private towerfrequency table Table with tower frequencies.
+---@field private useSRS boolean If true, use SRS for transmission.
+---@field private usemarker boolean Use mark on the F10 map.
+---@field private version string ATIS class version.
+---@field private vor number VOR frequency.
+---@field private windtrue boolean Report true (from) heading of wind. Default is magnetic.
+---@field private zuludiff number Time difference local vs. zulu in hours.
+---@field private zulutimeonly boolean If true, suppresses report of local time, sunrise, and sunset.
 ATIS = {}
 
 ---Add ILS station.
@@ -363,7 +374,7 @@ ATIS = {}
 ------
 ---@param self ATIS 
 ---@param frequency number ILS frequency in MHz.
----@param runway string (Optional) Runway for which the given ILS frequency applies. Default all (*nil*).
+---@param runway? string (Optional) Runway for which the given ILS frequency applies. Default all (*nil*).
 ---@return ATIS #self
 function ATIS:AddILS(frequency, runway) end
 
@@ -373,7 +384,7 @@ function ATIS:AddILS(frequency, runway) end
 ------
 ---@param self ATIS 
 ---@param frequency number NDB frequency in MHz.
----@param runway string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
+---@param runway? string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
 ---@return ATIS #self
 function ATIS:AddNDBinner(frequency, runway) end
 
@@ -383,7 +394,7 @@ function ATIS:AddNDBinner(frequency, runway) end
 ------
 ---@param self ATIS 
 ---@param frequency number NDB frequency in MHz.
----@param runway string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
+---@param runway? string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
 ---@return ATIS #self
 function ATIS:AddNDBouter(frequency, runway) end
 
@@ -393,7 +404,7 @@ function ATIS:AddNDBouter(frequency, runway) end
 ------
 ---@param self ATIS 
 ---@param channel number PRMG channel.
----@param runway string (Optional) Runway for which the given PRMG channel applies. Default all (*nil*).
+---@param runway? string (Optional) Runway for which the given PRMG channel applies. Default all (*nil*).
 ---@return ATIS #self
 function ATIS:AddPRMG(channel, runway) end
 
@@ -953,6 +964,7 @@ function ATIS:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ATIS:onafterBroadcast(From, Event, To) end
 
 ---Check if radio queue is empty.
@@ -963,6 +975,7 @@ function ATIS:onafterBroadcast(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ATIS:onafterCheckQueue(From, Event, To) end
 
 ---Text report of ATIS information.
@@ -974,6 +987,7 @@ function ATIS:onafterCheckQueue(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Text string Report text.
+---@private
 function ATIS:onafterReport(From, Event, To, Text) end
 
 ---Start ATIS FSM.
@@ -983,6 +997,7 @@ function ATIS:onafterReport(From, Event, To, Text) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ATIS:onafterStart(From, Event, To) end
 
 ---Update status.
@@ -992,6 +1007,7 @@ function ATIS:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function ATIS:onafterStatus(From, Event, To) end
 
 
@@ -1015,9 +1031,9 @@ ATIS.ICAOPhraseology = {}
 
 ---Nav point data.
 ---@class ATIS.NavPoint 
----@field frequency number Nav point frequency.
----@field leftright boolean If true, runway has left "L" and right "R" runways.
----@field runway string Runway, *e.g.* "21".
+---@field private frequency number Nav point frequency.
+---@field private leftright boolean If true, runway has left "L" and right "R" runways.
+---@field private runway string Runway, *e.g.* "21".
 ATIS.NavPoint = {}
 
 
@@ -1041,13 +1057,90 @@ ATIS.RunwayM2T = {}
 
 ---Sound files.
 ---@class ATIS.Sound 
+---@field ActiveRunway ATIS.Soundfile 
+---@field ActiveRunwayArrival table 
+---@field ActiveRunwayDeparture table 
+---@field AdviceOnInitial ATIS.Soundfile 
+---@field Airport ATIS.Soundfile 
+---@field Altimeter ATIS.Soundfile 
+---@field At ATIS.Soundfile 
+---@field CloudBase ATIS.Soundfile 
+---@field CloudCeiling ATIS.Soundfile 
+---@field CloudsBroken ATIS.Soundfile 
+---@field CloudsFew ATIS.Soundfile 
+---@field CloudsNo ATIS.Soundfile 
+---@field CloudsNotAvailable ATIS.Soundfile 
+---@field CloudsOvercast ATIS.Soundfile 
+---@field CloudsScattered ATIS.Soundfile 
+---@field Decimal ATIS.Soundfile 
+---@field DegreesCelsius ATIS.Soundfile 
+---@field DegreesFahrenheit ATIS.Soundfile 
+---@field DewPoint ATIS.Soundfile 
+---@field Dust ATIS.Soundfile 
+---@field Elevation ATIS.Soundfile 
+---@field EndOfInformation ATIS.Soundfile 
+---@field Feet ATIS.Soundfile 
+---@field Fog ATIS.Soundfile 
+---@field Gusting ATIS.Soundfile 
+---@field HectoPascal ATIS.Soundfile 
+---@field Hundred ATIS.Soundfile 
+---@field ILSFrequency ATIS.Soundfile 
+---@field InchesOfMercury ATIS.Soundfile 
+---@field Information ATIS.Soundfile 
+---@field InnerNDBFrequency ATIS.Soundfile 
+---@field Kilometers ATIS.Soundfile 
+---@field Knots ATIS.Soundfile 
+---@field Left ATIS.Soundfile 
+---@field MegaHertz ATIS.Soundfile 
+---@field Meters ATIS.Soundfile 
+---@field MetersPerSecond ATIS.Soundfile 
+---@field Miles ATIS.Soundfile 
+---@field MillimetersOfMercury ATIS.Soundfile 
+---@field Minus table 
+---@field N0 ATIS.Soundfile 
+---@field N1 ATIS.Soundfile 
+---@field N2 ATIS.Soundfile 
+---@field N3 ATIS.Soundfile 
+---@field N4 ATIS.Soundfile 
+---@field N5 ATIS.Soundfile 
+---@field N6 ATIS.Soundfile 
+---@field N7 ATIS.Soundfile 
+---@field N8 ATIS.Soundfile 
+---@field N9 ATIS.Soundfile 
+---@field NauticalMiles ATIS.Soundfile 
+---@field None ATIS.Soundfile 
+---@field OuterNDBFrequency ATIS.Soundfile 
+---@field PRMGChannel ATIS.Soundfile 
+---@field QFE ATIS.Soundfile 
+---@field QNH ATIS.Soundfile 
+---@field RSBNChannel ATIS.Soundfile 
+---@field Rain ATIS.Soundfile 
+---@field Right ATIS.Soundfile 
+---@field RunwayLength ATIS.Soundfile 
+---@field Snow ATIS.Soundfile 
+---@field SnowStorm ATIS.Soundfile 
+---@field StatuteMiles table 
+---@field SunriseAt ATIS.Soundfile 
+---@field SunsetAt ATIS.Soundfile 
+---@field TACANChannel ATIS.Soundfile 
+---@field Temperature ATIS.Soundfile 
+---@field Thousand ATIS.Soundfile 
+---@field ThunderStorm ATIS.Soundfile 
+---@field TimeLocal ATIS.Soundfile 
+---@field TimeZulu ATIS.Soundfile 
+---@field TowerFrequency ATIS.Soundfile 
+---@field VORFrequency ATIS.Soundfile 
+---@field Visibilty ATIS.Soundfile 
+---@field WeatherPhenomena ATIS.Soundfile 
+---@field WindFrom ATIS.Soundfile 
+---@field Zulu table 
 ATIS.Sound = {}
 
 
 ---Sound file data.
 ---@class ATIS.Soundfile 
----@field duration number Duration in seconds.
----@field filename string Name of the file
+---@field private duration number Duration in seconds.
+---@field private filename string Name of the file
 ATIS.Soundfile = {}
 
 

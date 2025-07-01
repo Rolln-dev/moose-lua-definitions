@@ -37,8 +37,10 @@
 ---@class BEACON : BASE
 ---@field ClassName string Name of the class "BEACON".
 ---@field Positionable CONTROLLABLE The @{Wrapper.Controllable#CONTROLLABLE} that will receive radio capabilities.
+---@field System BEACON.System 
+---@field Type BEACON.Type 
 ---@field UniqueName number Counter to make the unique naming work.
----@field name  
+---@field private name NOTYPE 
 BEACON = {}
 
 ---DEPRECATED: Please use #BEACON.ActivateTACAN() instead.

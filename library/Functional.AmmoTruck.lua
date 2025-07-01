@@ -87,23 +87,28 @@
 ---- **AMMOTRUCK** class, extends Core.Fsm#FSM
 ---@class AMMOTRUCK : FSM
 ---@field ClassName string Class Name
----@field alias string Alias name
----@field ammothreshold number Threshold (min) ammo before sending a truck
----@field coalition number Coalition this is for
----@field debug boolean Debug flag
----@field hasarmygroup boolean 
----@field homezone ZONE 
----@field lid string Lid for log entries
----@field monitor number Monitor interval in seconds
----@field reloads number Number of reloads a single truck can do before he must return home
----@field remunidist number Max distance trucks will go
----@field routeonroad boolean Route truck on road if true (default)
----@field targetset SET_GROUP SET of artillery
----@field truckset SET_GROUP SET of trucks
----@field unloadtime number Unload time in seconds
----@field usearmygroup boolean 
----@field version string Version string
----@field waitingtime number Max waiting time in seconds
+---@field State AMMOTRUCK.State 
+---@field private alias string Alias name
+---@field private ammothreshold number Threshold (min) ammo before sending a truck
+---@field private coalition number Coalition this is for
+---@field private debug boolean Debug flag
+---@field private hasarmygroup boolean 
+---@field private homezone ZONE 
+---@field private lid string Lid for log entries
+---@field private monitor number Monitor interval in seconds
+---@field private reloads number Number of reloads a single truck can do before he must return home
+---@field private remunidist number Max distance trucks will go
+---@field private remunitionqueue table List of (alive) #AMMOTRUCK.data artillery to be reloaded
+---@field private routeonroad boolean Route truck on road if true (default)
+---@field private targetlist table  List of (alive) #AMMOTRUCK.data artillery
+---@field private targetset SET_GROUP SET of artillery
+---@field private trucklist table List of (alive) #AMMOTRUCK.data trucks
+---@field private truckset SET_GROUP SET of trucks
+---@field private unloadtime number Unload time in seconds
+---@field private usearmygroup boolean 
+---@field private version string Version string
+---@field private waitingtargets table  List of (alive) #AMMOTRUCK.data artillery waiting
+---@field private waitingtime number Max waiting time in seconds
 AMMOTRUCK = {}
 
 
@@ -270,6 +275,7 @@ function AMMOTRUCK:__Stop(delay) end
 ---@param Event string 
 ---@param To string 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterMonitor(From, Event, To) end
 
 
@@ -282,6 +288,7 @@ function AMMOTRUCK:onafterMonitor(From, Event, To) end
 ---@param Truckdata AMMOTRUCK.data 
 ---@param Aridata AMMOTRUCK.data 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterRouteTruck(From, Event, To, Truckdata, Aridata) end
 
 
@@ -292,6 +299,7 @@ function AMMOTRUCK:onafterRouteTruck(From, Event, To, Truckdata, Aridata) end
 ---@param Event string 
 ---@param To string 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterStart(From, Event, To) end
 
 
@@ -302,6 +310,7 @@ function AMMOTRUCK:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterStop(From, Event, To) end
 
 
@@ -313,6 +322,7 @@ function AMMOTRUCK:onafterStop(From, Event, To) end
 ---@param To string 
 ---@param Truck AMMOTRUCK.data 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterTruckReturning(From, Event, To, Truck) end
 
 
@@ -324,6 +334,7 @@ function AMMOTRUCK:onafterTruckReturning(From, Event, To, Truck) end
 ---@param To string 
 ---@param Truckdata AMMOTRUCK.data 
 ---@return AMMOTRUCK #self 
+---@private
 function AMMOTRUCK:onafterTruckUnloading(From, Event, To, Truckdata) end
 
 
@@ -341,16 +352,17 @@ AMMOTRUCK.State = {}
 
 
 ---@class AMMOTRUCK.data 
----@field ammo number 
----@field coordinate COORDINATE 
----@field group GROUP 
----@field lastspeed  
----@field name string 
----@field reloads number 
----@field targetcoordinate COORDINATE 
----@field targetgroup GROUP 
----@field targetname string 
----@field timestamp number 
+---@field private ammo number 
+---@field private coordinate COORDINATE 
+---@field private group GROUP 
+---@field private lastspeed NOTYPE 
+---@field private name string 
+---@field private reloads number 
+---@field private statusquo AMMOTRUCK.State 
+---@field private targetcoordinate COORDINATE 
+---@field private targetgroup GROUP 
+---@field private targetname string 
+---@field private timestamp number 
 AMMOTRUCK.data = {}
 
 

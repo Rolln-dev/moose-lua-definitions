@@ -152,20 +152,21 @@
 ---  * #GROUP.SetAIOn(): Turns the GROUP AI On.
 ---  * #GROUP.SetAIOff(): Turns the GROUP AI Off.
 ---@class GROUP : CONTROLLABLE
----@field DCSObject  
----@field GroupCoalition  
+---@field Attribute GROUP.Attribute 
+---@field DCSObject NOTYPE 
+---@field GroupCoalition NOTYPE 
 ---@field GroupName string The name of the group.
----@field InitCoord  
----@field InitRespawnFreq  
----@field InitRespawnHeading  
----@field InitRespawnHeight  
----@field InitRespawnModex  
----@field InitRespawnModu  
+---@field InitCoord NOTYPE 
+---@field InitRespawnFreq NOTYPE 
+---@field InitRespawnHeading NOTYPE 
+---@field InitRespawnHeight NOTYPE 
+---@field InitRespawnModex NOTYPE 
+---@field InitRespawnModu NOTYPE 
 ---@field InitRespawnRadio boolean 
----@field InitRespawnRandomizePositionInner  
----@field InitRespawnRandomizePositionOuter  
----@field InitRespawnZone  
----@field LastCallDCSObject  
+---@field InitRespawnRandomizePositionZone NOTYPE 
+---@field InitRespawnZone NOTYPE 
+---@field LastCallDCSObject NOTYPE 
+---@field Takeoff GROUP.Takeoff 
 GROUP = {}
 
 ---Activates a late activated GROUP.
@@ -451,9 +452,9 @@ function GROUP:GetCountry() end
 ---@param self GROUP 
 ---@param ShortCallsign boolean Return a shortened customized callsign, i.e. "Ghostrider 9" and not "Ghostrider 9 1"
 ---@param Keepnumber boolean (Player only) Return customized callsign, incl optional numbers at the end, e.g. "Aerial 1-1#Ghostrider 109" results in "Ghostrider 109", if you want to e.g. use historical US Navy Callsigns
----@param CallsignTranslations table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Overrides personal/parsed callsigns if set callsigns from playername or group name.
----@param CustomFunction func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first arguments.
----@param ... arg (Optional) Comma separated arguments to add to the CustomFunction call after groupname and playername.
+---@param CallsignTranslations? table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Overrides personal/parsed callsigns if set callsigns from playername or group name.
+---@param CustomFunction? func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first arguments.
+---@param ...? arg (Optional) Comma separated arguments to add to the CustomFunction call after groupname and playername.
 ---@return string #Callsign
 function GROUP:GetCustomCallSign(ShortCallsign, Keepnumber, CallsignTranslations, CustomFunction, ...) end
 
@@ -461,7 +462,7 @@ function GROUP:GetCustomCallSign(ShortCallsign, Keepnumber, CallsignTranslations
 ---
 ------
 ---@param self GROUP 
----@param n number (Optional) The number of the unit for which the dscriptor is returned.
+---@param n? number (Optional) The number of the unit for which the dscriptor is returned.
 ---@return Object.Desc #The descriptor of the first unit of the group or #nil if the group does not exist any more.
 function GROUP:GetDCSDesc(n) end
 
@@ -780,7 +781,7 @@ function GROUP:GetVelocityVec3() end
 ------
 ---@param self GROUP 
 ---@param Event EVENTS 
----@param EventFunction function (optional) The function to be called when the event occurs for the GROUP.
+---@param EventFunction? function (optional) The function to be called when the event occurs for the GROUP.
 ---@param ... NOTYPE 
 ---@return GROUP #
 function GROUP:HandleEvent(Event, EventFunction, ...) end
@@ -925,7 +926,7 @@ function GROUP:IsAirPlane() end
 ---
 ------
 ---@param self GROUP 
----@param AllUnits boolean (Optional) If true, check whether all units of the group are airborne.
+---@param AllUnits? boolean (Optional) If true, check whether all units of the group are airborne.
 ---@return boolean #True if at least one (optionally all) unit(s) is(are) airborne or false otherwise. Nil if no unit exists or is alive.
 function GROUP:IsAirborne(AllUnits) end
 
@@ -1080,7 +1081,7 @@ function GROUP:ResetEvents() end
 ---
 ------
 ---@param self GROUP 
----@param Template table (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
+---@param Template? table (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
 ---@param Reset boolean Reset positions if TRUE.
 ---@return GROUP #self
 function GROUP:Respawn(Template, Reset) end
@@ -1091,9 +1092,9 @@ function GROUP:Respawn(Template, Reset) end
 ---
 ------
 ---@param self GROUP 
----@param SpawnTemplate table (Optional) The spawn template for the group. If no template is given it is exacted from the group.
----@param Takeoff SPAWN.Takeoff (Optional) Takeoff type. Sould be either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is SPAWN.Takeoff.Hot.
----@param Uncontrolled boolean (Optional) If true, spawn in uncontrolled state.
+---@param SpawnTemplate? table (Optional) The spawn template for the group. If no template is given it is exacted from the group.
+---@param Takeoff? SPAWN.Takeoff (Optional) Takeoff type. Sould be either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is SPAWN.Takeoff.Hot.
+---@param Uncontrolled? boolean (Optional) If true, spawn in uncontrolled state.
 ---@return GROUP #Group spawned at airbase or nil if group could not be spawned.
 function GROUP:RespawnAtCurrentAirbase(SpawnTemplate, Takeoff, Uncontrolled) end
 
@@ -1108,8 +1109,8 @@ function GROUP:RespawnAtCurrentAirbase(SpawnTemplate, Takeoff, Uncontrolled) end
 ---
 ------
 ---@param self GROUP 
----@param RTBAirbase AIRBASE (optional) The @{Wrapper.Airbase} to return to. If blank, the controllable will return to the nearest friendly airbase.
----@param Speed number (optional) The Speed, if no Speed is given, 80% of maximum Speed of the group is selected.
+---@param RTBAirbase? AIRBASE (optional) The @{Wrapper.Airbase} to return to. If blank, the controllable will return to the nearest friendly airbase.
+---@param Speed? number (optional) The Speed, if no Speed is given, 80% of maximum Speed of the group is selected.
 ---@return GROUP #self
 function GROUP:RouteRTB(RTBAirbase, Speed) end
 
@@ -1143,8 +1144,8 @@ function GROUP:SetAIOnOff(AIOnOff) end
 ---@param Speed number Speed in knots.
 ---@param ToKIAS boolean If true, adjust speed to altitude (KIAS).
 ---@param Altitude number Altitude the tanker orbits at in feet.
----@param Delay number (optional) Set the task after this many seconds. Defaults to one.
----@param LastWaypoint number (optional) Waypoint number of carrier group that when reached, ends the recovery tanker task.
+---@param Delay? number (optional) Set the task after this many seconds. Defaults to one.
+---@param LastWaypoint? number (optional) Waypoint number of carrier group that when reached, ends the recovery tanker task.
 ---@return GROUP #self
 function GROUP:SetAsRecoveryTanker(CarrierGroup, Speed, ToKIAS, Altitude, Delay, LastWaypoint) end
 

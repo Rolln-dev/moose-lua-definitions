@@ -112,6 +112,7 @@ function AI_A2A_GCI:New2(AIIntercept, EngageMinSpeed, EngageMaxSpeed, EngageFloo
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_A2A_GCI:onafterStart(AIIntercept, From, Event, To) end
 
 

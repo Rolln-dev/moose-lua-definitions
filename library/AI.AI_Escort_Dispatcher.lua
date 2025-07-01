@@ -26,11 +26,12 @@
 ---===
 ---@deprecated
 ---@class AI_ESCORT_DISPATCHER 
----@field CarrierSet  
----@field EscortAirbase  
----@field EscortBriefing  
----@field EscortName  
----@field EscortSpawn  
+---@field AI_Escorts table 
+---@field CarrierSet NOTYPE 
+---@field EscortAirbase NOTYPE 
+---@field EscortBriefing NOTYPE 
+---@field EscortName NOTYPE 
+---@field EscortSpawn NOTYPE 
 AI_ESCORT_DISPATCHER = {}
 
 ---Creates a new AI_ESCORT_DISPATCHER object.
@@ -118,6 +119,7 @@ function AI_ESCORT_DISPATCHER:__Stop(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_ESCORT_DISPATCHER:onafterStart(From, Event, To) end
 
 

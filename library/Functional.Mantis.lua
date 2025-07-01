@@ -226,67 +226,78 @@
 ---- **MANTIS** class, extends Core.Base#BASE
 ---@class MANTIS : BASE
 ---@field AWACS_Detection DETECTION_AREAS The #DETECTION_AREAS object for AWACS
----@field AWACS_Prefix  
+---@field AcceptZones table 
 ---@field Adv_EWR_Group SET_GROUP The EWR #SET_GROUP used for advanced mode
+---@field AdvancedState MANTIS.AdvancedState 
 ---@field ClassName string 
----@field DLTimeStamp  
+---@field ConflictZones table 
+---@field DLTimeStamp NOTYPE 
 ---@field DLink boolean 
 ---@field DLinkCacheTime number Seconds after which cached contacts in DLink will decay.
 ---@field Detection DETECTION_AREAS The #DETECTION_AREAS object for EWR
 ---@field EWR_Group SET_GROUP The EWR #SET_GROUP
 ---@field EWR_Templates_Prefix string Prefix to build the #SET_GROUP for EWR group
----@field Groupset  
+---@field FilterZones table Table of Core.Zone#ZONE Zones Consider SAM groups in this zone(s) only for this MANTIS instance, must be handed as #table of Zone objects.
+---@field Groupset NOTYPE 
 ---@field HQ_CC GROUP The #GROUP object of the HQ
 ---@field HQ_Template_CC string The ME name of the HQ object
+---@field RejectZones table 
 ---@field SAM_Group SET_GROUP The SAM #SET_GROUP
----@field SAM_Table_Long  
----@field SAM_Table_Medium  
----@field SAM_Table_PointDef  
----@field SAM_Table_Short  
+---@field SAM_Table table Table of SAM sites
+---@field SAM_Table_Long NOTYPE 
+---@field SAM_Table_Medium NOTYPE 
+---@field SAM_Table_PointDef NOTYPE 
+---@field SAM_Table_Short NOTYPE 
 ---@field SAM_Templates_Prefix string Prefix to build the #SET_GROUP for SAM sites
----@field ScootRandom  
+---@field SamData MANTIS.SamData 
+---@field SamDataCH MANTIS.SamDataCH 
+---@field SamDataHDS MANTIS.SamDataHDS 
+---@field SamDataSMA MANTIS.SamDataSMA 
+---@field SamStateTracker table 
+---@field SamType MANTIS.SamType 
+---@field ScootRandom NOTYPE 
 ---@field Shorad SHORAD SHORAD Object, if available
 ---@field ShoradActDistance number Distance of an attacker in meters from a Mantis SAM site, on which Shorad will be switched on. Useful to not give away Shorad sites too early. Default 15km. Should be smaller than checkradius.
 ---@field ShoradGroupSet SET_GROUP 
 ---@field ShoradLink boolean If true, #MANTIS has #SHORAD enabled
 ---@field ShoradTime number Timer in seconds, how long #SHORAD will be active after a detection inside of the defense range
----@field SkateZones  
+---@field SkateNumber number 
 ---@field SmokeDecoy boolean If true, smoke short range SAM units as decoy if a plane is in firing range.
 ---@field SmokeDecoyColor number Color to use, defaults to SMOKECOLOR.White
----@field TimeStamp  
+---@field SuppressedGroups table 
+---@field TimeStamp NOTYPE 
 ---@field UseEmOnOff boolean Decide if we are using Emissions on/off (true) or AlarmState red/green (default)
----@field acceptrange number Radius of the EWR detection
----@field advAwacs boolean Boolean switch to use Awacs as a separate detection stream
----@field adv_ratio number Percentage to use for advanced mode, defaults to 100%
----@field adv_state number Advanced mode state tracker
----@field advanced boolean Use advanced mode, will decrease reactivity of MANTIS, if HQ and/or EWR network dies. Set SAMs to RED state if both are dead. Requires usage of an HQ object
----@field automode boolean 
----@field autorelocate boolean Relocate HQ and EWR groups in random intervals. Note: You need to select units for this which are *actually mobile*
----@field autoshorad boolean 
----@field awacsrange number Detection range of an optional Awacs unit
----@field checkcounter number Counter for SAM Table refreshes.
----@field checkforfriendlies boolean If true, do not activate a SAM installation if a friendly aircraft is in firing range.
----@field checkradius number Radius of the SAM sites
----@field debug boolean Switch on extra messages
----@field detectinterval number Interval in seconds for the target detection
----@field engagerange number Firing engage range of the SAMs, see [https://wiki.hoggitworld.com/view/DCS_option_engagementRange]
----@field friendlyset  
----@field grouping number Radius to group detected objects
----@field lid string Prefix for logging
----@field logsamstatus boolean Log SAM status in dcs.log every cycle if true
----@field maxclassic number 
----@field maxlongrange number 
----@field maxmidrange number 
----@field maxpointdefrange number 
----@field maxshortrange number 
----@field mysead  
----@field name string Name of this Mantis
----@field relointerval  
----@field shootandscoot boolean 
----@field state2flag boolean 
----@field usezones boolean 
----@field verbose boolean Switch on extra logging
----@field version string 
+---@field private acceptrange number Radius of the EWR detection
+---@field private advAwacs boolean Boolean switch to use Awacs as a separate detection stream
+---@field private adv_ratio number Percentage to use for advanced mode, defaults to 100%
+---@field private adv_state number Advanced mode state tracker
+---@field private advanced boolean Use advanced mode, will decrease reactivity of MANTIS, if HQ and/or EWR network dies. Set SAMs to RED state if both are dead. Requires usage of an HQ object
+---@field private automode boolean 
+---@field private autorelocate boolean Relocate HQ and EWR groups in random intervals. Note: You need to select units for this which are *actually mobile*
+---@field private autorelocateunits table 
+---@field private autoshorad boolean 
+---@field private awacsrange number Detection range of an optional Awacs unit
+---@field private checkcounter number Counter for SAM Table refreshes.
+---@field private checkforfriendlies boolean If true, do not activate a SAM installation if a friendly aircraft is in firing range.
+---@field private checkradius number Radius of the SAM sites
+---@field private debug boolean Switch on extra messages
+---@field private detectinterval number Interval in seconds for the target detection
+---@field private engagerange number Firing engage range of the SAMs, see [https://wiki.hoggitworld.com/view/DCS_option_engagementRange]
+---@field private ewr_templates table 
+---@field private friendlyset NOTYPE 
+---@field private grouping number Radius to group detected objects
+---@field private intelset table 
+---@field private lid string Prefix for logging
+---@field private logsamstatus boolean Log SAM status in dcs.log every cycle if true
+---@field private mysead NOTYPE 
+---@field private name string Name of this Mantis
+---@field private radiusscale MANTIS.radiusscale 
+---@field private relointerval NOTYPE 
+---@field private shootandscoot boolean 
+---@field private state2flag boolean 
+---@field private usezones boolean 
+---@field private verbose boolean Switch on extra logging
+---@field private version string 
 MANTIS = {}
 
 ---Add a SET_ZONE of zones for Shoot&Scoot - SHORAD units will move around
@@ -369,12 +380,12 @@ function MANTIS:GetCommandCenter() end
 ---@param name string Name of this MANTIS for reporting
 ---@param samprefix string Prefixes for the SAM groups from the ME, e.g. all groups starting with "Red Sam..."
 ---@param ewrprefix string Prefixes for the EWR groups from the ME, e.g. all groups starting with "Red EWR..."
----@param hq string Group name of your HQ (optional)
+---@param hq? string Group name of your HQ (optional)
 ---@param coalition string Coalition side of your setup, e.g. "blue", "red" or "neutral"
----@param dynamic boolean Use constant (true) filtering or just filter once (false, default) (optional)
----@param awacs string Group name of your Awacs (optional)
----@param EmOnOff boolean Make MANTIS switch Emissions on and off instead of changing the alarm state between RED and GREEN (optional)
----@param Padding number For #SEAD - Extra number of seconds to add to radar switch-back-on time (optional)
+---@param dynamic? boolean Use constant (true) filtering or just filter once (false, default) (optional)
+---@param awacs? string Group name of your Awacs (optional)
+---@param EmOnOff? boolean Make MANTIS switch Emissions on and off instead of changing the alarm state between RED and GREEN (optional)
+---@param Padding? number For #SEAD - Extra number of seconds to add to radar switch-back-on time (optional)
 ---@param Zones table Table of Core.Zone#ZONE Zones Consider SAM groups in this zone(s) only for this MANTIS instance, must be handed as #table of Zone objects
 ---@return MANTIS #self
 function MANTIS:New(name, samprefix, ewrprefix, hq, coalition, dynamic, awacs, EmOnOff, Padding, Zones) end
@@ -611,7 +622,7 @@ function MANTIS:SetSAMStartState() end
 ------
 ---@param self MANTIS 
 ---@param Onoff boolean Set to true for on and nil/false for off.
----@param Color number (Optional) Color to use, defaults to `SMOKECOLOR.White`
+---@param Color? number (Optional) Color to use, defaults to `SMOKECOLOR.White`
 function MANTIS:SetSmokeDecoy(Onoff, Color) end
 
 ---Set using your own #INTEL_DLINK object instead of #DETECTION
@@ -852,6 +863,7 @@ function MANTIS:__Stop(delay) end
 ---@param Newstate number New state - 0 = green, 1 = amber, 2 = red
 ---@param Interval number Calculated detection interval based on state and advanced feature setting
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterAdvStateChange(From, Event, To, Oldstate, Newstate, Interval) end
 
 ---[Internal] Function triggered by Event GreenState
@@ -863,6 +875,7 @@ function MANTIS:onafterAdvStateChange(From, Event, To, Oldstate, Newstate, Inter
 ---@param To string The To State
 ---@param Group GROUP The GROUP object whose state was changed
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterGreenState(From, Event, To, Group) end
 
 ---[Internal] Function triggered by Event RedState
@@ -874,6 +887,7 @@ function MANTIS:onafterGreenState(From, Event, To, Group) end
 ---@param To string The To State
 ---@param Group GROUP The GROUP object whose state was changed
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterRedState(From, Event, To, Group) end
 
 ---[Internal] Function triggered by Event Relocating
@@ -884,6 +898,7 @@ function MANTIS:onafterRedState(From, Event, To, Group) end
 ---@param Event string The Event
 ---@param To string The To State
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterRelocating(From, Event, To) end
 
 ---[Internal] Function triggered by Event SeadSuppressionEnd
@@ -895,6 +910,7 @@ function MANTIS:onafterRelocating(From, Event, To) end
 ---@param To string The To State
 ---@param Group GROUP The suppressed GROUP object
 ---@param Name string Name of the suppressed group
+---@private
 function MANTIS:onafterSeadSuppressionEnd(From, Event, To, Group, Name) end
 
 ---[Internal] Function triggered by Event SeadSuppressionPlanned
@@ -909,6 +925,7 @@ function MANTIS:onafterSeadSuppressionEnd(From, Event, To, Group, Name) end
 ---@param SuppressionStartTime number Model start time of the suppression from `timer.getTime()`
 ---@param SuppressionEndTime number Model end time of the suppression from `timer.getTime()`
 ---@param Attacker GROUP The attacking GROUP object
+---@private
 function MANTIS:onafterSeadSuppressionPlanned(From, Event, To, Group, Name, SuppressionStartTime, SuppressionEndTime, Attacker) end
 
 ---[Internal] Function triggered by Event SeadSuppressionStart
@@ -921,6 +938,7 @@ function MANTIS:onafterSeadSuppressionPlanned(From, Event, To, Group, Name, Supp
 ---@param Group GROUP The suppressed GROUP object
 ---@param Name string Name of the suppressed group
 ---@param Attacker GROUP The attacking GROUP object
+---@private
 function MANTIS:onafterSeadSuppressionStart(From, Event, To, Group, Name, Attacker) end
 
 ---[Internal] Function triggered by Event ShoradActivated
@@ -933,6 +951,7 @@ function MANTIS:onafterSeadSuppressionStart(From, Event, To, Group, Name, Attack
 ---@param Name string Name of the GROUP which SHORAD shall protect
 ---@param Radius number Radius around the named group to find SHORAD groups
 ---@param Ontime number Seconds the SHORAD will stay active
+---@private
 function MANTIS:onafterShoradActivated(From, Event, To, Name, Radius, Ontime) end
 
 ---[Internal] Function to set start state
@@ -943,6 +962,7 @@ function MANTIS:onafterShoradActivated(From, Event, To, Name, Radius, Ontime) en
 ---@param Event string The Event
 ---@param To string The To State
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterStart(From, Event, To) end
 
 ---[Internal] Status function for MANTIS
@@ -953,6 +973,7 @@ function MANTIS:onafterStart(From, Event, To) end
 ---@param Event string The Event
 ---@param To string The To State
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterStatus(From, Event, To) end
 
 ---[Internal] Function to stop MANTIS
@@ -963,6 +984,7 @@ function MANTIS:onafterStatus(From, Event, To) end
 ---@param Event string The Event
 ---@param To string The To State
 ---@return MANTIS #self
+---@private
 function MANTIS:onafterStop(From, Event, To) end
 
 ---[Internal] Before status function for MANTIS
@@ -973,6 +995,7 @@ function MANTIS:onafterStop(From, Event, To) end
 ---@param Event string The Event
 ---@param To string The To State
 ---@return MANTIS #self
+---@private
 function MANTIS:onbeforeStatus(From, Event, To) end
 
 
@@ -986,33 +1009,115 @@ MANTIS.AdvancedState = {}
 
 ---SAM data
 ---@class MANTIS.SamData 
+---@field Avenger table 
 ---@field Blindspot number no-firing range (green circle)
+---@field Chaparral table 
+---@field Gepard table 
+---@field HEMTT_C-RAM_Phalanx table 
+---@field HQ-2 table 
+---@field HQ-7 table 
+---@field Hawk table 
 ---@field Height number Max firing height in km
+---@field Linebacker table 
+---@field NASAMS table 
+---@field Patriot table 
 ---@field Point string Point defense capable
 ---@field Radar string Radar typename on unit level (used as key)
 ---@field Range number Max firing range in km
+---@field Rapier table 
+---@field Roland table 
+---@field SA-10 table 
+---@field SA-10B table 
+---@field SA-11 table 
+---@field SA-13 table 
+---@field SA-15 table 
+---@field SA-17 table 
+---@field SA-19 table 
+---@field SA-2 table 
+---@field SA-20A table 
+---@field SA-20B table 
+---@field SA-3 table 
+---@field SA-5 table 
+---@field SA-6 table 
+---@field SA-8 table 
+---@field SA-9 table 
+---@field STUNNER IDFA table 
+---@field Silkworm table 
+---@field TAMIR IDFA table 
 ---@field Type string #MANTIS.SamType of SAM, i.e. SHORT, MEDIUM or LONG (range)
 MANTIS.SamData = {}
 
 
 ---SAM data CH
 ---@class MANTIS.SamDataCH 
+---@field 2S38 CHM table 
 ---@field Blindspot number no-firing range (green circle)
+---@field BukM3-9M317M CHM table 
+---@field BukM3-9M317MA CHM table 
+---@field C-RAM CHM table 
+---@field FlaRakRad CHM table 
+---@field HQ-17A CHM table 
+---@field HQ-22 CHM table 
 ---@field Height number Max firing height in km
+---@field IRIS-T SLM CHM table 
+---@field LAV-AD CHM table 
+---@field LD-3000 CHM table 
+---@field LD-3000M CHM table 
+---@field Lvkv9040M CHM table 
+---@field M903PAC2 CHM table 
+---@field M903PAC2KAT1 CHM table 
+---@field M903PAC3 CHM table 
+---@field NASAMS3-AIM9X2 CHM table 
+---@field NASAMS3-AMRAAMER CHM table 
+---@field PGL-625 CHM table 
+---@field PGZ-09 CHM table 
+---@field PGZ-95 CHM table 
+---@field PantsirS1 CHM table 
+---@field PantsirS2 CHM table 
 ---@field Point string Point defense capable
+---@field RBS103A CHM table 
+---@field RBS103AM CHM table 
+---@field RBS103B CHM table 
+---@field RBS103BM CHM table 
+---@field RBS70 CHM table 
+---@field RBS70M CHM table 
+---@field RBS90 CHM table 
+---@field RBS90M CHM table 
+---@field RBS98M CHM table 
 ---@field Radar string Radar typename on unit level (used as key)
 ---@field Range number Max firing range in km
+---@field S350-9M100 CHM table 
+---@field S350-9M96D CHM table 
+---@field SkySabre CHM table 
+---@field Skynex CHM table 
+---@field Skyshield CHM table 
+---@field Stormer CHM table 
+---@field THAAD CHM table 
+---@field TorM2 CHM table 
+---@field TorM2K CHM table 
+---@field TorM2M CHM table 
 ---@field Type string #MANTIS.SamType of SAM, i.e. SHORT, MEDIUM or LONG (range)
+---@field USInfantryFIM92K CHM table 
+---@field WieselOzelot CHM table 
 MANTIS.SamDataCH = {}
 
 
 ---SAM data HDS
 ---@class MANTIS.SamDataHDS 
 ---@field Blindspot number no-firing range (green circle)
+---@field HQ-2 HDS table 
 ---@field Height number Max firing height in km
 ---@field Point string Point defense capable
 ---@field Radar string Radar typename on unit level (used as key)
 ---@field Range number Max firing range in km
+---@field SA-10C HDS 1 table 
+---@field SA-10C HDS 2 table 
+---@field SA-12 HDS 1 table 
+---@field SA-12 HDS 2 table 
+---@field SA-2 HDS table 
+---@field SA-23 HDS 1 table 
+---@field SA-23 HDS 2 table 
+---@field SA-3 HDS table 
 ---@field Type string #MANTIS.SamType of SAM, i.e. SHORT, MEDIUM or LONG (range)
 MANTIS.SamDataHDS = {}
 
@@ -1021,7 +1126,17 @@ MANTIS.SamDataHDS = {}
 ---@class MANTIS.SamDataSMA 
 ---@field Blindspot number no-firing range (green circle)
 ---@field Height number Max firing height in km
+---@field Lvkv9040M SMA table 
 ---@field Point string Point defense capable
+---@field RBS103A SMA table 
+---@field RBS103AM SMA table 
+---@field RBS103B SMA table 
+---@field RBS103BM SMA table 
+---@field RBS70 SMA table 
+---@field RBS70M SMA table 
+---@field RBS90 SMA table 
+---@field RBS90M SMA table 
+---@field RBS98M SMA table 
 ---@field Radar string Radar typename on unit level (used as key)
 ---@field Range number Max firing range in km
 ---@field Type string #MANTIS.SamType of SAM, i.e. SHORT, MEDIUM or LONG (range)

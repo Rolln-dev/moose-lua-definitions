@@ -74,15 +74,17 @@
 ---AI_FORMATION class
 ---@deprecated
 ---@class AI_FORMATION : FSM_SET
----@field FlightRandomization  
+---@field FlightRandomization NOTYPE 
 ---@field FollowDistance number The current follow distance.
 ---@field FollowGroupSet SET_GROUP 
+---@field FollowMode AI_FORMATION.MODE The mode the escort is in.
 ---@field FollowName string 
 ---@field FollowScheduler SCHEDULER The instance of the SCHEDULER class.
 ---@field FollowUnit UNIT 
 ---@field OptionReactionOnThreat AI.Option.Air.val.REACTION_ON_THREAT Which REACTION_ON_THREAT is set to the FollowGroup.
 ---@field ReportTargets boolean If true, nearby targets are reported.
----@field dtFollow number Time step between position updates.
+---@field __Enum table 
+---@field private dtFollow number Time step between position updates.
 AI_FORMATION = {}
 
 ---Follow me.
@@ -713,6 +715,7 @@ function AI_FORMATION:__FormationVic(Delay, XStart, XSpace, YStart, YSpace, ZSta
 ---@param ZLevels number The amount of levels on the Z-axis.
 ---@param FollowGroupSet NOTYPE 
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationBox(From, Event, To, XStart, XSpace, YStart, YSpace, ZStart, ZSpace, ZLevels, FollowGroupSet) end
 
 ---FormationCenterWing Handler OnAfter for AI_FORMATION
@@ -729,6 +732,7 @@ function AI_FORMATION:onafterFormationBox(From, Event, To, XStart, XSpace, YStar
 ---@param YSpace number The space between groups on the Y-axis in meters for each sequent group.
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
+---@private
 function AI_FORMATION:onafterFormationCenterWing(FollowGroupSet, From, Event, To, XStart, XSpace, YStart, YSpace, ZStart, ZSpace) end
 
 ---FormationLeftLine Handler OnAfter for AI_FORMATION
@@ -744,6 +748,7 @@ function AI_FORMATION:onafterFormationCenterWing(FollowGroupSet, From, Event, To
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationLeftLine(FollowGroupSet, From, Event, To, XStart, YStart, ZStart, ZSpace) end
 
 ---FormationLeftWing Handler OnAfter for AI_FORMATION
@@ -759,6 +764,7 @@ function AI_FORMATION:onafterFormationLeftLine(FollowGroupSet, From, Event, To, 
 ---@param YStart number The start position on the Y-axis in meters for the first group.
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
+---@private
 function AI_FORMATION:onafterFormationLeftWing(FollowGroupSet, From, Event, To, XStart, XSpace, YStart, ZStart, ZSpace) end
 
 ---FormationLine Handler OnAfter for AI_FORMATION
@@ -777,6 +783,7 @@ function AI_FORMATION:onafterFormationLeftWing(FollowGroupSet, From, Event, To, 
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
 ---@param Formation NOTYPE 
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationLine(FollowGroupSet, From, Event, To, XStart, XSpace, YStart, YSpace, ZStart, ZSpace, Formation) end
 
 ---FormationRightLine Handler OnAfter for AI_FORMATION
@@ -792,6 +799,7 @@ function AI_FORMATION:onafterFormationLine(FollowGroupSet, From, Event, To, XSta
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationRightLine(FollowGroupSet, From, Event, To, XStart, YStart, ZStart, ZSpace) end
 
 
@@ -807,6 +815,7 @@ function AI_FORMATION:onafterFormationRightLine(FollowGroupSet, From, Event, To,
 ---@param YStart NOTYPE 
 ---@param ZStart NOTYPE 
 ---@param ZSpace NOTYPE 
+---@private
 function AI_FORMATION:onafterFormationRightWing(FollowGroupSet, From, Event, To, XStart, XSpace, YStart, ZStart, ZSpace) end
 
 ---FormationStack Handler OnAfter for AI_FORMATION
@@ -822,6 +831,7 @@ function AI_FORMATION:onafterFormationRightWing(FollowGroupSet, From, Event, To,
 ---@param YStart number The start position on the Y-axis in meters for the first group.
 ---@param YSpace number The space between groups on the Y-axis in meters for each sequent group.
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationStack(FollowGroupSet, From, Event, To, XStart, XSpace, YStart, YSpace) end
 
 ---FormationTrail Handler OnAfter for AI_FORMATION
@@ -836,6 +846,7 @@ function AI_FORMATION:onafterFormationStack(FollowGroupSet, From, Event, To, XSt
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationTrail(FollowGroupSet, From, Event, To, XStart, XSpace, YStart) end
 
 ---FormationVic Handle for AI_FORMATION
@@ -853,6 +864,7 @@ function AI_FORMATION:onafterFormationTrail(FollowGroupSet, From, Event, To, XSt
 ---@param ZSpace number The space between groups on the Z-axis in meters for each sequent group.
 ---@param FollowGroupSet NOTYPE 
 ---@return AI_FORMATION #
+---@private
 function AI_FORMATION:onafterFormationVic(From, Event, To, XStart, XSpace, YStart, YSpace, ZStart, ZSpace, FollowGroupSet) end
 
 ---Stop function.
@@ -864,6 +876,7 @@ function AI_FORMATION:onafterFormationVic(From, Event, To, XStart, XSpace, YStar
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string The to state.
+---@private
 function AI_FORMATION:onafterStop(FollowGroupSet, From, Event, To) end
 
 ---Follow event fuction.
@@ -875,6 +888,7 @@ function AI_FORMATION:onafterStop(FollowGroupSet, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string The to state.
+---@private
 function AI_FORMATION:onbeforeFollow(FollowGroupSet, From, Event, To) end
 
 ---Enter following state.
@@ -885,6 +899,7 @@ function AI_FORMATION:onbeforeFollow(FollowGroupSet, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string The to state.
+---@private
 function AI_FORMATION:onenterFollowing(FollowGroupSet, From, Event, To) end
 
 

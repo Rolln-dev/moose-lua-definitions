@@ -38,12 +38,13 @@ DCSPositionable = {}
 ---
 ---Altitude can be retrieved using the method #POSITIONABLE.GetHeight() and returns the current altitude in meters from the orthonormal plane.
 ---@class POSITIONABLE : IDENTIFIABLE
+---@field CargoBayCapacityValues table 
 ---@field DefaultInfantryWeight number 
----@field LaserCode  
----@field PositionableName  
----@field Spot SPOT 
----@field coordinate COORDINATE Coordinate object.
----@field pointvec3 COORDINATE Point Vec3 object.
+---@field LaserCode NOTYPE 
+---@field PositionableName NOTYPE 
+---@field __ POSITIONABLE.__ 
+---@field private coordinate COORDINATE Coordinate object.
+---@field private pointvec3 COORDINATE Point Vec3 object.
 POSITIONABLE = {}
 
 ---Add cargo.
@@ -80,7 +81,7 @@ function POSITIONABLE:ClearCargo() end
 ---```
 ------
 ---@param self POSITIONABLE 
----@param GenerateEvent boolean (Optional) If true, generates a crash or dead event for the unit. If false, no event generated. If nil, a remove event is generated. 
+---@param GenerateEvent? boolean (Optional) If true, generates a crash or dead event for the unit. If false, no event generated. If nil, a remove event is generated. 
 ---@return nil #The DCS Unit is not existing or alive.
 function POSITIONABLE:Destroy(GenerateEvent) end
 
@@ -89,7 +90,7 @@ function POSITIONABLE:Destroy(GenerateEvent) end
 ------
 ---@param self POSITIONABLE 
 ---@param power number Power of the explosion in kg TNT. Default 100 kg TNT.
----@param delay number (Optional) Delay of explosion in seconds.
+---@param delay? number (Optional) Delay of explosion in seconds.
 ---@return POSITIONABLE #self
 function POSITIONABLE:Explode(power, delay) end
 
@@ -129,7 +130,7 @@ function POSITIONABLE:FlareYellow() end
 ---
 ------
 ---@param self POSITIONABLE 
----@param oatcorr number (Optional) Outside air temperature (OAT) correction factor. Default 0.017 (=1.7%).
+---@param oatcorr? number (Optional) Outside air temperature (OAT) correction factor. Default 0.017 (=1.7%).
 ---@return number #IAS in m/s. Returns 0 if the POSITIONABLE does not exist.
 function POSITIONABLE:GetAirspeedIndicated(oatcorr) end
 
@@ -176,7 +177,7 @@ function POSITIONABLE:GetBoundingBox() end
 ---
 ------
 ---@param self POSITIONABLE 
----@param MinDist number (Optional) If bounding box is smaller than this value, MinDist is returned.
+---@param MinDist? number (Optional) If bounding box is smaller than this value, MinDist is returned.
 ---@return Distance #The bounding radius of the POSITIONABLE
 ---@return nil #The POSITIONABLE is not existing or alive.
 function POSITIONABLE:GetBoundingRadius(MinDist) end
@@ -272,7 +273,7 @@ function POSITIONABLE:GetLaserCode() end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 ---@return MESSAGE #
 function POSITIONABLE:GetMessage(Message, Duration, Name) end
 
@@ -281,7 +282,7 @@ function POSITIONABLE:GetMessage(Message, Duration, Name) end
 ------
 ---@param self POSITIONABLE 
 ---@param Message string The message text.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 ---@return string #The message text.
 ---@return nil #The POSITIONABLE is not existing or alive.
 function POSITIONABLE:GetMessageText(Message, Name) end
@@ -292,7 +293,7 @@ function POSITIONABLE:GetMessageText(Message, Name) end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param MessageType MESSAGE MessageType The message type.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 ---@return MESSAGE #
 function POSITIONABLE:GetMessageType(Message, MessageType, Name) end
 
@@ -649,7 +650,7 @@ function POSITIONABLE:LaseUnit(Target, LaserCode, Duration) end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:Message(Message, Duration, Name) end
 
 ---Send a message to all coalitions.
@@ -659,7 +660,7 @@ function POSITIONABLE:Message(Message, Duration, Name) end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToAll(Message, Duration, Name) end
 
 ---Send a message to the blue coalition.
@@ -669,7 +670,7 @@ function POSITIONABLE:MessageToAll(Message, Duration, Name) end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToBlue(Message, Duration, Name) end
 
 ---Send a message to a client.
@@ -680,7 +681,7 @@ function POSITIONABLE:MessageToBlue(Message, Duration, Name) end
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param Client CLIENT The client object receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToClient(Message, Duration, Client, Name) end
 
 ---Send a message to a coalition.
@@ -691,7 +692,7 @@ function POSITIONABLE:MessageToClient(Message, Duration, Client, Name) end
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param MessageCoalition coalition The Coalition receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToCoalition(Message, Duration, MessageCoalition, Name) end
 
 ---Send a message to a Wrapper.Group.
@@ -702,7 +703,7 @@ function POSITIONABLE:MessageToCoalition(Message, Duration, MessageCoalition, Na
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param MessageGroup GROUP The GROUP object receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToGroup(Message, Duration, MessageGroup, Name) end
 
 ---Send a message to the red coalition.
@@ -712,7 +713,7 @@ function POSITIONABLE:MessageToGroup(Message, Duration, MessageGroup, Name) end
 ---@param self POSITIONABLE 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToRed(Message, Duration, Name) end
 
 ---Send a message to a Core.Set#SET_GROUP.
@@ -723,7 +724,7 @@ function POSITIONABLE:MessageToRed(Message, Duration, Name) end
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param MessageSetGroup SET_GROUP The SET_GROUP collection receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageToSetGroup(Message, Duration, MessageSetGroup, Name) end
 
 ---Send a message to a Core.Set#SET_UNIT.
@@ -734,7 +735,7 @@ function POSITIONABLE:MessageToSetGroup(Message, Duration, MessageSetGroup, Name
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param MessageSetUnit SET_UNIT The SET_UNIT collection receiving the message.
----@param Name string (optional) The Name of the sender. If not provided, the Name is the type of the Positionable.
+---@param Name? string (optional) The Name of the sender. If not provided, the Name is the type of the Positionable.
 function POSITIONABLE:MessageToSetUnit(Message, Duration, MessageSetUnit, Name) end
 
 ---Send a message to a Wrapper.Unit.
@@ -745,7 +746,7 @@ function POSITIONABLE:MessageToSetUnit(Message, Duration, MessageSetUnit, Name) 
 ---@param Message string The message text
 ---@param Duration Duration The duration of the message.
 ---@param MessageUnit UNIT The UNIT object receiving the message.
----@param Name string (optional) The Name of the sender. If not provided, the Name is the type of the Positionable.
+---@param Name? string (optional) The Name of the sender. If not provided, the Name is the type of the Positionable.
 function POSITIONABLE:MessageToUnit(Message, Duration, MessageUnit, Name) end
 
 ---Send a message to a coalition.
@@ -756,7 +757,7 @@ function POSITIONABLE:MessageToUnit(Message, Duration, MessageUnit, Name) end
 ---@param Message string The message text
 ---@param MessageType MESSAGE.Type The message type that determines the duration.
 ---@param MessageCoalition coalition The Coalition receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, Name is set to the type of the POSITIONABLE.
 function POSITIONABLE:MessageTypeToCoalition(Message, MessageType, MessageCoalition, Name) end
 
 ---Send a message of a message type to a Wrapper.Group.
@@ -767,7 +768,7 @@ function POSITIONABLE:MessageTypeToCoalition(Message, MessageType, MessageCoalit
 ---@param Message string The message text
 ---@param MessageType MESSAGE.Type The message type that determines the duration.
 ---@param MessageGroup GROUP The GROUP object receiving the message.
----@param Name string (Optional) The Name of the sender. If not provided, the Name is the type of the POSITIONABLE.
+---@param Name? string (Optional) The Name of the sender. If not provided, the Name is the type of the POSITIONABLE.
 function POSITIONABLE:MessageTypeToGroup(Message, MessageType, MessageGroup, Name) end
 
 ---Create a new POSITIONABLE from a DCSPositionable
@@ -790,7 +791,7 @@ function POSITIONABLE:RemoveCargo(Cargo) end
 ---
 ------
 ---@param self POSITIONABLE 
----@param WeightLimit number (Optional) Weight limit in kg. If not given, the value is taken from the descriptors or hard coded. 
+---@param WeightLimit? number (Optional) Weight limit in kg. If not given, the value is taken from the descriptors or hard coded. 
 function POSITIONABLE:SetCargoBayWeightLimit(WeightLimit) end
 
 ---Smoke the POSITIONABLE.
@@ -834,6 +835,7 @@ function POSITIONABLE:SmokeWhite() end
 
 
 ---@class POSITIONABLE.__ : IDENTIFIABLE
+---@field Cargo POSITIONABLE.__.Cargo 
 POSITIONABLE.__ = {}
 
 

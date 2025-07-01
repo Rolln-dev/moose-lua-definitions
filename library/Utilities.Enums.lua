@@ -21,6 +21,22 @@
 --- The ENUMS class adds some handy variables, which help you to make your code better and more general.
 ---[DCS Enum world](https://wiki.hoggitworld.com/view/DCS_enum_world)
 ---@class ENUMS 
+---@field AlarmState ENUMS.AlarmState 
+---@field FARPObjectTypeNamesAndShape ENUMS.FARPObjectTypeNamesAndShape 
+---@field FARPType ENUMS.FARPType 
+---@field Formation ENUMS.Formation 
+---@field FormationOld ENUMS.FormationOld 
+---@field ISOLang ENUMS.ISOLang 
+---@field Link16Power ENUMS.Link16Power 
+---@field MissionTask ENUMS.MissionTask 
+---@field Morse ENUMS.Morse 
+---@field Phonetic ENUMS.Phonetic 
+---@field ROE ENUMS.ROE 
+---@field ROT ENUMS.ROT 
+---@field ReportingName ENUMS.ReportingName 
+---@field Storage ENUMS.Storage 
+---@field WeaponFlag ENUMS.WeaponFlag 
+---@field WeaponType ENUMS.WeaponType 
 ENUMS = {}
 
 
@@ -51,6 +67,9 @@ ENUMS.FARPType = {}
 ---Formations (new).
 ---See the [Formations](https://wiki.hoggitworld.com/view/DCS_enum_formation) on hoggit wiki.
 ---@class ENUMS.Formation 
+---@field FixedWing table 
+---@field RotaryWing table 
+---@field Vehicle table 
 ENUMS.Formation = {}
 
 
@@ -58,6 +77,8 @@ ENUMS.Formation = {}
 ---The old format is a simplified version of the new formation enums, which allow more sophisticated settings.
 ---See the [Formations](https://wiki.hoggitworld.com/view/DCS_enum_formation) on hoggit wiki.
 ---@class ENUMS.FormationOld 
+---@field FixedWing table 
+---@field RotaryWing table 
 ENUMS.FormationOld = {}
 
 
@@ -78,10 +99,10 @@ ENUMS.ISOLang = {}
 
 ---Enums for Link16 transmit power
 ---@class ENUMS.Link16Power 
----@field high number 
----@field low number 
----@field medium number 
----@field none number 
+---@field private high number 
+---@field private low number 
+---@field private medium number 
+---@field private none number 
 ENUMS.Link16Power = {}
 
 
@@ -211,11 +232,13 @@ ENUMS.ROT = {}
 ---See the [Wikipedia](https://en.wikipedia.org/wiki/List_of_NATO_reporting_names_for_fighter_aircraft).
 ---DCS known aircraft types
 ---@class ENUMS.ReportingName 
+---@field NATO table 
 ENUMS.ReportingName = {}
 
 
 ---Enums for the STORAGE class for stores - which need to be in ""
 ---@class ENUMS.Storage 
+---@field private weapons table 
 ENUMS.Storage = {}
 
 
@@ -280,6 +303,13 @@ ENUMS.WeaponFlag = {}
 ---Weapon types by category.
 ---See the [Weapon Flag](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag) enumerator on hoggit wiki.
 ---@class ENUMS.WeaponType 
+---@field AAM table Air-to-Air missiles.
+---@field Any table Combinations.
+---@field Bomb table Bombs.
+---@field Gun table Guns.
+---@field Missile table Missiles.
+---@field Rocket table Rocket.
+---@field Torpedo table Torpedos.
 ENUMS.WeaponType = {}
 
 

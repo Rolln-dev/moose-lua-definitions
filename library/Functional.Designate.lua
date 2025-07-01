@@ -290,19 +290,27 @@
 ---    
 ---The example will activate the flashing of the status menu for this Designate object.
 ---@class DESIGNATE 
----@field AttackSet  
----@field CC  
----@field Detection  
----@field LaseStart  
----@field MarkScheduler  
----@field MaximumDesignations  
----@field MaximumDistanceAirDesignation  
----@field MaximumDistanceDesignations  
----@field MaximumDistanceGroundDesignation  
----@field MaximumMarkings  
----@field Mission  
----@field RecceSet  
----@field ThreatLevelPrioritization  
+---@field AttackSet NOTYPE 
+---@field CC NOTYPE 
+---@field Designating table 
+---@field Detection NOTYPE 
+---@field FlashDetectionMessage table 
+---@field FlashStatusMenu table 
+---@field LaseDuration NOTYPE 
+---@field LaseStart NOTYPE 
+---@field LaserCodes table 
+---@field LaserCodesUsed table 
+---@field MarkScheduler NOTYPE 
+---@field MaximumDesignations NOTYPE 
+---@field MaximumDistanceAirDesignation NOTYPE 
+---@field MaximumDistanceDesignations NOTYPE 
+---@field MaximumDistanceGroundDesignation NOTYPE 
+---@field MaximumMarkings NOTYPE 
+---@field MenuLaserCodes table 
+---@field Mission NOTYPE 
+---@field RecceSet NOTYPE 
+---@field Recces table 
+---@field ThreatLevelPrioritization NOTYPE 
 DESIGNATE = {}
 
 ---Add a specific lase code to the designate lase menu to lase targets with a specific laser code.
@@ -450,7 +458,7 @@ function DESIGNATE:MenuStatus(AttackGroup) end
 ---@param CC COMMANDCENTER 
 ---@param Detection DETECTION_BASE 
 ---@param AttackSet SET_GROUP The Attack collection of GROUP objects to designate and report for.
----@param Mission MISSION (Optional) The Mission where the menu needs to be attached.
+---@param Mission? MISSION (Optional) The Mission where the menu needs to be attached.
 ---@return DESIGNATE #
 function DESIGNATE:New(CC, Detection, AttackSet, Mission) end
 
@@ -597,8 +605,8 @@ function DESIGNATE:SendStatus(AttackGroup, Duration, MenuAttackGroup) end
 ---
 ------
 ---@param self DESIGNATE 
----@param AutoLase boolean (optional) true sets autolase on, false off. Default is off.
----@param Message boolean (optional) true is send message, false or nil won't send a message. Default is no message sent.
+---@param AutoLase? boolean (optional) true sets autolase on, false off. Default is off.
+---@param Message? boolean (optional) true is send message, false or nil won't send a message. Default is no message sent.
 ---@return DESIGNATE #
 function DESIGNATE:SetAutoLase(AutoLase, Message) end
 
@@ -807,6 +815,7 @@ function DESIGNATE:__Status(Delay) end
 ------
 ---@param self DESIGNATE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterDetect() end
 
 ---DoneIlluminating
@@ -818,6 +827,7 @@ function DESIGNATE:onafterDetect() end
 ---@param To NOTYPE 
 ---@param Index NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterDoneIlluminating(From, Event, To, Index) end
 
 ---DoneSmoking
@@ -829,6 +839,7 @@ function DESIGNATE:onafterDoneIlluminating(From, Event, To, Index) end
 ---@param To NOTYPE 
 ---@param Index NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterDoneSmoking(From, Event, To, Index) end
 
 ---Illuminating
@@ -840,6 +851,7 @@ function DESIGNATE:onafterDoneSmoking(From, Event, To, Index) end
 ---@param To NOTYPE 
 ---@param Index NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterIlluminate(From, Event, To, Index) end
 
 
@@ -851,6 +863,7 @@ function DESIGNATE:onafterIlluminate(From, Event, To, Index) end
 ---@param To NOTYPE 
 ---@param Index NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterLaseOff(From, Event, To, Index) end
 
 
@@ -863,6 +876,7 @@ function DESIGNATE:onafterLaseOff(From, Event, To, Index) end
 ---@param Index NOTYPE 
 ---@param Duration NOTYPE 
 ---@param LaserCode NOTYPE 
+---@private
 function DESIGNATE:onafterLaseOn(From, Event, To, Index, Duration, LaserCode) end
 
 
@@ -876,6 +890,7 @@ function DESIGNATE:onafterLaseOn(From, Event, To, Index, Duration, LaserCode) en
 ---@param Duration NOTYPE 
 ---@param LaserCodeRequested NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterLasing(From, Event, To, Index, Duration, LaserCodeRequested) end
 
 
@@ -888,6 +903,7 @@ function DESIGNATE:onafterLasing(From, Event, To, Index, Duration, LaserCodeRequ
 ---@param Index NOTYPE 
 ---@param Color NOTYPE 
 ---@return DESIGNATE #
+---@private
 function DESIGNATE:onafterSmoke(From, Event, To, Index, Color) end
 
 

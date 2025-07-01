@@ -323,21 +323,22 @@
 ---#TASK.SetBriefing() method.
 ---@class TASK : FSM_TASK
 ---@field CommandCenter COMMANDCENTER 
----@field DetectedItem  
----@field Detection  
----@field Dispatcher  
----@field FlashTaskStatus  
+---@field DetectedItem NOTYPE 
+---@field Detection NOTYPE 
+---@field Dispatcher NOTYPE 
+---@field FlashTaskStatus NOTYPE 
 ---@field FsmTemplate FSM_PROCESS 
 ---@field Mission MISSION 
 ---@field SetGroup SET_GROUP The Set of Groups assigned to the Task
----@field TaskBriefing  
----@field TaskControlMenuTime  
----@field TaskID  
+---@field TaskBriefing NOTYPE 
+---@field TaskControlMenu NOTYPE 
+---@field TaskControlMenuTime NOTYPE 
+---@field TaskID NOTYPE 
 ---@field TaskInfo TASKINFO 
----@field TaskName  
+---@field TaskName NOTYPE 
 ---@field TaskScheduler SCHEDULER 
----@field TaskType  
----@field TimeOut  
+---@field TaskType NOTYPE 
+---@field TimeOut NOTYPE 
 TASK = {}
 
 ---FSM Abort synchronous event function for TASK.
@@ -1161,6 +1162,7 @@ function TASK:__Success() end
 ---@param From string 
 ---@param Event string 
 ---@param To string 
+---@private
 function TASK:onafterReplan(From, Event, To) end
 
 ---FSM function for a TASK
@@ -1170,6 +1172,7 @@ function TASK:onafterReplan(From, Event, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function TASK:onbeforeTimeOut(Event, From, To) end
 
 ---FSM function for a TASK
@@ -1179,6 +1182,7 @@ function TASK:onbeforeTimeOut(Event, From, To) end
 ---@param From string 
 ---@param Event string 
 ---@param To string 
+---@private
 function TASK:onenterAborted(From, Event, To) end
 
 ---FSM function for a TASK
@@ -1190,6 +1194,7 @@ function TASK:onenterAborted(From, Event, To) end
 ---@param To string 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerName NOTYPE 
+---@private
 function TASK:onenterAssigned(Event, From, To, PlayerUnit, PlayerName) end
 
 ---FSM function for a TASK
@@ -1199,6 +1204,7 @@ function TASK:onenterAssigned(Event, From, To, PlayerUnit, PlayerName) end
 ---@param From string 
 ---@param Event string 
 ---@param To string 
+---@private
 function TASK:onenterCancelled(From, Event, To) end
 
 ---FSM function for a TASK
@@ -1208,6 +1214,7 @@ function TASK:onenterCancelled(From, Event, To) end
 ---@param From string 
 ---@param Event string 
 ---@param To string 
+---@private
 function TASK:onenterFailed(From, Event, To) end
 
 ---FSM function for a TASK
@@ -1217,6 +1224,7 @@ function TASK:onenterFailed(From, Event, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function TASK:onenterPlanned(Event, From, To) end
 
 ---FSM function for a TASK
@@ -1226,6 +1234,7 @@ function TASK:onenterPlanned(Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function TASK:onenterSuccess(Event, From, To) end
 
 ---FSM function for a TASK
@@ -1235,6 +1244,7 @@ function TASK:onenterSuccess(Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function TASK:onstatechange(Event, From, To) end
 
 

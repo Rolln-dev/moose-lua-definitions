@@ -21,7 +21,7 @@
 ---  
 ---  * #USERFLAG.New(): Creates a new USERFLAG object.
 ---@class USERFLAG 
----@field UserFlagName  
+---@field UserFlagName NOTYPE 
 USERFLAG = {}
 
 ---Get the userflag Number.

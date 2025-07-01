@@ -179,9 +179,9 @@
 ---TASK_A2A_DISPATCHER class.
 ---@deprecated
 ---@class TASK_A2A_DISPATCHER : DETECTION_MANAGER
----@field Detection  
----@field FlashNewTask boolean 
----@field Mission  
+---@field Detection NOTYPE 
+---@field FlashNewTask NOTYPE 
+---@field Mission NOTYPE 
 TASK_A2A_DISPATCHER = {}
 
 ---Creates an ENGAGE task when there are human friendlies airborne near the targets.

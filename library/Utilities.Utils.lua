@@ -27,6 +27,19 @@ BIGSMOKEPRESET = {}
 
 ---See [DCS_enum_callsigns](https://wiki.hoggitworld.com/view/DCS_enum_callsigns)
 ---@class CALLSIGN 
+---@field AH64 table 
+---@field AWACS table 
+---@field Aircraft table 
+---@field B1B table 
+---@field B52 table 
+---@field F15E table 
+---@field F16 table 
+---@field F18 table 
+---@field FARP table 
+---@field JTAC table 
+---@field Kiowa table 
+---@field Tanker table 
+---@field TransportAircraft table 
 CALLSIGN = {}
 
 
@@ -69,7 +82,9 @@ SMOKECOLOR = {}
 
 ---Utilities static class.
 ---@class UTILS 
+---@field Weather UTILS.Weather 
 ---@field _MarkID number Marker index counter. Running number when marker is added.
+---@field private lcg table 
 UTILS = {}
 
 ---Checks if a given angle (heading) is between 2 other angles.
@@ -270,8 +285,8 @@ function UTILS.GenerateLaserCodes() end
 ---Can be between 220 and 399 mHz. 243 is auto-excluded.
 ---
 ------
----@param Start NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 244
----@param End NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 320
+---@param Start? NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 244
+---@param End? NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 320
 ---@return table #UHF Frequencies
 function UTILS.GenerateUHFrequencies(Start, End) end
 
@@ -378,7 +393,7 @@ function UTILS.GetDirectionRadians(vec, point) end
 ---* Germany Cold War +0.1 (East) - near Fulda
 ---
 ------
----@param map string (Optional) Map for which the declination is returned. Default is from `env.mission.theatre`.
+---@param map? string (Optional) Map for which the declination is returned. Default is from `env.mission.theatre`.
 ---@return number #Declination in degrees.
 function UTILS.GetMagneticDeclination(map) end
 
@@ -390,14 +405,14 @@ function UTILS.GetMarkID() end
 ---Returns the day of the mission.
 ---
 ------
----@param Time number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
+---@param Time? number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
 ---@return number #Day of the mission. Mission starts on day 0.
 function UTILS.GetMissionDay(Time) end
 
 ---Returns the current day of the year of the mission.
 ---
 ------
----@param Time number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
+---@param Time? number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
 ---@return number #Current day of year of the mission. For example, January 1st returns 0, January 2nd returns 1 etc.
 function UTILS.GetMissionDayOfYear(Time) end
 
@@ -512,7 +527,7 @@ function UTILS.HexToRGBA(hex_string) end
 ------
 ---@param ias number Indicated air speed in any unit (m/s, km/h, knots, ...)
 ---@param altitude number Altitude above main sea level in meters.
----@param oatcorr number (Optional) Outside air temperature correction factor. Default 0.017.
+---@param oatcorr? number (Optional) Outside air temperature correction factor. Default 0.017.
 ---@return number #True airspeed in the same unit the IAS has been given.
 function UTILS.IasToTas(ias, altitude, oatcorr) end
 
@@ -521,7 +536,7 @@ function UTILS.IasToTas(ias, altitude, oatcorr) end
 ------
 ---@param Table table The table.
 ---@param Objects table The objects to check.
----@param Key string (Optional) Key to check.
+---@param Key? string (Optional) Key to check.
 ---@return boolean #Returns `true` if object is in table.
 function UTILS.IsAnyInTable(Table, Objects, Key) end
 
@@ -546,7 +561,7 @@ function UTILS.IsInSphere(InVec3, Vec3, Radius) end
 ------
 ---@param Table table The table.
 ---@param Object table The object to check.
----@param Key string (Optional) Key to check. By default, the object itself is checked.
+---@param Key? string (Optional) Key to check. By default, the object itself is checked.
 ---@return boolean #Returns `true` if object is in table.
 function UTILS.IsInTable(Table, Object, Key) end
 
@@ -586,7 +601,7 @@ function UTILS.IsLoadingDoorOpen(unit_name) end
 ------
 ---@param point NOTYPE Vec2 or Vec3 to test
 ---@param poly table Polygon Table of Vec2/3 point forming the Polygon
----@param maxalt number Altitude limit (optional)
+---@param maxalt? number Altitude limit (optional)
 ---@param outcome boolean 
 function UTILS.IsPointInPolygon(point, poly, maxalt, outcome) end
 
@@ -803,7 +818,7 @@ function UTILS.OneLineSerialize(tbl) end
 ---1% is very unlikely to happen, 99% is very likely to happen
 ---
 ------
----@param chance number (optional) Percentage chance you want something to happen. Defaults to a random number if not given
+---@param chance? number (optional) Percentage chance you want something to happen. Defaults to a random number if not given
 ---@return boolean #True if the dice roll was within the given percentage chance of happening
 function UTILS.PercentageChance(chance) end
 
@@ -835,10 +850,10 @@ function UTILS.PrintTableToLog(table, indent, noprint) end
 ---
 ------
 ---@param x0 number Expectation value of distribution.
----@param sigma number (Optional) Standard deviation. Default 10.
----@param xmin number (Optional) Lower cut-off value.
----@param xmax number (Optional) Upper cut-off value.
----@param imax number (Optional) Max number of tries to get a value between xmin and xmax (if specified). Default 100.
+---@param sigma? number (Optional) Standard deviation. Default 10.
+---@param xmin? number (Optional) Lower cut-off value.
+---@param xmax? number (Optional) Upper cut-off value.
+---@param imax? number (Optional) Max number of tries to get a value between xmin and xmax (if specified). Default 100.
 ---@return number #Gaussian random number.
 function UTILS.RandomGaussian(x0, sigma, xmin, xmax, imax) end
 
@@ -862,8 +877,8 @@ function UTILS.RandomPointInTriangle(pt1, pt2, pt3) end
 ------
 ---@param value number The value which should be randomized
 ---@param fac number Randomization factor.
----@param lower number (Optional) Lower limit of the returned value.
----@param upper number (Optional) Upper limit of the returned value.
+---@param lower? number (Optional) Lower limit of the returned value.
+---@param upper? number (Optional) Upper limit of the returned value.
 ---@return number #Randomized value.
 function UTILS.Randomize(value, fac, lower, upper) end
 
@@ -902,7 +917,7 @@ function UTILS.RemapValue(value, old_min, old_max, new_min, new_max) end
 ---
 ------
 ---@param MarkID number Unique ID of the object.
----@param Delay number (Optional) Delay in seconds before the mark is removed.
+---@param Delay? number (Optional) Delay in seconds before the mark is removed.
 function UTILS.RemoveMark(MarkID, Delay) end
 
 ---Replace illegal characters [<>|/?*:\\] in a string.
@@ -1054,7 +1069,7 @@ function UTILS.SecondsOfToday() end
 ---
 ------
 ---@param seconds number Time in seconds, e.g. from timer.getAbsTime() function.
----@param short boolean (Optional) If true, use short output, i.e. (HH:)MM:SS without day.
+---@param short? boolean (Optional) If true, use short output, i.e. (HH:)MM:SS without day.
 ---@return string #Time in format Hours:Minutes:Seconds+Days (HH:MM:SS+D).
 function UTILS.SecondsToClock(seconds, short) end
 
@@ -1142,7 +1157,7 @@ function UTILS.TableShow(tbl, loc, indent, tableshow_tbls) end
 ------
 ---@param tas number True air speed in any unit (m/s, km/h, knots, ...)
 ---@param altitude number Altitude above main sea level in meters.
----@param oatcorr number (Optional) Outside air temperature correction factor. Default 0.017.
+---@param oatcorr? number (Optional) Outside air temperature correction factor. Default 0.017.
 ---@return number #Indicated airspeed in the same unit the TAS has been given.
 function UTILS.TasToIas(tas, altitude, oatcorr) end
 
@@ -1393,6 +1408,7 @@ function UTILS._OneLineSerialize(tbl) end
 ------
 ---@param hPa number Pressure in hPa.
 ---@return number #Pressure in inHg.
+---@private
 function UTILS.hPa2inHg(hPa) end
 
 ---Convert pressure from hecto Pascal (hPa) to millimeters of mercury (mmHg).
@@ -1400,6 +1416,7 @@ function UTILS.hPa2inHg(hPa) end
 ------
 ---@param hPa number Pressure in hPa.
 ---@return number #Pressure in mmHg.
+---@private
 function UTILS.hPa2mmHg(hPa) end
 
 ---Convert kilo gramms (kg) to pounds (lbs).
@@ -1407,6 +1424,7 @@ function UTILS.hPa2mmHg(hPa) end
 ------
 ---@param kg number Mass in kg.
 ---@return number #Mass in lbs.
+---@private
 function UTILS.kg2lbs(kg) end
 
 ---Here is a customized version of pairs, which I called kpairs because it iterates over the table in a sorted order, based on a function that will determine the keys as reference first.
@@ -1422,9 +1440,10 @@ function UTILS.kg2lbs(kg) end
 ------
 ---@param t table The table
 ---@param getkey string The function to determine the keys for sorting
----@param order string (Optional) The sorting function itself
+---@param order? string (Optional) The sorting function itself
 ---@return string #key The index key
 ---@return string #value The value at the indexed key
+---@private
 function UTILS.kpairs(t, getkey, order) end
 
 ---Here is a customized version of pairs, which I called rpairs because it iterates over the table in a random order.
@@ -1441,6 +1460,7 @@ function UTILS.kpairs(t, getkey, order) end
 ---@param t table The table
 ---@return string #key The index key
 ---@return string #value The value at the indexed key
+---@private
 function UTILS.rpairs(t) end
 
 ---Here is a customized version of pairs, which I called spairs because it iterates over the table in a sorted order.
@@ -1455,9 +1475,10 @@ function UTILS.rpairs(t) end
 ---```
 ------
 ---@param t table The table
----@param order string (Optional) The sorting function
+---@param order? string (Optional) The sorting function
 ---@return string #key The index key
 ---@return string #value The value at the indexed key
+---@private
 function UTILS.spairs(t, order) end
 
 
@@ -1467,6 +1488,7 @@ function UTILS.spairs(t, order) end
 ---@param lon NOTYPE 
 ---@param acc NOTYPE 
 ---@param DMS NOTYPE 
+---@private
 function UTILS.tostringLL(lat, lon, acc, DMS) end
 
 
@@ -1475,6 +1497,7 @@ function UTILS.tostringLL(lat, lon, acc, DMS) end
 ---@param lat NOTYPE 
 ---@param lon NOTYPE 
 ---@param acc NOTYPE 
+---@private
 function UTILS.tostringLLM2KData(lat, lon, acc) end
 
 
@@ -1482,6 +1505,7 @@ function UTILS.tostringLLM2KData(lat, lon, acc) end
 ------
 ---@param MGRS NOTYPE 
 ---@param acc NOTYPE 
+---@private
 function UTILS.tostringMGRS(MGRS, acc) end
 
 

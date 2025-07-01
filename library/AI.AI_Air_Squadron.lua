@@ -23,20 +23,20 @@
 ---===
 ---@deprecated
 ---@class AI_AIR_SQUADRON : BASE
----@field Airbase  
----@field AirbaseName  
+---@field Airbase NOTYPE 
+---@field AirbaseName NOTYPE 
 ---@field Captured boolean 
----@field EngageProbability  
----@field FuelThreshold  
----@field Grouping  
----@field Landing  
----@field Name  
----@field Overhead  
----@field RadioFrequency  
----@field ResourceCount  
----@field Takeoff  
----@field TankerName  
----@field TemplatePrefixes  
+---@field EngageProbability NOTYPE 
+---@field FuelThreshold NOTYPE 
+---@field Grouping NOTYPE 
+---@field Landing NOTYPE 
+---@field Name NOTYPE 
+---@field Overhead NOTYPE 
+---@field RadioFrequency NOTYPE 
+---@field Spawn table 
+---@field Takeoff NOTYPE 
+---@field TankerName NOTYPE 
+---@field TemplatePrefixes NOTYPE 
 AI_AIR_SQUADRON = {}
 
 ---Add Resources to the Squadron.

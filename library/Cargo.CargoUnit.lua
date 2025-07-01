@@ -33,8 +33,10 @@
 ---Models CARGO in the form of units, which can be boarded, unboarded, loaded, unloaded.
 ---@deprecated
 ---@class CARGO_UNIT : CARGO_REPRESENTABLE
----@field CargoInAir  
----@field CargoObject  
+---@field CargoCarrier NOTYPE 
+---@field CargoInAir NOTYPE 
+---@field CargoObject NOTYPE 
+---@field RunCount number 
 CARGO_UNIT = {}
 
 ---Get the transportation method of the Cargo.
@@ -52,8 +54,8 @@ function CARGO_UNIT:GetTransportationMethod() end
 ---@param Type string 
 ---@param Name string 
 ---@param Weight number 
----@param LoadRadius number (optional)
----@param NearRadius number (optional)
+---@param LoadRadius? number (optional)
+---@param NearRadius? number (optional)
 ---@return CARGO_UNIT #
 function CARGO_UNIT:New(CargoUnit, Type, Name, Weight, LoadRadius, NearRadius) end
 
@@ -67,6 +69,7 @@ function CARGO_UNIT:New(CargoUnit, Type, Name, Weight, LoadRadius, NearRadius) e
 ---@param CargoCarrier GROUP 
 ---@param NearRadius number 
 ---@param ... NOTYPE 
+---@private
 function CARGO_UNIT:onafterBoard(Event, From, To, CargoCarrier, NearRadius, ...) end
 
 ---Boarding Event.
@@ -79,6 +82,7 @@ function CARGO_UNIT:onafterBoard(Event, From, To, CargoCarrier, NearRadius, ...)
 ---@param CargoCarrier CLIENT 
 ---@param NearRadius number Default 25 m.
 ---@param ... NOTYPE 
+---@private
 function CARGO_UNIT:onafterBoarding(Event, From, To, CargoCarrier, NearRadius, ...) end
 
 ---UnBoard Event.
@@ -89,7 +93,8 @@ function CARGO_UNIT:onafterBoarding(Event, From, To, CargoCarrier, NearRadius, .
 ---@param From string 
 ---@param To string 
 ---@param ToPointVec2 COORDINATE 
----@param NearRadius number (optional) Defaut 100 m.
+---@param NearRadius? number (optional) Defaut 100 m.
+---@private
 function CARGO_UNIT:onafterUnBoarding(Event, From, To, ToPointVec2, NearRadius) end
 
 ---Loaded State.
@@ -100,6 +105,7 @@ function CARGO_UNIT:onafterUnBoarding(Event, From, To, ToPointVec2, NearRadius) 
 ---@param From string 
 ---@param To string 
 ---@param CargoCarrier UNIT 
+---@private
 function CARGO_UNIT:onenterLoaded(Event, From, To, CargoCarrier) end
 
 ---Enter UnBoarding State.
@@ -110,7 +116,8 @@ function CARGO_UNIT:onenterLoaded(Event, From, To, CargoCarrier) end
 ---@param From string 
 ---@param To string 
 ---@param ToPointVec2 COORDINATE 
----@param NearRadius number (optional) Defaut 25 m.
+---@param NearRadius? number (optional) Defaut 25 m.
+---@private
 function CARGO_UNIT:onenterUnBoarding(Event, From, To, ToPointVec2, NearRadius) end
 
 ---Enter UnLoaded State.
@@ -122,6 +129,7 @@ function CARGO_UNIT:onenterUnBoarding(Event, From, To, ToPointVec2, NearRadius) 
 ---@param To string 
 ---@param Core NOTYPE Point#COORDINATE
 ---@param ToPointVec2 NOTYPE 
+---@private
 function CARGO_UNIT:onenterUnLoaded(Event, From, To, Core, ToPointVec2) end
 
 ---Leave UnBoarding State.
@@ -132,7 +140,8 @@ function CARGO_UNIT:onenterUnLoaded(Event, From, To, Core, ToPointVec2) end
 ---@param From string 
 ---@param To string 
 ---@param ToPointVec2 COORDINATE 
----@param NearRadius number (optional) Defaut 100 m.
+---@param NearRadius? number (optional) Defaut 100 m.
+---@private
 function CARGO_UNIT:onleaveUnBoarding(Event, From, To, ToPointVec2, NearRadius) end
 
 

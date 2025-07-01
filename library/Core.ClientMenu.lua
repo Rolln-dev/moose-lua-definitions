@@ -22,21 +22,28 @@
 ---
 ---===
 ---@class CLIENTMENU : BASE
+---@field Children table 
 ---@field ClassName string Class Name
+---@field Controller CLIENTMENUMANAGER 
 ---@field Function string 
+---@field Functionargs table 
 ---@field Generic boolean 
 ---@field GroupID number Group ID
 ---@field ID number Entry ID
 ---@field Once boolean 
+---@field Parent CLIENTMENU 
 ---@field UUID string Unique ID based on path+name
----@field active boolean 
----@field client CLIENT 
----@field debug boolean 
----@field group GROUP 
----@field groupname string Group name
----@field lid string Lid for log entries
----@field name string Name
----@field version string Version string
+---@field private active boolean 
+---@field private boolean active 
+---@field private client CLIENT 
+---@field private debug boolean 
+---@field private group GROUP 
+---@field private groupname string Group name
+---@field private lid string Lid for log entries
+---@field private name string Name
+---@field private parentpath table 
+---@field private path table 
+---@field private version string Version string
 CLIENTMENU = {}
 
 ---Link a child entry.
@@ -89,8 +96,8 @@ function CLIENTMENU:GetUUID() end
 ---@param Client CLIENT The client for whom this entry is. Leave as nil for a generic entry.
 ---@param Text string Text of the F10 menu entry.
 ---@param Parent CLIENTMENU The parent menu entry.
----@param Function string (optional) Function to call when the entry is used.
----@param ... NOTYPE (optional) Arguments for the Function, comma separated
+---@param Function? string (optional) Function to call when the entry is used.
+---@param ...? NOTYPE (optional) Arguments for the Function, comma separated
 ---@return CLIENTMENU #self 
 function CLIENTMENU:NewEntry(Client, Text, Parent, Function, ...) end
 
@@ -235,12 +242,16 @@ function CLIENTMENU:SetOnce() end
 ---@class CLIENTMENUMANAGER : BASE
 ---@field ClassName string Class Name
 ---@field Coalition number 
----@field clientset SET_CLIENT The set of clients this menu manager is for
----@field debug boolean 
----@field entrycount number 
----@field lid string Lid for log entries
----@field name string Name
----@field version string Version string
+---@field PlayerMenu table 
+---@field private clientset SET_CLIENT The set of clients this menu manager is for
+---@field private debug boolean 
+---@field private entrycount number 
+---@field private flattree table 
+---@field private lid string Lid for log entries
+---@field private menutree table 
+---@field private name string Name
+---@field private rootentries table 
+---@field private version string Version string
 CLIENTMENUMANAGER = {}
 
 ---Push a single previously created entry into the F10 menu structure of all clients.
@@ -248,7 +259,7 @@ CLIENTMENUMANAGER = {}
 ------
 ---@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry to add.
----@param Client CLIENT (optional) If given, make this change only for this client. 
+---@param Client? CLIENT (optional) If given, make this change only for this client. 
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:AddEntry(Entry, Client) end
 
@@ -258,7 +269,7 @@ function CLIENTMENUMANAGER:AddEntry(Entry, Client) end
 ---@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The menu entry.
 ---@param Text string New Text of the F10 menu entry.
----@param Client CLIENT (optional) The client for whom to alter the entry, if nil done for all clients.
+---@param Client? CLIENT (optional) The client for whom to alter the entry, if nil done for all clients.
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:ChangeEntryText(Entry, Text, Client) end
 
@@ -267,7 +278,7 @@ function CLIENTMENUMANAGER:ChangeEntryText(Entry, Text, Client) end
 ------
 ---@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry to remove
----@param Client CLIENT (optional) If given, make this change only for this client. 
+---@param Client? CLIENT (optional) If given, make this change only for this client. 
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:DeleteF10Entry(Entry, Client) end
 
@@ -301,7 +312,7 @@ function CLIENTMENUMANAGER:FindEntriesByParent(Parent) end
 ------
 ---@param self CLIENTMENUMANAGER 
 ---@param Text string Text or partial text of the F10 menu entry.
----@param Parent CLIENTMENU (Optional) Only find entries under this parent entry.
+---@param Parent? CLIENTMENU (Optional) Only find entries under this parent entry.
 ---@return table #Table of matching #CLIENTMENU objects.
 ---@return number #Number of matches
 function CLIENTMENUMANAGER:FindEntriesByText(Text, Parent) end
@@ -329,7 +340,7 @@ function CLIENTMENUMANAGER:FindUUIDsByParent(Parent) end
 ------
 ---@param self CLIENTMENUMANAGER 
 ---@param Text string Text or partial text of the menu entry to find.
----@param Parent CLIENTMENU (Optional) Only find entries under this parent entry.
+---@param Parent? CLIENTMENU (Optional) Only find entries under this parent entry.
 ---@return table #Table of matching UUIDs of #CLIENTMENU objects
 ---@return table #Table of matching #CLIENTMENU objects
 ---@return number #Number of matches
@@ -349,7 +360,7 @@ function CLIENTMENUMANAGER:InitAutoPropagation() end
 ---@param self CLIENTMENUMANAGER 
 ---@param ClientSet SET_CLIENT The set of clients to manage.
 ---@param Alias string The name of this manager.
----@param Coalition number (Optional) Coalition of this Manager, defaults to coalition.side.BLUE
+---@param Coalition? number (Optional) Coalition of this Manager, defaults to coalition.side.BLUE
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:New(ClientSet, Alias, Coalition) end
 
@@ -359,8 +370,8 @@ function CLIENTMENUMANAGER:New(ClientSet, Alias, Coalition) end
 ---@param self CLIENTMENUMANAGER 
 ---@param Text string Text of the F10 menu entry.
 ---@param Parent CLIENTMENU The parent menu entry.
----@param Function string (optional) Function to call when the entry is used.
----@param ... NOTYPE (optional) Arguments for the Function, comma separated.
+---@param Function? string (optional) Function to call when the entry is used.
+---@param ...? NOTYPE (optional) Arguments for the Function, comma separated.
 ---@return CLIENTMENU #Entry
 function CLIENTMENUMANAGER:NewEntry(Text, Parent, Function, ...) end
 
@@ -368,7 +379,7 @@ function CLIENTMENUMANAGER:NewEntry(Text, Parent, Function, ...) end
 ---
 ------
 ---@param self CLIENTMENUMANAGER 
----@param Client CLIENT (optional) If given, propagate only for this client.
+---@param Client? CLIENT (optional) If given, propagate only for this client.
 ---@return CLIENTMENU #Entry
 function CLIENTMENUMANAGER:Propagate(Client) end
 
@@ -377,7 +388,7 @@ function CLIENTMENUMANAGER:Propagate(Client) end
 ------
 ---@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry where to start. This entry stays.
----@param Client CLIENT (optional) If given, make this change only for this client. In this case the generic structure will not be touched.
+---@param Client? CLIENT (optional) If given, make this change only for this client. In this case the generic structure will not be touched.
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:RemoveF10SubEntries(Entry, Client) end
 
@@ -393,7 +404,7 @@ function CLIENTMENUMANAGER:RemoveGenericSubEntries(Entry) end
 ---
 ------
 ---@param self CLIENTMENUMANAGER 
----@param Client CLIENT (optional) If given, remove only for this client.
+---@param Client? CLIENT (optional) If given, remove only for this client.
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:ResetMenu(Client) end
 

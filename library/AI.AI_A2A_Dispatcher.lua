@@ -846,9 +846,15 @@
 ---AI_A2A_DISPATCHER class.
 ---@class AI_A2A_DISPATCHER : DETECTION_MANAGER
 ---@field DefenderCAPIndex number 
+---@field DefenderDefault table 
+---@field DefenderSpawns table 
+---@field DefenderSquadrons table 
+---@field DefenderTasks table 
 ---@field Detection DETECTION_AREAS 
----@field SetSendPlayerMessages boolean 
----@field TacticalDisplay  
+---@field Landing table Defines Landing type/location.
+---@field SetSendPlayerMessages NOTYPE 
+---@field TacticalDisplay NOTYPE 
+---@field Takeoff AI_A2A_DISPATCHER.Takeoff 
 AI_A2A_DISPATCHER = {}
 
 ---Add defender to squadron.
@@ -1417,8 +1423,8 @@ function AI_A2A_DISPATCHER:SetDefaultCapLimit(CapLimit) end
 ---@param LeglengthMax number Max length of the race track leg in meters. Default 15,000 m.
 ---@param HeadingMin number Min heading of the race track in degrees. Default 0 deg, i.e. counter clockwise from South to North.
 ---@param HeadingMax number Max heading of the race track in degrees. Default 180 deg, i.e. counter clockwise from North to South.
----@param DurationMin number (Optional) Min duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
----@param DurationMax number (Optional) Max duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMin? number (Optional) Min duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMax? number (Optional) Max duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
 ---@param CapCoordinates table Table of coordinates of first race track point. Second point is determined by leg length and heading.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultCapRacetrack(LeglengthMin, LeglengthMax, HeadingMin, HeadingMax, DurationMin, DurationMax, CapCoordinates) end
@@ -1899,7 +1905,7 @@ function AI_A2A_DISPATCHER:SetSendMessages(onoff) end
 ---@param SquadronName string A string (text) that defines the squadron identifier or the key of the Squadron. It can be any name, for example `"104th Squadron"` or `"SQ SQUADRON1"`, whatever. As long as you remember that this name becomes the identifier of your squadron you have defined. You need to use this name in other methods too! 
 ---@param AirbaseName string The airbase name where you want to have the squadron located. You need to specify here EXACTLY the name of the airbase as you see it in the mission editor. Examples are `"Batumi"` or `"Tbilisi-Lochini"`. EXACTLY the airbase name, between quotes `""`. To ease the airbase naming when using the LDT editor and IntelliSense, the @{Wrapper.Airbase#AIRBASE} class contains enumerations of the airbases of each map.     * Caucasus: @{Wrapper.Airbase#AIRBASE.Caucaus}    * Nevada or NTTR: @{Wrapper.Airbase#AIRBASE.Nevada}    * Normandy: @{Wrapper.Airbase#AIRBASE.Normandy} 
 ---@param TemplatePrefixes string A string or an array of strings specifying the **prefix names of the templates** (not going to explain what is templates here again). Examples are `{ "104th", "105th" }` or `"104th"` or `"Template 1"` or `"BLUE PLANES"`. Just remember that your template (groups late activated) need to start with the prefix you have specified in your code. If you have only one prefix name for a squadron, you don't need to use the `{ }`, otherwise you need to use the brackets. 
----@param ResourceCount number (optional) A number that specifies how many resources are in stock of the squadron. If not specified, the squadron will have infinite resources available.
+---@param ResourceCount? number (optional) A number that specifies how many resources are in stock of the squadron. If not specified, the squadron will have infinite resources available.
 ---@return AI_A2A_DISPATCHER #self 
 function AI_A2A_DISPATCHER:SetSquadron(SquadronName, AirbaseName, TemplatePrefixes, ResourceCount) end
 
@@ -2003,9 +2009,9 @@ function AI_A2A_DISPATCHER:SetSquadronCap2(SquadronName, EngageMinSpeed, EngageM
 ------
 ---@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
----@param CapLimit number (optional) The maximum amount of CAP groups to be spawned. Note that a CAP is a group, so can consist out of 1 to 4 airplanes. The default is 1 CAP group.
----@param LowInterval number (optional) The minimum time boundary in seconds when a new CAP will be spawned. The default is 180 seconds.
----@param HighInterval number (optional) The maximum time boundary in seconds when a new CAP will be spawned. The default is 600 seconds.
+---@param CapLimit? number (optional) The maximum amount of CAP groups to be spawned. Note that a CAP is a group, so can consist out of 1 to 4 airplanes. The default is 1 CAP group.
+---@param LowInterval? number (optional) The minimum time boundary in seconds when a new CAP will be spawned. The default is 180 seconds.
+---@param HighInterval? number (optional) The maximum time boundary in seconds when a new CAP will be spawned. The default is 600 seconds.
 ---@param Probability number Is not in use, you can skip this parameter.
 ---@return AI_A2A_DISPATCHER #
 function AI_A2A_DISPATCHER:SetSquadronCapInterval(SquadronName, CapLimit, LowInterval, HighInterval, Probability) end
@@ -2019,8 +2025,8 @@ function AI_A2A_DISPATCHER:SetSquadronCapInterval(SquadronName, CapLimit, LowInt
 ---@param LeglengthMax number Max length of the race track leg in meters. Default 15,000 m.
 ---@param HeadingMin number Min heading of the race track in degrees. Default 0 deg, i.e. from South to North.
 ---@param HeadingMax number Max heading of the race track in degrees. Default 180 deg, i.e. from North to South.
----@param DurationMin number (Optional) Min duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
----@param DurationMax number (Optional) Max duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMin? number (Optional) Min duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMax? number (Optional) Max duration in seconds before switching the orbit position. Default is keep same orbit until RTB or engage.
 ---@param CapCoordinates table Table of coordinates of first race track point. Second point is determined by leg length and heading.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronCapRacetrack(SquadronName, LeglengthMin, LeglengthMax, HeadingMin, HeadingMax, DurationMin, DurationMax, CapCoordinates) end
@@ -2352,7 +2358,7 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
 ------
 ---@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
----@param TakeoffAltitude number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
+---@param TakeoffAltitude? number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronTakeoffInAir(SquadronName, TakeoffAltitude) end
 
@@ -2483,6 +2489,7 @@ function AI_A2A_DISPATCHER:__GCI(Delay, AttackerDetection, DefendersMissing, Def
 ---@param Event string Event.
 ---@param To string To state.
 ---@param SquadronName string Name of the squadron.
+---@private
 function AI_A2A_DISPATCHER:onafterCAP(From, Event, To, SquadronName) end
 
 ---On after "ENGAGE" event.
@@ -2494,6 +2501,7 @@ function AI_A2A_DISPATCHER:onafterCAP(From, Event, To, SquadronName) end
 ---@param To string To state.
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param Defenders table Defenders table.
+---@private
 function AI_A2A_DISPATCHER:onafterENGAGE(From, Event, To, AttackerDetection, Defenders) end
 
 ---On after "GCI" event.
@@ -2506,6 +2514,7 @@ function AI_A2A_DISPATCHER:onafterENGAGE(From, Event, To, AttackerDetection, Def
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param DefendersMissing number Number of missing defenders.
 ---@param DefenderFriendlies table Friendly defenders.
+---@private
 function AI_A2A_DISPATCHER:onafterGCI(From, Event, To, AttackerDetection, DefendersMissing, DefenderFriendlies) end
 
 ---On after "Start" event.
@@ -2515,6 +2524,7 @@ function AI_A2A_DISPATCHER:onafterGCI(From, Event, To, AttackerDetection, Defend
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_A2A_DISPATCHER:onafterStart(From, Event, To) end
 
 
@@ -2524,6 +2534,7 @@ function AI_A2A_DISPATCHER:onafterStart(From, Event, To) end
 ---@field AirbaseName string Name of the home airbase.
 ---@field Captured boolean If true, airbase of the squadron was captured.
 ---@field FuelThreshold number Fuel threshold [0,1] for RTB.
+---@field Gci table GCI.
 ---@field Grouping number Squadron flight group size.
 ---@field Landing number Landing type.
 ---@field Name string Name of the squadron.
@@ -2536,9 +2547,13 @@ function AI_A2A_DISPATCHER:onafterStart(From, Event, To) end
 ---@field RacetrackLengthMax number Max Length of race track in meters. Default 15,000 m.
 ---@field RacetrackLengthMin number Min Length of race track in meters. Default 10,000 m.
 ---@field ResourceCount number Number of resources.
+---@field Resources table Flight group resources Resources[TemplateID][GroupName] = SpawnGroup.
+---@field Spawn table Table of spawns Core.Spawn#SPAWN.
+---@field Table table of template group names of the squadron.
 ---@field Takeoff number Takeoff type.
 ---@field TakeoffAltitude number Altitude in meters for spawn in air.
 ---@field TankerName string Name of the refuelling tanker.
+---@field TemplatePrefixes table 
 ---@field Uncontrolled boolean If true, flight groups are spawned uncontrolled and later activated.
 AI_A2A_DISPATCHER.Squadron = {}
 
@@ -2788,8 +2803,8 @@ AI_A2A_DISPATCHER.Squadron = {}
 ---     These Helicopter Group objects start with the name `104th CAP`, and will be the locations wherein CAP will be performed.
 ---   * `4` Defines how many CAP airplanes are patrolling in each CAP zone defined simultaneously.
 ---@class AI_A2A_GCICAP 
----@field CAPTemplates  
----@field Templates  
+---@field CAPTemplates NOTYPE 
+---@field Templates NOTYPE 
 AI_A2A_GCICAP = {}
 
 ---AI_A2A_GCICAP constructor.

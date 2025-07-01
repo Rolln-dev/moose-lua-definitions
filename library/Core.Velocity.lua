@@ -24,7 +24,7 @@
 ---  
 ---  * #VELOCITY.New(): Creates a new VELOCITY object.
 ---@class VELOCITY 
----@field Velocity  
+---@field Velocity NOTYPE 
 VELOCITY = {}
 
 ---Get the velocity in Mps (meters per second).
@@ -107,8 +107,8 @@ function VELOCITY:ToString(Controllable, Settings, VelocityGroup) end
 ---  
 ---  * #VELOCITY_POSITIONABLE.New(): Creates a new VELOCITY_POSITIONABLE object.
 ---@class VELOCITY_POSITIONABLE 
----@field Positionable  
----@field Velocity  
+---@field Positionable NOTYPE 
+---@field Velocity NOTYPE 
 VELOCITY_POSITIONABLE = {}
 
 ---Get the velocity in Mps (meters per second).

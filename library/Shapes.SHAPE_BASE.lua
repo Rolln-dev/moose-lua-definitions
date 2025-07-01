@@ -27,8 +27,12 @@
 ---This is the base class that all other shape classes are built on. There are some shared functions, most of which are overridden in the derived classes
 ---SHAPE_BASE class.
 ---@class SHAPE_BASE : BASE
+---@field CenterVec2 table Vec2 of the center of the shape, this will be assigned automatically
 ---@field ClassName string Name of the class.
+---@field Coords table List of COORDINATE defining the path, this will be assigned automatically
+---@field MarkIDs table List any MARKIDs this class use, this will be assigned automatically
 ---@field Name string Name of the shape
+---@field Points table List of 3D points defining the shape, this will be assigned automatically
 SHAPE_BASE = {}
 
 ---Checks if all units of a group are contained within the shape.

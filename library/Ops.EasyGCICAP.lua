@@ -148,33 +148,42 @@
 ---@field ConflictZoneSet SET_ZONE 
 ---@field DespawnAfterHolding boolean 
 ---@field DespawnAfterLanding boolean 
----@field EWRName  
+---@field EWRName NOTYPE 
 ---@field GoZoneSet SET_ZONE 
 ---@field Intel INTEL 
+---@field ListOfAuftrag list 
+---@field ManagedAW table 
+---@field ManagedCP table 
+---@field ManagedEWR table 
+---@field ManagedREC table 
+---@field ManagedSQ table 
+---@field ManagedTK table 
 ---@field MaxAliveMissions number 
 ---@field Monitor boolean 
 ---@field NoGoZoneSet SET_ZONE 
+---@field ReadyFlightGroups table 
 ---@field TankerInvisible boolean 
----@field airbase AIRBASE 
----@field airbasename string 
----@field alias string 
----@field capalt number 
----@field capdir number 
----@field capgrouping number 
----@field capleg number 
----@field capspeed number 
----@field coalition number 
----@field debug boolean 
----@field defaulttakeofftype string Take off type
----@field engagerange number 
----@field lid  
----@field maxinterceptsize number 
----@field missionrange number 
----@field noalert5 number 
----@field overhead number 
----@field repeatsonfailure number 
----@field resurrection number 
----@field version string EASYGCICAP class version.
+---@field private airbase AIRBASE 
+---@field private airbasename string 
+---@field private alias string 
+---@field private capalt number 
+---@field private capdir number 
+---@field private capgrouping number 
+---@field private capleg number 
+---@field private capspeed number 
+---@field private coalition number 
+---@field private debug boolean 
+---@field private defaulttakeofftype string Take off type
+---@field private engagerange number 
+---@field private lid NOTYPE 
+---@field private maxinterceptsize number 
+---@field private missionrange number 
+---@field private noalert5 number 
+---@field private overhead number 
+---@field private repeatsonfailure number 
+---@field private resurrection number 
+---@field private version string EASYGCICAP class version.
+---@field private wings table 
 EASYGCICAP = {}
 
 ---Add an AWACS Squadron to an Airwing of the manager
@@ -186,10 +195,10 @@ EASYGCICAP = {}
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
----@param Frequency number (optional) Radio Frequency to be used. 
----@param Modulation number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
+---@param Frequency? number (optional) Radio Frequency to be used. 
+---@param Modulation? number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddAWACSSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery, Frequency, Modulation) end
 
@@ -279,8 +288,8 @@ function EASYGCICAP:AddPatrolPointTanker(AirbaseName, Coordinate, Altitude, Spee
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddReconSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery) end
 
@@ -301,8 +310,8 @@ function EASYGCICAP:AddRejectZone(Zone) end
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery) end
 
@@ -315,11 +324,11 @@ function EASYGCICAP:AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames,
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
----@param Frequency number (optional) Radio Frequency to be used. 
----@param Modulation number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
----@param TACAN number (optional)  TACAN channel, e.g. 71, resulting in Channel 71Y
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
+---@param Frequency? number (optional) Radio Frequency to be used. 
+---@param Modulation? number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
+---@param TACAN? number (optional)  TACAN channel, e.g. 71, resulting in Channel 71Y
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddTankerSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery, Frequency, Modulation, TACAN) end
 
@@ -494,10 +503,10 @@ function EASYGCICAP:SetTankerAndAWACSInvisible(Switch) end
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
----@param Frequency number (optional) Radio frequency of the AWACS
----@param Modulation number (Optional) Radio modulation of the AWACS
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
+---@param Frequency? number (optional) Radio frequency of the AWACS
+---@param Modulation? number (Optional) Radio modulation of the AWACS
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_AddAWACSSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery, Frequency, Modulation) end
 
@@ -519,8 +528,8 @@ function EASYGCICAP:_AddAirwing(Airbasename, Alias) end
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_AddReconSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery) end
 
@@ -533,10 +542,10 @@ function EASYGCICAP:_AddReconSquadron(TemplateName, SquadName, AirbaseName, AirF
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
----@param Frequency number (optional) Radio Frequency to be used. 
----@param Modulation number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
+---@param Frequency? number (optional) Radio Frequency to be used. 
+---@param Modulation? number (optional) Radio Modulation to be used, e.g. radio.modulation.AM or radio.modulation.FM
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery, Frequency, Modulation) end
 
@@ -549,11 +558,11 @@ function EASYGCICAP:_AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
 ---@param AirFrames number Number of available airframes, e.g. 20.
 ---@param Skill string optional) Skill level, e.g. AI.Skill.AVERAGE
----@param Modex string (optional) Modex to be used,e.g. 402.
----@param Livery string (optional) Livery name to be used.
----@param Frequency number (optional) Radio frequency of the Tanker
----@param Modulation number (Optional) Radio modulation of the Tanker
----@param TACAN number (Optional) TACAN Channel to be used, will always be an "Y" channel
+---@param Modex? string (optional) Modex to be used,e.g. 402.
+---@param Livery? string (optional) Livery name to be used.
+---@param Frequency? number (optional) Radio frequency of the Tanker
+---@param Modulation? number (Optional) Radio modulation of the Tanker
+---@param TACAN? number (Optional) TACAN Channel to be used, will always be an "Y" channel
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_AddTankerSquadron(TemplateName, SquadName, AirbaseName, AirFrames, Skill, Modex, Livery, Frequency, Modulation, TACAN) end
 
@@ -641,6 +650,7 @@ function EASYGCICAP:_TryAssignIntercept(ReadyFlightGroups, InterceptAuftrag, Gro
 ---@param Event string 
 ---@param To string 
 ---@return EASYGCICAP #self
+---@private
 function EASYGCICAP:onafterStart(From, Event, To) end
 
 ---(Internal) FSM Function onafterStatus
@@ -651,6 +661,7 @@ function EASYGCICAP:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return EASYGCICAP #self
+---@private
 function EASYGCICAP:onafterStatus(From, Event, To) end
 
 ---(Internal) FSM Function onafterStop
@@ -661,6 +672,7 @@ function EASYGCICAP:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return EASYGCICAP #self
+---@private
 function EASYGCICAP:onafterStop(From, Event, To) end
 
 ---(Internal) FSM Function onbeforeStatus
@@ -671,6 +683,7 @@ function EASYGCICAP:onafterStop(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return EASYGCICAP #self
+---@private
 function EASYGCICAP:onbeforeStatus(From, Event, To) end
 
 

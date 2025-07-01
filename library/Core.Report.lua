@@ -17,8 +17,9 @@
 ---### Authors: FlightControl : Design & Programming
 ---Provides a handy means to create messages and reports.
 ---@class REPORT : BASE
----@field Indent  
----@field Title  
+---@field Indent NOTYPE 
+---@field Report table 
+---@field Title NOTYPE 
 REPORT = {}
 
 ---Add a new line to a REPORT.
@@ -35,7 +36,7 @@ function REPORT:Add(Text) end
 ------
 ---@param self REPORT 
 ---@param Text string The report text.
----@param Separator string (optional) The start of each report line can begin with an optional separator character. This can be a "-", or "#", or "*". You're free to choose what you find the best.
+---@param Separator? string (optional) The start of each report line can begin with an optional separator character. This can be a "-", or "#", or "*". You're free to choose what you find the best.
 ---@return REPORT #
 function REPORT:AddIndent(Text, Separator) end
 
@@ -81,7 +82,7 @@ function REPORT:SetTitle(Title) end
 ---
 ------
 ---@param self REPORT 
----@param Delimiter string (optional) A delimiter text.
+---@param Delimiter? string (optional) A delimiter text.
 ---@return string #The report text.
 function REPORT:Text(Delimiter) end
 

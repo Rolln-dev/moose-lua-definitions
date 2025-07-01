@@ -29,33 +29,40 @@
 ---@field ClassName string Name of the class.
 ---@field Ngroups number Number of asset OPS groups this cohort has.
 ---@field Nkilled number Number of destroyed asset groups.
----@field aircrafttype string Type of the units the cohort is using.
----@field attribute string Generalized attribute of the cohort template group.
----@field callsignIndex  
----@field callsignName  
----@field cargobayLimit number Cargo bay capacity in kg.
----@field category number Group category of the assets: `Group.Category.AIRPLANE`, `Group.Category.HELICOPTER`, `Group.Category.GROUND`, `Group.Category.SHIP`, `Group.Category.TRAIN`.
----@field engageRange number Mission range in meters.
----@field isAir boolean 
----@field isGround boolean Is ground.
----@field isNaval boolean Is naval. 
----@field legion LEGION The LEGION object the cohort belongs to.
----@field lid string Class id string for output to DCS log file.
----@field livery string Livery of the cohort.
----@field maintenancetime number Time in seconds needed for maintenance of a returned flight.
----@field modex  
----@field modexPrefix  
----@field modexSuffix  
----@field name string Name of the cohort.
----@field radioFreq number Radio frequency in MHz the cohort uses.
----@field radioModu number Radio modulation the cohort uses.
----@field repairtime number Time in seconds for each
----@field skill number Skill of cohort members.
----@field templategroup GROUP Template group.
----@field templatename string Name of the template group.
----@field verbose number Verbosity level.
----@field version string COHORT class version.
----@field weightAsset number Weight of one assets group in kg.
+---@field private aircrafttype string Type of the units the cohort is using.
+---@field private assets table Cohort assets.
+---@field private attribute string Generalized attribute of the cohort template group.
+---@field private callsign table 
+---@field private callsignIndex NOTYPE 
+---@field private callsignName NOTYPE 
+---@field private cargobayLimit number Cargo bay capacity in kg.
+---@field private category number Group category of the assets: `Group.Category.AIRPLANE`, `Group.Category.HELICOPTER`, `Group.Category.GROUND`, `Group.Category.SHIP`, `Group.Category.TRAIN`.
+---@field private descriptors table DCS descriptors.
+---@field private engageRange number Mission range in meters.
+---@field private isAir boolean 
+---@field private isGround boolean Is ground.
+---@field private isNaval boolean Is naval. 
+---@field private legion LEGION The LEGION object the cohort belongs to.
+---@field private lid string Class id string for output to DCS log file.
+---@field private livery string Livery of the cohort.
+---@field private maintenancetime number Time in seconds needed for maintenance of a returned flight.
+---@field private missiontypes table Capabilities (mission types and performances) of the cohort.
+---@field private modex NOTYPE 
+---@field private modexPrefix NOTYPE 
+---@field private modexSuffix NOTYPE 
+---@field private name string Name of the cohort.
+---@field private operations table Operations this cohort is part of.
+---@field private properties table DCS attributes.
+---@field private radioFreq number Radio frequency in MHz the cohort uses.
+---@field private radioModu number Radio modulation the cohort uses.
+---@field private repairtime number Time in seconds for each
+---@field private skill number Skill of cohort members.
+---@field private tacanChannel table List of TACAN channels available to the cohort.
+---@field private templategroup GROUP Template group.
+---@field private templatename string Name of the template group.
+---@field private verbose number Verbosity level.
+---@field private version string COHORT class version.
+---@field private weightAsset number Weight of one assets group in kg.
 COHORT = {}
 
 ---Add asset to cohort.
@@ -123,8 +130,8 @@ function COHORT:CheckAttribute(Attributes) end
 ------
 ---@param self COHORT 
 ---@param InStock boolean If `true`, only assets that are in the warehouse stock/inventory are counted. If `false`, only assets that are NOT in stock (i.e. spawned) are counted. If `nil`, all assets are counted.
----@param MissionTypes table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
----@param Attributes table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
+---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
+---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
 ---@return number #Number of assets.
 function COHORT:CountAssets(InStock, MissionTypes, Attributes) end
 
@@ -201,7 +208,7 @@ function COHORT:GetMissionPeformance(MissionType) end
 ---
 ------
 ---@param self COHORT 
----@param WeaponTypes table (Optional) Weapon bit type(s) to add to the total range. Default is the max weapon type available.  
+---@param WeaponTypes? table (Optional) Weapon bit type(s) to add to the total range. Default is the max weapon type available.  
 ---@return number #Range in meters.
 function COHORT:GetMissionRange(WeaponTypes) end
 
@@ -231,8 +238,8 @@ function COHORT:GetName() end
 ---
 ------
 ---@param self COHORT 
----@param MissionTypes table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
----@param Attributes table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
+---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
+---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
 ---@return SET_OPSGROUP #Ops groups set.
 function COHORT:GetOpsGroups(MissionTypes, Attributes) end
 
@@ -619,6 +626,7 @@ function COHORT:__Unpause(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function COHORT:onafterStart(From, Event, To) end
 
 ---On after "Stop" event.
@@ -628,6 +636,7 @@ function COHORT:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function COHORT:onafterStop(From, Event, To) end
 
 

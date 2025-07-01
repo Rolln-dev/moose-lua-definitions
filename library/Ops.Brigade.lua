@@ -32,12 +32,14 @@
 ---BRIGADE class.
 ---@class BRIGADE : LEGION
 ---@field ClassName string Name of the class.
----@field lid  
----@field retreatZones SET_ZONE Retreat zone set.
----@field verbose number Verbosity of output.
----@field version string BRIGADE class version.
----@field warehouseOpsElement  
----@field warehouseOpsGroup NAVYGROUP 
+---@field private lid NOTYPE 
+---@field private rearmingZones table Rearming zones. Each element is of type `#BRIGADE.SupplyZone`.
+---@field private refuellingZones table Refuelling zones. Each element is of type `#BRIGADE.SupplyZone`.
+---@field private retreatZones SET_ZONE Retreat zone set.
+---@field private verbose number Verbosity of output.
+---@field private version string BRIGADE class version.
+---@field private warehouseOpsElement NOTYPE 
+---@field private warehouseOpsGroup NAVYGROUP 
 BRIGADE = {}
 
 ---Add asset group(s) to platoon.
@@ -231,6 +233,7 @@ function BRIGADE:__Stop(delay) end
 ---@param To string To state.
 ---@param ArmyGroup ARMYGROUP Ops army group on mission.
 ---@param Mission AUFTRAG The requested mission.
+---@private
 function BRIGADE:onafterArmyOnMission(From, Event, To, ArmyGroup, Mission) end
 
 ---Start BRIGADE FSM.
@@ -240,6 +243,7 @@ function BRIGADE:onafterArmyOnMission(From, Event, To, ArmyGroup, Mission) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function BRIGADE:onafterStart(From, Event, To) end
 
 ---Update status.
@@ -249,15 +253,16 @@ function BRIGADE:onafterStart(From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function BRIGADE:onafterStatus(From, Event, To) end
 
 
 ---Supply Zone.
 ---@class BRIGADE.SupplyZone 
----@field marker MARKER F10 marker.
----@field markerOn boolean If `true`, marker is on.
----@field mission AUFTRAG Mission assigned to supply ammo or fuel.
----@field zone ZONE The zone.
+---@field private marker MARKER F10 marker.
+---@field private markerOn boolean If `true`, marker is on.
+---@field private mission AUFTRAG Mission assigned to supply ammo or fuel.
+---@field private zone ZONE The zone.
 BRIGADE.SupplyZone = {}
 
 

@@ -56,8 +56,8 @@ function LINE:GetBoundingBox() end
 ---
 ------
 ---@param amount number The number of points to get
----@param start_point table (Optional) The start point of the line, defaults to the object's start point
----@param end_point table (Optional) The end point of the line, defaults to the object's end point
+---@param start_point? table (Optional) The start point of the line, defaults to the object's start point
+---@param end_point? table (Optional) The end point of the line, defaults to the object's end point
 ---@param self NOTYPE 
 ---@return table #The points
 function LINE.GetCoordinatesInBetween(amount, start_point, end_point, self) end
@@ -81,7 +81,7 @@ function LINE:GetEndPoint() end
 ---Gets the heading of the line.
 ---
 ------
----@param points table (optional) The points of the line or 2 other points if you're just using the LINE class without an object of it
+---@param points? table (optional) The points of the line or 2 other points if you're just using the LINE class without an object of it
 ---@param self NOTYPE 
 ---@return number #The heading of the line
 function LINE.GetHeading(points, self) end
@@ -104,11 +104,11 @@ function LINE:GetLength() end
 ---
 ------
 ---@param amount number The number of points to get
----@param start_point table (Optional) The start point of the line, defaults to the object's start point
----@param end_point table (Optional) The end point of the line, defaults to the object's end point
----@param frequency number (Optional) The frequency of the sine wave, default 1
----@param phase number (Optional) The phase of the sine wave, default 0
----@param amplitude number (Optional) The amplitude of the sine wave, default 100
+---@param start_point? table (Optional) The start point of the line, defaults to the object's start point
+---@param end_point? table (Optional) The end point of the line, defaults to the object's end point
+---@param frequency? number (Optional) The frequency of the sine wave, default 1
+---@param phase? number (Optional) The phase of the sine wave, default 0
+---@param amplitude? number (Optional) The amplitude of the sine wave, default 100
 ---@param self NOTYPE 
 ---@return table #The points
 function LINE.GetPointsBetweenAsSineWave(amount, start_point, end_point, frequency, phase, amplitude, self) end
@@ -117,8 +117,8 @@ function LINE.GetPointsBetweenAsSineWave(amount, start_point, end_point, frequen
 ---
 ------
 ---@param amount number The number of points to get
----@param start_point table (Optional) The start point of the line, defaults to the object's start point
----@param end_point table (Optional) The end point of the line, defaults to the object's end point
+---@param start_point? table (Optional) The start point of the line, defaults to the object's start point
+---@param end_point? table (Optional) The end point of the line, defaults to the object's end point
 ---@param self NOTYPE 
 ---@return table #The points
 function LINE.GetPointsInbetween(amount, start_point, end_point, self) end
@@ -134,7 +134,7 @@ function LINE:GetRandomCoordinate(start_point, end_point) end
 ---Returns a random point on the line.
 ---
 ------
----@param points table (optional) The points of the line or 2 other points if you're just using the LINE class without an object of it
+---@param points? table (optional) The points of the line or 2 other points if you're just using the LINE class without an object of it
 ---@param self NOTYPE 
 ---@return table #The random point
 function LINE.GetRandomPoint(points, self) end

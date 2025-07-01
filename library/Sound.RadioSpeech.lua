@@ -26,6 +26,8 @@
 ---@class RADIOSPEECH : RADIOQUEUE
 ---@field ClassName string 
 ---@field Language string 
+---@field Speech table 
+---@field Vocabulary table 
 RADIOSPEECH = {}
 
 ---Add Sentence to the Speech collection.
@@ -51,7 +53,7 @@ function RADIOSPEECH:BuildTree() end
 ------
 ---@param self RADIOSPEECH 
 ---@param frequency number The radio frequency in MHz.
----@param modulation number (Optional) The radio modulation. Default radio.modulation.AM.
+---@param modulation? number (Optional) The radio modulation. Default radio.modulation.AM.
 ---@return RADIOSPEECH #self The RADIOSPEECH object.
 function RADIOSPEECH:New(frequency, modulation) end
 

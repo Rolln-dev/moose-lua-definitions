@@ -289,17 +289,17 @@
 ---@field CargoCarrier CLIENT 
 ---@field CargoLimit number 
 ---@field CargoObject GROUP 
----@field CargoScheduler  
+---@field CargoScheduler NOTYPE 
 ---@field Containable boolean 
----@field Deployed  
+---@field Deployed NOTYPE 
 ---@field Moveable boolean 
----@field Name  
----@field ReportFlareColor  
----@field ReportSmokeColor  
+---@field Name NOTYPE 
+---@field ReportFlareColor NOTYPE 
+---@field ReportSmokeColor NOTYPE 
 ---@field Representable boolean 
 ---@field Slingloadable boolean 
----@field Type  
----@field Volume  
+---@field Type NOTYPE 
+---@field Volume NOTYPE 
 CARGO = {}
 
 ---Boards the cargo to a Carrier.
@@ -597,7 +597,7 @@ function CARGO:Load(ToCarrier) end
 ---@param self CARGO 
 ---@param Message string 
 ---@param CarrierGroup GROUP The Carrier Group.
----@param Name string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
+---@param Name? string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
 function CARGO:MessageToGroup(Message, CarrierGroup, Name) end
 
 ---CARGO Constructor.
@@ -608,8 +608,8 @@ function CARGO:MessageToGroup(Message, CarrierGroup, Name) end
 ---@param Type string 
 ---@param Name string 
 ---@param Weight number 
----@param LoadRadius number (optional)
----@param NearRadius number (optional)
+---@param LoadRadius? number (optional)
+---@param NearRadius? number (optional)
 ---@return CARGO #
 function CARGO:New(Type, Name, Weight, LoadRadius, NearRadius) end
 
@@ -807,7 +807,7 @@ function CARGO:Spawn(PointVec2) end
 ---
 ------
 ---@param self CARGO 
----@param ToPointVec2 COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
+---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
 function CARGO:UnBoard(ToPointVec2) end
 
 ---UnLoads the cargo to a Carrier.
@@ -816,7 +816,7 @@ function CARGO:UnBoard(ToPointVec2) end
 ---
 ------
 ---@param self CARGO 
----@param ToPointVec2 COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
+---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
 function CARGO:UnLoad(ToPointVec2) end
 
 ---Boards the cargo to a Carrier.
@@ -847,7 +847,7 @@ function CARGO:__Load(DelaySeconds, ToCarrier) end
 ------
 ---@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
----@param ToPointVec2 COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
+---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
 function CARGO:__UnBoard(DelaySeconds, ToPointVec2) end
 
 ---UnLoads the cargo to a Carrier.
@@ -857,21 +857,22 @@ function CARGO:__UnBoard(DelaySeconds, ToPointVec2) end
 ------
 ---@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
----@param ToPointVec2 COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
+---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
 function CARGO:__UnLoad(DelaySeconds, ToPointVec2) end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function CARGO:onenterDestroyed() end
 
 
 --- @type CARGO_PACKAGE
 --- @extends #CARGO_REPRESENTABLE
 ---@class CARGO_PACKAGE 
----@field CargoCarrier  
----@field CargoInAir  
+---@field CargoCarrier NOTYPE 
+---@field CargoInAir NOTYPE 
 CARGO_PACKAGE = {}
 
 
@@ -892,7 +893,7 @@ function CARGO_REPRESENTABLE:Destroy() end
 ---@param self CARGO_REPRESENTABLE 
 ---@param Message string 
 ---@param TaskGroup GROUP 
----@param Name string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
+---@param Name? string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
 function CARGO_REPRESENTABLE:MessageToGroup(Message, TaskGroup, Name) end
 
 ---CARGO_REPRESENTABLE Constructor.
@@ -902,8 +903,8 @@ function CARGO_REPRESENTABLE:MessageToGroup(Message, TaskGroup, Name) end
 ---@param CargoObject POSITIONABLE The cargo object.
 ---@param Type string Type name
 ---@param Name string Name.
----@param LoadRadius number (optional) Radius in meters.
----@param NearRadius number (optional) Radius in meters when the cargo is loaded into the carrier.
+---@param LoadRadius? number (optional) Radius in meters.
+---@param NearRadius? number (optional) Radius in meters when the cargo is loaded into the carrier.
 ---@return CARGO_REPRESENTABLE #
 function CARGO_REPRESENTABLE:New(CargoObject, Type, Name, LoadRadius, NearRadius) end
 

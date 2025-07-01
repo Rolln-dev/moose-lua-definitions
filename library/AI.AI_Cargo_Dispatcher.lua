@@ -555,22 +555,25 @@
 ---
 ---===
 ---@class AI_CARGO_DISPATCHER 
----@field DeployInnerRadius  
----@field DeployMaxHeight  
----@field DeployMaxSpeed  
----@field DeployMinHeight  
----@field DeployMinSpeed  
----@field DeployOuterRadius  
----@field DeployZoneSet  
----@field HomeZone  
----@field MonitorTimeInterval  
----@field PickupInnerRadius  
----@field PickupMaxHeight  
----@field PickupMaxSpeed  
----@field PickupMinHeight  
----@field PickupMinSpeed  
----@field PickupOuterRadius  
----@field PickupZoneSet  
+---@field AI_Cargo table List of AI_Cargo
+---@field CarrierHome table 
+---@field DeployInnerRadius NOTYPE 
+---@field DeployMaxHeight NOTYPE 
+---@field DeployMaxSpeed NOTYPE 
+---@field DeployMinHeight NOTYPE 
+---@field DeployMinSpeed NOTYPE 
+---@field DeployOuterRadius NOTYPE 
+---@field DeployZoneSet NOTYPE 
+---@field HomeZone NOTYPE 
+---@field MonitorTimeInterval NOTYPE 
+---@field PickupCargo table 
+---@field PickupInnerRadius NOTYPE 
+---@field PickupMaxHeight NOTYPE 
+---@field PickupMaxSpeed NOTYPE 
+---@field PickupMinHeight NOTYPE 
+---@field PickupMinSpeed NOTYPE 
+---@field PickupOuterRadius NOTYPE 
+---@field PickupZoneSet NOTYPE 
 ---@field SetCargo SET_CARGO 
 ---@field SetCarrier SET_GROUP 
 AI_CARGO_DISPATCHER = {}
@@ -596,7 +599,7 @@ AI_CARGO_DISPATCHER = {}
 ---@param self AI_CARGO_DISPATCHER 
 ---@param CarrierSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of carriers that will transport the cargo. 
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
----@param PickupZoneSet SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the carriers. If nil, then cargo can be picked up everywhere. 
+---@param PickupZoneSet? SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the carriers. If nil, then cargo can be picked up everywhere. 
 ---@param DeployZoneSet SET_ZONE The set of deploy zones, which are used to where the cargo will be deployed by the carriers. 
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:New(CarrierSet, CargoSet, PickupZoneSet, DeployZoneSet) end
@@ -657,7 +660,7 @@ function AI_CARGO_DISPATCHER:OnAfterHome(From, Event, To, CarrierGroup, Coordina
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
 ---@param CarrierGroup GROUP The group object that contains the CarrierUnits.
----@param PickupZone ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
+---@param PickupZone? ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
 function AI_CARGO_DISPATCHER:OnAfterLoad(From, Event, To, CarrierGroup, PickupZone) end
 
 ---Loaded event handler OnAfter for AI_CARGO_DISPATCHER.
@@ -674,7 +677,7 @@ function AI_CARGO_DISPATCHER:OnAfterLoad(From, Event, To, CarrierGroup, PickupZo
 ---@param CarrierGroup GROUP The group object that contains the CarrierUnits.
 ---@param Cargo CARGO The cargo object.
 ---@param CarrierUnit UNIT The carrier unit that is executing the cargo loading operation.
----@param PickupZone ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
+---@param PickupZone? ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
 function AI_CARGO_DISPATCHER:OnAfterLoaded(From, Event, To, CarrierGroup, Cargo, CarrierUnit, PickupZone) end
 
 ---Loading event handler OnAfter for AI_CARGO_DISPATCHER.
@@ -690,7 +693,7 @@ function AI_CARGO_DISPATCHER:OnAfterLoaded(From, Event, To, CarrierGroup, Cargo,
 ---@param CarrierGroup GROUP The group object that contains the CarrierUnits.
 ---@param Cargo CARGO The cargo object.
 ---@param CarrierUnit UNIT The carrier unit that is executing the cargo loading operation.
----@param PickupZone ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
+---@param PickupZone? ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
 function AI_CARGO_DISPATCHER:OnAfterLoading(From, Event, To, CarrierGroup, Cargo, CarrierUnit, PickupZone) end
 
 ---PickedUp event handler OnAfter for AI_CARGO_DISPATCHER.
@@ -703,7 +706,7 @@ function AI_CARGO_DISPATCHER:OnAfterLoading(From, Event, To, CarrierGroup, Cargo
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
 ---@param CarrierGroup GROUP The group object that contains the CarrierUnits.
----@param PickupZone ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
+---@param PickupZone? ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
 function AI_CARGO_DISPATCHER:OnAfterPickedUp(From, Event, To, CarrierGroup, PickupZone) end
 
 ---Pickup event handler OnAfter for AI_CARGO_DISPATCHER.
@@ -719,7 +722,7 @@ function AI_CARGO_DISPATCHER:OnAfterPickedUp(From, Event, To, CarrierGroup, Pick
 ---@param Coordinate COORDINATE The coordinate of the pickup location.
 ---@param Speed number The velocity in meters per second on which the CarrierGroup is routed towards the pickup Coordinate.
 ---@param Height number Height in meters to move to the pickup coordinate.
----@param PickupZone ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
+---@param PickupZone? ZONE_AIRBASE (optional) The zone from where the cargo is picked up. Note that the zone is optional and may not be provided, but for AI_CARGO_DISPATCHER_AIRBASE there will always be a PickupZone, as the pickup location is an airbase zone.
 function AI_CARGO_DISPATCHER:OnAfterPickup(From, Event, To, CarrierGroup, Coordinate, Speed, Height, PickupZone) end
 
 ---Unload event handler OnAfter for AI_CARGO_DISPATCHER.
@@ -784,8 +787,8 @@ function AI_CARGO_DISPATCHER:OnAfterUnloading(From, Event, To, CarrierGroup, Car
 ---```
 ------
 ---@param self AI_CARGO_DISPATCHER 
----@param MaxHeight number (optional) The maximum height to fly to the cargo deploy location.
----@param MinHeight number (optional) The minimum height to fly to the cargo deploy location.
+---@param MaxHeight? number (optional) The maximum height to fly to the cargo deploy location.
+---@param MinHeight? number (optional) The minimum height to fly to the cargo deploy location.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetDeployHeight(MaxHeight, MinHeight) end
 
@@ -813,7 +816,7 @@ function AI_CARGO_DISPATCHER:SetDeployHeight(MaxHeight, MinHeight) end
 ------
 ---@param self AI_CARGO_DISPATCHER 
 ---@param OuterRadius number The outer radius in meters around the cargo coordinate.
----@param InnerRadius number (optional) The inner radius in meters around the cargo coordinate.
+---@param InnerRadius? number (optional) The inner radius in meters around the cargo coordinate.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetDeployRadius(OuterRadius, InnerRadius) end
 
@@ -833,7 +836,7 @@ function AI_CARGO_DISPATCHER:SetDeployRadius(OuterRadius, InnerRadius) end
 ------
 ---@param self AI_CARGO_DISPATCHER 
 ---@param MaxSpeed number The maximum speed to move to the cargo deploy location.
----@param MinSpeed number (optional) The minimum speed to move to the cargo deploy location.
+---@param MinSpeed? number (optional) The minimum speed to move to the cargo deploy location.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetDeploySpeed(MaxSpeed, MinSpeed) end
 
@@ -883,8 +886,8 @@ function AI_CARGO_DISPATCHER:SetMonitorTimeInterval(MonitorTimeInterval) end
 ---```
 ------
 ---@param self AI_CARGO_DISPATCHER 
----@param MaxHeight number (optional) The maximum height to fly to the cargo pickup location.
----@param MinHeight number (optional) The minimum height to fly to the cargo pickup location.
+---@param MaxHeight? number (optional) The maximum height to fly to the cargo pickup location.
+---@param MinHeight? number (optional) The minimum height to fly to the cargo pickup location.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetPickupHeight(MaxHeight, MinHeight) end
 
@@ -915,7 +918,7 @@ function AI_CARGO_DISPATCHER:SetPickupHeight(MaxHeight, MinHeight) end
 ------
 ---@param self AI_CARGO_DISPATCHER 
 ---@param OuterRadius number The outer radius in meters around the cargo coordinate.
----@param InnerRadius number (optional) The inner radius in meters around the cargo coordinate.
+---@param InnerRadius? number (optional) The inner radius in meters around the cargo coordinate.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetPickupRadius(OuterRadius, InnerRadius) end
 
@@ -934,7 +937,7 @@ function AI_CARGO_DISPATCHER:SetPickupRadius(OuterRadius, InnerRadius) end
 ---```
 ------
 ---@param self AI_CARGO_DISPATCHER 
----@param MaxSpeed number (optional) The maximum speed to move to the cargo pickup location.
+---@param MaxSpeed? number (optional) The maximum speed to move to the cargo pickup location.
 ---@param MinSpeed number The minimum speed to move to the cargo pickup location.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetPickupSpeed(MaxSpeed, MinSpeed) end
@@ -969,6 +972,7 @@ function AI_CARGO_DISPATCHER:__Stop(Delay) end
 ---
 ------
 ---@param self AI_CARGO_DISPATCHER 
+---@private
 function AI_CARGO_DISPATCHER:onafterMonitor() end
 
 
@@ -978,6 +982,7 @@ function AI_CARGO_DISPATCHER:onafterMonitor() end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CARGO_DISPATCHER:onafterStart(From, Event, To) end
 
 ---Make a Carrier run for a cargo deploy action after the cargo has been loaded, by default.
@@ -990,6 +995,7 @@ function AI_CARGO_DISPATCHER:onafterStart(From, Event, To) end
 ---@param Carrier GROUP 
 ---@param Cargo CARGO 
 ---@return AI_CARGO_DISPATCHER #
+---@private
 function AI_CARGO_DISPATCHER:onafterTransport(From, Event, To, Carrier, Cargo) end
 
 

@@ -207,11 +207,13 @@
 ---@class SETTINGS : BASE
 ---@field A2ASystem string 
 ---@field A2GSystem string 
----@field Era  
----@field LL_Accuracy  
----@field MGRS_Accuracy  
----@field Metric boolean 
+---@field Era NOTYPE 
+---@field LL_Accuracy NOTYPE 
+---@field MGRS_Accuracy NOTYPE 
+---@field Metric NOTYPE 
+---@field PlayerMenu NOTYPE 
 ---@field ShowPlayerMenu boolean 
+---@field __Enum table 
 SETTINGS = {}
 
 
@@ -448,7 +450,7 @@ function SETTINGS:RemovePlayerMenu(PlayerUnit) end
 ---
 ------
 ---@param self SETTINGS 
----@param PlayerName string (Optional) Set settings for this player.
+---@param PlayerName? string (Optional) Set settings for this player.
 ---@return SETTINGS #
 function SETTINGS:Set(PlayerName) end
 

@@ -27,12 +27,15 @@
 ---SOCKET class.
 ---@class SOCKET : FSM
 ---@field ClassName string Name of the class.
----@field UDPSendSocket  
----@field host string The host.
----@field lid string Class id string for output to DCS log file.
----@field port number The port.
----@field verbose number Verbosity level.
----@field version string SOCKET class version.
+---@field DataType SOCKET.DataType 
+---@field UDPSendSocket NOTYPE 
+---@field private host string The host.
+---@field private json table JSON.
+---@field private lid string Class id string for output to DCS log file.
+---@field private port number The port.
+---@field private socket table The socket.
+---@field private verbose number Verbosity level.
+---@field private version string SOCKET class version.
 SOCKET = {}
 
 ---Create a new SOCKET object.

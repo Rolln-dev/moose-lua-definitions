@@ -226,23 +226,29 @@
 ---CHIEF class.
 ---@class CHIEF : INTEL
 ---@field ClassName string Name of the class.
+---@field DEFCON CHIEF.DEFCON 
 ---@field Defcon string Defence condition.
 ---@field Nattack number 
 ---@field Nborder number 
 ---@field Nconflict number 
 ---@field Nfailure number Number of failed mission.
 ---@field Nsuccess number Number of successful missions.
----@field borderzoneset SET_ZONE Set of zones defining the border of our territory.
----@field commander COMMANDER Commander of assigned legions.
----@field engagezoneset SET_ZONE Set of zones where enemies are actively engaged.
----@field lid string Class id string for output to DCS log file.
----@field strategy string Strategy of the CHIEF.
----@field tacview boolean 
----@field threatLevelMax number Highest threat level of targets to attack.
----@field threatLevelMin number Lowest threat level of targets to attack.
----@field verbose number Verbosity level.
----@field version string CHIEF class version.
----@field yellowzoneset SET_ZONE Set of zones defining the extended border. Defcon is set to YELLOW if enemy activity is detected.
+---@field Strategy CHIEF.Strategy 
+---@field TransportCategories table 
+---@field private assetNumbers table Asset numbers. Each entry is a table of data type `#CHIEF.AssetNumber`.
+---@field private borderzoneset SET_ZONE Set of zones defining the border of our territory.
+---@field private commander COMMANDER Commander of assigned legions.
+---@field private engagezoneset SET_ZONE Set of zones where enemies are actively engaged.
+---@field private lid string Class id string for output to DCS log file.
+---@field private strategy string Strategy of the CHIEF.
+---@field private tacview boolean 
+---@field private targetqueue table Target queue.
+---@field private threatLevelMax number Highest threat level of targets to attack.
+---@field private threatLevelMin number Lowest threat level of targets to attack.
+---@field private verbose number Verbosity level.
+---@field private version string CHIEF class version.
+---@field private yellowzoneset SET_ZONE Set of zones defining the extended border. Defcon is set to YELLOW if enemy activity is detected.
+---@field private zonequeue table Strategic zone queue.
 CHIEF = {}
 
 ---Add an AIRWING to the chief's commander.
@@ -400,8 +406,8 @@ function CHIEF:AddRefuellingZone(RefuellingZone) end
 ---@param OpsZone OPSZONE OPS zone object.
 ---@param Priority number Priority. Default 50.
 ---@param Importance number Importance. Default `#nil`.
----@param ResourceOccupied CHIEF.Resources (Optional) Resources used then zone is occupied by the enemy.
----@param ResourceEmpty CHIEF.Resources (Optional) Resources used then zone is empty.
+---@param ResourceOccupied? CHIEF.Resources (Optional) Resources used then zone is occupied by the enemy.
+---@param ResourceEmpty? CHIEF.Resources (Optional) Resources used then zone is empty.
 ---@return CHIEF.StrategicZone #The strategic zone.
 function CHIEF:AddStrategicZone(OpsZone, Priority, Importance, ResourceOccupied, ResourceEmpty) end
 
@@ -1311,6 +1317,7 @@ function CHIEF:__ZoneLost(delay, OpsZone) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Defcon string New defence condition.
+---@private
 function CHIEF:onafterDefconChange(From, Event, To, Defcon) end
 
 ---On after "MissionAssignToAny" event.
@@ -1322,6 +1329,7 @@ function CHIEF:onafterDefconChange(From, Event, To, Defcon) end
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The Legion(s) to which the mission is assigned.
+---@private
 function CHIEF:onafterMissionAssign(From, Event, To, Mission, Legions) end
 
 ---On after "MissionCancel" event.
@@ -1332,6 +1340,7 @@ function CHIEF:onafterMissionAssign(From, Event, To, Mission, Legions) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission.
+---@private
 function CHIEF:onafterMissionCancel(From, Event, To, Mission) end
 
 ---On after "OpsOnMission".
@@ -1343,6 +1352,7 @@ function CHIEF:onafterMissionCancel(From, Event, To, Mission) end
 ---@param To string To state.
 ---@param OpsGroup OPSGROUP Ops group on mission
 ---@param Mission AUFTRAG The requested mission.
+---@private
 function CHIEF:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 
 ---On after Start event.
@@ -1353,6 +1363,7 @@ function CHIEF:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function CHIEF:onafterStart(Group, From, Event, To) end
 
 ---On after "Status" event.
@@ -1363,6 +1374,7 @@ function CHIEF:onafterStart(Group, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function CHIEF:onafterStatus(Group, From, Event, To) end
 
 ---On after "StrategyChange" event.
@@ -1373,6 +1385,7 @@ function CHIEF:onafterStatus(Group, From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Strategy string 
+---@private
 function CHIEF:onafterStrategyChange(From, Event, To, Strategy) end
 
 ---On after "TransportCancel" event.
@@ -1383,6 +1396,7 @@ function CHIEF:onafterStrategyChange(From, Event, To, Strategy) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Transport OPSTRANSPORT The transport.
+---@private
 function CHIEF:onafterTransportCancel(From, Event, To, Transport) end
 
 ---On after "ZoneAttacked".
@@ -1393,6 +1407,7 @@ function CHIEF:onafterTransportCancel(From, Event, To, Transport) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsZone OPSZONE The zone that being attacked.
+---@private
 function CHIEF:onafterZoneAttacked(From, Event, To, OpsZone) end
 
 ---On after "ZoneCaptured".
@@ -1403,6 +1418,7 @@ function CHIEF:onafterZoneAttacked(From, Event, To, OpsZone) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsZone OPSZONE The zone that was captured by us.
+---@private
 function CHIEF:onafterZoneCaptured(From, Event, To, OpsZone) end
 
 ---On after "ZoneEmpty".
@@ -1413,6 +1429,7 @@ function CHIEF:onafterZoneCaptured(From, Event, To, OpsZone) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsZone OPSZONE The zone that is empty now.
+---@private
 function CHIEF:onafterZoneEmpty(From, Event, To, OpsZone) end
 
 ---On after "ZoneLost".
@@ -1423,19 +1440,20 @@ function CHIEF:onafterZoneEmpty(From, Event, To, OpsZone) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsZone OPSZONE The zone that was lost.
+---@private
 function CHIEF:onafterZoneLost(From, Event, To, OpsZone) end
 
 
 ---Asset numbers for detected targets.
 ---@class CHIEF.AssetNumber 
----@field defcon string Defense condition.
----@field missionType string Mission type.
----@field nAssetMax number Max number of assets.
----@field nAssetMin number Min number of assets.
----@field nUnits number Number of enemy units.
----@field strategy string Strategy.
----@field targetCategory string Target category.
----@field threatlevel number Threat level.
+---@field private defcon string Defense condition.
+---@field private missionType string Mission type.
+---@field private nAssetMax number Max number of assets.
+---@field private nAssetMin number Min number of assets.
+---@field private nUnits number Number of enemy units.
+---@field private strategy string Strategy.
+---@field private targetCategory string Target category.
+---@field private threatlevel number Threat level.
 CHIEF.AssetNumber = {}
 
 
@@ -1456,25 +1474,35 @@ CHIEF.MissionPerformance = {}
 
 ---Resource.
 ---@class CHIEF.Resource 
+---@field Attributes table Generalized attribute, e.g. `{GROUP.Attribute.GROUND_INFANTRY}`.
+---@field Categories table Categories Group categories.
 ---@field MissionType string Mission type, e.g. `AUFTRAG.Type.BAI`.
 ---@field Nmax number Max number of assets.
 ---@field Nmin number Min number of assets.
----@field carrierNmax number Max number of assets.
----@field carrierNmin number Min number of assets.
----@field mission AUFTRAG Attached mission.
+---@field Properties table Properties ([DCS attributes](https://wiki.hoggitworld.com/view/DCS_enum_attributes)), e.g. `"Attack helicopters"` or `"Mobile AAA"`.
+---@field private carrierAttributes table Generalized attribute, e.g. `{GROUP.Attribute.GROUND_INFANTRY}`.
+---@field private carrierCategories table Group categories.
+---@field private carrierNmax number Max number of assets.
+---@field private carrierNmin number Min number of assets.
+---@field private carrierProperties table Properties ([DCS attributes](https://wiki.hoggitworld.com/view/DCS_enum_attributes)), e.g. `"Attack helicopters"` or `"Mobile AAA"`.
+---@field private mission AUFTRAG Attached mission.
 CHIEF.Resource = {}
 
 
 ---Resource list.
 ---@class CHIEF.Resources 
+---@field List CHIEF.Resource of resources.
 CHIEF.Resources = {}
 
 
 ---Strategic zone.
 ---@class CHIEF.StrategicZone 
----@field importance number Importance.
----@field opszone OPSZONE OPS zone.
----@field prio number Priority.
+---@field private importance number Importance.
+---@field private missions table Mission.
+---@field private opszone OPSZONE OPS zone.
+---@field private prio number Priority.
+---@field private resourceEmpty CHIEF.Resources List of resources employed when the zone is empty.
+---@field private resourceOccup CHIEF.Resources List of resources employed when the zone is occupied by an enemy.
 CHIEF.StrategicZone = {}
 
 

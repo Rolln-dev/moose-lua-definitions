@@ -119,8 +119,8 @@
 ---@deprecated
 ---@class AI_CAP_ZONE 
 ---@field Accomplished boolean 
----@field EngageRange  
----@field EngageZone  
+---@field EngageRange NOTYPE 
+---@field EngageZone NOTYPE 
 ---@field Engaging boolean 
 AI_CAP_ZONE = {}
 
@@ -366,6 +366,7 @@ function AI_CAP_ZONE:__Fired(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAP_ZONE:onafterAbort(Controllable, From, Event, To) end
 
 
@@ -376,6 +377,7 @@ function AI_CAP_ZONE:onafterAbort(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAP_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 
 
@@ -387,6 +389,7 @@ function AI_CAP_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param EventData NOTYPE 
+---@private
 function AI_CAP_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) end
 
 
@@ -397,6 +400,7 @@ function AI_CAP_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) en
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAP_ZONE:onafterDetected(Controllable, From, Event, To) end
 
 
@@ -407,6 +411,7 @@ function AI_CAP_ZONE:onafterDetected(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAP_ZONE:onafterEngage(Controllable, From, Event, To) end
 
 ---onafter State Transition for Event Start.
@@ -417,6 +422,7 @@ function AI_CAP_ZONE:onafterEngage(Controllable, From, Event, To) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_CAP_ZONE:onafterStart(Controllable, From, Event, To) end
 
 
@@ -427,6 +433,7 @@ function AI_CAP_ZONE:onafterStart(Controllable, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CAP_ZONE:onbeforeEngage(Controllable, From, Event, To) end
 
 

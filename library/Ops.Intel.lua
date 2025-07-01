@@ -57,26 +57,39 @@
 ---INTEL class.
 ---@class INTEL : FSM
 ---@field ClassName string Name of the class.
+---@field Clusters table Clusters of detected groups.
+---@field Contacts table Table of detected items.
+---@field ContactsLost table Table of lost detected items.
+---@field ContactsUnknown table Table of new detected items.
+---@field Ctype INTEL.Ctype 
+---@field DetectDLINK boolean 
+---@field DetectIRST boolean 
+---@field DetectOptical boolean 
+---@field DetectRWR boolean 
+---@field DetectRadar boolean 
+---@field DetectVisual boolean 
 ---@field RadarAcceptRange boolean 
 ---@field RadarBlur boolean 
----@field acceptzoneset SET_ZONE Set of accept zones. If defined, only contacts in these zones are considered.
----@field alias string Name of the agency.
----@field clusteranalysis boolean If true, create clusters of detected targets.
----@field clusterarrows  
----@field clustercounter number Running number of clusters.
----@field clustermarkers boolean If true, create cluster markers on F10 map.
----@field clusterradius number Radius in meters in which groups/units are considered to belong to a cluster.
----@field coalition number Coalition side number, e.g. `coalition.side.RED`.
----@field conflictzoneset SET_ZONE Set of conflict zones. Contacts in these zones are considered, even if they are not in accept zones or if they are in reject zones.
----@field dTforget number Time interval in seconds before a known contact which is not detected any more is forgotten.
----@field detectStatics boolean If `true`, detect STATIC objects. Default `false`.
----@field detectionset SET_GROUP Set of detection groups, aka agents.
----@field lid string Class id string for output to DCS log file.
----@field prediction number Seconds default to be used with CalcClusterFuturePosition.
----@field rejectzoneset SET_ZONE Set of reject zones. Contacts in these zones are not considered, even if they are in accept zones.
----@field statusupdate number Time interval in seconds after which the status is refreshed. Default 60 sec. Should be negative.
----@field verbose number Verbosity level.
----@field version string INTEL class version.
+---@field private acceptzoneset SET_ZONE Set of accept zones. If defined, only contacts in these zones are considered.
+---@field private alias string Name of the agency.
+---@field private clusteranalysis boolean If true, create clusters of detected targets.
+---@field private clusterarrows NOTYPE 
+---@field private clustercounter number Running number of clusters.
+---@field private clustermarkers boolean If true, create cluster markers on F10 map.
+---@field private clusterradius number Radius in meters in which groups/units are considered to belong to a cluster.
+---@field private coalition number Coalition side number, e.g. `coalition.side.RED`.
+---@field private conflictzoneset SET_ZONE Set of conflict zones. Contacts in these zones are considered, even if they are not in accept zones or if they are in reject zones.
+---@field private dTforget number Time interval in seconds before a known contact which is not detected any more is forgotten.
+---@field private detectStatics boolean If `true`, detect STATIC objects. Default `false`.
+---@field private detectionset SET_GROUP Set of detection groups, aka agents.
+---@field private filterCategory table Filter for unit categories.
+---@field private filterCategoryGroup table Filter for group categories.
+---@field private lid string Class id string for output to DCS log file.
+---@field private prediction number Seconds default to be used with CalcClusterFuturePosition.
+---@field private rejectzoneset SET_ZONE Set of reject zones. Contacts in these zones are not considered, even if they are in accept zones.
+---@field private statusupdate number Time interval in seconds after which the status is refreshed. Default 60 sec. Should be negative.
+---@field private verbose number Verbosity level.
+---@field private version string INTEL class version.
 INTEL = {}
 
 ---Add an accept zone.
@@ -360,12 +373,12 @@ function INTEL:GetContactTypeName(Contact) end
 ---@param Unit UNIT The unit detecting.
 ---@param DetectedUnits table Table of detected units to be filled.
 ---@param RecceDetecting table Table of recce per unit to be filled.
----@param DetectVisual boolean (Optional) If *false*, do not include visually detected targets.
----@param DetectOptical boolean (Optional) If *false*, do not include optically detected targets.
----@param DetectRadar boolean (Optional) If *false*, do not include targets detected by radar.
----@param DetectIRST boolean (Optional) If *false*, do not include targets detected by IRST.
----@param DetectRWR boolean (Optional) If *false*, do not include targets detected by RWR.
----@param DetectDLINK boolean (Optional) If *false*, do not include targets detected by data link.
+---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
+---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
+---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
+---@param DetectIRST? boolean (Optional) If *false*, do not include targets detected by IRST.
+---@param DetectRWR? boolean (Optional) If *false*, do not include targets detected by RWR.
+---@param DetectDLINK? boolean (Optional) If *false*, do not include targets detected by data link.
 function INTEL:GetDetectedUnits(Unit, DetectedUnits, RecceDetecting, DetectVisual, DetectOptical, DetectRadar, DetectIRST, DetectRWR, DetectDLINK) end
 
 ---Get the contact with the highest threat level from the cluster.
@@ -809,6 +822,7 @@ function INTEL:__Stop(delay) end
 ---@param To string To state.
 ---@param Cluster INTEL.Cluster Lost cluster.
 ---@param Mission AUFTRAG The Auftrag connected with this cluster or `nil`.
+---@private
 function INTEL:onafterLostCluster(From, Event, To, Cluster, Mission) end
 
 ---On after "LostContact" event.
@@ -819,6 +833,7 @@ function INTEL:onafterLostCluster(From, Event, To, Cluster, Mission) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Contact INTEL.Contact Lost contact.
+---@private
 function INTEL:onafterLostContact(From, Event, To, Contact) end
 
 ---On after "NewCluster" event.
@@ -829,6 +844,7 @@ function INTEL:onafterLostContact(From, Event, To, Contact) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Cluster INTEL.Cluster Detected cluster.
+---@private
 function INTEL:onafterNewCluster(From, Event, To, Cluster) end
 
 ---On after "NewContact" event.
@@ -839,6 +855,7 @@ function INTEL:onafterNewCluster(From, Event, To, Cluster) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Contact INTEL.Contact Detected contact.
+---@private
 function INTEL:onafterNewContact(From, Event, To, Contact) end
 
 ---On after Start event.
@@ -849,6 +866,7 @@ function INTEL:onafterNewContact(From, Event, To, Contact) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function INTEL:onafterStart(From, Event, To) end
 
 ---On after "Status" event.
@@ -858,50 +876,52 @@ function INTEL:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function INTEL:onafterStatus(From, Event, To) end
 
 
 ---Cluster info.
 ---@class INTEL.Cluster 
----@field altitude number [AIR] Average flight altitude of the cluster in meters.
----@field coordinate COORDINATE Coordinate of the cluster.
----@field ctype string Cluster type of #INTEL.Ctype.
----@field index number Cluster index.
----@field marker MARKER F10 marker.
----@field markerID number Marker ID.
----@field mission AUFTRAG The current Auftrag attached to this cluster.
----@field size number Number of groups in the cluster.
----@field threatlevelAve number Average of threat levels.
----@field threatlevelMax number Max threat level of cluster.
----@field threatlevelSum number Sum of threat levels.
+---@field Contacts table Table of contacts in the cluster.
+---@field private altitude number [AIR] Average flight altitude of the cluster in meters.
+---@field private coordinate COORDINATE Coordinate of the cluster.
+---@field private ctype string Cluster type of #INTEL.Ctype.
+---@field private index number Cluster index.
+---@field private marker MARKER F10 marker.
+---@field private markerID number Marker ID.
+---@field private mission AUFTRAG The current Auftrag attached to this cluster.
+---@field private size number Number of groups in the cluster.
+---@field private threatlevelAve number Average of threat levels.
+---@field private threatlevelMax number Max threat level of cluster.
+---@field private threatlevelSum number Sum of threat levels.
 INTEL.Cluster = {}
 
 
 ---Detected item info.
 ---@class INTEL.Contact 
 ---@field Tdetected number Time stamp in abs. mission time seconds when this item was last detected.
----@field altitude number [AIR] Flight altitude of the contact in meters.
----@field attribute string Generalized attribute.
----@field category number Category number.
----@field categoryname string Category name.
----@field ctype string Contact type of #INTEL.Ctype.
----@field group GROUP The contact group.
----@field groupname string Name of the group.
----@field heading number [AIR] Heading of the contact, if available.
----@field isStatic boolean If `true`, contact is a STATIC object.
----@field isground boolean If `true`, contact is a ground group.
----@field ishelo boolean If `true`, contact is a helo group.
----@field isship boolean If `true`, contact is a naval group.
----@field maneuvering boolean [AIR] Contact has changed direction by >10 deg.
----@field mission AUFTRAG The current Auftrag attached to this contact.
----@field platform string [AIR] Contact platform name, e.g. Foxbat, Flanker_E, defaults to Bogey if unknown
----@field position COORDINATE Last known position of the item.
----@field recce string The name of the recce unit that detected this contact.
----@field speed number Last known speed in m/s.
----@field target TARGET The Target attached to this contact.
----@field threatlevel number Threat level of this item.
----@field typename string Type name of detected item.
----@field velocity Vec3 3D velocity vector. Components x,y and z in m/s.
+---@field private altitude number [AIR] Flight altitude of the contact in meters.
+---@field private attribute string Generalized attribute.
+---@field private category number Category number.
+---@field private categoryname string Category name.
+---@field private ctype string Contact type of #INTEL.Ctype.
+---@field private group GROUP The contact group.
+---@field private groupname string Name of the group.
+---@field private heading number [AIR] Heading of the contact, if available.
+---@field private isStatic boolean If `true`, contact is a STATIC object.
+---@field private isground boolean If `true`, contact is a ground group.
+---@field private ishelo boolean If `true`, contact is a helo group.
+---@field private isship boolean If `true`, contact is a naval group.
+---@field private maneuvering boolean [AIR] Contact has changed direction by >10 deg.
+---@field private mission AUFTRAG The current Auftrag attached to this contact.
+---@field private platform string [AIR] Contact platform name, e.g. Foxbat, Flanker_E, defaults to Bogey if unknown
+---@field private position COORDINATE Last known position of the item.
+---@field private recce string The name of the recce unit that detected this contact.
+---@field private speed number Last known speed in m/s.
+---@field private target TARGET The Target attached to this contact.
+---@field private threatlevel number Threat level of this item.
+---@field private typename string Type name of detected item.
+---@field private velocity Vec3 3D velocity vector. Components x,y and z in m/s.
 INTEL.Contact = {}
 
 
@@ -918,12 +938,15 @@ INTEL.Ctype = {}
 ---INTEL_DLINK class.
 ---@class INTEL_DLINK : FSM
 ---@field ClassName string Name of the class.
----@field alias string Alias name for logging.
----@field cachetime number Number of seconds to keep an object.
----@field interval number Number of seconds between collection runs.
----@field lid string Class id string for output to DCS log file.
----@field verbose number Make the logging verbose.
----@field version string Version string
+---@field private alias string Alias name for logging.
+---@field private cachetime number Number of seconds to keep an object.
+---@field private clusters table Table of Ops.Intel#INTEL.Cluster clusters.
+---@field private contactcoords table Table of contacts' Core.Point#COORDINATE objects.
+---@field private contacts table Table of Ops.Intel#INTEL.Contact contacts.
+---@field private interval number Number of seconds between collection runs.
+---@field private lid string Class id string for output to DCS log file.
+---@field private verbose number Make the logging verbose.
+---@field private version string Version string
 INTEL_DLINK = {}
 
 ---Function to add an #INTEL object to the aggregator
@@ -997,9 +1020,9 @@ function INTEL_DLINK:GetDetectedItemCoordinates() end
 ------
 ---@param self INTEL_DLINK 
 ---@param Intels table Table of Ops.Intel#INTEL objects.
----@param Alias string (optional) Name of this instance. Default "SPECTRE"
----@param Interval number (optional) When to query #INTEL objects for detected items (default 20 seconds).
----@param Cachetime number (optional) How long to cache detected items (default 300 seconds).
+---@param Alias? string (optional) Name of this instance. Default "SPECTRE"
+---@param Interval? number (optional) When to query #INTEL objects for detected items (default 20 seconds).
+---@param Cachetime? number (optional) How long to cache detected items (default 300 seconds).
 function INTEL_DLINK:New(Intels, Alias, Interval, Cachetime) end
 
 ---On After "Collected" event.
@@ -1062,6 +1085,7 @@ function INTEL_DLINK:__Stop(delay) end
 ---@param Event string The Event triggering this call
 ---@param To string The To state
 ---@return INTEL_DLINK #self
+---@private
 function INTEL_DLINK:onafterStart(From, Event, To) end
 
 ---Function to stop
@@ -1072,6 +1096,7 @@ function INTEL_DLINK:onafterStart(From, Event, To) end
 ---@param Event string The Event triggering this call
 ---@param To string The To state
 ---@return INTEL_DLINK #self
+---@private
 function INTEL_DLINK:onafterStop(From, Event, To) end
 
 ---Function to collect data from the various #INTEL
@@ -1082,6 +1107,7 @@ function INTEL_DLINK:onafterStop(From, Event, To) end
 ---@param Event string The Event triggering this call
 ---@param To string The To state
 ---@return INTEL_DLINK #self
+---@private
 function INTEL_DLINK:onbeforeCollect(From, Event, To) end
 
 ---Function called after collection is done
@@ -1094,6 +1120,7 @@ function INTEL_DLINK:onbeforeCollect(From, Event, To) end
 ---@param Contacts table The table of collected #INTEL.Contact contacts
 ---@param Clusters table The table of collected #INTEL.Cluster clusters
 ---@return INTEL_DLINK #self
+---@private
 function INTEL_DLINK:onbeforeCollected(From, Event, To, Contacts, Clusters) end
 
 

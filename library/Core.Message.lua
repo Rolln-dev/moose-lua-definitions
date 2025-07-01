@@ -54,9 +54,10 @@
 ---The MESSAGE class
 ---@class MESSAGE : BASE
 ---@field ClearScreen boolean 
----@field CoalitionSide  
+---@field CoalitionSide NOTYPE 
 ---@field MessageCategory string 
----@field MessageDuration  
+---@field MessageDuration NOTYPE 
+---@field Type MESSAGE.Type 
 MESSAGE = {}
 
 ---Clears all previous messages from the screen before the new message is displayed.
@@ -89,8 +90,8 @@ function MESSAGE:Clear() end
 ---@param self NOTYPE 
 ---@param Text string is the text of the Message.
 ---@param Duration number Duration in seconds how long the message text is shown.
----@param Category string (Optional) String expressing the "category" of the Message. The category will be shown as the first text in the message followed by a ": ".
----@param ClearScreen boolean (optional) Clear all previous messages if true.
+---@param Category? string (Optional) String expressing the "category" of the Message. The category will be shown as the first text in the message followed by a ": ".
+---@param ClearScreen? boolean (optional) Clear all previous messages if true.
 ---@return MESSAGE #self
 function MESSAGE:New(Text, Duration, Category, ClearScreen) end
 
@@ -113,7 +114,7 @@ function MESSAGE:New(Text, Duration, Category, ClearScreen) end
 ---@param self NOTYPE 
 ---@param MessageText string is the text of the Message.
 ---@param MessageType MESSAGE.Type The type of the message.
----@param ClearScreen boolean (optional) Clear all previous messages.
+---@param ClearScreen? boolean (optional) Clear all previous messages.
 ---@return MESSAGE #
 function MESSAGE:NewType(MessageText, MessageType, ClearScreen) end
 
@@ -131,19 +132,19 @@ function MESSAGE:NewType(MessageText, MessageType, ClearScreen) end
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRS()
 ---```
 ------
----@param PathToSRS string (optional) Path to SRS Folder, defaults to "C:\\\\Program Files\\\\DCS-SimpleRadio-Standalone" or your configuration file setting.
----@param Port number Port (optional) number of SRS, defaults to 5002 or your configuration file setting.
----@param PathToCredentials string (optional) Path to credentials file for Google.
+---@param PathToSRS? string (optional) Path to SRS Folder, defaults to "C:\\\\Program Files\\\\DCS-SimpleRadio-Standalone" or your configuration file setting.
+---@param Port? number Port (optional) number of SRS, defaults to 5002 or your configuration file setting.
+---@param PathToCredentials? string (optional) Path to credentials file for Google.
 ---@param Frequency number Frequency in MHz. Can also be given as a #table of frequencies.
 ---@param Modulation number Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations.
----@param Gender string (optional) Gender, i.e. "male" or "female", defaults to "female" or your configuration file setting.
----@param Culture string (optional) Culture, e.g. "en-US", defaults to "en-GB" or your configuration file setting.
----@param Voice string (optional) Voice. Will override gender and culture settings, e.g. MSRS.Voices.Microsoft.Hazel or MSRS.Voices.Google.Standard.de_DE_Standard_D. Hint on Microsoft voices - working voices are limited to Hedda, Hazel, David, Zira and Hortense. **Must** be installed on your Desktop or Server!
----@param Coalition number (optional) Coalition, can be coalition.side.RED, coalition.side.BLUE or coalition.side.NEUTRAL. Defaults to coalition.side.NEUTRAL.
----@param Volume number (optional) Volume, can be between 0.0 and 1.0 (loudest).
----@param Label string (optional) Label, defaults to "MESSAGE" or the Message Category set.
----@param Coordinate COORDINATE (optional) Coordinate this messages originates from.
----@param Backend string (optional) Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
+---@param Gender? string (optional) Gender, i.e. "male" or "female", defaults to "female" or your configuration file setting.
+---@param Culture? string (optional) Culture, e.g. "en-US", defaults to "en-GB" or your configuration file setting.
+---@param Voice? string (optional) Voice. Will override gender and culture settings, e.g. MSRS.Voices.Microsoft.Hazel or MSRS.Voices.Google.Standard.de_DE_Standard_D. Hint on Microsoft voices - working voices are limited to Hedda, Hazel, David, Zira and Hortense. **Must** be installed on your Desktop or Server!
+---@param Coalition? number (optional) Coalition, can be coalition.side.RED, coalition.side.BLUE or coalition.side.NEUTRAL. Defaults to coalition.side.NEUTRAL.
+---@param Volume? number (optional) Volume, can be between 0.0 and 1.0 (loudest).
+---@param Label? string (optional) Label, defaults to "MESSAGE" or the Message Category set.
+---@param Coordinate? COORDINATE (optional) Coordinate this messages originates from.
+---@param Backend? string (optional) Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
 function MESSAGE.SetMSRS(PathToSRS, Port, PathToCredentials, Frequency, Modulation, Gender, Culture, Voice, Coalition, Volume, Label, Coordinate, Backend) end
 
 ---Sends a MESSAGE to all players.
@@ -163,8 +164,8 @@ function MESSAGE.SetMSRS(PathToSRS, Port, PathToCredentials, Frequency, Modulati
 ---```
 ------
 ---@param self MESSAGE 
----@param Settings Settings (Optional) Settings for message display.
----@param Delay number (Optional) Delay in seconds before the message is send. Default instantly (`nil`).
+---@param Settings? Settings (Optional) Settings for message display.
+---@param Delay? number (Optional) Delay in seconds before the message is send. Default instantly (`nil`).
 ---@return MESSAGE #self
 function MESSAGE:ToAll(Settings, Delay) end
 
@@ -244,7 +245,7 @@ function MESSAGE:ToClient(Client, Settings) end
 ------
 ---@param self MESSAGE 
 ---@param CoalitionSide coalition.side @{#DCS.coalition.side} to which the message is displayed.
----@param Settings SETTINGS (Optional) Settings for message display.
+---@param Settings? SETTINGS (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
 function MESSAGE:ToCoalition(CoalitionSide, Settings) end
 
@@ -262,7 +263,7 @@ function MESSAGE:ToCoalitionIf(CoalitionSide, Condition) end
 ------
 ---@param self MESSAGE 
 ---@param Country number to which the message is displayed, e.g. country.id.GERMANY. For all country numbers see here: [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_country)
----@param Settings Settings (Optional) Settings for message display.
+---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
 function MESSAGE:ToCountry(Country, Settings) end
 
@@ -272,7 +273,7 @@ function MESSAGE:ToCountry(Country, Settings) end
 ---@param self MESSAGE 
 ---@param Country number to which the message is displayed, , e.g. country.id.GERMANY. For all country numbers see here: [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_country)
 ---@param Condition boolean Sends the message only if the condition is true.
----@param Settings Settings (Optional) Settings for message display.
+---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
 function MESSAGE:ToCountryIf(Country, Condition, Settings) end
 
@@ -281,7 +282,7 @@ function MESSAGE:ToCountryIf(Country, Condition, Settings) end
 ------
 ---@param self MESSAGE 
 ---@param Group GROUP to which the message is displayed.
----@param Settings Settings (Optional) Settings for message display.
+---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
 function MESSAGE:ToGroup(Group, Settings) end
 
@@ -335,14 +336,14 @@ function MESSAGE:ToRed() end
 ---```
 ------
 ---@param self MESSAGE 
----@param frequency number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param modulation number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param gender string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param culture string (optional) Culture, e.g. "en-US". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param voice string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param coalition number (optional) Coalition, can be coalition.side.RED, coalition.side.BLUE or coalition.side.NEUTRAL. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param volume number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param coordinate COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param culture? string (optional) Culture, e.g. "en-US". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param voice? string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param coalition? number (optional) Coalition, can be coalition.side.RED, coalition.side.BLUE or coalition.side.NEUTRAL. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param volume? number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param coordinate? COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
 ---@return MESSAGE #self
 function MESSAGE:ToSRS(frequency, modulation, gender, culture, voice, coalition, volume, coordinate) end
 
@@ -360,13 +361,13 @@ function MESSAGE:ToSRS(frequency, modulation, gender, culture, voice, coalition,
 ---```
 ------
 ---@param self MESSAGE 
----@param frequency number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param modulation number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param gender string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param culture string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param voice string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param volume number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param coordinate COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param culture? string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param voice? string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param volume? number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param coordinate? COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
 ---@return MESSAGE #self
 function MESSAGE:ToSRSAll(frequency, modulation, gender, culture, voice, volume, coordinate) end
 
@@ -384,13 +385,13 @@ function MESSAGE:ToSRSAll(frequency, modulation, gender, culture, voice, volume,
 ---```
 ------
 ---@param self MESSAGE 
----@param frequency number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param modulation number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param gender string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param culture string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param voice string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param volume number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param coordinate COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param culture? string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param voice? string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param volume? number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param coordinate? COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
 ---@return MESSAGE #self
 function MESSAGE:ToSRSBlue(frequency, modulation, gender, culture, voice, volume, coordinate) end
 
@@ -408,13 +409,13 @@ function MESSAGE:ToSRSBlue(frequency, modulation, gender, culture, voice, volume
 ---```
 ------
 ---@param self MESSAGE 
----@param frequency number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param modulation number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
----@param gender string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param culture string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param voice string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param volume number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
----@param coordinate COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
+---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param culture? string (optional) Culture, e.g. "en-US. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param voice? string (optional) Voice. Will override gender and culture settings. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param volume? number (optional) Volume, can be between 0.0 and 1.0 (loudest). Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
+---@param coordinate? COORDINATE (optional) Coordinate this messages originates from. Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
 ---@return MESSAGE #self
 function MESSAGE:ToSRSRed(frequency, modulation, gender, culture, voice, volume, coordinate) end
 
@@ -423,7 +424,7 @@ function MESSAGE:ToSRSRed(frequency, modulation, gender, culture, voice, volume,
 ------
 ---@param self MESSAGE 
 ---@param Unit UNIT to which the message is displayed.
----@param Settings Settings (Optional) Settings for message display.
+---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
 function MESSAGE:ToUnit(Unit, Settings) end
 

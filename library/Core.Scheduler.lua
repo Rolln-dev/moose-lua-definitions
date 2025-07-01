@@ -180,6 +180,8 @@
 ---The schedule will stop after **300** seconds.
 ---The SCHEDULER class
 ---@class SCHEDULER : BASE
+---@field MasterObject table Master object.
+---@field Schedules table Table of schedules.
 ---@field ShowTrace boolean Trace info if true.
 SCHEDULER = {}
 
@@ -214,7 +216,7 @@ function SCHEDULER:NoTrace() end
 ---
 ------
 ---@param self SCHEDULER 
----@param ScheduleID string (optional) The ScheduleID of the planned (repeating) schedule.
+---@param ScheduleID? string (optional) The ScheduleID of the planned (repeating) schedule.
 function SCHEDULER:Remove(ScheduleID) end
 
 ---Schedule a new time event.
@@ -238,14 +240,14 @@ function SCHEDULER:Schedule(MasterObject, SchedulerFunction, SchedulerArguments,
 ---
 ------
 ---@param self SCHEDULER 
----@param ScheduleID string (Optional) The Schedule ID of the planned (repeating) schedule.
+---@param ScheduleID? string (Optional) The Schedule ID of the planned (repeating) schedule.
 function SCHEDULER:Start(ScheduleID) end
 
 ---Stops the schedules or a specific schedule if a valid ScheduleID is provided.
 ---
 ------
 ---@param self SCHEDULER 
----@param ScheduleID string (Optional) The ScheduleID of the planned (repeating) schedule.
+---@param ScheduleID? string (Optional) The ScheduleID of the planned (repeating) schedule.
 function SCHEDULER:Stop(ScheduleID) end
 
 

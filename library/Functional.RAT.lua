@@ -228,6 +228,7 @@
 ---* #RAT.SetFLmax(200) will restrict the cruise alt to maximum FL200, i.e. no aircraft will travel above this height.
 ---- RAT class
 ---@class RAT : SPAWN
+---@field ATC RAT.ATC 
 ---@field ATCswitch boolean Enable/disable ATC if set to true/false.
 ---@field AlphaDescent number Default angle of descenti in degrees. A value of 3.6 follows the 3:1 rule of 3 miles of travel and 1000 ft descent.
 ---@field ClassName string Name of the Class.
@@ -236,90 +237,111 @@
 ---@field FLmaxuser number Maximum flight level set by user.
 ---@field FLminuser number Minimum flight level set by user.
 ---@field FLuser number Flight level set by users explicitly.
+---@field Menu table F10 menu items for this RAT object.
 ---@field MenuF10 string Main F10 menu.
 ---@field Ndeparture_Airports number Number of departure airports set via SetDeparture().
 ---@field Ndeparture_Zones number Number of departure zones set via SetDeparture.
 ---@field Ndestination_Airports number Number of destination airports set via SetDestination().
 ---@field Ndestination_Zones number Number of destination zones set via SetDestination().
 ---@field NspawnMax number Max number of spawns.
+---@field ROE RAT.ROE 
+---@field ROT RAT.ROT 
 ---@field SubMenuName string Submenu name for RAT object.
 ---@field Tinactive number Time in seconds after which inactive units will be destroyed. Default is 300 seconds.
 ---@field Vclimb number Default climb rate in ft/min.
 ---@field Vcruisemax number Max cruise speed in m/s (250 m/s = 900 km/h = 486 kt) set by user.
----@field activate_delay number Delay in seconds before first uncontrolled group is activated. Default is 5 seconds.
----@field activate_delta number Time interval in seconds between activation of uncontrolled groups. Default is 5 seconds.
----@field activate_frand number Randomization factor of time interval (activate_delta) between activating uncontrolled groups. Default is 0.
----@field activate_max number Maximum number of uncontrolled aircraft, which will be activated at the same time. Default is 1.
----@field activate_uncontrolled boolean If true, uncontrolled are activated randomly after certain time intervals.
----@field actype  
----@field addfriendlydepartures boolean Add all friendly airports to departures.
----@field addfriendlydestinations boolean Add all friendly airports to destinations.
----@field alias string Alias for spawned group.
----@field alive number Number of groups which are alive.
----@field category string Category of aircarft: "plane" or "heli".
----@field checkonrunway boolean Aircraft are checked if they were accidentally spawned on the runway. Default is true.
----@field checkontop boolean Aircraft are checked if they were accidentally spawned on top of another unit. Default is true.
----@field coalition number Coalition of spawn group template.
----@field commute boolean Aircraft commute between departure and destination, i.e. when respawned the departure airport becomes the new destiation.
----@field continuejourney boolean Aircraft will continue their journey, i.e. get respawned at their destination with a new random destination.
----@field country number Country of spawn group template.
----@field departure_Azone ZONE Zone containing the departure airports.
----@field despawnair boolean If true, aircraft are despawned when they reach their destination zone. Default.
----@field destination_Azone ZONE Zone containing the destination airports.
----@field destinationzone boolean Destination is a zone and not an airport.
----@field eplrs boolean If true, turn on EPLSR datalink for the RAT group.
----@field f10menu boolean If true, add an F10 radiomenu for RAT. Default is false.
----@field frequency number Radio frequency used by the RAT groups.
----@field friendly string Possible departure/destination airport: all=blue+red+neutral, same=spawn+neutral, spawnonly=spawn, blue=blue+neutral, blueonly=blue, red=red+neutral, redonly=red.
----@field groupsize number Number of aircraft in group.
----@field homebase string Home base for commute and return zone. Aircraft will always return to this base but otherwise travel in a star shaped way.
----@field id string Some ID to identify who we are in output of the DCS.log file.
----@field immortal boolean If true, aircraft are spawned as immortal.
----@field index  
----@field invisible boolean If true aircraft are set to invisible for other AI forces.
----@field landing number Landing type. Determines if we actually land at an airport or treat it as zone.
----@field lid string Log identifier.
----@field livery string Livery of the aircraft set by user.
----@field markerid number Running number of placed markers on the F10 map.
----@field maxdist number Max distance from departure to destination in meters. Default 5000 km.
----@field mindist number Min distance from departure to destination in meters. Default 5 km.
----@field modulation string Ratio modulation. Either "FM" or "AM".
----@field ngroups number Number of groups to be spawned in total.
----@field norespawn boolean Aircraft will not be respawned after they have finished their route.
----@field onboardnum string Sets the onboard number prefix. Same as setting "TAIL #" in the mission editor.
----@field onboardnum0 number (Optional) Starting value of the automatically appended numbering of aircraft within a flight. Default is 1.
----@field onrunwaymaxretry number Number of respawn retries (on ground) at other airports if a group gets accidentally spawned on the runway. Default is 3.
----@field onrunwayradius number Distance (in meters) from a runway spawn point until a unit is considered to have accidentally been spawned on a runway. Default is 75 m.
----@field ontopradius number Radius in meters until which a unit is considered to be on top of another. Default is 2 m.
----@field parkingscanradius number Radius in meters until which parking spots are scanned for obstacles like other units, statics or scenery.
----@field parkingscanscenery boolean If true, area around parking spots is scanned for scenery objects. Default is false.
----@field parkingverysafe boolean If true, parking spots are considered as non-free until a possible aircraft has left and taken off. Default false.
----@field placemarkers boolean Place markers of waypoints on F10 map.
----@field radio boolean If true/false disables radio messages from the RAT groups.
----@field random_departure boolean By default a random friendly airport is chosen as departure.
----@field random_destination boolean By default a random friendly airport is chosen as destination.
----@field reportstatus boolean Aircraft report status.
----@field respawn_after_crash boolean Aircraft will be respawned after a crash, e.g. when they get shot down.
----@field respawn_after_takeoff boolean Aircraft will be respawned directly after take-off.
----@field respawn_at_landing boolean Respawn aircraft the moment they land rather than at engine shutdown.
----@field respawn_delay number Delay in seconds until a repawn happens.
----@field respawn_inair boolean Aircraft are allowed to spawned in air if they cannot be respawned on ground because there is not free parking spot. Default is true.
----@field returnzone boolean Zone where aircraft will fly to before returning to their departure airport.
----@field roe string ROE of spawned groups, default is weapon hold (this is a peaceful class for civil aircraft or ferry missions). Possible: "hold", "return", "free".
----@field rot string ROT of spawned groups, default is no reaction. Possible: "noreaction", "passive", "evade".
----@field sid_Activate  
----@field sid_Spawn  
----@field sid_Status  
----@field skill string Skill of AI.
----@field spawndelay number Delay time in seconds before first spawning happens.
----@field spawninitialized boolean If RAT:Spawn() was already called this RAT object is set to true to prevent users to call it again.
----@field spawninterval number Interval between spawning units/groups. Note that we add a randomization of 50%.
----@field starshape boolean If true, aircraft travel A-->B-->A-->C-->A-->D... for commute.
----@field statusinterval number Intervall between status checks (and reports if enabled).
----@field takeoff number Takeoff type. 0=coldorhot.
----@field templategroup GROUP Group serving as template for the RAT aircraft.
----@field termtype AIRBASE.TerminalType Type of terminal to be used when spawning at an airbase.
----@field uncontrolled boolean If true aircraft are spawned in uncontrolled state and will only sit on their parking spots. They can later be activated.
+---@field private activate_delay number Delay in seconds before first uncontrolled group is activated. Default is 5 seconds.
+---@field private activate_delta number Time interval in seconds between activation of uncontrolled groups. Default is 5 seconds.
+---@field private activate_frand number Randomization factor of time interval (activate_delta) between activating uncontrolled groups. Default is 0.
+---@field private activate_max number Maximum number of uncontrolled aircraft, which will be activated at the same time. Default is 1.
+---@field private activate_uncontrolled boolean If true, uncontrolled are activated randomly after certain time intervals.
+---@field private actype NOTYPE 
+---@field private addfriendlydepartures boolean Add all friendly airports to departures.
+---@field private addfriendlydestinations boolean Add all friendly airports to destinations.
+---@field private aircraft table Table which holds the basic aircraft properties (speed, range, ...).
+---@field private airports table All airports of friedly coalitions.
+---@field private airports_map table All airports available on current map (Caucasus, Nevada, Normandy, ...).
+---@field private alias string Alias for spawned group.
+---@field private alive number Number of groups which are alive.
+---@field private cat RAT.cat 
+---@field private category string Category of aircarft: "plane" or "heli".
+---@field private checkonrunway boolean Aircraft are checked if they were accidentally spawned on the runway. Default is true.
+---@field private checkontop boolean Aircraft are checked if they were accidentally spawned on top of another unit. Default is true.
+---@field private coal RAT.coal 
+---@field private coalition number Coalition of spawn group template.
+---@field private commute boolean Aircraft commute between departure and destination, i.e. when respawned the departure airport becomes the new destiation.
+---@field private continuejourney boolean Aircraft will continue their journey, i.e. get respawned at their destination with a new random destination.
+---@field private country number Country of spawn group template.
+---@field private ctable table Table with the valid coalitions from choice self.friendly.
+---@field private departure_Azone ZONE Zone containing the departure airports.
+---@field private departure_ports table Array containing the names of the destination airports or zones.
+---@field private despawnair boolean If true, aircraft are despawned when they reach their destination zone. Default.
+---@field private destination_Azone ZONE Zone containing the destination airports.
+---@field private destination_ports table Array containing the names of the destination airports or zones.
+---@field private destinationzone boolean Destination is a zone and not an airport.
+---@field private eplrs boolean If true, turn on EPLSR datalink for the RAT group.
+---@field private excluded_ports table Array containing the names of explicitly excluded airports.
+---@field private f10menu boolean If true, add an F10 radiomenu for RAT. Default is false.
+---@field private frequency number Radio frequency used by the RAT groups.
+---@field private friendly string Possible departure/destination airport: all=blue+red+neutral, same=spawn+neutral, spawnonly=spawn, blue=blue+neutral, blueonly=blue, red=red+neutral, redonly=red.
+---@field private groupsize number Number of aircraft in group.
+---@field private homebase string Home base for commute and return zone. Aircraft will always return to this base but otherwise travel in a star shaped way.
+---@field private id string Some ID to identify who we are in output of the DCS.log file.
+---@field private immortal boolean If true, aircraft are spawned as immortal.
+---@field private index NOTYPE 
+---@field private invisible boolean If true aircraft are set to invisible for other AI forces.
+---@field private landing number Landing type. Determines if we actually land at an airport or treat it as zone.
+---@field private lid string Log identifier.
+---@field private livery string Livery of the aircraft set by user.
+---@field private markerid number Running number of placed markers on the F10 map.
+---@field private markerids table Array with marker IDs.
+---@field private maxdist number Max distance from departure to destination in meters. Default 5000 km.
+---@field private mindist number Min distance from departure to destination in meters. Default 5 km.
+---@field private modulation string Ratio modulation. Either "FM" or "AM".
+---@field private ngroups number Number of groups to be spawned in total.
+---@field private norespawn boolean Aircraft will not be respawned after they have finished their route.
+---@field private onboardnum string Sets the onboard number prefix. Same as setting "TAIL #" in the mission editor.
+---@field private onboardnum0 number (Optional) Starting value of the automatically appended numbering of aircraft within a flight. Default is 1.
+---@field private onrunwaymaxretry number Number of respawn retries (on ground) at other airports if a group gets accidentally spawned on the runway. Default is 3.
+---@field private onrunwayradius number Distance (in meters) from a runway spawn point until a unit is considered to have accidentally been spawned on a runway. Default is 75 m.
+---@field private ontopradius number Radius in meters until which a unit is considered to be on top of another. Default is 2 m.
+---@field private parkingscanradius number Radius in meters until which parking spots are scanned for obstacles like other units, statics or scenery.
+---@field private parkingscanscenery boolean If true, area around parking spots is scanned for scenery objects. Default is false.
+---@field private parkingverysafe boolean If true, parking spots are considered as non-free until a possible aircraft has left and taken off. Default false.
+---@field private placemarkers boolean Place markers of waypoints on F10 map.
+---@field private radio boolean If true/false disables radio messages from the RAT groups.
+---@field private random_departure boolean By default a random friendly airport is chosen as departure.
+---@field private random_destination boolean By default a random friendly airport is chosen as destination.
+---@field private ratcraft table Array with the spawned RAT aircraft.
+---@field private reportstatus boolean Aircraft report status.
+---@field private respawn_after_crash boolean Aircraft will be respawned after a crash, e.g. when they get shot down.
+---@field private respawn_after_takeoff boolean Aircraft will be respawned directly after take-off.
+---@field private respawn_at_landing boolean Respawn aircraft the moment they land rather than at engine shutdown.
+---@field private respawn_delay number Delay in seconds until a repawn happens.
+---@field private respawn_inair boolean Aircraft are allowed to spawned in air if they cannot be respawned on ground because there is not free parking spot. Default is true.
+---@field private return_zones table Array containing the names of the return zones.
+---@field private returnzone boolean Zone where aircraft will fly to before returning to their departure airport.
+---@field private roe string ROE of spawned groups, default is weapon hold (this is a peaceful class for civil aircraft or ferry missions). Possible: "hold", "return", "free".
+---@field private rot string ROT of spawned groups, default is no reaction. Possible: "noreaction", "passive", "evade".
+---@field private sid_Activate NOTYPE 
+---@field private sid_Spawn NOTYPE 
+---@field private sid_Status NOTYPE 
+---@field private skill string Skill of AI.
+---@field private spawndelay number Delay time in seconds before first spawning happens.
+---@field private spawninitialized boolean If RAT:Spawn() was already called this RAT object is set to true to prevent users to call it again.
+---@field private spawninterval number Interval between spawning units/groups. Note that we add a randomization of 50%.
+---@field private starshape boolean If true, aircraft travel A-->B-->A-->C-->A-->D... for commute.
+---@field private status RAT.status 
+---@field private statusinterval number Intervall between status checks (and reports if enabled).
+---@field private takeoff number Takeoff type. 0=coldorhot.
+---@field private templategroup GROUP Group serving as template for the RAT aircraft.
+---@field private termtype AIRBASE.TerminalType Type of terminal to be used when spawning at an airbase.
+---@field private uncontrolled boolean If true aircraft are spawned in uncontrolled state and will only sit on their parking spots. They can later be activated.
+---@field private unit RAT.unit 
+---@field private version table RAT version.
+---@field private waypointdescriptions table Table with strings for waypoint descriptions of markers.
+---@field private waypointstatus table Table with strings of waypoint status.
+---@field private wp RAT.wp 
 RAT = {}
 
 ---Max number of planes that get landing clearance of the RAT ATC.
@@ -512,7 +534,7 @@ function RAT:MenuName(name) end
 ------
 ---@param self RAT 
 ---@param groupname string Name of the group as defined in the mission editor. This group is serving as a template for all spawned units.
----@param alias string (Optional) Alias of the group. This is and optional parameter but must(!) be used if the same template group is used for more than one RAT object.
+---@param alias? string (Optional) Alias of the group. This is and optional parameter but must(!) be used if the same template group is used for more than one RAT object.
 ---@return RAT #Object of RAT class or nil if the group does not exist in the mission editor.
 function RAT:New(groupname, alias) end
 
@@ -600,7 +622,7 @@ function RAT:RespawnAfterCrashON() end
 ---
 ------
 ---@param self RAT 
----@param delay number (Optional) Delay in seconds until respawn happens after landing. Default is 1 second. Minimum is 1 second.
+---@param delay? number (Optional) Delay in seconds until respawn happens after landing. Default is 1 second. Minimum is 1 second.
 ---@return RAT #RAT self object.
 function RAT:RespawnAfterLanding(delay) end
 
@@ -869,7 +891,7 @@ function RAT:SetMinDistance(dist) end
 ------
 ---@param self RAT 
 ---@param tailnumprefix string String of the tail number prefix. If flight consists of more than one aircraft, two digits are appended automatically, i.e. <tailnumprefix>001, <tailnumprefix>002, ...
----@param zero number (Optional) Starting value of the automatically appended numbering of aircraft within a flight. Default is 0.
+---@param zero? number (Optional) Starting value of the automatically appended numbering of aircraft within a flight. Default is 0.
 ---@return RAT #RAT self object.
 function RAT:SetOnboardNum(tailnumprefix, zero) end
 
@@ -1049,7 +1071,7 @@ function RAT:SetTerminalType(termtype) end
 ---```
 ------
 ---@param self RAT 
----@param naircraft number (Optional) Number of aircraft to spawn. Default is one aircraft.
+---@param naircraft? number (Optional) Number of aircraft to spawn. Default is one aircraft.
 ---@return boolean #True if spawning was successful or nil if nothing was spawned.
 function RAT:Spawn(naircraft) end
 
@@ -1057,8 +1079,8 @@ function RAT:Spawn(naircraft) end
 ---
 ------
 ---@param self RAT 
----@param message boolean (Optional) Send message with report to all if true.
----@param forID number (Optional) Send message only for this ID.
+---@param message? boolean (Optional) Send message with report to all if true.
+---@param forID? number (Optional) Send message only for this ID.
 function RAT:Status(message, forID) end
 
 ---Aircraft report status update messages along the route.
@@ -1363,8 +1385,8 @@ function RAT:_MinDistance(alpha, beta, ha, hb) end
 ------
 ---@param self RAT 
 ---@param waypoints table The waypoints of the AI flight plan.
----@param livery string (Optional) Livery of the aircraft. All members of a flight will get the same livery.
----@param spawnplace COORDINATE (Optional) Place where spawning should happen. If not present, first waypoint is taken.
+---@param livery? string (Optional) Livery of the aircraft. All members of a flight will get the same livery.
+---@param spawnplace? COORDINATE (Optional) Place where spawning should happen. If not present, first waypoint is taken.
 ---@param departure AIRBASE Departure airbase or zone.
 ---@param takeoff number Takeoff type.
 ---@param parkingdata table Parking data, i.e. parking spot coordinates and terminal ids for all units of the group.
@@ -1489,8 +1511,8 @@ function RAT:_PlaceMarkers(waypoints, waypointdescriptions, index) end
 ---@param self RAT 
 ---@param value number The value which should be randomized
 ---@param fac number Randomization factor.
----@param lower number (Optional) Lower limit of the returned value.
----@param upper number (Optional) Upper limit of the returned value.
+---@param lower? number (Optional) Lower limit of the returned value.
+---@param upper? number (Optional) Upper limit of the returned value.
 ---@return number #Randomized value.
 function RAT:_Randomize(value, fac, lower, upper) end
 
@@ -1559,8 +1581,8 @@ function RAT:_SetROT(flightgroup, rot) end
 ---@param self RAT 
 ---@param takeoff number Takeoff type. Could also be air start.
 ---@param landing number Landing type. Could also be a destination in air.
----@param _departure AIRBASE (Optional) Departure airbase.
----@param _destination AIRBASE (Optional) Destination airbase.
+---@param _departure? AIRBASE (Optional) Departure airbase.
+---@param _destination? AIRBASE (Optional) Destination airbase.
 ---@param _waypoint table Initial waypoint.
 ---@return AIRBASE #Departure airbase.
 ---@return AIRBASE #Destination airbase.
@@ -1585,13 +1607,13 @@ function RAT:_SetStatus(group, status) end
 ---
 ------
 ---@param self RAT 
----@param _departure string (Optional) Name of departure airbase.
----@param _destination string (Optional) Name of destination airbase.
+---@param _departure? string (Optional) Name of departure airbase.
+---@param _destination? string (Optional) Name of destination airbase.
 ---@param _takeoff number Takeoff type id.
 ---@param _landing number Landing type id.
 ---@param _livery string Livery to use for this group.
 ---@param _waypoint table First waypoint to be used (for continue journey, commute, etc).
----@param _lastpos COORDINATE (Optional) Position where the aircraft will be spawned.
+---@param _lastpos? COORDINATE (Optional) Position where the aircraft will be spawned.
 ---@param _nrespawn number Number of already performed respawn attempts (e.g. spawning on runway bug).
 ---@param parkingdata table Explicitly specify the parking spots when spawning at an airport.
 ---@return number #Spawn index.
@@ -1624,11 +1646,13 @@ function RAT:_ZoneExists(name) end
 ---@class RAT.ATC 
 ---@field Nclearance number Number of flights that get landing clearance simultaniously. Default 2.
 ---@field T0 number Time stamp [sec, timer.getTime()] when ATC was initialized.
----@field delay number Delay between landing flights in seconds. Default 240 sec.
----@field init boolean True if ATC was initialized.
----@field messages boolean If `true`, ATC sends messages.
----@field onfinal number Enumerator onfinal=100.
----@field unregistered number Enumerator for unregistered flights unregistered=-1.
+---@field private airport table List of airports.
+---@field private delay number Delay between landing flights in seconds. Default 240 sec.
+---@field private flight table List of flights.
+---@field private init boolean True if ATC was initialized.
+---@field private messages boolean If `true`, ATC sends messages.
+---@field private onfinal number Enumerator onfinal=100.
+---@field private unregistered number Enumerator for unregistered flights unregistered=-1.
 RAT.ATC = {}
 
 
@@ -1636,8 +1660,10 @@ RAT.ATC = {}
 ---@class RAT.AtcAirport 
 ---@field Nonfinal number Number of flights on final.
 ---@field Tlastclearance number Time stamp when last flight started final approach.
----@field busy boolean Whether airport is busy.
----@field traffic number Number of flights that landed (just for stats).
+---@field private busy boolean Whether airport is busy.
+---@field private onfinal table List of flights on final.
+---@field private queue table Queue.
+---@field private traffic number Number of flights that landed (just for stats).
 RAT.AtcAirport = {}
 
 
@@ -1645,24 +1671,24 @@ RAT.AtcAirport = {}
 ---@class RAT.AtcFlight 
 ---@field Tarrive number Time stamp when flight arrived at holding.
 ---@field Tonfinal number Time stamp when flight started final approach.
----@field destination string Name of the destination airbase.
----@field holding number Holding time.
+---@field private destination string Name of the destination airbase.
+---@field private holding number Holding time.
 RAT.AtcFlight = {}
 
 
 ---RAT rules of engagement.
 ---@class RAT.ROE 
----@field returnfire string 
----@field weaponfree string 
----@field weaponhold string 
+---@field private returnfire string 
+---@field private weaponfree string 
+---@field private weaponhold string 
 RAT.ROE = {}
 
 
 ---RAT reaction to threat.
 ---@class RAT.ROT 
----@field evade string 
----@field noreaction string 
----@field passive string 
+---@field private evade string 
+---@field private noreaction string 
+---@field private passive string 
 RAT.ROT = {}
 
 
@@ -1670,35 +1696,38 @@ RAT.ROT = {}
 ---@class RAT.RatCraft 
 ---@field Distance number Distance travelled in meters.
 ---@field Pnow COORDINATE Current position.
----@field active boolean Whether the group is active or uncontrolled.
----@field airborne boolean Whether this group is airborne.
----@field departure AIRBASE Departure place of this group. Can also be a ZONE.
----@field despawnme boolean Despawn group if `true` in the next status update.
----@field destination AIRBASE Destination of this group. Can also be a ZONE.
----@field flightgroup FLIGHTGROUP The flight group.
----@field group Group The aircraft group.
----@field index number Spawn index.
----@field landing number Laning type.
----@field livery string Livery of the group.
----@field nrespawn number Number of respawns.
----@field nunits number Number of units.
----@field status string Status of the group.
----@field takeoff number Takeoff type.
+---@field private active boolean Whether the group is active or uncontrolled.
+---@field private airborne boolean Whether this group is airborne.
+---@field private departure AIRBASE Departure place of this group. Can also be a ZONE.
+---@field private despawnme boolean Despawn group if `true` in the next status update.
+---@field private destination AIRBASE Destination of this group. Can also be a ZONE.
+---@field private flightgroup FLIGHTGROUP The flight group.
+---@field private group Group The aircraft group.
+---@field private index number Spawn index.
+---@field private landing number Laning type.
+---@field private livery string Livery of the group.
+---@field private nrespawn number Number of respawns.
+---@field private nunits number Number of units.
+---@field private status string Status of the group.
+---@field private takeoff number Takeoff type.
+---@field private waypoints table Waypoints.
+---@field private wpdesc table Waypoint descriptins.
+---@field private wpstatus table Waypoint status.
 RAT.RatCraft = {}
 
 
 ---Categories of the RAT class.
 ---@class RAT.cat 
----@field heli string Heli.
----@field plane string Plane.
+---@field private heli string Heli.
+---@field private plane string Plane.
 RAT.cat = {}
 
 
 ---RAT friendly coalitions.
 ---@class RAT.coal 
----@field neutral string 
----@field same string 
----@field sameonly string 
+---@field private neutral string 
+---@field private same string 
+---@field private sameonly string 
 RAT.coal = {}
 
 
@@ -1729,26 +1758,26 @@ RAT.status = {}
 ---RAT unit conversions.
 ---@class RAT.unit 
 ---@field FL2m number 
----@field ft2meter number 
----@field kmh2ms number 
----@field nm2km number 
----@field nm2m number 
+---@field private ft2meter number 
+---@field private kmh2ms number 
+---@field private nm2km number 
+---@field private nm2m number 
 RAT.unit = {}
 
 
 ---RAT waypoint type.
 ---@class RAT.wp 
----@field air number 
----@field climb number 
----@field cold number 
----@field coldorhot number 
----@field cruise number 
----@field descent number 
----@field finalwp number 
----@field holding number 
----@field hot number 
----@field landing number 
----@field runway number 
+---@field private air number 
+---@field private climb number 
+---@field private cold number 
+---@field private coldorhot number 
+---@field private cruise number 
+---@field private descent number 
+---@field private finalwp number 
+---@field private holding number 
+---@field private hot number 
+---@field private landing number 
+---@field private runway number 
 RAT.wp = {}
 
 
@@ -1795,13 +1824,16 @@ RAT.wp = {}
 ---@field ClassName string Name of the Class.
 ---@field Debug boolean If true, be more verbose on output in DCS.log file.
 ---@field Tcheck number Time interval in seconds between checking of alive groups.
----@field dTspawn number Time interval in seconds between spawns of groups.
----@field id string Some ID to identify who we are in output of the DCS.log file.
----@field manager SCHEDULER Scheduler managing the RAT objects.
----@field managerid number Managing scheduler id.
----@field name string Name (alias) of RAT object.
----@field nrat number Number of RAT objects.
----@field ntot number Total number of active RAT groups.
+---@field private alive table Number of currently alive groups.
+---@field private dTspawn number Time interval in seconds between spawns of groups.
+---@field private id string Some ID to identify who we are in output of the DCS.log file.
+---@field private manager SCHEDULER Scheduler managing the RAT objects.
+---@field private managerid number Managing scheduler id.
+---@field private min table Minimum number of RAT groups alive.
+---@field private name string Name (alias) of RAT object.
+---@field private nrat number Number of RAT objects.
+---@field private ntot number Total number of active RAT groups.
+---@field private rat table Array holding RAT objects etc.
 RATMANAGER = {}
 
 ---Adds a RAT object to the RAT manager.

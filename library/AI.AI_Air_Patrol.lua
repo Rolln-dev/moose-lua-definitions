@@ -88,12 +88,12 @@
 ---===
 ---@deprecated
 ---@class AI_AIR_PATROL 
----@field EngageRange  
----@field PatrolZone  
----@field racetrack boolean 
----@field racetrackcapcoordinates  
----@field racetrackdurationmax  
----@field racetrackdurationmin  
+---@field EngageRange NOTYPE 
+---@field PatrolZone NOTYPE 
+---@field private racetrack boolean 
+---@field private racetrackcapcoordinates NOTYPE 
+---@field private racetrackdurationmax NOTYPE 
+---@field private racetrackdurationmin NOTYPE 
 AI_AIR_PATROL = {}
 
 ---Creates a new AI_AIR_PATROL object
@@ -210,8 +210,8 @@ function AI_AIR_PATROL:SetEngageRange(EngageRange) end
 ---@param LegMax number Max length of the race track leg in meters. Default 15,000 m.
 ---@param HeadingMin number Min heading of the race track in degrees. Default 0 deg, i.e. from South to North.
 ---@param HeadingMax number Max heading of the race track in degrees. Default 180 deg, i.e. from South to North.
----@param DurationMin number (Optional) Min duration before switching the orbit position. Default is keep same orbit until RTB or engage.
----@param DurationMax number (Optional) Max duration before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMin? number (Optional) Min duration before switching the orbit position. Default is keep same orbit until RTB or engage.
+---@param DurationMax? number (Optional) Max duration before switching the orbit position. Default is keep same orbit until RTB or engage.
 ---@param CapCoordinates table Table of coordinates of first race track point. Second point is determined by leg length and heading. 
 ---@return AI_AIR_PATROL #self
 function AI_AIR_PATROL:SetRaceTrackPattern(LegMin, LegMax, HeadingMin, HeadingMax, DurationMin, DurationMax, CapCoordinates) end
@@ -247,6 +247,7 @@ function AI_AIR_PATROL.___PatrolRoute(AIPatrol, Fsm) end
 ---@param Event string The Event string.
 ---@param To string The To State string.
 ---@return AI_AIR_PATROL #self
+---@private
 function AI_AIR_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
@@ -257,6 +258,7 @@ function AI_AIR_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_AIR_PATROL:onafterPatrolRoute(AIPatrol, From, Event, To) end
 
 

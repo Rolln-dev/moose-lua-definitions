@@ -119,19 +119,19 @@
 ---@class MARKER : FSM
 ---@field ClassName string Name of the class.
 ---@field Debug boolean Debug mode. Messages to all about status.
----@field coalition number Coalition to which the marker is displayed.
----@field coordinate COORDINATE Coordinate of the mark.
----@field lid string Class id string for output to DCS log file.
----@field message string Message displayed when the mark is added.
----@field mid number Marker ID.
----@field myid  
----@field readonly boolean Marker is read-only.
----@field shown boolean 
----@field text string Text displayed in the mark panel.
----@field toall boolean 
----@field tocoalition boolean 
----@field togroup boolean 
----@field version string Marker class version.
+---@field private coalition number Coalition to which the marker is displayed.
+---@field private coordinate COORDINATE Coordinate of the mark.
+---@field private groupid NOTYPE 
+---@field private groupname NOTYPE 
+---@field private lid string Class id string for output to DCS log file.
+---@field private message string Message displayed when the mark is added.
+---@field private mid number Marker ID.
+---@field private myid NOTYPE 
+---@field private readonly boolean Marker is read-only.
+---@field private shown boolean 
+---@field private text string Text displayed in the mark panel.
+---@field private togroup boolean 
+---@field private version string Marker class version.
 MARKER = {}
 
 ---Triggers the FSM event "Added".
@@ -291,7 +291,7 @@ function MARKER:ReadWrite() end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:Refresh(Delay) end
 
@@ -299,7 +299,7 @@ function MARKER:Refresh(Delay) end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is removed.
+---@param Delay? number (Optional) Delay in seconds, before the marker is removed.
 ---@return MARKER #self
 function MARKER:Remove(Delay) end
 
@@ -330,7 +330,7 @@ function MARKER:TextUpdate(Text) end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToAll(Delay) end
 
@@ -338,7 +338,7 @@ function MARKER:ToAll(Delay) end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToBlue(Delay) end
 
@@ -347,7 +347,7 @@ function MARKER:ToBlue(Delay) end
 ------
 ---@param self MARKER 
 ---@param Coalition number Coalition 1=Red, 2=Blue, 0=Neutral. See `coalition.side.RED`.
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToCoalition(Coalition, Delay) end
 
@@ -356,7 +356,7 @@ function MARKER:ToCoalition(Coalition, Delay) end
 ------
 ---@param self MARKER 
 ---@param Group GROUP The group to which the marker is displayed.
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToGroup(Group, Delay) end
 
@@ -364,7 +364,7 @@ function MARKER:ToGroup(Group, Delay) end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToNeutral(Delay) end
 
@@ -372,7 +372,7 @@ function MARKER:ToNeutral(Delay) end
 ---
 ------
 ---@param self MARKER 
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:ToRed(Delay) end
 
@@ -381,7 +381,7 @@ function MARKER:ToRed(Delay) end
 ------
 ---@param self MARKER 
 ---@param Coordinate COORDINATE The new coordinate.
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:UpdateCoordinate(Coordinate, Delay) end
 
@@ -390,7 +390,7 @@ function MARKER:UpdateCoordinate(Coordinate, Delay) end
 ------
 ---@param self MARKER 
 ---@param Text string Updated text.
----@param Delay number (Optional) Delay in seconds, before the marker is created.
+---@param Delay? number (Optional) Delay in seconds, before the marker is created.
 ---@return MARKER #self
 function MARKER:UpdateText(Text, Delay) end
 
@@ -437,6 +437,7 @@ function MARKER:__TextUpdate(Text) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param EventData EVENTDATA Event data table.
+---@private
 function MARKER:onafterAdded(From, Event, To, EventData) end
 
 ---On after "Changed" event.
@@ -447,6 +448,7 @@ function MARKER:onafterAdded(From, Event, To, EventData) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param EventData EVENTDATA Event data table.
+---@private
 function MARKER:onafterChanged(From, Event, To, EventData) end
 
 ---On after "CoordUpdate" event.
@@ -457,6 +459,7 @@ function MARKER:onafterChanged(From, Event, To, EventData) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Coordinate COORDINATE The updated coordinates.
+---@private
 function MARKER:onafterCoordUpdate(From, Event, To, Coordinate) end
 
 ---On after "Removed" event.
@@ -467,6 +470,7 @@ function MARKER:onafterCoordUpdate(From, Event, To, Coordinate) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param EventData EVENTDATA Event data table.
+---@private
 function MARKER:onafterRemoved(From, Event, To, EventData) end
 
 ---On after "TextUpdate" event.
@@ -477,6 +481,7 @@ function MARKER:onafterRemoved(From, Event, To, EventData) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Text string The updated text, displayed in the mark panel.
+---@private
 function MARKER:onafterTextUpdate(From, Event, To, Text) end
 
 

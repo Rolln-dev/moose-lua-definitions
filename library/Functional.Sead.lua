@@ -43,10 +43,16 @@
 ---@field CallBack function Callback function for suppression plans.
 ---@field ClassName string The Class Name.
 ---@field EngagementRange number Engagement Range.
+---@field HarmData table Missile enumerators - from DCS ME and Wikipedia
+---@field Harms table Missile enumerators
 ---@field Padding number Padding in seconds.
+---@field SEADGroupPrefixes table Table of SEAD prefixes.
+---@field SuppressedGroups table Table of currently suppressed groups.
+---@field TargetSkill table Table of target skills.
 ---@field UseCallBack boolean Switch for callback function to be used.
----@field UseEmissionsOnOff  
----@field debug boolean Debug switch.
+---@field UseEmissionsOnOff NOTYPE 
+---@field WeaponTrack boolen Track switch, if true track weapon speed for 30 secs.
+---@field private debug boolean Debug switch.
 SEAD = {}
 
 ---Set an object to call back when going evasive.
@@ -81,7 +87,7 @@ function SEAD:HandleEventShot(EventData) end
 ------
 ---@param self SEAD 
 ---@param SEADGroupPrefixes table Table of #string entries or single #string, which is a table of Prefixes of the SA Groups in the DCS mission editor on which evasive actions need to be taken.
----@param Padding number (Optional) Extra number of seconds to add to radar switch-back-on time
+---@param Padding? number (Optional) Extra number of seconds to add to radar switch-back-on time
 ---@return SEAD #self
 function SEAD:New(SEADGroupPrefixes, Padding) end
 
@@ -149,6 +155,7 @@ function SEAD:_GetDistance(_point1, _point2) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return SEAD #self 
+---@private
 function SEAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, SEADWeaponName, From, Event, To) end
 
 ---(Internal) Handle Evasion
@@ -166,6 +173,7 @@ function SEAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, SEADW
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return SEAD #self 
+---@private
 function SEAD:onafterManageEvasion(_targetskill, _targetgroup, SEADPlanePos, SEADWeaponName, SEADGroup, timeoffset, Weapon, From, Event, To) end
 
 

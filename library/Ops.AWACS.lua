@@ -404,21 +404,22 @@
 ---@field AIonCAP number 
 ---@field AOCoordinate COORDINATE Coordinate of bulls eye
 ---@field AOName string name of the FEZ, e.g. Rock
----@field AccessKey  
+---@field AccessKey NOTYPE 
 ---@field AirWing AIRWING 
 ---@field Airbase AIRBASE 
 ---@field AllowMarkers boolean 
----@field AnchorBaseAngels  
+---@field AnchorBaseAngels NOTYPE 
+---@field AnchorNames table 
 ---@field AnchorStacks FIFO 
 ---@field AwacsAngels number 
----@field AwacsFG  
+---@field AwacsFG NOTYPE 
 ---@field AwacsInZone boolean 
 ---@field AwacsMission AUFTRAG 
 ---@field AwacsMissionReplacement AUFTRAG 
 ---@field AwacsROE string 
 ---@field AwacsROT string 
 ---@field AwacsReady boolean 
----@field AwacsSRS  
+---@field AwacsSRS NOTYPE 
 ---@field AwacsTimeOnStation number 
 ---@field AwacsTimeStamp number 
 ---@field BorderZone ZONE 
@@ -426,18 +427,21 @@
 ---@field CAPIdleAI FIFO 
 ---@field CAPIdleHuman FIFO 
 ---@field CallSign number 
----@field CallSignClear  
+---@field CallSignClear NOTYPE 
 ---@field CallSignNo number 
+---@field CapVoices table 
+---@field CatchAllFGs table 
+---@field CatchAllMissions table 
 ---@field ClassName string Name of this class.
 ---@field Contacts FIFO 
 ---@field ContactsAO FIFO 
----@field ControlZone  
+---@field ControlZone NOTYPE 
 ---@field Countactcounter number 
 ---@field DetectionSet SET_GROUP 
----@field EscortFormation  
+---@field EscortFormation NOTYPE 
 ---@field EscortMission AUFTRAG 
 ---@field EscortMissionReplacement AUFTRAG 
----@field EscortNumber  
+---@field EscortNumber NOTYPE 
 ---@field EscortsTimeOnStation number 
 ---@field EscortsTimeStamp number 
 ---@field FlightGroups FIFO 
@@ -446,24 +450,29 @@
 ---@field GCIGroup GROUP EWR group object for GCI ops
 ---@field GoogleTTSPadding number 
 ---@field HasEscorts boolean 
+---@field IFF table 
 ---@field IncludeHelicopters boolean 
 ---@field ManagedGrpID number 
+---@field ManagedGrps table 
 ---@field ManagedTaskID number 
 ---@field ManagedTasks FIFO 
----@field MarkerOps  
+---@field MarkerOps NOTYPE 
 ---@field MaxAIonCAP number 
 ---@field MaxMissionRange number 
 ---@field MeldDistance number 25nm - distance for "Meld" Call , usually shortly before the actual engagement 
 ---@field MenuStrict boolean 
+---@field Messages table 
 ---@field ModernEra boolean if true we get more intel on targets, and EPLR on the AIC
 ---@field Modulation number 
+---@field MonitoringData AWACS.MonitoringData 
 ---@field MonitoringOn boolean 
 ---@field NoGroupTags boolean Set to true if you don't want group tags.
 ---@field NoMissileCalls boolean Suppress missile callouts
 ---@field OpenTasks FIFO 
 ---@field OpsZone ZONE 
 ---@field OrbitZone ZONE 
----@field PathToGoogleKey  
+---@field PathToGoogleKey NOTYPE 
+---@field Phonetic table 
 ---@field PictureAO FIFO 
 ---@field PictureEWR FIFO 
 ---@field PictureInterval number Interval in seconds for general picture
@@ -472,51 +481,60 @@
 ---@field PlayerGuidance boolean if true additional callouts to guide/warn players
 ---@field PlayerStationName string 
 ---@field PrioRadioQueue FIFO 
+---@field ROE table 
+---@field ROT table 
 ---@field RadarBlur number Radar blur in %
 ---@field RadioQueue FIFO 
 ---@field ReassignmentPause number Wait this many seconds before re-assignment of a player
 ---@field RejectZone ZONE 
----@field RejectZoneSet  
+---@field RejectZoneSet NOTYPE 
 ---@field ShiftChangeAwacsFlag boolean 
 ---@field ShiftChangeAwacsRequested boolean 
 ---@field ShiftChangeEscortsFlag boolean 
 ---@field ShiftChangeEscortsRequested boolean 
----@field Speed  
----@field SpeedBase  
+---@field Shipsize table 
+---@field Speed NOTYPE 
+---@field SpeedBase NOTYPE 
 ---@field StationZone ZONE 
 ---@field SuppressScreenOutput boolean Set to true to suppress all screen output.
+---@field THREATLEVEL table 
 ---@field TacDistance number 30nm - distance for "TAC" Call
 ---@field TacticalBaseFreq number 
+---@field TacticalFrequencies table 
 ---@field TacticalIncrFreq number 
 ---@field TacticalInterval number 
 ---@field TacticalMenu boolean 
 ---@field TacticalModulation number 
 ---@field TacticalQueue FIFO 
----@field TacticalSRS  
----@field TacticalSRSQ  
+---@field TacticalSRS NOTYPE 
+---@field TacticalSRSQ NOTYPE 
+---@field TacticalSubscribers table 
+---@field TaskDescription AWACS.TaskDescription 
+---@field TaskStatus AWACS.TaskStatus 
 ---@field TaskedCAPAI FIFO 
 ---@field TaskedCAPHuman FIFO 
 ---@field ThreatDistance number 15nm - distance to declare untargeted (new) threats
 ---@field WindowsTTSPadding number 
----@field ZoneSet  
----@field callsignCustomFunc  
----@field callsignshort boolean if true use short (group) callsigns, e.g. "Ghost 1", else "Ghost 1 1"
----@field callsigntxt  
----@field clientmenus FIFO 
----@field clientset SET_CLIENT 
----@field coalition number Coalition side.
----@field coalitiontxt string e.g."blue"
----@field debug boolean 
----@field gettext TEXTANDSOUND 
----@field intel INTEL 
----@field intelstarted boolean 
----@field keepnumber boolean if true, use the full string after # for a player custom callsign
----@field lid string LID for log entries.
----@field locale string Localization
----@field maxassigndistance number Only assing AI/Pilots to targets max this far away
----@field sunrisedone boolean 
----@field verbose number 
----@field version string Versioning.
+---@field ZoneSet NOTYPE 
+---@field private callsignCustomFunc NOTYPE 
+---@field private callsignTranslations table optional translations for callsigns
+---@field private callsignshort boolean if true use short (group) callsigns, e.g. "Ghost 1", else "Ghost 1 1"
+---@field private callsigntxt NOTYPE 
+---@field private clientmenus FIFO 
+---@field private clientset SET_CLIENT 
+---@field private coalition number Coalition side.
+---@field private coalitiontxt string e.g."blue"
+---@field private debug boolean 
+---@field private gettext TEXTANDSOUND 
+---@field private intel INTEL 
+---@field private intelstarted boolean 
+---@field private keepnumber boolean if true, use the full string after # for a player custom callsign
+---@field private lid string LID for log entries.
+---@field private locale string Localization
+---@field private maxassigndistance number Only assing AI/Pilots to targets max this far away
+---@field private sunrisedone boolean 
+---@field private verbose number 
+---@field private version string Versioning.
 AWACS = {}
 
 ---[User] Add another AirWing for AI CAP Flights under management
@@ -524,7 +542,7 @@ AWACS = {}
 ------
 ---@param self AWACS 
 ---@param AirWing AIRWING The AirWing to (also) obtain CAP flights from
----@param Zone ZONE_RADIUS (optional) This AirWing has it's own station zone, AI CAP will be send there
+---@param Zone? ZONE_RADIUS (optional) This AirWing has it's own station zone, AI CAP will be send there
 ---@return AWACS #self
 function AWACS:AddCAPAirWing(AirWing, Zone) end
 
@@ -720,7 +738,7 @@ function AWACS:SetAdditionalZone(Zone, Draw) end
 ------
 ---@param self AWACS 
 ---@param EWR GROUP The **main** Early Warning Radar (EWR) GROUP object for GCI.
----@param Delay number (option) Start after this many seconds (optional).
+---@param Delay? number (option) Start after this many seconds (optional).
 ---@return AWACS #self
 function AWACS:SetAsGCI(EWR, Delay) end
 
@@ -753,9 +771,9 @@ function AWACS:SetBullsEyeAlias(Name) end
 ---@param self AWACS 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name as-is, no amendments or numbers.
----@param CallsignTranslations table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized. callsigns from playername or group name.
----@param CallsignCustomFunc func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
----@param ... arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
+---@param CallsignTranslations? table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized. callsigns from playername or group name.
+---@param CallsignCustomFunc? func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
+---@param ...? arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
 ---@return AWACS #self
 function AWACS:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations, CallsignCustomFunc, ...) end
 
@@ -935,11 +953,11 @@ function AWACS:SetRejectionZone(Zone, Draw) end
 ---@param Gender string Defaults to "male"
 ---@param Culture string Defaults to "en-US"
 ---@param Port number Defaults to 5002
----@param Voice string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
+---@param Voice? string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
 ---@param Volume number Volume - between 0.0 (silent) and 1.0 (loudest)
----@param PathToGoogleKey string (Optional) Path to your google key if you want to use google TTS; if you use a config file for MSRS, hand in nil here.
----@param AccessKey string (Optional) Your Google API access key. This is necessary if DCS-gRPC is used as backend; if you use a config file for MSRS, hand in nil here.
----@param Backend string (Optional) Your MSRS Backend if different from your config file settings, e.g. MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
+---@param PathToGoogleKey? string (Optional) Path to your google key if you want to use google TTS; if you use a config file for MSRS, hand in nil here.
+---@param AccessKey? string (Optional) Your Google API access key. This is necessary if DCS-gRPC is used as backend; if you use a config file for MSRS, hand in nil here.
+---@param Backend? string (Optional) Your MSRS Backend if different from your config file settings, e.g. MSRS.Backend.SRSEXE or MSRS.Backend.GRPC
 ---@return AWACS #self
 function AWACS:SetSRS(PathToSRS, Gender, Culture, Port, Voice, Volume, PathToGoogleKey, AccessKey, Backend) end
 
@@ -949,7 +967,7 @@ function AWACS:SetSRS(PathToSRS, Gender, Culture, Port, Voice, Volume, PathToGoo
 ---@param self AWACS 
 ---@param Gender string Defaults to "male"
 ---@param Culture string Defaults to "en-US"
----@param Voice string (Optional) Use a specifc voice with the @{#MSRS.SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
+---@param Voice? string (Optional) Use a specifc voice with the @{#MSRS.SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
 ---@return AWACS #self
 function AWACS:SetSRSVoiceCAP(Gender, Culture, Voice) end
 
@@ -958,7 +976,7 @@ function AWACS:SetSRSVoiceCAP(Gender, Culture, Voice) end
 ------
 ---@param self AWACS 
 ---@param AICHours number AWACS stays this number of hours on station before shift change, default is 4.
----@param CapHours number (optional) CAP stays this number of hours on station before shift change, default is 4.
+---@param CapHours? number (optional) CAP stays this number of hours on station before shift change, default is 4.
 ---@return AWACS #self
 function AWACS:SetTOS(AICHours, CapHours) end
 
@@ -1343,9 +1361,9 @@ function AWACS:_MessageAIReadyForTasking(GID) end
 ------
 ---@param self AWACS 
 ---@param GID number Group GID
----@param Tag string (optional) Text to add after Vector, e.g. " to Anchor" - NOTE the leading space
+---@param Tag? string (optional) Text to add after Vector, e.g. " to Anchor" - NOTE the leading space
 ---@param Coordinate COORDINATE The Coordinate to use
----@param Angels number (Optional) Add Angels 
+---@param Angels? number (Optional) Add Angels 
 ---@return AWACS #self
 function AWACS:_MessageVector(GID, Tag, Coordinate, Angels) end
 
@@ -1643,6 +1661,7 @@ function AWACS:__Stop(delay) end
 ---@param HasOwnStation string 
 ---@param StationName NOTYPE 
 ---@return AWACS #self
+---@private
 function AWACS:onafterAssignAnchor(From, Event, To, GID, HasOwnStation, HasOwnStation, StationName) end
 
 ---[Internal] onafterAssignedAnchor
@@ -1657,6 +1676,7 @@ function AWACS:onafterAssignAnchor(From, Event, To, GID, HasOwnStation, HasOwnSt
 ---@param AnchorStackNo number 
 ---@param AnchorAngels NOTYPE 
 ---@return AWACS #self
+---@private
 function AWACS:onafterAssignedAnchor(From, Event, To, GID, Anchor, AnchorStackNo, AnchorAngels) end
 
 ---[Internal] onafterAwacsShiftChange
@@ -1667,6 +1687,7 @@ function AWACS:onafterAssignedAnchor(From, Event, To, GID, Anchor, AnchorStackNo
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterAwacsShiftChange(From, Event, To) end
 
 ---[Internal] onafterCheckRadioQueue
@@ -1677,6 +1698,7 @@ function AWACS:onafterAwacsShiftChange(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterCheckRadioQueue(From, Event, To) end
 
 ---[Internal] onafterCheckTacticalQueue
@@ -1687,6 +1709,7 @@ function AWACS:onafterCheckRadioQueue(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterCheckTacticalQueue(From, Event, To) end
 
 ---[Internal] onafterCheckedOut
@@ -1701,6 +1724,7 @@ function AWACS:onafterCheckTacticalQueue(From, Event, To) end
 ---@param Angels number 
 ---@param GID NOTYPE 
 ---@return AWACS #self
+---@private
 function AWACS:onafterCheckedOut(From, Event, To, Group, AnchorStackNo, Angels, GID) end
 
 ---[Internal] onafterEscortShiftChange
@@ -1711,6 +1735,7 @@ function AWACS:onafterCheckedOut(From, Event, To, Group, AnchorStackNo, Angels, 
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterEscortShiftChange(From, Event, To) end
 
 ---On after "FlightOnMission".
@@ -1723,6 +1748,7 @@ function AWACS:onafterEscortShiftChange(From, Event, To) end
 ---@param FlightGroup FLIGHTGROUP on mission.
 ---@param Mission AUFTRAG The requested mission.
 ---@return AWACS #self
+---@private
 function AWACS:onafterFlightOnMission(From, Event, To, FlightGroup, Mission) end
 
 ---[Internal] onafterLostCluster
@@ -1735,6 +1761,7 @@ function AWACS:onafterFlightOnMission(From, Event, To, FlightGroup, Mission) end
 ---@param Cluster INTEL.Cluster 
 ---@param Mission AUFTRAG 
 ---@return AWACS #self
+---@private
 function AWACS:onafterLostCluster(From, Event, To, Cluster, Mission) end
 
 ---[Internal] onafterLostContact
@@ -1746,6 +1773,7 @@ function AWACS:onafterLostCluster(From, Event, To, Cluster, Mission) end
 ---@param To string 
 ---@param Contact INTEL.Contact 
 ---@return AWACS #self
+---@private
 function AWACS:onafterLostContact(From, Event, To, Contact) end
 
 ---[Internal] onafterNewCluster
@@ -1757,6 +1785,7 @@ function AWACS:onafterLostContact(From, Event, To, Contact) end
 ---@param To string 
 ---@param Cluster INTEL.Cluster 
 ---@return AWACS #self
+---@private
 function AWACS:onafterNewCluster(From, Event, To, Cluster) end
 
 ---[Internal] onafterNewContact
@@ -1768,6 +1797,7 @@ function AWACS:onafterNewCluster(From, Event, To, Cluster) end
 ---@param To string 
 ---@param Contact INTEL.Contact 
 ---@return AWACS #self 
+---@private
 function AWACS:onafterNewContact(From, Event, To, Contact) end
 
 ---On after "ReAnchor".
@@ -1779,6 +1809,7 @@ function AWACS:onafterNewContact(From, Event, To, Contact) end
 ---@param To string To state.
 ---@param GID number Group ID to check and re-anchor if possible
 ---@return AWACS #self
+---@private
 function AWACS:onafterReAnchor(From, Event, To, GID) end
 
 ---[Internal] onafterStart
@@ -1789,6 +1820,7 @@ function AWACS:onafterReAnchor(From, Event, To, GID) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterStart(From, Event, To) end
 
 ---[Internal] onafterStatus
@@ -1799,6 +1831,7 @@ function AWACS:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterStatus(From, Event, To) end
 
 ---[Internal] onafterStop
@@ -1809,6 +1842,7 @@ function AWACS:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onafterStop(From, Event, To) end
 
 ---[Internal] onbeforeStart
@@ -1819,6 +1853,7 @@ function AWACS:onafterStop(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AWACS #self
+---@private
 function AWACS:onbeforeStart(From, Event, To) end
 
 
@@ -1890,30 +1925,32 @@ AWACS.ManagedGroup = {}
 ---@field IsUnassigned boolean 
 ---@field RequestedTimestamp number 
 ---@field ScreenText string Long descrition
+---@field Status AWACS.TaskStatus 
 ---@field TID number 
 ---@field Target TARGET 
+---@field ToDo AWACS.TaskDescription 
 AWACS.ManagedTask = {}
 
 
 ---@class AWACS.MenuStructure 
----@field abort MENU_GROUP_COMMAND 
----@field basemenu MENU_GROUP 
----@field bogeydope MENU_GROUP_COMMAND 
----@field checkin MENU_GROUP_COMMAND 
----@field checkout MENU_GROUP_COMMAND 
----@field commit MENU_GROUP_COMMAND 
----@field declare MENU_GROUP_COMMAND 
----@field friendly MENU_GROUP_COMMAND 
----@field groupname string 
----@field hostile MENU_GROUP_COMMAND 
----@field judy MENU_GROUP_COMMAND 
----@field menuset boolean 
----@field neutral MENU_GROUP_COMMAND 
----@field picture MENU_GROUP_COMMAND 
----@field showtask MENU_GROUP_COMMAND 
----@field tasking MENU_GROUP 
----@field unable MENU_GROUP_COMMAND 
----@field vid MENU_GROUP 
+---@field private abort MENU_GROUP_COMMAND 
+---@field private basemenu MENU_GROUP 
+---@field private bogeydope MENU_GROUP_COMMAND 
+---@field private checkin MENU_GROUP_COMMAND 
+---@field private checkout MENU_GROUP_COMMAND 
+---@field private commit MENU_GROUP_COMMAND 
+---@field private declare MENU_GROUP_COMMAND 
+---@field private friendly MENU_GROUP_COMMAND 
+---@field private groupname string 
+---@field private hostile MENU_GROUP_COMMAND 
+---@field private judy MENU_GROUP_COMMAND 
+---@field private menuset boolean 
+---@field private neutral MENU_GROUP_COMMAND 
+---@field private picture MENU_GROUP_COMMAND 
+---@field private showtask MENU_GROUP_COMMAND 
+---@field private tasking MENU_GROUP 
+---@field private unable MENU_GROUP_COMMAND 
+---@field private vid MENU_GROUP 
 AWACS.MenuStructure = {}
 
 
@@ -1925,18 +1962,20 @@ AWACS.MenuStructure = {}
 ---@field AwacsStateFG string 
 ---@field AwacsStateMission string 
 ---@field EscortsShiftChange boolean 
+---@field EscortsStateFG table 
+---@field EscortsStateMission table 
 ---@field Players number 
 ---@field PlayersCheckedin number 
 AWACS.MonitoringData = {}
 
 
 ---@class AWACS.RadioEntry 
----@field FromAI  
----@field GroupID  
----@field IsGroup  
----@field IsNew  
----@field TextTTS  
----@field ToScreen  
+---@field FromAI NOTYPE 
+---@field GroupID NOTYPE 
+---@field IsGroup NOTYPE 
+---@field IsNew NOTYPE 
+---@field TextTTS NOTYPE 
+---@field ToScreen NOTYPE 
 AWACS.RadioEntry = {}
 
 

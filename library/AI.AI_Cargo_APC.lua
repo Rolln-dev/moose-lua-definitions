@@ -81,15 +81,15 @@
 ---@deprecated
 ---@class AI_CARGO_APC 
 ---@field CargoCarrier GROUP 
----@field CarrierCoordinate  
+---@field CarrierCoordinate NOTYPE 
 ---@field CarrierStopped boolean 
----@field Coalition  
+---@field Coalition NOTYPE 
 ---@field RouteDeploy boolean 
 ---@field RouteHome boolean 
 ---@field RoutePickup boolean 
----@field Zone  
----@field deployOffroad  
----@field pickupOffroad  
+---@field Zone NOTYPE 
+---@field private deployOffroad NOTYPE 
+---@field private pickupOffroad NOTYPE 
 AI_CARGO_APC = {}
 
 ---Find a free Carrier within a radius.
@@ -211,6 +211,7 @@ function AI_CARGO_APC._Pickup(APC, sel, Coordinate, Speed, PickupZone, self) end
 ---@param Speed number Speed in km/h to drive to the depoly coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the deploy coordinate. This parameter is ignored for APCs.
 ---@param DeployZone ZONE The zone where the cargo will be deployed.
+---@private
 function AI_CARGO_APC:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Height, DeployZone) end
 
 ---On after Deployed event.
@@ -224,6 +225,7 @@ function AI_CARGO_APC:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Hei
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param APC NOTYPE 
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO_APC:onafterDeployed(Carrier, From, Event, To, DeployZone, APC, Defend) end
 
 ---On after Follow event.
@@ -234,6 +236,7 @@ function AI_CARGO_APC:onafterDeployed(Carrier, From, Event, To, DeployZone, APC,
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AI_CARGO_APC:onafterFollow(APC, From, Event, To) end
 
 ---On after Home event.
@@ -248,6 +251,7 @@ function AI_CARGO_APC:onafterFollow(APC, From, Event, To) end
 ---@param Speed number Speed in km/h to drive to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the home coordinate. This parameter is ignored for APCs.
 ---@param HomeZone NOTYPE 
+---@private
 function AI_CARGO_APC:onafterHome(APC, From, Event, To, Coordinate, Speed, Height, HomeZone) end
 
 ---On after Monitor event.
@@ -258,6 +262,7 @@ function AI_CARGO_APC:onafterHome(APC, From, Event, To, Coordinate, Speed, Heigh
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AI_CARGO_APC:onafterMonitor(APC, From, Event, To) end
 
 ---On after Pickup event.
@@ -271,7 +276,8 @@ function AI_CARGO_APC:onafterMonitor(APC, From, Event, To) end
 ---@param Coordinate COORDINATE of the pickup point.
 ---@param Speed number Speed in km/h to drive to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the pickup coordinate. This parameter is ignored for APCs.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO_APC:onafterPickup(APC, From, Event, To, Coordinate, Speed, Height, PickupZone) end
 
 ---On after Unloaded event.
@@ -287,6 +293,7 @@ function AI_CARGO_APC:onafterPickup(APC, From, Event, To, Coordinate, Speed, Hei
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param CarrierUnit NOTYPE 
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO_APC:onafterUnloaded(Carrier, From, Event, To, Cargo, Deployed, DeployZone, CarrierUnit, Defend) end
 
 

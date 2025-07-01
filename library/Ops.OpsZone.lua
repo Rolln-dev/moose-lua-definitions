@@ -25,10 +25,13 @@
 ---OPSZONE class.
 ---@class OPSZONE : FSM
 ---@field ClassName string Name of the class.
----@field HitTimeLast  
+---@field HitTimeLast NOTYPE 
+---@field Missions table Missions that are attached to this OpsZone.
 ---@field Nblu number Number of blue units in the zone.
+---@field Ncoal table Number of units in zone for each coalition.
 ---@field Nnut number Number of neutral units in the zone.
 ---@field Nred number Number of red units in the zone.
+---@field ObjectCategories table Object categories for the scan.
 ---@field ScanGroupSet SET_GROUP Set of scanned groups.
 ---@field ScanUnitSet SET_UNIT Set of scanned units.
 ---@field Tattacked number Abs. mission time stamp when an attack was started.
@@ -37,30 +40,33 @@
 ---@field TminCaptured number Time interval in seconds how long an attacker must have troops inside the zone to capture.
 ---@field Tnut number Threat level of neutral units in the zone.
 ---@field Tred number Threat level of red units in the zone.
+---@field UnitCategories table Unit categories for the scan.
 ---@field UpdateSeconds number Run status every this many seconds.
----@field airbase AIRBASE The airbase that is monitored.
----@field airbaseName string Name of the airbase that is monitored.
----@field dTCapture number Time interval in seconds until a zone is captured.
----@field drawZone boolean If `true`, draw the zone on the F10 map.
----@field drawZoneForCoalition boolean 
----@field isContested boolean 
----@field lid string DCS log ID string.
----@field markZone boolean If `true`, mark the zone on the F10 map.
----@field marker MARKER Marker on the F10 map.
----@field markerText string Text shown in the maker.
----@field neutralCanCapture boolean Neutral units can capture. Default `false`.
----@field nunitsCapture number Number of units necessary to capture a zone.
----@field ownerCurrent number Coalition of the current owner of the zone.
----@field ownerPrevious number Coalition of the previous owner of the zone.
----@field threatlevelCapture number Threat level necessary to capture a zone.
----@field timerStatus TIMER Timer for calling the status update.
----@field verbose number Verbosity of output.
----@field version string OPSZONE class version.
----@field zone ZONE The zone.
----@field zoneCircular ZONE_RADIUS The circular zone.
----@field zoneName string Name of the zone.
----@field zoneRadius number Radius of the zone in meters.
----@field zoneType  
+---@field ZoneType OPSZONE.ZoneType 
+---@field private airbase AIRBASE The airbase that is monitored.
+---@field private airbaseName string Name of the airbase that is monitored.
+---@field private chiefs table Chiefs that monitor this zone.
+---@field private dTCapture number Time interval in seconds until a zone is captured.
+---@field private drawZone boolean If `true`, draw the zone on the F10 map.
+---@field private drawZoneForCoalition boolean 
+---@field private isContested boolean 
+---@field private lid string DCS log ID string.
+---@field private markZone boolean If `true`, mark the zone on the F10 map.
+---@field private marker MARKER Marker on the F10 map.
+---@field private markerText string Text shown in the maker.
+---@field private neutralCanCapture boolean Neutral units can capture. Default `false`.
+---@field private nunitsCapture number Number of units necessary to capture a zone.
+---@field private ownerCurrent number Coalition of the current owner of the zone.
+---@field private ownerPrevious number Coalition of the previous owner of the zone.
+---@field private threatlevelCapture number Threat level necessary to capture a zone.
+---@field private timerStatus TIMER Timer for calling the status update.
+---@field private verbose number Verbosity of output.
+---@field private version string OPSZONE class version.
+---@field private zone ZONE The zone.
+---@field private zoneCircular ZONE_RADIUS The circular zone.
+---@field private zoneName string Name of the zone.
+---@field private zoneRadius number Radius of the zone in meters.
+---@field private zoneType NOTYPE 
 OPSZONE = {}
 
 ---Triggers the FSM event "Attacked".
@@ -157,9 +163,9 @@ function OPSZONE:GetPreviousOwner() end
 ---
 ------
 ---@param self OPSZONE 
----@param inner number (Optional) Minimal distance from the center of the zone in meters. Default is 0 m.
----@param outer number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
----@param surfacetypes table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
+---@param inner? number (Optional) Minimal distance from the center of the zone in meters. Default is 0 m.
+---@param outer? number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
+---@param surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
 ---@return COORDINATE #The random coordinate.
 function OPSZONE:GetRandomCoordinate(inner, outer, surfacetypes) end
 
@@ -607,6 +613,7 @@ function OPSZONE:__Stop(delay) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param AttackerCoalition number Coalition of the attacking ground troops.
+---@private
 function OPSZONE:onafterAttacked(From, Event, To, AttackerCoalition) end
 
 ---On after "Captured" event.
@@ -617,6 +624,7 @@ function OPSZONE:onafterAttacked(From, Event, To, AttackerCoalition) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param NewOwnerCoalition number Coalition of the new owner.
+---@private
 function OPSZONE:onafterCaptured(From, Event, To, NewOwnerCoalition) end
 
 ---On after "Defeated" event.
@@ -627,6 +635,7 @@ function OPSZONE:onafterCaptured(From, Event, To, NewOwnerCoalition) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param DefeatedCoalition number Coalition side that was defeated.
+---@private
 function OPSZONE:onafterDefeated(From, Event, To, DefeatedCoalition) end
 
 ---On after "Empty" event.
@@ -636,6 +645,7 @@ function OPSZONE:onafterDefeated(From, Event, To, DefeatedCoalition) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSZONE:onafterEmpty(From, Event, To) end
 
 ---Start OPSZONE FSM.
@@ -646,6 +656,7 @@ function OPSZONE:onafterEmpty(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@return OPSZONE #self
+---@private
 function OPSZONE:onafterStart(From, Event, To) end
 
 ---Stop OPSZONE FSM.
@@ -655,6 +666,7 @@ function OPSZONE:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSZONE:onafterStop(From, Event, To) end
 
 ---On before "Captured" event.
@@ -665,6 +677,7 @@ function OPSZONE:onafterStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param NewOwnerCoalition number Coalition of the new owner.
+---@private
 function OPSZONE:onbeforeCaptured(From, Event, To, NewOwnerCoalition) end
 
 ---On enter "Attacked" state.
@@ -675,6 +688,7 @@ function OPSZONE:onbeforeCaptured(From, Event, To, NewOwnerCoalition) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param AttackerCoalition number Coalition of the attacking ground troops.
+---@private
 function OPSZONE:onenterAttacked(From, Event, To, AttackerCoalition) end
 
 ---On enter "Empty" event.
@@ -684,6 +698,7 @@ function OPSZONE:onenterAttacked(From, Event, To, AttackerCoalition) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSZONE:onenterEmpty(From, Event, To) end
 
 ---On enter "Guarded" state.
@@ -693,6 +708,7 @@ function OPSZONE:onenterEmpty(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSZONE:onenterGuarded(From, Event, To) end
 
 

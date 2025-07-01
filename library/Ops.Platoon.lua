@@ -25,12 +25,12 @@
 ---PLATOON class.
 ---@class PLATOON : COHORT
 ---@field ClassName string Name of the class.
----@field ammo  
----@field isGround boolean 
----@field legion  
----@field verbose number Verbosity level.
----@field version string PLATOON class version.
----@field weaponData OPSGROUP.WeaponData Weapon data table with key=BitType.
+---@field private ammo NOTYPE 
+---@field private isGround boolean 
+---@field private legion NOTYPE 
+---@field private verbose number Verbosity level.
+---@field private version string PLATOON class version.
+---@field private weaponData OPSGROUP.WeaponData Weapon data table with key=BitType.
 PLATOON = {}
 
 ---Get brigade of this platoon.
@@ -65,6 +65,7 @@ function PLATOON:SetBrigade(Brigade) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function PLATOON:onafterStatus(From, Event, To) end
 
 

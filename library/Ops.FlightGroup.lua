@@ -86,60 +86,67 @@
 ---
 ---FLIGHTGROUP class.
 ---@class FLIGHTGROUP : OPSGROUP
+---@field Attribute FLIGHTGROUP.Attribute 
+---@field PlayerSkill FLIGHTGROUP.PlayerSkill 
+---@field Players table FLIGHTGROUP players.
 ---@field RTBRecallCount number Number that counts RTB calls.
+---@field RadioMessage FLIGHTGROUP.RadioMessage 
 ---@field Tholding number Abs. mission time stamp when the group reached the holding point.
 ---@field Tparking number Abs. mission time stamp when the group was spawned uncontrolled and is parking.
----@field actype string Type name of the aircraft.
----@field ai boolean If true, flight is purely AI. If false, flight contains at least one human player.
----@field airboss AIRBOSS The airboss handling this group.
----@field ammo OPSGROUP.Ammo Ammunition data. Number of Guns, Rockets, Bombs, Missiles.
----@field ceiling number Max altitude the aircraft can fly at in meters.
----@field controlstatus string Flight control status.
----@field currbase  
----@field despawnAfterHolding boolean If `true`, group is despawned after reaching the holding point.
----@field despawnAfterLanding boolean If `true`, group is despawned after landed at an airbase.
----@field destbase  
----@field flaghold USERFLAG Flag for holding.
----@field flightcontrol FLIGHTCONTROL The flightcontrol handling this group.
----@field fuelcritical boolean Fuel critical switch.
----@field fuelcriticalrtb boolean RTB on critical fuel switch.
----@field fuelcriticalthresh number Critical fuel threshold in percent.
----@field fuellow boolean Fuel low switch.
----@field fuellowrefuel boolean 
----@field fuellowrtb boolean RTB on low fuel switch.
----@field fuellowthresh number Low fuel threshold in percent.
----@field groupinitialized boolean 
----@field holdtime number Time [s] flight is holding before going on final. Set to nil for indefinitely.
----@field homebase  
----@field isDead boolean 
----@field isDestroyed boolean 
----@field isHelo  
----@field isHoldingAtHoldingPoint boolean 
----@field isLandingAtAirbase  
----@field isMobile boolean 
----@field isReadyTO boolean Flight is ready for takeoff. This is for FLIGHTCONTROL.
----@field isUncontrolled boolean 
----@field isVTOL boolean 
----@field jettisonEmptyTanks boolean Allow (true) or disallow (false) AI to jettison empty fuel tanks.
----@field jettisonWeapons boolean Allow (true) or disallow (false) AI to jettison weapons if in danger.
----@field lid  
----@field outofAAMrtb boolean 
----@field outofAGMrtb boolean 
----@field prohibitAB boolean Disallow (true) or allow (false) AI to use the afterburner.
----@field rangemax number Max range in meters.
----@field refueltype number The refueling system type (0=boom, 1=probe), if the group can refuel from a tanker.
----@field speedCruise  
----@field speedMax  
----@field speedWp  
----@field stack FLIGHTCONTROL.HoldingStack Holding stack.
----@field stuckTimestamp  
----@field stuckVec3  
----@field tacan  
----@field tankertype number The refueling system type (0=boom, 1=probe), if the group is a tanker.
----@field timerCheckZone  
----@field timerQueueUpdate  
----@field timerStatus  
----@field version string FLIGHTGROUP class version.
+---@field Twaiting NOTYPE 
+---@field private actype string Type name of the aircraft.
+---@field private ai boolean If true, flight is purely AI. If false, flight contains at least one human player.
+---@field private airboss AIRBOSS The airboss handling this group.
+---@field private ammo OPSGROUP.Ammo Ammunition data. Number of Guns, Rockets, Bombs, Missiles.
+---@field private ceiling number Max altitude the aircraft can fly at in meters.
+---@field private controlstatus string Flight control status.
+---@field private dTwait NOTYPE 
+---@field private despawnAfterHolding boolean If `true`, group is despawned after reaching the holding point.
+---@field private despawnAfterLanding boolean If `true`, group is despawned after landed at an airbase.
+---@field private destbase NOTYPE 
+---@field private flaghold USERFLAG Flag for holding.
+---@field private flightcontrol FLIGHTCONTROL The flightcontrol handling this group.
+---@field private fuelcritical boolean Fuel critical switch.
+---@field private fuelcriticalrtb boolean RTB on critical fuel switch.
+---@field private fuelcriticalthresh number Critical fuel threshold in percent.
+---@field private fuellow boolean Fuel low switch.
+---@field private fuellowrefuel boolean 
+---@field private fuellowrtb boolean RTB on low fuel switch.
+---@field private fuellowthresh number Low fuel threshold in percent.
+---@field private groupinitialized boolean 
+---@field private holdtime number Time [s] flight is holding before going on final. Set to nil for indefinitely.
+---@field private homebase NOTYPE 
+---@field private isDead boolean 
+---@field private isDestroyed boolean 
+---@field private isHelo NOTYPE 
+---@field private isHoldingAtHoldingPoint boolean 
+---@field private isLandingAtAirbase NOTYPE 
+---@field private isLateActivated boolean 
+---@field private isMobile boolean 
+---@field private isReadyTO boolean Flight is ready for takeoff. This is for FLIGHTCONTROL.
+---@field private isUncontrolled boolean 
+---@field private isVTOL boolean 
+---@field private jettisonEmptyTanks boolean Allow (true) or disallow (false) AI to jettison empty fuel tanks.
+---@field private jettisonWeapons boolean Allow (true) or disallow (false) AI to jettison weapons if in danger.
+---@field private lid NOTYPE 
+---@field private menu table F10 radio menu.
+---@field private outofAAMrtb boolean 
+---@field private outofAGMrtb boolean 
+---@field private prohibitAB boolean Disallow (true) or allow (false) AI to use the afterburner.
+---@field private rangemax number Max range in meters.
+---@field private refueltype number The refueling system type (0=boom, 1=probe), if the group can refuel from a tanker.
+---@field private speedCruise NOTYPE 
+---@field private speedMax NOTYPE 
+---@field private speedWp NOTYPE 
+---@field private stack FLIGHTCONTROL.HoldingStack Holding stack.
+---@field private stuckTimestamp NOTYPE 
+---@field private stuckVec3 NOTYPE 
+---@field private tacan NOTYPE 
+---@field private tankertype number The refueling system type (0=boom, 1=probe), if the group is a tanker.
+---@field private timerCheckZone NOTYPE 
+---@field private timerQueueUpdate NOTYPE 
+---@field private timerStatus NOTYPE 
+---@field private version string FLIGHTGROUP class version.
 FLIGHTGROUP = {}
 
 ---Add an *enroute* task to attack targets in a certain **circular** zone.
@@ -147,8 +154,8 @@ FLIGHTGROUP = {}
 ------
 ---@param self FLIGHTGROUP 
 ---@param ZoneRadius ZONE_RADIUS The circular zone, where to engage targets.
----@param TargetTypes table (Optional) The target types, passed as a table, i.e. mind the curly brackets {}. Default {"Air"}.
----@param Priority number (Optional) Priority. Default 0.
+---@param TargetTypes? table (Optional) The target types, passed as a table, i.e. mind the curly brackets {}. Default {"Air"}.
+---@param Priority? number (Optional) Priority. Default 0.
 function FLIGHTGROUP:AddTaskEnrouteEngageTargetsInZone(ZoneRadius, TargetTypes, Priority) end
 
 ---Add an AIR waypoint to the flight plan.
@@ -293,7 +300,7 @@ function FLIGHTGROUP:GetParking(airbase) end
 ---@param self FLIGHTGROUP 
 ---@param element OPSGROUP.Element Element of the flight group.
 ---@param maxdist number Distance threshold in meters. Default 5 m.
----@param airbase AIRBASE (Optional) The airbase to check for parking. Default is closest airbase to the element.
+---@param airbase? AIRBASE (Optional) The airbase to check for parking. Default is closest airbase to the element.
 ---@return AIRBASE.ParkingSpot #Parking spot or nil if no spot is within distance threshold.
 function FLIGHTGROUP:GetParkingSpot(element, maxdist, airbase) end
 
@@ -336,7 +343,7 @@ function FLIGHTGROUP:GetSquadronName() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight is airborne.
 function FLIGHTGROUP:IsAirborne(Element) end
 
@@ -344,7 +351,7 @@ function FLIGHTGROUP:IsAirborne(Element) end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight has arrived at its destination and is parking.
 function FLIGHTGROUP:IsArrived(Element) end
 
@@ -401,7 +408,7 @@ function FLIGHTGROUP:IsInbound() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight has landed
 function FLIGHTGROUP:IsLanded(Element) end
 
@@ -416,7 +423,7 @@ function FLIGHTGROUP:IsLandedAt() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight is landing, i.e. on final approach.
 function FLIGHTGROUP:IsLanding(Element) end
 
@@ -447,7 +454,7 @@ function FLIGHTGROUP:IsLandingAt() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight is parking after spawned.
 function FLIGHTGROUP:IsParking(Element) end
 
@@ -483,7 +490,7 @@ function FLIGHTGROUP:IsTakeoffRunway() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param Element OPSGROUP.Element (Optional) Only check status for given element.
+---@param Element? OPSGROUP.Element (Optional) Only check status for given element.
 ---@return boolean #If true, flight is taxiing after engine start up.
 function FLIGHTGROUP:IsTaxiing(Element) end
 
@@ -1088,7 +1095,7 @@ function FLIGHTGROUP:SetVTOL() end
 ---
 ------
 ---@param self FLIGHTGROUP 
----@param delay number (Optional) Delay in seconds before the group is started. Default is immediately.
+---@param delay? number (Optional) Delay in seconds before the group is started. Default is immediately.
 ---@return FLIGHTGROUP #self
 function FLIGHTGROUP:StartUncontrolled(delay) end
 
@@ -1340,6 +1347,7 @@ function FLIGHTGROUP:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterAirborne(From, Event, To) end
 
 ---On after "Arrived" event.
@@ -1349,6 +1357,7 @@ function FLIGHTGROUP:onafterAirborne(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterArrived(From, Event, To) end
 
 ---On after "Cruising" event.
@@ -1358,6 +1367,7 @@ function FLIGHTGROUP:onafterArrived(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterCruise(From, Event, To) end
 
 ---On after "Dead" event.
@@ -1367,6 +1377,7 @@ function FLIGHTGROUP:onafterCruise(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterDead(From, Event, To) end
 
 ---On after "Disengage" event.
@@ -1377,6 +1388,7 @@ function FLIGHTGROUP:onafterDead(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param TargetUnitSet SET_UNIT 
+---@private
 function FLIGHTGROUP:onafterDisengage(From, Event, To, TargetUnitSet) end
 
 ---On after "ElementAirborne" event.
@@ -1387,6 +1399,7 @@ function FLIGHTGROUP:onafterDisengage(From, Event, To, TargetUnitSet) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementAirborne(From, Event, To, Element) end
 
 ---On after "ElementArrived" event.
@@ -1399,6 +1412,7 @@ function FLIGHTGROUP:onafterElementAirborne(From, Event, To, Element) end
 ---@param Element OPSGROUP.Element The flight group element.
 ---@param airbase AIRBASE The airbase, where the element arrived.
 ---@param Parking AIRBASE.ParkingSpot The Parking spot the element has.
+---@private
 function FLIGHTGROUP:onafterElementArrived(From, Event, To, Element, airbase, Parking) end
 
 ---On after "ElementDead" event.
@@ -1409,6 +1423,7 @@ function FLIGHTGROUP:onafterElementArrived(From, Event, To, Element, airbase, Pa
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementDead(From, Event, To, Element) end
 
 ---On after "ElementDestroyed" event.
@@ -1419,6 +1434,7 @@ function FLIGHTGROUP:onafterElementDead(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementDestroyed(From, Event, To, Element) end
 
 ---On after "ElementEngineOn" event.
@@ -1429,6 +1445,7 @@ function FLIGHTGROUP:onafterElementDestroyed(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementEngineOn(From, Event, To, Element) end
 
 ---On after "ElementLanded" event.
@@ -1440,6 +1457,7 @@ function FLIGHTGROUP:onafterElementEngineOn(From, Event, To, Element) end
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
 ---@param airbase AIRBASE The airbase if applicable or nil.
+---@private
 function FLIGHTGROUP:onafterElementLanded(From, Event, To, Element, airbase) end
 
 ---On after "ElementParking" event.
@@ -1451,6 +1469,7 @@ function FLIGHTGROUP:onafterElementLanded(From, Event, To, Element, airbase) end
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
 ---@param Spot AIRBASE.ParkingSpot Parking Spot.
+---@private
 function FLIGHTGROUP:onafterElementParking(From, Event, To, Element, Spot) end
 
 ---On after "ElementSpawned" event.
@@ -1461,6 +1480,7 @@ function FLIGHTGROUP:onafterElementParking(From, Event, To, Element, Spot) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementSpawned(From, Event, To, Element) end
 
 ---On after "ElementTakeoff" event.
@@ -1472,6 +1492,7 @@ function FLIGHTGROUP:onafterElementSpawned(From, Event, To, Element) end
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
 ---@param airbase AIRBASE The airbase if applicable or nil.
+---@private
 function FLIGHTGROUP:onafterElementTakeoff(From, Event, To, Element, airbase) end
 
 ---On after "ElementTaxiing" event.
@@ -1482,6 +1503,7 @@ function FLIGHTGROUP:onafterElementTakeoff(From, Event, To, Element, airbase) en
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function FLIGHTGROUP:onafterElementTaxiing(From, Event, To, Element) end
 
 ---On after "EngageTarget" event.
@@ -1492,6 +1514,7 @@ function FLIGHTGROUP:onafterElementTaxiing(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target table Target object. Can be a UNIT, STATIC, GROUP, SET_UNIT or SET_GROUP object.
+---@private
 function FLIGHTGROUP:onafterEngageTarget(From, Event, To, Target) end
 
 ---On after "FuelCritical" event.
@@ -1501,6 +1524,7 @@ function FLIGHTGROUP:onafterEngageTarget(From, Event, To, Target) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterFuelCritical(From, Event, To) end
 
 ---On after "FuelLow" event.
@@ -1510,6 +1534,7 @@ function FLIGHTGROUP:onafterFuelCritical(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterFuelLow(From, Event, To) end
 
 ---On after "Holding" event.
@@ -1520,6 +1545,7 @@ function FLIGHTGROUP:onafterFuelLow(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterHolding(From, Event, To) end
 
 ---On after "LandAt" event.
@@ -1532,6 +1558,7 @@ function FLIGHTGROUP:onafterHolding(From, Event, To) end
 ---@param To string To state.
 ---@param Coordinate COORDINATE The coordinate where to land. Default is current position.
 ---@param Duration number The duration in seconds to remain on ground. Default `nil` = forever.
+---@private
 function FLIGHTGROUP:onafterLandAt(From, Event, To, Coordinate, Duration) end
 
 ---On after "LandAtAirbase" event.
@@ -1542,6 +1569,7 @@ function FLIGHTGROUP:onafterLandAt(From, Event, To, Coordinate, Duration) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The airbase to hold at.
+---@private
 function FLIGHTGROUP:onafterLandAtAirbase(From, Event, To, airbase) end
 
 ---On after "Landed" event.
@@ -1552,6 +1580,7 @@ function FLIGHTGROUP:onafterLandAtAirbase(From, Event, To, airbase) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The airbase the flight landed.
+---@private
 function FLIGHTGROUP:onafterLanded(From, Event, To, airbase) end
 
 ---On after "LandedAt" event.
@@ -1561,6 +1590,7 @@ function FLIGHTGROUP:onafterLanded(From, Event, To, airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterLandedAt(From, Event, To) end
 
 ---On after "Landing" event.
@@ -1570,6 +1600,7 @@ function FLIGHTGROUP:onafterLandedAt(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterLanding(From, Event, To) end
 
 ---On after "OutOfMissilesAA" event.
@@ -1579,6 +1610,7 @@ function FLIGHTGROUP:onafterLanding(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterOutOfMissilesAA(From, Event, To) end
 
 ---On after "OutOfMissilesAG" event.
@@ -1588,6 +1620,7 @@ function FLIGHTGROUP:onafterOutOfMissilesAA(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterOutOfMissilesAG(From, Event, To) end
 
 ---On after "Parking" event.
@@ -1598,6 +1631,7 @@ function FLIGHTGROUP:onafterOutOfMissilesAG(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterParking(From, Event, To) end
 
 ---On after "RTB" event.
@@ -1612,6 +1646,7 @@ function FLIGHTGROUP:onafterParking(From, Event, To) end
 ---@param SpeedTo number Speed used for traveling from current position to holding point in knots. Default 75% of max speed.
 ---@param SpeedHold number Holding speed in knots. Default 250 kts.
 ---@param SpeedLand number Landing speed in knots. Default 170 kts.
+---@private
 function FLIGHTGROUP:onafterRTB(From, Event, To, airbase, SpeedTo, SpeedHold, SpeedLand) end
 
 ---On after "Refuel" event.
@@ -1622,6 +1657,7 @@ function FLIGHTGROUP:onafterRTB(From, Event, To, airbase, SpeedTo, SpeedHold, Sp
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Coordinate COORDINATE The coordinate.
+---@private
 function FLIGHTGROUP:onafterRefuel(From, Event, To, Coordinate) end
 
 ---On after "Refueled" event.
@@ -1631,6 +1667,7 @@ function FLIGHTGROUP:onafterRefuel(From, Event, To, Coordinate) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterRefueled(From, Event, To) end
 
 ---On after "Spawned" event.
@@ -1640,6 +1677,7 @@ function FLIGHTGROUP:onafterRefueled(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterSpawned(From, Event, To) end
 
 ---On after "Takeoff" event.
@@ -1650,6 +1688,7 @@ function FLIGHTGROUP:onafterSpawned(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The airbase the flight landed.
+---@private
 function FLIGHTGROUP:onafterTakeoff(From, Event, To, airbase) end
 
 ---On after "Taxiing" event.
@@ -1659,6 +1698,7 @@ function FLIGHTGROUP:onafterTakeoff(From, Event, To, airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTGROUP:onafterTaxiing(From, Event, To) end
 
 ---On after "UpdateRoute" event.
@@ -1670,6 +1710,7 @@ function FLIGHTGROUP:onafterTaxiing(From, Event, To) end
 ---@param To string To state.
 ---@param n number Next waypoint index. Default is the one coming after that one that has been passed last.
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
+---@private
 function FLIGHTGROUP:onafterUpdateRoute(From, Event, To, n, N) end
 
 ---On after "Wait" event.
@@ -1682,6 +1723,7 @@ function FLIGHTGROUP:onafterUpdateRoute(From, Event, To, n, N) end
 ---@param Duration number Duration how long the group will be waiting in seconds. Default `nil` (=forever).
 ---@param Altitude number Altitude in feet. Default 10,000 ft for airplanes and 1,000 feet for helos.
 ---@param Speed number Speed in knots. Default 250 kts for airplanes and 20 kts for helos.
+---@private
 function FLIGHTGROUP:onafterWait(From, Event, To, Duration, Altitude, Speed) end
 
 ---On before "LandAt" event.
@@ -1694,6 +1736,7 @@ function FLIGHTGROUP:onafterWait(From, Event, To, Duration, Altitude, Speed) end
 ---@param To string To state.
 ---@param Coordinate COORDINATE The coordinate where to land. Default is current position.
 ---@param Duration number The duration in seconds to remain on ground. Default 600 sec (10 min).
+---@private
 function FLIGHTGROUP:onbeforeLandAt(From, Event, To, Coordinate, Duration) end
 
 ---On before "LandAtAirbase" event.
@@ -1704,6 +1747,7 @@ function FLIGHTGROUP:onbeforeLandAt(From, Event, To, Coordinate, Duration) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The airbase to hold at.
+---@private
 function FLIGHTGROUP:onbeforeLandAtAirbase(From, Event, To, airbase) end
 
 ---On before "RTB" event.
@@ -1716,6 +1760,7 @@ function FLIGHTGROUP:onbeforeLandAtAirbase(From, Event, To, airbase) end
 ---@param airbase AIRBASE The airbase to hold at.
 ---@param SpeedTo number Speed used for travelling from current position to holding point in knots.
 ---@param SpeedHold number Holding speed in knots.
+---@private
 function FLIGHTGROUP:onbeforeRTB(From, Event, To, airbase, SpeedTo, SpeedHold) end
 
 ---On before "UpdateRoute" event.
@@ -1729,6 +1774,7 @@ function FLIGHTGROUP:onbeforeRTB(From, Event, To, airbase, SpeedTo, SpeedHold) e
 ---@param n number Next waypoint index. Default is the one coming after that one that has been passed last.
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
 ---@return boolean #Transision allowed?
+---@private
 function FLIGHTGROUP:onbeforeUpdateRoute(From, Event, To, n, N) end
 
 ---On before "Wait" event.
@@ -1741,6 +1787,7 @@ function FLIGHTGROUP:onbeforeUpdateRoute(From, Event, To, n, N) end
 ---@param Duration number Duration how long the group will be waiting in seconds. Default `nil` (=forever).
 ---@param Altitude number Altitude in feet. Default 10,000 ft for airplanes and 1,000 feet for helos.
 ---@param Speed number Speed in knots. Default 250 kts for airplanes and 20 kts for helos.
+---@private
 function FLIGHTGROUP:onbeforeWait(From, Event, To, Duration, Altitude, Speed) end
 
 
@@ -1761,10 +1808,10 @@ FLIGHTGROUP.Attribute = {}
 
 ---Player data.
 ---@class FLIGHTGROUP.PlayerData 
----@field myvoice boolean 
----@field name string Player name.
----@field skill string Skill level.
----@field subtitles boolean Display subtitles.
+---@field private myvoice boolean 
+---@field private name string Player name.
+---@field private skill string Skill level.
+---@field private subtitles boolean Display subtitles.
 FLIGHTGROUP.PlayerData = {}
 
 
@@ -1779,13 +1826,15 @@ FLIGHTGROUP.PlayerSkill = {}
 
 ---Radio messages.
 ---@class FLIGHTGROUP.RadioMessage 
+---@field AIRBORNE FLIGHTGROUP.RadioText 
+---@field TAXIING FLIGHTGROUP.RadioText 
 FLIGHTGROUP.RadioMessage = {}
 
 
 ---Radio Text.
 ---@class FLIGHTGROUP.RadioText 
----@field enhanced string 
----@field normal string 
+---@field private enhanced string 
+---@field private normal string 
 FLIGHTGROUP.RadioText = {}
 
 

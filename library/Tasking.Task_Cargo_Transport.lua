@@ -293,6 +293,7 @@ function TASK_CARGO_TRANSPORT:ReportOrder(ReportGroup) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_CARGO_TRANSPORT:onafterGoal(TaskUnit, From, Event, To) end
 
 

@@ -177,6 +177,7 @@ function TASK_A2A:UpdateTaskInfo(DetectedItem) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_A2A:onafterGoal(TaskUnit, From, Event, To) end
 
 
@@ -357,6 +358,7 @@ function TASK_A2A_SWEEP:SetScoreOnSuccess(PlayerName, Score, TaskUnit) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_A2A_SWEEP:onafterGoal(TaskUnit, From, Event, To) end
 
 

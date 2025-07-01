@@ -23,7 +23,8 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class TASKINFO : BASE
----@field Info  
+---@field Detail TASKINFO.Detail 
+---@field Info NOTYPE 
 TASKINFO = {}
 
 ---Add Cargo.
@@ -33,7 +34,7 @@ TASKINFO = {}
 ---@param Cargo CARGO 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddCargo(Cargo, Order, Detail, Keep) end
 
@@ -44,7 +45,7 @@ function TASKINFO:AddCargo(Cargo, Order, Detail, Keep) end
 ---@param SetCargo SET_CARGO 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddCargoSet(SetCargo, Order, Detail, Keep) end
 
@@ -55,7 +56,7 @@ function TASKINFO:AddCargoSet(SetCargo, Order, Detail, Keep) end
 ---@param Coordinate COORDINATE 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@param ShowKey NOTYPE 
 ---@param Name NOTYPE 
 ---@return TASKINFO #self
@@ -68,7 +69,7 @@ function TASKINFO:AddCoordinate(Coordinate, Order, Detail, Keep, ShowKey, Name) 
 ---@param Coordinates list 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddCoordinates(Coordinates, Order, Detail, Keep) end
 
@@ -80,7 +81,7 @@ function TASKINFO:AddCoordinates(Coordinates, Order, Detail, Keep) end
 ---@param Data NOTYPE The data of the info.
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@param ShowKey NOTYPE 
 ---@param Type NOTYPE 
 ---@return TASKINFO #self
@@ -93,7 +94,7 @@ function TASKINFO:AddInfo(Key, Data, Order, Detail, Keep, ShowKey, Type) end
 ---@param Coordinate COORDINATE 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddQFEAtCoordinate(Coordinate, Order, Detail, Keep) end
 
@@ -104,7 +105,7 @@ function TASKINFO:AddQFEAtCoordinate(Coordinate, Order, Detail, Keep) end
 ---@param TargetCount number The amount of targets.
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddTargetCount(TargetCount, Order, Detail, Keep) end
 
@@ -116,7 +117,7 @@ function TASKINFO:AddTargetCount(TargetCount, Order, Detail, Keep) end
 ---@param TargetTypes string The text containing the target types.
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddTargets(TargetCount, TargetTypes, Order, Detail, Keep) end
 
@@ -126,7 +127,7 @@ function TASKINFO:AddTargets(TargetCount, TargetTypes, Order, Detail, Keep) end
 ---@param self TASKINFO 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddTaskName(Order, Detail, Keep) end
 
@@ -137,7 +138,7 @@ function TASKINFO:AddTaskName(Order, Detail, Keep) end
 ---@param Coordinate COORDINATE 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddTemperatureAtCoordinate(Coordinate, Order, Detail, Keep) end
 
@@ -149,7 +150,7 @@ function TASKINFO:AddTemperatureAtCoordinate(Coordinate, Order, Detail, Keep) en
 ---@param Text string The text.
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddText(Key, Text, Order, Detail, Keep) end
 
@@ -161,7 +162,7 @@ function TASKINFO:AddText(Key, Text, Order, Detail, Keep) end
 ---@param ThreatLevel string The level of the Threat.
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddThreat(ThreatText, ThreatLevel, Order, Detail, Keep) end
 
@@ -172,7 +173,7 @@ function TASKINFO:AddThreat(ThreatText, ThreatLevel, Order, Detail, Keep) end
 ---@param Coordinate COORDINATE 
 ---@param Order number The display order, which is a number from 0 to 100.
 ---@param Detail TASKINFO.Detail The detail Level.
----@param Keep boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
+---@param Keep? boolean (optional) If true, this would indicate that the planned taskinfo would be persistent when the task is completed, so that the original planned task info is used at the completed reports.
 ---@return TASKINFO #self
 function TASKINFO:AddWindAtCoordinate(Coordinate, Order, Detail, Keep) end
 

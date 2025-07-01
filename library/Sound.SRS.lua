@@ -212,25 +212,31 @@
 ---    atis:Start()
 ---MSRS class.
 ---@class MSRS : BASE
+---@field Backend MSRS.Backend 
 ---@field ClassName string Name of the class.
 ---@field ConfigFileName string Name of the standard config file.
 ---@field ConfigFilePath string Path to the standard config file.
 ---@field ConfigLoaded boolean If `true` if config file was loaded.
 ---@field Label string Label showing up on the SRS radio overlay. Default is "ROBOT". No spaces allowed.
+---@field Provider MSRS.Provider 
 ---@field UsePowerShell boolean Use PowerShell to execute the command and not cmd.exe
----@field backend string Backend used as interface to SRS (MSRS.Backend.SRSEXE or MSRS.Backend.GRPC).
----@field coalition number Coalition of the transmission.
----@field coordinate COORDINATE Coordinate from where the transmission is send.
----@field culture string Culture. Default "en-GB".
----@field gender string Gender. Default "female".
----@field lid string Class id string for output to DCS log file.
----@field name string Name. Default "MSRS".
----@field path string Path to the SRS exe.
----@field port number Port. Default 5002.
----@field provider string Provider of TTS (win, gcloud, azure, amazon).
----@field version string MSRS class version.
----@field voice string Specific voice. Only used if no explicit provider voice specified.
----@field volume number Volume between 0 (min) and 1 (max). Default 1.
+---@field Voices MSRS.Voices 
+---@field private backend string Backend used as interface to SRS (MSRS.Backend.SRSEXE or MSRS.Backend.GRPC).
+---@field private coalition number Coalition of the transmission.
+---@field private coordinate COORDINATE Coordinate from where the transmission is send.
+---@field private culture string Culture. Default "en-GB".
+---@field private frequencies table Frequencies used in the transmissions.
+---@field private gender string Gender. Default "female".
+---@field private lid string Class id string for output to DCS log file.
+---@field private modulations table Modulations used in the transmissions.
+---@field private name string Name. Default "MSRS".
+---@field private path string Path to the SRS exe.
+---@field private poptions table Provider options. Each element is a data structure of type `MSRS.ProvierOptions`.
+---@field private port number Port. Default 5002.
+---@field private provider string Provider of TTS (win, gcloud, azure, amazon).
+---@field private version string MSRS class version.
+---@field private voice string Specific voice. Only used if no explicit provider voice specified.
+---@field private volume number Volume between 0 (min) and 1 (max). Default 1.
 MSRS = {}
 
 ---Add frequencies.
@@ -844,11 +850,13 @@ function MSRS:_GetLatLongAlt(Coordinate) end
 ---@param length number can also be passed as #string
 ---@param speed number Defaults to 1.0
 ---@param isGoogle boolean We're using Google TTS
+---@private
 function MSRS.getSpeechTime(length, speed, isGoogle) end
 
 
 ---
 ------
+---@private
 function MSRS.uuid() end
 
 
@@ -862,9 +870,15 @@ MSRS.Backend = {}
 ---GRPC options.
 ---@class MSRS.GRPCOptions 
 ---@field DefaultProvider string 
----@field coalition string 
----@field plaintext string 
----@field srsClientName string 
+---@field private aws MSRS.ProviderOptions 
+---@field private azure MSRS.ProviderOptions 
+---@field private coalition string 
+---@field private gcloud MSRS.ProviderOptions 
+---@field private plaintext string 
+---@field private position table 
+---@field private provider table 
+---@field private srsClientName string 
+---@field private win MSRS.ProviderOptions 
 MSRS.GRPCOptions = {}
 
 
@@ -880,18 +894,22 @@ MSRS.Provider = {}
 
 ---Provider options.
 ---@class MSRS.ProviderOptions 
----@field credentials string Google credentials JSON file (full path).
----@field defaultVoice string Default voice (not used).
----@field key string Access key (DCS-gRPC with Google, AWS, AZURE as provider).
----@field provider string Provider.
----@field region string Region.
----@field secret string Secret key (DCS-gRPC with AWS as provider)
----@field voice string Voice used.
+---@field private credentials string Google credentials JSON file (full path).
+---@field private defaultVoice string Default voice (not used).
+---@field private key string Access key (DCS-gRPC with Google, AWS, AZURE as provider).
+---@field private provider string Provider.
+---@field private region string Region.
+---@field private secret string Secret key (DCS-gRPC with AWS as provider)
+---@field private voice string Voice used.
 MSRS.ProviderOptions = {}
 
 
 ---Voices
 ---@class MSRS.Voices 
+---@field Amazon table 
+---@field Google table 
+---@field Microsoft table 
+---@field MicrosoftGRPC table 
 MSRS.Voices = {}
 
 
@@ -902,11 +920,12 @@ MSRS.Voices = {}
 ---@class MSRSQUEUE : BASE
 ---@field ClassName string Name of the class "MSRSQUEUE".
 ---@field Tlast number Time (abs) when the last transmission finished.
----@field TransmitOnlyWithPlayers  
----@field alias string Name of the radio queue.
----@field checking boolean If `true`, the queue update function is scheduled to be called again.
----@field dt number Time interval in seconds for checking the radio queue.
----@field lid string ID for dcs.log.
+---@field TransmitOnlyWithPlayers NOTYPE 
+---@field private alias string Name of the radio queue.
+---@field private checking boolean If `true`, the queue update function is scheduled to be called again.
+---@field private dt number Time interval in seconds for checking the radio queue.
+---@field private lid string ID for dcs.log.
+---@field private queue table The queue of transmissions.
 MSRSQUEUE = {}
 
 ---Add a transmission to the radio queue.
@@ -942,7 +961,7 @@ function MSRSQUEUE:Clear() end
 ---
 ------
 ---@param self MSRSQUEUE 
----@param alias string (Optional) Name of the radio queue.
+---@param alias? string (Optional) Name of the radio queue.
 ---@return MSRSQUEUE #self The MSRSQUEUE object.
 function MSRSQUEUE:New(alias) end
 
@@ -991,21 +1010,22 @@ function MSRSQUEUE:_CheckRadioQueue(delay) end
 ---@field Tplay number Mission time (abs) in seconds when the transmission should be played.
 ---@field TransmitOnlyWithPlayers boolean If true, only transmit if there are alive Players.
 ---@field Tstarted number Mission time (abs) in seconds when the transmission started.
----@field coordinate COORDINATE Coordinate for this transmission
----@field culture string Voice culture
----@field duration number Duration in seconds.
----@field frequency number Frequency.
----@field gender string Voice gender
----@field interval number Interval in seconds before next transmission.
----@field isplaying boolean If true, transmission is currently playing.
----@field label string Label to be used
----@field modulation number Modulation.
----@field msrs MSRS MOOSE SRS object.
----@field subduration number Duration of the subtitle being displayed.
----@field subtitle string Subtitle of the transmission.
----@field text string Text to be transmitted.
----@field voice string Voice if any
----@field volume number Volume
+---@field private coordinate COORDINATE Coordinate for this transmission
+---@field private culture string Voice culture
+---@field private duration number Duration in seconds.
+---@field private frequency number Frequency.
+---@field private gender string Voice gender
+---@field private interval number Interval in seconds before next transmission.
+---@field private isplaying boolean If true, transmission is currently playing.
+---@field private label string Label to be used
+---@field private modulation number Modulation.
+---@field private msrs MSRS MOOSE SRS object.
+---@field private subduration number Duration of the subtitle being displayed.
+---@field private subgroups table Groups to send subtitle to.
+---@field private subtitle string Subtitle of the transmission.
+---@field private text string Text to be transmitted.
+---@field private voice string Voice if any
+---@field private volume number Volume
 MSRSQUEUE.Transmission = {}
 
 

@@ -211,8 +211,9 @@
 ---    atcNellis:Start()
 ---FLIGHTCONTROL class.
 ---@class FLIGHTCONTROL : FSM
----@field CallsignTranslations  
+---@field CallsignTranslations NOTYPE 
 ---@field ClassName string Name of the class.
+---@field FlightStatus FLIGHTCONTROL.FlightStatus 
 ---@field NlandingTakeoff number Max number of groups taking off to allow landing clearance.
 ---@field NlandingTot number Max number of aircraft groups in the landing pattern.
 ---@field Nparkingspots number Total number of parking spots.
@@ -223,33 +224,37 @@
 ---@field ShortCallsign boolean 
 ---@field Tlanding number Time stamp (abs.) when last flight got landing clearance.
 ---@field Tlastmessage number Time stamp (abs.) of last radio transmission.
----@field airbase AIRBASE Airbase object.
----@field airbasename string Name of airbase.
----@field airbasetype number Type of airbase.
----@field alias string Radio alias, e.g. "Batumi Tower".
----@field atis ATIS ATIS object.
----@field dTlanding number Time interval in seconds between landing clearance.
----@field dTmessage number Time interval between messages.
----@field frequency number ATC radio frequency in MHz.
----@field holdingBackup  
----@field hpcounter number Counter for holding zones.
----@field lid string Class id string for output to DCS log file.
----@field markPatterns boolean If `true`, park holding pattern.
----@field markerParking boolean If `true`, occupied parking spots are marked.
----@field modulation number ATC radio modulation, *e.g.* `radio.modulation.AM`.
----@field msrsPilot MSRS Moose SRS wrapper.
----@field msrsTower MSRS Moose SRS wrapper.
----@field msrsqueue MSRSQUEUE Queue for TTS transmissions using MSRS class.
----@field nosubs boolean If `true`, SRS TTS is without subtitles.
----@field parkingGuard SPAWN Parking guard spawner.
----@field radioOnlyIfPlayers boolean Activate to limit transmissions only if players are active at the airbase.
----@field runwaydestroyed number Time stamp (abs), when runway was destroyed. If `nil`, runway is operational.
----@field runwayrepairtime number Time in seconds until runway will be repaired after it was destroyed. Default is 3600 sec (one hour).
----@field speedLimitTaxi number Taxi speed limit in m/s.
----@field theatre string The DCS map used in the mission.
----@field verbose boolean Verbosity level.
----@field version string FlightControl class version.
----@field zoneAirbase ZONE Zone around the airbase.
+---@field private airbase AIRBASE Airbase object.
+---@field private airbasename string Name of airbase.
+---@field private airbasetype number Type of airbase.
+---@field private alias string Radio alias, e.g. "Batumi Tower".
+---@field private atis ATIS ATIS object.
+---@field private clients table Table with all clients spawning at this airbase.
+---@field private dTlanding number Time interval in seconds between landing clearance.
+---@field private dTmessage number Time interval between messages.
+---@field private flights table All flights table.
+---@field private frequency number ATC radio frequency in MHz.
+---@field private holdingBackup NOTYPE 
+---@field private holdingpatterns table Holding points.
+---@field private hpcounter number Counter for holding zones.
+---@field private lid string Class id string for output to DCS log file.
+---@field private markPatterns boolean If `true`, park holding pattern.
+---@field private markerParking boolean If `true`, occupied parking spots are marked.
+---@field private modulation number ATC radio modulation, *e.g.* `radio.modulation.AM`.
+---@field private msrsPilot MSRS Moose SRS wrapper.
+---@field private msrsTower MSRS Moose SRS wrapper.
+---@field private msrsqueue MSRSQUEUE Queue for TTS transmissions using MSRS class.
+---@field private nosubs boolean If `true`, SRS TTS is without subtitles.
+---@field private parking table Parking spots table.
+---@field private parkingGuard SPAWN Parking guard spawner.
+---@field private radioOnlyIfPlayers boolean Activate to limit transmissions only if players are active at the airbase.
+---@field private runwaydestroyed number Time stamp (abs), when runway was destroyed. If `nil`, runway is operational.
+---@field private runwayrepairtime number Time in seconds until runway will be repaired after it was destroyed. Default is 3600 sec (one hour).
+---@field private speedLimitTaxi number Taxi speed limit in m/s.
+---@field private theatre string The DCS map used in the mission.
+---@field private verbose boolean Verbosity level.
+---@field private version string FlightControl class version.
+---@field private zoneAirbase ZONE Zone around the airbase.
 FLIGHTCONTROL = {}
 
 ---Add a holding pattern.
@@ -280,7 +285,7 @@ function FLIGHTCONTROL:CountFlights(Status, GroupStatus, AI) end
 ---
 ------
 ---@param self FLIGHTCONTROL 
----@param SpotStatus string (Optional) Status of spot.
+---@param SpotStatus? string (Optional) Status of spot.
 ---@return number #Number of parking spots.
 function FLIGHTCONTROL:CountParking(SpotStatus) end
 
@@ -318,8 +323,8 @@ function FLIGHTCONTROL:GetActiveRunwayText(Takeoff) end
 ------
 ---@param self FLIGHTCONTROL 
 ---@param Coordinate COORDINATE Reference coordinate.
----@param TerminalType number (Optional) Check only this terminal type.
----@param Status boolean (Optional) Only consider spots that have this status.
+---@param TerminalType? number (Optional) Check only this terminal type.
+---@param Status? boolean (Optional) Only consider spots that have this status.
 ---@return FLIGHTCONTROL.ParkingSpot #Closest parking spot.
 function FLIGHTCONTROL:GetClosestParkingSpot(Coordinate, TerminalType, Status) end
 
@@ -579,7 +584,7 @@ function FLIGHTCONTROL:SetATIS(Atis) end
 ---@param self FLIGHTCONTROL 
 ---@param ShortCallsign boolean If true, only call out the major flight number. Default = `true`.
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers. Default = `true`.
----@param CallsignTranslations table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
+---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations) end
 
@@ -1317,6 +1322,7 @@ function FLIGHTCONTROL:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTCONTROL:onafterRunwayDestroyed(From, Event, To) end
 
 ---On after "RunwayRepaired" event.
@@ -1326,6 +1332,7 @@ function FLIGHTCONTROL:onafterRunwayDestroyed(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLIGHTCONTROL:onafterRunwayRepaired(From, Event, To) end
 
 ---Start FLIGHTCONTROL FSM.
@@ -1333,24 +1340,28 @@ function FLIGHTCONTROL:onafterRunwayRepaired(From, Event, To) end
 ---
 ------
 ---@param self FLIGHTCONTROL 
+---@private
 function FLIGHTCONTROL:onafterStart() end
 
 ---Update status.
 ---
 ------
 ---@param self FLIGHTCONTROL 
+---@private
 function FLIGHTCONTROL:onafterStatusUpdate() end
 
 ---Stop FLIGHTCONTROL FSM.
 ---
 ------
 ---@param self FLIGHTCONTROL 
+---@private
 function FLIGHTCONTROL:onafterStop() end
 
 ---On Before Update status.
 ---
 ------
 ---@param self FLIGHTCONTROL 
+---@private
 function FLIGHTCONTROL:onbeforeStatusUpdate() end
 
 
@@ -1373,25 +1384,26 @@ FLIGHTCONTROL.FlightStatus = {}
 ---Holding point.
 ---Contains holding stacks.
 ---@class FLIGHTCONTROL.HoldingPattern 
----@field angelsmax number Largest holding alitude in angels.
----@field angelsmin number Smallest holding altitude in angels.
----@field arrivalzone ZONE Zone where aircraft should arrive.
----@field markArrival number Marker ID of the arrival zone.
----@field markArrow number Marker ID of the direction.
----@field name string Name of the zone, which is <zonename>-<uid>.
----@field pos0 COORDINATE First position of racetrack holding pattern.
----@field pos1 COORDINATE Second position of racetrack holding pattern.
----@field uid number Unique ID.
+---@field private angelsmax number Largest holding alitude in angels.
+---@field private angelsmin number Smallest holding altitude in angels.
+---@field private arrivalzone ZONE Zone where aircraft should arrive.
+---@field private markArrival number Marker ID of the arrival zone.
+---@field private markArrow number Marker ID of the direction.
+---@field private name string Name of the zone, which is <zonename>-<uid>.
+---@field private pos0 COORDINATE First position of racetrack holding pattern.
+---@field private pos1 COORDINATE Second position of racetrack holding pattern.
+---@field private stacks table Holding stacks.
+---@field private uid number Unique ID.
 FLIGHTCONTROL.HoldingPattern = {}
 
 
 ---Holding stack.
 ---@class FLIGHTCONTROL.HoldingStack 
----@field angels number Holding altitude in Angels.
----@field flightgroup FLIGHTGROUP Flight group of this stack.
----@field heading number Heading.
----@field pos0 COORDINATE First position of racetrack holding pattern.
----@field pos1 COORDINATE Second position of racetrack holding pattern.
+---@field private angels number Holding altitude in Angels.
+---@field private flightgroup FLIGHTGROUP Flight group of this stack.
+---@field private heading number Heading.
+---@field private pos0 COORDINATE First position of racetrack holding pattern.
+---@field private pos1 COORDINATE Second position of racetrack holding pattern.
 FLIGHTCONTROL.HoldingStack = {}
 
 

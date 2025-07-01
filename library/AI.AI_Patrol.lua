@@ -149,17 +149,18 @@
 ---@field CheckStatus boolean 
 ---@field CoordTest SPAWN 
 ---@field DetectActivated boolean 
----@field DetectInterval  
+---@field DetectInterval NOTYPE 
 ---@field DetectOn boolean 
----@field DetectZone  
+---@field DetectZone NOTYPE 
+---@field DetectedUnits table 
 ---@field PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
----@field PatrolDamageThreshold  
+---@field PatrolDamageThreshold NOTYPE 
 ---@field PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
----@field PatrolFuelThresholdPercentage  
+---@field PatrolFuelThresholdPercentage NOTYPE 
 ---@field PatrolManageDamage boolean 
 ---@field PatrolMaxSpeed Speed The maximum speed of the @{Wrapper.Controllable} in km/h.
 ---@field PatrolMinSpeed Speed The minimum speed of the @{Wrapper.Controllable} in km/h.
----@field PatrolOutOfFuelOrbitTime  
+---@field PatrolOutOfFuelOrbitTime NOTYPE 
 ---@field PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 AI_PATROL_ZONE = {}
 
@@ -636,6 +637,7 @@ function AI_PATROL_ZONE:__Stop(Delay) end
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_PATROL_ZONE:onafterDead() end
 
 
@@ -646,12 +648,14 @@ function AI_PATROL_ZONE:onafterDead() end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_PATROL_ZONE:onafterDetect(Controllable, From, Event, To) end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_PATROL_ZONE:onafterRTB() end
 
 ---Defines a new patrol route using the #AI_PATROL_ZONE parameters and settings.
@@ -662,6 +666,7 @@ function AI_PATROL_ZONE:onafterRTB() end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_PATROL_ZONE:onafterRoute(Controllable, From, Event, To) end
 
 ---Defines a new patrol route using the #AI_PATROL_ZONE parameters and settings.
@@ -673,12 +678,14 @@ function AI_PATROL_ZONE:onafterRoute(Controllable, From, Event, To) end
 ---@param Event string The Event string.
 ---@param To string The To State string.
 ---@return AI_PATROL_ZONE #self
+---@private
 function AI_PATROL_ZONE:onafterStart(Controllable, From, Event, To) end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_PATROL_ZONE:onafterStatus() end
 
 
@@ -689,12 +696,14 @@ function AI_PATROL_ZONE:onafterStatus() end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_PATROL_ZONE:onbeforeDetect(Controllable, From, Event, To) end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_PATROL_ZONE:onbeforeStatus() end
 
 

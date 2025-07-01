@@ -116,20 +116,25 @@
 ---ASTAR class.
 ---@class ASTAR : BASE
 ---@field ClassName string Name of the class.
+---@field CostArg table Optional arguments passed to the cost function. 
 ---@field CostFunc function Function to calculate the heuristic "cost" to go from one node to another.
 ---@field Debug boolean Debug mode. Messages to all about status.
 ---@field INF number ASTAR infinity.
 ---@field Nnodes number Number of nodes.
+---@field ValidNeighbourArg table Optional arguments passed to the valid neighbour function.
 ---@field ValidNeighbourFunc function Function to check if a node is valid.
----@field counter number Node counter.
----@field endCoord COORDINATE End coordinate.
----@field lid string Class id string for output to DCS log file.
----@field ncost number Number of cost evaluations.
----@field ncostcache number Number of cached cost evals.
----@field nvalid number Number of nvalid calls.
----@field nvalidcache number Number of cached valid evals.
----@field startCoord COORDINATE Start coordinate.
----@field version string ASTAR class version.
+---@field private counter number Node counter.
+---@field private endCoord COORDINATE End coordinate.
+---@field private endNode ASTAR.Node End node.
+---@field private lid string Class id string for output to DCS log file.
+---@field private ncost number Number of cost evaluations.
+---@field private ncostcache number Number of cached cost evals.
+---@field private nodes table Table of nodes.
+---@field private nvalid number Number of nvalid calls.
+---@field private nvalidcache number Number of cached valid evals.
+---@field private startCoord COORDINATE Start coordinate.
+---@field private startNode ASTAR.Node Start node.
+---@field private version string ASTAR class version.
 ASTAR = {}
 
 ---Add a node to the table of grid nodes.
@@ -252,7 +257,7 @@ function ASTAR:GetPath(ExcludeStartNode, ExcludeEndNode) end
 ------
 ---@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
----@param corridor number (Optional) Width of corridor in meters.
+---@param corridor? number (Optional) Width of corridor in meters.
 ---@return boolean #If true, two nodes have LoS.
 function ASTAR.LoS(nodeA, nodeB, corridor) end
 
@@ -420,9 +425,11 @@ function ASTAR:_UnwindPath(flat_path, map, current_node) end
 
 ---Node data.
 ---@class ASTAR.Node 
----@field coordinate COORDINATE Coordinate of the node.
----@field id number Node id.
----@field surfacetype number Surface type.
+---@field private coordinate COORDINATE Coordinate of the node.
+---@field private cost table Cached cost.
+---@field private id number Node id.
+---@field private surfacetype number Surface type.
+---@field private valid table Cached valid/invalid nodes.
 ASTAR.Node = {}
 
 

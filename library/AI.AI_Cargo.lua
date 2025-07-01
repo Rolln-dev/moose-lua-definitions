@@ -30,8 +30,9 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class AI_CARGO : FSM_CONTROLLABLE
----@field CargoCarrier  
+---@field CargoCarrier NOTYPE 
 ---@field CargoSet SET_CARGO 
+---@field Carrier_Cargo table 
 ---@field Relocating boolean 
 ---@field Transporting boolean 
 AI_CARGO = {}
@@ -179,7 +180,8 @@ function AI_CARGO:__Pickup(Delay, Coordinate, Speed) end
 ---@param To string To state.
 ---@param Cargo CARGO Cargo object.
 ---@param CarrierUnit UNIT 
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO:onafterBoard(Carrier, From, Event, To, Cargo, CarrierUnit, PickupZone) end
 
 ---On after Deploy event.
@@ -194,6 +196,7 @@ function AI_CARGO:onafterBoard(Carrier, From, Event, To, Cargo, CarrierUnit, Pic
 ---@param Speed number Speed in km/h to drive to the depoly coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the deploy coordinate.
 ---@param DeployZone ZONE The zone where the cargo will be deployed.
+---@private
 function AI_CARGO:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Height, DeployZone) end
 
 ---On after Deployed event.
@@ -206,6 +209,7 @@ function AI_CARGO:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Height,
 ---@param To string To state.
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param Defend boolean Defend for APCs.
+---@private
 function AI_CARGO:onafterDeployed(Carrier, From, Event, To, DeployZone, Defend) end
 
 ---On after Loaded event.
@@ -216,9 +220,10 @@ function AI_CARGO:onafterDeployed(Carrier, From, Event, To, DeployZone, Defend) 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
 ---@param Cargo NOTYPE 
 ---@return boolean #Cargo loaded.
+---@private
 function AI_CARGO:onafterLoaded(Carrier, From, Event, To, PickupZone, Cargo) end
 
 ---On after PickedUp event.
@@ -229,7 +234,8 @@ function AI_CARGO:onafterLoaded(Carrier, From, Event, To, PickupZone, Cargo) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO:onafterPickedUp(Carrier, From, Event, To, PickupZone) end
 
 ---On after Pickup event.
@@ -243,7 +249,8 @@ function AI_CARGO:onafterPickedUp(Carrier, From, Event, To, PickupZone) end
 ---@param Coordinate COORDINATE of the pickup point.
 ---@param Speed number Speed in km/h to drive to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height number Height in meters to move to the home coordinate.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO:onafterPickup(APC, From, Event, To, Coordinate, Speed, Height, PickupZone) end
 
 ---On after Unboard event.
@@ -258,6 +265,7 @@ function AI_CARGO:onafterPickup(APC, From, Event, To, Coordinate, Speed, Height,
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param CarrierUnit NOTYPE 
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO:onafterUnboard(Carrier, From, Event, To, Cargo, DeployZone, CarrierUnit, Defend) end
 
 ---On after Unload event.
@@ -270,6 +278,7 @@ function AI_CARGO:onafterUnboard(Carrier, From, Event, To, Cargo, DeployZone, Ca
 ---@param To string To state.
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO:onafterUnload(Carrier, From, Event, To, DeployZone, Defend) end
 
 ---On after Unloaded event.
@@ -285,6 +294,7 @@ function AI_CARGO:onafterUnload(Carrier, From, Event, To, DeployZone, Defend) en
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param CarrierUnit NOTYPE 
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO:onafterUnloaded(Carrier, From, Event, To, Cargo, Deployed, DeployZone, CarrierUnit, Defend) end
 
 ---On before Load event.
@@ -295,7 +305,8 @@ function AI_CARGO:onafterUnloaded(Carrier, From, Event, To, Cargo, Deployed, Dep
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO:onbeforeLoad(Carrier, From, Event, To, PickupZone) end
 
 ---On before Reload event.
@@ -306,7 +317,8 @@ function AI_CARGO:onbeforeLoad(Carrier, From, Event, To, PickupZone) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param PickupZone ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@param PickupZone? ZONE (optional) The zone where the cargo will be picked up. The PickupZone can be nil, if there wasn't any PickupZoneSet provided.
+---@private
 function AI_CARGO:onbeforeReload(Carrier, From, Event, To, PickupZone) end
 
 

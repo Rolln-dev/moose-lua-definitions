@@ -68,14 +68,15 @@
 ---@class PSEUDOATC : BASE
 ---@field ClassName string Name of the Class.
 ---@field Debug boolean If true, print debug info to dcs.log file.
----@field chatty boolean Display some messages on events like take-off and touchdown.
----@field eventsmoose boolean [Deprecated] If true, events are handled by MOOSE. If false, events are handled directly by DCS eventhandler.
----@field id string Some ID to identify who we are in output of the DCS.log file.
----@field mdur number Duration in seconds how low messages to the player are displayed.
----@field mrefresh number Interval in seconds after which the F10 menu is refreshed. E.g. by the closest airports. Default is 120 sec.
----@field reportplayername boolean If true, use playername not callsign on callouts
----@field talt number Interval in seconds between reporting altitude until touchdown. Default 3 sec.
----@field version number PSEUDOATC version.
+---@field private chatty boolean Display some messages on events like take-off and touchdown.
+---@field private eventsmoose boolean [Deprecated] If true, events are handled by MOOSE. If false, events are handled directly by DCS eventhandler.
+---@field private id string Some ID to identify who we are in output of the DCS.log file.
+---@field private mdur number Duration in seconds how low messages to the player are displayed.
+---@field private mrefresh number Interval in seconds after which the F10 menu is refreshed. E.g. by the closest airports. Default is 120 sec.
+---@field private player table Table comprising each player info.
+---@field private reportplayername boolean If true, use playername not callsign on callouts
+---@field private talt number Interval in seconds between reporting altitude until touchdown. Default 3 sec.
+---@field private version number PSEUDOATC version.
 PSEUDOATC = {}
 
 ---Toggle report altitude reporting on/off.
@@ -231,8 +232,8 @@ function PSEUDOATC:ReportBR(GID, UID, position, location) end
 ---@param self PSEUDOATC 
 ---@param GID number Group id of player unit.
 ---@param UID number Unit id of player. 
----@param dt number (Optional) Duration the message is displayed.
----@param _clear boolean (Optional) Clear previouse messages. 
+---@param dt? number (Optional) Duration the message is displayed.
+---@param _clear? boolean (Optional) Clear previouse messages. 
 ---@return number #Altitude above ground.
 function PSEUDOATC:ReportHeight(GID, UID, dt, _clear) end
 

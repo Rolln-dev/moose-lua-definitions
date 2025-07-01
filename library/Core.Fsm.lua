@@ -331,9 +331,18 @@
 ---
 ---===
 ---@class FSM 
----@field CallScheduler  
----@field _StartState  
----@field current  
+---@field CallScheduler NOTYPE 
+---@field Events table 
+---@field Scores table 
+---@field _EndStates table 
+---@field _EventSchedules table 
+---@field _Processes table 
+---@field _Scores table 
+---@field _StartState NOTYPE 
+---@field _Transitions table 
+---@field private current NOTYPE 
+---@field private endstates table 
+---@field private subs table 
 FSM = {}
 
 ---Adds an End state.
@@ -573,6 +582,7 @@ function FSM:_submap(subs, sub, name) end
 ---@param e string Event name.
 ---@return boolean #If true, FSM can do the event.
 ---@return string #To state.
+---@private
 function FSM:can(e) end
 
 ---Check if cannot do an event.
@@ -581,6 +591,7 @@ function FSM:can(e) end
 ---@param self FSM 
 ---@param e string Event name.
 ---@return boolean #If true, FSM cannot do the event.
+---@private
 function FSM:cannot(e) end
 
 ---Check if FSM is in state.
@@ -590,6 +601,7 @@ function FSM:cannot(e) end
 ---@param State string State name.
 ---@param state NOTYPE 
 ---@return boolean #If true, FSM is in this state.  
+---@private
 function FSM:is(State, state) end
 
 
@@ -612,7 +624,7 @@ function FSM_CONTROLLABLE:GetControllable() end
 ------
 ---@param self FSM_CONTROLLABLE 
 ---@param FSMT table Finite State Machine Table
----@param Controllable CONTROLLABLE (optional) The CONTROLLABLE object that the FSM_CONTROLLABLE governs.
+---@param Controllable? CONTROLLABLE (optional) The CONTROLLABLE object that the FSM_CONTROLLABLE governs.
 ---@return FSM_CONTROLLABLE #
 function FSM_CONTROLLABLE:New(FSMT, Controllable) end
 
@@ -793,6 +805,7 @@ function FSM_PROCESS:_call_handler(step, trigger, params, EventName) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function FSM_PROCESS:onenterFailed(ProcessUnit, Task, From, Event, To) end
 
 ---StateMachine callback function for a FSM_PROCESS
@@ -804,6 +817,7 @@ function FSM_PROCESS:onenterFailed(ProcessUnit, Task, From, Event, To) end
 ---@param From string 
 ---@param To string 
 ---@param Task NOTYPE 
+---@private
 function FSM_PROCESS:onstatechange(ProcessUnit, Event, From, To, Task) end
 
 
@@ -829,7 +843,7 @@ function FSM_SET:Get() end
 ------
 ---@param self FSM_SET 
 ---@param FSMT table Finite State Machine Table
----@param Set_SET_BASE NOTYPE FSMSet (optional) The Set object that the FSM_SET governs.
+---@param Set_SET_BASE? NOTYPE FSMSet (optional) The Set object that the FSM_SET governs.
 ---@param FSMSet NOTYPE 
 ---@return FSM_SET #
 function FSM_SET:New(FSMT, Set_SET_BASE, FSMSet) end

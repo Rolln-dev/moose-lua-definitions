@@ -360,11 +360,9 @@
 ---
 ---TASK_CARGO_DISPATCHER class.
 ---@class TASK_CARGO_DISPATCHER : TASK_MANAGER
----@field CSARBriefing  
----@field CSARDeployZones  
----@field CSARTaskName  
----@field CSARTasks boolean 
----@field Mission  
+---@field DefaultDeployZones NOTYPE 
+---@field MaxCSAR NOTYPE 
+---@field Mission NOTYPE 
 ---@field SetZonesCSAR SET_ZONE 
 TASK_CARGO_DISPATCHER = {}
 
@@ -386,7 +384,7 @@ TASK_CARGO_DISPATCHER = {}
 ---```
 ------
 ---@param self TASK_CARGO_DISPATCHER 
----@param CSARTaskPrefix string (optional) The prefix of the CSAR task. 
+---@param CSARTaskPrefix? string (optional) The prefix of the CSAR task. 
 ---@param CSARCoordinate COORDINATE The coordinate where a downed pilot will be spawned.
 ---@param CSARHeading number The heading of the pilot in degrees.
 ---@param CSARCountry DCSCountry The country ID of the pilot that will be spawned.
@@ -422,7 +420,7 @@ function TASK_CARGO_DISPATCHER:AddCSARTask(CSARTaskPrefix, CSARCoordinate, CSARH
 ---```
 ------
 ---@param self TASK_CARGO_DISPATCHER 
----@param TaskPrefix string (optional) The prefix of the transport task.  This prefix will be appended with a . + a number of 3 digits. If no TaskPrefix is given, then "Transport" will be used as the prefix. 
+---@param TaskPrefix? string (optional) The prefix of the transport task.  This prefix will be appended with a . + a number of 3 digits. If no TaskPrefix is given, then "Transport" will be used as the prefix. 
 ---@param SetCargo SET_CARGO The SetCargo to be transported.
 ---@param Briefing string The briefing of the task transport to be shown to the player.
 ---@param Silent boolean If true don't send a message that a new task is available.
@@ -478,7 +476,7 @@ function TASK_CARGO_DISPATCHER:OnEventEjection(EventData) end
 ---
 ------
 ---@param self TASK_CARGO_DISPATCHER 
----@param CSARTaskName string (optional) The name of the CSAR task. 
+---@param CSARTaskName? string (optional) The name of the CSAR task. 
 ---@param CSARDeployZone NOTYPE A CSAR deploy zone.
 ---@return TASK_CARGO_DISPATCHER #
 function TASK_CARGO_DISPATCHER:SetCSARDeployZone(CSARTaskName, CSARDeployZone) end
@@ -487,7 +485,7 @@ function TASK_CARGO_DISPATCHER:SetCSARDeployZone(CSARTaskName, CSARDeployZone) e
 ---
 ------
 ---@param self TASK_CARGO_DISPATCHER 
----@param CSARTaskName string (optional) The name of the CSAR task.
+---@param CSARTaskName? string (optional) The name of the CSAR task.
 ---@param CSARDeployZones NOTYPE A list of the CSAR deploy zones.
 ---@return TASK_CARGO_DISPATCHER #
 function TASK_CARGO_DISPATCHER:SetCSARDeployZones(CSARTaskName, CSARDeployZones) end

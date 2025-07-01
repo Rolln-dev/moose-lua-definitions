@@ -1012,29 +1012,59 @@
 ---If enabled, status and debug text messages will be displayed on the screen. Also informative marks on the F10 map are created.
 ---AIRBOSS class.
 ---@class AIRBOSS : FSM
+---@field Abeam AIRBOSS.Checkpoint Abeam checkpoint.
 ---@field AirbossFreq number Airboss radio frequency in MHz.
 ---@field AirbossModu string Airboss radio modulation "AM" or "FM".
+---@field AirbossRadio AIRBOSS.Radio Radio for carrier calls.
+---@field AircraftCarrier AIRBOSS.AircraftCarrier 
+---@field BreakEarly AIRBOSS.Checkpoint Early break checkpoint.
+---@field BreakEntry AIRBOSS.Checkpoint Break entry checkpoint.
+---@field BreakLate AIRBOSS.Checkpoint Late break checkpoint.
+---@field Bullseye AIRBOSS.Checkpoint Case III intercept glideslope and follow ICLS aka "bullseye".
+---@field CarrierType AIRBOSS.CarrierType 
 ---@field ClassName string Name of the class.
 ---@field Corientation Vec3 Carrier orientation in space.
 ---@field Corientlast Vec3 Last known carrier orientation.
 ---@field Cposition COORDINATE Carrier position.
 ---@field Creturnto COORDINATE Position to return to after turn into the wind leg is over.
 ---@field Debug boolean Debug mode. Messages to all about status.
+---@field Difficulty AIRBOSS.Difficulty 
+---@field DirtyUp AIRBOSS.Checkpoint Case II/III dirty up and on speed position at 1200 ft and 10-12 NM from the carrier.
+---@field Final AIRBOSS.Checkpoint Checkpoint when turning to final.
+---@field Groove AIRBOSS.Checkpoint In the groove checkpoint.
+---@field GroovePos AIRBOSS.GroovePos 
 ---@field ICLSchannel number ICLS channel.
 ---@field ICLSmorse string ICLS morse code, e.g. "STN".
 ---@field ICLSon boolean Automatic ICLS is activated.
+---@field LSOCall AIRBOSS.LSOCalls Radio voice overs of the LSO.
 ---@field LSOFreq number LSO radio frequency in MHz.
 ---@field LSOModu string LSO radio modulation "AM" or "FM".
+---@field LSORadio AIRBOSS.Radio Radio for LSO calls.
 ---@field LSOdT number Time interval in seconds before the LSO will make its next call.
+---@field MarshalCall AIRBOSS.MarshalCalls Radio voice over of the Marshal/Airboss.
 ---@field MarshalFreq number Marshal radio frequency in MHz.
 ---@field MarshalModu string Marshal radio modulation "AM" or "FM".
+---@field MarshalRadio AIRBOSS.Radio Radio for carrier calls.
+---@field MenuF10 table Main group level radio menu: F10 Other/Airboss.
+---@field MenuF10Root table Airboss mission level F10 root menu.
+---@field Ninety AIRBOSS.Checkpoint At the ninety checkpoint.
 ---@field NmaxSection number Number of max section members (excluding the lead itself), i.e. NmaxSection=1 is a section of two.
 ---@field NmaxStack number Number of max flights per stack. Default 2.
 ---@field Nmaxmarshal number Number of max Case I Marshal stacks available. Default 3, i.e. angels 2, 3 and 4.
 ---@field Nmaxpattern number Max number of aircraft in landing pattern.
----@field SRS  
----@field SRSQ  
----@field StatusTimer  
+---@field PatternStep AIRBOSS.PatternStep 
+---@field PilotCall AIRBOSS.PilotCalls Radio voice over from AI pilots.
+---@field PilotRadio AIRBOSS.Radio Radio for Pilot calls.
+---@field Platform AIRBOSS.Checkpoint Case II/III descent at 2000 ft/min at 5000 ft platform.
+---@field Qmarshal table Queue of marshalling aircraft groups.
+---@field Qpattern table Queue of aircraft groups in the landing pattern.
+---@field Qspinning table Queue of aircraft currently spinning.
+---@field Qwaiting table Queue of aircraft groups waiting outside 10 NM zone for the next free Marshal stack.
+---@field RQLSO table Radio queue of LSO.
+---@field RQMarshal table Radio queue of marshal.
+---@field SRS NOTYPE 
+---@field SRSQ NOTYPE 
+---@field StatusTimer NOTYPE 
 ---@field TACANchannel number TACAN channel.
 ---@field TACANmode string TACAN mode, i.e. "X" or "Y".
 ---@field TACANmorse string TACAN morse code, e.g. "STN".
@@ -1045,81 +1075,92 @@
 ---@field Tcollapse number Last time timer.gettime() the stack collapsed.
 ---@field Tmessage number Default duration in seconds messages are displayed to players.
 ---@field TowerFreq number Tower radio frequency in MHz.
----@field Tpupdate  
+---@field Tpupdate NOTYPE 
 ---@field Tqueue number Last time in seconds of timer.getTime() the queue was updated.
----@field adinfinitum boolean If true, carrier patrols ad infinitum, i.e. when reaching its last waypoint it starts at waypoint one again.
----@field airbase AIRBASE Carrier airbase object.
----@field airbossnice boolean Airboss is a nice guy.
----@field alias string Alias of the carrier.
----@field autosave boolean If true, all player grades are automatically saved to a file on disk.
----@field autosavefile  
----@field autosavefilename string File name of the auto player grades save file. Default is auto generated from carrier name/alias.
----@field autosavepath string Path where the player grades file is saved on auto save.
----@field awacs  
----@field beacon BEACON Carrier beacon for TACAN and ICLS.
----@field carrier UNIT Aircraft carrier unit on which we want to practice.
----@field carriertype string Type name of aircraft carrier.
----@field case number Recovery case I, II or III currently in progress.
----@field collisiondist number Distance up to which collision checks are done.
----@field currentwp number Current waypoint, i.e. the one that has been passed last.
----@field dTbeacon number Time interval to refresh the beacons. Default 5 minutes.
----@field dTqueue number Time interval in seconds for updating the queues etc.
----@field dTstatus number Time interval for call FSM status updates.
----@field defaultcase number Default recovery case. This is the case used if not specified otherwise.
----@field defaultoffset number Default holding pattern update if not specified otherwise.
----@field defaultskill string Default player skill @{#AIRBOSS.Difficulty}.
----@field despawnshutdown boolean Despawn group after engine shutdown.
----@field detour boolean If true, carrier is currently making a detour from its path along the ME waypoints.
----@field emergency boolean If true (default), allow emergency landings, i.e. bypass any pattern and go for final approach.
----@field excludesetAI SET_GROUP AI groups in this set will be explicitly excluded from handling by the airboss and not forced into the Marshal pattern.
----@field funkmanSocket  
----@field handleai boolean If true (default), handle AI aircraft.
----@field holdingoffset number Offset [degrees] of Case II/III holding pattern.
----@field holdtimestamp number Timestamp when the carrier first came to an unexpected hold.
----@field initialmaxalt number Max altitude in meters to register in the inital zone.
----@field intowindold boolean If true, use old into wind calculation.
----@field landingcoord COORDINATE 
----@field landingspotcoord COORDINATE 
----@field lid string Class id string for output to DCS log file.
----@field lowfuelAI number Low fuel threshold for AI groups in percent.
----@field magvar number Magnetic declination in degrees.
----@field marshalradius number Radius of the Marshal stack zone.
----@field menumarkzones boolean If false, disables the option to mark zones via smoke or flares.
----@field menusingle boolean If true, menu is optimized for a single carrier.
----@field menusmokezones boolean If false, disables the option to mark zones via smoke.
----@field radiorelayLSO string Name of the aircraft acting as sender for broadcasting LSO radio messages from the carrier. DCS shortcoming workaround.
----@field radiorelayMSH string Name of the aircraft acting as sender for broadcasting Marhsal radio messages from the carrier. DCS shortcoming workaround.
----@field radiotimer SCHEDULER Radio queue scheduler.
----@field respawnAI boolean If true, respawn AI flights as they enter the CCA to detach and airfields from the mission plan. Default false.
----@field senderac string Name of the aircraft acting as sender for broadcasting radio messages from the carrier. DCS shortcoming workaround.
----@field skipperCase number Manual recovery case.
----@field skipperMenu boolean If true, add skipper menu.
----@field skipperOffset number Holding offset angle in degrees for Case II/III manual recoveries.
----@field skipperSpeed number Speed in knots for manual recovery start.
----@field skipperTime number Recovery time in min for manual recovery.
----@field skipperUturn boolean U-turn on/off via menu.
----@field soundfolder string Folder within the mission (miz) file where airboss sound files are located.
----@field soundfolderLSO string Folder withing the mission (miz) file where LSO sound files are stored.
----@field soundfolderMSH string Folder withing the mission (miz) file where Marshal sound files are stored.
----@field squadsetAI SET_GROUP AI groups in this set will be handled by the airboss.
----@field staticweather boolean Mission uses static rather than dynamic weather.
----@field sterncoord COORDINATE 
----@field tanker RECOVERYTANKER Recovery tanker flying overhead of carrier.
----@field theatre string The DCS map used in the mission.
----@field trappath string Path where to save the trap sheets.
----@field trapprefix string File prefix for trap sheet files.
----@field trapsheet boolean If true, players can save their trap sheets.
----@field turning boolean If true, carrier is currently turning.
----@field turnintowind boolean If true, carrier is currently turning into the wind.
----@field usersoundradio boolean Use user sound output instead of radio transmissions.
----@field version string Airboss class version.
----@field welcome boolean If true, display welcome message to player.
----@field windowcount number Running number counting the recovery windows.
----@field xtVoiceOvers  
----@field xtVoiceOversAI  
----@field zoneCCA ZONE_UNIT Carrier controlled area (CCA), i.e. a zone of 50 NM radius around the carrier.
----@field zoneCCZ ZONE_UNIT Carrier controlled zone (CCZ), i.e. a zone of 5 NM radius around the carrier.
----@field zoneHolding  
+---@field Wake AIRBOSS.Checkpoint Checkpoint right behind the carrier.
+---@field private adinfinitum boolean If true, carrier patrols ad infinitum, i.e. when reaching its last waypoint it starts at waypoint one again.
+---@field private airbase AIRBASE Carrier airbase object.
+---@field private airbossnice boolean Airboss is a nice guy.
+---@field private alias string Alias of the carrier.
+---@field private autosave boolean If true, all player grades are automatically saved to a file on disk.
+---@field private autosavefile NOTYPE 
+---@field private autosavefilename string File name of the auto player grades save file. Default is auto generated from carrier name/alias.
+---@field private autosavepath string Path where the player grades file is saved on auto save.
+---@field private awacs NOTYPE 
+---@field private beacon BEACON Carrier beacon for TACAN and ICLS.
+---@field private carrier UNIT Aircraft carrier unit on which we want to practice.
+---@field private carrierparam AIRBOSS.CarrierParameters Carrier specific parameters.
+---@field private carriertype string Type name of aircraft carrier.
+---@field private case number Recovery case I, II or III currently in progress.
+---@field private collisiondist number Distance up to which collision checks are done.
+---@field private currentwp number Current waypoint, i.e. the one that has been passed last.
+---@field private dTbeacon number Time interval to refresh the beacons. Default 5 minutes.
+---@field private dTqueue number Time interval in seconds for updating the queues etc.
+---@field private dTstatus number Time interval for call FSM status updates.
+---@field private defaultcase number Default recovery case. This is the case used if not specified otherwise.
+---@field private defaultoffset number Default holding pattern update if not specified otherwise.
+---@field private defaultskill string Default player skill @{#AIRBOSS.Difficulty}.
+---@field private despawnshutdown boolean Despawn group after engine shutdown.
+---@field private detour boolean If true, carrier is currently making a detour from its path along the ME waypoints.
+---@field private emergency boolean If true (default), allow emergency landings, i.e. bypass any pattern and go for final approach.
+---@field private excludesetAI SET_GROUP AI groups in this set will be explicitly excluded from handling by the airboss and not forced into the Marshal pattern.
+---@field private flights table List of all flights in the CCA.
+---@field private funkmanSocket NOTYPE 
+---@field private gle AIRBOSS.GLE Glidesope error thresholds.
+---@field private handleai boolean If true (default), handle AI aircraft.
+---@field private holdingoffset number Offset [degrees] of Case II/III holding pattern.
+---@field private holdtimestamp number Timestamp when the carrier first came to an unexpected hold.
+---@field private initialmaxalt number Max altitude in meters to register in the inital zone.
+---@field private intowindold boolean If true, use old into wind calculation.
+---@field private landingcoord COORDINATE 
+---@field private landingspotcoord COORDINATE 
+---@field private lid string Class id string for output to DCS log file.
+---@field private lowfuelAI number Low fuel threshold for AI groups in percent.
+---@field private lue AIRBOSS.LUE Lineup error thresholds.
+---@field private magvar number Magnetic declination in degrees.
+---@field private marshalradius number Radius of the Marshal stack zone.
+---@field private menuadded table Table of units where the F10 radio menu was added.
+---@field private menumarkzones boolean If false, disables the option to mark zones via smoke or flares.
+---@field private menusingle boolean If true, menu is optimized for a single carrier.
+---@field private menusmokezones boolean If false, disables the option to mark zones via smoke.
+---@field private players table Table of players.
+---@field private playerscores table Table holding all player scores and grades.
+---@field private radiorelayLSO string Name of the aircraft acting as sender for broadcasting LSO radio messages from the carrier. DCS shortcoming workaround.
+---@field private radiorelayMSH string Name of the aircraft acting as sender for broadcasting Marhsal radio messages from the carrier. DCS shortcoming workaround.
+---@field private radiotimer SCHEDULER Radio queue scheduler.
+---@field private recoverytimes table List of time windows when aircraft are recovered including the recovery case and holding offset.
+---@field private recoverywindow AIRBOSS.Recovery Current or next recovery window opened.
+---@field private respawnAI boolean If true, respawn AI flights as they enter the CCA to detach and airfields from the mission plan. Default false.
+---@field private senderac string Name of the aircraft acting as sender for broadcasting radio messages from the carrier. DCS shortcoming workaround.
+---@field private skipperCase number Manual recovery case.
+---@field private skipperMenu boolean If true, add skipper menu.
+---@field private skipperOffset number Holding offset angle in degrees for Case II/III manual recoveries.
+---@field private skipperSpeed number Speed in knots for manual recovery start.
+---@field private skipperTime number Recovery time in min for manual recovery.
+---@field private skipperUturn boolean U-turn on/off via menu.
+---@field private soundfolder string Folder within the mission (miz) file where airboss sound files are located.
+---@field private soundfolderLSO string Folder withing the mission (miz) file where LSO sound files are stored.
+---@field private soundfolderMSH string Folder withing the mission (miz) file where Marshal sound files are stored.
+---@field private squadsetAI SET_GROUP AI groups in this set will be handled by the airboss.
+---@field private staticweather boolean Mission uses static rather than dynamic weather.
+---@field private sterncoord COORDINATE 
+---@field private tanker RECOVERYTANKER Recovery tanker flying overhead of carrier.
+---@field private theatre string The DCS map used in the mission.
+---@field private trappath string Path where to save the trap sheets.
+---@field private trapprefix string File prefix for trap sheet files.
+---@field private trapsheet boolean If true, players can save their trap sheets.
+---@field private turning boolean If true, carrier is currently turning.
+---@field private turnintowind boolean If true, carrier is currently turning into the wind.
+---@field private usersoundradio boolean Use user sound output instead of radio transmissions.
+---@field private version string Airboss class version.
+---@field private waypoints table Waypoint coordinates of carrier.
+---@field private welcome boolean If true, display welcome message to player.
+---@field private windowcount number Running number counting the recovery windows.
+---@field private xtVoiceOvers NOTYPE 
+---@field private xtVoiceOversAI NOTYPE 
+---@field private zoneCCA ZONE_UNIT Carrier controlled area (CCA), i.e. a zone of 50 NM radius around the carrier.
+---@field private zoneCCZ ZONE_UNIT Carrier controlled zone (CCZ), i.e. a zone of 5 NM radius around the carrier.
+---@field private zoneHolding NOTYPE 
 AIRBOSS = {}
 
 ---Add a group to the exclude set.
@@ -1161,7 +1202,7 @@ function AIRBOSS:Broadcast(radio, call, loud) end
 ---@param self AIRBOSS 
 ---@param coord COORDINATE Coordinate of the detour.
 ---@param speed number Speed in knots. Default is current carrier velocity.
----@param uturn boolean (Optional) If true, carrier will go back to where it came from before it resumes its route to the next waypoint.
+---@param uturn? boolean (Optional) If true, carrier will go back to where it came from before it resumes its route to the next waypoint.
 ---@param uspeed number Speed in knots after U-turn. Default is same as before.
 ---@param tcoord COORDINATE Additional coordinate to make turn smoother.
 ---@return AIRBOSS #self
@@ -1171,7 +1212,7 @@ function AIRBOSS:CarrierDetour(coord, speed, uturn, uspeed, tcoord) end
 ---
 ------
 ---@param self AIRBOSS 
----@param gotocoord COORDINATE (Optional) First goto this coordinate before resuming route.
+---@param gotocoord? COORDINATE (Optional) First goto this coordinate before resuming route.
 ---@return AIRBOSS #self
 function AIRBOSS:CarrierResumeRoute(gotocoord) end
 
@@ -1190,14 +1231,14 @@ function AIRBOSS:CarrierTurnIntoWind(time, vdeck, uturn) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Delay number (Optional) Delay in seconds before the window is deleted.
+---@param Delay? number (Optional) Delay in seconds before the window is deleted.
 function AIRBOSS:CloseCurrentRecoveryWindow(Delay) end
 
 ---Delete all recovery windows.
 ---
 ------
 ---@param self AIRBOSS 
----@param Delay number (Optional) Delay in seconds before the windows are deleted.
+---@param Delay? number (Optional) Delay in seconds before the windows are deleted.
 ---@return AIRBOSS #self
 function AIRBOSS:DeleteAllRecoveryWindows(Delay) end
 
@@ -1219,9 +1260,9 @@ function AIRBOSS:DeleteRecoveryWindow(Window, Delay) end
 ---@param Culture string (Optional, Airboss Culture)  Culture, defaults to "en-US".
 ---@param Gender string (Optional, Airboss Gender)  Gender, e.g. "male" or "female". Defaults to "male".
 ---@param Voice string (Optional, Airboss Voice) Set to use a specific voice. Will **override gender and culture** settings.
----@param GoogleCreds string (Optional) Path to Google credentials, e.g. "C:\\Program Files\\DCS-SimpleRadio-Standalone\\yourgooglekey.json".
----@param Volume number (Optional) E.g. 0.75. Defaults to 1.0 (loudest).
----@param AltBackend table (Optional) See MSRS for details.
+---@param GoogleCreds? string (Optional) Path to Google credentials, e.g. "C:\\Program Files\\DCS-SimpleRadio-Standalone\\yourgooglekey.json".
+---@param Volume? number (Optional) E.g. 0.75. Defaults to 1.0 (loudest).
+---@param AltBackend? table (Optional) See MSRS for details.
 ---@return AIRBOSS #self
 function AIRBOSS:EnableSRS(PathToSRS, Port, Culture, Gender, Voice, GoogleCreds, Volume, AltBackend) end
 
@@ -1288,7 +1329,7 @@ function AIRBOSS:GetHeading(magnetic) end
 ---@param self AIRBOSS 
 ---@param vdeck number Desired wind velocity over deck in knots.
 ---@param magnetic boolean If true, calculate magnetic heading. By default true heading is returned.
----@param coord COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
+---@param coord? COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
 ---@return number #Carrier heading in degrees.
 ---@return number #Carrier speed in knots to reach desired wind speed on deck.
 function AIRBOSS:GetHeadingIntoWind(vdeck, magnetic, coord) end
@@ -1301,7 +1342,7 @@ function AIRBOSS:GetHeadingIntoWind(vdeck, magnetic, coord) end
 ---@param self AIRBOSS 
 ---@param vdeck number Desired wind velocity over deck in knots.
 ---@param magnetic boolean If true, calculate magnetic heading. By default true heading is returned.
----@param coord COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
+---@param coord? COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
 ---@return number #Carrier heading in degrees.
 ---@return number #Carrier speed in knots to reach desired wind speed on deck.
 function AIRBOSS:GetHeadingIntoWind_new(vdeck, magnetic, coord) end
@@ -1313,7 +1354,7 @@ function AIRBOSS:GetHeadingIntoWind_new(vdeck, magnetic, coord) end
 ---@param self AIRBOSS 
 ---@param vdeck number Desired wind velocity over deck in knots.
 ---@param magnetic boolean If true, calculate magnetic heading. By default true heading is returned.
----@param coord COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
+---@param coord? COORDINATE (Optional) Coordinate from which heading is calculated. Default is current carrier position.
 ---@return number #Carrier heading in degrees.
 function AIRBOSS:GetHeadingIntoWind_old(vdeck, magnetic, coord) end
 
@@ -1355,7 +1396,7 @@ function AIRBOSS:GetRecoveryWindowByID(id) end
 ---@param self AIRBOSS 
 ---@param alt number Altitude ASL in meters. Default 18 m.
 ---@param magnetic boolean Direction including magnetic declination.
----@param coord COORDINATE (Optional) Coordinate at which to get the wind. Default is current carrier position.
+---@param coord? COORDINATE (Optional) Coordinate at which to get the wind. Default is current carrier position.
 ---@return number #Direction the wind is blowing **from** in degrees.
 ---@return number #Wind speed in m/s.
 function AIRBOSS:GetWind(alt, magnetic, coord) end
@@ -1413,7 +1454,7 @@ function AIRBOSS:LSOGrade(playerData, grade) end
 ------
 ---@param self AIRBOSS 
 ---@param path string Path where the file is located. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is AIRBOSS-<ALIAS>_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-<ALIAS>_LSOgrades.csv.
 function AIRBOSS:Load(path, filename) end
 
 ---Triggers the FSM event "Marshal".
@@ -1469,7 +1510,7 @@ function AIRBOSS:MessageToPlayer(playerData, message, sender, receiver, duration
 ------
 ---@param self AIRBOSS 
 ---@param carriername string Name of the aircraft carrier unit as defined in the mission editor.
----@param alias string (Optional) Alias for the carrier. This will be used for radio messages and the F10 radius menu. Default is the carrier name as defined in the mission editor.
+---@param alias? string (Optional) Alias for the carrier. This will be used for radio messages and the F10 radius menu. Default is the carrier name as defined in the mission editor.
 ---@return AIRBOSS #self or nil if carrier unit does not exist.
 function AIRBOSS:New(carriername, alias) end
 
@@ -1494,7 +1535,7 @@ function AIRBOSS:OnAfterLSOGrade(From, Event, To, playerData, grade) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is located. Default is the DCS installation root directory or your "Saved Games\DCS" folder if lfs was desanitized.
----@param filename string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
 function AIRBOSS:OnAfterLoad(From, Event, To, path, filename) end
 
 ---On after "Marshal" user function.
@@ -1550,7 +1591,7 @@ function AIRBOSS:OnAfterRecoveryStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. Default is the DCS installation root directory or your "Saved Games\DCS" folder if lfs was desanitized.
----@param filename string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
 function AIRBOSS:OnAfterSave(From, Event, To, path, filename) end
 
 ---On after "Start" user function.
@@ -1682,7 +1723,7 @@ function AIRBOSS:RecoveryUnpause() end
 ------
 ---@param self AIRBOSS 
 ---@param path string Path where the file is saved. Default is the DCS installation root directory or your "Saved Games\DCS" folder if lfs was desanitized.
----@param filename string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
 function AIRBOSS:Save(path, filename) end
 
 ---Define an AWACS associated with the carrier.
@@ -1717,11 +1758,11 @@ function AIRBOSS:SetAirbossNiceGuy(Switch) end
 ---```
 ------
 ---@param self AIRBOSS 
----@param Frequency number (Optional) Frequency in MHz. Default frequency is Tower frequency.
----@param Modulation string (Optional) Modulation, "AM" or "FM". Default "AM".
----@param Voice string (Optional) SRS specific voice
----@param Gender string (Optional) SRS specific gender
----@param Culture string (Optional) SRS specific culture
+---@param Frequency? number (Optional) Frequency in MHz. Default frequency is Tower frequency.
+---@param Modulation? string (Optional) Modulation, "AM" or "FM". Default "AM".
+---@param Voice? string (Optional) SRS specific voice
+---@param Gender? string (Optional) SRS specific gender
+---@param Culture? string (Optional) SRS specific culture
 ---@return AIRBOSS #self
 function AIRBOSS:SetAirbossRadio(Frequency, Modulation, Voice, Gender, Culture) end
 
@@ -1739,7 +1780,7 @@ function AIRBOSS:SetAutoSave(path, filename) end
 ---
 ------
 ---@param self AIRBOSS 
----@param TimeInterval number (Optional) Time interval in seconds. Default 1200 sec = 20 min.
+---@param TimeInterval? number (Optional) Time interval in seconds. Default 1200 sec = 20 min.
 ---@return AIRBOSS #self
 function AIRBOSS:SetBeaconRefresh(TimeInterval) end
 
@@ -1900,8 +1941,8 @@ function AIRBOSS:SetHoldingOffsetAngle(Offset) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Channel number (Optional) ICLS channel. Default 1.
----@param MorseCode string (Optional) Morse code identifier. Three letters, e.g. "STN". Default "STN".
+---@param Channel? number (Optional) ICLS channel. Default 1.
+---@param MorseCode? string (Optional) Morse code identifier. Three letters, e.g. "STN". Default "STN".
 ---@return AIRBOSS #self
 function AIRBOSS:SetICLS(Channel, MorseCode) end
 
@@ -1943,11 +1984,11 @@ function AIRBOSS:SetLSOCallInterval(TimeInterval) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Frequency number (Optional) Frequency in MHz. Default 264 MHz.
----@param Modulation string (Optional) Modulation, "AM" or "FM". Default "AM".
----@param Voice string (Optional) SRS specific voice
----@param Gender string (Optional) SRS specific gender
----@param Culture string (Optional) SRS specific culture
+---@param Frequency? number (Optional) Frequency in MHz. Default 264 MHz.
+---@param Modulation? string (Optional) Modulation, "AM" or "FM". Default "AM".
+---@param Voice? string (Optional) SRS specific voice
+---@param Gender? string (Optional) SRS specific gender
+---@param Culture? string (Optional) SRS specific culture
 ---@return AIRBOSS #self
 function AIRBOSS:SetLSORadio(Frequency, Modulation, Voice, Gender, Culture) end
 
@@ -1987,11 +2028,11 @@ function AIRBOSS:SetMagneticDeclination(declination) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Frequency number (Optional) Frequency in MHz. Default 305 MHz.
----@param Modulation string (Optional) Modulation, "AM" or "FM". Default "AM".
----@param Voice string (Optional) SRS specific voice
----@param Gender string (Optional) SRS specific gender
----@param Culture string (Optional) SRS specific culture
+---@param Frequency? number (Optional) Frequency in MHz. Default 305 MHz.
+---@param Modulation? string (Optional) Modulation, "AM" or "FM". Default "AM".
+---@param Voice? string (Optional) SRS specific voice
+---@param Gender? string (Optional) SRS specific gender
+---@param Culture? string (Optional) SRS specific culture
 ---@return AIRBOSS #self
 function AIRBOSS:SetMarshalRadio(Frequency, Modulation, Voice, Gender, Culture) end
 
@@ -2172,9 +2213,9 @@ function AIRBOSS:SetRespawnAI(Switch) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Voice string (Optional) SRS specific voice
----@param Gender string (Optional) SRS specific gender
----@param Culture string (Optional) SRS specific culture
+---@param Voice? string (Optional) SRS specific voice
+---@param Gender? string (Optional) SRS specific gender
+---@param Culture? string (Optional) SRS specific culture
 ---@return AIRBOSS #self
 function AIRBOSS:SetSRSPilotVoice(Voice, Gender, Culture) end
 
@@ -2216,9 +2257,9 @@ function AIRBOSS:SetStatusUpdateTime(TimeInterval) end
 ---
 ------
 ---@param self AIRBOSS 
----@param Channel number (Optional) TACAN channel. Default 74.
----@param Mode string (Optional) TACAN mode, i.e. "X" or "Y". Default "X".
----@param MorseCode string (Optional) Morse code identifier. Three letters, e.g. "STN". Default "STN".
+---@param Channel? number (Optional) TACAN channel. Default 74.
+---@param Mode? string (Optional) TACAN mode, i.e. "X" or "Y". Default "X".
+---@param MorseCode? string (Optional) Morse code identifier. Three letters, e.g. "STN". Default "STN".
 ---@return AIRBOSS #self
 function AIRBOSS:SetTACAN(Channel, Mode, MorseCode) end
 
@@ -2233,8 +2274,8 @@ function AIRBOSS:SetTACANoff() end
 ---
 ------
 ---@param self AIRBOSS 
----@param Path string (Optional) Path where to save the trap sheets.
----@param Prefix string (Optional) Prefix for trap sheet files. File name will be saved as *prefix_aircrafttype-0001.csv*, *prefix_aircrafttype-0002.csv*, etc.
+---@param Path? string (Optional) Path where to save the trap sheets.
+---@param Prefix? string (Optional) Prefix for trap sheet files. File name will be saved as *prefix_aircrafttype-0001.csv*, *prefix_aircrafttype-0002.csv*, etc.
 ---@return AIRBOSS #self
 function AIRBOSS:SetTrapSheet(Path, Prefix) end
 
@@ -2252,45 +2293,45 @@ function AIRBOSS:SetUserSoundRadio() end
 ---@param self AIRBOSS 
 ---@param radiocall AIRBOSS.RadioCall LSO or Marshal radio call object.
 ---@param duration number Duration of the voice over in seconds.
----@param subtitle string (Optional) Subtitle to be displayed along with voice over.
----@param subduration number (Optional) Duration how long the subtitle is displayed.
----@param filename string (Optional) Name of the voice over sound file.
----@param suffix string (Optional) Extention of file. Default ".ogg".
+---@param subtitle? string (Optional) Subtitle to be displayed along with voice over.
+---@param subduration? number (Optional) Duration how long the subtitle is displayed.
+---@param filename? string (Optional) Name of the voice over sound file.
+---@param suffix? string (Optional) Extention of file. Default ".ogg".
 function AIRBOSS:SetVoiceOver(radiocall, duration, subtitle, subduration, filename, suffix) end
 
 ---Set parameters for LSO Voice overs by *funkyfranky*.
 ---
 ------
 ---@param self AIRBOSS 
----@param mizfolder string (Optional) Folder within miz file where the sound files are located.
+---@param mizfolder? string (Optional) Folder within miz file where the sound files are located.
 function AIRBOSS:SetVoiceOversLSOByFF(mizfolder) end
 
 ---Set parameters for LSO Voice overs by *Raynor*.
 ---
 ------
 ---@param self AIRBOSS 
----@param mizfolder string (Optional) Folder within miz file where the sound files are located.
+---@param mizfolder? string (Optional) Folder within miz file where the sound files are located.
 function AIRBOSS:SetVoiceOversLSOByRaynor(mizfolder) end
 
 ---Intit parameters for Marshal Voice overs by *funkyfranky*.
 ---
 ------
 ---@param self AIRBOSS 
----@param mizfolder string (Optional) Folder within miz file where the sound files are located.
+---@param mizfolder? string (Optional) Folder within miz file where the sound files are located.
 function AIRBOSS:SetVoiceOversMarshalByFF(mizfolder) end
 
 ---Init parameters for Marshal Voice overs *Gabriella* by HighwaymanEd.
 ---
 ------
 ---@param self AIRBOSS 
----@param mizfolder string (Optional) Folder within miz file where the sound files are located.
+---@param mizfolder? string (Optional) Folder within miz file where the sound files are located.
 function AIRBOSS:SetVoiceOversMarshalByGabriella(mizfolder) end
 
 ---Init parameters for Marshal Voice overs by *Raynor*.
 ---
 ------
 ---@param self AIRBOSS 
----@param mizfolder string (Optional) Folder within miz file where the sound files are located.
+---@param mizfolder? string (Optional) Folder within miz file where the sound files are located.
 function AIRBOSS:SetVoiceOversMarshalByRaynor(mizfolder) end
 
 ---Set welcome messages for players.
@@ -2357,7 +2398,7 @@ function AIRBOSS:_Abeam(playerData) end
 ---@param X number X distance player to carrier.
 ---@param Z number Z distance player to carrier.
 ---@param posData AIRBOSS.Checkpoint Checkpoint data.
----@param patternwo boolean (Optional) Pattern wave off.
+---@param patternwo? boolean (Optional) Pattern wave off.
 function AIRBOSS:_AbortPattern(playerData, X, Z, posData, patternwo) end
 
 ---Activate TACAN and ICLS beacons.
@@ -2396,7 +2437,7 @@ function AIRBOSS:_AddMarshalGroup(flight, stack) end
 ---@param self AIRBOSS 
 ---@param playerData AIRBOSS.PlayerData Player data.
 ---@param hint string Debrief text of this step.
----@param step string (Optional) Current step in the pattern. Default from playerData.
+---@param step? string (Optional) Current step in the pattern. Default from playerData.
 function AIRBOSS:_AddToDebrief(playerData, hint, step) end
 
 ---Evaluate player's altitude at checkpoint.
@@ -3116,7 +3157,7 @@ function AIRBOSS:_GetPlayerUnitAndName(_unitName) end
 ------
 ---@param self AIRBOSS 
 ---@param queue table The queue. Can be self.flights, self.Qmarshal or self.Qpattern.
----@param case number (Optional) Only count flights, which are in a specific recovery case. Note that you can use case=23 for flights that are either in Case II or III. By default all groups/units regardless of case are counted.
+---@param case? number (Optional) Only count flights, which are in a specific recovery case. Note that you can use case=23 for flights that are either in Case II or III. By default all groups/units regardless of case are counted.
 ---@return number #Total number of flight groups in queue.
 ---@return number #Total number of aircraft in queue since each flight group can contain multiple aircraft.
 function AIRBOSS:_GetQueueInfo(queue, case) end
@@ -3137,7 +3178,7 @@ function AIRBOSS:_GetRadioSender(radio) end
 ------
 ---@param self AIRBOSS 
 ---@param unit UNIT Player unit.
----@param runway boolean (Optional) If true, return relative heading of unit wrt to angled runway of the carrier.
+---@param runway? boolean (Optional) If true, return relative heading of unit wrt to angled runway of the carrier.
 ---@return number #Relative heading in degrees. An angle of 0 means, unit fly parallel to carrier. An angle of + or - 90 degrees means, unit flies perpendicular to carrier.
 function AIRBOSS:_GetRelativeHeading(unit, runway) end
 
@@ -3340,7 +3381,7 @@ function AIRBOSS:_GetZoneRunwayBox() end
 ------
 ---@param self AIRBOSS 
 ---@param unit UNIT Aircraft unit.
----@param optangle number (Optional) Return glide slope relative to this angle, i.e. the error from the optimal glide slope ~3.5 degrees.
+---@param optangle? number (Optional) Return glide slope relative to this angle, i.e. the error from the optimal glide slope ~3.5 degrees.
 ---@return number #Glide slope angle in degrees measured from the deck of the carrier and third wire.
 function AIRBOSS:_Glideslope(unit, optangle) end
 
@@ -3349,7 +3390,7 @@ function AIRBOSS:_Glideslope(unit, optangle) end
 ------
 ---@param self AIRBOSS 
 ---@param unit UNIT Aircraft unit.
----@param optangle number (Optional) Return glide slope relative to this angle, i.e. the error from the optimal glide slope ~3.5 degrees.
+---@param optangle? number (Optional) Return glide slope relative to this angle, i.e. the error from the optimal glide slope ~3.5 degrees.
 ---@return number #Glide slope angle in degrees measured from the deck of the carrier and third wire.
 function AIRBOSS:_Glideslope2(unit, optangle) end
 
@@ -3429,7 +3470,7 @@ function AIRBOSS:_InitNimitz() end
 ------
 ---@param self AIRBOSS 
 ---@param playerData AIRBOSS.PlayerData Player data.
----@param step string (Optional) New player step. Default UNDEFINED.
+---@param step? string (Optional) New player step. Default UNDEFINED.
 ---@return AIRBOSS.PlayerData #Initialized player data.
 function AIRBOSS:_InitPlayer(playerData, step) end
 
@@ -4009,7 +4050,7 @@ function AIRBOSS:_SetHintsOnOff(_unitname) end
 ---@param self AIRBOSS 
 ---@param playerData AIRBOSS.PlayerData Player data.
 ---@param step string Next step.
----@param delay number (Optional) Set set after a delay in seconds.
+---@param delay? number (Optional) Set set after a delay in seconds.
 function AIRBOSS:_SetPlayerStep(playerData, step, delay) end
 
 ---Set all flights within maxsectiondistance meters to be part of my section (default: 100 meters).
@@ -4210,7 +4251,7 @@ function AIRBOSS:__LSOGrade(delay, playerData, grade) end
 ---@param self AIRBOSS 
 ---@param delay number Delay in seconds.
 ---@param path string Path where the file is located. Default is the DCS installation root directory or your "Saved Games\DCS" folder if lfs was desanitized.
----@param filename string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
 function AIRBOSS:__Load(delay, path, filename) end
 
 ---Triggers the FSM event "Marshal".
@@ -4279,7 +4320,7 @@ function AIRBOSS:__RecoveryUnpause(delay) end
 ---@param self AIRBOSS 
 ---@param delay number Delay in seconds.
 ---@param path string Path where the file is saved. Default is the DCS installation root directory or your "Saved Games\DCS" folder if lfs was desanitized.
----@param filename string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
+---@param filename? string (Optional) File name. Default is AIRBOSS-*ALIAS*_LSOgrades.csv.
 function AIRBOSS:__Save(delay, path, filename) end
 
 ---Triggers the FSM event "Start" that starts the airboss after a delay.
@@ -4306,6 +4347,7 @@ function AIRBOSS:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterIdle(From, Event, To) end
 
 ---On after "LSOGrade" event.
@@ -4317,6 +4359,7 @@ function AIRBOSS:onafterIdle(From, Event, To) end
 ---@param To string To state.
 ---@param playerData AIRBOSS.PlayerData Player Data.
 ---@param grade AIRBOSS.LSOgrade LSO grade.
+---@private
 function AIRBOSS:onafterLSOGrade(From, Event, To, playerData, grade) end
 
 ---On after "Load" event.
@@ -4328,7 +4371,8 @@ function AIRBOSS:onafterLSOGrade(From, Event, To, playerData, grade) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is loaded from. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if lfs was desanizied.
----@param filename string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@param filename? string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@private
 function AIRBOSS:onafterLoad(From, Event, To, path, filename) end
 
 ---On after "PassingWaypoint" event.
@@ -4340,6 +4384,7 @@ function AIRBOSS:onafterLoad(From, Event, To, path, filename) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param n number Number of waypoint that was passed.
+---@private
 function AIRBOSS:onafterPassingWaypoint(From, Event, To, n) end
 
 ---On after "RecoveryCase" event.
@@ -4352,6 +4397,7 @@ function AIRBOSS:onafterPassingWaypoint(From, Event, To, n) end
 ---@param To string To state.
 ---@param Case number The recovery case (1, 2 or 3) to switch to.
 ---@param Offset number Holding pattern offset angle in degrees for CASE II/III recoveries.
+---@private
 function AIRBOSS:onafterRecoveryCase(From, Event, To, Case, Offset) end
 
 ---On after "RecoveryPause" event.
@@ -4363,6 +4409,7 @@ function AIRBOSS:onafterRecoveryCase(From, Event, To, Case, Offset) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param duration number Duration of pause in seconds. After that recovery is resumed automatically.
+---@private
 function AIRBOSS:onafterRecoveryPause(From, Event, To, duration) end
 
 ---On after "RecoveryStart" event.
@@ -4375,6 +4422,7 @@ function AIRBOSS:onafterRecoveryPause(From, Event, To, duration) end
 ---@param To string To state.
 ---@param Case number The recovery case (1, 2 or 3) to start.
 ---@param Offset number Holding pattern offset angle in degrees for CASE II/III recoveries.
+---@private
 function AIRBOSS:onafterRecoveryStart(From, Event, To, Case, Offset) end
 
 ---On after "RecoveryStop" event.
@@ -4385,6 +4433,7 @@ function AIRBOSS:onafterRecoveryStart(From, Event, To, Case, Offset) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterRecoveryStop(From, Event, To) end
 
 ---On after "RecoveryUnpause" event.
@@ -4395,6 +4444,7 @@ function AIRBOSS:onafterRecoveryStop(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterRecoveryUnpause(From, Event, To) end
 
 ---On after "Save" event.
@@ -4406,7 +4456,8 @@ function AIRBOSS:onafterRecoveryUnpause(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. If nil, file is saved in the DCS root installtion directory or your "Saved Games" folder if lfs was desanitized.
----@param filename string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@param filename? string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@private
 function AIRBOSS:onafterSave(From, Event, To, path, filename) end
 
 ---On after Start event.
@@ -4417,6 +4468,7 @@ function AIRBOSS:onafterSave(From, Event, To, path, filename) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterStart(From, Event, To) end
 
 ---On after Status event.
@@ -4427,6 +4479,7 @@ function AIRBOSS:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterStatus(From, Event, To) end
 
 ---On after Stop event.
@@ -4437,6 +4490,7 @@ function AIRBOSS:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AIRBOSS:onafterStop(From, Event, To) end
 
 ---On before "Load" event.
@@ -4447,8 +4501,9 @@ function AIRBOSS:onafterStop(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is loaded from. Default is the DCS installation root directory or your "Saved Games\\DCS" folder if lfs was desanizized.
----@param filename string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@param path? string (Optional) Path where the file is loaded from. Default is the DCS installation root directory or your "Saved Games\\DCS" folder if lfs was desanizized.
+---@param filename? string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@private
 function AIRBOSS:onbeforeLoad(From, Event, To, path, filename) end
 
 ---On before "RecoveryCase" event.
@@ -4461,6 +4516,7 @@ function AIRBOSS:onbeforeLoad(From, Event, To, path, filename) end
 ---@param To string To state.
 ---@param Case number The recovery case (1, 2 or 3) to switch to.
 ---@param Offset number Holding pattern offset angle in degrees for CASE II/III recoveries.
+---@private
 function AIRBOSS:onbeforeRecoveryCase(From, Event, To, Case, Offset) end
 
 ---On before "Save" event.
@@ -4471,8 +4527,9 @@ function AIRBOSS:onbeforeRecoveryCase(From, Event, To, Case, Offset) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@param path? string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for saving the player grades. Default is "AIRBOSS-<ALIAS>_LSOgrades.csv".
+---@private
 function AIRBOSS:onbeforeSave(From, Event, To, path, filename) end
 
 
@@ -4512,31 +4569,31 @@ AIRBOSS.AircraftCarrier = {}
 
 ---Carrier specific parameters.
 ---@class AIRBOSS.CarrierParameters 
----@field deckheight number Height of deck in meters. For USS Stennis ~63 ft = 19 meters.
----@field landingdist number Distance in meeters to the landing position.
----@field landingspot number 
----@field rwyangle number Runway angle in degrees. for carriers with angled deck. For USS Stennis -9 degrees.
----@field rwylength number Length of the landing runway in meters.
----@field rwywidth number Width of the landing runway in meters.
----@field sterndist number Distance in meters from carrier position to stern of carrier. For USS Stennis -150 meters.
----@field totlength number Total length of carrier.
----@field totwidthport number Total with of the carrier from stern position to port side (asymmetric carriers).
----@field totwidthstarboard number Total with of the carrier from stern position to starboard side (asymmetric carriers).
----@field wire1 number Distance in meters from carrier position to first wire.
----@field wire10 number 
----@field wire11 number 
----@field wire12 number 
----@field wire13 number 
----@field wire14 number 
----@field wire15 number 
----@field wire2 number Distance in meters from carrier position to second wire.
----@field wire3 number Distance in meters from carrier position to third wire.
----@field wire4 number Distance in meters from carrier position to fourth wire.
----@field wire5 number 
----@field wire6 number 
----@field wire7 number 
----@field wire8 number 
----@field wire9 number 
+---@field private deckheight number Height of deck in meters. For USS Stennis ~63 ft = 19 meters.
+---@field private landingdist number Distance in meeters to the landing position.
+---@field private landingspot number 
+---@field private rwyangle number Runway angle in degrees. for carriers with angled deck. For USS Stennis -9 degrees.
+---@field private rwylength number Length of the landing runway in meters.
+---@field private rwywidth number Width of the landing runway in meters.
+---@field private sterndist number Distance in meters from carrier position to stern of carrier. For USS Stennis -150 meters.
+---@field private totlength number Total length of carrier.
+---@field private totwidthport number Total with of the carrier from stern position to port side (asymmetric carriers).
+---@field private totwidthstarboard number Total with of the carrier from stern position to starboard side (asymmetric carriers).
+---@field private wire1 number Distance in meters from carrier position to first wire.
+---@field private wire10 number 
+---@field private wire11 number 
+---@field private wire12 number 
+---@field private wire13 number 
+---@field private wire14 number 
+---@field private wire15 number 
+---@field private wire2 number Distance in meters from carrier position to second wire.
+---@field private wire3 number Distance in meters from carrier position to third wire.
+---@field private wire4 number Distance in meters from carrier position to fourth wire.
+---@field private wire5 number 
+---@field private wire6 number 
+---@field private wire7 number 
+---@field private wire8 number 
+---@field private wire9 number 
 AIRBOSS.CarrierParameters = {}
 
 
@@ -4571,7 +4628,7 @@ AIRBOSS.CarrierType = {}
 ---@field Xmin number Minimum allowed longitual distance to carrier.
 ---@field Zmax number Maximum allowed latitudal distance to carrier.
 ---@field Zmin number Minimum allowed latitudal distance to carrier.
----@field name string Name of checkpoint.
+---@field private name string Name of checkpoint.
 AIRBOSS.Checkpoint = {}
 
 
@@ -4585,34 +4642,37 @@ AIRBOSS.Difficulty = {}
 
 ---Parameters of an element in a flight group.
 ---@class AIRBOSS.FlightElement 
----@field ai boolean If true, AI sits inside. If false, human player is flying.
----@field ballcall boolean If true, flight called the ball in the groove.
----@field onboard string Onboard number of the aircraft.
----@field recovered boolean If true, element was successfully recovered.
----@field unit UNIT Aircraft unit.
----@field unitname string Name of the unit.
+---@field private ai boolean If true, AI sits inside. If false, human player is flying.
+---@field private ballcall boolean If true, flight called the ball in the groove.
+---@field private onboard string Onboard number of the aircraft.
+---@field private recovered boolean If true, element was successfully recovered.
+---@field private unit UNIT Aircraft unit.
+---@field private unitname string Name of the unit.
 AIRBOSS.FlightElement = {}
 
 
 ---Parameters of a flight group.
 ---@class AIRBOSS.FlightGroup 
 ---@field Tcharlie number Charlie (abs) time in seconds.
----@field actype string Aircraft type name.
----@field ai boolean If true, flight is purly AI.
----@field ballcall boolean If true, flight called the ball in the groove.
----@field case number Recovery case of flight.
----@field dist0 number Distance to carrier in meters when the group was first detected inside the CCA.
----@field flag number Flag value describing the current stack.
----@field group GROUP Flight group.
----@field groupname string Name of the group.
----@field holding boolean If true, flight is in holding zone.
----@field name string Player name or name of first AI unit.
----@field nunits number Number of units in group.
----@field onboard string Onboard number of player or first unit in group.
----@field recovered boolean 
----@field refueling boolean Flight is refueling.
----@field seclead string Name of section lead.
----@field time number Timestamp in seconds of timer.getAbsTime() of the last important event, e.g. added to the queue.
+---@field private actype string Aircraft type name.
+---@field private ai boolean If true, flight is purly AI.
+---@field private ballcall boolean If true, flight called the ball in the groove.
+---@field private case number Recovery case of flight.
+---@field private dist0 number Distance to carrier in meters when the group was first detected inside the CCA.
+---@field private elements table Flight group elements.
+---@field private flag number Flag value describing the current stack.
+---@field private group GROUP Flight group.
+---@field private groupname string Name of the group.
+---@field private holding boolean If true, flight is in holding zone.
+---@field private name string Player name or name of first AI unit.
+---@field private nunits number Number of units in group.
+---@field private onboard string Onboard number of player or first unit in group.
+---@field private onboardnumbers table Onboard numbers of aircraft in the group.
+---@field private recovered boolean 
+---@field private refueling boolean Flight is refueling.
+---@field private seclead string Name of section lead.
+---@field private section table Other human flight groups belonging to this flight. This flight is the lead.
+---@field private time number Timestamp in seconds of timer.getAbsTime() of the last important event, e.g. added to the queue.
 AIRBOSS.FlightGroup = {}
 
 
@@ -4667,28 +4727,65 @@ AIRBOSS.GroovePos = {}
 
 ---LSO radio calls.
 ---@class AIRBOSS.LSOCalls 
+---@field BOLTER AIRBOSS.RadioCall "Bolter, Bolter" call.
+---@field CALLTHEBALL AIRBOSS.RadioCall "Call the Ball" call.
+---@field CHECK AIRBOSS.RadioCall "CHECK" call.
+---@field CLEAREDTOLAND AIRBOSS.RadioCall "Cleared to land" call.
+---@field CLICK AIRBOSS.RadioCall Radio end transmission click sound.
+---@field COMELEFT AIRBOSS.RadioCall "Come left" call.
+---@field DEPARTANDREENTER AIRBOSS.RadioCall "Depart and re-enter" call.
+---@field EXPECTHEAVYWAVEOFF AIRBOSS.RadioCall "Expect heavy wavoff" call.
+---@field EXPECTSPOT5 AIRBOSS.RadioCall "Expect spot 5" call.
+---@field EXPECTSPOT75 AIRBOSS.RadioCall "Expect spot 7.5" call.
+---@field FAST AIRBOSS.RadioCall "You're fast" call.
+---@field FOULDECK AIRBOSS.RadioCall "Foul Deck" call.
+---@field HIGH AIRBOSS.RadioCall "You're high" call.
+---@field IDLE AIRBOSS.RadioCall "Idle" call.
+---@field LONGINGROOVE AIRBOSS.RadioCall "You're long in the groove" call.
+---@field LOW AIRBOSS.RadioCall "You're low" call.
+---@field N0 AIRBOSS.RadioCall "Zero" call.
+---@field N1 AIRBOSS.RadioCall "One" call.
+---@field N2 AIRBOSS.RadioCall "Two" call.
+---@field N3 AIRBOSS.RadioCall "Three" call.
+---@field N4 AIRBOSS.RadioCall "Four" call.
+---@field N5 AIRBOSS.RadioCall "Five" call.
+---@field N6 AIRBOSS.RadioCall "Six" call.
+---@field N7 AIRBOSS.RadioCall "Seven" call.
+---@field N8 AIRBOSS.RadioCall "Eight" call.
+---@field N9 AIRBOSS.RadioCall "Nine" call.
+---@field NOISE AIRBOSS.RadioCall Static noise sound.
+---@field PADDLESCONTACT AIRBOSS.RadioCall "Paddles, contact" call.
+---@field POWER AIRBOSS.RadioCall "Power" call.
+---@field RADIOCHECK AIRBOSS.RadioCall "Paddles, radio check" call.
+---@field RIGHTFORLINEUP AIRBOSS.RadioCall "Right for line up" call.
+---@field ROGERBALL AIRBOSS.RadioCall "Roger ball" call.
+---@field SLOW AIRBOSS.RadioCall "You're slow" call.
+---@field SPINIT AIRBOSS.RadioCall "Spin it" call.
+---@field STABILIZED AIRBOSS.RadioCall "Stabilized" call.
+---@field WAVEOFF AIRBOSS.RadioCall "Wave off" call.
+---@field WELCOMEABOARD AIRBOSS.RadioCall "Welcome aboard" call.
 AIRBOSS.LSOCalls = {}
 
 
 ---LSO grade data.
 ---@class AIRBOSS.LSOgrade 
 ---@field Tgroove number Time in the groove in seconds.
----@field airframe string Aircraft type name of player.
----@field carriername string Carrier name/alias.
----@field carrierrwy  
----@field carriertype string Carrier type name.
----@field case number Recovery case.
----@field details string Detailed flight analysis.
----@field finalscore number Points received after player has finally landed. This is the average over all incomplete passes (bolter, waveoff) before.
----@field grade string LSO grade, i.e. _OK_, OK, (OK), --, CUT
----@field midate string Mission date in yyyy/mm/dd format.
----@field mitime string Mission time in hh:mm:ss+d format
----@field modex string Onboard number.
----@field osdate string Real live date. Needs **os** to be desanitized.
----@field points number Points received.
----@field theatre string DCS map.
----@field wind string Wind speed on deck in knots.
----@field wire number Wire caught.
+---@field private airframe string Aircraft type name of player.
+---@field private carriername string Carrier name/alias.
+---@field private carrierrwy NOTYPE 
+---@field private carriertype string Carrier type name.
+---@field private case number Recovery case.
+---@field private details string Detailed flight analysis.
+---@field private finalscore number Points received after player has finally landed. This is the average over all incomplete passes (bolter, waveoff) before.
+---@field private grade string LSO grade, i.e. _OK_, OK, (OK), --, CUT
+---@field private midate string Mission date in yyyy/mm/dd format.
+---@field private mitime string Mission time in hh:mm:ss+d format
+---@field private modex string Onboard number.
+---@field private osdate string Real live date. Needs **os** to be desanitized.
+---@field private points number Points received.
+---@field private theatre string DCS map.
+---@field private wind string Wind speed on deck in knots.
+---@field private wire number Wire caught.
 AIRBOSS.LSOgrade = {}
 
 
@@ -4707,6 +4804,47 @@ AIRBOSS.LUE = {}
 
 ---Marshal radio calls.
 ---@class AIRBOSS.MarshalCalls 
+---@field AFFIRMATIVE AIRBOSS.RadioCall "Affirmative" call.
+---@field ALTIMETER AIRBOSS.RadioCall "Altimeter" call.
+---@field BRC AIRBOSS.RadioCall "BRC" call.
+---@field CARRIERTURNTOHEADING AIRBOSS.RadioCall "Turn to heading" call.
+---@field CASE AIRBOSS.RadioCall "Case" call.
+---@field CHARLIETIME AIRBOSS.RadioCall "Charlie Time" call.
+---@field CLEAREDFORRECOVERY AIRBOSS.RadioCall "You're cleared for case" call.
+---@field CLICK AIRBOSS.RadioCall Radio end transmission click sound.
+---@field DECKCLOSED AIRBOSS.RadioCall "Deck closed" sound.
+---@field DEGREES AIRBOSS.RadioCall "Degrees" call.
+---@field EXPECTED AIRBOSS.RadioCall "Expected" call.
+---@field FLYNEEDLES AIRBOSS.RadioCall "Fly your needles" call.
+---@field HOLDATANGELS AIRBOSS.RadioCall "Hold at angels" call.
+---@field HOURS AIRBOSS.RadioCall "Hours" sound.
+---@field MARSHALRADIAL AIRBOSS.RadioCall "Marshal radial" call.
+---@field N0 AIRBOSS.RadioCall "Zero" call.
+---@field N1 AIRBOSS.RadioCall "One" call.
+---@field N2 AIRBOSS.RadioCall "Two" call.
+---@field N3 AIRBOSS.RadioCall "Three" call.
+---@field N4 AIRBOSS.RadioCall "Four" call.
+---@field N5 AIRBOSS.RadioCall "Five" call.
+---@field N6 AIRBOSS.RadioCall "Six" call.
+---@field N7 AIRBOSS.RadioCall "Seven" call.
+---@field N8 AIRBOSS.RadioCall "Eight" call.
+---@field N9 AIRBOSS.RadioCall "Nine" call.
+---@field NEGATIVE AIRBOSS.RadioCall "Negative" sound.
+---@field NEWFB AIRBOSS.RadioCall "New final bearing" call.
+---@field NOISE AIRBOSS.RadioCall Static noise sound.
+---@field OBS AIRBOSS.RadioCall "Obs" call.
+---@field POINT AIRBOSS.RadioCall "Point" call.
+---@field RADIOCHECK AIRBOSS.RadioCall "Radio check" call.
+---@field RECOVERY AIRBOSS.RadioCall "Recovery" call.
+---@field RECOVERYOPSSTOPPED AIRBOSS.RadioCall "Recovery ops stopped" sound.
+---@field RECOVERYPAUSEDNOTICE AIRBOSS.RadioCall "Recovery paused until further notice" call.
+---@field RECOVERYPAUSEDRESUMED AIRBOSS.RadioCall "Recovery paused and will be resumed at" call.
+---@field REPORTSEEME AIRBOSS.RadioCall "Report see me" call.
+---@field RESUMERECOVERY AIRBOSS.RadioCall "Resuming aircraft recovery" call.
+---@field ROGER AIRBOSS.RadioCall "Roger" call.
+---@field SAYNEEDLES AIRBOSS.RadioCall "Say needles" call.
+---@field STACKFULL AIRBOSS.RadioCall "Marshal stack is currently full. Hold outside 10 NM zone and wait for further instructions" call.
+---@field STARTINGRECOVERY AIRBOSS.RadioCall "Starting aircraft recovery" call.
 AIRBOSS.MarshalCalls = {}
 
 
@@ -4744,6 +4882,32 @@ AIRBOSS.MarshalCalls = {}
 AIRBOSS.PatternStep = {}
 
 
+---Pilot radio calls.
+---@class AIRBOSS.PilotCalls 
+---@field BALL AIRBOSS.RadioCall "Ball" call.
+---@field BINGOFUEL AIRBOSS.RadioCall "Bingo Fuel" call.
+---@field GASATDIVERT AIRBOSS.RadioCall "Going for gas at the divert field" call.
+---@field GASATTANKER AIRBOSS.RadioCall "Going for gas at the recovery tanker" call.
+---@field HARRIER AIRBOSS.RadioCall "Harrier" call.
+---@field HAWKEYE AIRBOSS.RadioCall "Hawkeye" call.
+---@field HORNET AIRBOSS.RadioCall "Hornet" call.
+---@field N0 AIRBOSS.RadioCall "Zero" call.
+---@field N1 AIRBOSS.RadioCall "One" call.
+---@field N2 AIRBOSS.RadioCall "Two" call.
+---@field N3 AIRBOSS.RadioCall "Three" call.
+---@field N4 AIRBOSS.RadioCall "Four" call.
+---@field N5 AIRBOSS.RadioCall "Five" call.
+---@field N6 AIRBOSS.RadioCall "Six" call.
+---@field N7 AIRBOSS.RadioCall "Seven" call.
+---@field N8 AIRBOSS.RadioCall "Eight" call.
+---@field N9 AIRBOSS.RadioCall "Nine" call.
+---@field POINT AIRBOSS.RadioCall "Point" call.
+---@field SKYHAWK AIRBOSS.RadioCall "Skyhawk" call.
+---@field TOMCAT AIRBOSS.RadioCall "Tomcat" call.
+---@field VIKING AIRBOSS.RadioCall "Viking" call.
+AIRBOSS.PilotCalls = {}
+
+
 ---Player data table holding all important parameters of each player.
 ---@class AIRBOSS.PlayerData : AIRBOSS.FlightGroup
 ---@field SRS MSRS 
@@ -4751,63 +4915,70 @@ AIRBOSS.PatternStep = {}
 ---@field TIG0 number Time in groove start timer.getTime().
 ---@field Tgroove number Time in the groove in seconds.
 ---@field Tlso number Last time the LSO gave an advice.
----@field airframe  
----@field attitudemonitor boolean If true, display aircraft attitude and other parameters constantly.
----@field boltered boolean If true, player boltered.
----@field callsign string Callsign of player.
----@field case  
----@field client CLIENT Client object of player.
----@field debriefschedulerID string Debrief scheduler ID.
----@field difficulty string Difficulty level.
----@field finalscore number Final score if points are averaged over multiple passes.
----@field flag  
----@field grade  
----@field hover boolean 
----@field landed boolean If true, player landed or attempted to land.
----@field lig boolean If true, player was long in the groove.
----@field modex  
----@field name  
----@field owo boolean If true, own waveoff by player.
----@field passes number Number of passes.
----@field refueling boolean 
----@field seclead  
----@field showhints boolean If true, show step hints.
----@field stable boolean 
----@field step string Current/next pattern step.
----@field subtitles boolean If true, display subtitles of radio messages.
----@field time  
----@field trapon boolean If true, save trap sheets.
----@field unit UNIT Aircraft of the player.
----@field unitname string Name of the unit.
----@field valid boolean If true, player made a valid approach. Is set true on start of Groove X.
----@field warning boolean Set true once the player got a warning.
----@field waveoff boolean If true, player was waved off during final approach.
----@field wire number Wire caught by player when trapped.
----@field wofd boolean If true, player was waved off because of a foul deck.
----@field wop boolean If true, player was waved off during the pattern.
+---@field private airframe NOTYPE 
+---@field private attitudemonitor boolean If true, display aircraft attitude and other parameters constantly.
+---@field private boltered boolean If true, player boltered.
+---@field private callsign string Callsign of player.
+---@field private case NOTYPE 
+---@field private client CLIENT Client object of player.
+---@field private debrief table Debrief analysis of the current step of this pass.
+---@field private debriefschedulerID string Debrief scheduler ID.
+---@field private difficulty string Difficulty level.
+---@field private finalscore number Final score if points are averaged over multiple passes.
+---@field private flag NOTYPE 
+---@field private grade NOTYPE 
+---@field private groove AIRBOSS.GroovePos Data table at each position in the groove. Elements are of type @{#AIRBOSS.GrooveData}.
+---@field private holding boolean 
+---@field private hover boolean 
+---@field private landed boolean If true, player landed or attempted to land.
+---@field private lastdebrief table Debrief of player performance of last completed pass.
+---@field private lig boolean If true, player was long in the groove.
+---@field private messages table 
+---@field private modex NOTYPE 
+---@field private name NOTYPE 
+---@field private owo boolean If true, own waveoff by player.
+---@field private passes number Number of passes.
+---@field private points table Points of passes until finally landed.
+---@field private refueling boolean 
+---@field private seclead NOTYPE 
+---@field private showhints boolean If true, show step hints.
+---@field private stable boolean 
+---@field private step string Current/next pattern step.
+---@field private subtitles boolean If true, display subtitles of radio messages.
+---@field private time NOTYPE 
+---@field private trapon boolean If true, save trap sheets.
+---@field private trapsheet table Groove data table recorded every 0.5 seconds.
+---@field private unit UNIT Aircraft of the player.
+---@field private unitname string Name of the unit.
+---@field private valid boolean If true, player made a valid approach. Is set true on start of Groove X.
+---@field private warning boolean Set true once the player got a warning.
+---@field private waveoff boolean If true, player was waved off during final approach.
+---@field private wire number Wire caught by player when trapped.
+---@field private wofd boolean If true, player was waved off because of a foul deck.
+---@field private wop boolean If true, player was waved off during the pattern.
 AIRBOSS.PlayerData = {}
 
 
 ---Radio.
 ---@class AIRBOSS.Radio 
----@field alias string Radio alias.
----@field frequency number Frequency in Hz.
----@field modulation number Band modulation.
----@field voice  
+---@field private alias string Radio alias.
+---@field private frequency number Frequency in Hz.
+---@field private modulation number Band modulation.
+---@field private voice NOTYPE 
 AIRBOSS.Radio = {}
 
 
 ---Radio sound file and subtitle.
 ---@class AIRBOSS.RadioCall 
----@field duration number Duration of the sound in seconds. This is also the duration the subtitle is displayed.
----@field file string Sound file name without suffix.
----@field loud boolean Loud version of sound file available.
----@field modexreceiver string Onboard number of the receiver (optional).
----@field modexsender string Onboard number of the sender (optional).
----@field sender string Sender of the message (optional). Default radio alias.
----@field subduration number Duration in seconds the subtitle is displayed.
----@field subtitle string Subtitle displayed during transmission.
----@field suffix string File suffix/extension, e.g. "ogg".
+---@field private duration number Duration of the sound in seconds. This is also the duration the subtitle is displayed.
+---@field private file string Sound file name without suffix.
+---@field private loud boolean Loud version of sound file available.
+---@field private modexreceiver string Onboard number of the receiver (optional).
+---@field private modexsender string Onboard number of the sender (optional).
+---@field private sender string Sender of the message (optional). Default radio alias.
+---@field private subduration number Duration in seconds the subtitle is displayed.
+---@field private subtitle string Subtitle displayed during transmission.
+---@field private suffix string File suffix/extension, e.g. "ogg".
 AIRBOSS.RadioCall = {}
 
 
@@ -4815,9 +4986,11 @@ AIRBOSS.RadioCall = {}
 ---@class AIRBOSS.Radioitem 
 ---@field Tplay number Abs time when transmission should be played.
 ---@field Tstarted number Abs time when transmission began to play.
----@field interval number Interval in seconds after the last sound was played.
----@field isplaying boolean Currently playing.
----@field loud boolean If true, play loud version of file.
+---@field private call AIRBOSS.RadioCall Radio call.
+---@field private interval number Interval in seconds after the last sound was played.
+---@field private isplaying boolean Currently playing.
+---@field private loud boolean If true, play loud version of file.
+---@field private radio AIRBOSS.Radio Radio object.
 AIRBOSS.Radioitem = {}
 
 

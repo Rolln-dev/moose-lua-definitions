@@ -32,10 +32,10 @@
 ---
 ---  * DestroyedUnit: A Wrapper.Unit is destroyed in the Zone. The event will only get triggered if the method #ZONE_GOAL.MonitorDestroyedUnits() is used.
 ---@class ZONE_GOAL 
----@field SmokeColor  
----@field SmokeScheduler  
----@field SmokeTime  
----@field SmokeZone  
+---@field SmokeColor NOTYPE 
+---@field SmokeScheduler NOTYPE 
+---@field SmokeTime NOTYPE 
+---@field SmokeZone NOTYPE 
 ZONE_GOAL = {}
 
 ---DestroyedUnit event.
@@ -129,6 +129,7 @@ function ZONE_GOAL:__DestroyedUnit(delay) end
 ---
 ------
 ---@param self ZONE_GOAL 
+---@private
 function ZONE_GOAL:onafterGuard() end
 
 

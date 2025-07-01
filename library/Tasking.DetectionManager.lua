@@ -50,11 +50,11 @@
 ---### Author: FlightControl - Framework Design &  Programming
 ---DETECTION_MANAGER class.
 ---@class DETECTION_MANAGER 
----@field CC  
----@field Detection  
----@field SetGroup  
----@field _RefreshTimeInterval  
----@field _ReportDisplayTime  
+---@field CC NOTYPE 
+---@field Detection NOTYPE 
+---@field SetGroup NOTYPE 
+---@field _RefreshTimeInterval NOTYPE 
+---@field _ReportDisplayTime NOTYPE 
 DETECTION_MANAGER = {}
 
 ---Get the command center to communicate actions to the players.
@@ -245,6 +245,7 @@ function DETECTION_MANAGER:__Stop(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function DETECTION_MANAGER:onafterReport(From, Event, To) end
 
 
@@ -254,6 +255,7 @@ function DETECTION_MANAGER:onafterReport(From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function DETECTION_MANAGER:onafterStart(From, Event, To) end
 
 

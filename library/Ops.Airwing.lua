@@ -81,34 +81,42 @@
 ---AIRWING class.
 ---@class AIRWING : LEGION
 ---@field ClassName string Name of the class.
----@field ConnectedOpsAwacs  
+---@field ConnectedOpsAwacs NOTYPE 
 ---@field UseConnectedOpsAwacs boolean 
----@field airboss AIRBOSS Airboss attached to this wing.
----@field capFormation number If capOptionPatrolRaceTrack is true, set the formation, also.
----@field capOptionPatrolRaceTrack boolean Use closer patrol race track or standard orbit auftrag.
----@field capOptionVaryEndTime number If set, vary mission start time for CAP missions generated random between capOptionVaryStartTime and capOptionVaryEndTime
----@field capOptionVaryStartTime number If set, vary mission start time for CAP missions generated random between capOptionVaryStartTime and capOptionVaryEndTime
----@field despawnAfterHolding boolean Aircraft are despawned after holding.
----@field despawnAfterLanding boolean Aircraft are despawned after landing.
----@field lid string Class id string for output to DCS log file.
----@field markpoints boolean Display markers on the F10 map.
----@field nflightsAWACS number Number of AWACS flights constantly in the air.
----@field nflightsCAP number Number of CAP flights constantly in the air.
----@field nflightsRecon number Number of Recon flights constantly in the air.
----@field nflightsRecoveryTanker number 
----@field nflightsRescueHelo number Number of Rescue helo flights constantly in the air.
----@field nflightsTANKERboom number Number of TANKER flights with BOOM constantly in the air.
----@field nflightsTANKERprobe number Number of TANKER flights with PROBE constantly in the air.
----@field payloadcounter number Running index of payloads.
----@field recoverytanker RECOVERYTANKER The recoverytanker.
----@field rescuehelo RESCUEHELO The rescue helo.
----@field takeoffType string Take of type.
----@field verbose number Verbosity of output.
----@field version string AIRWING class version.
----@field zonesetAWACS SET_ZONE Set of AWACS zones.
----@field zonesetCAP SET_ZONE Set of CAP zones.
----@field zonesetRECON SET_ZONE Set of RECON zones. 
----@field zonesetTANKER SET_ZONE Set of TANKER zones.
+---@field private airboss AIRBOSS Airboss attached to this wing.
+---@field private capFormation number If capOptionPatrolRaceTrack is true, set the formation, also.
+---@field private capOptionPatrolRaceTrack boolean Use closer patrol race track or standard orbit auftrag.
+---@field private capOptionVaryEndTime number If set, vary mission start time for CAP missions generated random between capOptionVaryStartTime and capOptionVaryEndTime
+---@field private capOptionVaryStartTime number If set, vary mission start time for CAP missions generated random between capOptionVaryStartTime and capOptionVaryEndTime
+---@field private despawnAfterHolding boolean Aircraft are despawned after holding.
+---@field private despawnAfterLanding boolean Aircraft are despawned after landing.
+---@field private lid string Class id string for output to DCS log file.
+---@field private markpoints boolean Display markers on the F10 map.
+---@field private menu table Table of menu items.
+---@field private missionqueue table Mission queue table.
+---@field private nflightsAWACS number Number of AWACS flights constantly in the air.
+---@field private nflightsCAP number Number of CAP flights constantly in the air.
+---@field private nflightsRecon number Number of Recon flights constantly in the air.
+---@field private nflightsRecoveryTanker number 
+---@field private nflightsRescueHelo number Number of Rescue helo flights constantly in the air.
+---@field private nflightsTANKERboom number Number of TANKER flights with BOOM constantly in the air.
+---@field private nflightsTANKERprobe number Number of TANKER flights with PROBE constantly in the air.
+---@field private payloadcounter number Running index of payloads.
+---@field private payloads table Playloads for specific aircraft and mission types.
+---@field private pointsAWACS table Table of AWACS points.
+---@field private pointsCAP table Table of CAP points.
+---@field private pointsRecon table Table of RECON points.
+---@field private pointsTANKER table Table of Tanker points.
+---@field private recoverytanker RECOVERYTANKER The recoverytanker.
+---@field private rescuehelo RESCUEHELO The rescue helo.
+---@field private squadrons table Table of squadrons.
+---@field private takeoffType string Take of type.
+---@field private verbose number Verbosity of output.
+---@field private version string AIRWING class version.
+---@field private zonesetAWACS SET_ZONE Set of AWACS zones.
+---@field private zonesetCAP SET_ZONE Set of CAP zones.
+---@field private zonesetRECON SET_ZONE Set of RECON zones. 
+---@field private zonesetTANKER SET_ZONE Set of TANKER zones.
 AIRWING = {}
 
 ---Add asset group(s) to squadron.
@@ -610,6 +618,7 @@ function AIRWING:__Stop(delay) end
 ---@param To string To state.
 ---@param FlightGroup FLIGHTGROUP Ops flight group on mission.
 ---@param Mission AUFTRAG The requested mission.
+---@private
 function AIRWING:onafterFlightOnMission(From, Event, To, FlightGroup, Mission) end
 
 ---Start AIRWING FSM.
@@ -619,6 +628,7 @@ function AIRWING:onafterFlightOnMission(From, Event, To, FlightGroup, Mission) e
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AIRWING:onafterStart(From, Event, To) end
 
 ---Update status.
@@ -628,60 +638,63 @@ function AIRWING:onafterStart(From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AIRWING:onafterStatus(From, Event, To) end
 
 
 ---AWACS zone.
 ---@class AIRWING.AwacsZone 
----@field altitude number Altitude in feet.
----@field heading number Heading in degrees.
----@field leg number Leg length in NM.
----@field marker MARKER F10 marker.
----@field mission AUFTRAG Mission assigned.
----@field speed number Speed in knots.
----@field zone ZONE Zone.
+---@field private altitude number Altitude in feet.
+---@field private heading number Heading in degrees.
+---@field private leg number Leg length in NM.
+---@field private marker MARKER F10 marker.
+---@field private mission AUFTRAG Mission assigned.
+---@field private speed number Speed in knots.
+---@field private zone ZONE Zone.
 AIRWING.AwacsZone = {}
 
 
 ---Patrol data.
 ---@class AIRWING.PatrolData 
----@field altitude number Altitude in feet.
----@field coord COORDINATE Patrol coordinate.
----@field heading number Heading in degrees.
----@field leg number Leg length in NM.
----@field marker MARKER F10 marker.
----@field noccupied number Number of flights on this patrol point.
----@field refuelsystem number Refueling system type: `0=Unit.RefuelingSystem.BOOM_AND_RECEPTACLE`, `1=Unit.RefuelingSystem.PROBE_AND_DROGUE`.
----@field speed number Speed in knots.
----@field type string Type name.
+---@field private altitude number Altitude in feet.
+---@field private coord COORDINATE Patrol coordinate.
+---@field private heading number Heading in degrees.
+---@field private leg number Leg length in NM.
+---@field private marker MARKER F10 marker.
+---@field private noccupied number Number of flights on this patrol point.
+---@field private refuelsystem number Refueling system type: `0=Unit.RefuelingSystem.BOOM_AND_RECEPTACLE`, `1=Unit.RefuelingSystem.PROBE_AND_DROGUE`.
+---@field private speed number Speed in knots.
+---@field private type string Type name.
 AIRWING.PatrolData = {}
 
 
 ---Patrol zone.
 ---@class AIRWING.PatrolZone 
----@field altitude number Altitude in feet.
----@field heading number Heading in degrees.
----@field leg number Leg length in NM.
----@field marker MARKER F10 marker.
----@field mission AUFTRAG Mission assigned.
----@field speed number Speed in knots.
----@field zone ZONE Zone.
+---@field private altitude number Altitude in feet.
+---@field private heading number Heading in degrees.
+---@field private leg number Leg length in NM.
+---@field private marker MARKER F10 marker.
+---@field private mission AUFTRAG Mission assigned.
+---@field private speed number Speed in knots.
+---@field private zone ZONE Zone.
 AIRWING.PatrolZone = {}
 
 
 ---Payload data.
 ---@class AIRWING.Payload 
----@field aircrafttype string Type of aircraft, which can use this payload.
----@field navail number Number of available payloads of this type.
----@field uid number Unique payload ID.
----@field unitname string Name of the unit this pylon was extracted from.
----@field unlimited boolean If true, this payload is unlimited and does not get consumed.
+---@field private aircrafttype string Type of aircraft, which can use this payload.
+---@field private capabilities table Mission types and performances for which this payload can be used.
+---@field private navail number Number of available payloads of this type.
+---@field private pylons table Pylon data extracted for the unit template.
+---@field private uid number Unique payload ID.
+---@field private unitname string Name of the unit this pylon was extracted from.
+---@field private unlimited boolean If true, this payload is unlimited and does not get consumed.
 AIRWING.Payload = {}
 
 
 ---Tanker zone.
 ---@class AIRWING.TankerZone : AIRWING.PatrolZone
----@field refuelsystem number Refueling system type: `0=Unit.RefuelingSystem.BOOM_AND_RECEPTACLE`, `1=Unit.RefuelingSystem.PROBE_AND_DROGUE`.
+---@field private refuelsystem number Refueling system type: `0=Unit.RefuelingSystem.BOOM_AND_RECEPTACLE`, `1=Unit.RefuelingSystem.PROBE_AND_DROGUE`.
 AIRWING.TankerZone = {}
 
 

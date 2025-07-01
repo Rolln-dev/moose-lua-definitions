@@ -100,33 +100,44 @@
 ---    carrier:AddOpsTransport(opstransport)
 ---OPSTRANSPORT class.
 ---@class OPSTRANSPORT : FSM
+---@field CargoType OPSTRANSPORT.CargoType 
 ---@field ClassName string Name of the class.
 ---@field Ncargo number Total number of cargo groups.
 ---@field NcargoDead number Totalnumber of dead cargo groups.
 ---@field Ncarrier number Total number of assigned carriers.
 ---@field NcarrierDead number Total number of dead carrier groups
 ---@field Ndelivered number Total number of cargo groups delivered.
----@field Tover  
+---@field Status OPSTRANSPORT.Status 
+---@field Tover NOTYPE 
 ---@field Tstart number Start time in *abs.* seconds.
 ---@field Tstop number Stop time in *abs.* seconds. Default `#nil` (never stops).
----@field cargocounter number Running number to generate cargo UIDs.
----@field chief CHIEF Chief of the transport.
----@field commander COMMANDER Commander of the transport.
----@field duration number Duration (`Tstop-Tstart`) of the transport in seconds.
----@field formationArmy string Default formation for ground vehicles.
----@field formationHelo string Default formation for helicopters.
----@field formationPlane string Default formation for airplanes.
----@field importance number Importance of this transport. Smaller=higher.
----@field lid string Log ID.
----@field mission AUFTRAG The mission attached to this transport.
----@field opszone OPSZONE OPS zone.
----@field prio number Priority of this transport. Should be a number between 0 (high prio) and 100 (low prio).
----@field statusCommander string Staus of the COMMANDER.
----@field tzcCounter number Running number of added transport zone combos.
----@field uid number Unique ID of the transport.
----@field urgent boolean If true, transport is urgent.
----@field verbose number Verbosity level.
----@field version string Army Group version.
+---@field private assets table Warehouse assets assigned for this transport.
+---@field private cargocounter number Running number to generate cargo UIDs.
+---@field private carrierTransportStatus table Status of each carrier.
+---@field private carriers table Carriers assigned for this transport.
+---@field private chief CHIEF Chief of the transport.
+---@field private commander COMMANDER Commander of the transport.
+---@field private conditionStart table Start conditions.
+---@field private duration number Duration (`Tstop-Tstart`) of the transport in seconds.
+---@field private formationArmy string Default formation for ground vehicles.
+---@field private formationHelo string Default formation for helicopters.
+---@field private formationPlane string Default formation for airplanes.
+---@field private importance number Importance of this transport. Smaller=higher.
+---@field private legions table Assigned legions.
+---@field private lid string Log ID.
+---@field private mission AUFTRAG The mission attached to this transport.
+---@field private opszone OPSZONE OPS zone.
+---@field private prio number Priority of this transport. Should be a number between 0 (high prio) and 100 (low prio).
+---@field private requestID table The ID of the queued warehouse request. Necessary to cancel the request if the transport was cancelled before the request is processed.
+---@field private statusCommander string Staus of the COMMANDER.
+---@field private statusLegion table Transport status of all assigned LEGIONs.
+---@field private tzCombos table Table of transport zone combos. Each element of the table is of type `#OPSTRANSPORT.TransportZoneCombo`.
+---@field private tzcCounter number Running number of added transport zone combos.
+---@field private tzcDefault OPSTRANSPORT.TransportZoneCombo Default transport zone combo.
+---@field private uid number Unique ID of the transport.
+---@field private urgent boolean If true, transport is urgent.
+---@field private verbose number Verbosity level.
+---@field private version string Army Group version.
 OPSTRANSPORT = {}
 
 ---Add carrier asset to transport.
@@ -257,7 +268,7 @@ function OPSTRANSPORT:Executing() end
 ------
 ---@param self OPSTRANSPORT 
 ---@param CargoGroup OPSGROUP The cargo group that needs to be loaded into a carrier unit/element of the carrier group.
----@param Zone ZONE (Optional) Zone where the carrier must be in.
+---@param Zone? ZONE (Optional) Zone where the carrier must be in.
 ---@param DisembarkCarriers table Disembark carriers.
 ---@param DeployAirbase AIRBASE Airbase where to deploy.
 ---@return OPSGROUP.Element #New carrier element for cargo or nil.
@@ -270,7 +281,7 @@ function OPSTRANSPORT:FindTransferCarrierForCargo(CargoGroup, Zone, DisembarkCar
 ------
 ---@param self OPSTRANSPORT 
 ---@param Delivered boolean If `true`, only delivered groups are returned. If `false` only undelivered groups are returned. If `nil`, all groups are returned.
----@param Carrier OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
+---@param Carrier? OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
 ---@param TransportZoneCombo OPSTRANSPORT.TransportZoneCombo Transport zone combo.
 ---@return table #Cargo Ops groups. Can be and empty table `{}`.
 function OPSTRANSPORT:GetCargoOpsGroups(Delivered, Carrier, TransportZoneCombo) end
@@ -281,7 +292,7 @@ function OPSTRANSPORT:GetCargoOpsGroups(Delivered, Carrier, TransportZoneCombo) 
 ------
 ---@param self OPSTRANSPORT 
 ---@param Delivered boolean If `true`, only delivered groups are returned. If `false` only undelivered groups are returned. If `nil`, all groups are returned.
----@param Carrier OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
+---@param Carrier? OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
 ---@param TransportZoneCombo OPSTRANSPORT.TransportZoneCombo Transport zone combo.
 ---@return table #Cargo Ops groups. Can be and empty table `{}`.
 function OPSTRANSPORT:GetCargoStorages(Delivered, Carrier, TransportZoneCombo) end
@@ -481,7 +492,7 @@ function OPSTRANSPORT:IsPlanned() end
 ---
 ------
 ---@param self OPSTRANSPORT 
----@param Legion LEGION (Optional) Check if transport is queued at this legion.
+---@param Legion? LEGION (Optional) Check if transport is queued at this legion.
 ---@return boolean #If true, status is QUEUED. 
 function OPSTRANSPORT:IsQueued(Legion) end
 
@@ -499,7 +510,7 @@ function OPSTRANSPORT:IsReadyToGo() end
 ---
 ------
 ---@param self OPSTRANSPORT 
----@param Legion LEGION (Optional) Check if transport is queued at this legion.
+---@param Legion? LEGION (Optional) Check if transport is queued at this legion.
 ---@return boolean #If true, status is REQUESTED. 
 function OPSTRANSPORT:IsRequested(Legion) end
 
@@ -785,7 +796,7 @@ function OPSTRANSPORT:SetRequiredCarriers(NcarriersMin, NcarriersMax) end
 ------
 ---@param self OPSTRANSPORT 
 ---@param ClockStart string Time the transport is started, e.g. "05:00" for 5 am. If specified as a #number, it will be relative (in seconds) to the current mission time. Default is 5 seconds after mission was added.
----@param ClockStop string (Optional) Time the transport is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
+---@param ClockStop? string (Optional) Time the transport is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
 ---@return OPSTRANSPORT #self
 function OPSTRANSPORT:SetTime(ClockStart, ClockStop) end
 
@@ -850,7 +861,7 @@ function OPSTRANSPORT:_CheckRequiredCargos(TransportZoneCombo, CarrierGroup) end
 ---@param self OPSTRANSPORT 
 ---@param Zone ZONE The zone object.
 ---@param Delivered boolean If `true`, only delivered groups are returned. If `false` only undelivered groups are returned. If `nil`, all groups are returned.
----@param Carrier OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
+---@param Carrier? OPSGROUP (Optional) Only count cargo groups that fit into the given carrier group. Current cargo is not a factor.
 ---@param TransportZoneCombo OPSTRANSPORT.TransportZoneCombo Transport zone combo.
 ---@return number #Number of cargo groups.
 function OPSTRANSPORT:_CountCargosInZone(Zone, Delivered, Carrier, TransportZoneCombo) end
@@ -1031,6 +1042,7 @@ function OPSTRANSPORT:__Unloaded(delay, OpsGroupCargo, OpsGroupCarrier) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterCancel(From, Event, To) end
 
 ---On after "DeadCarrierAll" event.
@@ -1040,6 +1052,7 @@ function OPSTRANSPORT:onafterCancel(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state. 
+---@private
 function OPSTRANSPORT:onafterDeadCarrierAll(From, Event, To) end
 
 ---On after "DeadCarrierGroup" event.
@@ -1050,6 +1063,7 @@ function OPSTRANSPORT:onafterDeadCarrierAll(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsGroup OPSGROUP Carrier OPSGROUP that is dead. 
+---@private
 function OPSTRANSPORT:onafterDeadCarrierGroup(From, Event, To, OpsGroup) end
 
 ---On after "Delivered" event.
@@ -1059,6 +1073,7 @@ function OPSTRANSPORT:onafterDeadCarrierGroup(From, Event, To, OpsGroup) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterDelivered(From, Event, To) end
 
 ---On after "Executing" event.
@@ -1068,6 +1083,7 @@ function OPSTRANSPORT:onafterDelivered(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterExecuting(From, Event, To) end
 
 ---On after "Loaded" event.
@@ -1080,6 +1096,7 @@ function OPSTRANSPORT:onafterExecuting(From, Event, To) end
 ---@param OpsGroupCargo OPSGROUP OPSGROUP that was loaded into a carrier.
 ---@param OpsGroupCarrier OPSGROUP OPSGROUP that was loaded into a carrier.
 ---@param CarrierElement OPSGROUP.Element Carrier element.
+---@private
 function OPSTRANSPORT:onafterLoaded(From, Event, To, OpsGroupCargo, OpsGroupCarrier, CarrierElement) end
 
 ---On after "Planned" event.
@@ -1089,6 +1106,7 @@ function OPSTRANSPORT:onafterLoaded(From, Event, To, OpsGroupCargo, OpsGroupCarr
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterPlanned(From, Event, To) end
 
 ---On after "Scheduled" event.
@@ -1098,6 +1116,7 @@ function OPSTRANSPORT:onafterPlanned(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterScheduled(From, Event, To) end
 
 ---On after "StatusUpdate" event.
@@ -1107,6 +1126,7 @@ function OPSTRANSPORT:onafterScheduled(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onafterStatusUpdate(From, Event, To) end
 
 ---On after "Unloaded" event.
@@ -1118,6 +1138,7 @@ function OPSTRANSPORT:onafterStatusUpdate(From, Event, To) end
 ---@param To string To state.
 ---@param OpsGroupCargo OPSGROUP Cargo OPSGROUP that was unloaded from a carrier.
 ---@param OpsGroupCarrier OPSGROUP Carrier OPSGROUP that unloaded the cargo.
+---@private
 function OPSTRANSPORT:onafterUnloaded(From, Event, To, OpsGroupCargo, OpsGroupCarrier) end
 
 ---On before "Delivered" event.
@@ -1127,6 +1148,7 @@ function OPSTRANSPORT:onafterUnloaded(From, Event, To, OpsGroupCargo, OpsGroupCa
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSTRANSPORT:onbeforeDelivered(From, Event, To) end
 
 
@@ -1139,15 +1161,17 @@ OPSTRANSPORT.CargoType = {}
 
 ---Generic transport condition.
 ---@class OPSTRANSPORT.Condition 
----@field func function Callback function to check for a condition. Should return a #boolean.
+---@field private arg table Optional arguments passed to the condition callback function.
+---@field private func function Callback function to check for a condition. Should return a #boolean.
 OPSTRANSPORT.Condition = {}
 
 
 ---Path used for pickup or transport.
 ---@class OPSTRANSPORT.Path 
----@field category number Category for which carriers this path is used.
----@field radius number Radomization radius for waypoints in meters. Default 0 m.
----@field reverse boolean If `true`, path is used in reversed order.
+---@field private category number Category for which carriers this path is used.
+---@field private radius number Radomization radius for waypoints in meters. Default 0 m.
+---@field private reverse boolean If `true`, path is used in reversed order.
+---@field private waypoints table Table of waypoints.
 OPSTRANSPORT.Path = {}
 
 
@@ -1167,35 +1191,40 @@ OPSTRANSPORT.Status = {}
 
 ---Storage data.
 ---@class OPSTRANSPORT.Storage 
----@field cargoAmount number Amount of cargo that should be transported.
----@field cargoDelivered number Amount of cargo that has been delivered.
----@field cargoLoaded number Amount of cargo that is loading.
----@field cargoLost number Amount of cargo that was lost.
----@field cargoReserved number Amount of cargo that is reserved for a carrier group.
----@field cargoType string Type of cargo.
----@field cargoWeight number Weight of one single cargo item in kg. Default 1 kg.
----@field storageFrom STORAGE Storage from.
----@field storageTo STORAGE Storage To.
+---@field private cargoAmount number Amount of cargo that should be transported.
+---@field private cargoDelivered number Amount of cargo that has been delivered.
+---@field private cargoLoaded number Amount of cargo that is loading.
+---@field private cargoLost number Amount of cargo that was lost.
+---@field private cargoReserved number Amount of cargo that is reserved for a carrier group.
+---@field private cargoType string Type of cargo.
+---@field private cargoWeight number Weight of one single cargo item in kg. Default 1 kg.
+---@field private storageFrom STORAGE Storage from.
+---@field private storageTo STORAGE Storage To.
 OPSTRANSPORT.Storage = {}
 
 
 ---Transport zone combination.
 ---@class OPSTRANSPORT.TransportZoneCombo 
+---@field Cargos table Cargo groups of the TZ combo. Each element is of type `Ops.OpsGroup#OPSGROUP.CargoGroup`.
 ---@field DeployAirbase AIRBASE Airbase for deploy.
 ---@field DeployZone ZONE Deploy zone.
+---@field DisembarkCarriers table Carriers where the cargo is directly disembarked to.
 ---@field DisembarkZone ZONE Zone where the troops are disembared to.
 ---@field EmbarkZone ZONE Embark zone if different from pickup zone.
 ---@field Ncargo number Number of cargos assigned. This is a running number and *not* decreased if cargo is delivered or dead.
 ---@field Ncarriers number Number of carrier groups using this transport zone.
 ---@field PickupAirbase AIRBASE Airbase for pickup.
 ---@field PickupFormation number Formation used to pickup.
+---@field PickupPaths table Paths for pickup. 
 ---@field PickupZone ZONE Pickup zone.
+---@field RequiredCargos table Required cargos.
 ---@field TransportFormation number Formation used to transport.
----@field assets boolean Cargo assets.
----@field disembarkActivation boolean If true, troops are spawned in late activated state when disembarked from carrier.
----@field disembarkInUtero boolean If true, troops are disembarked "in utero".
----@field disembarkToCarriers boolean If `true`, cargo is supposed to embark to another carrier.
----@field uid number Unique ID of the TZ combo.
+---@field TransportPaths table Path for Transport. Each elment of the table is of type `#OPSTRANSPORT.Path`. 
+---@field private assets boolean Cargo assets.
+---@field private disembarkActivation boolean If true, troops are spawned in late activated state when disembarked from carrier.
+---@field private disembarkInUtero boolean If true, troops are disembarked "in utero".
+---@field private disembarkToCarriers boolean If `true`, cargo is supposed to embark to another carrier.
+---@field private uid number Unique ID of the TZ combo.
 OPSTRANSPORT.TransportZoneCombo = {}
 
 

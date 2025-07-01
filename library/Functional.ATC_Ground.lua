@@ -24,10 +24,10 @@
 ---[DEPRECATED, use ATC_GROUND_UNIVERSAL] Base class for ATC\_GROUND implementations.
 ---@deprecated
 ---@class ATC_GROUND : BASE
----@field AirbaseList  
----@field Airbases  
----@field KickSpeed  
----@field MaximumKickSpeed  
+---@field AirbaseList NOTYPE 
+---@field Airbases NOTYPE 
+---@field KickSpeed NOTYPE 
+---@field MaximumKickSpeed NOTYPE 
 ---@field SetClient SET_CLIENT 
 ATC_GROUND = {}
 
@@ -66,7 +66,7 @@ function ATC_GROUND:New(Airbases, AirbaseList) end
 ------
 ---@param self ATC_GROUND 
 ---@param KickSpeed number The speed in Mps.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self
 function ATC_GROUND:SetKickSpeed(KickSpeed, Airbase) end
 
@@ -75,7 +75,7 @@ function ATC_GROUND:SetKickSpeed(KickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND 
 ---@param KickSpeed number Set the speed in Kmph.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self    Atc_Ground:SetKickSpeedKmph( 80 ) -- Kick the players at 80 kilometers per hour 
 function ATC_GROUND:SetKickSpeedKmph(KickSpeed, Airbase) end
 
@@ -84,7 +84,7 @@ function ATC_GROUND:SetKickSpeedKmph(KickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND 
 ---@param KickSpeedMiph number Set the speed in Mph.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self    Atc_Ground:SetKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
 function ATC_GROUND:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
 
@@ -115,7 +115,7 @@ function ATC_GROUND:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
 ------
 ---@param self ATC_GROUND 
 ---@param MaximumKickSpeed number The speed in Mps.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self
 function ATC_GROUND:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
 
@@ -126,7 +126,7 @@ function ATC_GROUND:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND 
 ---@param MaximumKickSpeed number Set the speed in Kmph.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self    Atc_Ground:SetMaximumKickSpeedKmph( 150 ) -- Kick the players at 150 kilometers per hour 
 function ATC_GROUND:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase) end
 
@@ -137,7 +137,7 @@ function ATC_GROUND:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND 
 ---@param MaximumKickSpeedMiph number Set the speed in Mph.
----@param Airbase AIRBASE (optional) The airbase to set the kick speed for.
+---@param Airbase? AIRBASE (optional) The airbase to set the kick speed for.
 ---@return ATC_GROUND #self    Atc_Ground:SetMaximumKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
 function ATC_GROUND:SetMaximumKickSpeedMiph(MaximumKickSpeedMiph, Airbase) end
 
@@ -260,7 +260,7 @@ function ATC_GROUND:_AirbaseMonitor() end
 ---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
 ---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
 ---@class ATC_GROUND_CAUCASUS : ATC_GROUND
----@field AirbaseMonitor  
+---@field AirbaseMonitor NOTYPE 
 ATC_GROUND_CAUCASUS = {}
 
 ---Creates a new ATC_GROUND_CAUCASUS object.
@@ -369,7 +369,7 @@ function ATC_GROUND_CAUCASUS:Start(RepeatScanSeconds) end
 ---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
 ---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
 ---@class ATC_GROUND_MARIANAISLANDS : ATC_GROUND
----@field AirbaseMonitor  
+---@field AirbaseMonitor NOTYPE 
 ATC_GROUND_MARIANAISLANDS = {}
 
 ---Creates a new ATC_GROUND_MARIANAISLANDS object.
@@ -493,7 +493,7 @@ function ATC_GROUND_MARIANAISLANDS:Start(RepeatScanSeconds) end
 ---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
 ---
 ---@class ATC_GROUND_NEVADA : ATC_GROUND
----@field AirbaseMonitor  
+---@field AirbaseMonitor NOTYPE 
 ATC_GROUND_NEVADA = {}
 
 ---Creates a new ATC_GROUND_NEVADA object.
@@ -634,7 +634,7 @@ function ATC_GROUND_NEVADA:Start(RepeatScanSeconds) end
 ---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
 ---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
 ---@class ATC_GROUND_NORMANDY : ATC_GROUND
----@field AirbaseMonitor  
+---@field AirbaseMonitor NOTYPE 
 ATC_GROUND_NORMANDY = {}
 
 ---Creates a new ATC_GROUND_NORMANDY object.
@@ -764,7 +764,7 @@ function ATC_GROUND_NORMANDY:Start(RepeatScanSeconds) end
 ---  * #ATC_GROUND.SetMaximumKickSpeedKmph(): Set the maximum speed allowed at an airbase in kilometers per hour.
 ---  * #ATC_GROUND.SetMaximumKickSpeedMiph(): Set the maximum speed allowed at an airbase in miles per hour.
 ---@class ATC_GROUND_PERSIANGULF : ATC_GROUND
----@field AirbaseMonitor  
+---@field AirbaseMonitor NOTYPE 
 ATC_GROUND_PERSIANGULF = {}
 
 ---Creates a new ATC_GROUND_PERSIANGULF object.
@@ -786,10 +786,12 @@ function ATC_GROUND_PERSIANGULF:Start(RepeatScanSeconds) end
 
 ---Base class for ATC\_GROUND\_UNIVERSAL implementations.
 ---@class ATC_GROUND_UNIVERSAL : BASE
----@field AirbaseMonitor  
+---@field AirbaseList table 
+---@field AirbaseMonitor NOTYPE 
+---@field Airbases table 
 ---@field ClassName string 
 ---@field KickSpeed number 
----@field MaximumKickSpeed  
+---@field MaximumKickSpeed NOTYPE 
 ---@field SetClient SET_CLIENT 
 ---@field Version string 
 ATC_GROUND_UNIVERSAL = {}
@@ -862,7 +864,7 @@ function ATC_GROUND_UNIVERSAL:SetAirbaseBoundaries(Airbase, Zone) end
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param KickSpeed number The speed in Mps.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self
 function ATC_GROUND_UNIVERSAL:SetKickSpeed(KickSpeed, Airbase) end
 
@@ -871,7 +873,7 @@ function ATC_GROUND_UNIVERSAL:SetKickSpeed(KickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param KickSpeed number Set the speed in Kmph.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetKickSpeedKmph( 80 ) -- Kick the players at 80 kilometers per hour 
 function ATC_GROUND_UNIVERSAL:SetKickSpeedKmph(KickSpeed, Airbase) end
 
@@ -880,7 +882,7 @@ function ATC_GROUND_UNIVERSAL:SetKickSpeedKmph(KickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param KickSpeedMiph number Set the speed in Mph.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
 function ATC_GROUND_UNIVERSAL:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
 
@@ -908,7 +910,7 @@ function ATC_GROUND_UNIVERSAL:SetKickSpeedMiph(KickSpeedMiph, Airbase) end
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param MaximumKickSpeed number The speed in Mps.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self
 function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
 
@@ -919,7 +921,7 @@ function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeed(MaximumKickSpeed, Airbase) end
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param MaximumKickSpeed number Set the speed in Kmph.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetMaximumKickSpeedKmph( 150 ) -- Kick the players at 150 kilometers per hour 
 function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase) end
 
@@ -930,7 +932,7 @@ function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeedKmph(MaximumKickSpeed, Airbase)
 ------
 ---@param self ATC_GROUND_UNIVERSAL 
 ---@param MaximumKickSpeedMiph number Set the speed in Mph.
----@param Airbase string (optional) The airbase name to set the kick speed for.
+---@param Airbase? string (optional) The airbase name to set the kick speed for.
 ---@return ATC_GROUND_UNIVERSAL #self    Atc_Ground:SetMaximumKickSpeedMiph( 100 ) -- Kick the players at 100 miles per hour 
 function ATC_GROUND_UNIVERSAL:SetMaximumKickSpeedMiph(MaximumKickSpeedMiph, Airbase) end
 

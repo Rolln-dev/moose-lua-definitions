@@ -115,8 +115,8 @@
 ---@field DebugEventData boolean 
 ---@field FilterCategory number If not nil, will only activate for aircraft of the given category value.
 ---@field FilterCoalition number If not nil, will only activate for aircraft of the given coalition value.
----@field lid string String for DCS log file.
----@field version string CLIENTWATCH version
+---@field private lid string String for DCS log file.
+---@field private version string CLIENTWATCH version
 CLIENTWATCH = {}
 
 ---Filter out all clients that are not of the given category

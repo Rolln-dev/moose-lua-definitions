@@ -51,20 +51,22 @@
 ---@deprecated
 ---@class AI_AIR : FSM_CONTROLLABLE
 ---@field CheckStatus boolean 
----@field DisengageRadius  
----@field FuelThresholdPercentage  
----@field HomeAirbase  
+---@field DisengageRadius NOTYPE 
+---@field FuelThresholdPercentage NOTYPE 
+---@field HomeAirbase NOTYPE 
 ---@field IdleCount number 
----@field OutOfFuelOrbitTime  
----@field PatrolCeilingAltitude  
----@field PatrolDamageThreshold  
----@field PatrolFloorAltitude  
+---@field OutOfFuelOrbitTime NOTYPE 
+---@field PatrolCeilingAltitude NOTYPE 
+---@field PatrolDamageThreshold NOTYPE 
+---@field PatrolFloorAltitude NOTYPE 
 ---@field PatrolManageDamage boolean 
----@field PatrolMaxSpeed  
----@field PatrolMinSpeed  
----@field RTBMaxSpeed  
----@field RTBMinSpeed  
----@field TankerName  
+---@field PatrolMaxSpeed NOTYPE 
+---@field PatrolMinSpeed NOTYPE 
+---@field RTBMaxSpeed NOTYPE 
+---@field RTBMinSpeed NOTYPE 
+---@field RTBSpeedMaxFactor number 
+---@field RTBSpeedMinFactor number 
+---@field TankerName NOTYPE 
 ---@field TaskDelay number 
 AI_AIR = {}
 
@@ -453,6 +455,7 @@ function AI_AIR:__Stop(Delay) end
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_AIR:onafterDead() end
 
 
@@ -464,6 +467,7 @@ function AI_AIR:onafterDead() end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param HoldTime NOTYPE 
+---@private
 function AI_AIR:onafterHold(AIGroup, From, Event, To, HoldTime) end
 
 
@@ -474,6 +478,7 @@ function AI_AIR:onafterHold(AIGroup, From, Event, To, HoldTime) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_AIR:onafterHome(AIGroup, From, Event, To) end
 
 
@@ -484,6 +489,7 @@ function AI_AIR:onafterHome(AIGroup, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_AIR:onafterRTB(AIGroup, From, Event, To) end
 
 
@@ -494,6 +500,7 @@ function AI_AIR:onafterRTB(AIGroup, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_AIR:onafterRefuel(AIGroup, From, Event, To) end
 
 ---Coordinates the approriate returning action.
@@ -505,6 +512,7 @@ function AI_AIR:onafterRefuel(AIGroup, From, Event, To) end
 ---@param Event string The Event string.
 ---@param To string The To State string.
 ---@return AI_AIR #self
+---@private
 function AI_AIR:onafterReturn(Controllable, From, Event, To) end
 
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
@@ -516,18 +524,21 @@ function AI_AIR:onafterReturn(Controllable, From, Event, To) end
 ---@param Event string The Event string.
 ---@param To string The To State string.
 ---@return AI_AIR #self
+---@private
 function AI_AIR:onafterStart(Controllable, From, Event, To) end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_AIR:onafterStatus() end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function AI_AIR:onbeforeStatus() end
 
 

@@ -99,23 +99,30 @@
 ---@class FOX : FSM
 ---@field ClassName string Name of the class.
 ---@field Debug boolean Debug mode. Messages to all about status.
----@field bigmissilemass number Explosion power of big missiles. Default 50 kg TNT. Big missiles will be destroyed earlier.
----@field destroy boolean Default player setting for destroying missiles.
----@field dt00 number Time step [sec] for missile position updates if distance to target < 1 km. Default 0.01 sec.
----@field dt01 number Time step [sec] for missile position updates if distance to target > 1 km and < 5 km. Default 0.1 sec.
----@field dt05 number Time step [sec] for missile position updates if distance to target > 5 km and < 10 km. Default 0.5 sec.
----@field dt10 number Time step [sec] for missile position updates if distance to target > 10 km and < 50 km. Default 1 sec.
----@field dt50 number Time step [sec] for missile position updates if distance to target > 50 km. Default 5 sec.
----@field explosiondist number Missile player distance in meters for destroying smaller missiles. Default 200 m.
----@field explosiondist2 number Missile player distance in meters for destroying big missiles. Default 500 m.
----@field explosionpower number Power of explostion when destroying the missile in kg TNT. Default 5 kg TNT.
----@field launchalert boolean Default player setting for launch alerts.
----@field lid string Class id string for output to DCS log file.
----@field marklaunch boolean Default player setting for mark launch coordinates.
----@field menudisabled boolean If true, F10 menu for players is disabled.
----@field protectedset SET_GROUP Set of protected groups.
----@field verbose number Verbosity level.
----@field version string FOX class version.
+---@field MenuF10 table Main radio menu on group level.
+---@field MenuF10Root table Main radio menu on mission level.
+---@field private bigmissilemass number Explosion power of big missiles. Default 50 kg TNT. Big missiles will be destroyed earlier.
+---@field private destroy boolean Default player setting for destroying missiles.
+---@field private dt00 number Time step [sec] for missile position updates if distance to target < 1 km. Default 0.01 sec.
+---@field private dt01 number Time step [sec] for missile position updates if distance to target > 1 km and < 5 km. Default 0.1 sec.
+---@field private dt05 number Time step [sec] for missile position updates if distance to target > 5 km and < 10 km. Default 0.5 sec.
+---@field private dt10 number Time step [sec] for missile position updates if distance to target > 10 km and < 50 km. Default 1 sec.
+---@field private dt50 number Time step [sec] for missile position updates if distance to target > 50 km. Default 5 sec.
+---@field private explosiondist number Missile player distance in meters for destroying smaller missiles. Default 200 m.
+---@field private explosiondist2 number Missile player distance in meters for destroying big missiles. Default 500 m.
+---@field private explosionpower number Power of explostion when destroying the missile in kg TNT. Default 5 kg TNT.
+---@field private launchalert boolean Default player setting for launch alerts.
+---@field private launchzones table Table of launch zones.
+---@field private lid string Class id string for output to DCS log file.
+---@field private marklaunch boolean Default player setting for mark launch coordinates.
+---@field private menuadded table Table of groups the menu was added for.
+---@field private menudisabled boolean If true, F10 menu for players is disabled.
+---@field private missiles table Table of tracked missiles.
+---@field private players table Table of players.
+---@field private protectedset SET_GROUP Set of protected groups.
+---@field private safezones table Table of practice zones.
+---@field private verbose number Verbosity level.
+---@field private version string FOX class version.
 FOX = {}
 
 ---Add a launch zone.
@@ -601,6 +608,7 @@ function FOX:__Stop(delay) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param missile FOX.MissileData Fired missile
+---@private
 function FOX:onafterMissileLaunch(From, Event, To, missile) end
 
 ---On after Start event.
@@ -611,6 +619,7 @@ function FOX:onafterMissileLaunch(From, Event, To, missile) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FOX:onafterStart(From, Event, To) end
 
 ---Check spawn queue and spawn aircraft if necessary.
@@ -620,6 +629,7 @@ function FOX:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FOX:onafterStatus(From, Event, To) end
 
 ---On after Stop event.
@@ -630,48 +640,50 @@ function FOX:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FOX:onafterStop(From, Event, To) end
 
 
 ---Missile data table.
 ---@class FOX.MissileData 
 ---@field Weapon WEAPON Weapon object.
----@field active boolean If true the missile is active.
----@field explosive number Explosive mass in kg TNT.
----@field fuseDist number Fuse distance in meters.
----@field missileCoord COORDINATE Missile coordinate during tracking.
----@field missileName string Name of missile.
----@field missileRange number Range of missile in meters.
----@field missileType string Type of missile.
----@field shooterCoalition number Coalition side of the shooter.
----@field shooterGroup GROUP Group that shot the missile.
----@field shooterName string Name of the shooter unit.
----@field shooterUnit UNIT Unit that shot the missile.
----@field shotCoord COORDINATE Coordinate where the missile was fired.
----@field shotTime number Abs. mission time in seconds the missile was fired.
----@field targetName string Name of the target unit or "unknown".
----@field targetOrig string Name of the "original" target, i.e. the one right after launched.
----@field targetUnit UNIT Unit that was targeted.
----@field weapon Weapon Missile weapon object.
+---@field private active boolean If true the missile is active.
+---@field private explosive number Explosive mass in kg TNT.
+---@field private fuseDist number Fuse distance in meters.
+---@field private missileCoord COORDINATE Missile coordinate during tracking.
+---@field private missileName string Name of missile.
+---@field private missileRange number Range of missile in meters.
+---@field private missileType string Type of missile.
+---@field private shooterCoalition number Coalition side of the shooter.
+---@field private shooterGroup GROUP Group that shot the missile.
+---@field private shooterName string Name of the shooter unit.
+---@field private shooterUnit UNIT Unit that shot the missile.
+---@field private shotCoord COORDINATE Coordinate where the missile was fired.
+---@field private shotTime number Abs. mission time in seconds the missile was fired.
+---@field private targetName string Name of the target unit or "unknown".
+---@field private targetOrig string Name of the "original" target, i.e. the one right after launched.
+---@field private targetPlayer FOX.PlayerData Player that was targeted or nil.
+---@field private targetUnit UNIT Unit that was targeted.
+---@field private weapon Weapon Missile weapon object.
 FOX.MissileData = {}
 
 
 ---Player data table holding all important parameters of each player.
 ---@class FOX.PlayerData 
----@field callsign string Callsign of player.
----@field client CLIENT Client object of player.
----@field coalition number Coalition number of player.
----@field dead number Number of missiles not defeated.
----@field defeated number Number of missiles defeated.
----@field destroy boolean Destroy missile.
----@field group GROUP Aircraft group of player.
----@field groupname string Name of the the player aircraft group.
----@field inzone boolean Player is inside a protected zone.
----@field launchalert boolean Alert player on detected missile launch.
----@field marklaunch boolean Mark position of launched missile on F10 map.
----@field name string Player name.
----@field unit UNIT Aircraft of the player.
----@field unitname string Name of the unit.
+---@field private callsign string Callsign of player.
+---@field private client CLIENT Client object of player.
+---@field private coalition number Coalition number of player.
+---@field private dead number Number of missiles not defeated.
+---@field private defeated number Number of missiles defeated.
+---@field private destroy boolean Destroy missile.
+---@field private group GROUP Aircraft group of player.
+---@field private groupname string Name of the the player aircraft group.
+---@field private inzone boolean Player is inside a protected zone.
+---@field private launchalert boolean Alert player on detected missile launch.
+---@field private marklaunch boolean Mark position of launched missile on F10 map.
+---@field private name string Player name.
+---@field private unit UNIT Aircraft of the player.
+---@field private unitname string Name of the unit.
 FOX.PlayerData = {}
 
 

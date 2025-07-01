@@ -110,7 +110,7 @@ function ACT_ASSIGN:New() end
 ---@field ProcessUnit UNIT 
 ---@field TargetZone ZONE_BASE 
 ---@field Task TASK 
----@field TaskBriefing  
+---@field TaskBriefing NOTYPE 
 ACT_ASSIGN_ACCEPT = {}
 
 
@@ -137,6 +137,7 @@ function ACT_ASSIGN_ACCEPT:New(TaskBriefing) end
 ---@param From string 
 ---@param To string 
 ---@param Task NOTYPE 
+---@private
 function ACT_ASSIGN_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task) end
 
 ---StateMachine callback function
@@ -149,19 +150,20 @@ function ACT_ASSIGN_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task) end
 ---@param To string 
 ---@param Task NOTYPE 
 ---@param TaskGroup NOTYPE 
+---@private
 function ACT_ASSIGN_ACCEPT:onenterAssigned(ProcessUnit, Event, From, To, Task, TaskGroup) end
 
 
 ---ACT_ASSIGN_MENU_ACCEPT class
 ---@class ACT_ASSIGN_MENU_ACCEPT : ACT_ASSIGN
 ---@field ClassName string 
----@field Menu  
----@field MenuAcceptTask  
----@field MenuRejectTask  
+---@field Menu NOTYPE 
+---@field MenuAcceptTask NOTYPE 
+---@field MenuRejectTask NOTYPE 
 ---@field ProcessUnit UNIT 
 ---@field TargetZone ZONE_BASE 
 ---@field Task TASK 
----@field TaskBriefing  
+---@field TaskBriefing NOTYPE 
 ACT_ASSIGN_MENU_ACCEPT = {}
 
 ---Creates a new task assignment state machine.
@@ -205,6 +207,7 @@ function ACT_ASSIGN_MENU_ACCEPT:New(TaskBriefing) end
 ---@param To string 
 ---@param Task NOTYPE 
 ---@param TaskGroup NOTYPE 
+---@private
 function ACT_ASSIGN_MENU_ACCEPT:onafterAssign(ProcessUnit, Event, From, To, Task, TaskGroup) end
 
 ---StateMachine callback function
@@ -217,6 +220,7 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterAssign(ProcessUnit, Event, From, To, Task
 ---@param To string 
 ---@param Task NOTYPE 
 ---@param TaskGroup NOTYPE 
+---@private
 function ACT_ASSIGN_MENU_ACCEPT:onafterReject(ProcessUnit, Event, From, To, Task, TaskGroup) end
 
 ---StateMachine callback function
@@ -228,6 +232,7 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterReject(ProcessUnit, Event, From, To, Task
 ---@param From string 
 ---@param To string 
 ---@param Task NOTYPE 
+---@private
 function ACT_ASSIGN_MENU_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task) end
 
 ---StateMachine callback function
@@ -240,6 +245,7 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task)
 ---@param To string 
 ---@param Task NOTYPE 
 ---@param TaskGroup NOTYPE 
+---@private
 function ACT_ASSIGN_MENU_ACCEPT:onenterAssigned(ProcessUnit, Event, From, To, Task, TaskGroup) end
 
 

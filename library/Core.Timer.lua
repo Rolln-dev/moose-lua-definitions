@@ -84,15 +84,16 @@
 ---@field ClassName string Name of the class.
 ---@field Tstart number Relative start time in seconds.
 ---@field Tstop number Relative stop time in seconds.
----@field dT number Time interval between function calls in seconds.
----@field func function Timer function.
----@field isrunning boolean If `true`, timer is running. Else it was not started yet or was stopped.
----@field lid string Class id string for output to DCS log file.
----@field ncalls number Counter of function calls.
----@field ncallsMax number Max number of function calls. If reached, timer is stopped.
----@field tid number Timer ID returned by the DCS API function.
----@field uid number Unique ID of the timer.
----@field version string TIMER class version.
+---@field private dT number Time interval between function calls in seconds.
+---@field private func function Timer function.
+---@field private isrunning boolean If `true`, timer is running. Else it was not started yet or was stopped.
+---@field private lid string Class id string for output to DCS log file.
+---@field private ncalls number Counter of function calls.
+---@field private ncallsMax number Max number of function calls. If reached, timer is stopped.
+---@field private para table Parameters passed to the timer function.
+---@field private tid number Timer ID returned by the DCS API function.
+---@field private uid number Unique ID of the timer.
+---@field private version string TIMER class version.
 TIMER = {}
 
 ---Check if the timer has been started and was not stopped.
@@ -155,7 +156,7 @@ function TIMER:StartIf(Condition, Tstart, dT, Duration) end
 ---
 ------
 ---@param self TIMER 
----@param Delay number (Optional) Delay in seconds, before the timer is stopped.
+---@param Delay? number (Optional) Delay in seconds, before the timer is stopped.
 ---@return TIMER #self
 function TIMER:Stop(Delay) end
 

@@ -263,53 +263,67 @@
 ---@field ClassName string Name of the Class.
 ---@field Coalition number Coalition side for the menu, if any.
 ---@field Debug boolean If true, debug info is sent as messages on the screen.
+---@field Defaults RANGE.Defaults 
+---@field MenuAddedTo table Table for monitoring which players already got an F10 menu.
+---@field MenuF10 table Main radio menu on group level.
+---@field MenuF10Root table Main radio menu on mission level.
+---@field Names table Global list of all defined range names.
+---@field PlayerSettings table Individual player settings.
+---@field Sound RANGE.Sound 
 ---@field StrafePitSmokeColor SMOKECOLOR Color id used to smoke strafe pit approach boxes.
 ---@field StrafeSmokeColor SMOKECOLOR Color id used to smoke strafe targets.
+---@field TargetType RANGE.TargetType 
 ---@field TdelaySmoke number Time delay in seconds between impact of bomb and starting the smoke. Default 3 seconds.
 ---@field Tmsg number Time [sec] messages to players are displayed. Default 30 sec.
----@field autosave boolean If true, automatically save results every X seconds.
----@field ceilingaltitude number Range ceiling altitude in ft MSL.  Aircraft above this altitude are not considered to be in the range. Default is 20000 ft.
----@field ceilingenabled boolean Range has a ceiling and is not unlimited.  Default is false.
----@field controlmsrs MSRS SRS wrapper for range controller.
----@field controlsrsQ MSRSQUEUE SRS queue for range controller.
----@field defaultsmokebomb boolean If true, initialize player settings to smoke bomb.
----@field dtBombtrack number Time step [sec] used for tracking released bomb/rocket positions. Default 0.005 seconds.
----@field examinerexclusive boolean If true, only the examiner gets messages. If false, clients and examiner get messages.
----@field examinergroupname string Name of the examiner group which should get all messages.
----@field funkmanSocket  
----@field illuminationmaxalt number Maximum altitude in meters AGL at which illumination bombs are fired. Default is 1000 m.
----@field illuminationminalt number Minimum altitude in meters AGL at which illumination bombs are fired. Default is 500 m.
----@field instructmsrs MSRS SRS wrapper for range instructor.
----@field instructor RADIOQUEUE Instructor radio queue.
----@field instructorfreq number Frequency on which the range control transmitts.
----@field instructorrelayname string Name of relay unit.
----@field instructsrsQ MSRSQUEUE SRS queue for range instructor.
----@field lid string String id of range for output in DCS log.
----@field location COORDINATE Coordinate of the range location.
----@field menuF10root MENU_MISSION Specific user defined root F10 menu.
----@field messages boolean Globally enable/disable all messages to players.
----@field nbombtargets number Number of bombing targets.
----@field ndisplayresult number Number of (player) results that a displayed. Default is 10.
----@field nstrafetargets number Number of strafing targets.
----@field rangecontrol RADIOQUEUE Range control radio queue.
----@field rangecontrolfreq number Frequency on which the range control transmitts.
----@field rangecontrolrelayname string Name of relay unit.
----@field rangename string Name of the range.
----@field rangeradius number Radius of range defining its total size for e.g. smoking bomb impact points and sending radio messages. Default 5 km.
----@field rangezone ZONE MOOSE zone object of the range. For example, no bomb impacts are smoked if bombs fall outside of the range zone.
----@field scorebombdistance number Distance from closest target up to which bomb hits are counted. Default 1000 m.
----@field soundpath string Path inside miz file where the sound files are located. Default is "Range Soundfiles/".
----@field strafemaxalt number Maximum altitude in meters AGL for registering for a strafe run. Default is 914 m = 3000 ft.
----@field targetpath string Path where to save the target sheets.
----@field targetprefix string File prefix for target sheet files.
----@field targetsheet boolean If true, players can save their target sheets. Rangeboss will not work if targetsheets do not save.
----@field timerCheckZone  
----@field trackbombs boolean If true (default), all bomb types are tracked and impact point to closest bombing target is evaluated.
----@field trackmissiles boolean If true (default), all missile types are tracked and impact point to closest bombing target is evaluated.
----@field trackrockets boolean If true (default), all rocket types are tracked and impact point to closest bombing target is evaluated.
----@field useSRS boolean 
----@field verbose boolean Verbosity level. Higher means more output to DCS log file.
----@field version string Range script version.
+---@field private autosave boolean If true, automatically save results every X seconds.
+---@field private bombPlayerResults table Table containing the bombing results of each player.
+---@field private bombingTargets table Table of targets to bomb.
+---@field private ceilingaltitude number Range ceiling altitude in ft MSL.  Aircraft above this altitude are not considered to be in the range. Default is 20000 ft.
+---@field private ceilingenabled boolean Range has a ceiling and is not unlimited.  Default is false.
+---@field private controlmsrs MSRS SRS wrapper for range controller.
+---@field private controlsrsQ MSRSQUEUE SRS queue for range controller.
+---@field private defaultsmokebomb boolean If true, initialize player settings to smoke bomb.
+---@field private dtBombtrack number Time step [sec] used for tracking released bomb/rocket positions. Default 0.005 seconds.
+---@field private examinerexclusive boolean If true, only the examiner gets messages. If false, clients and examiner get messages.
+---@field private examinergroupname string Name of the examiner group which should get all messages.
+---@field private funkmanSocket NOTYPE 
+---@field private illuminationmaxalt number Maximum altitude in meters AGL at which illumination bombs are fired. Default is 1000 m.
+---@field private illuminationminalt number Minimum altitude in meters AGL at which illumination bombs are fired. Default is 500 m.
+---@field private instructmsrs MSRS SRS wrapper for range instructor.
+---@field private instructor RADIOQUEUE Instructor radio queue.
+---@field private instructorfreq number Frequency on which the range control transmitts.
+---@field private instructorrelayname string Name of relay unit.
+---@field private instructsrsQ MSRSQUEUE SRS queue for range instructor.
+---@field private lid string String id of range for output in DCS log.
+---@field private location COORDINATE Coordinate of the range location.
+---@field private menuF10root MENU_MISSION Specific user defined root F10 menu.
+---@field private messages boolean Globally enable/disable all messages to players.
+---@field private nbombtargets number Number of bombing targets.
+---@field private ndisplayresult number Number of (player) results that a displayed. Default is 10.
+---@field private nstrafetargets number Number of strafing targets.
+---@field private planes table Table for administration.
+---@field private rangecontrol RADIOQUEUE Range control radio queue.
+---@field private rangecontrolfreq number Frequency on which the range control transmitts.
+---@field private rangecontrolrelayname string Name of relay unit.
+---@field private rangename string Name of the range.
+---@field private rangeradius number Radius of range defining its total size for e.g. smoking bomb impact points and sending radio messages. Default 5 km.
+---@field private rangezone ZONE MOOSE zone object of the range. For example, no bomb impacts are smoked if bombs fall outside of the range zone.
+---@field private scorebombdistance number Distance from closest target up to which bomb hits are counted. Default 1000 m.
+---@field private soundpath string Path inside miz file where the sound files are located. Default is "Range Soundfiles/".
+---@field private strafePlayerResults table Table containing the strafing results of each player.
+---@field private strafeStatus table Table containing the current strafing target a player as assigned to.
+---@field private strafeTargets table Table of strafing targets.
+---@field private strafemaxalt number Maximum altitude in meters AGL for registering for a strafe run. Default is 914 m = 3000 ft.
+---@field private targetpath string Path where to save the target sheets.
+---@field private targetprefix string File prefix for target sheet files.
+---@field private targetsheet boolean If true, players can save their target sheets. Rangeboss will not work if targetsheets do not save.
+---@field private timerCheckZone NOTYPE 
+---@field private trackbombs boolean If true (default), all bomb types are tracked and impact point to closest bombing target is evaluated.
+---@field private trackmissiles boolean If true (default), all missile types are tracked and impact point to closest bombing target is evaluated.
+---@field private trackrockets boolean If true (default), all rocket types are tracked and impact point to closest bombing target is evaluated.
+---@field private useSRS boolean 
+---@field private verbose boolean Verbosity level. Higher means more output to DCS log file.
+---@field private version string Range script version.
 RANGE = {}
 
 ---Add a coordinate of a bombing target.
@@ -357,7 +371,7 @@ function RANGE:AddBombingTargetUnit(unit, goodhitrange, randommove) end
 ------
 ---@param self RANGE 
 ---@param targetnames table Single or multiple (Table) names of unit or static objects serving as bomb targets.
----@param goodhitrange number (Optional) Max distance from target unit (in meters) which is considered as a good hit. Default is 25 m.
+---@param goodhitrange? number (Optional) Max distance from target unit (in meters) which is considered as a good hit. Default is 25 m.
 ---@param randommove boolean If true, unit will move randomly within the range. Default is false.
 ---@return RANGE #self
 function RANGE:AddBombingTargets(targetnames, goodhitrange, randommove) end
@@ -370,12 +384,12 @@ function RANGE:AddBombingTargets(targetnames, goodhitrange, randommove) end
 ------
 ---@param self RANGE 
 ---@param targetnames table Single or multiple (Table) unit or static names defining the strafe targets. The first target in the list determines the approach box origin (heading and box).
----@param boxlength number (Optional) Length of the approach box in meters. Default is 3000 m.
----@param boxwidth number (Optional) Width of the approach box in meters. Default is 300 m.
----@param heading number (Optional) Approach box heading in degrees (originating FROM the target). Default is the heading set in the ME for the first target unit
----@param inverseheading boolean (Optional) Use inverse heading (heading --> heading - 180 Degrees). Default is false.
----@param goodpass number (Optional) Number of hits for a "good" strafing pass. Default is 20.
----@param foulline number (Optional) Foul line distance. Hits from closer than this distance are not counted. Default is 610 m = 2000 ft. Set to 0 for no foul line.
+---@param boxlength? number (Optional) Length of the approach box in meters. Default is 3000 m.
+---@param boxwidth? number (Optional) Width of the approach box in meters. Default is 300 m.
+---@param heading? number (Optional) Approach box heading in degrees (originating FROM the target). Default is the heading set in the ME for the first target unit
+---@param inverseheading? boolean (Optional) Use inverse heading (heading --> heading - 180 Degrees). Default is false.
+---@param goodpass? number (Optional) Number of hits for a "good" strafing pass. Default is 20.
+---@param foulline? number (Optional) Foul line distance. Hits from closer than this distance are not counted. Default is 610 m = 2000 ft. Set to 0 for no foul line.
 ---@return RANGE #self
 function RANGE:AddStrafePit(targetnames, boxlength, boxwidth, heading, inverseheading, goodpass, foulline) end
 
@@ -387,12 +401,12 @@ function RANGE:AddStrafePit(targetnames, boxlength, boxwidth, heading, inversehe
 ------
 ---@param self RANGE 
 ---@param group GROUP MOOSE group of unit names defining the strafe target pit. The first unit in the group determines the approach zone (heading and box).
----@param boxlength number (Optional) Length of the approach box in meters. Default is 3000 m.
----@param boxwidth number (Optional) Width of the approach box in meters. Default is 300 m.
----@param heading number (Optional) Approach heading in Degrees. Default is heading of the unit as defined in the mission editor.
----@param inverseheading boolean (Optional) Take inverse heading (heading --> heading - 180 Degrees). Default is false.
----@param goodpass number (Optional) Number of hits for a "good" strafing pass. Default is 20.
----@param foulline number (Optional) Foul line distance. Hits from closer than this distance are not counted. Default 610 m = 2000 ft. Set to 0 for no foul line.
+---@param boxlength? number (Optional) Length of the approach box in meters. Default is 3000 m.
+---@param boxwidth? number (Optional) Width of the approach box in meters. Default is 300 m.
+---@param heading? number (Optional) Approach heading in Degrees. Default is heading of the unit as defined in the mission editor.
+---@param inverseheading? boolean (Optional) Take inverse heading (heading --> heading - 180 Degrees). Default is false.
+---@param goodpass? number (Optional) Number of hits for a "good" strafing pass. Default is 20.
+---@param foulline? number (Optional) Foul line distance. Hits from closer than this distance are not counted. Default 610 m = 2000 ft. Set to 0 for no foul line.
 ---@return RANGE #self
 function RANGE:AddStrafePitGroup(group, boxlength, boxwidth, heading, inverseheading, goodpass, foulline) end
 
@@ -456,7 +470,7 @@ function RANGE:Impact(result, player) end
 ------
 ---@param self RANGE 
 ---@param RangeName string Name of the range. Has to be unique. Will we used to create F10 menu items etc.
----@param Coalition number (optional) Coalition of the range, if any, e.g. coalition.side.BLUE.
+---@param Coalition? number (optional) Coalition of the range, if any, e.g. coalition.side.BLUE.
 ---@return RANGE #RANGE object.
 function RANGE:New(RangeName, Coalition) end
 
@@ -678,7 +692,7 @@ function RANGE:SetMessagesON() end
 ---
 ------
 ---@param self RANGE 
----@param altitude number (optional) Ceiling altitude of the range in ft MSL. Default 20000ft MSL
+---@param altitude? number (optional) Ceiling altitude of the range in ft MSL. Default 20000ft MSL
 ---@return RANGE #self
 function RANGE:SetRangeCeiling(altitude) end
 
@@ -818,8 +832,8 @@ function RANGE:SetStrafeTargetSmokeColor(colorid) end
 ---
 ------
 ---@param self RANGE 
----@param path string (Optional) Path where to save the target sheets.
----@param prefix string (Optional) Prefix for target sheet files. File name will be saved as *prefix_aircrafttype-0001.csv*, *prefix_aircrafttype-0002.csv*, etc.
+---@param path? string (Optional) Path where to save the target sheets.
+---@param prefix? string (Optional) Prefix for target sheet files. File name will be saved as *prefix_aircrafttype-0001.csv*, *prefix_aircrafttype-0002.csv*, etc.
 ---@return RANGE #self
 function RANGE:SetTargetSheet(path, prefix) end
 
@@ -1037,7 +1051,7 @@ function RANGE:_GetSpeed(controllable) end
 ---
 ------
 ---@param self RANGE 
----@param _unitName string (Optional) Name of the player unit.
+---@param _unitName? string (Optional) Name of the player unit.
 function RANGE:_IlluminateBombTargets(_unitName) end
 
 ---Mark targets on F10 map.
@@ -1218,6 +1232,7 @@ function RANGE:_smokecolor2text(color) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param player RANGE.PlayerData Player data.
+---@private
 function RANGE:onafterEnterRange(From, Event, To, player) end
 
 ---Function called after player leaves the range zone.
@@ -1228,6 +1243,7 @@ function RANGE:onafterEnterRange(From, Event, To, player) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param player RANGE.PlayerData Player data.
+---@private
 function RANGE:onafterExitRange(From, Event, To, player) end
 
 ---Function called after bomb impact on range.
@@ -1239,6 +1255,7 @@ function RANGE:onafterExitRange(From, Event, To, player) end
 ---@param To string To state.
 ---@param result RANGE.BombResult Result of bomb impact.
 ---@param player RANGE.PlayerData Player data table.
+---@private
 function RANGE:onafterImpact(From, Event, To, result, player) end
 
 ---On after "Load" event.
@@ -1249,6 +1266,7 @@ function RANGE:onafterImpact(From, Event, To, result, player) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onafterLoad(From, Event, To) end
 
 ---Function called after save.
@@ -1258,6 +1276,7 @@ function RANGE:onafterLoad(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onafterSave(From, Event, To) end
 
 ---Initializes number of targets and location of the range.
@@ -1268,6 +1287,7 @@ function RANGE:onafterSave(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onafterStart(From, Event, To) end
 
 ---Check spawn queue and spawn aircraft if necessary.
@@ -1277,6 +1297,7 @@ function RANGE:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onafterStatus(From, Event, To) end
 
 ---Function called after strafing run.
@@ -1288,6 +1309,7 @@ function RANGE:onafterStatus(From, Event, To) end
 ---@param To string To state.
 ---@param player RANGE.PlayerData Player data table.
 ---@param result RANGE.StrafeResult Result of run.
+---@private
 function RANGE:onafterStrafeResult(From, Event, To, player, result) end
 
 ---Function called before save event.
@@ -1298,6 +1320,7 @@ function RANGE:onafterStrafeResult(From, Event, To, player, result) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onbeforeLoad(From, Event, To) end
 
 ---Function called before save event.
@@ -1308,42 +1331,44 @@ function RANGE:onbeforeLoad(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RANGE:onbeforeSave(From, Event, To) end
 
 
 ---Bomb target result.
 ---@class RANGE.BombResult 
----@field airframe string Aircraft type of player.
----@field attackAlt number Attack altitude in feet.
----@field attackHdg number Attack heading in degrees.
----@field attackVel number Attack velocity in knots.
----@field clock string Time of the run.
----@field command  
----@field date string OS date.
----@field distance number Distance in meters.
----@field midate  
----@field name string Name of closest target.
----@field player string Player name.
----@field quality string Hit quality.
----@field radial number Radial in degrees.
----@field rangename string Name of the range.
----@field roundsFired number 
----@field roundsHit number 
----@field roundsQuality string 
----@field theatre  
----@field time number Time via timer.getAbsTime() in seconds of impact.
----@field weapon string Name of the weapon.
+---@field private airframe string Aircraft type of player.
+---@field private attackAlt number Attack altitude in feet.
+---@field private attackHdg number Attack heading in degrees.
+---@field private attackVel number Attack velocity in knots.
+---@field private clock string Time of the run.
+---@field private command NOTYPE 
+---@field private date string OS date.
+---@field private distance number Distance in meters.
+---@field private midate NOTYPE 
+---@field private name string Name of closest target.
+---@field private player string Player name.
+---@field private quality string Hit quality.
+---@field private radial number Radial in degrees.
+---@field private rangename string Name of the range.
+---@field private roundsFired number 
+---@field private roundsHit number 
+---@field private roundsQuality string 
+---@field private theatre NOTYPE 
+---@field private time number Time via timer.getAbsTime() in seconds of impact.
+---@field private weapon string Name of the weapon.
 RANGE.BombResult = {}
 
 
 ---Bomb target data.
 ---@class RANGE.BombTarget 
----@field coordinate COORDINATE Coordinate of the target.
----@field goodhitrange number Range in meters for a good hit.
----@field move boolean If true, unit move randomly.
----@field name string Name of unit.
----@field speed number Speed of unit.
----@field target UNIT Target unit.
+---@field private coordinate COORDINATE Coordinate of the target.
+---@field private goodhitrange number Range in meters for a good hit.
+---@field private move boolean If true, unit move randomly.
+---@field private name string Name of unit.
+---@field private speed number Speed of unit.
+---@field private target UNIT Target unit.
+---@field private type RANGE.TargetType Type of target.
 RANGE.BombTarget = {}
 
 
@@ -1351,85 +1376,131 @@ RANGE.BombTarget = {}
 ---@class RANGE.Defaults 
 ---@field TdelaySmoke number 
 ---@field Tmsg number 
----@field boxlength number 
----@field boxwidth number 
----@field dtBombtrack number 
----@field foulline number 
----@field goodhitrange number 
----@field goodpass number 
----@field ndisplayresult number 
----@field rangeradius number 
----@field strafemaxalt number 
+---@field private boxlength number 
+---@field private boxwidth number 
+---@field private dtBombtrack number 
+---@field private foulline number 
+---@field private goodhitrange number 
+---@field private goodpass number 
+---@field private ndisplayresult number 
+---@field private rangeradius number 
+---@field private strafemaxalt number 
 RANGE.Defaults = {}
 
 
 ---Player settings.
 ---@class RANGE.PlayerData 
----@field airframe string Aircraft type name.
----@field client CLIENT Client object of player.
----@field flarecolor number Color of flares.
----@field flaredirecthits boolean Flare when player directly hits a target.
----@field inzone boolean If true, player is inside the range zone.
----@field messages boolean Display info messages.
----@field playername string Name of player.
----@field smokebombimpact boolean Smoke bomb impact points.
----@field smokecolor number Color of smoke.
----@field targeton boolean Target on.
----@field unit UNIT Player unit.
----@field unitname string Name of player aircraft unit.
+---@field private airframe string Aircraft type name.
+---@field private client CLIENT Client object of player.
+---@field private flarecolor number Color of flares.
+---@field private flaredirecthits boolean Flare when player directly hits a target.
+---@field private inzone boolean If true, player is inside the range zone.
+---@field private messages boolean Display info messages.
+---@field private playername string Name of player.
+---@field private smokebombimpact boolean Smoke bomb impact points.
+---@field private smokecolor number Color of smoke.
+---@field private targeton boolean Target on.
+---@field private unit UNIT Player unit.
+---@field private unitname string Name of player aircraft unit.
 RANGE.PlayerData = {}
 
 
 ---Sound files.
 ---@class RANGE.Sound 
+---@field IR0 RANGE.Soundfile 
+---@field IR1 RANGE.Soundfile 
+---@field IR2 RANGE.Soundfile 
+---@field IR3 RANGE.Soundfile 
+---@field IR4 RANGE.Soundfile 
+---@field IR5 RANGE.Soundfile 
+---@field IR6 RANGE.Soundfile 
+---@field IR7 RANGE.Soundfile 
+---@field IR8 RANGE.Soundfile 
+---@field IR9 RANGE.Soundfile 
+---@field IRDecimal RANGE.Soundfile 
+---@field IREnterRange RANGE.Soundfile 
+---@field IRExitRange RANGE.Soundfile 
+---@field IRMegaHertz RANGE.Soundfile 
+---@field RC0 RANGE.Soundfile 
+---@field RC1 RANGE.Soundfile 
+---@field RC2 RANGE.Soundfile 
+---@field RC3 RANGE.Soundfile 
+---@field RC4 RANGE.Soundfile 
+---@field RC5 RANGE.Soundfile 
+---@field RC6 RANGE.Soundfile 
+---@field RC7 RANGE.Soundfile 
+---@field RC8 RANGE.Soundfile 
+---@field RC9 RANGE.Soundfile 
+---@field RCAccuracy RANGE.Soundfile 
+---@field RCDegrees RANGE.Soundfile 
+---@field RCExcellentHit RANGE.Soundfile 
+---@field RCExcellentPass RANGE.Soundfile 
+---@field RCFeet RANGE.Soundfile 
+---@field RCFor RANGE.Soundfile 
+---@field RCGoodHit RANGE.Soundfile 
+---@field RCGoodPass RANGE.Soundfile 
+---@field RCHitsOnTarget RANGE.Soundfile 
+---@field RCImpact RANGE.Soundfile 
+---@field RCIneffectiveHit RANGE.Soundfile 
+---@field RCIneffectivePass RANGE.Soundfile 
+---@field RCInvalidHit RANGE.Soundfile 
+---@field RCLeftStrafePitTooQuickly RANGE.Soundfile 
+---@field RCPercent RANGE.Soundfile 
+---@field RCPoorHit RANGE.Soundfile 
+---@field RCPoorPass RANGE.Soundfile 
+---@field RCRollingInOnStrafeTarget RANGE.Soundfile 
+---@field RCTotalRoundsFired RANGE.Soundfile 
+---@field RCWeaponImpactedTooFar RANGE.Soundfile 
 RANGE.Sound = {}
 
 
 ---Sound file data.
 ---@class RANGE.Soundfile 
----@field duration number Duration in seconds.
----@field filename string Name of the file
+---@field private duration number Duration in seconds.
+---@field private filename string Name of the file
 RANGE.Soundfile = {}
 
 
 ---Strafe result.
 ---@class RANGE.StrafeResult 
----@field airframe string Aircraft type of player.
----@field clock string Time of the run.
----@field command  
----@field date string OS date.
----@field invalid boolean Invalid pass.
----@field midate  
----@field name string Name of the target pit.
----@field player string Player name.
----@field rangename string Name of the range.
----@field roundsFired number Number of rounds fired.
----@field roundsHit number Number of rounds that hit the target.
----@field roundsQuality  
----@field strafeAccuracy number Accuracy of the run in percent.
----@field theatre  
----@field time number Time via timer.getAbsTime() in seconds of impact.
+---@field private airframe string Aircraft type of player.
+---@field private clock string Time of the run.
+---@field private command NOTYPE 
+---@field private date string OS date.
+---@field private invalid boolean Invalid pass.
+---@field private midate NOTYPE 
+---@field private name string Name of the target pit.
+---@field private player string Player name.
+---@field private rangename string Name of the range.
+---@field private roundsFired number Number of rounds fired.
+---@field private roundsHit number Number of rounds that hit the target.
+---@field private roundsQuality NOTYPE 
+---@field private strafeAccuracy number Accuracy of the run in percent.
+---@field private theatre NOTYPE 
+---@field private time number Time via timer.getAbsTime() in seconds of impact.
 RANGE.StrafeResult = {}
 
 
 ---Strafe status for player.
 ---@class RANGE.StrafeStatus 
----@field ammo number Amount of ammo.
----@field hits number Number of hits on target.
----@field pastfoulline boolean If `true`, player passed foul line. Invalid pass.
----@field time number Number of times.
+---@field private ammo number Amount of ammo.
+---@field private hits number Number of hits on target.
+---@field private pastfoulline boolean If `true`, player passed foul line. Invalid pass.
+---@field private time number Number of times.
+---@field private zone RANGE.StrafeTarget Strafe target.
 RANGE.StrafeStatus = {}
 
 
 ---Strafe target data.
 ---@class RANGE.StrafeTarget 
----@field coordinate COORDINATE Center coordinate of the pit.
----@field foulline number Foul line
----@field goodPass number Number of hits for a good pass.
----@field heading number Heading of pit.
----@field name string Name of the unit.
----@field polygon ZONE_POLYGON Polygon zone.
----@field smokepoints number Number of smoke points.
+---@field private coordinate COORDINATE Center coordinate of the pit.
+---@field private foulline number Foul line
+---@field private goodPass number Number of hits for a good pass.
+---@field private heading number Heading of pit.
+---@field private name string Name of the unit.
+---@field private polygon ZONE_POLYGON Polygon zone.
+---@field private smokepoints number Number of smoke points.
+---@field private targets table Table of target units.
 RANGE.StrafeTarget = {}
 
 

@@ -80,6 +80,7 @@ function ACT_ACCOUNT:New() end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ACCOUNT:onafterEvent(ProcessUnit, Event, From, To) end
 
 ---StateMachine callback function
@@ -90,6 +91,7 @@ function ACT_ACCOUNT:onafterEvent(ProcessUnit, Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ACCOUNT:onafterStart(ProcessUnit, Event, From, To) end
 
 ---StateMachine callback function
@@ -100,6 +102,7 @@ function ACT_ACCOUNT:onafterStart(ProcessUnit, Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ACCOUNT:onenterWaiting(ProcessUnit, Event, From, To) end
 
 
@@ -156,6 +159,7 @@ function ACT_ACCOUNT_DEADS:OnEventHit(EventData) end
 ---@param Event string 
 ---@param To string 
 ---@param EventData EVENTDATA 
+---@private
 function ACT_ACCOUNT_DEADS:onafterEvent(ProcessUnit, Task, From, Event, To, EventData) end
 
 ---StateMachine callback function
@@ -168,6 +172,7 @@ function ACT_ACCOUNT_DEADS:onafterEvent(ProcessUnit, Task, From, Event, To, Even
 ---@param Event string 
 ---@param To string 
 ---@param EventData EVENTDATA 
+---@private
 function ACT_ACCOUNT_DEADS:onenterAccountForOther(ProcessUnit, Task, From, Event, To, EventData) end
 
 ---StateMachine callback function
@@ -180,6 +185,7 @@ function ACT_ACCOUNT_DEADS:onenterAccountForOther(ProcessUnit, Task, From, Event
 ---@param Event string 
 ---@param To string 
 ---@param EventData EVENTDATA 
+---@private
 function ACT_ACCOUNT_DEADS:onenterAccountForPlayer(ProcessUnit, Task, From, Event, To, EventData) end
 
 ---StateMachine callback function
@@ -191,6 +197,7 @@ function ACT_ACCOUNT_DEADS:onenterAccountForPlayer(ProcessUnit, Task, From, Even
 ---@param From string 
 ---@param To string 
 ---@param Task NOTYPE 
+---@private
 function ACT_ACCOUNT_DEADS:onenterReport(ProcessUnit, Event, From, To, Task) end
 
 
@@ -198,6 +205,7 @@ function ACT_ACCOUNT_DEADS:onenterReport(ProcessUnit, Event, From, To, Task) end
 ------
 ---@param self NOTYPE 
 ---@param EventData NOTYPE 
+---@private
 function ACT_ACCOUNT_DEADS:onfuncEventCrash(EventData) end
 
 
@@ -205,6 +213,7 @@ function ACT_ACCOUNT_DEADS:onfuncEventCrash(EventData) end
 ------
 ---@param self NOTYPE 
 ---@param EventData NOTYPE 
+---@private
 function ACT_ACCOUNT_DEADS:onfuncEventDead(EventData) end
 
 

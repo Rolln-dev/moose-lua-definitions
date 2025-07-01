@@ -24,123 +24,160 @@
 ---OPSGROUP class.
 ---@class OPSGROUP : FSM
 ---@field Astar ASTAR path finding.
+---@field CargoStatus OPSGROUP.CargoStatus 
+---@field CarrierStatus OPSGROUP.CarrierStatus 
 ---@field ClassName string Name of the class.
+---@field EPLRS NOTYPE 
+---@field ElementStatus OPSGROUP.ElementStatus 
+---@field GroupStatus OPSGROUP.GroupStatus 
 ---@field Ndestroyed number Number of destroyed units.
 ---@field Nhit number Number of hits taken.
 ---@field Nkills number Number kills of this groups.
----@field TpositionUpdate  
+---@field TaskStatus OPSGROUP.TaskStatus 
+---@field TaskType OPSGROUP.TaskType 
+---@field TpositionUpdate NOTYPE 
 ---@field Twaiting number Abs. mission time stamp when the group was ordered to wait.
----@field actype  
----@field adinfinitum boolean Resume route at first waypoint when final waypoint is reached.
----@field altitudeCruise  
----@field attribute string Generalized attribute.
----@field callsignAlias string Callsign alias.
----@field callsignName string Callsign name.
----@field cargoStatus string Cargo status of this group acting as cargo.
----@field cargoTZC OPSTRANSPORT.TransportZoneCombo Transport zone combo (pickup, deploy etc.) currently used.
----@field cargoTransport OPSTRANSPORT Current cargo transport assignment.
----@field cargoTransportUID number Unique ID of the transport assignment this cargo group is associated with.
----@field carrierStatus string Carrier status of this group acting as cargo carrier.
----@field category  
----@field ceiling  
----@field checkzones SET_ZONE Set of zones.
----@field cohort COHORT Cohort the group belongs to.
----@field controller Controller The DCS controller of the group.
----@field coordinate COORDINATE Current coordinate.
----@field currbase AIRBASE The current airbase of the flight group, i.e. where it is currently located or landing at.
----@field currentmission number The ID (auftragsnummer) of the currently assigned AUFTRAG.
----@field currentwp number Current waypoint index. This is the index of the last passed waypoint.
----@field dTwait number Time to wait in seconds. Default `nil` (for ever).
----@field dcsgroup Group The DCS group object.
----@field descriptors  
----@field destbase AIRBASE The destination base of the flight group.
----@field destzone ZONE The destination zone of the flight group. Set when final waypoint is in air.
----@field detectedgroups SET_GROUP Set of detected groups.
----@field detectedunits SET_UNIT Set of detected units.
----@field detectionOn boolean If true, detected units of the group are analyzed.
----@field engagedetectedEngageZones SET_ZONE Set of zones in which targets are engaged. Default is anywhere.
----@field engagedetectedNoEngageZones SET_ZONE Set of zones in which targets are *not* engaged. Default is nowhere.
----@field engagedetectedOn boolean If `true`, auto engage detected targets.
----@field engagedetectedRmax number Max range in NM. Only detected targets within this radius from the group will be engaged. Default is 25 NM.
----@field group GROUP Group object.
----@field groupinitialized boolean If true, group parameters were initialized.
----@field groupname string Name of the group.
----@field heading number Heading of the group at last status check.
----@field headingLast number Backup of last heading to monitor changes.
----@field homebase AIRBASE The home base of the flight group.
----@field homezone ZONE The home zone of the flight group. Set when spawn happens in air.
----@field inzones SET_ZONE Set of zones in which the group is currently in.
----@field isAI boolean If true, group is purely AI.
----@field isArmygroup boolean Is an ARMYGROUP.
----@field isDead boolean If true, the whole group is dead.
----@field isDestroyed boolean If true, the whole group was destroyed.
----@field isEPLRS  
----@field isFlightgroup boolean Is a FLIGHTGROUP.
----@field isHelo boolean If true, this is a helicopter group.
----@field isHoldingAtHoldingPoint boolean 
----@field isLateActivated boolean Is the group late activated.
----@field isMobile boolean If `true`, group is mobile (speed > 1 m/s)
----@field isNavygroup boolean Is a NAVYGROUP.
----@field isSubmarine boolean If true, this is a submarine group.
----@field isTrain boolean 
----@field isUncontrolled boolean Is the group uncontrolled.
----@field isVTOL boolean If true, this is capable of Vertical TakeOff and Landing (VTOL).
----@field ispathfinding boolean If true, group is on pathfinding route.
----@field legion LEGION Legion the group belongs to.
----@field legionReturn boolean 
----@field lid string Class id string for output to DCS log file.
----@field life number 
----@field msrs MSRS MOOSE SRS wrapper.
----@field orientX Vec3 Orientation at last status check.
----@field orientXLast Vec3 Backup of last orientation to monitor changes.
----@field outofAmmo boolean 
----@field outofBombs boolean 
----@field outofGuns boolean 
----@field outofMissiles boolean 
----@field outofMissilesAA boolean 
----@field outofMissilesAG boolean 
----@field outofMissilesAS boolean 
----@field outofRockets boolean 
----@field outofTorpedos boolean 
----@field passedfinalwp boolean Group has passed the final waypoint.
----@field position Vec3 Position of the group at last status check.
----@field positionLast Vec3 Backup of last position vec to monitor changes.
----@field radioQueue RADIOQUEUE Radio queue.
----@field rearmOnOutOfAmmo boolean If `true`, group will go to rearm once it runs out of ammo.
----@field refueltype  
----@field retreatOnOutOfAmmo boolean 
----@field rtzOnOutOfAmmo boolean 
----@field scheduleIDDespawn  
----@field speed  
----@field speedCruise number Cruising speed in km/h.
----@field speedMax number Max speed in km/h.
----@field speedWp number Speed to the next waypoint in m/s.
----@field stuckDespawn boolean If `true`, group gets despawned after beeing stuck for a certain time.
----@field stuckTimestamp number Time stamp [sec], when the group got stuck.
----@field stuckVec3 Vec3 Position where the group got stuck.
----@field tankertype  
----@field taskcounter number Running number of task ids.
----@field taskcurrent number ID of current task. If 0, there is no current task assigned.
----@field template Template Template table of the group.
----@field timerCheckZone TIMER Timer for check zones.
----@field timerQueueUpdate TIMER Timer for queue updates.
----@field timerStatus TIMER Timer for status update.
----@field traveldist number Distance traveled in meters. This is a lower bound.
----@field travelds  
----@field traveltime number Time.
----@field useMEtasks boolean If `true`, use tasks set in the ME. Default `false`.
----@field useSRS boolean Use SRS for transmissions.
----@field velocity  
----@field verbose number Verbosity level. 0=silent.
----@field version string OpsGroup version.
----@field wpcounter number Running number counting waypoints.
+---@field private actype NOTYPE 
+---@field private adinfinitum boolean Resume route at first waypoint when final waypoint is reached.
+---@field private altitudeCruise NOTYPE 
+---@field private ammo OPSGROUP.Ammo Initial ammount of ammo.
+---@field private attribute string Generalized attribute.
+---@field private callsign OPSGROUP.Callsign Current callsign settings.
+---@field private callsignAlias string Callsign alias.
+---@field private callsignDefault OPSGROUP.Callsign Default callsign settings.
+---@field private callsignName string Callsign name.
+---@field private cargoBay table Table containing OPSGROUP loaded into this group.
+---@field private cargoStatus string Cargo status of this group acting as cargo.
+---@field private cargoTZC OPSTRANSPORT.TransportZoneCombo Transport zone combo (pickup, deploy etc.) currently used.
+---@field private cargoTransport OPSTRANSPORT Current cargo transport assignment.
+---@field private cargoTransportUID number Unique ID of the transport assignment this cargo group is associated with.
+---@field private cargoqueue table Table containing cargo groups to be transported.
+---@field private carrier OPSGROUP.Element Carrier the group is loaded into as cargo.
+---@field private carrierGroup OPSGROUP Carrier group transporting this group as cargo.
+---@field private carrierLoader OPSGROUP.CarrierLoader Carrier loader parameters.
+---@field private carrierStatus string Carrier status of this group acting as cargo carrier.
+---@field private carrierUnloader OPSGROUP.CarrierLoader Carrier unloader parameters.
+---@field private category NOTYPE 
+---@field private ceiling NOTYPE 
+---@field private checkzones SET_ZONE Set of zones.
+---@field private cohort COHORT Cohort the group belongs to.
+---@field private controller Controller The DCS controller of the group.
+---@field private coordinate COORDINATE Current coordinate.
+---@field private currbase AIRBASE The current airbase of the flight group, i.e. where it is currently located or landing at.
+---@field private currentmission number The ID (auftragsnummer) of the currently assigned AUFTRAG.
+---@field private currentwp number Current waypoint index. This is the index of the last passed waypoint.
+---@field private dTwait number Time to wait in seconds. Default `nil` (for ever).
+---@field private dcsgroup Group The DCS group object.
+---@field private descriptors NOTYPE 
+---@field private destbase AIRBASE The destination base of the flight group.
+---@field private destzone ZONE The destination zone of the flight group. Set when final waypoint is in air.
+---@field private detectedgroups SET_GROUP Set of detected groups.
+---@field private detectedunits SET_UNIT Set of detected units.
+---@field private detectionOn boolean If true, detected units of the group are analyzed.
+---@field private elements table Table of elements, i.e. units of the group.
+---@field private engagedetectedEngageZones SET_ZONE Set of zones in which targets are engaged. Default is anywhere.
+---@field private engagedetectedNoEngageZones SET_ZONE Set of zones in which targets are *not* engaged. Default is nowhere.
+---@field private engagedetectedOn boolean If `true`, auto engage detected targets.
+---@field private engagedetectedRmax number Max range in NM. Only detected targets within this radius from the group will be engaged. Default is 25 NM.
+---@field private engagedetectedTypes table Types of target attributes that will be engaged. See [DCS enum attributes](https://wiki.hoggitworld.com/view/DCS_enum_attributes). Default "All".
+---@field private group GROUP Group object.
+---@field private groupinitialized boolean If true, group parameters were initialized.
+---@field private groupname string Name of the group.
+---@field private heading number Heading of the group at last status check.
+---@field private headingLast number Backup of last heading to monitor changes.
+---@field private homebase AIRBASE The home base of the flight group.
+---@field private homezone ZONE The home zone of the flight group. Set when spawn happens in air.
+---@field private icls OPSGROUP.Beacon Current ICLS settings.
+---@field private iclsDefault OPSGROUP.Beacon Default ICLS settings.
+---@field private inzones SET_ZONE Set of zones in which the group is currently in.
+---@field private isAI boolean If true, group is purely AI.
+---@field private isArmygroup boolean Is an ARMYGROUP.
+---@field private isDead boolean If true, the whole group is dead.
+---@field private isDestroyed boolean If true, the whole group was destroyed.
+---@field private isEPLRS NOTYPE 
+---@field private isFlightgroup boolean Is a FLIGHTGROUP.
+---@field private isHelo boolean If true, this is a helicopter group.
+---@field private isHoldingAtHoldingPoint boolean 
+---@field private isLateActivated boolean Is the group late activated.
+---@field private isMobile boolean If `true`, group is mobile (speed > 1 m/s)
+---@field private isNavygroup boolean Is a NAVYGROUP.
+---@field private isSubmarine boolean If true, this is a submarine group.
+---@field private isTrain boolean 
+---@field private isUncontrolled boolean Is the group uncontrolled.
+---@field private isVTOL boolean If true, this is capable of Vertical TakeOff and Landing (VTOL).
+---@field private ispathfinding boolean If true, group is on pathfinding route.
+---@field private legion LEGION Legion the group belongs to.
+---@field private legionReturn boolean 
+---@field private lid string Class id string for output to DCS log file.
+---@field private life number 
+---@field private missionqueue table Queue of missions.
+---@field private msrs MSRS MOOSE SRS wrapper.
+---@field private mycarrier OPSGROUP.MyCarrier Carrier group for this group.
+---@field private option OPSGROUP.Option Current optional settings.
+---@field private optionDefault OPSGROUP.Option Default option settings.
+---@field private orientX Vec3 Orientation at last status check.
+---@field private orientXLast Vec3 Backup of last orientation to monitor changes.
+---@field private outofAmmo boolean 
+---@field private outofBombs boolean 
+---@field private outofGuns boolean 
+---@field private outofMissiles boolean 
+---@field private outofMissilesAA boolean 
+---@field private outofMissilesAG boolean 
+---@field private outofMissilesAS boolean 
+---@field private outofRockets boolean 
+---@field private outofTorpedos boolean 
+---@field private passedfinalwp boolean Group has passed the final waypoint.
+---@field private pausedmissions table Paused missions.
+---@field private position Vec3 Position of the group at last status check.
+---@field private positionLast Vec3 Backup of last position vec to monitor changes.
+---@field private radio OPSGROUP.Radio Current radio settings.
+---@field private radioDefault OPSGROUP.Radio Default radio settings.
+---@field private radioQueue RADIOQUEUE Radio queue.
+---@field private rearmOnOutOfAmmo boolean If `true`, group will go to rearm once it runs out of ammo.
+---@field private reconindecies table 
+---@field private refueltype NOTYPE 
+---@field private retreatOnOutOfAmmo boolean 
+---@field private rtzOnOutOfAmmo boolean 
+---@field private scheduleIDDespawn NOTYPE 
+---@field private speed NOTYPE 
+---@field private speedCruise number Cruising speed in km/h.
+---@field private speedMax number Max speed in km/h.
+---@field private speedWp number Speed to the next waypoint in m/s.
+---@field private spot OPSGROUP.Spot Laser and IR spot.
+---@field private stuckDespawn boolean If `true`, group gets despawned after beeing stuck for a certain time.
+---@field private stuckTimestamp number Time stamp [sec], when the group got stuck.
+---@field private stuckVec3 Vec3 Position where the group got stuck.
+---@field private tacan OPSGROUP.Beacon Current TACAN settings.
+---@field private tacanDefault OPSGROUP.Beacon Default TACAN settings.
+---@field private tankertype NOTYPE 
+---@field private taskcounter number Running number of task ids.
+---@field private taskcurrent number ID of current task. If 0, there is no current task assigned.
+---@field private taskenroute table Enroute task of the group.
+---@field private taskpaused table Paused tasks.
+---@field private taskqueue table Queue of tasks.
+---@field private template Template Template table of the group.
+---@field private timerCheckZone TIMER Timer for check zones.
+---@field private timerQueueUpdate TIMER Timer for queue updates.
+---@field private timerStatus TIMER Timer for status update.
+---@field private traveldist number Distance traveled in meters. This is a lower bound.
+---@field private travelds NOTYPE 
+---@field private traveltime number Time.
+---@field private useMEtasks boolean If `true`, use tasks set in the ME. Default `false`.
+---@field private useSRS boolean Use SRS for transmissions.
+---@field private velocity NOTYPE 
+---@field private verbose number Verbosity level. 0=silent.
+---@field private version string OpsGroup version.
+---@field private waypoints table Table of waypoints.
+---@field private waypoints0 table Table of initial waypoints.
+---@field private weaponData OPSGROUP.WeaponData Weapon data table with key=BitType.
+---@field private wpcounter number Running number counting waypoints.
 OPSGROUP = {}
 
 ---Activate a *late activated* group.
 ---
 ------
 ---@param self OPSGROUP 
----@param delay number (Optional) Delay in seconds before the group is activated. Default is immediately.
+---@param delay? number (Optional) Delay in seconds before the group is activated. Default is immediately.
 ---@return OPSGROUP #self
 function OPSGROUP:Activate(delay) end
 
@@ -261,7 +298,7 @@ function OPSGROUP:ClearWaypoints(IndexMin, IndexMax) end
 ---
 ------
 ---@param self OPSGROUP 
----@param States table (Optional) Only count elements in specific states. Can also be a single state passed as #string.
+---@param States? table (Optional) Only count elements in specific states. Can also be a single state passed as #string.
 ---@return number #Number of elements.
 function OPSGROUP:CountElements(States) end
 
@@ -302,7 +339,7 @@ function OPSGROUP:CountTasksWaypoint(uid, id) end
 ---
 ------
 ---@param self OPSGROUP 
----@param delay number (Optional) Delay in seconds before the group is deactivated. Default is immediately.
+---@param delay? number (Optional) Delay in seconds before the group is deactivated. Default is immediately.
 ---@return OPSGROUP #self
 function OPSGROUP:Deactivate(delay) end
 
@@ -449,7 +486,7 @@ function OPSGROUP:GetBeaconTACAN() end
 ---@param self OPSGROUP 
 ---@param ShortCallsign boolean If true, append major flight number only
 ---@param Keepnumber boolean (Player only) If true, and using a customized callsign in the #GROUP name after an #-sign, use all of that information.
----@param CallsignTranslations table (optional) Translation table between callsigns
+---@param CallsignTranslations? table (optional) Translation table between callsigns
 ---@return string #Callsign name, e.g. Uzi11, or "Ghostrider11".
 function OPSGROUP:GetCallsignName(ShortCallsign, Keepnumber, CallsignTranslations) end
 
@@ -457,7 +494,7 @@ function OPSGROUP:GetCallsignName(ShortCallsign, Keepnumber, CallsignTranslation
 ---
 ------
 ---@param self OPSGROUP 
----@param CarrierName string (Optional) Only return cargo groups loaded into a particular carrier unit.
+---@param CarrierName? string (Optional) Only return cargo groups loaded into a particular carrier unit.
 ---@return table #Cargo ops groups.
 function OPSGROUP:GetCargoGroups(CarrierName) end
 
@@ -481,7 +518,7 @@ function OPSGROUP:GetCoalition() end
 ------
 ---@param self OPSGROUP 
 ---@param NewObject boolean Create a new coordiante object.
----@param UnitName string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
+---@param UnitName? string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
 ---@return COORDINATE #The coordinate (of the first unit) of the group.
 function OPSGROUP:GetCoordinate(NewObject, UnitName) end
 
@@ -653,7 +690,7 @@ function OPSGROUP:GetGroup() end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get heading of a specific unit of the group. Default is from the first existing unit in the group.
+---@param UnitName? string (Optional) Get heading of a specific unit of the group. Default is from the first existing unit in the group.
 ---@return number #Current heading of the group in degrees.
 function OPSGROUP:GetHeading(UnitName) end
 
@@ -692,7 +729,7 @@ function OPSGROUP:GetLaserTarget() end
 ---
 ------
 ---@param self OPSGROUP 
----@param Element OPSGROUP.Element (Optional) Only get life points of this element.
+---@param Element? OPSGROUP.Element (Optional) Only get life points of this element.
 ---@return number #Life points, *i.e.* the sum of life points over all units in the group (unless a specific element was passed).  
 ---@return number #Initial life points.
 function OPSGROUP:GetLifePoints(Element) end
@@ -731,7 +768,7 @@ function OPSGROUP:GetName() end
 ---
 ------
 ---@param self OPSGROUP 
----@param status string (Optional) Only count number, which are in a special status.
+---@param status? string (Optional) Only count number, which are in a special status.
 ---@return number #Number of elements.
 function OPSGROUP:GetNelements(status) end
 
@@ -755,7 +792,7 @@ function OPSGROUP:GetOpsTransportByUID(uid) end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get orientation of a specific unit of the group. Default is the first existing unit of the group.
+---@param UnitName? string (Optional) Get orientation of a specific unit of the group. Default is the first existing unit of the group.
 ---@return Vec3 #Orientation X parallel to where the "nose" is pointing.
 ---@return Vec3 #Orientation Y pointing "upwards".
 ---@return Vec3 #Orientation Z perpendicular to the "nose".
@@ -765,7 +802,7 @@ function OPSGROUP:GetOrientation(UnitName) end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get orientation of a specific unit of the group. Default is the first existing unit of the group.
+---@param UnitName? string (Optional) Get orientation of a specific unit of the group. Default is the first existing unit of the group.
 ---@return Vec3 #Orientation X parallel to where the "nose" is pointing.
 function OPSGROUP:GetOrientationX(UnitName) end
 
@@ -823,7 +860,7 @@ function OPSGROUP:GetTACAN() end
 ------
 ---@param self OPSGROUP 
 ---@param id number Task id.
----@param status string (Optional) Only return tasks with this status, e.g. OPSGROUP.TaskStatus.SCHEDULED.
+---@param status? string (Optional) Only return tasks with this status, e.g. OPSGROUP.TaskStatus.SCHEDULED.
 ---@return OPSGROUP.Task #The task or nil.
 function OPSGROUP:GetTaskByID(id, status) end
 
@@ -882,7 +919,7 @@ function OPSGROUP:GetUsedCargobayRelative(UnitName, IncludeReserved) end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
+---@param UnitName? string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
 ---@return Vec2 #Vector with x,y components.
 function OPSGROUP:GetVec2(UnitName) end
 
@@ -890,7 +927,7 @@ function OPSGROUP:GetVec2(UnitName) end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
+---@param UnitName? string (Optional) Get position of a specifc unit of the group. Default is the first existing unit in the group.
 ---@return Vec3 #Vector with x,y,z components.
 function OPSGROUP:GetVec3(UnitName) end
 
@@ -898,7 +935,7 @@ function OPSGROUP:GetVec3(UnitName) end
 ---
 ------
 ---@param self OPSGROUP 
----@param UnitName string (Optional) Get velocity of a specific unit of the group. Default is from the first existing unit in the group.
+---@param UnitName? string (Optional) Get velocity of a specific unit of the group. Default is from the first existing unit in the group.
 ---@return number #Velocity in m/s.
 function OPSGROUP:GetVelocity(UnitName) end
 
@@ -1133,7 +1170,7 @@ function OPSGROUP:IsArmygroup() end
 ---
 ------
 ---@param self OPSGROUP 
----@param Transport OPSTRANSPORT (Optional) The transport.
+---@param Transport? OPSTRANSPORT (Optional) The transport.
 ---@return boolean #If true, group is awaiting transport lift..
 function OPSGROUP:IsAwaitingLift(Transport) end
 
@@ -1141,7 +1178,7 @@ function OPSGROUP:IsAwaitingLift(Transport) end
 ---
 ------
 ---@param self OPSGROUP 
----@param CarrierGroupName string (Optional) Additionally check if group is boarding this particular carrier group.
+---@param CarrierGroupName? string (Optional) Additionally check if group is boarding this particular carrier group.
 ---@return boolean #If true, group is boarding.
 function OPSGROUP:IsBoarding(CarrierGroupName) end
 
@@ -1243,7 +1280,7 @@ function OPSGROUP:IsLateActivated() end
 ---
 ------
 ---@param self OPSGROUP 
----@param CarrierGroupName string (Optional) Additionally check if group is loaded into a particular carrier group(s).
+---@param CarrierGroupName? string (Optional) Additionally check if group is loaded into a particular carrier group(s).
 ---@return boolean #If true, group is loaded.
 function OPSGROUP:IsLoaded(CarrierGroupName) end
 
@@ -1296,7 +1333,7 @@ function OPSGROUP:IsNotCarrier() end
 ---
 ------
 ---@param self OPSGROUP 
----@param MissionUID number (Optional) Check if group is currently on a mission with this UID. Default is to check for any current mission.
+---@param MissionUID? number (Optional) Check if group is currently on a mission with this UID. Default is to check for any current mission.
 ---@return boolean #If `true`, group is currently on a mission.
 function OPSGROUP:IsOnMission(MissionUID) end
 
@@ -1777,7 +1814,7 @@ function OPSGROUP:RouteToMission(mission, delay) end
 ------
 ---@param self OPSGROUP 
 ---@param Delay number Delay in seconds. Default now.
----@param ExplosionPower number (Optional) Explosion power in kg TNT. Default 100 kg.
+---@param ExplosionPower? number (Optional) Explosion power in kg TNT. Default 100 kg.
 ---@param ElementName string Name of the element that should be destroyed. Default is all elements.
 ---@return OPSGROUP #self
 function OPSGROUP:SelfDestruction(Delay, ExplosionPower, ElementName) end
@@ -2730,7 +2767,7 @@ function OPSGROUP:_RemovePausedMission(AuftragsNummer) end
 ------
 ---@param self OPSGROUP 
 ---@param Delay number Delay in seconds before respawn happens. Default 0.
----@param Template Template (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
+---@param Template? Template (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
 ---@param Reset boolean Reset waypoints and reinit group if `true`.
 ---@return OPSGROUP #self
 function OPSGROUP:_Respawn(Delay, Template, Reset) end
@@ -2820,7 +2857,7 @@ function OPSGROUP:_SortTaskQueue() end
 ------
 ---@param self OPSGROUP 
 ---@param Delay number Delay in seconds before respawn happens. Default 0.
----@param Template Template (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
+---@param Template? Template (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
 ---@return OPSGROUP #self
 function OPSGROUP:_Spawn(Delay, Template) end
 
@@ -2966,6 +3003,7 @@ function OPSGROUP:__TransportCancel(delay, Transport) end
 ---@param To string To state.
 ---@param CarrierGroup OPSGROUP The carrier group.
 ---@param Carrier OPSGROUP.Element The OPSGROUP element
+---@private
 function OPSGROUP:onafterBoard(From, Event, To, CarrierGroup, Carrier) end
 
 ---On after "Damaged" event.
@@ -2975,6 +3013,7 @@ function OPSGROUP:onafterBoard(From, Event, To, CarrierGroup, Carrier) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterDamaged(From, Event, To) end
 
 ---On after "Dead" event.
@@ -2984,6 +3023,7 @@ function OPSGROUP:onafterDamaged(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterDead(From, Event, To) end
 
 ---On after "Delivered" event.
@@ -2994,6 +3034,7 @@ function OPSGROUP:onafterDead(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param CargoTransport OPSTRANSPORT The cargo transport assignment.
+---@private
 function OPSGROUP:onafterDelivered(From, Event, To, CargoTransport) end
 
 ---On after "Destroyed" event.
@@ -3003,6 +3044,7 @@ function OPSGROUP:onafterDelivered(From, Event, To, CargoTransport) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterDestroyed(From, Event, To) end
 
 ---On after "DetectedGroup" event.
@@ -3013,6 +3055,7 @@ function OPSGROUP:onafterDestroyed(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Group GROUP The detected Group.
+---@private
 function OPSGROUP:onafterDetectedGroup(From, Event, To, Group) end
 
 ---On after "DetectedGroupNew" event.
@@ -3024,6 +3067,7 @@ function OPSGROUP:onafterDetectedGroup(From, Event, To, Group) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Group GROUP The detected group.
+---@private
 function OPSGROUP:onafterDetectedGroupNew(From, Event, To, Group) end
 
 ---On after "DetectedUnit" event.
@@ -3034,6 +3078,7 @@ function OPSGROUP:onafterDetectedGroupNew(From, Event, To, Group) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Unit UNIT The detected unit.
+---@private
 function OPSGROUP:onafterDetectedUnit(From, Event, To, Unit) end
 
 ---On after "DetectedUnitNew" event.
@@ -3045,6 +3090,7 @@ function OPSGROUP:onafterDetectedUnit(From, Event, To, Unit) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Unit UNIT The detected unit.
+---@private
 function OPSGROUP:onafterDetectedUnitNew(From, Event, To, Unit) end
 
 ---On after "ElementDamaged" event.
@@ -3055,6 +3101,7 @@ function OPSGROUP:onafterDetectedUnitNew(From, Event, To, Unit) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function OPSGROUP:onafterElementDamaged(From, Event, To, Element) end
 
 ---On after "ElementDead" event.
@@ -3065,6 +3112,7 @@ function OPSGROUP:onafterElementDamaged(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function OPSGROUP:onafterElementDead(From, Event, To, Element) end
 
 ---On after "ElementDestroyed" event.
@@ -3075,6 +3123,7 @@ function OPSGROUP:onafterElementDead(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function OPSGROUP:onafterElementDestroyed(From, Event, To, Element) end
 
 ---On after "ElementHit" event.
@@ -3086,6 +3135,7 @@ function OPSGROUP:onafterElementDestroyed(From, Event, To, Element) end
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
 ---@param Enemy UNIT Unit that hit the element or `nil`.
+---@private
 function OPSGROUP:onafterElementHit(From, Event, To, Element, Enemy) end
 
 ---On after "ElementInUtero" event.
@@ -3096,6 +3146,7 @@ function OPSGROUP:onafterElementHit(From, Event, To, Element, Enemy) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function OPSGROUP:onafterElementInUtero(From, Event, To, Element) end
 
 ---On after "EnterZone" event.
@@ -3107,6 +3158,7 @@ function OPSGROUP:onafterElementInUtero(From, Event, To, Element) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Zone ZONE The zone that the group entered.
+---@private
 function OPSGROUP:onafterEnterZone(From, Event, To, Zone) end
 
 ---On after "GotoWaypoint" event.
@@ -3118,7 +3170,8 @@ function OPSGROUP:onafterEnterZone(From, Event, To, Zone) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param UID number The goto waypoint unique ID.
----@param Speed number (Optional) Speed to waypoint in knots.
+---@param Speed? number (Optional) Speed to waypoint in knots.
+---@private
 function OPSGROUP:onafterGotoWaypoint(From, Event, To, UID, Speed) end
 
 ---On after "Hit" event.
@@ -3129,6 +3182,7 @@ function OPSGROUP:onafterGotoWaypoint(From, Event, To, UID, Speed) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Enemy UNIT Unit that hit the element or `nil`.
+---@private
 function OPSGROUP:onafterHit(From, Event, To, Enemy) end
 
 ---On after "InUtero" event.
@@ -3138,6 +3192,7 @@ function OPSGROUP:onafterHit(From, Event, To, Enemy) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterInUtero(From, Event, To) end
 
 ---On after "LaserCode" event.
@@ -3149,6 +3204,7 @@ function OPSGROUP:onafterInUtero(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Code number Laser code. Default is 1688.
+---@private
 function OPSGROUP:onafterLaserCode(From, Event, To, Code) end
 
 ---On after "LaserGotLOS" event.
@@ -3158,6 +3214,7 @@ function OPSGROUP:onafterLaserCode(From, Event, To, Code) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLaserGotLOS(From, Event, To) end
 
 ---On after "LaserLostLOS" event.
@@ -3167,6 +3224,7 @@ function OPSGROUP:onafterLaserGotLOS(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLaserLostLOS(From, Event, To) end
 
 ---On after "LaserOff" event.
@@ -3176,6 +3234,7 @@ function OPSGROUP:onafterLaserLostLOS(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLaserOff(From, Event, To) end
 
 ---On after "LaserOn" event.
@@ -3186,6 +3245,7 @@ function OPSGROUP:onafterLaserOff(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target COORDINATE Target Coordinate. Target can also be any POSITIONABLE from which we can obtain its coordinates.
+---@private
 function OPSGROUP:onafterLaserOn(From, Event, To, Target) end
 
 ---On after "LaserPause" event.
@@ -3195,6 +3255,7 @@ function OPSGROUP:onafterLaserOn(From, Event, To, Target) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLaserPause(From, Event, To) end
 
 ---On after "LaserResume" event.
@@ -3204,6 +3265,7 @@ function OPSGROUP:onafterLaserPause(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLaserResume(From, Event, To) end
 
 ---On after "LeaveZone" event.
@@ -3215,6 +3277,7 @@ function OPSGROUP:onafterLaserResume(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Zone ZONE The zone that the group entered.
+---@private
 function OPSGROUP:onafterLeaveZone(From, Event, To, Zone) end
 
 ---On after "Load" event.
@@ -3227,6 +3290,7 @@ function OPSGROUP:onafterLeaveZone(From, Event, To, Zone) end
 ---@param To string To state.
 ---@param CargoGroup OPSGROUP The OPSGROUP loaded as cargo.
 ---@param Carrier OPSGROUP.Element The carrier element/unit.
+---@private
 function OPSGROUP:onafterLoad(From, Event, To, CargoGroup, Carrier) end
 
 ---On after "Loading" event.
@@ -3236,6 +3300,7 @@ function OPSGROUP:onafterLoad(From, Event, To, CargoGroup, Carrier) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLoading(From, Event, To) end
 
 ---On after "LoadingDone" event.
@@ -3246,6 +3311,7 @@ function OPSGROUP:onafterLoading(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterLoadingDone(From, Event, To) end
 
 ---On after "MissionCancel" event.
@@ -3257,6 +3323,7 @@ function OPSGROUP:onafterLoadingDone(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission to be cancelled.
+---@private
 function OPSGROUP:onafterMissionCancel(From, Event, To, Mission) end
 
 ---On after "MissionDone" event.
@@ -3267,6 +3334,7 @@ function OPSGROUP:onafterMissionCancel(From, Event, To, Mission) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission that is done.
+---@private
 function OPSGROUP:onafterMissionDone(From, Event, To, Mission) end
 
 ---On after "MissionExecute" event.
@@ -3278,6 +3346,7 @@ function OPSGROUP:onafterMissionDone(From, Event, To, Mission) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission table.
+---@private
 function OPSGROUP:onafterMissionExecute(From, Event, To, Mission) end
 
 ---On after "MissionStart" event.
@@ -3288,6 +3357,7 @@ function OPSGROUP:onafterMissionExecute(From, Event, To, Mission) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission table.
+---@private
 function OPSGROUP:onafterMissionStart(From, Event, To, Mission) end
 
 ---On after "OutOfAmmo" event.
@@ -3297,6 +3367,7 @@ function OPSGROUP:onafterMissionStart(From, Event, To, Mission) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterOutOfAmmo(From, Event, To) end
 
 ---On after "PassedFinalWaypoint" event.
@@ -3306,6 +3377,7 @@ function OPSGROUP:onafterOutOfAmmo(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterPassedFinalWaypoint(From, Event, To) end
 
 ---On after "PassingWaypoint" event.
@@ -3316,6 +3388,7 @@ function OPSGROUP:onafterPassedFinalWaypoint(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Waypoint OPSGROUP.Waypoint Waypoint data passed.
+---@private
 function OPSGROUP:onafterPassingWaypoint(From, Event, To, Waypoint) end
 
 ---On after "PauseMission" event.
@@ -3325,6 +3398,7 @@ function OPSGROUP:onafterPassingWaypoint(From, Event, To, Waypoint) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterPauseMission(From, Event, To) end
 
 ---On after "Pickup" event.
@@ -3334,6 +3408,7 @@ function OPSGROUP:onafterPauseMission(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterPickup(From, Event, To) end
 
 ---On after "Respawn" event.
@@ -3344,6 +3419,7 @@ function OPSGROUP:onafterPickup(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Template table The template used to respawn the group. Default is the inital template of the group.
+---@private
 function OPSGROUP:onafterRespawn(From, Event, To, Template) end
 
 ---On after "Stop" event.
@@ -3353,6 +3429,7 @@ function OPSGROUP:onafterRespawn(From, Event, To, Template) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterStop(From, Event, To) end
 
 ---On after "TaskCancel" event.
@@ -3364,6 +3441,7 @@ function OPSGROUP:onafterStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Task OPSGROUP.Task The task to cancel. Default is the current task (if any).
+---@private
 function OPSGROUP:onafterTaskCancel(From, Event, To, Task) end
 
 ---On after "TaskDone" event.
@@ -3374,6 +3452,7 @@ function OPSGROUP:onafterTaskCancel(From, Event, To, Task) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Task OPSGROUP.Task 
+---@private
 function OPSGROUP:onafterTaskDone(From, Event, To, Task) end
 
 ---On after "TaskExecute" event.
@@ -3384,6 +3463,7 @@ function OPSGROUP:onafterTaskDone(From, Event, To, Task) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Task OPSGROUP.Task The task.
+---@private
 function OPSGROUP:onafterTaskExecute(From, Event, To, Task) end
 
 ---On after "Transport" event.
@@ -3393,6 +3473,7 @@ function OPSGROUP:onafterTaskExecute(From, Event, To, Task) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterTransport(From, Event, To) end
 
 ---On after "TransportCancel" event.
@@ -3404,6 +3485,7 @@ function OPSGROUP:onafterTransport(From, Event, To) end
 ---@param To string To state.
 ---@param The OPSTRANSPORT transport to be cancelled.
 ---@param Transport NOTYPE 
+---@private
 function OPSGROUP:onafterTransportCancel(From, Event, To, The, Transport) end
 
 ---On after "Unload" event.
@@ -3417,7 +3499,8 @@ function OPSGROUP:onafterTransportCancel(From, Event, To, The, Transport) end
 ---@param OpsGroup OPSGROUP The OPSGROUP loaded as cargo.
 ---@param Coordinate COORDINATE Coordinate were the group is unloaded to.
 ---@param Activated boolean If `true`, group is active. If `false`, group is spawned in late activated state.
----@param Heading number (Optional) Heading of group in degrees. Default is random heading for each unit.
+---@param Heading? number (Optional) Heading of group in degrees. Default is random heading for each unit.
+---@private
 function OPSGROUP:onafterUnload(From, Event, To, OpsGroup, Coordinate, Activated, Heading) end
 
 ---On after "Unloaded" event.
@@ -3428,6 +3511,7 @@ function OPSGROUP:onafterUnload(From, Event, To, OpsGroup, Coordinate, Activated
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsGroupCargo OPSGROUP Cargo OPSGROUP that was unloaded from a carrier.
+---@private
 function OPSGROUP:onafterUnloaded(From, Event, To, OpsGroupCargo) end
 
 ---On after "Unloading" event.
@@ -3437,6 +3521,7 @@ function OPSGROUP:onafterUnloaded(From, Event, To, OpsGroupCargo) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterUnloading(From, Event, To) end
 
 ---On after "UnloadingDone" event.
@@ -3446,6 +3531,7 @@ function OPSGROUP:onafterUnloading(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterUnloadingDone(From, Event, To) end
 
 ---On after "UnpauseMission" event.
@@ -3455,6 +3541,7 @@ function OPSGROUP:onafterUnloadingDone(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onafterUnpauseMission(From, Event, To) end
 
 ---On after "Wait" event.
@@ -3465,6 +3552,7 @@ function OPSGROUP:onafterUnpauseMission(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Duration number Duration in seconds how long the group will be waiting. Default `nil` (for ever).
+---@private
 function OPSGROUP:onafterWait(From, Event, To, Duration) end
 
 ---On before "Board" event.
@@ -3476,6 +3564,7 @@ function OPSGROUP:onafterWait(From, Event, To, Duration) end
 ---@param To string To state.
 ---@param CarrierGroup OPSGROUP The carrier group.
 ---@param Carrier OPSGROUP.Element The OPSGROUP element
+---@private
 function OPSGROUP:onbeforeBoard(From, Event, To, CarrierGroup, Carrier) end
 
 ---On before "Dead" event.
@@ -3485,6 +3574,7 @@ function OPSGROUP:onbeforeBoard(From, Event, To, CarrierGroup, Carrier) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onbeforeDead(From, Event, To) end
 
 ---On before "ElementSpawned" event.
@@ -3496,6 +3586,7 @@ function OPSGROUP:onbeforeDead(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The flight group element.
+---@private
 function OPSGROUP:onbeforeElementSpawned(From, Event, To, Element) end
 
 ---On before "LaserOff" event.
@@ -3506,6 +3597,7 @@ function OPSGROUP:onbeforeElementSpawned(From, Event, To, Element) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onbeforeLaserOff(From, Event, To) end
 
 ---On before "LaserOn" event.
@@ -3516,6 +3608,7 @@ function OPSGROUP:onbeforeLaserOff(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target COORDINATE Target Coordinate. Target can also be any POSITIONABLE from which we can obtain its coordinates.
+---@private
 function OPSGROUP:onbeforeLaserOn(From, Event, To, Target) end
 
 ---On before "LaserResume" event.
@@ -3525,6 +3618,7 @@ function OPSGROUP:onbeforeLaserOn(From, Event, To, Target) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onbeforeLaserResume(From, Event, To) end
 
 ---On before "MissionStart" event.
@@ -3535,6 +3629,7 @@ function OPSGROUP:onbeforeLaserResume(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Mission AUFTRAG The mission table.
+---@private
 function OPSGROUP:onbeforeMissionStart(From, Event, To, Mission) end
 
 ---On before "Stop" event.
@@ -3544,6 +3639,7 @@ function OPSGROUP:onbeforeMissionStart(From, Event, To, Mission) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onbeforeStop(From, Event, To) end
 
 ---On before "TaskDone" event.
@@ -3555,6 +3651,7 @@ function OPSGROUP:onbeforeStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Task OPSGROUP.Task 
+---@private
 function OPSGROUP:onbeforeTaskDone(From, Event, To, Task) end
 
 ---On before "TaskExecute" event.
@@ -3565,6 +3662,7 @@ function OPSGROUP:onbeforeTaskDone(From, Event, To, Task) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Task OPSGROUP.Task The task.
+---@private
 function OPSGROUP:onbeforeTaskExecute(From, Event, To, Task) end
 
 ---On before "Transport" event.
@@ -3574,6 +3672,7 @@ function OPSGROUP:onbeforeTaskExecute(From, Event, To, Task) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPSGROUP:onbeforeTransport(From, Event, To) end
 
 ---On before "Unload" event.
@@ -3586,6 +3685,7 @@ function OPSGROUP:onbeforeTransport(From, Event, To) end
 ---@param OpsGroup OPSGROUP The OPSGROUP loaded as cargo.
 ---@param Coordinate COORDINATE Coordinate were the group is unloaded to.
 ---@param Heading number Heading of group.
+---@private
 function OPSGROUP:onbeforeUnload(From, Event, To, OpsGroup, Coordinate, Heading) end
 
 ---On before "Wait" event.
@@ -3596,6 +3696,7 @@ function OPSGROUP:onbeforeUnload(From, Event, To, OpsGroup, Coordinate, Heading)
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Duration number Duration how long the group will be waiting in seconds. Default `nil` (=forever).
+---@private
 function OPSGROUP:onbeforeWait(From, Event, To, Duration) end
 
 
@@ -3637,14 +3738,15 @@ OPSGROUP.Callsign = {}
 
 ---Cargo group data.
 ---@class OPSGROUP.CargoGroup 
----@field delivered boolean If `true`, group was delivered.
----@field disembarkActivation boolean If `true`, group is activated. If `false`, group is late activated.
----@field disembarkCarriers SET_OPSGROUP Carriers where this group is directly disembared to.
----@field disembarkZone ZONE Zone where this group is disembarked to.
----@field status string Status of the cargo group. Not used yet.
----@field storage OPSTRANSPORT.Storage Storage data.
----@field type string Type of cargo: "OPSGROUP" or "STORAGE".
----@field uid number Unique ID of this cargo data.
+---@field private delivered boolean If `true`, group was delivered.
+---@field private disembarkActivation boolean If `true`, group is activated. If `false`, group is late activated.
+---@field private disembarkCarriers SET_OPSGROUP Carriers where this group is directly disembared to.
+---@field private disembarkZone ZONE Zone where this group is disembarked to.
+---@field private opsgroup OPSGROUP The cargo opsgroup.
+---@field private status string Status of the cargo group. Not used yet.
+---@field private storage OPSTRANSPORT.Storage Storage data.
+---@field private type string Type of cargo: "OPSGROUP" or "STORAGE".
+---@field private uid number Unique ID of this cargo data.
 OPSGROUP.CargoGroup = {}
 
 
@@ -3660,9 +3762,9 @@ OPSGROUP.CargoStatus = {}
 
 ---Cargo carrier loader parameters.
 ---@class OPSGROUP.CarrierLoader 
----@field length number Length of (un-)loading zone in meters.
----@field type string Loader type "Front", "Back", "Left", "Right", "All".
----@field width number Width of (un-)loading zone in meters.
+---@field private length number Length of (un-)loading zone in meters.
+---@field private type string Loader type "Front", "Back", "Left", "Right", "All".
+---@field private width number Width of (un-)loading zone in meters.
 OPSGROUP.CarrierLoader = {}
 
 
@@ -3681,42 +3783,44 @@ OPSGROUP.CarrierStatus = {}
 ---@class OPSGROUP.Element 
 ---@field DCSunit Unit The DCS unit object.
 ---@field Nhit number Number of times the element was hit.
----@field ai boolean If true, element is AI.
----@field callsign string Call sign, e.g. "Uzi 1-1".
----@field category number Aircraft category.
----@field categoryname string Aircraft category name.
----@field client CLIENT The client if element is occupied by a human player.
----@field controller Controller The DCS controller of the unit.
----@field damage number Damage of element in percent.
----@field descriptors Object.Desc Descriptors table.
----@field engineOn boolean If `true`, engines were started.
----@field fuelmass number Mass of fuel in kg.
----@field group GROUP The GROUP object.
----@field heading number Last known heading in degrees.
----@field height number Height of element in meters.
----@field length number Length of element in meters.
----@field life number Life points when last updated.
----@field life0 number Initial life points.
----@field modex string Tail number.
----@field name string Name of the element, i.e. the unit.
----@field orientX Vec3 Last known ordientation vector in the direction of the nose X.
----@field parking AIRBASE.ParkingSpot The parking spot table the element is parking on.
----@field playerName string Name of player if this is a client.
----@field size number Size (max of length, width, height) in meters.
----@field skill string Skill level.
----@field status string The element status. See @{#OPSGROUP.ElementStatus}.
----@field typename string Type name.
----@field unit UNIT The UNIT object.
----@field vec3 Vec3 Last known 3D position vector.
----@field weight number Current weight including cargo in kg.
----@field weightCargo number Current cargo weight in kg.
----@field weightEmpty number Empty weight in kg.
----@field weightMaxCargo number Max. cargo weight in kg.
----@field weightMaxTotal number Max. total weight in kg.
----@field width number Width of element in meters.
----@field zoneBoundingbox ZONE_POLYGON_BASE Bounding box zone of the element unit.
----@field zoneLoad ZONE_POLYGON_BASE Loading zone.
----@field zoneUnload ZONE_POLYGON_BASE Unloading zone.
+---@field private ai boolean If true, element is AI.
+---@field private callsign string Call sign, e.g. "Uzi 1-1".
+---@field private cargoBay table Cargo bay.
+---@field private category number Aircraft category.
+---@field private categoryname string Aircraft category name.
+---@field private client CLIENT The client if element is occupied by a human player.
+---@field private controller Controller The DCS controller of the unit.
+---@field private damage number Damage of element in percent.
+---@field private descriptors Object.Desc Descriptors table.
+---@field private engineOn boolean If `true`, engines were started.
+---@field private fuelmass number Mass of fuel in kg.
+---@field private group GROUP The GROUP object.
+---@field private heading number Last known heading in degrees.
+---@field private height number Height of element in meters.
+---@field private length number Length of element in meters.
+---@field private life number Life points when last updated.
+---@field private life0 number Initial life points.
+---@field private modex string Tail number.
+---@field private name string Name of the element, i.e. the unit.
+---@field private orientX Vec3 Last known ordientation vector in the direction of the nose X.
+---@field private parking AIRBASE.ParkingSpot The parking spot table the element is parking on.
+---@field private playerName string Name of player if this is a client.
+---@field private pylons table Table of pylons.
+---@field private size number Size (max of length, width, height) in meters.
+---@field private skill string Skill level.
+---@field private status string The element status. See @{#OPSGROUP.ElementStatus}.
+---@field private typename string Type name.
+---@field private unit UNIT The UNIT object.
+---@field private vec3 Vec3 Last known 3D position vector.
+---@field private weight number Current weight including cargo in kg.
+---@field private weightCargo number Current cargo weight in kg.
+---@field private weightEmpty number Empty weight in kg.
+---@field private weightMaxCargo number Max. cargo weight in kg.
+---@field private weightMaxTotal number Max. total weight in kg.
+---@field private width number Width of element in meters.
+---@field private zoneBoundingbox ZONE_POLYGON_BASE Bounding box zone of the element unit.
+---@field private zoneLoad ZONE_POLYGON_BASE Loading zone.
+---@field private zoneUnload ZONE_POLYGON_BASE Unloading zone.
 OPSGROUP.Element = {}
 
 
@@ -3752,17 +3856,20 @@ OPSGROUP.GroupStatus = {}
 
 ---Element cargo bay data.
 ---@class OPSGROUP.MyCargo 
----@field cargoUID  
----@field reserved boolean If `true`, the cargo bay space is reserved but cargo has not actually been loaded yet.
----@field storageAmount number Amount of storage.
----@field storageType number Type of storage.
----@field storageWeight number Weight of storage item.
+---@field private cargoUID NOTYPE 
+---@field private group OPSGROUP The cargo group.
+---@field private reserved boolean If `true`, the cargo bay space is reserved but cargo has not actually been loaded yet.
+---@field private storageAmount number Amount of storage.
+---@field private storageType number Type of storage.
+---@field private storageWeight number Weight of storage item.
 OPSGROUP.MyCargo = {}
 
 
 ---Data of the carrier that has loaded this group.
 ---@class OPSGROUP.MyCarrier 
----@field reserved boolean If `true`, the carrier has caro space reserved for me.
+---@field private element OPSGROUP.Element The carrier element.
+---@field private group OPSGROUP The carrier group.
+---@field private reserved boolean If `true`, the carrier has caro space reserved for me.
 OPSGROUP.MyCarrier = {}
 
 
@@ -3792,6 +3899,7 @@ OPSGROUP.Radio = {}
 ---@class OPSGROUP.Spawnpoint 
 ---@field Airport AIRBASE Airport where to spawn.
 ---@field Coordinate COORDINATE Coordinate where to spawn
+---@field TerminalIDs table Terminal IDs, where to spawn the group. It is a table of `#number`s because a group can consist of multiple units.
 OPSGROUP.Spawnpoint = {}
 
 
@@ -3809,30 +3917,32 @@ OPSGROUP.Spawnpoint = {}
 ---@field TargetGroup GROUP The target group.
 ---@field TargetType number Type of target: 0=coordinate, 1=static, 2=unit, 3=group.
 ---@field TargetUnit POSITIONABLE The current target unit.
----@field dt number Update time interval in seconds.
----@field lostLOS boolean If true, laser lost LOS.
----@field offset Vec3 Local offset of the laser source.
----@field offsetTarget Vec3 Offset of the target.
----@field timer TIMER Spot timer.
----@field vec3 Vec3 The 3D positon vector of the laser (and IR) spot.
+---@field private dt number Update time interval in seconds.
+---@field private element OPSGROUP.Element The element of the group that is lasing.
+---@field private lostLOS boolean If true, laser lost LOS.
+---@field private offset Vec3 Local offset of the laser source.
+---@field private offsetTarget Vec3 Offset of the target.
+---@field private timer TIMER Spot timer.
+---@field private vec3 Vec3 The 3D positon vector of the laser (and IR) spot.
 OPSGROUP.Spot = {}
 
 
 ---Task structure.
 ---@class OPSGROUP.Task 
----@field backupROE number Rules of engagement that are restored once the task is over.
----@field description string Brief text which describes the task.
----@field duration number Duration before task is cancelled in seconds. Default never.
----@field id number Task ID. Running number to get the task.
----@field ismission boolean This is an AUFTRAG task.
----@field prio number Priority.
----@field status string Task status.
----@field stopflag USERFLAG If flag is set to 1 (=true), the task is stopped.
----@field target TARGET Target object.
----@field time number Abs. mission time when to execute the task.
----@field timestamp number Abs. mission time, when task was started.
----@field type string Type of task: either SCHEDULED or WAYPOINT.
----@field waypoint number Waypoint index if task is a waypoint task.
+---@field private backupROE number Rules of engagement that are restored once the task is over.
+---@field private dcstask table DCS task structure.
+---@field private description string Brief text which describes the task.
+---@field private duration number Duration before task is cancelled in seconds. Default never.
+---@field private id number Task ID. Running number to get the task.
+---@field private ismission boolean This is an AUFTRAG task.
+---@field private prio number Priority.
+---@field private status string Task status.
+---@field private stopflag USERFLAG If flag is set to 1 (=true), the task is stopped.
+---@field private target TARGET Target object.
+---@field private time number Abs. mission time when to execute the task.
+---@field private timestamp number Abs. mission time, when task was started.
+---@field private type string Type of task: either SCHEDULED or WAYPOINT.
+---@field private waypoint number Waypoint index if task is a waypoint task.
 OPSGROUP.Task = {}
 
 
@@ -3854,26 +3964,27 @@ OPSGROUP.TaskType = {}
 
 ---Waypoint data.
 ---@class OPSGROUP.Waypoint 
----@field action string Waypoint action (turning point, etc.). Ground groups have the formation here.
----@field alt number Altitude in meters. For submaries use negative sign for depth.
----@field astar boolean If true, this waypint was found by A* pathfinding algorithm.
----@field coordinate COORDINATE Waypoint coordinate.
----@field detour number Signifies that this waypoint is not part of the normal route: 0=Hold, 1=Resume Route.
----@field formation string Ground formation. Similar to action but on/off road.
----@field intowind boolean If true, this waypoint is a turn into wind route point.
----@field marker MARKER Marker on the F10 map.
----@field missionUID number Mission UID (Auftragsnr) this waypoint belongs to.
----@field name string Waypoint description. Shown in the F10 map.
----@field npassed number Number of times a groups passed this waypoint.
----@field patrol boolean 
----@field roadcoord COORDINATE Closest point to road.
----@field roaddist number Distance to closest point on road.
----@field speed number Speed in m/s.
----@field temp boolean If true, this is a temporary waypoint and will be deleted when passed. Also the passing waypoint FSM event is not triggered.
----@field type string Waypoint type.
----@field uid number Waypoint's unit id, which is a running number.
----@field x number Waypoint x-coordinate.
----@field y number Waypoint y-coordinate.
+---@field private action string Waypoint action (turning point, etc.). Ground groups have the formation here.
+---@field private alt number Altitude in meters. For submaries use negative sign for depth.
+---@field private astar boolean If true, this waypint was found by A* pathfinding algorithm.
+---@field private coordinate COORDINATE Waypoint coordinate.
+---@field private detour number Signifies that this waypoint is not part of the normal route: 0=Hold, 1=Resume Route.
+---@field private formation string Ground formation. Similar to action but on/off road.
+---@field private intowind boolean If true, this waypoint is a turn into wind route point.
+---@field private marker MARKER Marker on the F10 map.
+---@field private missionUID number Mission UID (Auftragsnr) this waypoint belongs to.
+---@field private name string Waypoint description. Shown in the F10 map.
+---@field private npassed number Number of times a groups passed this waypoint.
+---@field private patrol boolean 
+---@field private roadcoord COORDINATE Closest point to road.
+---@field private roaddist number Distance to closest point on road.
+---@field private speed number Speed in m/s.
+---@field private task table Waypoint DCS task combo.
+---@field private temp boolean If true, this is a temporary waypoint and will be deleted when passed. Also the passing waypoint FSM event is not triggered.
+---@field private type string Waypoint type.
+---@field private uid number Waypoint's unit id, which is a running number.
+---@field private x number Waypoint x-coordinate.
+---@field private y number Waypoint y-coordinate.
 OPSGROUP.Waypoint = {}
 
 

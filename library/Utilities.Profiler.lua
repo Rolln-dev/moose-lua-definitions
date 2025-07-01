@@ -85,13 +85,18 @@
 ---PROFILER class.
 ---@class PROFILER 
 ---@field ClassName string Name of the class.
+---@field Counters table Function counters.
 ---@field ThreshCPS number Low calls per second threshold. Only write output if function has more calls per second than this value.
 ---@field ThreshTtot number Total time threshold. Only write output if total function CPU time is more than this value.
 ---@field TstartGame number Game start time timer.getTime().
 ---@field TstartOS number OS real start time os.clock.
----@field fileNamePrefix string Output file name prefix, e.g. "MooseProfiler".
----@field fileNameSuffix string Output file name prefix, e.g. "txt"
----@field logUnknown boolean Log unknown functions. Default is off.
+---@field private dInfo table Info.
+---@field private eventhandler table Event handler to get mission end event.
+---@field private fTime table Function time.
+---@field private fTimeTotal table Total function time.
+---@field private fileNamePrefix string Output file name prefix, e.g. "MooseProfiler".
+---@field private fileNameSuffix string Output file name prefix, e.g. "txt"
+---@field private logUnknown boolean Log unknown functions. Default is off.
 PROFILER = {}
 
 ---Start profiler.
@@ -122,6 +127,7 @@ function PROFILER._flog(f, txt) end
 ---@return string #Source file name.
 ---@return string #Line number.
 ---@return number #Function time in seconds.
+---@private
 function PROFILER.getData(func) end
 
 ---Write info to output file.
@@ -129,12 +135,14 @@ function PROFILER.getData(func) end
 ------
 ---@param ext string Extension.
 ---@return string #File name.
+---@private
 function PROFILER.getfilename(ext) end
 
 ---Debug hook.
 ---
 ------
 ---@param event table Event.
+---@private
 function PROFILER.hook(event) end
 
 ---Print csv file.
@@ -142,6 +150,7 @@ function PROFILER.hook(event) end
 ------
 ---@param data table Data table.
 ---@param runTimeGame number Game run time in seconds.
+---@private
 function PROFILER.printCSV(data, runTimeGame) end
 
 ---Write info to output file.
@@ -149,6 +158,7 @@ function PROFILER.printCSV(data, runTimeGame) end
 ------
 ---@param runTimeGame number Game time in seconds.
 ---@param runTimeOS number OS time in seconds.
+---@private
 function PROFILER.showInfo(runTimeGame, runTimeOS) end
 
 ---Show table.
@@ -157,16 +167,17 @@ function PROFILER.showInfo(runTimeGame, runTimeOS) end
 ---@param data table Data table.
 ---@param f function The file.
 ---@param runTimeGame number Game run time in seconds.
+---@private
 function PROFILER.showTable(data, f, runTimeGame) end
 
 
 ---Waypoint data.
 ---@class PROFILER.Data 
----@field count number Number of function calls.
----@field func string The function name.
----@field line number The line number
----@field src string The source file.
----@field tm number Total time in seconds.
+---@field private count number Number of function calls.
+---@field private func string The function name.
+---@field private line number The line number
+---@field private src string The source file.
+---@field private tm number Total time in seconds.
 PROFILER.Data = {}
 
 

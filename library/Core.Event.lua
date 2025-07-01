@@ -174,6 +174,7 @@
 ---===
 ---The EVENT class
 ---@class EVENT : BASE
+---@field Events EVENT.Events 
 ---@field MissionEnd boolean 
 EVENT = {}
 
@@ -417,6 +418,7 @@ function EVENT:Reset(EventClass, EventID, EventObject) end
 ------
 ---@param self EVENT 
 ---@param Event EVENTDATA Event data table.
+---@private
 function EVENT:onEvent(Event) end
 
 
@@ -450,12 +452,12 @@ EVENT.Events = {}
 ---@field IniTypeName string (UNIT) The type name of the initiator.
 ---@field IniUnit UNIT (UNIT/STATIC) The initiating MOOSE wrapper @{Wrapper.Unit#UNIT} of the initiator Unit object.
 ---@field IniUnitName string (UNIT/STATIC) The initiating UNIT name (same as IniDCSUnitName).
----@field MarkCoalition  
----@field MarkCoordinate  
----@field MarkGroupID  
----@field MarkID  
----@field MarkText  
----@field MarkVec3  
+---@field MarkCoalition NOTYPE 
+---@field MarkCoordinate NOTYPE 
+---@field MarkGroupID NOTYPE 
+---@field MarkID NOTYPE 
+---@field MarkText NOTYPE 
+---@field MarkVec3 NOTYPE 
 ---@field Place AIRBASE The MOOSE airbase object.
 ---@field PlaceName string The name of the airbase.
 ---@field TgtCategory Unit.Category (UNIT) The category of the target.
@@ -475,14 +477,14 @@ EVENT.Events = {}
 ---@field Weapon Weapon The weapon used during the event.
 ---@field WeaponName string Name of the weapon.
 ---@field WeaponTgtDCSUnit Unit Target DCS unit of the weapon.
----@field WeaponUNIT  
+---@field WeaponUNIT NOTYPE 
 ---@field Zone ZONE The zone object.
 ---@field ZoneName string The name of the zone.
----@field id number The identifier of the event.
----@field initiator Unit (UNIT/STATIC/SCENERY) The initiating @{DCS#Unit} or @{DCS#StaticObject}.
----@field place Airbase The @{DCS#Airbase}
----@field target Unit (UNIT/STATIC) The target @{DCS#Unit} or @{DCS#StaticObject}.
----@field weapon Weapon The weapon used during the event.
+---@field private id number The identifier of the event.
+---@field private initiator Unit (UNIT/STATIC/SCENERY) The initiating @{DCS#Unit} or @{DCS#StaticObject}.
+---@field private place Airbase The @{DCS#Airbase}
+---@field private target Unit (UNIT/STATIC) The target @{DCS#Unit} or @{DCS#StaticObject}.
+---@field private weapon Weapon The weapon used during the event.
 EVENTDATA = {}
 
 
@@ -503,40 +505,40 @@ function EVENTHANDLER:New() end
 ---The different types of events supported by MOOSE.
 ---Use this structure to subscribe to events using the Core.Base#BASE.HandleEvent() method.
 ---@class EVENTS 
----@field BaseCaptured  
----@field Birth  
----@field Crash  
----@field Dead  
----@field DeleteCargo  
----@field DeleteZone  
----@field DeleteZoneGoal  
----@field Ejection  
----@field EngineShutdown  
----@field EngineStartup  
----@field Hit  
----@field HumanFailure  
----@field Land  
----@field MarkAdded  
----@field MarkChange  
----@field MarkRemoved  
----@field MissionEnd  
----@field MissionStart  
----@field NewCargo  
----@field NewZone  
----@field NewZoneGoal  
----@field PilotDead  
----@field PlayerComment  
----@field PlayerEnterAircraft  
----@field PlayerEnterUnit  
----@field PlayerLeaveUnit  
----@field Refueling  
----@field RefuelingStop  
----@field RemoveUnit  
----@field ShootingEnd  
----@field ShootingStart  
----@field Shot  
----@field Takeoff  
----@field TookControl  
+---@field BaseCaptured NOTYPE 
+---@field Birth NOTYPE 
+---@field Crash NOTYPE 
+---@field Dead NOTYPE 
+---@field DeleteCargo NOTYPE 
+---@field DeleteZone NOTYPE 
+---@field DeleteZoneGoal NOTYPE 
+---@field Ejection NOTYPE 
+---@field EngineShutdown NOTYPE 
+---@field EngineStartup NOTYPE 
+---@field Hit NOTYPE 
+---@field HumanFailure NOTYPE 
+---@field Land NOTYPE 
+---@field MarkAdded NOTYPE 
+---@field MarkChange NOTYPE 
+---@field MarkRemoved NOTYPE 
+---@field MissionEnd NOTYPE 
+---@field MissionStart NOTYPE 
+---@field NewCargo NOTYPE 
+---@field NewZone NOTYPE 
+---@field NewZoneGoal NOTYPE 
+---@field PilotDead NOTYPE 
+---@field PlayerComment NOTYPE 
+---@field PlayerEnterAircraft NOTYPE 
+---@field PlayerEnterUnit NOTYPE 
+---@field PlayerLeaveUnit NOTYPE 
+---@field Refueling NOTYPE 
+---@field RefuelingStop NOTYPE 
+---@field RemoveUnit NOTYPE 
+---@field ShootingEnd NOTYPE 
+---@field ShootingStart NOTYPE 
+---@field Shot NOTYPE 
+---@field Takeoff NOTYPE 
+---@field TookControl NOTYPE 
 EVENTS = {}
 
 

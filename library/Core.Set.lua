@@ -262,7 +262,11 @@ function SET_AIRBASE:RemoveAirbasesByName(RemoveAirbaseNames) end
 ---You can set the **"yield interval"**, and the **"time interval"**. (See above).
 ---@class SET_BASE : BASE
 ---@field CallScheduler SCHEDULER 
----@field Database  
+---@field Database NOTYPE 
+---@field Filter SET_BASE.Filters Filters
+---@field Index table Table of indices.
+---@field List table Unused table.
+---@field Set table Table of objects.
 SET_BASE = {}
 
 ---Adds a Core.Base#BASE object in the Core.Set#SET_BASE, using a given ObjectName as the index.
@@ -378,7 +382,7 @@ function SET_BASE:FindNearestObjectFromPointVec2(Coordinate) end
 ---
 ------
 ---@param self SET_BASE 
----@param MasterObject BASE (Optional) The master object as a reference.
+---@param MasterObject? BASE (Optional) The master object as a reference.
 ---@return string #A string with the names of the objects.
 function SET_BASE:Flush(MasterObject) end
 
@@ -388,9 +392,9 @@ function SET_BASE:Flush(MasterObject) end
 ---@param self SET_BASE 
 ---@param IteratorFunction function The function that will be called.
 ---@param arg table Arguments of the IteratorFunction.
----@param Set SET_BASE (Optional) The set to use. Default self:GetSet().
----@param Function function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
----@param FunctionArguments table (Optional) Function arguments.
+---@param Set? SET_BASE (Optional) The set to use. Default self:GetSet().
+---@param Function? function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
+---@param FunctionArguments? table (Optional) Function arguments.
 ---@return SET_BASE #self
 function SET_BASE:ForEach(IteratorFunction, arg, Set, Function, FunctionArguments) end
 
@@ -575,7 +579,7 @@ function SET_BASE:OnAfterRemoved(From, Event, To, ObjectName, Object) end
 ------
 ---@param self SET_BASE 
 ---@param ObjectName string 
----@param NoTriggerEvent boolean (Optional) When `true`, the :Remove() method will not trigger a **Removed** event.
+---@param NoTriggerEvent? boolean (Optional) When `true`, the :Remove() method will not trigger a **Removed** event.
 function SET_BASE:Remove(ObjectName, NoTriggerEvent) end
 
 ---Copies the Filter criteria from a given Set (for rebuilding a new Set based on an existing Set).
@@ -641,6 +645,9 @@ function SET_BASE:_Find(ObjectName) end
 
 ---Filters
 ---@class SET_BASE.Filters 
+---@field Coalition table Coalitions
+---@field Functions table 
+---@field Prefix table Prefixes.
 SET_BASE.Filters = {}
 
 
@@ -984,7 +991,7 @@ function SET_CLIENT:CountAlive() end
 ---```
 ------
 ---@param self SET_CLIENT 
----@param Active boolean (Optional) Include only active clients to the set. Include inactive clients if you provide false.
+---@param Active? boolean (Optional) Include only active clients to the set. Include inactive clients if you provide false.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterActive(Active) end
 
@@ -1294,6 +1301,10 @@ function SET_CLIENT:_EventPlayerLeaveUnit(Event) end
 ---===
 ---@class SET_DYNAMICCARGO : SET_BASE
 ---@field CallScheduler SCHEDULER 
+---@field Filter SET_DYNAMICCARGO.Filters Filters.
+---@field Index table Table of indices.
+---@field List table Unused table.
+---@field Set table Table of objects.
 ---@field ZoneTimer TIMER Timer for active filtering of zones.
 ---@field ZoneTimerInterval number 
 SET_DYNAMICCARGO = {}
@@ -1827,7 +1838,7 @@ function SET_GROUP:CountUnitInZone(Zone) end
 ---```
 ------
 ---@param self SET_GROUP 
----@param Active boolean (Optional) Include only active groups to the set. Include inactive groups if you provide false.
+---@param Active? boolean (Optional) Include only active groups to the set. Include inactive groups if you provide false.
 ---@return SET_GROUP #self
 function SET_GROUP:FilterActive(Active) end
 
@@ -2088,7 +2099,7 @@ function SET_GROUP:GetAliveSet() end
 ------
 ---@param self SET_GROUP 
 ---@param Coordinate COORDINATE Reference Coordinate from which the closest group is determined.
----@param Coalitions table (Optional) Table of coalition #number entries to filter for.
+---@param Coalitions? table (Optional) Table of coalition #number entries to filter for.
 ---@return GROUP #The closest group (if any).
 ---@return number #Distance in meters to the closest group.
 function SET_GROUP:GetClosestGroup(Coordinate, Coalitions) end
@@ -2337,7 +2348,7 @@ function SET_OPSGROUP:AddObject(Object) end
 ---```
 ------
 ---@param self SET_OPSGROUP 
----@param Active boolean (optional) Include only active groups to the set. Include inactive groups if you provide false.
+---@param Active? boolean (optional) Include only active groups to the set. Include inactive groups if you provide false.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterActive(Active) end
 
@@ -2475,7 +2486,7 @@ function SET_OPSGROUP:FindNavyGroup(GroupName) end
 ------
 ---@param self SET_OPSGROUP 
 ---@param IteratorFunction function The function that will be called for all OPSGROUPs in the set. **NOTE** that the function must have the OPSGROUP as first parameter!
----@param ... NOTYPE (Optional) arguments passed to the `IteratorFunction`.
+---@param ...? NOTYPE (Optional) arguments passed to the `IteratorFunction`.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:ForEachGroup(IteratorFunction, ...) end
 
@@ -3410,7 +3421,7 @@ function SET_STATIC:GetStaticTypesText() end
 ---
 ------
 ---@param self SET_STATIC 
----@param Delimiter string (Optional) The delimiter, which is default a comma.
+---@param Delimiter? string (Optional) The delimiter, which is default a comma.
 ---@return string #The types of the @{Wrapper.Static}s delimited.
 function SET_STATIC:GetTypeNames(Delimiter) end
 
@@ -3635,7 +3646,7 @@ function SET_UNIT:CountAlive() end
 ---```
 ------
 ---@param self SET_UNIT 
----@param Active boolean (Optional) Include only active units to the set. Include inactive units if you provide false.
+---@param Active? boolean (Optional) Include only active units to the set. Include inactive units if you provide false.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterActive(Active) end
 
@@ -3881,7 +3892,7 @@ function SET_UNIT:GetSetPerThreatLevel(FromThreatLevel, ToThreatLevel) end
 ---
 ------
 ---@param self SET_UNIT 
----@param Delimiter string (Optional) The delimiter, which is default a comma.
+---@param Delimiter? string (Optional) The delimiter, which is default a comma.
 ---@return string #The types of the @{Wrapper.Unit}s delimited.
 function SET_UNIT:GetTypeNames(Delimiter) end
 
@@ -4053,8 +4064,8 @@ function SET_UNIT:_ContinousZoneFilter() end
 ---
 ---===
 ---@class SET_ZONE : SET_BASE
----@field checkobjects  
----@field objectset  
+---@field private checkobjects NOTYPE 
+---@field private objectset NOTYPE 
 SET_ZONE = {}
 
 ---Handles the Database to check on an event (birth) that the Object was added in the Database.
@@ -4093,7 +4104,7 @@ function SET_ZONE:AddZonesByName(AddZoneNames) end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
 ---@return SET_ZONE #self
 function SET_ZONE:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly) end
 
@@ -4336,6 +4347,7 @@ function SET_ZONE:__TriggerStop(delay) end
 ---@param to string 
 ---@param To NOTYPE 
 ---@return SET_ZONE #self
+---@private
 function SET_ZONE:onafterTriggerRunCheck(From, Event, to, To) end
 
 

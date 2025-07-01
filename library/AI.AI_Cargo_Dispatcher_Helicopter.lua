@@ -178,7 +178,7 @@ function AI_CARGO_DISPATCHER_HELICOPTER:AICargo(Helicopter, CargoSet) end
 ---@param self AI_CARGO_DISPATCHER_HELICOPTER 
 ---@param HelicopterSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of helicopters that will transport the cargo.
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
----@param PickupZoneSet SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the APCs. If nil, then cargo can be picked up everywhere. 
+---@param PickupZoneSet? SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the APCs. If nil, then cargo can be picked up everywhere. 
 ---@param DeployZoneSet SET_ZONE The set of deploy zones, which are used to where the cargo will be deployed by the Helicopters. 
 ---@return AI_CARGO_DISPATCHER_HELICOPTER #
 function AI_CARGO_DISPATCHER_HELICOPTER:New(HelicopterSet, CargoSet, PickupZoneSet, DeployZoneSet) end

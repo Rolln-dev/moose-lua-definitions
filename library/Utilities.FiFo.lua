@@ -17,11 +17,13 @@
 ---FIFO class.
 ---@class FIFO : BASE
 ---@field ClassName string Name of the class.
----@field counter number Counter.
----@field lid string Class id string for output to DCS log file.
----@field pointer number Pointer.
----@field uniquecounter number 
----@field version string Version of FiFo.
+---@field private counter number Counter.
+---@field private lid string Class id string for output to DCS log file.
+---@field private pointer number Pointer.
+---@field private stackbyid table Stack by ID.
+---@field private stackbypointer table Stack by pointer.
+---@field private uniquecounter number 
+---@field private version string Version of FiFo.
 FIFO = {}
 
 ---Empty FIFO Stack.
@@ -57,9 +59,9 @@ function FIFO:Flush() end
 ------
 ---@param self FIFO 
 ---@param IteratorFunction function The function that will be called.
----@param Arg table (Optional) Further Arguments of the IteratorFunction.
----@param Function function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
----@param FunctionArguments table (Optional) Function arguments.
+---@param Arg? table (Optional) Further Arguments of the IteratorFunction.
+---@param Function? function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
+---@param FunctionArguments? table (Optional) Function arguments.
 ---@return FIFO #self
 function FIFO:ForEach(IteratorFunction, Arg, Function, FunctionArguments) end
 
@@ -162,7 +164,7 @@ function FIFO:PullByPointer(Pointer) end
 ------
 ---@param self FIFO 
 ---@param Object table 
----@param UniqueID string (optional) - will default to current pointer + 1. Note - if you intend to use `FIFO:GetIDStackSorted()` keep the UniqueID numerical!
+---@param UniqueID? string (optional) - will default to current pointer + 1. Note - if you intend to use `FIFO:GetIDStackSorted()` keep the UniqueID numerical!
 ---@return FIFO #self
 function FIFO:Push(Object, UniqueID) end
 
@@ -184,17 +186,22 @@ function FIFO:ReadByPointer(Pointer) end
 
 
 ---@class FIFO.IDEntry 
----@field pointer number 
+---@field private data table 
+---@field private pointer number 
+---@field private uniqueID table 
 FIFO.IDEntry = {}
 
 
 ---LIFO class.
 ---@class LIFO : BASE
 ---@field ClassName string Name of the class.
----@field counter number 
----@field lid string Class id string for output to DCS log file.
----@field pointer number 
----@field version string Version of LiFo
+---@field private counter number 
+---@field private lid string Class id string for output to DCS log file.
+---@field private pointer number 
+---@field private stackbyid table 
+---@field private stackbypointer table 
+---@field private uniquecounter number 
+---@field private version string Version of LiFo
 LIFO = {}
 
 ---Empty LIFO Stack
@@ -230,9 +237,9 @@ function LIFO:Flush() end
 ------
 ---@param self LIFO 
 ---@param IteratorFunction function The function that will be called.
----@param Arg table (Optional) Further Arguments of the IteratorFunction.
----@param Function function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
----@param FunctionArguments table (Optional) Function arguments.
+---@param Arg? table (Optional) Further Arguments of the IteratorFunction.
+---@param Function? function (Optional) A function returning a #boolean true/false. Only if true, the IteratorFunction is called.
+---@param FunctionArguments? table (Optional) Function arguments.
 ---@return LIFO #self
 function LIFO:ForEach(IteratorFunction, Arg, Function, FunctionArguments) end
 
@@ -335,7 +342,7 @@ function LIFO:PullByPointer(Pointer) end
 ------
 ---@param self LIFO 
 ---@param Object table 
----@param UniqueID string (optional) - will default to current pointer + 1
+---@param UniqueID? string (optional) - will default to current pointer + 1
 ---@return LIFO #self
 function LIFO:Push(Object, UniqueID) end
 
@@ -357,7 +364,9 @@ function LIFO:ReadByPointer(Pointer) end
 
 
 ---@class LIFO.IDEntry 
----@field pointer number 
+---@field private data table 
+---@field private pointer number 
+---@field private uniqueID table 
 LIFO.IDEntry = {}
 
 

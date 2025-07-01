@@ -67,7 +67,8 @@
 ---
 --- the detected zones when a new detection has taken place.
 ---@class DETECTION_AREAS : DETECTION_BASE
----@field CountryID  
+---@field CountryID NOTYPE 
+---@field DetectedItems DETECTION_BASE.DetectedItems A list of areas containing the set of @{Wrapper.Unit}s, @{Core.Zone}s, the center @{Wrapper.Unit} within the zone, and ID of each area that was detected within a DetectionZoneRange.
 ---@field DetectionZoneRange Distance The range till which targets are grouped upon the first detected target.
 ---@field _BoundDetectedZones boolean 
 ---@field _FlareDetectedUnits boolean 
@@ -104,7 +105,7 @@ function DETECTION_AREAS:CreateDetectionItems() end
 ---@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
----@param Settings SETTINGS (Optional) Message formatting settings to use.
+---@param Settings? SETTINGS (Optional) Message formatting settings to use.
 ---@return REPORT #The report of the detection items.
 function DETECTION_AREAS:DetectedItemReportMenu(DetectedItem, AttackGroup, Settings) end
 
@@ -114,7 +115,7 @@ function DETECTION_AREAS:DetectedItemReportMenu(DetectedItem, AttackGroup, Setti
 ---@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
----@param Settings SETTINGS (Optional) Message formatting settings to use.
+---@param Settings? SETTINGS (Optional) Message formatting settings to use.
 ---@return REPORT #The report of the detection items.
 function DETECTION_AREAS:DetectedItemReportSummary(DetectedItem, AttackGroup, Settings) end
 
@@ -408,29 +409,34 @@ function DETECTION_AREAS:SmokeDetectedZones() end
 ---  * **Detected**: New units have been detected.
 ---  * **Stop**: Stop the detection process.
 ---@class DETECTION_BASE : FSM
----@field AcceptRange  
----@field AlphaAngleProbability  
----@field DetectDLINK  
----@field DetectIRST  
----@field DetectOptical  
----@field DetectRWR  
----@field DetectRadar  
----@field DetectVisual  
----@field DetectedItemMax number 
+---@field AcceptRange NOTYPE 
+---@field AcceptZones table 
+---@field AlphaAngleProbability NOTYPE 
+---@field DetectDLINK NOTYPE 
+---@field DetectIRST NOTYPE 
+---@field DetectOptical NOTYPE 
+---@field DetectRWR NOTYPE 
+---@field DetectRadar NOTYPE 
+---@field DetectVisual NOTYPE 
+---@field DetectedItems table 
+---@field DetectedObjects DETECTION_BASE.DetectedObjects The list of detected objects.
+---@field DetectedObjectsIdentified table Map of the DetectedObjects identified.
 ---@field DetectionRange Distance The range till which targets are accepted to be detected.
 ---@field DetectionRun number 
----@field DetectionScheduler  
----@field DetectionSet  
+---@field DetectionScheduler NOTYPE 
+---@field DetectionSet NOTYPE 
 ---@field DetectionSetGroup SET_GROUP The @{Core.Set} of GROUPs in the Forward Air Controller role.
----@field DistanceProbability  
----@field FriendliesRange  
----@field Intercept  
----@field InterceptDelay  
+---@field DistanceProbability NOTYPE 
+---@field FriendliesRange NOTYPE 
+---@field Intercept NOTYPE 
+---@field InterceptDelay NOTYPE 
+---@field Locking boolean 
 ---@field RadarBlur boolean 
----@field RefreshTimeInterval  
----@field ScheduleDelayTime  
----@field ScheduleRepeatInterval  
----@field ZoneProbability  
+---@field RefreshTimeInterval NOTYPE 
+---@field RejectZones table 
+---@field ScheduleDelayTime NOTYPE 
+---@field ScheduleRepeatInterval NOTYPE 
+---@field ZoneProbability NOTYPE 
 DETECTION_BASE = {}
 
 ---Accepts changes from the detected item.
@@ -468,7 +474,7 @@ function DETECTION_BASE:AddChangeUnit(DetectedItem, ChangeCode, ChangeUnitType) 
 ---@param self DETECTION_BASE 
 ---@param ItemPrefix string Prefix of detected item.
 ---@param DetectedItemKey number The key of the DetectedItem. Default self.DetectedItemMax. Could also be a string in principle.
----@param Set SET_UNIT (optional) The Set of Units to be added.
+---@param Set? SET_UNIT (optional) The Set of Units to be added.
 ---@return DETECTION_BASE.DetectedItem #
 function DETECTION_BASE:AddDetectedItem(ItemPrefix, DetectedItemKey, Set) end
 
@@ -478,8 +484,8 @@ function DETECTION_BASE:AddDetectedItem(ItemPrefix, DetectedItemKey, Set) end
 ------
 ---@param self DETECTION_BASE 
 ---@param DetectedItemKey NOTYPE The key of the DetectedItem.
----@param Set SET_UNIT (optional) The Set of Units to be added.
----@param Zone ZONE_UNIT (optional) The Zone to be added where the Units are located.
+---@param Set? SET_UNIT (optional) The Set of Units to be added.
+---@param Zone? ZONE_UNIT (optional) The Zone to be added where the Units are located.
 ---@param ItemPrefix NOTYPE 
 ---@return DETECTION_BASE.DetectedItem #
 function DETECTION_BASE:AddDetectedItemZone(DetectedItemKey, Set, Zone, ItemPrefix) end
@@ -1226,6 +1232,7 @@ function DETECTION_BASE:__Stop(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function DETECTION_BASE:onafterDetect(From, Event, To) end
 
 
@@ -1237,6 +1244,7 @@ function DETECTION_BASE:onafterDetect(From, Event, To) end
 ---@param To string The To State string.
 ---@param Detection GROUP The Group detecting.
 ---@param DetectionTimeStamp number Time stamp of detection event.
+---@private
 function DETECTION_BASE:onafterDetection(From, Event, To, Detection, DetectionTimeStamp) end
 
 
@@ -1246,6 +1254,7 @@ function DETECTION_BASE:onafterDetection(From, Event, To, Detection, DetectionTi
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function DETECTION_BASE:onafterStart(From, Event, To) end
 
 
@@ -1253,9 +1262,11 @@ function DETECTION_BASE:onafterStart(From, Event, To) end
 ---@class DETECTION_BASE.DetectedItem 
 ---@field CategoryName string Category name of the detected unit.
 ---@field Changed boolean Documents if the detected area has changed.
+---@field Changes table A list of the changes reported on the detected area. (It is up to the user of the detected area to consume those changes).
 ---@field Coordinate COORDINATE The last known coordinate of the DetectedItem.
 ---@field Distance number Distance to the detected item.
 ---@field DistanceRecce number Distance in meters of the Recce.
+---@field FriendliesDistance table Table of distances to friendly units.
 ---@field FriendliesNearBy boolean Indicates if there are friendlies within the detected area.
 ---@field ID number The identifier of the detected area.
 ---@field Index number Detected item key. Could also be a string.
@@ -1271,6 +1282,7 @@ function DETECTION_BASE:onafterStart(From, Event, To) end
 ---@field Locked boolean Lock detected item.
 ---@field Name string Name of the detected object.
 ---@field NearestFAC UNIT The nearest FAC near the Area.
+---@field PlayersNearBy table Table of nearby players.
 ---@field Removed boolean 
 ---@field Set SET_UNIT The Set of Units in the detected area.
 ---@field TypeName string Type name of the detected unit.

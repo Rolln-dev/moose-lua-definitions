@@ -106,9 +106,9 @@ function ZONE:New(ZoneName) end
 ---The ZONE_AIRBASE class defines by a zone around a Wrapper.Airbase#AIRBASE with a radius.
 ---This class implements the inherited functions from #ZONE_RADIUS taking into account the own zone format and properties.
 ---@class ZONE_AIRBASE : ZONE_RADIUS
----@field isAirdrome boolean If `true`, airbase is an airdrome.
----@field isHelipad boolean If `true`, airbase is a helipad.
----@field isShip boolean If `true`, airbase is a ship.
+---@field private isAirdrome boolean If `true`, airbase is an airdrome.
+---@field private isHelipad boolean If `true`, airbase is a helipad.
+---@field private isShip boolean If `true`, airbase is a ship.
 ZONE_AIRBASE = {}
 
 ---Get the airbase as part of the ZONE_AIRBASE object.
@@ -123,8 +123,8 @@ function ZONE_AIRBASE:GetAirbase() end
 ---
 ------
 ---@param self ZONE_AIRBASE 
----@param inner number (optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
 function ZONE_AIRBASE:GetRandomPointVec2(inner, outer) end
 
@@ -140,7 +140,7 @@ function ZONE_AIRBASE:GetVec2() end
 ------
 ---@param self ZONE_AIRBASE 
 ---@param AirbaseName string Name of the airbase.
----@param Radius Distance (Optional)The radius of the zone in meters. Default 4000 meters.
+---@param Radius? Distance (Optional)The radius of the zone in meters. Default 4000 meters.
 ---@return ZONE_AIRBASE #self
 function ZONE_AIRBASE:New(AirbaseName, Radius) end
 
@@ -191,16 +191,19 @@ function ZONE_AIRBASE:New(AirbaseName, Radius) end
 ---  *#ZONE_BASE.GetAllProperties(): Returns the zone Properties table.
 ---@class ZONE_BASE : FSM
 ---@field Checktime number Check every Checktime seconds, used for ZONE:Trigger()
----@field Coordinate  
+---@field Color table Table with four entries, e.g. {1, 0, 0, 0.15}. First three are RGB color code. Fourth is the transparency Alpha value.
+---@field Coordinate NOTYPE 
 ---@field DrawID number Unique ID of the drawn zone on the F10 map.
+---@field FillColor table Table with four entries, e.g. {1, 0, 0, 0.15}. First three are RGB color code. Fourth is the transparency Alpha value.
 ---@field ObjectsInZone boolean 
 ---@field Surface number Type of surface. Only determined at the center of the zone!
+---@field Table table of any trigger zone properties from the ME. The key is the Name of the property, and the value is the property's Value.
 ---@field ZoneID number ID of zone. Only zones defined in the ME have an ID!
 ---@field ZoneName string Name of the zone.
 ---@field ZoneProbability number A value between 0 and 1. 0 = 0% and 1 = 100% probability.
----@field checkobjects  
----@field drawCoalition number Draw coalition.
----@field objectset  
+---@field private checkobjects NOTYPE 
+---@field private drawCoalition number Draw coalition.
+---@field private objectset NOTYPE 
 ZONE_BASE = {}
 
 ---Bound the zone boundaries with a tires.
@@ -608,7 +611,7 @@ function ZONE_BASE:TriggerStop() end
 ---
 ------
 ---@param self ZONE_BASE 
----@param Delay number (Optional) Delay before the drawing is removed.
+---@param Delay? number (Optional) Delay before the drawing is removed.
 ---@return ZONE_BASE #self
 function ZONE_BASE:UndrawZone(Delay) end
 
@@ -636,23 +639,28 @@ function ZONE_BASE:__TriggerStop(delay) end
 ---@param to string 
 ---@param To NOTYPE 
 ---@return ZONE_BASE #self
+---@private
 function ZONE_BASE:onafterTriggerRunCheck(From, Event, to, To) end
 
 
 ---The ZONE_BASE.BoundingSquare
 ---@class ZONE_BASE.BoundingSquare 
----@field x1 Distance The lower x coordinate (left down)
----@field x2 Distance The higher x coordinate (right up)
----@field y1 Distance The lower y coordinate (left down)
----@field y2 Distance The higher y coordinate (right up)
+---@field private x1 Distance The lower x coordinate (left down)
+---@field private x2 Distance The higher x coordinate (right up)
+---@field private y1 Distance The lower y coordinate (left down)
+---@field private y2 Distance The higher y coordinate (right up)
 ZONE_BASE.BoundingSquare = {}
 
 
 ---The ZONE_ELASTIC class defines a dynamic polygon zone, where only the convex hull is used.
 ---@class ZONE_ELASTIC : ZONE_POLYGON_BASE
----@field SurfaceArea  
----@field _Triangles  
----@field updateID number Scheduler ID for updating.
+---@field SurfaceArea NOTYPE 
+---@field _Triangles NOTYPE 
+---@field private points table Points in 2D.
+---@field private setGroups table Set of GROUPs.
+---@field private setOpsGroups table Set of OPSGROUPS.
+---@field private setUnits table Set of UNITs.
+---@field private updateID number Scheduler ID for updating.
 ZONE_ELASTIC = {}
 
 ---Add a set of groups.
@@ -685,7 +693,7 @@ function ZONE_ELASTIC:AddVertex3D(Vec3) end
 ------
 ---@param self ZONE_ELASTIC 
 ---@param ZoneName string Name of the zone.
----@param Points Vec2 (Optional) Fixed points.
+---@param Points? Vec2 (Optional) Fixed points.
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:New(ZoneName, Points) end
 
@@ -754,8 +762,8 @@ ZONE_GROUP = {}
 ---
 ------
 ---@param self ZONE_GROUP 
----@param inner number (optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
 function ZONE_GROUP:GetRandomPointVec2(inner, outer) end
 
@@ -791,11 +799,12 @@ function ZONE_GROUP:New(ZoneName, ZoneGROUP, Radius) end
 ---ZONE_OVAL created from a center point, major axis, minor axis, and angle.
 ---Ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Oval.lua
 ---@class ZONE_OVAL : ZONE_BASE
----@field Angle  
----@field DrawPoly  
----@field MajorAxis  
----@field MinorAxis  
----@field ZoneName  
+---@field Angle NOTYPE 
+---@field CenterVec2 table 
+---@field DrawPoly NOTYPE 
+---@field MajorAxis NOTYPE 
+---@field MinorAxis NOTYPE 
+---@field ZoneName NOTYPE 
 ZONE_OVAL = {}
 
 ---Draw the zone on the F10 map.
@@ -809,7 +818,7 @@ ZONE_OVAL = {}
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value. -- doesn't seem to work
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.                                                 -- doesn't seem to work
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
 ---@return ZONE_OVAL #self
 function ZONE_OVAL:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly) end
 
@@ -948,6 +957,7 @@ function ZONE_OVAL:UndrawZone() end
 ---This class has been updated to use a accurate way of generating random points inside the polygon without having to use trial and error guesses.
 ---You can also get the surface area of the polygon now, handy if you want measure which coalition has the largest captured area, for example.
 ---@class ZONE_POLYGON : ZONE_POLYGON_BASE
+---@field ScanData table 
 ---@field ScanSetGroup SET_GROUP 
 ZONE_POLYGON = {}
 
@@ -1197,7 +1207,12 @@ function ZONE_POLYGON:Scan(ObjectCategories, UnitCategories) end
 ---  * #ZONE_POLYGON_BASE.DrawZone(): Draws the zone on the F10 map.
 ---  * #ZONE_POLYGON_BASE.Boundary(): Draw a frontier on the F10 map with small filled circles.
 ---@class ZONE_POLYGON_BASE : ZONE_BASE
+---@field Borderlines table 
+---@field DrawID table 
+---@field FillTriangles table 
+---@field Polygon ZONE_POLYGON_BASE.ListVec2 The polygon defined by an array of @{DCS#Vec2}.
 ---@field SurfaceArea number 
+---@field _Triangles table 
 ZONE_POLYGON_BASE = {}
 
 ---Smokes the zone boundaries in a color.
@@ -1212,12 +1227,12 @@ function ZONE_POLYGON_BASE:BoundZone(UnBound) end
 ---
 ------
 ---@param self ZONE_POLYGON_BASE 
----@param Coalition number (Optional) Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1= All.
----@param Color table (Optional) RGB color table {r, g, b}, e.g. {1, 0, 0} for red. Default {1, 1, 1}= White.
----@param Radius number (Optional) Radius of the circles in meters. Default 1000.
----@param Alpha number (Optional) Alpha transparency [0,1]. Default 1.
----@param Segments number (Optional) Number of segments within boundary line. Default 10.
----@param Closed boolean (Optional) Link the last point with the first one to obtain a closed boundary. Default false
+---@param Coalition? number (Optional) Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1= All.
+---@param Color? table (Optional) RGB color table {r, g, b}, e.g. {1, 0, 0} for red. Default {1, 1, 1}= White.
+---@param Radius? number (Optional) Radius of the circles in meters. Default 1000.
+---@param Alpha? number (Optional) Alpha transparency [0,1]. Default 1.
+---@param Segments? number (Optional) Number of segments within boundary line. Default 10.
+---@param Closed? boolean (Optional) Link the last point with the first one to obtain a closed boundary. Default false
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:Boundary(Coalition, Color, Radius, Alpha, Segments, Closed) end
 
@@ -1233,7 +1248,7 @@ function ZONE_POLYGON_BASE:Boundary(Coalition, Color, Radius, Alpha, Segments, C
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value. -- doesn't seem to work
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.                                                 -- doesn't seem to work
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.s
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.s
 ---@param IncludeTriangles NOTYPE 
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly, IncludeTriangles) end
@@ -1243,9 +1258,9 @@ function ZONE_POLYGON_BASE:DrawZone(Coalition, Color, Alpha, FillColor, FillAlph
 ------
 ---@param self ZONE_POLYGON_BASE 
 ---@param FlareColor FLARECOLOR The flare color.
----@param Segments number (Optional) Number of segments within boundary line. Default 10.
----@param Azimuth Azimuth (optional) Azimuth The azimuth of the flare.
----@param AddHeight number (optional) The height to be added for the smoke.
+---@param Segments? number (Optional) Number of segments within boundary line. Default 10.
+---@param Azimuth? Azimuth (optional) Azimuth The azimuth of the flare.
+---@param AddHeight? number (optional) The height to be added for the smoke.
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:FlareZone(FlareColor, Segments, Azimuth, AddHeight) end
 
@@ -1372,8 +1387,8 @@ function ZONE_POLYGON_BASE:GetVerticiesVec3() end
 ---
 ------
 ---@param self ZONE_POLYGON_BASE 
----@param ZoneName string (Optional) Name of the zone. Default is the name of the polygon zone.
----@param DoNotRegisterZone boolean (Optional) If `true`, zone is not registered.
+---@param ZoneName? string (Optional) Name of the zone. Default is the name of the polygon zone.
+---@param DoNotRegisterZone? boolean (Optional) If `true`, zone is not registered.
 ---@return ZONE_POLYGON #The rectangular zone.
 function ZONE_POLYGON_BASE:GetZoneQuad(ZoneName, DoNotRegisterZone) end
 
@@ -1381,8 +1396,8 @@ function ZONE_POLYGON_BASE:GetZoneQuad(ZoneName, DoNotRegisterZone) end
 ---
 ------
 ---@param self ZONE_POLYGON_BASE 
----@param ZoneName string (Optional) Name of the zone. Default is the name of the polygon zone.
----@param DoNotRegisterZone boolean (Optional) If `true`, zone is not registered.
+---@param ZoneName? string (Optional) Name of the zone. Default is the name of the polygon zone.
+---@param DoNotRegisterZone? boolean (Optional) If `true`, zone is not registered.
 ---@return ZONE_RADIUS #The circular zone.
 function ZONE_POLYGON_BASE:GetZoneRadius(ZoneName, DoNotRegisterZone) end
 
@@ -1446,7 +1461,7 @@ function ZONE_POLYGON_BASE:RemoveJunk(Height) end
 ------
 ---@param self ZONE_POLYGON_BASE 
 ---@param SmokeColor SMOKECOLOR The smoke color.
----@param Segments number (Optional) Number of segments within boundary line. Default 10.
+---@param Segments? number (Optional) Number of segments within boundary line. Default 10.
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:SmokeZone(SmokeColor, Segments) end
 
@@ -1516,8 +1531,9 @@ function ZONE_POLYGON_BASE:_Triangulate() end
 ---  * #ZONE_RADIUS.DrawZone(): Draws the zone on the F10 map.
 ---The ZONE_RADIUS class, defined by a zone name, a location and a radius.
 ---@class ZONE_RADIUS : ZONE_BASE
----@field DrawID  
+---@field DrawID NOTYPE 
 ---@field Radius Distance The radius of the zone.
+---@field ScanData table 
 ---@field ScanSetGroup SET_GROUP 
 ---@field Vec2 Vec2 The current location of the zone.
 ZONE_RADIUS = {}
@@ -1526,9 +1542,9 @@ ZONE_RADIUS = {}
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param Points number (optional) The amount of points in the circle. Default 360.
+---@param Points? number (optional) The amount of points in the circle. Default 360.
 ---@param CountryID country.id The country id of the tire objects, e.g. country.id.USA for blue or country.id.RUSSIA for red.
----@param UnBound boolean (Optional) If true the tyres will be destroyed.
+---@param UnBound? boolean (Optional) If true the tyres will be destroyed.
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:BoundZone(Points, CountryID, UnBound) end
 
@@ -1557,7 +1573,7 @@ function ZONE_RADIUS:CountScannedCoalitions() end
 ---@param FillColor table RGB color table {r, g, b}, e.g. {1,0,0} for red. Default is same as `Color` value.
 ---@param FillAlpha number Transparency [0,1]. Default 0.15.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
----@param ReadOnly boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
+---@param ReadOnly? boolean (Optional) Mark is readonly and cannot be removed by users. Default false.
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineType, ReadOnly) end
 
@@ -1566,9 +1582,9 @@ function ZONE_RADIUS:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, Lin
 ------
 ---@param self ZONE_RADIUS 
 ---@param FlareColor FLARECOLOR The flare color.
----@param Points number (optional) The amount of points in the circle.
----@param Azimuth Azimuth (optional) Azimuth The azimuth of the flare.
----@param AddHeight number (optional) The height to be added for the smoke.
+---@param Points? number (optional) The amount of points in the circle.
+---@param Azimuth? Azimuth (optional) Azimuth The azimuth of the flare.
+---@param AddHeight? number (optional) The height to be added for the smoke.
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:FlareZone(FlareColor, Points, Azimuth, AddHeight) end
 
@@ -1583,9 +1599,9 @@ function ZONE_RADIUS:GetRadius() end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (Optional) Minimal distance from the center of the zone in meters. Default is 0 m.
----@param outer number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
----@param surfacetypes table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
+---@param inner? number (Optional) Minimal distance from the center of the zone in meters. Default is 0 m.
+---@param outer? number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
+---@param surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
 ---@return COORDINATE #The random coordinate.
 function ZONE_RADIUS:GetRandomCoordinate(inner, outer, surfacetypes) end
 
@@ -1594,11 +1610,11 @@ function ZONE_RADIUS:GetRandomCoordinate(inner, outer, surfacetypes) end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (Optional) Minimal distance from the center of the zone in meters. Default is 0m.
----@param outer number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
----@param distance number (Optional) Minimum distance from any building coordinate. Defaults to 100m.
----@param markbuildings boolean (Optional) Place markers on found buildings (if any).
----@param markfinal boolean (Optional) Place marker on the final coordinate (if any).
+---@param inner? number (Optional) Minimal distance from the center of the zone in meters. Default is 0m.
+---@param outer? number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
+---@param distance? number (Optional) Minimum distance from any building coordinate. Defaults to 100m.
+---@param markbuildings? boolean (Optional) Place markers on found buildings (if any).
+---@param markfinal? boolean (Optional) Place marker on the final coordinate (if any).
 ---@return COORDINATE #The random coordinate or `nil` if cannot be found in 1000 iterations.
 function ZONE_RADIUS:GetRandomCoordinateWithoutBuildings(inner, outer, distance, markbuildings, markfinal) end
 
@@ -1607,8 +1623,8 @@ function ZONE_RADIUS:GetRandomCoordinateWithoutBuildings(inner, outer, distance,
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
 function ZONE_RADIUS:GetRandomPointVec2(inner, outer) end
 
@@ -1617,8 +1633,8 @@ function ZONE_RADIUS:GetRandomPointVec2(inner, outer) end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
 function ZONE_RADIUS:GetRandomPointVec3(inner, outer) end
 
@@ -1626,9 +1642,9 @@ function ZONE_RADIUS:GetRandomPointVec3(inner, outer) end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (Optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (Optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
----@param surfacetypes table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
+---@param inner? number (Optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (Optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
 ---@return Vec2 #The random location within the zone.
 function ZONE_RADIUS:GetRandomVec2(inner, outer, surfacetypes) end
 
@@ -1636,8 +1652,8 @@ function ZONE_RADIUS:GetRandomVec2(inner, outer, surfacetypes) end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param inner number (optional) Minimal distance from the center of the zone. Default is 0.
----@param outer number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
+---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
+---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return Vec3 #The random location within the zone.
 function ZONE_RADIUS:GetRandomVec3(inner, outer) end
 
@@ -1822,7 +1838,7 @@ function ZONE_RADIUS:IsVec3InZone(Vec3) end
 ---
 ------
 ---@param self ZONE_RADIUS 
----@param Points number (Optional) The amount of points in the circle. Default 360.
+---@param Points? number (Optional) The amount of points in the circle. Default 360.
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:MarkZone(Points) end
 
@@ -1895,9 +1911,9 @@ function ZONE_RADIUS:SetVec2(Vec2) end
 ------
 ---@param self ZONE_RADIUS 
 ---@param SmokeColor SMOKECOLOR The smoke color.
----@param Points number (optional) The amount of points in the circle.
----@param AddHeight number (optional) The height to be added for the smoke.
----@param AddOffSet number (optional) The angle to be added for the smoking start position.
+---@param Points? number (optional) The amount of points in the circle.
+---@param AddHeight? number (optional) The height to be added for the smoke.
+---@param AddOffSet? number (optional) The angle to be added for the smoking start position.
 ---@param AngleOffset NOTYPE 
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:SmokeZone(SmokeColor, Points, AddHeight, AddOffSet, AngleOffset) end
@@ -1926,7 +1942,7 @@ function ZONE_RADIUS:UpdateFromVec3(Vec3, Radius) end
 ---The ZONE_UNIT class defined by a zone attached to a Wrapper.Unit#UNIT with a radius and optional offsets.
 ---This class implements the inherited functions from #ZONE_RADIUS taking into account the own zone format and properties.
 ---@class ZONE_UNIT : ZONE_RADIUS
----@field LastVec2  
+---@field LastVec2 NOTYPE 
 ---@field ZoneUNIT UNIT 
 ZONE_UNIT = {}
 
@@ -1980,7 +1996,7 @@ _ZONE_TRIANGLE = {}
 ------
 ---@param self _ZONE_TRIANGLE 
 ---@param pt table The point to check
----@param points table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
+---@param points? table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@return boolean #True if the point is contained, false otherwise
 function _ZONE_TRIANGLE:ContainsPoint(pt, points) end
 

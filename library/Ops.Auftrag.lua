@@ -204,8 +204,13 @@
 ---TODO
 ---AUFTRAG class.
 ---@class AUFTRAG : FSM
+---@field Category AUFTRAG.Category 
 ---@field ClassName string Name of the class.
+---@field DCStask table DCS task structure.
+---@field GroupStatus AUFTRAG.GroupStatus 
 ---@field Nassets number Number of requested warehouse assets.
+---@field NassetsLegMax table Number of required warehouse assets for each assigned legion.
+---@field NassetsLegMin table Number of required warehouse assets for each assigned legion.
 ---@field NassetsMax number Max. number of required warehouse assets.
 ---@field NassetsMin number Min. number of required warehouse assets.
 ---@field Nassigned number Number of assigned groups.
@@ -221,130 +226,158 @@
 ---@field Nrepeat number Number of times the mission is repeated.
 ---@field NrepeatFailure number Number of times mission is repeated if failed.
 ---@field NrepeatSuccess number Number of times mission is repeated if successful.
+---@field SpecialTask AUFTRAG.SpecialTask 
+---@field TargetType AUFTRAG.TargetType 
 ---@field Texecuting number Time stamp (abs) when mission is executing. Is `#nil` on start.
 ---@field Tover number Mission abs. time stamp, when mission was over.
 ---@field Tpush number Mission push/execute time in abs. seconds.
----@field TrackAltitude  
----@field TrackFormation  
----@field TrackPoint1  
----@field TrackPoint2  
----@field TrackSpeed  
+---@field TrackAltitude NOTYPE 
+---@field TrackFormation NOTYPE 
+---@field TrackPoint1 NOTYPE 
+---@field TrackPoint2 NOTYPE 
+---@field TrackSpeed NOTYPE 
 ---@field Tstart number Mission start time in abs. seconds.
 ---@field Tstarted number Time stamp (abs) when mission is started.
 ---@field Tstop number Mission stop time in abs. seconds.
----@field alert5MissionType string Alert 5 mission type. This is the mission type, the alerted assets will be able to carry out.
----@field artyAltitude number Altitude in meters. Can be used for a Barrage.
----@field artyAngle number Shooting angle in degrees (for Barrage).
----@field artyHeading number Heading in degrees (for Barrage).
----@field artyRadius number Radius in meters.
----@field artyShots number Number of shots fired.
----@field assetStayAlive  
----@field auftragsnummer number Auftragsnummer.
----@field carrierCategories  
----@field chief CHIEF The CHIEF managing this mission.
----@field commander COMMANDER The COMMANDER managing this mission.
----@field conditionFailureSet boolean 
----@field conditionSuccessSet boolean 
----@field dTevaluate number Time interval in seconds before the mission result is evaluated after mission is over.
----@field duration number Mission duration in seconds.
----@field durationExe number Mission execution time in seconds.
----@field engageAltitude number Engagement altitude in meters.
----@field engageAsGroup boolean Group attack.
----@field engageDirection number Engagement direction in degrees.
----@field engageLength number Length of engage (carpet or strafing) in meters.
----@field engageMaxDistance number Max engage distance.
----@field engageQuantity number Number of times a target is engaged.
----@field engageRange  
----@field engageTarget TARGET Target data to engage.
----@field engageWeaponExpend number How many weapons are used.
----@field engageWeaponType number Weapon type used.
----@field engageZone ZONE_RADIUS *Circular* engagement zone.
----@field engagedetectedEngageZones  
----@field engagedetectedNoEngageZones  
----@field engagedetectedOn boolean 
----@field engagedetectedRmax  
----@field engagedetectedTypes  
----@field escortEngageRange number Engage range in nautical miles (NM).
----@field escortGroup GROUP The group to be escorted.
----@field escortGroupName string Name of the escorted group.
----@field escortMissionType string Escort mission type.
----@field escortVec3 Vec3 The 3D offset vector from the escorted group to the escort group.
----@field facDatalink boolean FAC datalink enabled.
----@field facDesignation number FAC designation type.
----@field facFreq number FAC radio frequency in MHz.
----@field facModu number FAC radio modulation 0=AM 1=FM.
----@field failurecondition boolean 
----@field hoverAltitude  
----@field hoverTime  
----@field icls OPSGROUP.Beacon ICLS setting.
----@field importance number Importance.
----@field legionReturn boolean If `true`, assets return to their legion (default). If `false`, they will stay alive. 
----@field lid string Class id string for output to DCS log file.
----@field marker MARKER F10 map marker.
----@field markerCoaliton number Coalition to which the marker is dispayed.
----@field markerOn boolean If true, display marker on F10 map with the AUFTRAG status.
----@field missionAltitude number Mission altitude in meters.
----@field missionEgressCoord COORDINATE Mission egress waypoint coordinate.
----@field missionEgressCoordAlt  
----@field missionFraction number Mission coordiante fraction. Default is 0.5.
----@field missionHoldingCoord  
----@field missionHoldingCoordAlt  
----@field missionIngressCoord COORDINATE Mission Ingress waypoint coordinate.
----@field missionRange number Mission range in meters. Used by LEGION classes (AIRWING, BRIGADE, ...).
----@field missionSpeed number Mission speed in km/h.
----@field missionTask string Mission task. See `ENUMS.MissionTask`.
----@field missionWaypointCoord COORDINATE Mission waypoint coordinate.
----@field missionWaypointRadius number Random radius in meters.
----@field name string Mission name.
----@field operation OPERATION Operation this mission is part of.
----@field opstransport OPSTRANSPORT OPS transport assignment.
----@field optionAlarm number Alarm state.
----@field optionCM number Counter measures.
----@field optionECM number ECM.
----@field optionEPLRS boolean EPLRS datalink.
----@field optionEmission boolean Emission is on or off.
----@field optionFormation number Formation.
----@field optionImmortal boolean Immortal is on/off.
----@field optionInvisible boolean Invisible is on/off.
----@field optionROE number ROE.
----@field optionROT number ROT.
----@field optionRTBammo number RTB on out-of-ammo.
----@field optionRTBfuel number RTB on out-of-fuel.
----@field orbitAltitude number Orbit altitude in meters.
----@field orbitDeltaR number Distance threshold in meters for moving orbit targets.
----@field orbitHeading number Orbit heading in degrees.
----@field orbitLeg number Length of orbit leg in meters.
----@field orbitOffsetVec2 Vec2 2D offset vector.
----@field orbitSpeed number Orbit speed in m/s.
----@field orbitVec2 Vec2 2D orbit vector.
----@field patroldata AIRWING.PatrolData Patrol data.
----@field prio number Mission priority.
----@field prohibitAB boolean 
----@field prohibitABExecute boolean 
----@field radio OPSGROUP.Radio Radio freq and modulation.
----@field refuelSystem number Refuel type (boom or probe) for TANKER missions.
----@field reinforce  
----@field repeated number Number of times mission was repeated.
----@field repeatedFailure number Number of times mission was repeated after a failure.
----@field repeatedSuccess number Number of times mission was repeated after a success.
----@field status string Mission status.
----@field statusChief string Mission status of the CHIEF.
----@field statusCommander string Mission status of the COMMANDER.
----@field successcondition boolean 
----@field tacan OPSGROUP.Beacon TACAN setting.
----@field targetHeading number Heading of target in degrees.
----@field teleport boolean Groups are teleported to the mission ingress waypoint.
----@field transportDeployZone ZONE Deploy zone of an OPSTRANSPORT.
----@field transportDisembarkZone ZONE Disembark zone of an OPSTRANSPORT.
----@field transportDropoff COORDINATE Coordinate where to drop off the cargo.
----@field transportGroupSet SET_GROUP Groups to be transported.
----@field transportPickup COORDINATE Coordinate where to pickup the cargo.
----@field transportPickupRadius number Radius in meters for pickup zone. Default 500 m.
----@field type string Mission type.
----@field updateDCSTask boolean If `true`, DCS task is updated at every status update of the assigned groups.
----@field urgent boolean Mission is urgent. Running missions with lower prio might be cancelled.
----@field verbose number Verbosity level.
----@field version string AUFTRAG class version.
+---@field Type AUFTRAG.Type 
+---@field private alert5MissionType string Alert 5 mission type. This is the mission type, the alerted assets will be able to carry out.
+---@field private artyAltitude number Altitude in meters. Can be used for a Barrage.
+---@field private artyAngle number Shooting angle in degrees (for Barrage).
+---@field private artyHeading number Heading in degrees (for Barrage).
+---@field private artyRadius number Radius in meters.
+---@field private artyShots number Number of shots fired.
+---@field private assetStayAlive NOTYPE 
+---@field private assets table Warehouse assets assigned for this mission.
+---@field private attributes table Generalized attribute(s) of assets.
+---@field private auftragsnummer number Auftragsnummer.
+---@field private carrierAttributes table Generalized attribute(s) of transport assets.
+---@field private carrierCategories NOTYPE 
+---@field private carrierProperties table DCS attribute(s) of transport assets.
+---@field private categories table Mission categories.
+---@field private chief CHIEF The CHIEF managing this mission.
+---@field private commander COMMANDER The COMMANDER managing this mission.
+---@field private conditionFailure table If all conditions are true, the mission is cancelled.
+---@field private conditionFailureSet boolean 
+---@field private conditionPush table If all conditions are true, the mission is executed. Before, the group(s) wait at the mission execution waypoint.
+---@field private conditionStart table Condition(s) that have to be true, before the mission will be started.
+---@field private conditionSuccess table If all conditions are true, the mission is cancelled.
+---@field private conditionSuccessSet boolean 
+---@field private dTevaluate number Time interval in seconds before the mission result is evaluated after mission is over.
+---@field private duration number Mission duration in seconds.
+---@field private durationExe number Mission execution time in seconds.
+---@field private engageAltitude number Engagement altitude in meters.
+---@field private engageAsGroup boolean Group attack.
+---@field private engageDirection number Engagement direction in degrees.
+---@field private engageLength number Length of engage (carpet or strafing) in meters.
+---@field private engageMaxDistance number Max engage distance.
+---@field private engageQuantity number Number of times a target is engaged.
+---@field private engageRange NOTYPE 
+---@field private engageTarget TARGET Target data to engage.
+---@field private engageTargetTypes table Table of target types that are engaged in the engagement zone.
+---@field private engageWeaponExpend number How many weapons are used.
+---@field private engageWeaponType number Weapon type used.
+---@field private engageZone ZONE_RADIUS *Circular* engagement zone.
+---@field private engagedetectedEngageZones NOTYPE 
+---@field private engagedetectedNoEngageZones NOTYPE 
+---@field private engagedetectedOn boolean 
+---@field private engagedetectedRmax NOTYPE 
+---@field private engagedetectedTypes NOTYPE 
+---@field private enrouteTasks table Mission enroute tasks.
+---@field private escortCohorts table Cohorts explicitly requested for providing escorting assets.
+---@field private escortEngageRange number Engage range in nautical miles (NM).
+---@field private escortGroup GROUP The group to be escorted.
+---@field private escortGroupName string Name of the escorted group.
+---@field private escortLegions table Legions explicitly requested for providing escorting assets.
+---@field private escortMissionType string Escort mission type.
+---@field private escortTargetTypes table Target types that will be engaged.
+---@field private escortVec3 Vec3 The 3D offset vector from the escorted group to the escort group.
+---@field private facDatalink boolean FAC datalink enabled.
+---@field private facDesignation number FAC designation type.
+---@field private facFreq number FAC radio frequency in MHz.
+---@field private facModu number FAC radio modulation 0=AM 1=FM.
+---@field private failurecondition boolean 
+---@field private groupdata table Group specific data.
+---@field private hoverAltitude NOTYPE 
+---@field private hoverTime NOTYPE 
+---@field private icls OPSGROUP.Beacon ICLS setting.
+---@field private importance number Importance.
+---@field private legionReturn boolean If `true`, assets return to their legion (default). If `false`, they will stay alive. 
+---@field private legions table Assigned legions.
+---@field private lid string Class id string for output to DCS log file.
+---@field private marker MARKER F10 map marker.
+---@field private markerCoaliton number Coalition to which the marker is dispayed.
+---@field private markerOn boolean If true, display marker on F10 map with the AUFTRAG status.
+---@field private missionAltitude number Mission altitude in meters.
+---@field private missionEgressCoord COORDINATE Mission egress waypoint coordinate.
+---@field private missionEgressCoordAlt NOTYPE 
+---@field private missionFraction number Mission coordiante fraction. Default is 0.5.
+---@field private missionHoldingCoord NOTYPE 
+---@field private missionHoldingCoordAlt NOTYPE 
+---@field private missionIngressCoord COORDINATE Mission Ingress waypoint coordinate.
+---@field private missionIngressCoordAlt NOTYPE 
+---@field private missionRange number Mission range in meters. Used by LEGION classes (AIRWING, BRIGADE, ...).
+---@field private missionSpeed number Mission speed in km/h.
+---@field private missionTask string Mission task. See `ENUMS.MissionTask`.
+---@field private missionWaypointCoord COORDINATE Mission waypoint coordinate.
+---@field private missionWaypointRadius number Random radius in meters.
+---@field private name string Mission name.
+---@field private operation OPERATION Operation this mission is part of.
+---@field private opstransport OPSTRANSPORT OPS transport assignment.
+---@field private optionAlarm number Alarm state.
+---@field private optionCM number Counter measures.
+---@field private optionECM number ECM.
+---@field private optionEPLRS boolean EPLRS datalink.
+---@field private optionEmission boolean Emission is on or off.
+---@field private optionFormation number Formation.
+---@field private optionImmortal boolean Immortal is on/off.
+---@field private optionInvisible boolean Invisible is on/off.
+---@field private optionROE number ROE.
+---@field private optionROT number ROT.
+---@field private optionRTBammo number RTB on out-of-ammo.
+---@field private optionRTBfuel number RTB on out-of-fuel.
+---@field private orbitAltitude number Orbit altitude in meters.
+---@field private orbitDeltaR number Distance threshold in meters for moving orbit targets.
+---@field private orbitHeading number Orbit heading in degrees.
+---@field private orbitLeg number Length of orbit leg in meters.
+---@field private orbitOffsetVec2 Vec2 2D offset vector.
+---@field private orbitSpeed number Orbit speed in m/s.
+---@field private orbitVec2 Vec2 2D orbit vector.
+---@field private patroldata AIRWING.PatrolData Patrol data.
+---@field private payloads table User specified airwing payloads for this mission. Only these will be considered for the job!
+---@field private prio number Mission priority.
+---@field private prohibitAB boolean 
+---@field private prohibitABExecute boolean 
+---@field private properties table DCS attribute(s) of assets.
+---@field private radio OPSGROUP.Radio Radio freq and modulation.
+---@field private refuelSystem number Refuel type (boom or probe) for TANKER missions.
+---@field private reinforce NOTYPE 
+---@field private repeated number Number of times mission was repeated.
+---@field private repeatedFailure number Number of times mission was repeated after a failure.
+---@field private repeatedSuccess number Number of times mission was repeated after a success.
+---@field private requestID table The ID of the queued warehouse request. Necessary to cancel the request if the mission was cancelled before the request is processed.
+---@field private specialCohorts table User specified cohorts assigned for this mission. Only these will be considered for the job!
+---@field private specialLegions table User specified legions assigned for this mission. Only these will be considered for the job!
+---@field private status string Mission status.
+---@field private statusChief string Mission status of the CHIEF.
+---@field private statusCommander string Mission status of the COMMANDER.
+---@field private statusLegion table Mission status of all assigned LEGIONs.
+---@field private successcondition boolean 
+---@field private tacan OPSGROUP.Beacon TACAN setting.
+---@field private targetHeading number Heading of target in degrees.
+---@field private teleport boolean Groups are teleported to the mission ingress waypoint.
+---@field private transportCohorts table Cohorts explicitly requested for providing transport carrier assets.
+---@field private transportDeployZone ZONE Deploy zone of an OPSTRANSPORT.
+---@field private transportDisembarkZone ZONE Disembark zone of an OPSTRANSPORT.
+---@field private transportDropoff COORDINATE Coordinate where to drop off the cargo.
+---@field private transportGroupSet SET_GROUP Groups to be transported.
+---@field private transportLegions table Legions explicitly requested for providing transport carrier assets.
+---@field private transportPickup COORDINATE Coordinate where to pickup the cargo.
+---@field private transportPickupRadius number Radius in meters for pickup zone. Default 500 m.
+---@field private type string Mission type.
+---@field private updateDCSTask boolean If `true`, DCS task is updated at every status update of the assigned groups.
+---@field private urgent boolean Mission is urgent. Running missions with lower prio might be cancelled.
+---@field private verbose number Verbosity level.
+---@field private version string AUFTRAG class version.
 AUFTRAG = {}
 
 ---Add asset to mission.
@@ -773,8 +806,8 @@ function AUFTRAG:GetNumberOfRequiredAssets() end
 ---
 ------
 ---@param self AUFTRAG 
----@param RefCoordinate COORDINATE (Optional) Reference coordinate from which the closest target is determined.
----@param Coalitions table (Optional) Only consider targets of the given coalition(s). 
+---@param RefCoordinate? COORDINATE (Optional) Reference coordinate from which the closest target is determined.
+---@param Coalitions? table (Optional) Only consider targets of the given coalition(s). 
 ---@return POSITIONABLE #The target object. Could be many things.
 function AUFTRAG:GetObjective(RefCoordinate, Coalitions) end
 
@@ -925,7 +958,7 @@ function AUFTRAG:IsDone() end
 ---
 ------
 ---@param self AUFTRAG 
----@param AllGroups boolean (Optional) Check that all groups are currently executing the mission.
+---@param AllGroups? boolean (Optional) Check that all groups are currently executing the mission.
 ---@return boolean #If true, mission is currently executing.
 function AUFTRAG:IsExecuting(AllGroups) end
 
@@ -976,7 +1009,7 @@ function AUFTRAG:IsPlanned() end
 ---
 ------
 ---@param self AUFTRAG 
----@param Legion LEGION (Optional) Check if mission is queued at this legion.
+---@param Legion? LEGION (Optional) Check if mission is queued at this legion.
 ---@return boolean #If true, mission is queued.
 function AUFTRAG:IsQueued(Legion) end
 
@@ -1013,7 +1046,7 @@ function AUFTRAG:IsReadyToPush() end
 ---
 ------
 ---@param self AUFTRAG 
----@param Legion LEGION (Optional) Check if mission is requested at this legion.
+---@param Legion? LEGION (Optional) Check if mission is requested at this legion.
 ---@return boolean #If true, mission is requested.
 function AUFTRAG:IsRequested(Legion) end
 
@@ -1226,7 +1259,7 @@ function AUFTRAG:NewCAP(ZoneCAP, Altitude, Speed, Coordinate, Heading, Leg, Targ
 ---@param OffsetDist number Relative distance of the first race-track point wrt to the carrier. Default 6 NM.
 ---@param OffsetAngle number Relative angle of the first race-track point wrt. to the carrier. Default 180 (behind the boat).
 ---@param UpdateDistance number Threshold distance in NM before orbit pattern is updated. Default 5 NM.
----@param TargetTypes table (Optional) Table of target types. Default `{"Air"}`.
+---@param TargetTypes? table (Optional) Table of target types. Default `{"Air"}`.
 ---@param EngageRange number Max range in nautical miles that the escort group(s) will engage enemies. Default 32 NM (60 km).
 ---@return AUFTRAG #self
 function AUFTRAG:NewCAPGROUP(Grp, Altitude, Speed, RelHeading, Leg, OffsetDist, OffsetAngle, UpdateDistance, TargetTypes, EngageRange) end
@@ -1266,7 +1299,7 @@ function AUFTRAG:NewCARGOTRANSPORT(StaticCargo, DropZone) end
 ---@param Coordinate COORDINATE Where to orbit. Default is the center of the CAS zone.
 ---@param Heading number Heading of race-track pattern in degrees. If not specified, a simple circular orbit is performed.
 ---@param Leg number Length of race-track in NM. If not specified, a simple circular orbit is performed.
----@param TargetTypes table (Optional) Table of target types. Default `{"Helicopters", "Ground Units", "Light armed ships"}`.
+---@param TargetTypes? table (Optional) Table of target types. Default `{"Helicopters", "Ground Units", "Light armed ships"}`.
 ---@return AUFTRAG #self
 function AUFTRAG:NewCAS(ZoneCAS, Altitude, Speed, Coordinate, Heading, Leg, TargetTypes) end
 
@@ -1407,13 +1440,13 @@ function AUFTRAG:NewINTERCEPT(Target) end
 ------
 ---@param self AUFTRAG 
 ---@param Coordinate COORDINATE Where to land.
----@param OuterRadius number (Optional) Vary the coordinate by this many feet, e.g. get a new random coordinate between OuterRadius and (optionally) avoiding InnerRadius of the coordinate.
----@param InnerRadius number (Optional) Vary the coordinate by this many feet, e.g. get a new random coordinate between OuterRadius and (optionally) avoiding InnerRadius of the coordinate.
+---@param OuterRadius? number (Optional) Vary the coordinate by this many feet, e.g. get a new random coordinate between OuterRadius and (optionally) avoiding InnerRadius of the coordinate.
+---@param InnerRadius? number (Optional) Vary the coordinate by this many feet, e.g. get a new random coordinate between OuterRadius and (optionally) avoiding InnerRadius of the coordinate.
 ---@param Time number Time in seconds to stay. Default 300 seconds.
 ---@param Speed number Speed in knots to fly to the target coordinate. Default 150kn.
 ---@param MissionAlt number Altitude to fly towards the mission in feet AGL. Default 1000ft.
----@param CombatLanding boolean (Optional) If true, set the Combat Landing option.
----@param DirectionAfterLand number (Optional) Heading after landing in degrees.
+---@param CombatLanding? boolean (Optional) If true, set the Combat Landing option.
+---@param DirectionAfterLand? number (Optional) Heading after landing in degrees.
 ---@return AUFTRAG #self
 function AUFTRAG:NewLANDATCOORDINATE(Coordinate, OuterRadius, InnerRadius, Time, Speed, MissionAlt, CombatLanding, DirectionAfterLand) end
 
@@ -1499,11 +1532,11 @@ function AUFTRAG:NewPATROLZONE(Zone, Speed, Altitude, Formation) end
 ------
 ---@param self AUFTRAG 
 ---@param Coordinate COORDINATE Where to start the race track.
----@param Altitude number (Optional) Altitude in feet. Defaults to 20,000ft ASL.
----@param Speed number (Optional) Speed in knots. Defaults to 300kn TAS.
----@param Heading number (Optional) Heading in degrees, 0 to 360. Defaults to 90 degree (East).
----@param Leg number (Optional) Leg of the race track in NM. Defaults to 10nm.
----@param Formation number (Optional) Formation to take, e.g. ENUMS.Formation.FixedWing.Trail.Close, also see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_option_formation).
+---@param Altitude? number (Optional) Altitude in feet. Defaults to 20,000ft ASL.
+---@param Speed? number (Optional) Speed in knots. Defaults to 300kn TAS.
+---@param Heading? number (Optional) Heading in degrees, 0 to 360. Defaults to 90 degree (East).
+---@param Leg? number (Optional) Leg of the race track in NM. Defaults to 10nm.
+---@param Formation? number (Optional) Formation to take, e.g. ENUMS.Formation.FixedWing.Trail.Close, also see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_option_formation).
 ---@return AUFTRAG #self
 function AUFTRAG:NewPATROL_RACETRACK(Coordinate, Altitude, Speed, Heading, Leg, Formation) end
 
@@ -1962,8 +1995,8 @@ function AUFTRAG:SetMissionAltitude(Altitude) end
 ------
 ---@param self AUFTRAG 
 ---@param Coordinate COORDINATE Egrees coordinate.
----@param Altitude number (Optional) Altitude in feet. Default is y component of coordinate.
----@param Speed number (Optional) Speed in knots to reach this waypoint. Defaults to mission speed.
+---@param Altitude? number (Optional) Altitude in feet. Default is y component of coordinate.
+---@param Speed? number (Optional) Speed in knots to reach this waypoint. Defaults to mission speed.
 ---@return AUFTRAG #self
 function AUFTRAG:SetMissionEgressCoord(Coordinate, Altitude, Speed) end
 
@@ -1973,9 +2006,9 @@ function AUFTRAG:SetMissionEgressCoord(Coordinate, Altitude, Speed) end
 ------
 ---@param self AUFTRAG 
 ---@param Coordinate COORDINATE Holding coordinate.
----@param Altitude number (Optional) Altitude in feet. Default is y component of coordinate.
----@param Speed number (Optional) Speed in knots to reach this waypoint and hold there. Defaults to mission speed.
----@param Duration number (Optional) Duration in seconds on how long to hold, defaults to 15 minutes. Mission continues if either a push condition is met or the time is up.
+---@param Altitude? number (Optional) Altitude in feet. Default is y component of coordinate.
+---@param Speed? number (Optional) Speed in knots to reach this waypoint and hold there. Defaults to mission speed.
+---@param Duration? number (Optional) Duration in seconds on how long to hold, defaults to 15 minutes. Mission continues if either a push condition is met or the time is up.
 ---@return AUFTRAG #self
 function AUFTRAG:SetMissionHoldingCoord(Coordinate, Altitude, Speed, Duration) end
 
@@ -1985,8 +2018,8 @@ function AUFTRAG:SetMissionHoldingCoord(Coordinate, Altitude, Speed, Duration) e
 ------
 ---@param self AUFTRAG 
 ---@param Coordinate COORDINATE Ingrees coordinate.
----@param Altitude number (Optional) Altitude in feet. Default is y component of coordinate.
----@param Speed number (Optional) Speed in knots to reach this waypoint. Defaults to mission speed.
+---@param Altitude? number (Optional) Altitude in feet. Default is y component of coordinate.
+---@param Speed? number (Optional) Speed in knots to reach this waypoint. Defaults to mission speed.
 ---@return AUFTRAG #self
 function AUFTRAG:SetMissionIngressCoord(Coordinate, Altitude, Speed) end
 
@@ -2243,7 +2276,7 @@ function AUFTRAG:SetTeleport(Switch) end
 ------
 ---@param self AUFTRAG 
 ---@param ClockStart string Time the mission is started, e.g. "05:00" for 5 am. If specified as a #number, it will be relative (in seconds) to the current mission time. Default is 5 seconds after mission was added.
----@param ClockStop string (Optional) Time the mission is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
+---@param ClockStop? string (Optional) Time the mission is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
 ---@return AUFTRAG #self
 function AUFTRAG:SetTime(ClockStart, ClockStop) end
 
@@ -2496,6 +2529,7 @@ function AUFTRAG:__Success(delay) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Asset WAREHOUSE.Assetitem The asset.
+---@private
 function AUFTRAG:onafterAssetDead(From, Event, To, Asset) end
 
 ---On after "Assign" event.
@@ -2505,6 +2539,7 @@ function AUFTRAG:onafterAssetDead(From, Event, To, Asset) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterAssign(From, Event, To) end
 
 ---On after "Cancel" event.
@@ -2515,6 +2550,7 @@ function AUFTRAG:onafterAssign(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterCancel(From, Event, To) end
 
 ---On after "Done" event.
@@ -2524,6 +2560,7 @@ function AUFTRAG:onafterCancel(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterDone(From, Event, To) end
 
 ---On after "ElementDestroyed" event.
@@ -2535,6 +2572,7 @@ function AUFTRAG:onafterDone(From, Event, To) end
 ---@param To string To state.
 ---@param OpsGroup OPSGROUP The ops group to which the element belongs.
 ---@param Element OPSGROUP.Element The element that got destroyed.
+---@private
 function AUFTRAG:onafterElementDestroyed(From, Event, To, OpsGroup, Element) end
 
 ---On after "Execute" event.
@@ -2544,6 +2582,7 @@ function AUFTRAG:onafterElementDestroyed(From, Event, To, OpsGroup, Element) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterExecuting(From, Event, To) end
 
 ---On after "Failed" event.
@@ -2553,6 +2592,7 @@ function AUFTRAG:onafterExecuting(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterFailed(From, Event, To) end
 
 ---On after "GroupDead" event.
@@ -2563,6 +2603,7 @@ function AUFTRAG:onafterFailed(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param OpsGroup OPSGROUP The ops group that is dead now.
+---@private
 function AUFTRAG:onafterGroupDead(From, Event, To, OpsGroup) end
 
 ---On after "Planned" event.
@@ -2572,6 +2613,7 @@ function AUFTRAG:onafterGroupDead(From, Event, To, OpsGroup) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterPlanned(From, Event, To) end
 
 ---On after "Queue" event.
@@ -2583,6 +2625,7 @@ function AUFTRAG:onafterPlanned(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Airwing NOTYPE 
+---@private
 function AUFTRAG:onafterQueued(From, Event, To, Airwing) end
 
 ---On after "Repeat" event.
@@ -2592,6 +2635,7 @@ function AUFTRAG:onafterQueued(From, Event, To, Airwing) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterRepeat(From, Event, To) end
 
 ---On after "Requested" event.
@@ -2601,6 +2645,7 @@ function AUFTRAG:onafterRepeat(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterRequested(From, Event, To) end
 
 ---On after "Schedule" event.
@@ -2611,6 +2656,7 @@ function AUFTRAG:onafterRequested(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterScheduled(From, Event, To) end
 
 ---On after "Start" event.
@@ -2620,6 +2666,7 @@ function AUFTRAG:onafterScheduled(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterStarted(From, Event, To) end
 
 ---On after "Status" event.
@@ -2629,6 +2676,7 @@ function AUFTRAG:onafterStarted(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterStatus(From, Event, To) end
 
 ---On after "Stop" event.
@@ -2639,6 +2687,7 @@ function AUFTRAG:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterStop(From, Event, To) end
 
 ---On after "Success" event.
@@ -2648,6 +2697,7 @@ function AUFTRAG:onafterStop(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onafterSuccess(From, Event, To) end
 
 ---On before "Repeat" event.
@@ -2657,6 +2707,7 @@ function AUFTRAG:onafterSuccess(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function AUFTRAG:onbeforeRepeat(From, Event, To) end
 
 
@@ -2680,21 +2731,22 @@ AUFTRAG.Category = {}
 
 ---Generic mission condition.
 ---@class AUFTRAG.Condition 
----@field func function Callback function to check for a condition. Should return a #boolean.
+---@field private arg table Optional arguments passed to the condition callback function.
+---@field private func function Callback function to check for a condition. Should return a #boolean.
 AUFTRAG.Condition = {}
 
 
 ---Group specific data.
 ---Each ops group subscribed to this mission has different data for this.
 ---@class AUFTRAG.GroupData 
----@field asset WAREHOUSE.Assetitem The warehouse asset.
----@field opsgroup OPSGROUP The OPS group.
----@field status string Group mission status.
----@field waypointEgressUID number Egress Waypoint UID.
----@field waypointcoordinate COORDINATE Ingress waypoint coordinate.
----@field waypointindex number Mission (ingress) Waypoint UID.
----@field waypointtask OPSGROUP.Task Waypoint task.
----@field wpegresscoordinate COORDINATE Egress waypoint coordinate.
+---@field private asset WAREHOUSE.Assetitem The warehouse asset.
+---@field private opsgroup OPSGROUP The OPS group.
+---@field private status string Group mission status.
+---@field private waypointEgressUID number Egress Waypoint UID.
+---@field private waypointcoordinate COORDINATE Ingress waypoint coordinate.
+---@field private waypointindex number Mission (ingress) Waypoint UID.
+---@field private waypointtask OPSGROUP.Task Waypoint task.
+---@field private wpegresscoordinate COORDINATE Egress waypoint coordinate.
 AUFTRAG.GroupData = {}
 
 

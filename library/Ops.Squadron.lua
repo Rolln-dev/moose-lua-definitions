@@ -26,35 +26,39 @@
 ---@class SQUADRON : COHORT
 ---@field ClassName string Name of the class.
 ---@field Ngroups number Number of asset flight groups this squadron has. 
----@field aircrafttype string Type of the airframe the squadron is using.
----@field attribute string Generalized attribute of the squadron template group.
----@field callsignName string Callsign name.
----@field callsigncounter number Counter to increase callsign names for new assets.
----@field despawnAfterHolding boolean Aircraft are despawned after holding.
----@field despawnAfterLanding boolean Aircraft are despawned after landing.
----@field engageRange number Mission range in meters.
----@field fuellow number Low fuel threshold.
----@field fuellowRefuel boolean If `true`, flight tries to refuel at the nearest tanker.
----@field isAir boolean 
----@field legion  
----@field lid string Class id string for output to DCS log file.
----@field livery string Livery of the squadron.
----@field maintenancetime number Time in seconds needed for maintenance of a returned flight.
----@field modex number Modex.
----@field modexcounter number Counter to incease modex number for assets.
----@field name string Name of the squadron.
----@field ngrouping number User defined number of units in the asset group.
----@field radioFreq number Radio frequency in MHz the squad uses.
----@field radioModu number Radio modulation the squad uses.
----@field refuelSystem number For refuelable squads, the refuel system used (boom=0 or probe=1). Default nil.
----@field repairtime number Time in seconds for each
----@field skill number Skill of squadron members.
----@field takeoffType string Take of type.
----@field tankerSystem number For tanker squads, the refuel system used (boom=0 or probpe=1). Default nil.
----@field templategroup GROUP Template group.
----@field templatename string Name of the template group.
----@field verbose number Verbosity level.
----@field version string SQUADRON class version.
+---@field private aircrafttype string Type of the airframe the squadron is using.
+---@field private assets table Squadron assets.
+---@field private attribute string Generalized attribute of the squadron template group.
+---@field private callsignName string Callsign name.
+---@field private callsigncounter number Counter to increase callsign names for new assets.
+---@field private despawnAfterHolding boolean Aircraft are despawned after holding.
+---@field private despawnAfterLanding boolean Aircraft are despawned after landing.
+---@field private engageRange number Mission range in meters.
+---@field private fuellow number Low fuel threshold.
+---@field private fuellowRefuel boolean If `true`, flight tries to refuel at the nearest tanker.
+---@field private isAir boolean 
+---@field private legion NOTYPE 
+---@field private lid string Class id string for output to DCS log file.
+---@field private livery string Livery of the squadron.
+---@field private maintenancetime number Time in seconds needed for maintenance of a returned flight.
+---@field private missiontypes table Capabilities (mission types and performances) of the squadron.
+---@field private modex number Modex.
+---@field private modexcounter number Counter to incease modex number for assets.
+---@field private name string Name of the squadron.
+---@field private ngrouping number User defined number of units in the asset group.
+---@field private parkingIDs table Parking IDs for this squadron.
+---@field private radioFreq number Radio frequency in MHz the squad uses.
+---@field private radioModu number Radio modulation the squad uses.
+---@field private refuelSystem number For refuelable squads, the refuel system used (boom=0 or probe=1). Default nil.
+---@field private repairtime number Time in seconds for each
+---@field private skill number Skill of squadron members.
+---@field private tacanChannel table List of TACAN channels available to the squadron.
+---@field private takeoffType string Take of type.
+---@field private tankerSystem number For tanker squads, the refuel system used (boom=0 or probpe=1). Default nil.
+---@field private templategroup GROUP Template group.
+---@field private templatename string Name of the template group.
+---@field private verbose number Verbosity level.
+---@field private version string SQUADRON class version.
 SQUADRON = {}
 
 ---Get airwing.
@@ -178,6 +182,7 @@ function SQUADRON:SetTakeoffType(TakeoffType) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SQUADRON:onafterStart(From, Event, To) end
 
 ---On after "Status" event.
@@ -187,6 +192,7 @@ function SQUADRON:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function SQUADRON:onafterStatus(From, Event, To) end
 
 

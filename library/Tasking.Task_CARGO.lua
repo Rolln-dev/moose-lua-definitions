@@ -410,7 +410,7 @@
 ---
 ---===
 ---@class FSM_PROCESS 
----@field Cargo  
+---@field Cargo NOTYPE 
 FSM_PROCESS = {}
 
 
@@ -480,10 +480,12 @@ FSM_PROCESS = {}
 ---
 ---===
 ---@class TASK_CARGO 
+---@field CargoItemCount table 
 ---@field CargoLimit number 
----@field SetCargo  
----@field SmokeColor  
----@field TaskType  
+---@field DeployZones table 
+---@field SetCargo NOTYPE 
+---@field SmokeColor NOTYPE 
+---@field TaskType NOTYPE 
 TASK_CARGO = {}
 
 

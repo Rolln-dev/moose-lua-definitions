@@ -72,14 +72,14 @@
 ---ACT_ASSIST class
 ---@class ACT_ASSIST : FSM_PROCESS
 ---@field ClassName string 
----@field Menu  
----@field MenuSmokeBlue  
----@field MenuSmokeGreen  
----@field MenuSmokeOrange  
----@field MenuSmokeRed  
----@field MenuSmokeWhite  
----@field TargetSetUnit  
----@field TargetZone  
+---@field Menu NOTYPE 
+---@field MenuSmokeBlue NOTYPE 
+---@field MenuSmokeGreen NOTYPE 
+---@field MenuSmokeOrange NOTYPE 
+---@field MenuSmokeRed NOTYPE 
+---@field MenuSmokeWhite NOTYPE 
+---@field TargetSetUnit NOTYPE 
+---@field TargetZone NOTYPE 
 ACT_ASSIST = {}
 
 ---Creates a new target smoking state machine.
@@ -98,6 +98,7 @@ function ACT_ASSIST:New() end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ASSIST:onafterStart(ProcessUnit, Event, From, To) end
 
 ---StateMachine callback function
@@ -108,6 +109,7 @@ function ACT_ASSIST:onafterStart(ProcessUnit, Event, From, To) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ASSIST:onafterStop(ProcessUnit, Event, From, To) end
 
 
@@ -142,6 +144,7 @@ function ACT_ASSIST_SMOKE_TARGETS_ZONE:New(TargetSetUnit, TargetZone) end
 ---@param Event string 
 ---@param From string 
 ---@param To string 
+---@private
 function ACT_ASSIST_SMOKE_TARGETS_ZONE:onenterSmoking(ProcessUnit, Event, From, To) end
 
 

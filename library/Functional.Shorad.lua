@@ -60,6 +60,7 @@
 --- * myshorad:AddScootZones(ZoneSet,Number,Random,Formation)
 ---- **SHORAD** class, extends Core.Base#BASE
 ---@class SHORAD : BASE
+---@field ActiveGroups table Table for the timer function
 ---@field ActiveTimer number How long a Shorad stays active after wake-up in seconds
 ---@field ClassName string 
 ---@field Coalition string The coalition of this Shorad
@@ -68,20 +69,22 @@
 ---@field DefenseHighProb number Default 90, maximum detection limit
 ---@field DefenseLowProb number Default 70, minimum detection limit
 ---@field Groupset SET_GROUP The set of Shorad groups
+---@field Harms table 
+---@field Mavs table TODO complete list?
 ---@field Prefixes string String to be used to build the @{#Core.Set#SET_GROUP} 
 ---@field Radius number Shorad defense radius in meters
 ---@field Samset SET_GROUP The set of SAM groups to defend
 ---@field SkateNumber number Number of zones to consider
 ---@field SkateZones SET_ZONE Zones in this set are considered
 ---@field UseEmOnOff boolean Decide if we are using Emission on/off (default) or AlarmState red/green
----@field debug boolean Set the debug state
----@field lid string The log ID for the dcs.log
----@field maxscootdist number Max distance of the next zone
----@field minscootdist number Min distance of the next zone
----@field name string Name of this Shorad
----@field scootformation string Formation to take for scooting, e.g. "Vee" or "Cone"  
----@field scootrandomcoord boolean If true, use a random coordinate in the zone and not the center
----@field shootandscoot boolean If true, shoot and scoot between zones
+---@field private debug boolean Set the debug state
+---@field private lid string The log ID for the dcs.log
+---@field private maxscootdist number Max distance of the next zone
+---@field private minscootdist number Min distance of the next zone
+---@field private name string Name of this Shorad
+---@field private scootformation string Formation to take for scooting, e.g. "Vee" or "Cone"  
+---@field private scootrandomcoord boolean If true, use a random coordinate in the zone and not the center
+---@field private shootandscoot boolean If true, shoot and scoot between zones
 SHORAD = {}
 
 ---Add a SET_ZONE of zones for Shoot&Scoot
@@ -255,6 +258,7 @@ function SHORAD:_ShotIsDetected() end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return SHORAD #self 
+---@private
 function SHORAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, From, Event, To) end
 
 ---(Internal) Shoot and Scoot
@@ -266,6 +270,7 @@ function SHORAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, Fro
 ---@param To string 
 ---@param Shorad GROUP Shorad group
 ---@return SHORAD #self 
+---@private
 function SHORAD:onafterShootAndScoot(From, Event, To, Shorad) end
 
 ---Wake up #SHORADs in a zone with diameter Radius for ActiveTimer seconds
@@ -288,12 +293,13 @@ function SHORAD:onafterShootAndScoot(From, Event, To, Shorad) end
 ---@param TargetGroup string Name of the target group used to build the #ZONE
 ---@param Radius number Radius of the #ZONE
 ---@param ActiveTimer number Number of seconds to stay active
----@param TargetCat number (optional) Category, i.e. Object.Category.UNIT or Object.Category.STATIC
+---@param TargetCat? number (optional) Category, i.e. Object.Category.UNIT or Object.Category.STATIC
 ---@param ShotAt boolean If true, function is called after a shot
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return SHORAD #self 
+---@private
 function SHORAD:onafterWakeUpShorad(TargetGroup, Radius, ActiveTimer, TargetCat, ShotAt, From, Event, To) end
 
 

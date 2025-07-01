@@ -18,10 +18,15 @@
 ---@class NET : FSM
 ---@field BlockMessage string 
 ---@field BlockTime number 
+---@field BlockedPilots table 
+---@field BlockedSides table 
+---@field BlockedSlots table 
+---@field BlockedUCIDs table 
 ---@field ClassName string 
+---@field KnownPilots table 
 ---@field UnblockMessage string 
 ---@field Version string 
----@field lid string 
+---@field private lid string 
 NET = {}
 
 ---Block a player.
@@ -29,9 +34,9 @@ NET = {}
 ------
 ---@param self NET 
 ---@param Client CLIENT CLIENT object.
----@param PlayerName string (optional) Name of the player.
----@param Seconds number (optional) Number of seconds the player has to wait before rejoining.
----@param Message string (optional) Message to be sent via chat.
+---@param PlayerName? string (optional) Name of the player.
+---@param Seconds? number (optional) Number of seconds the player has to wait before rejoining.
+---@param Message? string (optional) Message to be sent via chat.
 ---@return NET #self
 function NET:BlockPlayer(Client, PlayerName, Seconds, Message) end
 
@@ -40,8 +45,8 @@ function NET:BlockPlayer(Client, PlayerName, Seconds, Message) end
 ------
 ---@param self NET 
 ---@param PlayerSet SET_CLIENT The SET to block.
----@param Seconds number Seconds (optional) Number of seconds the player has to wait before rejoining.
----@param Message string (optional) Message to be sent via chat.
+---@param Seconds? number Seconds (optional) Number of seconds the player has to wait before rejoining.
+---@param Message? string (optional) Message to be sent via chat.
 ---@return NET #self
 function NET:BlockPlayerSet(PlayerSet, Seconds, Message) end
 
@@ -50,7 +55,7 @@ function NET:BlockPlayerSet(PlayerSet, Seconds, Message) end
 ------
 ---@param self NET 
 ---@param Side number The side to block - 1 : Red, 2 : Blue
----@param Seconds number Seconds (optional) Number of seconds the player has to wait before rejoining.
+---@param Seconds? number Seconds (optional) Number of seconds the player has to wait before rejoining.
 ---@return NET #self
 function NET:BlockSide(Side, Seconds) end
 
@@ -59,7 +64,7 @@ function NET:BlockSide(Side, Seconds) end
 ------
 ---@param self NET 
 ---@param slot string The slot to block
----@param Seconds number Seconds (optional) Number of seconds the player has to wait before rejoining.
+---@param Seconds? number Seconds (optional) Number of seconds the player has to wait before rejoining.
 ---@param Slot NOTYPE 
 ---@return NET #self
 function NET:BlockSlot(slot, Seconds, Slot) end
@@ -69,7 +74,7 @@ function NET:BlockSlot(slot, Seconds, Slot) end
 ------
 ---@param self NET 
 ---@param ucid string 
----@param Seconds number Seconds (optional) Number of seconds the player has to wait before rejoining.
+---@param Seconds? number Seconds (optional) Number of seconds the player has to wait before rejoining.
 ---@return NET #self
 function NET:BlockUCID(ucid, Seconds) end
 
@@ -164,7 +169,7 @@ function NET:GetPlayerIDFromClient(Client) end
 ------
 ---@param self NET 
 ---@param Client CLIENT The client.
----@param Attribute string (Optional) The attribute to obtain. List see below.
+---@param Attribute? string (Optional) The attribute to obtain. List see below.
 ---@return table #PlayerInfo or nil if it cannot be found
 function NET:GetPlayerInfo(Client, Attribute) end
 
@@ -255,7 +260,7 @@ function NET.Json2Lua(Json) end
 ------
 ---@param self NET 
 ---@param Client CLIENT The client
----@param Message string (Optional) The message to send.
+---@param Message? string (Optional) The message to send.
 ---@return boolean #success
 function NET:Kick(Client, Message) end
 
@@ -368,7 +373,7 @@ function NET:ReturnToSpectators(Client) end
 ------
 ---@param self NET 
 ---@param Message string Message to send
----@param ToAll boolean (Optional)
+---@param ToAll? boolean (Optional)
 ---@return NET #self
 function NET:SendChat(Message, ToAll) end
 
@@ -378,7 +383,7 @@ function NET:SendChat(Message, ToAll) end
 ---@param self NET 
 ---@param Message string The text message
 ---@param ToClient CLIENT Client receiving the message
----@param FromClient CLIENT (Optional) Client sending the message
+---@param FromClient? CLIENT (Optional) Client sending the message
 ---@return NET #self
 function NET:SendChatToClient(Message, ToClient, FromClient) end
 
@@ -421,8 +426,8 @@ function NET:SetUnblockMessage(Text) end
 ------
 ---@param self NET 
 ---@param Client CLIENT CLIENT object
----@param PlayerName string (optional) Name of the player.
----@param Message string (optional) Message to be sent via chat.
+---@param PlayerName? string (optional) Name of the player.
+---@param Message? string (optional) Message to be sent via chat.
 ---@return NET #self
 function NET:UnblockPlayer(Client, PlayerName, Message) end
 
@@ -431,7 +436,7 @@ function NET:UnblockPlayer(Client, PlayerName, Message) end
 ------
 ---@param self NET 
 ---@param PlayerSet SET_CLIENT The SET to unblock.
----@param Message string (optional) Message to be sent via chat.
+---@param Message? string (optional) Message to be sent via chat.
 ---@return NET #self
 function NET:UnblockPlayerSet(PlayerSet, Message) end
 
@@ -440,7 +445,7 @@ function NET:UnblockPlayerSet(PlayerSet, Message) end
 ---
 ------
 ---@param side number The side to block - 1 : Red, 2 : Blue
----@param Seconds number Seconds (optional) Number of seconds the player has to wait before rejoining.
+---@param Seconds? number Seconds (optional) Number of seconds the player has to wait before rejoining.
 ---@param self NOTYPE 
 ---@param Side NOTYPE 
 ---@return NET #self
@@ -479,6 +484,7 @@ function NET:_EventHandler(EventData) end
 ---@param Event string 
 ---@param To string 
 ---@return NET #self
+---@private
 function NET:onafterRun(From, Event, To) end
 
 --- Status - housekeeping
@@ -489,6 +495,7 @@ function NET:onafterRun(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return NET #self
+---@private
 function NET:onafterStatus(From, Event, To) end
 
 --- Stop the event functions
@@ -499,15 +506,17 @@ function NET:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return NET #self
+---@private
 function NET:onafterStop(From, Event, To) end
 
 
 ---@class NET.PlayerData 
----@field id number 
----@field name string 
----@field side number 
----@field slot number 
----@field ucid string 
+---@field private id number 
+---@field private name string 
+---@field private side number 
+---@field private slot number 
+---@field private timestamp numner 
+---@field private ucid string 
 NET.PlayerData = {}
 
 

@@ -26,12 +26,12 @@
 ---FLOTILLA class.
 ---@class FLOTILLA : COHORT
 ---@field ClassName string Name of the class.
----@field ammo  
----@field isNaval boolean 
----@field legion  
----@field verbose number Verbosity level.
----@field version string FLOTILLA class version.
----@field weaponData OPSGROUP.WeaponData Weapon data table with key=BitType.
+---@field private ammo NOTYPE 
+---@field private isNaval boolean 
+---@field private legion NOTYPE 
+---@field private verbose number Verbosity level.
+---@field private version string FLOTILLA class version.
+---@field private weaponData OPSGROUP.WeaponData Weapon data table with key=BitType.
 FLOTILLA = {}
 
 ---Get fleet of this flotilla.
@@ -67,6 +67,7 @@ function FLOTILLA:SetFleet(Fleet) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLOTILLA:onafterStart(From, Event, To) end
 
 ---On after "Status" event.
@@ -76,6 +77,7 @@ function FLOTILLA:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function FLOTILLA:onafterStatus(From, Event, To) end
 
 

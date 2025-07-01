@@ -58,9 +58,9 @@
 ---
 ---===
 ---@class MENU_BASE 
----@field MenuRemoveParent  
----@field MenuStamp  
----@field MenuTag  
+---@field MenuRemoveParent NOTYPE 
+---@field MenuStamp NOTYPE 
+---@field MenuTag NOTYPE 
 MENU_BASE = {}
 
 
@@ -193,9 +193,9 @@ function MENU_COMMAND_BASE:SetCommandMenuFunction(CommandMenuFunction) end
 ---You can add menus with the #MENU_GROUP.New method, which constructs a MENU_GROUP object and returns you the object reference.
 ---Using this object reference, you can then remove ALL the menus and submenus underlying automatically with #MENU_GROUP.Remove.
 ---@class MENU_GROUP : MENU_BASE
----@field Group  
----@field GroupID  
----@field MenuPath  
+---@field Group NOTYPE 
+---@field GroupID NOTYPE 
+---@field MenuPath NOTYPE 
 MENU_GROUP = {}
 
 ---MENU_GROUP constructor.
@@ -246,9 +246,9 @@ function MENU_GROUP:RemoveSubMenus(MenuStamp, MenuTag) end
 ---You can add menus with the #MENU_GROUP_COMMAND.New method, which constructs a MENU_GROUP_COMMAND object and returns you the object reference.
 ---Using this object reference, you can then remove ALL the menus and submenus underlying automatically with #MENU_GROUP_COMMAND.Remove.
 ---@class MENU_GROUP_COMMAND : MENU_COMMAND_BASE
----@field Group  
----@field GroupID  
----@field MenuPath  
+---@field Group NOTYPE 
+---@field GroupID NOTYPE 
+---@field MenuPath NOTYPE 
 MENU_GROUP_COMMAND = {}
 
 ---Creates a new radio command item for a group
@@ -286,9 +286,9 @@ function MENU_GROUP_COMMAND:Remove(MenuStamp, MenuTag) end
 ---You can add menus with the #MENU_GROUP_COMMAND_DELAYED.New method, which constructs a MENU_GROUP_COMMAND_DELAYED object and returns you the object reference.
 ---Using this object reference, you can then remove ALL the menus and submenus underlying automatically with #MENU_GROUP_COMMAND_DELAYED.Remove.
 ---@class MENU_GROUP_COMMAND_DELAYED : MENU_COMMAND_BASE
----@field Group  
----@field GroupID  
----@field MenuPath  
+---@field Group NOTYPE 
+---@field GroupID NOTYPE 
+---@field MenuPath NOTYPE 
 ---@field MenuSet boolean 
 MENU_GROUP_COMMAND_DELAYED = {}
 
@@ -335,9 +335,9 @@ function MENU_GROUP_COMMAND_DELAYED:Set() end
 ---The creation of the menu item is delayed however, and must be created using the #MENU_GROUP.Set method.
 ---This method is most of the time called after the "old" menu items have been removed from the sub menu.
 ---@class MENU_GROUP_DELAYED : MENU_BASE
----@field Group  
----@field GroupID  
----@field MenuPath  
+---@field Group NOTYPE 
+---@field GroupID NOTYPE 
+---@field MenuPath NOTYPE 
 ---@field MenuSet boolean 
 MENU_GROUP_DELAYED = {}
 
@@ -388,7 +388,7 @@ function MENU_GROUP_DELAYED:Set() end
 ---MENU_MISSION
 ---@class MENU_MISSION : MENU_BASE
 ---@field ClassName string 
----@field MenuPath  
+---@field MenuPath NOTYPE 
 MENU_MISSION = {}
 
 ---MENU_MISSION constructor.

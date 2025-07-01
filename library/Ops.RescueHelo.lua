@@ -163,35 +163,35 @@
 ---@field ClassName string Name of the class.
 ---@field Debug boolean Debug mode on/off.
 ---@field HeloFuel0 number Initial fuel of helo in percent. Necessary due to DCS bug that helo with full tank does not return fuel via API function.
----@field airbase AIRBASE The airbase object acting as home base of the helo.
----@field alias string Alias of the spawn group.
----@field altitude number Altitude of helo in meters.
----@field carrier UNIT The carrier the helo is attached to.
----@field carrierstop boolean If true, route of carrier was stopped.
----@field carriertype string Carrier type.
----@field dtFollow number Follow time update interval in seconds. Default 1.0 sec.
----@field followset SET_GROUP Follow group set.
----@field formation AI_FORMATION AI_FORMATION object.
----@field helo GROUP Helo group.
----@field helogroupname string Name of the late activated helo template group.
----@field hid number Unit ID of the helo group. (Global) Running number.
----@field lid string Log debug id text.
----@field lowfuel number Low fuel threshold of helo in percent.
----@field modex number Tail number of the helo.
----@field offsetX number Offset in meters to carrier in longitudinal direction.
----@field offsetZ number Offset in meters to carrier in latitudinal direction.
----@field rescueduration number Time the rescue helicopter hovers over the crash site in seconds.
----@field rescueon boolean If true, helo will rescue crashed pilots. If false, no recuing will happen.
----@field rescuespeed number Speed in m/s the rescue helicopter hovers at over the crash site.
----@field rescuestopboat boolean If true, stop carrier during rescue operations.
----@field rescuezone ZONE_RADIUS Zone around the carrier in which helo will rescue crashed or ejected units.
----@field respawn boolean If true, helo be respawned (default). If false, no respawning will happen.
----@field respawninair boolean If true, helo will always be respawned in air. This has no impact on the initial spawn setting.
----@field rtb boolean If true, Helo will be return to base on the next status check.
----@field takeoff number Takeoff type.
----@field uid number Unique ID of this helo.
----@field uncontrolledac boolean If true, use and uncontrolled helo group already present in the mission.
----@field version string Class version.
+---@field private airbase AIRBASE The airbase object acting as home base of the helo.
+---@field private alias string Alias of the spawn group.
+---@field private altitude number Altitude of helo in meters.
+---@field private carrier UNIT The carrier the helo is attached to.
+---@field private carrierstop boolean If true, route of carrier was stopped.
+---@field private carriertype string Carrier type.
+---@field private dtFollow number Follow time update interval in seconds. Default 1.0 sec.
+---@field private followset SET_GROUP Follow group set.
+---@field private formation AI_FORMATION AI_FORMATION object.
+---@field private helo GROUP Helo group.
+---@field private helogroupname string Name of the late activated helo template group.
+---@field private hid number Unit ID of the helo group. (Global) Running number.
+---@field private lid string Log debug id text.
+---@field private lowfuel number Low fuel threshold of helo in percent.
+---@field private modex number Tail number of the helo.
+---@field private offsetX number Offset in meters to carrier in longitudinal direction.
+---@field private offsetZ number Offset in meters to carrier in latitudinal direction.
+---@field private rescueduration number Time the rescue helicopter hovers over the crash site in seconds.
+---@field private rescueon boolean If true, helo will rescue crashed pilots. If false, no recuing will happen.
+---@field private rescuespeed number Speed in m/s the rescue helicopter hovers at over the crash site.
+---@field private rescuestopboat boolean If true, stop carrier during rescue operations.
+---@field private rescuezone ZONE_RADIUS Zone around the carrier in which helo will rescue crashed or ejected units.
+---@field private respawn boolean If true, helo be respawned (default). If false, no respawning will happen.
+---@field private respawninair boolean If true, helo will always be respawned in air. This has no impact on the initial spawn setting.
+---@field private rtb boolean If true, Helo will be return to base on the next status check.
+---@field private takeoff number Takeoff type.
+---@field private uid number Unique ID of this helo.
+---@field private uncontrolledac boolean If true, use and uncontrolled helo group already present in the mission.
+---@field private version string Class version.
 RESCUEHELO = {}
 
 ---Alias of helo spawn group.
@@ -629,6 +629,7 @@ function RESCUEHELO:__Stop(delay) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The base to return to. Default is the home base.
+---@private
 function RESCUEHELO:onafterRTB(From, Event, To, airbase) end
 
 ---On after "Rescue" event.
@@ -640,6 +641,7 @@ function RESCUEHELO:onafterRTB(From, Event, To, airbase) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param RescueCoord COORDINATE Coordinate where the rescue should happen.
+---@private
 function RESCUEHELO:onafterRescue(From, Event, To, RescueCoord) end
 
 ---On after Returned event.
@@ -651,6 +653,7 @@ function RESCUEHELO:onafterRescue(From, Event, To, RescueCoord) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param airbase AIRBASE The base to which the helo has returned.
+---@private
 function RESCUEHELO:onafterReturned(From, Event, To, airbase) end
 
 ---On after "Run" event.
@@ -661,6 +664,7 @@ function RESCUEHELO:onafterReturned(From, Event, To, airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RESCUEHELO:onafterRun(From, Event, To) end
 
 ---On after Start event.
@@ -671,6 +675,7 @@ function RESCUEHELO:onafterRun(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RESCUEHELO:onafterStart(From, Event, To) end
 
 ---On after Status event.
@@ -681,6 +686,7 @@ function RESCUEHELO:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RESCUEHELO:onafterStatus(From, Event, To) end
 
 ---On after Stop event.
@@ -691,6 +697,7 @@ function RESCUEHELO:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function RESCUEHELO:onafterStop(From, Event, To) end
 
 

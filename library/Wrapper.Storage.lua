@@ -149,12 +149,15 @@
 ---STORAGE class.
 ---@class STORAGE : BASE
 ---@field ClassName string Name of the class.
+---@field Liquid STORAGE.Liquid 
+---@field LiquidName STORAGE.LiquidName 
 ---@field SaverTimer TIMER The TIMER for autosave.
----@field airbase Airbase The DCS airbase object.
----@field lid string Class id string for output to DCS log file.
----@field verbose number Verbosity level.
----@field version string STORAGE class version.
----@field warehouse Warehouse The DCS warehouse object.
+---@field Type STORAGE.Type 
+---@field private airbase Airbase The DCS airbase object.
+---@field private lid string Class id string for output to DCS log file.
+---@field private verbose number Verbosity level.
+---@field private version string STORAGE class version.
+---@field private warehouse Warehouse The DCS warehouse object.
 STORAGE = {}
 
 ---Adds the amount of a given type of aircraft, liquid, weapon currently present the warehouse.

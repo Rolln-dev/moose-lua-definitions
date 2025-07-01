@@ -22,6 +22,7 @@
 ---@class SCENERY : POSITIONABLE
 ---@field ClassName string Name of the class.
 ---@field Life0 number Initial life points.
+---@field Properties table 
 ---@field SceneryName string Name of the scenery object.
 ---@field SceneryObject Object DCS scenery object.
 SCENERY = {}
@@ -51,7 +52,7 @@ function SCENERY:FindAllByZoneName(ZoneName) end
 ---@param self SCENERY 
 ---@param Name string The name/id of the scenery object as taken from the ME. Ex. '595785449'
 ---@param Coordinate COORDINATE Where to find the scenery object
----@param Radius number (optional) Search radius around coordinate, defaults to 100
+---@param Radius? number (optional) Search radius around coordinate, defaults to 100
 ---@param Role NOTYPE 
 ---@return SCENERY #Scenery Object or `nil` if it cannot be found
 function SCENERY:FindByName(Name, Coordinate, Radius, Role) end
@@ -64,7 +65,7 @@ function SCENERY:FindByName(Name, Coordinate, Radius, Role) end
 ---@param self SCENERY 
 ---@param Name string The name or id of the scenery object as taken from the ME. Ex. '595785449'
 ---@param Zone ZONE_BASE Where to find the scenery object. Can be handed as zone name.
----@param Radius number (optional) Search radius around coordinate, defaults to 100
+---@param Radius? number (optional) Search radius around coordinate, defaults to 100
 ---@return SCENERY #Scenery Object or `nil` if it cannot be found
 function SCENERY:FindByNameInZone(Name, Zone, Radius) end
 
@@ -155,7 +156,7 @@ function SCENERY:HasProperty(PropertyName) end
 ---
 ------
 ---@param self SCENERY 
----@param Threshold number (Optional) If given, SCENERY counts as alive above this relative life in percent (1..100).
+---@param Threshold? number (Optional) If given, SCENERY counts as alive above this relative life in percent (1..100).
 ---@return number #life
 function SCENERY:IsAlive(Threshold) end
 
@@ -164,7 +165,7 @@ function SCENERY:IsAlive(Threshold) end
 ---
 ------
 ---@param self SCENERY 
----@param Threshold number (Optional) If given, SCENERY counts as dead below this relative life in percent (1..100).
+---@param Threshold? number (Optional) If given, SCENERY counts as dead below this relative life in percent (1..100).
 ---@return number #life
 function SCENERY:IsDead(Threshold) end
 

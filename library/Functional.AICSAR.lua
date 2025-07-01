@@ -160,39 +160,45 @@
 ---@class AICSAR : FSM
 ---@field Altitude number Default altitude setting for the helicopter FLIGHTGROUP 1500ft.
 ---@field ClassName string Name of this class.
----@field DCSRadioGroup  
----@field DCSRadioQueue  
+---@field DCSRadioGroup NOTYPE 
+---@field DCSRadioQueue NOTYPE 
 ---@field Delay number In case of UseEventEject wait this long until we spawn a landed pilot.
----@field MGRS_Accuracy  
+---@field MGRS_Accuracy NOTYPE 
+---@field Messages table 
 ---@field PilotStore FIFO 
----@field SRS  
+---@field RadioLength table 
+---@field RadioMessages table 
+---@field SRS NOTYPE 
 ---@field SRSGoogle boolean 
----@field SRSOperator  
+---@field SRSOperator NOTYPE 
 ---@field SRSOperatorVoice boolean 
----@field SRSPilot  
+---@field SRSPilot NOTYPE 
 ---@field SRSPilotVoice boolean 
----@field SRSQ  
+---@field SRSQ NOTYPE 
 ---@field SRSRadio boolean 
 ---@field Speed number Default speed setting for the helicopter FLIGHTGROUP is 100kn.
 ---@field UseEventEject boolean In case Event LandingAfterEjection isn't working, use set this to true.
----@field alias string Alias Name.
----@field autoonoff boolean Only send a helo when no human heli pilots are available.
----@field coalition number Colition side.
----@field farp AIRBASE FARP object from where to start.
----@field farpzone ZONE MASH zone to drop rescued pilots.
----@field gettext  
----@field helonumber number number of helos available (default: 3)
----@field helotemplate string Template for CSAR helo.
----@field lid string LID for log entries.
----@field limithelos boolean limit available number of helos going on mission (defaults to true)
----@field locale string 
----@field maxdistance number Max distance to go for a rescue.
----@field pilotindex number Table index to bind pilot to helo.
----@field playerset SET_CLIENT Track if alive heli pilots are available.
----@field rescuezoneradius number Radius around downed pilot for the helo to land in.
----@field template string Template for pilot.
----@field verbose boolean Switch more output.
----@field version string Versioning.
+---@field private alias string Alias Name.
+---@field private autoonoff boolean Only send a helo when no human heli pilots are available.
+---@field private coalition number Colition side.
+---@field private farp AIRBASE FARP object from where to start.
+---@field private farpzone ZONE MASH zone to drop rescued pilots.
+---@field private gettext NOTYPE 
+---@field private helonumber number number of helos available (default: 3)
+---@field private helos table Table of Ops.FlightGroup#FLIGHTGROUP objects
+---@field private helotemplate string Template for CSAR helo.
+---@field private lid string LID for log entries.
+---@field private limithelos boolean limit available number of helos going on mission (defaults to true)
+---@field private locale string 
+---@field private maxdistance number Max distance to go for a rescue.
+---@field private pilotindex number Table index to bind pilot to helo.
+---@field private pilotqueue table Queue of pilots to rescue.
+---@field private playerset SET_CLIENT Track if alive heli pilots are available.
+---@field private rescued table Track number of rescued pilot.
+---@field private rescuezoneradius number Radius around downed pilot for the helo to land in.
+---@field private template string Template for pilot.
+---@field private verbose boolean Switch more output.
+---@field private version string Versioning.
 AICSAR = {}
 
 ---[Internal] Sound output via non-SRS Radio.
@@ -335,8 +341,8 @@ function AICSAR:SetDefaultSpeed(Knots) end
 ------
 ---@param self AICSAR 
 ---@param Voice string The voice to be used, e.g. `MSRS.Voices.Google.Standard.en_US_Standard_J` for Google or `MSRS.Voices.Microsoft.David` for Microsoft. Specific voices override culture and gender!
----@param Culture string (Optional) The culture to be used, defaults to "en-GB"
----@param Gender string (Optional)  The gender to be used, defaults to "female"
+---@param Culture? string (Optional) The culture to be used, defaults to "en-GB"
+---@param Gender? string (Optional)  The gender to be used, defaults to "female"
 ---@return AICSAR #self
 function AICSAR:SetOperatorTTSVoice(Voice, Culture, Gender) end
 
@@ -346,8 +352,8 @@ function AICSAR:SetOperatorTTSVoice(Voice, Culture, Gender) end
 ------
 ---@param self AICSAR 
 ---@param Voice string The voice to be used, e.g. `MSRS.Voices.Google.Standard.en_US_Standard_J` for Google or `MSRS.Voices.Microsoft.David` for Microsoft.  Specific voices override culture and gender!
----@param Culture string (Optional) The culture to be used, defaults to "en-US"
----@param Gender string (Optional)  The gender to be used, defaults to "male"
+---@param Culture? string (Optional) The culture to be used, defaults to "en-US"
+---@param Gender? string (Optional)  The gender to be used, defaults to "male"
 ---@return AICSAR #self
 function AICSAR:SetPilotTTSVoice(Voice, Culture, Gender) end
 
@@ -372,13 +378,13 @@ function AICSAR:SetSRSRadio(OnOff, Path, Frequency, Modulation, SoundPath, Port)
 ---@param self AICSAR 
 ---@param OnOff boolean Switch on (true) or off (false).
 ---@param Path string Path to your SRS Server Component, e.g. "E:\\\\Program Files\\\\DCS-SimpleRadio-Standalone"
----@param Frequency number (Optional) Defaults to 243 (guard)
----@param Modulation number (Optional) Radio modulation. Defaults to radio.modulation.AM
----@param Port number (Optional) Port of the SRS, defaults to 5002.
----@param Voice string (Optional) The voice to be used.
----@param Culture string (Optional) The culture to be used, defaults to "en-GB"
----@param Gender string (Optional)  The gender to be used, defaults to "male"
----@param GoogleCredentials string (Optional) Path to google credentials
+---@param Frequency? number (Optional) Defaults to 243 (guard)
+---@param Modulation? number (Optional) Radio modulation. Defaults to radio.modulation.AM
+---@param Port? number (Optional) Port of the SRS, defaults to 5002.
+---@param Voice? string (Optional) The voice to be used.
+---@param Culture? string (Optional) The culture to be used, defaults to "en-GB"
+---@param Gender? string (Optional)  The gender to be used, defaults to "male"
+---@param GoogleCredentials? string (Optional) Path to google credentials
 ---@return AICSAR #self
 function AICSAR:SetSRSTTSRadio(OnOff, Path, Frequency, Modulation, Port, Voice, Culture, Gender, GoogleCredentials) end
 
@@ -490,6 +496,7 @@ function AICSAR:__Stop(delay) end
 ---@param Helo FLIGHTGROUP 
 ---@param Index number 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterHeloDown(From, Event, To, Helo, Index) end
 
 ---[Internal] onafterPilotDown
@@ -502,6 +509,7 @@ function AICSAR:onafterHeloDown(From, Event, To, Helo, Index) end
 ---@param Coordinate COORDINATE Location of the pilot.
 ---@param InReach boolean True if in maxdistance else false.
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterPilotDown(From, Event, To, Coordinate, InReach) end
 
 ---[Internal] onafterPilotKIA
@@ -512,6 +520,7 @@ function AICSAR:onafterPilotDown(From, Event, To, Coordinate, InReach) end
 ---@param Event string 
 ---@param To string 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterPilotKIA(From, Event, To) end
 
 ---[Internal] onafterPilotPickedUp
@@ -525,6 +534,7 @@ function AICSAR:onafterPilotKIA(From, Event, To) end
 ---@param CargoTable table of Ops.OpsGroup#OPSGROUP Cargo objects
 ---@param Index number 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterPilotPickedUp(From, Event, To, Helo, CargoTable, Index) end
 
 ---[Internal] onafterPilotRescued
@@ -536,6 +546,7 @@ function AICSAR:onafterPilotPickedUp(From, Event, To, Helo, CargoTable, Index) e
 ---@param To string 
 ---@param PilotName string 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterPilotRescued(From, Event, To, PilotName) end
 
 ---[Internal] onafterPilotUnloaded
@@ -548,6 +559,7 @@ function AICSAR:onafterPilotRescued(From, Event, To, PilotName) end
 ---@param Helo FLIGHTGROUP 
 ---@param OpsGroup OPSGROUP 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterPilotUnloaded(From, Event, To, Helo, OpsGroup) end
 
 ---[Internal] onafterStart
@@ -558,6 +570,7 @@ function AICSAR:onafterPilotUnloaded(From, Event, To, Helo, OpsGroup) end
 ---@param Event string 
 ---@param To string 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterStart(From, Event, To) end
 
 ---[Internal] onafterStatus
@@ -568,6 +581,7 @@ function AICSAR:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterStatus(From, Event, To) end
 
 ---[Internal] onafterStop
@@ -578,6 +592,7 @@ function AICSAR:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return AICSAR #self
+---@private
 function AICSAR:onafterStop(From, Event, To) end
 
 

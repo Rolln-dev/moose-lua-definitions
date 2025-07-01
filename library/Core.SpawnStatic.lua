@@ -103,10 +103,14 @@
 ---@field InitStaticName string Name of the static.
 ---@field InitStaticShape string Shape of the static.
 ---@field InitStaticType string Type of the static.
----@field SpawnFunctionHook  
+---@field SpawnFunctionArguments table 
+---@field SpawnFunctionHook NOTYPE 
 ---@field SpawnIndex number Running number increased with each new Spawn.
 ---@field SpawnTemplatePrefix string Name of the template group.
----@field TemplateStaticUnit  
+---@field TemplateStaticUnit table 
+---@field private heliport_callsign_id NOTYPE 
+---@field private heliport_frequency NOTYPE 
+---@field private heliport_modulation NOTYPE 
 SPAWNSTATIC = {}
 
 ---(User/Cargo) Add to resource table for STATIC object that should be spawned containing storage objects.
@@ -230,7 +234,7 @@ function SPAWNSTATIC:InitType(StaticType) end
 ------
 ---@param self SPAWNSTATIC 
 ---@param SpawnTemplateName string Name of the static object in the ME. Each new static will have the name starting with this prefix.
----@param SpawnCountryID country.id (Optional) The ID of the country.
+---@param SpawnCountryID? country.id (Optional) The ID of the country.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:NewFromStatic(SpawnTemplateName, SpawnCountryID) end
 
@@ -279,8 +283,8 @@ function SPAWNSTATIC:ResetCargoResources() end
 ---
 ------
 ---@param self SPAWNSTATIC 
----@param Heading number (Optional) The heading of the static, which is a number in degrees from 0 to 360. Default is the heading of the template.
----@param NewName string (Optional) The name of the new static.
+---@param Heading? number (Optional) The heading of the static, which is a number in degrees from 0 to 360. Default is the heading of the template.
+---@param NewName? string (Optional) The name of the new static.
 ---@return STATIC #The static spawned.
 function SPAWNSTATIC:Spawn(Heading, NewName) end
 
@@ -289,8 +293,8 @@ function SPAWNSTATIC:Spawn(Heading, NewName) end
 ------
 ---@param self SPAWNSTATIC 
 ---@param Coordinate COORDINATE The 3D coordinate where to spawn the static.
----@param Heading number (Optional) Heading The heading of the static in degrees. Default is 0 degrees.
----@param NewName string (Optional) The name of the new static.
+---@param Heading? number (Optional) Heading The heading of the static in degrees. Default is 0 degrees.
+---@param NewName? string (Optional) The name of the new static.
 ---@return STATIC #The spawned STATIC object.
 function SPAWNSTATIC:SpawnFromCoordinate(Coordinate, Heading, NewName) end
 
@@ -300,7 +304,7 @@ function SPAWNSTATIC:SpawnFromCoordinate(Coordinate, Heading, NewName) end
 ---@param self SPAWNSTATIC 
 ---@param PointVec2 COORDINATE The 2D coordinate where to spawn the static.
 ---@param Heading number The heading of the static, which is a number in degrees from 0 to 360.
----@param NewName string (Optional) The name of the new static.
+---@param NewName? string (Optional) The name of the new static.
 ---@return STATIC #The static spawned.
 function SPAWNSTATIC:SpawnFromPointVec2(PointVec2, Heading, NewName) end
 
@@ -309,8 +313,8 @@ function SPAWNSTATIC:SpawnFromPointVec2(PointVec2, Heading, NewName) end
 ------
 ---@param self SPAWNSTATIC 
 ---@param Zone ZONE_BASE The Zone where to spawn the static.
----@param Heading number (Optional)The heading of the static in degrees. Default is the heading of the template.
----@param NewName string (Optional) The name of the new static.
+---@param Heading? number (Optional)The heading of the static in degrees. Default is the heading of the template.
+---@param NewName? string (Optional) The name of the new static.
 ---@return STATIC #The static spawned.
 function SPAWNSTATIC:SpawnFromZone(Zone, Heading, NewName) end
 
@@ -336,25 +340,26 @@ function SPAWNSTATIC:_SpawnStatic(Template, CountryID) end
 
 ---Static template table data.
 ---@class SPAWNSTATIC.TemplateData 
----@field alt  
----@field canCargo boolean Static can be a cargo.
----@field category string Category of the static.
----@field dead boolean Static is dead if true.
----@field groupId number Group ID.
----@field heading number Heading in rad.
----@field heliport_callsign_id  
----@field heliport_frequency  
----@field heliport_modulation  
----@field linkOffset boolean 
----@field linkUnit  
----@field livery_id string Livery name.
----@field mass number Cargo mass in kg.
----@field name string Name of the static.
----@field shape_name  
----@field type string Type of the static.
----@field unitId number Unit ID.
----@field x number X-coordinate of the static.
----@field y number Y-coordinate of teh static.
+---@field private alt NOTYPE 
+---@field private canCargo boolean Static can be a cargo.
+---@field private category string Category of the static.
+---@field private dead boolean Static is dead if true.
+---@field private groupId number Group ID.
+---@field private heading number Heading in rad.
+---@field private heliport_callsign_id NOTYPE 
+---@field private heliport_frequency NOTYPE 
+---@field private heliport_modulation NOTYPE 
+---@field private linkOffset boolean 
+---@field private linkUnit NOTYPE 
+---@field private livery_id string Livery name.
+---@field private mass number Cargo mass in kg.
+---@field private name string Name of the static.
+---@field private offsets table Offset parameters when linked to a unit.
+---@field private shape_name NOTYPE 
+---@field private type string Type of the static.
+---@field private unitId number Unit ID.
+---@field private x number X-coordinate of the static.
+---@field private y number Y-coordinate of teh static.
 SPAWNSTATIC.TemplateData = {}
 
 

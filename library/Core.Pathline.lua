@@ -49,9 +49,10 @@
 ---PATHLINE class.
 ---@class PATHLINE : BASE
 ---@field ClassName string Name of the class.
----@field lid string Class id string for output to DCS log file.
----@field name string Name of the path line.
----@field version string PATHLINE class version.
+---@field private lid string Class id string for output to DCS log file.
+---@field private name string Name of the path line.
+---@field private points table List of 3D points defining the path.
+---@field private version string PATHLINE class version.
 PATHLINE = {}
 
 ---Add a point to the path from a given 2D position.
@@ -193,12 +194,12 @@ function PATHLINE:_CreatePoint(Vec) end
 
 ---Point of line.
 ---@class PATHLINE.Point 
----@field depth number Water depth in meters.
----@field landHeight number Land height in meters.
----@field markerID number Marker ID.
----@field surfaceType number Surface type.
----@field vec2 Vec2 2D position.
----@field vec3 Vec3 3D position.
+---@field private depth number Water depth in meters.
+---@field private landHeight number Land height in meters.
+---@field private markerID number Marker ID.
+---@field private surfaceType number Surface type.
+---@field private vec2 Vec2 2D position.
+---@field private vec3 Vec3 3D position.
 PATHLINE.Point = {}
 
 

@@ -273,72 +273,76 @@
 ---#SPAWN.SpawnScheduleStop() ; #SPAWN.SpawnScheduleStart() sequence would have been used.
 ---SPAWN Class
 ---@class SPAWN : BASE
----@field AIOnOff boolean 
+---@field AIOnOff NOTYPE 
 ---@field AliveUnits number 
----@field CleanUpScheduler  
+---@field CleanUpScheduler NOTYPE 
 ---@field DelayOnOff boolean 
----@field InitSpeed  
+---@field InitSpeed NOTYPE 
 ---@field MaxAliveGroups number 
 ---@field MaxAliveUnits number 
 ---@field Repeat boolean 
 ---@field RepeatOnEngineShutDown boolean 
 ---@field RepeatOnLanding boolean 
 ---@field SpawnAliasPrefix string 
----@field SpawnAliasPrefixEscaped  
----@field SpawnCleanUpInterval  
+---@field SpawnAliasPrefixEscaped NOTYPE 
+---@field SpawnCleanUpInterval NOTYPE 
+---@field SpawnCleanUpTimeStamps table 
 ---@field SpawnFromNewPosition boolean 
----@field SpawnFunctionHook  
----@field SpawnGrouping  
+---@field SpawnFunctionArguments table 
+---@field SpawnFunctionHook NOTYPE 
+---@field SpawnGrouping NOTYPE 
+---@field SpawnGroups table 
 ---@field SpawnHiddenOnMFD boolean 
 ---@field SpawnHiddenOnPlanner boolean 
----@field SpawnHookScheduler  
+---@field SpawnHookScheduler NOTYPE 
 ---@field SpawnIndex number 
----@field SpawnInitAirbase  
+---@field SpawnInitAirbase NOTYPE 
 ---@field SpawnInitCallSign boolean 
----@field SpawnInitCallSignName  
----@field SpawnInitCategory  
----@field SpawnInitCoalition  
----@field SpawnInitCountry  
----@field SpawnInitFreq  
----@field SpawnInitGroupHeadingMax  
----@field SpawnInitGroupHeadingMin  
----@field SpawnInitGroupUnitVar  
----@field SpawnInitHeadingMax  
----@field SpawnInitHeadingMin  
+---@field SpawnInitCallSignName NOTYPE 
+---@field SpawnInitCategory NOTYPE 
+---@field SpawnInitCoalition NOTYPE 
+---@field SpawnInitCountry NOTYPE 
+---@field SpawnInitFreq NOTYPE 
+---@field SpawnInitGroupHeadingMax NOTYPE 
+---@field SpawnInitGroupHeadingMin NOTYPE 
+---@field SpawnInitGroupUnitVar NOTYPE 
+---@field SpawnInitHeadingMax NOTYPE 
+---@field SpawnInitHeadingMin NOTYPE 
 ---@field SpawnInitKeepUnitNames boolean 
 ---@field SpawnInitLimit boolean 
----@field SpawnInitLivery  
----@field SpawnInitModu  
----@field SpawnInitPosition  
----@field SpawnInitSADL  
+---@field SpawnInitLivery NOTYPE 
+---@field SpawnInitModu NOTYPE 
+---@field SpawnInitPosition NOTYPE 
+---@field SpawnInitSADL NOTYPE 
 ---@field SpawnInitSkill string 
----@field SpawnInitTerminalType  
+---@field SpawnInitTerminalType NOTYPE 
 ---@field SpawnIsScheduled boolean 
----@field SpawnMaxGroups number 
----@field SpawnMaxUnitsAlive number 
+---@field SpawnMaxGroups NOTYPE 
+---@field SpawnMaxUnitsAlive NOTYPE 
 ---@field SpawnRandomCallsign boolean 
 ---@field SpawnRandomize boolean 
 ---@field SpawnRandomizeRoute boolean 
----@field SpawnRandomizeRouteEndPoint  
----@field SpawnRandomizeRouteHeight  
----@field SpawnRandomizeRouteRadius  
----@field SpawnRandomizeRouteStartPoint  
+---@field SpawnRandomizeRouteEndPoint NOTYPE 
+---@field SpawnRandomizeRouteHeight NOTYPE 
+---@field SpawnRandomizeRouteRadius NOTYPE 
+---@field SpawnRandomizeRouteStartPoint NOTYPE 
 ---@field SpawnRandomizeTemplate boolean 
 ---@field SpawnRandomizeZones boolean 
----@field SpawnScheduler  
----@field SpawnTemplate  
+---@field SpawnScheduler NOTYPE 
+---@field SpawnTemplate NOTYPE 
 ---@field SpawnTemplatePrefix string 
----@field SpawnTemplatePrefixEscaped  
----@field SpawnTemplatePrefixTable  
+---@field SpawnTemplatePrefixEscaped NOTYPE 
+---@field SpawnTemplatePrefixTable NOTYPE 
 ---@field SpawnUnitsWithAbsolutePositions boolean 
 ---@field SpawnUnitsWithRelativePositions boolean 
 ---@field SpawnVisible boolean 
+---@field SpawnZoneTable SPAWN.SpawnZoneTable 
+---@field Takeoff SPAWN.Takeoff 
 ---@field TweakedTemplate boolean 
 ---@field UnControlled boolean 
----@field UnitsAbsolutePositions  
----@field UnitsRelativePositions  
----@field hidden  
----@field speed  
+---@field UnitsAbsolutePositions NOTYPE 
+---@field UnitsRelativePositions NOTYPE 
+---@field private uncontrolled NOTYPE 
 SPAWN = {}
 
 ---Get the Coordinate of the Group that is Late Activated as the template for the SPAWN object.
@@ -453,8 +457,8 @@ function SPAWN:InitAIOnOff(AIOnOff) end
 ------
 ---@param self SPAWN 
 ---@param AirbaseName string Name of the airbase.
----@param Takeoff number (Optional) Takeoff type. Can be SPAWN.Takeoff.Hot (default), SPAWN.Takeoff.Cold or SPAWN.Takeoff.Runway.
----@param TerminalType number (Optional) The terminal type.
+---@param Takeoff? number (Optional) Takeoff type. Can be SPAWN.Takeoff.Hot (default), SPAWN.Takeoff.Cold or SPAWN.Takeoff.Runway.
+---@param TerminalType? number (Optional) The terminal type.
 ---@return SPAWN #self
 function SPAWN:InitAirbase(AirbaseName, Takeoff, TerminalType) end
 
@@ -586,8 +590,8 @@ function SPAWN:InitDelayOnOff(DelayOnOff) end
 ------
 ---@param self SPAWN 
 ---@param HeadingMin number The minimum or fixed heading in degrees.
----@param HeadingMax number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading for the group will be HeadingMin.
----@param unitVar number (optional) Individual units within the group will have their heading randomized by +/- unitVar degrees.  Default is zero.
+---@param HeadingMax? number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading for the group will be HeadingMin.
+---@param unitVar? number (optional) Individual units within the group will have their heading randomized by +/- unitVar degrees.  Default is zero.
 ---@return SPAWN #self
 function SPAWN:InitGroupHeading(HeadingMin, HeadingMax, unitVar) end
 
@@ -618,7 +622,7 @@ function SPAWN:InitGrouping(Grouping) end
 ------
 ---@param self SPAWN 
 ---@param HeadingMin number The minimum or fixed heading in degrees.
----@param HeadingMax number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading will be fixed for all units using minimum heading.
+---@param HeadingMax? number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading will be fixed for all units using minimum heading.
 ---@return SPAWN #self
 function SPAWN:InitHeading(HeadingMin, HeadingMax) end
 
@@ -651,7 +655,7 @@ function SPAWN:InitHiddenOnPlanner() end
 ---
 ------
 ---@param self SPAWN 
----@param KeepUnitNames boolean (optional) If true, the unit names are kept, false or not provided create new unit names.
+---@param KeepUnitNames? boolean (optional) If true, the unit names are kept, false or not provided create new unit names.
 ---@return SPAWN #self
 function SPAWN:InitKeepUnitNames(KeepUnitNames) end
 
@@ -659,7 +663,7 @@ function SPAWN:InitKeepUnitNames(KeepUnitNames) end
 ---
 ------
 ---@param self SPAWN 
----@param LateActivated boolean (optional) If true, the spawned groups are late activated.
+---@param LateActivated? boolean (optional) If true, the spawned groups are late activated.
 ---@return SPAWN #self
 function SPAWN:InitLateActivated(LateActivated) end
 
@@ -701,8 +705,8 @@ function SPAWN:InitLivery(Livery) end
 ------
 ---@param self SPAWN 
 ---@param modex number Modex of the first unit.
----@param prefix string (optional) String to prefix to modex, e.g. for French AdA Modex, eg. -L-102 then "-L-" would be the prefix.
----@param postfix string (optional) String to postfix to modex, example tbd.
+---@param prefix? string (optional) String to prefix to modex, e.g. for French AdA Modex, eg. -L-102 then "-L-" would be the prefix.
+---@param postfix? string (optional) String to postfix to modex, example tbd.
 ---@return SPAWN #self
 function SPAWN:InitModex(modex, prefix, postfix) end
 
@@ -760,8 +764,8 @@ function SPAWN:InitRandomizeCallsign() end
 ------
 ---@param self SPAWN 
 ---@param RandomizePosition boolean If true, SPAWN will perform the randomization of the @{Wrapper.Group}s position between a given outer and inner radius.
----@param OuterRadius Distance (optional) The outer radius in meters where the new group will be spawned.
----@param InnerRadius Distance (optional) The inner radius in meters where the new group will NOT be spawned.
+---@param OuterRadius? Distance (optional) The outer radius in meters where the new group will be spawned.
+---@param InnerRadius? Distance (optional) The inner radius in meters where the new group will NOT be spawned.
 ---@return SPAWN #
 function SPAWN:InitRandomizePosition(RandomizePosition, OuterRadius, InnerRadius) end
 
@@ -784,7 +788,7 @@ function SPAWN:InitRandomizePosition(RandomizePosition, OuterRadius, InnerRadius
 ---@param SpawnStartPoint number is the waypoint where the randomization begins. Note that the StartPoint = 0 equaling the point where the group is spawned.
 ---@param SpawnEndPoint number is the waypoint where the randomization ends counting backwards. This parameter is useful to avoid randomization to end at a waypoint earlier than the last waypoint on the route.
 ---@param SpawnRadius number is the radius in meters in which the randomization of the new waypoints, with the original waypoint of the original template located in the middle ...
----@param SpawnHeight number (optional) Specifies the **additional** height in meters that can be added to the base height specified at each waypoint in the ME.
+---@param SpawnHeight? number (optional) Specifies the **additional** height in meters that can be added to the base height specified at each waypoint in the ME.
 ---@return SPAWN #
 function SPAWN:InitRandomizeRoute(SpawnStartPoint, SpawnEndPoint, SpawnRadius, SpawnHeight) end
 
@@ -892,8 +896,8 @@ function SPAWN:InitRandomizeTemplateSet(SpawnTemplateSet, RandomizePositionInZon
 ------
 ---@param self SPAWN 
 ---@param RandomizeUnits boolean If true, SPAWN will perform the randomization of the @{Wrapper.Unit#UNIT}s position within the group between a given outer and inner radius.
----@param OuterRadius Distance (optional) The outer radius in meters where the new group will be spawned.
----@param InnerRadius Distance (optional) The inner radius in meters where the new group will NOT be spawned.
+---@param OuterRadius? Distance (optional) The outer radius in meters where the new group will be spawned.
+---@param InnerRadius? Distance (optional) The inner radius in meters where the new group will NOT be spawned.
 ---@return SPAWN #
 function SPAWN:InitRandomizeUnits(RandomizeUnits, OuterRadius, InnerRadius) end
 
@@ -1256,8 +1260,8 @@ function SPAWN:OnSpawnGroup(SpawnCallBackFunction, SpawnFunctionArguments, ...) 
 ------
 ---@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
----@param TerminalType AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
----@param Parkingdata table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
+---@param TerminalType? AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
+---@param Parkingdata? table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
 ---@param SpawnIndex NOTYPE 
 ---@return nil #Nothing is returned!
 function SPAWN:ParkAircraft(SpawnAirbase, TerminalType, Parkingdata, SpawnIndex) end
@@ -1301,8 +1305,8 @@ function SPAWN:ParkAircraft(SpawnAirbase, TerminalType, Parkingdata, SpawnIndex)
 ------
 ---@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
----@param TerminalType AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
----@param Parkingdata table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
+---@param TerminalType? AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
+---@param Parkingdata? table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
 ---@return nil #Nothing is returned!
 function SPAWN:ParkAtAirbase(SpawnAirbase, TerminalType, Parkingdata) end
 
@@ -1379,11 +1383,11 @@ function SPAWN:Spawn() end
 ------
 ---@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
----@param Takeoff SPAWN.Takeoff (optional) The location and takeoff method. Default is Hot.
----@param TakeoffAltitude number (optional) The altitude above the ground.
----@param TerminalType AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
----@param EmergencyAirSpawn boolean (optional) If true (default), groups are spawned in air if there is no parking spot at the airbase. If false, nothing is spawned if no parking spot is available.
----@param Parkingdata table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactly these spots!
+---@param Takeoff? SPAWN.Takeoff (optional) The location and takeoff method. Default is Hot.
+---@param TakeoffAltitude? number (optional) The altitude above the ground.
+---@param TerminalType? AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
+---@param EmergencyAirSpawn? boolean (optional) If true (default), groups are spawned in air if there is no parking spot at the airbase. If false, nothing is spawned if no parking spot is available.
+---@param Parkingdata? table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactly these spots!
 ---@return GROUP #The group that was spawned or nil when nothing was spawned.
 function SPAWN:SpawnAtAirbase(SpawnAirbase, Takeoff, TakeoffAltitude, TerminalType, EmergencyAirSpawn, Parkingdata) end
 
@@ -1393,7 +1397,7 @@ function SPAWN:SpawnAtAirbase(SpawnAirbase, Takeoff, TakeoffAltitude, TerminalTy
 ---@param self SPAWN 
 ---@param Airbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
 ---@param Spots table Table of parking spot IDs. Note that these in general are different from the numbering in the mission editor!
----@param Takeoff SPAWN.Takeoff (Optional) Takeoff type, i.e. either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is Hot.
+---@param Takeoff? SPAWN.Takeoff (Optional) Takeoff type, i.e. either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is Hot.
 ---@return GROUP #The group that was spawned or nil when nothing was spawned.
 function SPAWN:SpawnAtParkingSpot(Airbase, Spots, Takeoff) end
 
@@ -1405,7 +1409,7 @@ function SPAWN:SpawnAtParkingSpot(Airbase, Spots, Takeoff) end
 ------
 ---@param self SPAWN 
 ---@param Coordinate Coordinate The Coordinate coordinates where to spawn the group.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromCoordinate(Coordinate, SpawnIndex) end
 
@@ -1430,9 +1434,9 @@ function SPAWN:SpawnFromCoordinate(Coordinate, SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param PointVec2 COORDINATE The coordinates where to spawn the group.
----@param MinHeight number (optional) The minimum height to spawn an airborne group into the zone.
----@param MaxHeight number (optional) The maximum height to spawn an airborne group into the zone.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
+---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromPointVec2(PointVec2, MinHeight, MaxHeight, SpawnIndex) end
 
@@ -1454,7 +1458,7 @@ function SPAWN:SpawnFromPointVec2(PointVec2, MinHeight, MaxHeight, SpawnIndex) e
 ------
 ---@param self SPAWN 
 ---@param PointVec3 COORDINATE The COORDINATE coordinates where to spawn the group.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromPointVec3(PointVec3, SpawnIndex) end
 
@@ -1478,9 +1482,9 @@ function SPAWN:SpawnFromPointVec3(PointVec3, SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param HostStatic STATIC The static dropping or unloading the group.
----@param MinHeight number (optional) The minimum height to spawn an airborne group into the zone.
----@param MaxHeight number (optional) The maximum height to spawn an airborne group into the zone.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
+---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromStatic(HostStatic, MinHeight, MaxHeight, SpawnIndex) end
 
@@ -1505,9 +1509,9 @@ function SPAWN:SpawnFromStatic(HostStatic, MinHeight, MaxHeight, SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param HostUnit UNIT The air or ground unit dropping or unloading the group.
----@param MinHeight number (optional) The minimum height to spawn an airborne group into the zone.
----@param MaxHeight number (optional) The maximum height to spawn an airborne group into the zone.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
+---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned.
 ---@return nil #Nothing was spawned.
 function SPAWN:SpawnFromUnit(HostUnit, MinHeight, MaxHeight, SpawnIndex) end
@@ -1533,9 +1537,9 @@ function SPAWN:SpawnFromUnit(HostUnit, MinHeight, MaxHeight, SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param Vec2 Vec2 The Vec2 coordinates where to spawn the group.
----@param MinHeight number (optional) The minimum height to spawn an airborne group into the zone.
----@param MaxHeight number (optional) The maximum height to spawn an airborne group into the zone.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
+---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromVec2(Vec2, MinHeight, MaxHeight, SpawnIndex) end
 
@@ -1547,7 +1551,7 @@ function SPAWN:SpawnFromVec2(Vec2, MinHeight, MaxHeight, SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param Vec3 Vec3 The Vec3 coordinates where to spawn the group.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
 function SPAWN:SpawnFromVec3(Vec3, SpawnIndex) end
 
@@ -1589,10 +1593,10 @@ function SPAWN:SpawnGroupName(SpawnIndex) end
 ------
 ---@param self SPAWN 
 ---@param Zone ZONE The zone where the group is to be spawned.
----@param RandomizeGroup boolean (optional) Randomization of the @{Wrapper.Group} position in the zone.
----@param MinHeight number (optional) The minimum height to spawn an airborne group into the zone.
----@param MaxHeight number (optional) The maximum height to spawn an airborne group into the zone.
----@param SpawnIndex number (optional) The index which group to spawn within the given zone.
+---@param RandomizeGroup? boolean (optional) Randomization of the @{Wrapper.Group} position in the zone.
+---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
+---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
+---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned. 
 function SPAWN:SpawnInZone(Zone, RandomizeGroup, MinHeight, MaxHeight, SpawnIndex) end
 

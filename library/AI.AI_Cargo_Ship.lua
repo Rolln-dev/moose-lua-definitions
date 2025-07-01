@@ -61,8 +61,8 @@
 ---@deprecated
 ---@class AI_CARGO_SHIP 
 ---@field CargoCarrier GROUIP 
----@field Coalition  
----@field Zone  
+---@field Coalition NOTYPE 
+---@field Zone NOTYPE 
 AI_CARGO_SHIP = {}
 
 ---FInd a free Carrier within a radius
@@ -151,6 +151,7 @@ function AI_CARGO_SHIP._Pickup(Ship, self, Coordinate, Speed, PickupZone) end
 ---@param Height number  Altitude in meters to move to the deploy coordinate. This parameter is ignored for Ships
 ---@param DeployZone ZONE The zone where the cargo will be deployed.
 ---@param Ship NOTYPE 
+---@private
 function AI_CARGO_SHIP:onafterDeploy(SHIP, From, Event, To, Coordinate, Speed, Height, DeployZone, Ship) end
 
 
@@ -165,6 +166,7 @@ function AI_CARGO_SHIP:onafterDeploy(SHIP, From, Event, To, Coordinate, Speed, H
 ---@param Speed NOTYPE 
 ---@param Height NOTYPE 
 ---@param HomeZone NOTYPE 
+---@private
 function AI_CARGO_SHIP:onafterHome(Ship, From, Event, To, Coordinate, Speed, Height, HomeZone) end
 
 
@@ -175,6 +177,7 @@ function AI_CARGO_SHIP:onafterHome(Ship, From, Event, To, Coordinate, Speed, Hei
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_CARGO_SHIP:onafterMonitor(Ship, From, Event, To) end
 
 ---on after Pickup event.
@@ -187,9 +190,10 @@ function AI_CARGO_SHIP:onafterMonitor(Ship, From, Event, To) end
 ---@param Coordinate COORDINATE of the pickup point
 ---@param Speed number  Speed in km/h to sail to the pickup coordinate. Default is 50% of max speed for the unit
 ---@param Height number  Altitude in meters to move to the pickup coordinate. This parameter is ignored for Ships
----@param PickupZone ZONE (optional)  The zone where the cargo will be picked up. The PickupZone can be nil if there was no PickupZoneSet provided
+---@param PickupZone? ZONE (optional)  The zone where the cargo will be picked up. The PickupZone can be nil if there was no PickupZoneSet provided
 ---@param self NOTYPE 
 ---@param Ship NOTYPE 
+---@private
 function AI_CARGO_SHIP.onafterPickup(AI_CARGO_SHIP, From, Event, To, Coordinate, Speed, Height, PickupZone, self, Ship) end
 
 ---On after Unload event.
@@ -202,6 +206,7 @@ function AI_CARGO_SHIP.onafterPickup(AI_CARGO_SHIP, From, Event, To, Coordinate,
 ---@param To string To state.
 ---@param DeployZone ZONE The zone wherein the cargo is deployed. This can be any zone type, like a ZONE, ZONE_GROUP, ZONE_AIRBASE.
 ---@param Defend NOTYPE 
+---@private
 function AI_CARGO_SHIP:onafterUnload(Ship, From, Event, To, DeployZone, Defend) end
 
 

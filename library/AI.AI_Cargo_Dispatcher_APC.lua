@@ -144,8 +144,8 @@
 ---===
 ---@deprecated
 ---@class AI_CARGO_DISPATCHER_APC 
----@field deployOffroad  
----@field pickupOffroad  
+---@field private deployOffroad NOTYPE 
+---@field private pickupOffroad NOTYPE 
 AI_CARGO_DISPATCHER_APC = {}
 
 ---AI cargo
@@ -177,7 +177,7 @@ function AI_CARGO_DISPATCHER_APC:AICargo(APC, CargoSet) end
 ---@param self AI_CARGO_DISPATCHER_APC 
 ---@param APCSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of vehicles, trucks, APCs that will transport the cargo.
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
----@param PickupZoneSet SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the APCs. If nil, then cargo can be picked up everywhere. 
+---@param PickupZoneSet? SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the APCs. If nil, then cargo can be picked up everywhere. 
 ---@param DeployZoneSet SET_ZONE The set of deploy zones, which are used to where the cargo will be deployed by the APCs. 
 ---@param CombatRadius Distance The cargo will be unloaded from the APC and engage the enemy if the enemy is within CombatRadius range. The radius is in meters, the default value is 500 meters.
 ---@return AI_CARGO_DISPATCHER_APC #

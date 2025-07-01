@@ -62,6 +62,7 @@
 ---The method #GOAL.IsAchieved() will return true if the goal is achieved (the trigger **Achieved** was executed).
 ---You can use this method to check asynchronously if a goal has been achieved, for example using a scheduler.
 ---@class GOAL 
+---@field Players table 
 GOAL = {}
 
 ---Achieved Trigger for GOAL

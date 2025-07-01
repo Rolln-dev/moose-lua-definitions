@@ -104,16 +104,16 @@
 ---Therefore, this class is considered to be deprecated and superseded by the [Functional.Fox](https://flightcontrol-master.github.io/MOOSE_DOCS_DEVELOP/Documentation/Functional.Fox.html) class, which provides the same functionality.
 ---@deprecated
 ---@class MISSILETRAINER : BASE
----@field AlertsHitsOnOff  
----@field AlertsLaunchesOnOff  
----@field AlertsToAll  
+---@field AlertsHitsOnOff NOTYPE 
+---@field AlertsLaunchesOnOff NOTYPE 
+---@field AlertsToAll NOTYPE 
 ---@field DBClients SET_CLIENT 
----@field DetailsBearingOnOff  
----@field DetailsRangeOnOff  
----@field MenusOnOff  
----@field MessagesOnOff  
----@field TrackingOnOff  
----@field TrackingToAll  
+---@field DetailsBearingOnOff NOTYPE 
+---@field DetailsRangeOnOff NOTYPE 
+---@field MenusOnOff NOTYPE 
+---@field MessagesOnOff NOTYPE 
+---@field TrackingOnOff NOTYPE 
+---@field TrackingToAll NOTYPE 
 MISSILETRAINER = {}
 
 ---Sets by default the display of hit alerts ON or OFF.
@@ -203,7 +203,7 @@ function MISSILETRAINER:InitTrackingToAll(TrackingToAll) end
 ------
 ---@param self MISSILETRAINER 
 ---@param Distance number The distance in meters when a tracked missile needs to be destroyed when close to a player.
----@param Briefing string (Optional) Will show a text to the players when starting their mission. Can be used for briefing purposes.
+---@param Briefing? string (Optional) Will show a text to the players when starting their mission. Can be used for briefing purposes.
 ---@return MISSILETRAINER #
 function MISSILETRAINER:New(Distance, Briefing) end
 

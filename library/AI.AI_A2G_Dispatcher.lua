@@ -878,14 +878,21 @@
 ---
 ---AI_A2G_DISPATCHER class.
 ---@class AI_A2G_DISPATCHER : DETECTION_MANAGER
----@field DefenderPatrolIndex number 
----@field DefenseLimit  
+---@field DefenderDefault table 
+---@field DefenderSpawns table 
+---@field DefenderSquadrons table 
+---@field DefenderTasks table 
+---@field DefenseApproach AI_A2G_DISPATCHER.DefenseApproach 
+---@field DefenseCoordinates table 
+---@field DefenseLimit NOTYPE 
+---@field DefenseQueue table 
 ---@field Detection DETECTION_AREAS 
----@field SetSendPlayerMessages boolean 
----@field TacticalDisplay  
----@field Takeoff  
----@field TakeoffScheduleID  
----@field _DefenseApproach  
+---@field Landing AI_A2G_DISPATCHER.Landing Defines Landing location.
+---@field SetSendPlayerMessages NOTYPE 
+---@field TacticalDisplay NOTYPE 
+---@field Takeoff NOTYPE 
+---@field TakeoffScheduleID NOTYPE 
+---@field _DefenseApproach NOTYPE 
 AI_A2G_DISPATCHER = {}
 
 
@@ -2018,7 +2025,7 @@ function AI_A2G_DISPATCHER:SetSendMessages(onoff) end
 ---@param SquadronName string A string (text) that defines the squadron identifier or the key of the Squadron.  It can be any name, for example `"104th Squadron"` or `"SQ SQUADRON1"`, whatever.  As long as you remember that this name becomes the identifier of your squadron you have defined.  You need to use this name in other methods too! 
 ---@param AirbaseName string The airbase name where you want to have the squadron located.  You need to specify here EXACTLY the name of the airbase as you see it in the mission editor.  Examples are `"Batumi"` or `"Tbilisi-Lochini"`.  EXACTLY the airbase name, between quotes `""`. To ease the airbase naming when using the LDT editor and IntelliSense, the @{Wrapper.Airbase#AIRBASE} class contains enumerations of the airbases of each map.        * Caucasus: @{Wrapper.Airbase#AIRBASE.Caucaus}    * Nevada or NTTR: @{Wrapper.Airbase#AIRBASE.Nevada}    * Normandy: @{Wrapper.Airbase#AIRBASE.Normandy} 
 ---@param TemplatePrefixes string A string or an array of strings specifying the **prefix names of the templates** (not going to explain what is templates here again).  Examples are `{ "104th", "105th" }` or `"104th"` or `"Template 1"` or `"BLUE PLANES"`.  Just remember that your template (groups late activated) need to start with the prefix you have specified in your code. If you have only one prefix name for a squadron, you don't need to use the `{ }`, otherwise you need to use the brackets. 
----@param ResourceCount number (optional) A number that specifies how many resources are in stock of the squadron. If not specified, the squadron will have infinite resources available. 
+---@param ResourceCount? number (optional) A number that specifies how many resources are in stock of the squadron. If not specified, the squadron will have infinite resources available. 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadron(SquadronName, AirbaseName, TemplatePrefixes, ResourceCount) end
 
@@ -2159,9 +2166,9 @@ function AI_A2G_DISPATCHER:SetSquadronBaiPatrol2(SquadronName, Zone, PatrolMinSp
 ------
 ---@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
----@param PatrolLimit number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
----@param LowInterval number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
----@param HighInterval number (optional) The maximum time in seconds between new Patrols being spawned. The default is 600 seconds.
+---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
+---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
+---@param HighInterval? number (optional) The maximum time in seconds between new Patrols being spawned. The default is 600 seconds.
 ---@param Probability number Is not in use, you can skip this parameter.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronBaiPatrolInterval(SquadronName, PatrolLimit, LowInterval, HighInterval, Probability) end
@@ -2303,9 +2310,9 @@ function AI_A2G_DISPATCHER:SetSquadronCasPatrol2(SquadronName, Zone, PatrolMinSp
 ------
 ---@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
----@param PatrolLimit number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
----@param LowInterval number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
----@param HighInterval number (optional) The maximum time in seconds between new Patrols being spawned. The default is 600 seconds.
+---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
+---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
+---@param HighInterval? number (optional) The maximum time in seconds between new Patrols being spawned. The default is 600 seconds.
 ---@param Probability number Is not in use, you can skip this parameter.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronCasPatrolInterval(SquadronName, PatrolLimit, LowInterval, HighInterval, Probability) end
@@ -2525,9 +2532,9 @@ function AI_A2G_DISPATCHER:SetSquadronOverhead(SquadronName, Overhead) end
 ------
 ---@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
----@param PatrolLimit number (optional) The maximum amount of Patrol groups to be spawned. Note that each Patrol is a group, and can consist of 1 to 4 aircraft. The default is 1 Patrol group.
----@param LowInterval number (optional) The minimum time boundary in seconds when a new Patrol will be spawned. The default is 180 seconds.
----@param HighInterval number (optional) The maximum time boundary in seconds when a new Patrol will be spawned. The default is 600 seconds.
+---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Note that each Patrol is a group, and can consist of 1 to 4 aircraft. The default is 1 Patrol group.
+---@param LowInterval? number (optional) The minimum time boundary in seconds when a new Patrol will be spawned. The default is 180 seconds.
+---@param HighInterval? number (optional) The maximum time boundary in seconds when a new Patrol will be spawned. The default is 600 seconds.
 ---@param Probability number Is not in use, you can skip this parameter.
 ---@param DefenseTaskType string Should contain "SEAD", "CAS" or "BAI".
 ---@return AI_A2G_DISPATCHER #
@@ -2680,9 +2687,9 @@ function AI_A2G_DISPATCHER:SetSquadronSeadPatrol2(SquadronName, Zone, PatrolMinS
 ------
 ---@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
----@param PatrolLimit number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
----@param LowInterval number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
----@param HighInterval number (optional) The maximum ttime in seconds between new Patrols being spawned. The default is 600 seconds.
+---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
+---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
+---@param HighInterval? number (optional) The maximum ttime in seconds between new Patrols being spawned. The default is 600 seconds.
 ---@param Probability number Is not in use, you can skip this parameter.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronSeadPatrolInterval(SquadronName, PatrolLimit, LowInterval, HighInterval, Probability) end
@@ -2789,7 +2796,7 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
 ------
 ---@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
----@param TakeoffAltitude number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
+---@param TakeoffAltitude? number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronTakeoffInAir(SquadronName, TakeoffAltitude) end
 
@@ -2917,6 +2924,7 @@ function AI_A2G_DISPATCHER:__Patrol(Delay) end
 ---@param DefendersMissing NOTYPE 
 ---@param DefenderFriendlies NOTYPE 
 ---@param DefenseTaskType NOTYPE 
+---@private
 function AI_A2G_DISPATCHER:onafterDefend(From, Event, To, DetectedItem, DefendersTotal, DefendersEngaged, DefendersMissing, DefenderFriendlies, DefenseTaskType) end
 
 
@@ -2928,6 +2936,7 @@ function AI_A2G_DISPATCHER:onafterDefend(From, Event, To, DetectedItem, Defender
 ---@param To NOTYPE 
 ---@param AttackerDetection NOTYPE 
 ---@param Defenders NOTYPE 
+---@private
 function AI_A2G_DISPATCHER:onafterEngage(From, Event, To, AttackerDetection, Defenders) end
 
 
@@ -2939,6 +2948,7 @@ function AI_A2G_DISPATCHER:onafterEngage(From, Event, To, AttackerDetection, Def
 ---@param To NOTYPE 
 ---@param SquadronName NOTYPE 
 ---@param DefenseTaskType NOTYPE 
+---@private
 function AI_A2G_DISPATCHER:onafterPatrol(From, Event, To, SquadronName, DefenseTaskType) end
 
 
@@ -2948,17 +2958,18 @@ function AI_A2G_DISPATCHER:onafterPatrol(From, Event, To, SquadronName, DefenseT
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_A2G_DISPATCHER:onafterStart(From, Event, To) end
 
 
 ---@class AI_A2G_DISPATCHER.DefenderQueueItem 
----@field AttackerDetection  
----@field DefenderSquadron  
----@field DefendersNeeded  
----@field Defense  
----@field DefenseTaskType  
----@field Patrol  
----@field SquadronName  
+---@field AttackerDetection NOTYPE 
+---@field DefenderSquadron NOTYPE 
+---@field DefendersNeeded NOTYPE 
+---@field Defense NOTYPE 
+---@field DefenseTaskType NOTYPE 
+---@field Patrol NOTYPE 
+---@field SquadronName NOTYPE 
 AI_A2G_DISPATCHER.DefenderQueueItem = {}
 
 
@@ -2972,6 +2983,7 @@ AI_A2G_DISPATCHER.DefenseApproach = {}
 ---A defense queue item description.
 ---@class AI_A2G_DISPATCHER.DefenseQueueItem 
 ---@field AttackerDetection DETECTION_BASE 
+---@field DefenderSquadron AI_A2G_DISPATCHER.Squadron The squadron in the queue.
 ---@field SquadronName string The name of the squadron.
 AI_A2G_DISPATCHER.DefenseQueueItem = {}
 
@@ -2985,6 +2997,7 @@ AI_A2G_DISPATCHER.DefenseQueueItem = {}
 ---@field Overhead number The overhead for the squadron.
 ---@field ResourceCount number The number of resources available.
 ---@field Spawn SPAWN The spawning object.
+---@field TemplatePrefixes list The list of template prefixes.
 AI_A2G_DISPATCHER.Squadron = {}
 
 

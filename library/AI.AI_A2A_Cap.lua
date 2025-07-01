@@ -98,8 +98,8 @@
 ---===
 ---@deprecated
 ---@class AI_A2A_CAP 
----@field EngageRange  
----@field EngageZone  
+---@field EngageRange NOTYPE 
+---@field EngageZone NOTYPE 
 AI_A2A_CAP = {}
 
 ---Evaluate the attack and create an AttackUnitTask list.
@@ -171,6 +171,7 @@ function AI_A2A_CAP:SetEngageZone(EngageZone) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_A2A_CAP:onafterStart(AICap, From, Event, To) end
 
 

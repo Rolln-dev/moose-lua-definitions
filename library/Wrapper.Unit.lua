@@ -82,11 +82,12 @@
 ---  * Use the #UNIT.IsLOS() method to check if the given unit is within line of sight.
 ---@class UNIT : CONTROLLABLE
 ---@field ClassName string Name of the class.
----@field DCSObject  
+---@field DCSObject NOTYPE 
+---@field DCSUnit table The DCS Unit object from the API.
 ---@field GroupName string Name of the group the unit belongs to.
----@field LastCallDCSObject  
+---@field LastCallDCSObject NOTYPE 
 ---@field UnitName string Name of the unit.
----@field groupId  
+---@field private groupId NOTYPE 
 UNIT = {}
 
 ---GROUND - Switch on/off radar emissions of a unit.
@@ -102,7 +103,7 @@ function UNIT:EnableEmission(switch) end
 ------
 ---@param self UNIT 
 ---@param power number Power of the explosion in kg TNT. Default 100 kg TNT.
----@param delay number (Optional) Delay of explosion in seconds.
+---@param delay? number (Optional) Delay of explosion in seconds.
 ---@return UNIT #self
 function UNIT:Explode(power, delay) end
 
@@ -503,7 +504,7 @@ function UNIT:GetUnits() end
 ------
 ---@param self UNIT 
 ---@param EventID EVENTS Event ID.
----@param EventFunction function (Optional) The function to be called when the event occurs for the unit.
+---@param EventFunction? function (Optional) The function to be called when the event occurs for the unit.
 ---@return UNIT #self
 function UNIT:HandleEvent(EventID, EventFunction) end
 

@@ -1512,51 +1512,63 @@
 ---    end
 ---WAREHOUSE class.
 ---@class WAREHOUSE : FSM
+---@field Attribute WAREHOUSE.Attribute 
 ---@field ClassName string Name of the class.
 ---@field Debug boolean If true, send debug messages to all.
+---@field Descriptor WAREHOUSE.Descriptor 
+---@field Quantity WAREHOUSE.Quantity 
 ---@field Report boolean If true, send status messages to coalition.
----@field airbase AIRBASE Airbase the warehouse belongs to.
----@field airbasename string Name of the airbase associated to the warehouse.
----@field alias string Alias of the warehouse. Name its called when sending messages.
----@field allowSpawnOnClientSpots boolean 
----@field autodefence boolean When the warehouse is under attack, automatically spawn assets to defend the warehouse.
----@field autosave boolean Automatically save assets to file when mission ends.
----@field autosavefile string File name of the auto asset save file. Default is auto generated from warehouse id and name.
----@field autosavepath string Path where the asset file is saved on auto save.
----@field coalition  
----@field countryid  
----@field dTstatus number Time interval in seconds of updating the warehouse status and processing new events. Default 30 seconds.
----@field flightcontrol FLIGHTCONTROL Flight control of this warehouse.
----@field harborzone  
----@field isShip boolean If `true`, warehouse is represented by a ship unit.
----@field isUnit boolean If `true`, warehouse is represented by a unit instead of a static.
----@field lid  
----@field lowfuelthresh number Low fuel threshold. Triggers the event AssetLowFuel if for any unit fuel goes below this number.
----@field markerOn boolean If true, markers are displayed on the F10 map.
----@field markerRail MARKER Rail road connection.
----@field markerRoad MARKER Road connection.
----@field markerWarehouse MARKER Marker warehouse.
----@field markerid number ID of the warehouse marker at the airbase.
----@field markrail  
----@field markroad  
----@field parkingIDs  
----@field portzone ZONE Zone defining the port of a warehouse. This is where naval assets are spawned.
----@field queueid number Unit id of each request in the queue. Essentially a running number starting at one and incremented when a new request is added.
----@field rail COORDINATE Closest point to warehouse on rail.
----@field respawnafterdestroyed boolean If true, warehouse is respawned after it was destroyed. Assets are kept.
----@field respawndelay number Delay before respawn in seconds.
----@field road COORDINATE Closest point to warehouse on road.
----@field runwaydestroyed number Time stamp timer.getAbsTime() when the runway was destroyed.
----@field runwayrepairtime number Time in seconds until runway will be repaired after it was destroyed. Default is 3600 sec (one hour).
----@field safeparking boolean If true, parking spots for aircraft are considered as occupied if e.g. a client aircraft is parked there. Default false.
----@field spawnzone ZONE Zone in which assets are spawned.
----@field spawnzonemaxdist number Max distance between warehouse and spawn zone. Default 5000 meters.
----@field uid number Unique ID of the warehouse.
----@field verbosity number Verbosity level.
----@field version string Warehouse class version.
----@field warehouse STATIC The phyical warehouse structure.
----@field wid string Identifier of the warehouse printed before other output to DCS.log file.
----@field zone ZONE Zone around the warehouse. If this zone is captured, the warehouse and all its assets goes to the capturing coalition.
+---@field TransportType WAREHOUSE.TransportType 
+---@field private airbase AIRBASE Airbase the warehouse belongs to.
+---@field private airbasename string Name of the airbase associated to the warehouse.
+---@field private alias string Alias of the warehouse. Name its called when sending messages.
+---@field private allowSpawnOnClientSpots boolean 
+---@field private autodefence boolean When the warehouse is under attack, automatically spawn assets to defend the warehouse.
+---@field private autosave boolean Automatically save assets to file when mission ends.
+---@field private autosavefile string File name of the auto asset save file. Default is auto generated from warehouse id and name.
+---@field private autosavepath string Path where the asset file is saved on auto save.
+---@field private coalition NOTYPE 
+---@field private countryid NOTYPE 
+---@field private dTstatus number Time interval in seconds of updating the warehouse status and processing new events. Default 30 seconds.
+---@field private defending table Table holding all defending requests, i.e. self requests that were if the warehouse is under attack. Table elements are of type @{#WAREHOUSE.Pendingitem}.
+---@field private delivered table Table holding all delivered requests. Table elements are #boolean. If true, all cargo has been delivered.
+---@field private flightcontrol FLIGHTCONTROL Flight control of this warehouse.
+---@field private harborzone NOTYPE 
+---@field private isShip boolean If `true`, warehouse is represented by a ship unit.
+---@field private isUnit boolean If `true`, warehouse is represented by a unit instead of a static.
+---@field private lid NOTYPE 
+---@field private lowfuelthresh number Low fuel threshold. Triggers the event AssetLowFuel if for any unit fuel goes below this number.
+---@field private markerOn boolean If true, markers are displayed on the F10 map.
+---@field private markerRail MARKER Rail road connection.
+---@field private markerRoad MARKER Road connection.
+---@field private markerWarehouse MARKER Marker warehouse.
+---@field private markerid number ID of the warehouse marker at the airbase.
+---@field private markrail NOTYPE 
+---@field private markroad NOTYPE 
+---@field private offroadpaths table Table holding user defined paths from one warehouse to another.
+---@field private parkingIDs NOTYPE 
+---@field private pending table Table holding all pending requests, i.e. those that are currently in progress. Table elements are of type @{#WAREHOUSE.Pendingitem}.
+---@field private portzone ZONE Zone defining the port of a warehouse. This is where naval assets are spawned.
+---@field private queue table Table holding all queued requests. Table entries are of type @{#WAREHOUSE.Queueitem}.
+---@field private queueid number Unit id of each request in the queue. Essentially a running number starting at one and incremented when a new request is added.
+---@field private rail COORDINATE Closest point to warehouse on rail.
+---@field private respawnafterdestroyed boolean If true, warehouse is respawned after it was destroyed. Assets are kept.
+---@field private respawndelay number Delay before respawn in seconds.
+---@field private road COORDINATE Closest point to warehouse on road.
+---@field private runwaydestroyed number Time stamp timer.getAbsTime() when the runway was destroyed.
+---@field private runwayrepairtime number Time in seconds until runway will be repaired after it was destroyed. Default is 3600 sec (one hour).
+---@field private safeparking boolean If true, parking spots for aircraft are considered as occupied if e.g. a client aircraft is parked there. Default false.
+---@field private shippinglanes table Table holding the user defined shipping between warehouses.
+---@field private spawnzone ZONE Zone in which assets are spawned.
+---@field private spawnzonemaxdist number Max distance between warehouse and spawn zone. Default 5000 meters.
+---@field private stock table Table holding all assets in stock. Table entries are of type @{#WAREHOUSE.Assetitem}.
+---@field private transporting table Table holding assets currently transporting cargo assets.
+---@field private uid number Unique ID of the warehouse.
+---@field private verbosity number Verbosity level.
+---@field private version string Warehouse class version.
+---@field private warehouse STATIC The phyical warehouse structure.
+---@field private wid string Identifier of the warehouse printed before other output to DCS.log file.
+---@field private zone ZONE Zone around the warehouse. If this zone is captured, the warehouse and all its assets goes to the capturing coalition.
 WAREHOUSE = {}
 
 ---Trigger the FSM event "AddAsset".
@@ -1565,11 +1577,11 @@ WAREHOUSE = {}
 ------
 ---@param self WAREHOUSE 
 ---@param group GROUP Group to be added as new asset.
----@param ngroups number (Optional) Number of groups to add to the warehouse stock. Default is 1.
----@param forceattribute WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
----@param forcecargobay number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
----@param forceweight number (Optional) Explicitly force weight in kg of each unit in the group.
----@param loadradius number (Optional) The distance in meters when the cargo is loaded into the carrier. Default is the bounding box size of the carrier.
+---@param ngroups? number (Optional) Number of groups to add to the warehouse stock. Default is 1.
+---@param forceattribute? WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
+---@param forcecargobay? number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
+---@param forceweight? number (Optional) Explicitly force weight in kg of each unit in the group.
+---@param loadradius? number (Optional) The distance in meters when the cargo is loaded into the carrier. Default is the bounding box size of the carrier.
 ---@param skill AI.Skill Skill of the asset.
 ---@param liveries table Table of livery names. When the asset is spawned one livery is chosen randomly.
 ---@param assignment string A free to choose string specifying an assignment for the asset. This can be used with the @{#WAREHOUSE.OnAfterNewAsset} function.
@@ -1583,7 +1595,7 @@ function WAREHOUSE:AddAsset(group, ngroups, forceattribute, forcecargobay, force
 ---@param self WAREHOUSE 
 ---@param remotewarehouse WAREHOUSE The remote warehouse to which the path leads.
 ---@param group GROUP Waypoints of this group will define the path between to warehouses.
----@param oneway boolean (Optional) If true, the path can only be used from this warehouse to the other but not other way around. Default false.
+---@param oneway? boolean (Optional) If true, the path can only be used from this warehouse to the other but not other way around. Default false.
 ---@return WAREHOUSE #self
 function WAREHOUSE:AddOffRoadPath(remotewarehouse, group, oneway) end
 
@@ -1611,7 +1623,7 @@ function WAREHOUSE:AddRequest(warehouse, AssetDescriptor, AssetDescriptorValue, 
 ---@param self WAREHOUSE 
 ---@param remotewarehouse WAREHOUSE The remote warehouse to where the shipping lane is added
 ---@param group GROUP Waypoints of this group will define the shipping lane between to warehouses.
----@param oneway boolean (Optional) If true, the lane can only be used from this warehouse to the other but not other way around. Default false.
+---@param oneway? boolean (Optional) If true, the lane can only be used from this warehouse to the other but not other way around. Default false.
 ---@return WAREHOUSE #self
 function WAREHOUSE:AddShippingLane(remotewarehouse, group, oneway) end
 
@@ -1715,8 +1727,8 @@ function WAREHOUSE:Destroyed() end
 ---@param self WAREHOUSE 
 ---@param descriptor string Descriptor describing the filtered assets.
 ---@param attribute NOTYPE Value of the descriptor.
----@param nmax number (Optional) Maximum number of items that will be returned. Default nmax=nil is all matching items are returned.
----@param mobile boolean (Optional) If true, filter only mobile assets.
+---@param nmax? number (Optional) Maximum number of items that will be returned. Default nmax=nil is all matching items are returned.
+---@param mobile? boolean (Optional) If true, filter only mobile assets.
 ---@return table #Filtered assets in stock with the specified descriptor value.
 ---@return number #Total number of (requested) assets available.
 ---@return boolean #If true, enough assets are available.
@@ -1738,11 +1750,11 @@ function WAREHOUSE:FindAssetInDB(group) end
 ---
 ------
 ---@param self WAREHOUSE 
----@param MinAssets NOTYPE (Optional) Minimum number of assets the warehouse should have. Default 0.
----@param Descriptor string (Optional) Descriptor describing the selected assets which should be in stock. See @{#WAREHOUSE.Descriptor} for possible values.
----@param DescriptorValue NOTYPE (Optional) Descriptor value selecting the type of assets which should be in stock.
----@param Coalition Coalition.side (Optional) Coalition side of the warehouse. Default is the same coalition as the present warehouse. Set to false for any coalition.
----@param RefCoordinate COORDINATE (Optional) Coordinate to which the closest warehouse is searched. Default is the warehouse calling this function.
+---@param MinAssets? NOTYPE (Optional) Minimum number of assets the warehouse should have. Default 0.
+---@param Descriptor? string (Optional) Descriptor describing the selected assets which should be in stock. See @{#WAREHOUSE.Descriptor} for possible values.
+---@param DescriptorValue? NOTYPE (Optional) Descriptor value selecting the type of assets which should be in stock.
+---@param Coalition? Coalition.side (Optional) Coalition side of the warehouse. Default is the same coalition as the present warehouse. Set to false for any coalition.
+---@param RefCoordinate? COORDINATE (Optional) Coordinate to which the closest warehouse is searched. Default is the warehouse calling this function.
 ---@return WAREHOUSE #The the nearest warehouse object. Or nil if no warehouse is found.
 ---@return number #The distance to the nearest warehouse in meters. Or nil if no warehouse is found.
 function WAREHOUSE:FindNearestWarehouse(MinAssets, Descriptor, DescriptorValue, Coalition, RefCoordinate) end
@@ -1840,9 +1852,9 @@ function WAREHOUSE:GetCountryName() end
 ---
 ------
 ---@param self WAREHOUSE 
----@param Descriptor string (Optional) Descriptor return the number of a specifc asset type. See @{#WAREHOUSE.Descriptor} for possible values.
----@param DescriptorValue NOTYPE (Optional) Descriptor value selecting the type of assets.
----@param OnlyMobile boolean (Optional) If true only mobile units are considered.
+---@param Descriptor? string (Optional) Descriptor return the number of a specifc asset type. See @{#WAREHOUSE.Descriptor} for possible values.
+---@param DescriptorValue? NOTYPE (Optional) Descriptor value selecting the type of assets.
+---@param OnlyMobile? boolean (Optional) If true only mobile units are considered.
 ---@return number #Number of assets in stock.
 function WAREHOUSE:GetNumberOfAssets(Descriptor, DescriptorValue, OnlyMobile) end
 
@@ -2028,7 +2040,7 @@ function WAREHOUSE:IsUnit() end
 ------
 ---@param self WAREHOUSE 
 ---@param path string Path where the file is located. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:Load(path, filename) end
 
 ---The WAREHOUSE constructor.
@@ -2037,7 +2049,7 @@ function WAREHOUSE:Load(path, filename) end
 ------
 ---@param self WAREHOUSE 
 ---@param warehouse STATIC The physical structure representing the warehouse. Can also be a @{Wrapper.Unit#UNIT}.
----@param alias string (Optional) Alias of the warehouse, i.e. the name it will be called when sending messages etc. Default is the name of the static/unit representing the warehouse.
+---@param alias? string (Optional) Alias of the warehouse, i.e. the name it will be called when sending messages etc. Default is the name of the static/unit representing the warehouse.
 ---@return WAREHOUSE #self
 function WAREHOUSE:New(warehouse, alias) end
 
@@ -2046,7 +2058,7 @@ function WAREHOUSE:New(warehouse, alias) end
 ------
 ---@param self WAREHOUSE 
 ---@param asset WAREHOUSE.Assetitem The new asset.
----@param assignment string (Optional) Assignment text for the asset.
+---@param assignment? string (Optional) Assignment text for the asset.
 function WAREHOUSE:NewAsset(asset, assignment) end
 
 ---On after "AirbaseCaptured" even user function.
@@ -2194,7 +2206,7 @@ function WAREHOUSE:OnAfterDestroyed(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is located. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:OnAfterLoad(From, Event, To, path, filename) end
 
 ---On after "NewAsset" event user function.
@@ -2206,7 +2218,7 @@ function WAREHOUSE:OnAfterLoad(From, Event, To, path, filename) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param asset WAREHOUSE.Assetitem The asset that has just been added.
----@param assignment string (Optional) Assignment text for the asset.
+---@param assignment? string (Optional) Assignment text for the asset.
 function WAREHOUSE:OnAfterNewAsset(From, Event, To, asset, assignment) end
 
 ---On after "Request" user function.
@@ -2238,7 +2250,7 @@ function WAREHOUSE:OnAfterRespawn(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:OnAfterSave(From, Event, To, path, filename) end
 
 ---On after "SelfRequest" event.
@@ -2319,7 +2331,7 @@ function WAREHOUSE:Restart() end
 ------
 ---@param self WAREHOUSE 
 ---@param path string Path where the file is saved. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:Save(path, filename) end
 
 ---Triggers the FSM event "SelfRequest".
@@ -2512,7 +2524,7 @@ function WAREHOUSE:SetSaveOnMissionEnd(path, filename) end
 ------
 ---@param self WAREHOUSE 
 ---@param zone ZONE The spawn zone.
----@param maxdist number (Optional) Maximum distance in meters between spawn zone and warehouse. Units are not spawned if distance is larger. Default is 5000 m.
+---@param maxdist? number (Optional) Maximum distance in meters between spawn zone and warehouse. Units are not spawned if distance is larger. Default is 5000 m.
 ---@return WAREHOUSE #self
 function WAREHOUSE:SetSpawnZone(zone, maxdist) end
 
@@ -2724,8 +2736,8 @@ function WAREHOUSE:_ErrorMessage(text, duration) end
 ---@param stock table Table holding all assets in stock of the warehouse. Each entry is of type @{#WAREHOUSE.Assetitem}.
 ---@param descriptor string Descriptor describing the filtered assets.
 ---@param attribute NOTYPE Value of the descriptor.
----@param nmax number (Optional) Maximum number of items that will be returned. Default nmax=nil is all matching items are returned.
----@param mobile boolean (Optional) If true, filter only mobile assets.
+---@param nmax? number (Optional) Maximum number of items that will be returned. Default nmax=nil is all matching items are returned.
+---@param mobile? boolean (Optional) If true, filter only mobile assets.
 ---@return table #Filtered stock items table.
 ---@return number #Total number of (requested) assets available.
 ---@return boolean #If true, enough assets are available.
@@ -3138,11 +3150,11 @@ function WAREHOUSE:_UpdateWarehouseMarkText() end
 ---@param self WAREHOUSE 
 ---@param delay number Delay in seconds.
 ---@param group GROUP Group to be added as new asset.
----@param ngroups number (Optional) Number of groups to add to the warehouse stock. Default is 1.
----@param forceattribute WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
----@param forcecargobay number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
----@param forceweight number (Optional) Explicitly force weight in kg of each unit in the group.
----@param loadradius number (Optional) The distance in meters when the cargo is loaded into the carrier. Default is the bounding box size of the carrier.
+---@param ngroups? number (Optional) Number of groups to add to the warehouse stock. Default is 1.
+---@param forceattribute? WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
+---@param forcecargobay? number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
+---@param forceweight? number (Optional) Explicitly force weight in kg of each unit in the group.
+---@param loadradius? number (Optional) The distance in meters when the cargo is loaded into the carrier. Default is the bounding box size of the carrier.
 ---@param skill AI.Skill Skill of the asset.
 ---@param liveries table Table of livery names. When the asset is spawned one livery is chosen randomly.
 ---@param assignment string A free to choose string specifying an assignment for the asset. This can be used with the @{#WAREHOUSE.OnAfterNewAsset} function.
@@ -3275,7 +3287,7 @@ function WAREHOUSE:__Destroyed(delay) end
 ---@param self WAREHOUSE 
 ---@param delay number Delay in seconds.
 ---@param path string Path where the file is located. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:__Load(delay, path, filename) end
 
 ---Triggers the FSM delayed event "NewAsset" when a new asset has been added to the warehouse stock.
@@ -3284,7 +3296,7 @@ function WAREHOUSE:__Load(delay, path, filename) end
 ---@param self WAREHOUSE 
 ---@param delay number Delay in seconds.
 ---@param asset WAREHOUSE.Assetitem The new asset.
----@param assignment string (Optional) Assignment text for the asset.
+---@param assignment? string (Optional) Assignment text for the asset.
 function WAREHOUSE:__NewAsset(delay, asset, assignment) end
 
 ---Triggers the FSM event "Pause" after a delay.
@@ -3325,7 +3337,7 @@ function WAREHOUSE:__Restart(delay) end
 ---@param self WAREHOUSE 
 ---@param delay number Delay in seconds.
 ---@param path string Path where the file is saved. Default is the DCS installation root directory.
----@param filename string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
+---@param filename? string (Optional) File name. Default is WAREHOUSE-<UID>_<ALIAS>.txt.
 function WAREHOUSE:__Save(delay, path, filename) end
 
 ---Triggers the FSM event "SelfRequest" with a delay.
@@ -3382,14 +3394,15 @@ function WAREHOUSE:__Unpause(delay) end
 ---@param To string To state.
 ---@param group GROUP Group or template group to be added to the warehouse stock.
 ---@param ngroups number Number of groups to add to the warehouse stock. Default is 1.
----@param forceattribute WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
----@param forcecargobay number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
----@param forceweight number (Optional) Explicitly force weight in kg of each unit in the group.
----@param loadradius number (Optional) Radius in meters when the cargo is loaded into the carrier.
+---@param forceattribute? WAREHOUSE.Attribute (Optional) Explicitly force a generalized attribute for the asset. This has to be an @{#WAREHOUSE.Attribute}.
+---@param forcecargobay? number (Optional) Explicitly force cargobay weight limit in kg for cargo carriers. This is for each *unit* of the group.
+---@param forceweight? number (Optional) Explicitly force weight in kg of each unit in the group.
+---@param loadradius? number (Optional) Radius in meters when the cargo is loaded into the carrier.
 ---@param skill AI.Skill Skill of the asset.
 ---@param liveries table Table of livery names. When the asset is spawned one livery is chosen randomly.
 ---@param assignment string A free to choose string specifying an assignment for the asset. This can be used with the @{#WAREHOUSE.OnAfterNewAsset} function.
----@param other table (Optional) Table of other useful data. Can be collected via WAREHOUSE.OnAfterNewAsset() function for example
+---@param other? table (Optional) Table of other useful data. Can be collected via WAREHOUSE.OnAfterNewAsset() function for example
+---@private
 function WAREHOUSE:onafterAddAsset(From, Event, To, group, ngroups, forceattribute, forcecargobay, forceweight, loadradius, skill, liveries, assignment, other) end
 
 ---On after "AddRequest" event.
@@ -3408,6 +3421,7 @@ function WAREHOUSE:onafterAddAsset(From, Event, To, group, ngroups, forceattribu
 ---@param nTransport number Number of transport units requested.
 ---@param Prio number Priority of the request. Number ranging from 1=high to 100=low.
 ---@param Assignment string A keyword or text that can later be used to identify this request and postprocess the assets.
+---@private
 function WAREHOUSE:onafterAddRequest(From, Event, To, warehouse, AssetDescriptor, AssetDescriptorValue, nAsset, TransportType, nTransport, Prio, Assignment) end
 
 ---On after "AirbaseCaptured" event.
@@ -3419,6 +3433,7 @@ function WAREHOUSE:onafterAddRequest(From, Event, To, warehouse, AssetDescriptor
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Coalition coalition.side which captured the warehouse.
+---@private
 function WAREHOUSE:onafterAirbaseCaptured(From, Event, To, Coalition) end
 
 ---On after "AirbaseRecaptured" event.
@@ -3430,6 +3445,7 @@ function WAREHOUSE:onafterAirbaseCaptured(From, Event, To, Coalition) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Coalition coalition.side Coalition side which originally captured the warehouse.
+---@private
 function WAREHOUSE:onafterAirbaseRecaptured(From, Event, To, Coalition) end
 
 ---On after "Arrived" event.
@@ -3444,6 +3460,7 @@ function WAREHOUSE:onafterAirbaseRecaptured(From, Event, To, Coalition) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param group GROUP The group that was delivered.
+---@private
 function WAREHOUSE:onafterArrived(From, Event, To, group) end
 
 ---On after "AssetDead" event triggered when an asset group died.
@@ -3455,6 +3472,7 @@ function WAREHOUSE:onafterArrived(From, Event, To, group) end
 ---@param To string To state.
 ---@param asset WAREHOUSE.Assetitem The asset that is dead.
 ---@param request WAREHOUSE.Pendingitem The request of the dead asset.
+---@private
 function WAREHOUSE:onafterAssetDead(From, Event, To, asset, request) end
 
 ---On after "AssetSpawned" event triggered when an asset group is spawned into the cruel world.
@@ -3467,6 +3485,7 @@ function WAREHOUSE:onafterAssetDead(From, Event, To, asset, request) end
 ---@param group GROUP The group spawned.
 ---@param asset WAREHOUSE.Assetitem The asset that is dead.
 ---@param request WAREHOUSE.Pendingitem The request of the dead asset.
+---@private
 function WAREHOUSE:onafterAssetSpawned(From, Event, To, group, asset, request) end
 
 ---On after "Attacked" event.
@@ -3479,6 +3498,7 @@ function WAREHOUSE:onafterAssetSpawned(From, Event, To, group, asset, request) e
 ---@param To string To state.
 ---@param Coalition coalition.side which is attacking the warehouse.
 ---@param Country country.id which is attacking the warehouse.
+---@private
 function WAREHOUSE:onafterAttacked(From, Event, To, Coalition, Country) end
 
 ---On after "Captured" event.
@@ -3491,6 +3511,7 @@ function WAREHOUSE:onafterAttacked(From, Event, To, Coalition, Country) end
 ---@param To string To state.
 ---@param Coalition coalition.side which captured the warehouse.
 ---@param Country country.id which has captured the warehouse.
+---@private
 function WAREHOUSE:onafterCaptured(From, Event, To, Coalition, Country) end
 
 ---On after "ChangeCountry" event.
@@ -3503,6 +3524,7 @@ function WAREHOUSE:onafterCaptured(From, Event, To, Coalition, Country) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Country country.id Country which has captured the warehouse.
+---@private
 function WAREHOUSE:onafterChangeCountry(From, Event, To, Country) end
 
 ---On after "Defeated" event.
@@ -3513,6 +3535,7 @@ function WAREHOUSE:onafterChangeCountry(From, Event, To, Country) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterDefeated(From, Event, To) end
 
 ---On after "Delivered" event.
@@ -3524,6 +3547,7 @@ function WAREHOUSE:onafterDefeated(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param request WAREHOUSE.Pendingitem The pending request that is finished and deleted from the pending queue.
+---@private
 function WAREHOUSE:onafterDelivered(From, Event, To, request) end
 
 ---On after "Destroyed" event.
@@ -3534,6 +3558,7 @@ function WAREHOUSE:onafterDelivered(From, Event, To, request) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterDestroyed(From, Event, To) end
 
 ---On after "Load" event.
@@ -3545,7 +3570,8 @@ function WAREHOUSE:onafterDestroyed(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is loaded from.
----@param filename string (Optional) Name of the file containing the asset data.
+---@param filename? string (Optional) Name of the file containing the asset data.
+---@private
 function WAREHOUSE:onafterLoad(From, Event, To, path, filename) end
 
 ---On after "NewAsset" event.
@@ -3557,7 +3583,8 @@ function WAREHOUSE:onafterLoad(From, Event, To, path, filename) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param asset WAREHOUSE.Assetitem The asset that has just been added.
----@param assignment string The (optional) assignment for the asset.
+---@param assignment? string The (optional) assignment for the asset.
+---@private
 function WAREHOUSE:onafterNewAsset(From, Event, To, asset, assignment) end
 
 ---On after "Pause" event.
@@ -3568,6 +3595,7 @@ function WAREHOUSE:onafterNewAsset(From, Event, To, asset, assignment) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterPause(From, Event, To) end
 
 ---On after "Request" event.
@@ -3579,6 +3607,7 @@ function WAREHOUSE:onafterPause(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Request WAREHOUSE.Queueitem Information table of the request.
+---@private
 function WAREHOUSE:onafterRequest(From, Event, To, Request) end
 
 ---On after "RequestSpawned" event.
@@ -3592,6 +3621,7 @@ function WAREHOUSE:onafterRequest(From, Event, To, Request) end
 ---@param Request WAREHOUSE.Pendingitem Information table of the request.
 ---@param CargoGroupSet SET_GROUP Set of cargo groups.
 ---@param TransportGroupSet SET_GROUP Set of transport groups if any.
+---@private
 function WAREHOUSE:onafterRequestSpawned(From, Event, To, Request, CargoGroupSet, TransportGroupSet) end
 
 ---Respawn warehouse.
@@ -3601,6 +3631,7 @@ function WAREHOUSE:onafterRequestSpawned(From, Event, To, Request, CargoGroupSet
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterRespawn(From, Event, To) end
 
 ---On after "Restart" event.
@@ -3611,6 +3642,7 @@ function WAREHOUSE:onafterRespawn(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterRestart(From, Event, To) end
 
 ---On after "RunwayDestroyed" event.
@@ -3620,6 +3652,7 @@ function WAREHOUSE:onafterRestart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterRunwayDestroyed(From, Event, To) end
 
 ---On after "RunwayRepaired" event.
@@ -3629,6 +3662,7 @@ function WAREHOUSE:onafterRunwayDestroyed(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterRunwayRepaired(From, Event, To) end
 
 ---On after "Save" event.
@@ -3640,7 +3674,8 @@ function WAREHOUSE:onafterRunwayRepaired(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. If nil, file is saved in the DCS root installtion directory.
----@param filename string (Optional) Name of the file containing the asset data.
+---@param filename? string (Optional) Name of the file containing the asset data.
+---@private
 function WAREHOUSE:onafterSave(From, Event, To, path, filename) end
 
 ---On after "SelfRequest" event.
@@ -3655,6 +3690,7 @@ function WAREHOUSE:onafterSave(From, Event, To, path, filename) end
 ---@param To string To state.
 ---@param groupset SET_GROUP The set of asset groups that was delivered to the warehouse itself.
 ---@param request WAREHOUSE.Pendingitem Pending self request.
+---@private
 function WAREHOUSE:onafterSelfRequest(From, Event, To, groupset, request) end
 
 ---On after Start event.
@@ -3665,6 +3701,7 @@ function WAREHOUSE:onafterSelfRequest(From, Event, To, groupset, request) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterStart(From, Event, To) end
 
 ---On after Status event.
@@ -3675,6 +3712,7 @@ function WAREHOUSE:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterStatus(From, Event, To) end
 
 ---On after "Stop" event.
@@ -3685,6 +3723,7 @@ function WAREHOUSE:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterStop(From, Event, To) end
 
 ---On after "Unloaded" event.
@@ -3696,6 +3735,7 @@ function WAREHOUSE:onafterStop(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param group GROUP The group that was delivered.
+---@private
 function WAREHOUSE:onafterUnloaded(From, Event, To, group) end
 
 ---On after "Unpause" event.
@@ -3706,6 +3746,7 @@ function WAREHOUSE:onafterUnloaded(From, Event, To, group) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function WAREHOUSE:onafterUnpause(From, Event, To) end
 
 ---On before "AddRequest" event.
@@ -3725,6 +3766,7 @@ function WAREHOUSE:onafterUnpause(From, Event, To) end
 ---@param Prio number Priority of the request. Number ranging from 1=high to 100=low.
 ---@param Assignment string A keyword or text that later be used to identify this request and postprocess the assets.
 ---@return boolean #If true, request is okay at first glance.
+---@private
 function WAREHOUSE:onbeforeAddRequest(From, Event, To, warehouse, AssetDescriptor, AssetDescriptorValue, nAsset, TransportType, nTransport, Prio, Assignment) end
 
 ---On before "Arrived" event.
@@ -3736,6 +3778,7 @@ function WAREHOUSE:onbeforeAddRequest(From, Event, To, warehouse, AssetDescripto
 ---@param Event string Event.
 ---@param To string To state.
 ---@param group GROUP The group that was delivered.
+---@private
 function WAREHOUSE:onbeforeArrived(From, Event, To, group) end
 
 ---On before "Captured" event.
@@ -3748,6 +3791,7 @@ function WAREHOUSE:onbeforeArrived(From, Event, To, group) end
 ---@param To string To state.
 ---@param Coalition coalition.side which captured the warehouse.
 ---@param Country country.id which has captured the warehouse.
+---@private
 function WAREHOUSE:onbeforeCaptured(From, Event, To, Coalition, Country) end
 
 ---On before "ChangeCountry" event.
@@ -3759,6 +3803,7 @@ function WAREHOUSE:onbeforeCaptured(From, Event, To, Coalition, Country) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Country country.id which has captured the warehouse.
+---@private
 function WAREHOUSE:onbeforeChangeCountry(From, Event, To, Country) end
 
 ---On before "Load" event.
@@ -3770,7 +3815,8 @@ function WAREHOUSE:onbeforeChangeCountry(From, Event, To, Country) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is loaded from.
----@param filename string (Optional) Name of the file containing the asset data.
+---@param filename? string (Optional) Name of the file containing the asset data.
+---@private
 function WAREHOUSE:onbeforeLoad(From, Event, To, path, filename) end
 
 ---On before "Request" event.
@@ -3783,6 +3829,7 @@ function WAREHOUSE:onbeforeLoad(From, Event, To, path, filename) end
 ---@param To string To state.
 ---@param Request WAREHOUSE.Queueitem Information table of the request.
 ---@return boolean #If true, request is granted.
+---@private
 function WAREHOUSE:onbeforeRequest(From, Event, To, Request) end
 
 
@@ -3790,38 +3837,41 @@ function WAREHOUSE:onbeforeRequest(From, Event, To, Request) end
 ---@class WAREHOUSE.Assetitem 
 ---@field DCSdesc Object.Desc All DCS descriptors.
 ---@field Treturned number Time stamp when asset returned to its legion (airwing, brigade).
----@field arrived boolean If true, asset arrived at its destination.
----@field assignment string Assignment of the asset. This could, e.g., be used in the @{#WAREHOUSE.OnAfterNewAsset) function.
----@field cargobaymax number Largest cargo bay of all units in the group.
----@field cargobaytot number Total weight in kg that fits in the cargo bay of all asset group units.
----@field category Group.Category Category of the group.
----@field cohort COHORT The cohort this asset belongs to.
----@field damage number Damage of asset group in percent.
----@field flightgroup OPSGROUP The flightgroup object.
----@field isReserved boolean If `true`, asset was reserved and cannot be selected by another request.
----@field iscargo boolean If true, asset is cargo. If false asset is transport. Nil if in stock.
----@field legion LEGION The legion this asset belonts to.
----@field life0  
----@field livery string Livery of the asset.
----@field loadradius number Distance when cargo is loaded into the carrier.
----@field nunits number Number of units in the group.
----@field payload AIRWING.Payload The payload of the asset.
----@field range number Range of the unit in meters.
----@field requested boolean If `true`, asset was requested and cannot be selected by another request.
----@field rid number Request ID of this asset (if any).
----@field size number Maximum size in length and with of the asset in meters.
----@field skill AI.Skill Skill of AI unit.
----@field spawned boolean If true, asset was spawned into the cruel world. If false, it is still in stock.
----@field spawngroupname string Name of the spawned group.
----@field speedmax number Maximum speed in km/h the group can do.
----@field squadname string Name of the squadron this asset belongs to.
----@field task  
----@field templatename string Name of the template group.
----@field uid number Unique id of the asset.
----@field unittype string Type of the first unit of the group as obtained by the Object.getTypeName() DCS API function.
----@field weight number The weight of the whole asset group in kilograms.
----@field weights  
----@field wid number ID of the warehouse this asset belongs to.
+---@field private arrived boolean If true, asset arrived at its destination.
+---@field private assignment string Assignment of the asset. This could, e.g., be used in the @{#WAREHOUSE.OnAfterNewAsset) function.
+---@field private attribute WAREHOUSE.Attribute Generalized attribute of the group.
+---@field private cargobay table Array of cargo bays of all units in an asset group.
+---@field private cargobaymax number Largest cargo bay of all units in the group.
+---@field private cargobaytot number Total weight in kg that fits in the cargo bay of all asset group units.
+---@field private category Group.Category Category of the group.
+---@field private cohort COHORT The cohort this asset belongs to.
+---@field private damage number Damage of asset group in percent.
+---@field private flightgroup OPSGROUP The flightgroup object.
+---@field private isReserved boolean If `true`, asset was reserved and cannot be selected by another request.
+---@field private iscargo boolean If true, asset is cargo. If false asset is transport. Nil if in stock.
+---@field private legion LEGION The legion this asset belonts to.
+---@field private life0 NOTYPE 
+---@field private livery string Livery of the asset.
+---@field private loadradius number Distance when cargo is loaded into the carrier.
+---@field private nunits number Number of units in the group.
+---@field private payload AIRWING.Payload The payload of the asset.
+---@field private range number Range of the unit in meters.
+---@field private requested boolean If `true`, asset was requested and cannot be selected by another request.
+---@field private rid number Request ID of this asset (if any).
+---@field private size number Maximum size in length and with of the asset in meters.
+---@field private skill AI.Skill Skill of AI unit.
+---@field private spawned boolean If true, asset was spawned into the cruel world. If false, it is still in stock.
+---@field private spawngroupname string Name of the spawned group.
+---@field private speedmax number Maximum speed in km/h the group can do.
+---@field private squadname string Name of the squadron this asset belongs to.
+---@field private task NOTYPE 
+---@field private template table The spawn template of the group.
+---@field private templatename string Name of the template group.
+---@field private uid number Unique id of the asset.
+---@field private unittype string Type of the first unit of the group as obtained by the Object.getTypeName() DCS API function.
+---@field private weight number The weight of the whole asset group in kilograms.
+---@field private weights NOTYPE 
+---@field private wid number ID of the warehouse this asset belongs to.
 WAREHOUSE.Assetitem = {}
 
 
@@ -3870,13 +3920,15 @@ WAREHOUSE.Descriptor = {}
 
 ---Item of the warehouse pending queue table.
 ---@class WAREHOUSE.Pendingitem : WAREHOUSE.Queueitem
----@field cargogroupset SET_GROUP Set of cargo groups do be delivered.
----@field lowfuel boolean If true, at least one asset group is low on fuel.
----@field ndelivered number Number of groups delivered to destination.
----@field ntransporthome number Number of transports back home.
----@field timestamp number Absolute mission time in seconds when the request was processed.
----@field transportcargoset SET_CARGO Set of cargo objects.
----@field transportgroupset SET_GROUP Set of cargo transport carrier groups.
+---@field private assetproblem table Table with assets that might have problems (damage or stuck).
+---@field private cargogroupset SET_GROUP Set of cargo groups do be delivered.
+---@field private carriercargo table Table holding the cargo groups of each carrier unit.
+---@field private lowfuel boolean If true, at least one asset group is low on fuel.
+---@field private ndelivered number Number of groups delivered to destination.
+---@field private ntransporthome number Number of transports back home.
+---@field private timestamp number Absolute mission time in seconds when the request was processed.
+---@field private transportcargoset SET_CARGO Set of cargo objects.
+---@field private transportgroupset SET_GROUP Set of cargo transport carrier groups.
 WAREHOUSE.Pendingitem = {}
 
 
@@ -3893,20 +3945,27 @@ WAREHOUSE.Quantity = {}
 
 ---Item of the warehouse queue table.
 ---@class WAREHOUSE.Queueitem 
----@field airbase AIRBASE The airbase beloning to requesting warehouse if any.
----@field assignment string A keyword or text that later be used to identify this request and postprocess the assets.
----@field cargoattribute number Attribute of cargo assets of type @{#WAREHOUSE.Attribute}.
----@field cargocategory number Category of cargo assets of type @{#WAREHOUSE.Category}.
----@field category Airbase.Category Category of the requesting airbase, i.e. airdrome, helipad/farp or ship.
----@field lateActivation boolean Assets are spawned in late activated state.
----@field nasset number Number of asset groups requested.
----@field ntransport number Max. number of transport units requested.
----@field prio number Priority of the request. Number between 1 (high) and 100 (low).
----@field timestamp  
----@field toself boolean Self request, i.e. warehouse requests assets from itself.
----@field transportattribute number Attribute of transport assets of type @{#WAREHOUSE.Attribute}.
----@field transportcategory number Category of transport assets of type @{#WAREHOUSE.Category}.
----@field uid number Unique id of the queue item.
+---@field private airbase AIRBASE The airbase beloning to requesting warehouse if any.
+---@field private assetdesc WAREHOUSE.Descriptor Descriptor of the requested asset. Enumerator of type @{#WAREHOUSE.Descriptor}.
+---@field private assetproblem table 
+---@field private assets table Table of self propelled (or cargo) and transport assets. Each element of the table is a @{#WAREHOUSE.Assetitem} and can be accessed by their asset ID.
+---@field private assignment string A keyword or text that later be used to identify this request and postprocess the assets.
+---@field private cargoassets table Table of cargo (or self propelled) assets. Each element of the table is a @{#WAREHOUSE.Assetitem}.
+---@field private cargoattribute number Attribute of cargo assets of type @{#WAREHOUSE.Attribute}.
+---@field private cargocategory number Category of cargo assets of type @{#WAREHOUSE.Category}.
+---@field private category Airbase.Category Category of the requesting airbase, i.e. airdrome, helipad/farp or ship.
+---@field private lateActivation boolean Assets are spawned in late activated state.
+---@field private nasset number Number of asset groups requested.
+---@field private ntransport number Max. number of transport units requested.
+---@field private prio number Priority of the request. Number between 1 (high) and 100 (low).
+---@field private timestamp NOTYPE 
+---@field private toself boolean Self request, i.e. warehouse requests assets from itself.
+---@field private transportassets table Table of transport carrier assets. Each element of the table is a @{#WAREHOUSE.Assetitem}.
+---@field private transportattribute number Attribute of transport assets of type @{#WAREHOUSE.Attribute}.
+---@field private transportcategory number Category of transport assets of type @{#WAREHOUSE.Category}.
+---@field private transporttype WAREHOUSE.TransportType Transport unit type.
+---@field private uid number Unique id of the queue item.
+---@field private warehouse WAREHOUSE Requesting warehouse.
 WAREHOUSE.Queueitem = {}
 
 
@@ -3929,7 +3988,9 @@ WAREHOUSE.TransportType = {}
 ---Note that this is a global array to have easier exchange between warehouses.
 ---@class _WAREHOUSEDB 
 ---@field AssetID number Unique ID of each asset. This is a running number, which is increased each time a new asset is added.
+---@field Assets table Table holding registered assets, which are of type @{Functional.Warehouse#WAREHOUSE.Assetitem}.#
 ---@field WarehouseID number Unique ID of the warehouse. Running number.
+---@field Warehouses table Table holding all defined @{#WAREHOUSE} objects by their unique ids.
 _WAREHOUSEDB = {}
 
 

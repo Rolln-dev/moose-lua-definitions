@@ -563,69 +563,100 @@
 ---- **CTLD** class, extends Core.Base#BASE, Core.Fsm#FSM
 ---@class CTLD : FSM
 ---@field CATransportSet SET_CLIENT 
+---@field CargoCounter number 
+---@field CargoZoneType CTLD.CargoZoneType 
+---@field Cargo_Crates table 
+---@field Cargo_Statics table 
+---@field Cargo_Troops table 
 ---@field ChinookTroopCircleRadius number 
 ---@field ClassName string Name of the class.
+---@field CrateCounter number 
 ---@field CrateDistance number 
----@field CtldUnits  
----@field DroppedTroops  
+---@field CtldUnits table 
+---@field DroppedCrates table 
+---@field DroppedTroops table 
 ---@field EngineerSearch number 
----@field EngineersInField  
+---@field Engineers number 
+---@field EngineersInField table 
 ---@field ExtractFactor number 
 ---@field FixedMaxAngels number 
 ---@field FixedMaxSpeed number 
 ---@field FixedMinAngels number 
----@field FlareColor  
----@field FreeFMFrequencies  
+---@field FixedWingTypes CTLD.FixedWingTypes 
+---@field FlareColor NOTYPE 
+---@field FreeFMFrequencies table 
+---@field FreeUHFFrequencies table 
+---@field FreeVHFFrequencies table 
+---@field LoadedGroupsTable table 
+---@field Loaded_Cargo table 
+---@field MenusDone table 
 ---@field PackDistance number 
----@field PlayerTaskQueue  
----@field RadioPath  
+---@field PilotGroups table 
+---@field PlayerTaskQueue NOTYPE 
+---@field RadioModulation CTLD.RadioModulation 
+---@field RadioPath string 
 ---@field RadioSound string 
 ---@field RadioSoundFC3 string 
----@field SmokeColor  
----@field UserSetGroup  
----@field alias  
----@field allowCATransport boolean 
----@field allowcratepickupagain boolean 
----@field basetype string 
----@field buildtime number 
----@field coalition number Coalition side number, e.g. `coalition.side.RED`.
----@field coalitiontxt  
----@field cratecountry  
----@field debug boolean 
----@field dropAsCargoCrate boolean 
----@field dropcratesanywhere boolean 
----@field droppedbeacontimeout number 
----@field enableChinookGCLoading boolean 
----@field enableFixedWing boolean 
----@field enableHercules boolean 
----@field enableLoadSave boolean 
----@field enableslingload boolean 
----@field eventoninject boolean 
----@field filename  
----@field forcehoverload boolean 
----@field hoverautoloading boolean 
----@field keeploadtable boolean 
----@field lid string Class id string for output to DCS log file.
----@field maximumHoverHeight number 
----@field minimumHoverHeight number 
----@field movecratesbeforebuild boolean 
----@field movetroopsdistance number 
----@field movetroopstowpzone boolean 
----@field nobuildinloadzones boolean 
----@field nobuildmenu boolean 
----@field pilotmustopendoors boolean 
----@field placeCratesAhead boolean 
----@field repairtime number 
----@field saveinterval number 
----@field showstockinmenuitems boolean 
----@field smokedistance number 
----@field suppressmessages boolean 
----@field troopdropzoneradius  
----@field useprecisecoordloads boolean 
----@field useprefix boolean 
----@field usesubcats boolean 
----@field verbose number Verbosity level.
----@field version string CTLD class version.
+---@field SmokeColor NOTYPE 
+---@field Spawned_Crates table 
+---@field TroopCounter number 
+---@field UnitTypeCapabilities CTLD.UnitTypeCapabilities 
+---@field UsedFMFrequencies table 
+---@field UsedUHFFrequencies table 
+---@field UsedVHFFrequencies table 
+---@field private alias NOTYPE 
+---@field private allowCATransport boolean 
+---@field private allowcratepickupagain boolean 
+---@field private basetype string 
+---@field private buildtime number 
+---@field private coalition number Coalition side number, e.g. `coalition.side.RED`.
+---@field private coalitiontxt NOTYPE 
+---@field private cratecountry NOTYPE 
+---@field private debug boolean 
+---@field private dropAsCargoCrate boolean 
+---@field private dropOffZones table 
+---@field private dropcratesanywhere boolean 
+---@field private droppedBeacons table 
+---@field private droppedbeaconref table 
+---@field private droppedbeacontimeout number 
+---@field private enableChinookGCLoading boolean 
+---@field private enableFixedWing boolean 
+---@field private enableHercules boolean 
+---@field private enableLoadSave boolean 
+---@field private enableslingload boolean 
+---@field private eventoninject boolean 
+---@field private filename NOTYPE 
+---@field private forcehoverload boolean 
+---@field private hoverautoloading boolean 
+---@field private keeploadtable boolean 
+---@field private lid string Class id string for output to DCS log file.
+---@field private maximumHoverHeight number 
+---@field private minimumHoverHeight number 
+---@field private movecratesbeforebuild boolean 
+---@field private movetroopsdistance number 
+---@field private movetroopstowpzone boolean 
+---@field private nobuildinloadzones boolean 
+---@field private nobuildmenu boolean 
+---@field private onestepmenu boolean 
+---@field private pickupZones table 
+---@field private pilotmustopendoors boolean 
+---@field private placeCratesAhead boolean 
+---@field private repairtime number 
+---@field private saveinterval number 
+---@field private shipZones table 
+---@field private showstockinmenuitems boolean 
+---@field private smokedistance number 
+---@field private subcats table 
+---@field private subcatsTroop table 
+---@field private suppressmessages boolean 
+---@field private surfacetypes table 
+---@field private troopdropzoneradius number 
+---@field private useprecisecoordloads boolean 
+---@field private useprefix boolean 
+---@field private usesubcats boolean 
+---@field private verbose number Verbosity level.
+---@field private version string CTLD class version.
+---@field private wpZones table 
 CTLD = {}
 
 ---User function - Activate Name #CTLD.CargoZone.Type ZoneType for this CTLD instance.
@@ -634,7 +665,7 @@ CTLD = {}
 ---@param self CTLD 
 ---@param Name string Name of the zone to change in the ME.
 ---@param ZoneType CTLD.CargoZoneType Type of zone this belongs to.
----@param NewState boolean (Optional) Set to true to activate, false to switch off.
+---@param NewState? boolean (Optional) Set to true to activate, false to switch off.
 function CTLD:ActivateZone(Name, ZoneType, NewState) end
 
 ---(User) Add a new fixed wing type to the list of allowed types.
@@ -688,13 +719,13 @@ function CTLD:AddCTLDZoneFromAirbase(AirbaseName, Type, Color, Active, HasBeacon
 ---@param NoCrates number Number of crates needed to build this cargo.
 ---@param PerCrateMass number Mass in kg of each crate
 ---@param Stock number Number of buildable groups in stock. Nil for unlimited.
----@param SubCategory string Name of sub-category (optional).
----@param DontShowInMenu boolean (optional) If set to "true" this won't show up in the menu.
----@param Location ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
----@param UnitTypes string Unit type names (optional). If set, only these unit types can pick up the cargo, e.g. "UH-1H" or {"UH-1H","OH58D"}.
----@param Category string Static category name (optional). If set, spawn cargo crate with an alternate category type, e.g. "Cargos".
----@param TypeName string Static type name (optional). If set, spawn cargo crate with an alternate type shape, e.g. "iso_container".
----@param ShapeName string Static shape name (optional). If set, spawn cargo crate with an alternate type sub-shape, e.g. "iso_container_cargo".
+---@param SubCategory? string Name of sub-category (optional).
+---@param DontShowInMenu? boolean (optional) If set to "true" this won't show up in the menu.
+---@param Location? ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
+---@param UnitTypes? string Unit type names (optional). If set, only these unit types can pick up the cargo, e.g. "UH-1H" or {"UH-1H","OH58D"}.
+---@param Category? string Static category name (optional). If set, spawn cargo crate with an alternate category type, e.g. "Cargos".
+---@param TypeName? string Static type name (optional). If set, spawn cargo crate with an alternate type shape, e.g. "iso_container".
+---@param ShapeName? string Static shape name (optional). If set, spawn cargo crate with an alternate type sub-shape, e.g. "iso_container_cargo".
 ---@return CTLD #self
 function CTLD:AddCratesCargo(Name, Templates, Type, NoCrates, PerCrateMass, Stock, SubCategory, DontShowInMenu, Location, UnitTypes, Category, TypeName, ShapeName) end
 
@@ -709,13 +740,13 @@ function CTLD:AddCratesCargo(Name, Templates, Type, NoCrates, PerCrateMass, Stoc
 ---@param NoCrates number Number of crates needed to build this cargo.
 ---@param PerCrateMass number Mass in kg of each crate
 ---@param Stock number Number of groups in stock. Nil for unlimited.
----@param SubCategory string Name of the sub-category (optional).
----@param DontShowInMenu boolean (optional) If set to "true" this won't show up in the menu.
----@param Location ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
----@param UnitTypes string Unit type names (optional). If set, only these unit types can pick up the cargo, e.g. "UH-1H" or {"UH-1H","OH58D"}
----@param Category string Static category name (optional). If set, spawn cargo crate with an alternate category type, e.g. "Cargos".
----@param TypeName string Static type name (optional). If set, spawn cargo crate with an alternate type shape, e.g. "iso_container".
----@param ShapeName string Static shape name (optional). If set, spawn cargo crate with an alternate type sub-shape, e.g. "iso_container_cargo".
+---@param SubCategory? string Name of the sub-category (optional).
+---@param DontShowInMenu? boolean (optional) If set to "true" this won't show up in the menu.
+---@param Location? ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
+---@param UnitTypes? string Unit type names (optional). If set, only these unit types can pick up the cargo, e.g. "UH-1H" or {"UH-1H","OH58D"}
+---@param Category? string Static category name (optional). If set, spawn cargo crate with an alternate category type, e.g. "Cargos".
+---@param TypeName? string Static type name (optional). If set, spawn cargo crate with an alternate type shape, e.g. "iso_container".
+---@param ShapeName? string Static shape name (optional). If set, spawn cargo crate with an alternate type sub-shape, e.g. "iso_container_cargo".
 ---@return CTLD #self
 function CTLD:AddCratesRepair(Name, Template, Type, NoCrates, PerCrateMass, Stock, SubCategory, DontShowInMenu, Location, UnitTypes, Category, TypeName, ShapeName) end
 
@@ -735,9 +766,9 @@ function CTLD:AddPlayerTask(PlayerTask) end
 ---@param Name string Unique name of this type of cargo as set in the mission editor (note: UNIT name!), e.g. "Ammunition-1".
 ---@param Mass number Mass in kg of each static in kg, e.g. 100.
 ---@param Stock number Number of groups in stock. Nil for unlimited.
----@param SubCategory string Name of sub-category (optional).
----@param DontShowInMenu boolean (optional) If set to "true" this won't show up in the menu.
----@param Location ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
+---@param SubCategory? string Name of sub-category (optional).
+---@param DontShowInMenu? boolean (optional) If set to "true" this won't show up in the menu.
+---@param Location? ZONE (optional) If set, the cargo item is **only** available here. Can be a #ZONE object or the name of a zone as #string.
 ---@return CTLD_CARGO #CargoObject
 function CTLD:AddStaticsCargo(Name, Mass, Stock, SubCategory, DontShowInMenu, Location) end
 
@@ -779,7 +810,7 @@ function CTLD:AddStockTroops(Name, Number) end
 ---@param NoTroops number Size of the group in number of Units across combined templates (for loading).
 ---@param PerTroopMass number Mass in kg of each soldier
 ---@param Stock number Number of groups in stock. Nil for unlimited.
----@param SubCategory string Name of sub-category (optional).
+---@param SubCategory? string Name of sub-category (optional).
 function CTLD:AddTroopsCargo(Name, Templates, Type, NoTroops, PerTroopMass, Stock, SubCategory) end
 
 ---User function - Add a #CTLD.CargoZoneType zone for this CTLD instance.
@@ -939,10 +970,10 @@ function CTLD:InjectStatics(Zone, Cargo, RandomCoord, FromLoad) end
 ---@param self CTLD 
 ---@param Zone ZONE The zone where to drop the troops.
 ---@param Cargo CTLD_CARGO The #CTLD_CARGO object to spawn.
----@param Surfacetypes table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
----@param PreciseLocation boolean (Optional) Don't try to get a random position in the zone but use the dead center. Caution not to stack up stuff on another!
----@param Structure string (Optional) String object describing the current structure of the injected group; mainly for load/save to keep current state setup.
----@param TimeStamp number (Optional) Timestamp used internally on re-loading from disk.
+---@param Surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
+---@param PreciseLocation? boolean (Optional) Don't try to get a random position in the zone but use the dead center. Caution not to stack up stuff on another!
+---@param Structure? string (Optional) String object describing the current structure of the injected group; mainly for load/save to keep current state setup.
+---@param TimeStamp? number (Optional) Timestamp used internally on re-loading from disk.
 ---@return CTLD #self
 function CTLD:InjectTroops(Zone, Cargo, Surfacetypes, PreciseLocation, Structure, TimeStamp) end
 
@@ -964,10 +995,10 @@ function CTLD:InjectTroops(Zone, Cargo, Surfacetypes, PreciseLocation, Structure
 ---@param self CTLD 
 ---@param Zone ZONE The zone where to drop the troops.
 ---@param Cargo CTLD_CARGO The #CTLD_CARGO object to spawn.
----@param Surfacetypes table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
----@param PreciseLocation boolean (Optional) Don't try to get a random position in the zone but use the dead center. Caution not to stack up stuff on another!
----@param Structure string (Optional) String object describing the current structure of the injected group; mainly for load/save to keep current state setup.
----@param TimeStamp number (Optional) Timestamp used internally on re-loading from disk.
+---@param Surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
+---@param PreciseLocation? boolean (Optional) Don't try to get a random position in the zone but use the dead center. Caution not to stack up stuff on another!
+---@param Structure? string (Optional) String object describing the current structure of the injected group; mainly for load/save to keep current state setup.
+---@param TimeStamp? number (Optional) Timestamp used internally on re-loading from disk.
 ---@return CTLD #self
 function CTLD:InjectVehicles(Zone, Cargo, Surfacetypes, PreciseLocation, Structure, TimeStamp) end
 
@@ -1137,8 +1168,8 @@ function CTLD:OnAfterHelicopterLost(From, Event, To, Unitname, LostCargo) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
 function CTLD:OnAfterLoad(From, Event, To, path, filename) end
 
 ---FSM Function OnAfterLoaded.
@@ -1158,8 +1189,8 @@ function CTLD:OnAfterLoaded(From, Event, To, LoadedGroups) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for saving. Default is "CTLD_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for saving. Default is "CTLD_<alias>_Persist.csv".
 function CTLD:OnAfterSave(From, Event, To, path, filename) end
 
 ---FSM Function OnAfterTroopsDeployed.
@@ -1371,7 +1402,7 @@ function CTLD:OnBeforeTroopsRTB(From, Event, To, Group, Unit, ZoneName, ZoneObje
 ---@param self CTLD 
 ---@param Unit UNIT The unit to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Cratesname string The name of the cargo to be loaded. Must be created prior in the CTLD setup!
----@param NumberOfCrates number (Optional) Number of crates to be loaded. Default - all necessary to build this object. Might overload the helo!
+---@param NumberOfCrates? number (Optional) Number of crates to be loaded. Default - all necessary to build this object. Might overload the helo!
 ---@return CTLD #self
 function CTLD:PreloadCrates(Unit, Cratesname, NumberOfCrates) end
 
@@ -1926,7 +1957,7 @@ function CTLD:_PackCratesNearby(Group, Unit) end
 ---@param Group GROUP The group to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Unit UNIT The unit to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Cargo CTLD_CARGO The Cargo crate object to load
----@param NumberOfCrates number (Optional) Number of crates to be loaded. Default - all necessary to build this object. Might overload the helo!
+---@param NumberOfCrates? number (Optional) Number of crates to be loaded. Default - all necessary to build this object. Might overload the helo!
 ---@return CTLD #self
 function CTLD:_PreloadCrates(Group, Unit, Cargo, NumberOfCrates) end
 
@@ -2117,6 +2148,7 @@ function CTLD:__Stop(delay) end
 ---@param Unit UNIT Unit Object.
 ---@param Vehicle GROUP The #GROUP object of the vehicle or FOB build.
 ---@return CTLD #self
+---@private
 function CTLD:onafterCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 
 ---On after "Load" event.
@@ -2127,8 +2159,9 @@ function CTLD:onafterCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
+---@private
 function CTLD:onafterLoad(From, Event, To, path, filename) end
 
 ---On after "Save" event.
@@ -2140,7 +2173,8 @@ function CTLD:onafterLoad(From, Event, To, path, filename) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. If nil, file is saved in the DCS root installtion directory or your "Saved Games" folder if lfs was desanitized.
----@param filename string (Optional) File name for saving. Default is Default is "CTLD_<alias>_Persist.csv".
+---@param filename? string (Optional) File name for saving. Default is Default is "CTLD_<alias>_Persist.csv".
+---@private
 function CTLD:onafterSave(From, Event, To, path, filename) end
 
 ---(Internal) FSM Function onafterStart.
@@ -2151,6 +2185,7 @@ function CTLD:onafterSave(From, Event, To, path, filename) end
 ---@param Event string Trigger.
 ---@param To string State.
 ---@return CTLD #self
+---@private
 function CTLD:onafterStart(From, Event, To) end
 
 ---(Internal) FSM Function onafterStatus.
@@ -2161,6 +2196,7 @@ function CTLD:onafterStart(From, Event, To) end
 ---@param Event string Trigger.
 ---@param To string State.
 ---@return CTLD #self
+---@private
 function CTLD:onafterStatus(From, Event, To) end
 
 ---(Internal) FSM Function onafterStop.
@@ -2171,6 +2207,7 @@ function CTLD:onafterStatus(From, Event, To) end
 ---@param Event string Trigger.
 ---@param To string State.
 ---@return CTLD #self
+---@private
 function CTLD:onafterStop(From, Event, To) end
 
 ---(Internal) FSM Function onafterTroopsDeployed.
@@ -2185,6 +2222,7 @@ function CTLD:onafterStop(From, Event, To) end
 ---@param Troops GROUP Troops #GROUP Object.
 ---@param Type CTLD.CargoZoneType Type of Cargo deployed
 ---@return CTLD #self
+---@private
 function CTLD:onafterTroopsDeployed(From, Event, To, Group, Unit, Troops, Type) end
 
 ---(Internal) FSM Function onbeforeCratesBuild.
@@ -2198,6 +2236,7 @@ function CTLD:onafterTroopsDeployed(From, Event, To, Group, Unit, Troops, Type) 
 ---@param Unit UNIT Unit Object.
 ---@param Vehicle GROUP The #GROUP object of the vehicle or FOB build.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 
 ---(Internal) FSM Function onbeforeCratesDropped.
@@ -2211,6 +2250,7 @@ function CTLD:onbeforeCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---@param Unit UNIT Unit Object.
 ---@param Cargotable table Table of #CTLD_CARGO objects dropped. Can be a Wrapper.DynamicCargo#DYNAMICCARGO object, if ground crew unloaded!
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeCratesDropped(From, Event, To, Group, Unit, Cargotable) end
 
 ---(Internal) FSM Function onbeforeCratesPickedUp.
@@ -2224,6 +2264,7 @@ function CTLD:onbeforeCratesDropped(From, Event, To, Group, Unit, Cargotable) en
 ---@param Unit UNIT Unit Object.
 ---@param Cargo CTLD_CARGO Cargo crate. Can be a Wrapper.DynamicCargo#DYNAMICCARGO object, if ground crew loaded!
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeCratesPickedUp(From, Event, To, Group, Unit, Cargo) end
 
 ---On before "Load" event.
@@ -2234,8 +2275,9 @@ function CTLD:onbeforeCratesPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CTLD_<alias>_Persist.csv".
+---@private
 function CTLD:onbeforeLoad(From, Event, To, path, filename) end
 
 ---On before "Save" event.
@@ -2246,8 +2288,9 @@ function CTLD:onbeforeLoad(From, Event, To, path, filename) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for saving. Default is "CTLD_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for saving. Default is "CTLD_<alias>_Persist.csv".
+---@private
 function CTLD:onbeforeSave(From, Event, To, path, filename) end
 
 ---(Internal) FSM Function onbeforeStatus.
@@ -2258,6 +2301,7 @@ function CTLD:onbeforeSave(From, Event, To, path, filename) end
 ---@param Event string Trigger.
 ---@param To string State.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeStatus(From, Event, To) end
 
 ---(Internal) FSM Function onbeforeTroopsDeployed.
@@ -2271,6 +2315,7 @@ function CTLD:onbeforeStatus(From, Event, To) end
 ---@param Unit UNIT Unit Object.
 ---@param Troops GROUP Troops #GROUP Object.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeTroopsDeployed(From, Event, To, Group, Unit, Troops) end
 
 ---(Internal) FSM Function onbeforeTroopsExtracted.
@@ -2285,6 +2330,7 @@ function CTLD:onbeforeTroopsDeployed(From, Event, To, Group, Unit, Troops) end
 ---@param Troops GROUP Troops #GROUP Object.
 ---@param Groupname string Name of the extracted #GROUP.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeTroopsExtracted(From, Event, To, Group, Unit, Troops, Groupname) end
 
 ---(Internal) FSM Function onbeforeTroopsPickedUp.
@@ -2298,6 +2344,7 @@ function CTLD:onbeforeTroopsExtracted(From, Event, To, Group, Unit, Troops, Grou
 ---@param Unit UNIT Unit Object.
 ---@param Cargo CTLD_CARGO Cargo crate.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeTroopsPickedUp(From, Event, To, Group, Unit, Cargo) end
 
 ---(Internal) FSM Function onbeforeTroopsRTB.
@@ -2312,29 +2359,35 @@ function CTLD:onbeforeTroopsPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---@param ZoneName string Name of the Zone where the Troops have been RTB'd.
 ---@param ZoneObject ZONE_Radius of the Zone where the Troops have been RTB'd.
 ---@return CTLD #self
+---@private
 function CTLD:onbeforeTroopsRTB(From, Event, To, Group, Unit, ZoneName, ZoneObject) end
 
 
 ---Buildable table info.
 ---@class CTLD.Buildable 
 ---@field CanBuild boolean Is buildable or not.
----@field Coord  
+---@field Coord NOTYPE 
 ---@field Found number Found crates.
 ---@field Name string Name of the object.
 ---@field Required number Required crates.
+---@field Template table Template names for this build.
+---@field Type CTLD_CARGO.Enum Type enumerator (for moves).
 CTLD.Buildable = {}
 
 
 ---Zone Info.
 ---@class CTLD.CargoZone 
----@field active boolean Active or not.
----@field color string Smoke color for zone, e.g. SMOKECOLOR.Red.
----@field hasbeacon boolean Create and run radio beacons if active.
----@field name string Name of Zone.
----@field shiplength number For ships - length of ship
----@field shipwidth number For ships - width of ship
----@field timestamp number For dropped beacons - time this was created
----@field type string Type of zone, i.e. load,drop,move,ship
+---@field private active boolean Active or not.
+---@field private color string Smoke color for zone, e.g. SMOKECOLOR.Red.
+---@field private fmbeacon table Beacon info as #CTLD.ZoneBeacon
+---@field private hasbeacon boolean Create and run radio beacons if active.
+---@field private name string Name of Zone.
+---@field private shiplength number For ships - length of ship
+---@field private shipwidth number For ships - width of ship
+---@field private timestamp number For dropped beacons - time this was created
+---@field private type string Type of zone, i.e. load,drop,move,ship
+---@field private uhfbeacon table Beacon info as #CTLD.ZoneBeacon
+---@field private vhfbeacon table Beacon info as #CTLD.ZoneBeacon
 CTLD.CargoZone = {}
 
 
@@ -2358,6 +2411,7 @@ CTLD.FixedWingTypes = {}
 
 ---Loaded Cargo
 ---@class CTLD.LoadedCargo 
+---@field Cargo table Table of #CTLD_CARGO objects
 ---@field Cratesloaded number 
 ---@field Troopsloaded number 
 CTLD.LoadedCargo = {}
@@ -2372,21 +2426,43 @@ CTLD.RadioModulation = {}
 
 ---Unit capabilities.
 ---@class CTLD.UnitTypeCapabilities 
----@field cargoweightlimit number Max loadable kgs of cargo.
----@field cratelimit number Number of crates transportable.
----@field crates boolean Can transport crate.
----@field length number 
----@field trooplimit number Number of troop units transportable.
----@field troops boolean Can transport troops.
----@field type string Unit type.
+---@field AH-64D_BLK_II table 
+---@field Bronco-OV-10A table 
+---@field CH-47Fbl1 table 
+---@field Hercules table 
+---@field Ka-50 table 
+---@field Ka-50_3 table 
+---@field M 818 table 
+---@field MH-60R table 
+---@field Mi-24P table 
+---@field Mi-24V table 
+---@field Mi-8MT table 
+---@field Mi-8MTV2 table 
+---@field MosquitoFBMkVI table 
+---@field OH-6A table 
+---@field OH58D table 
+---@field SA342L table 
+---@field SA342M table 
+---@field SA342Minigun table 
+---@field SA342Mistral table 
+---@field SH-60B table 
+---@field UH-1H table 
+---@field UH-60L table 
+---@field private cargoweightlimit number Max loadable kgs of cargo.
+---@field private cratelimit number Number of crates transportable.
+---@field private crates boolean Can transport crate.
+---@field private length number 
+---@field private trooplimit number Number of troop units transportable.
+---@field private troops boolean Can transport troops.
+---@field private type string Unit type.
 CTLD.UnitTypeCapabilities = {}
 
 
 ---Radio Beacons
 ---@class CTLD.ZoneBeacon 
----@field frequency number -- in mHz
----@field modulation number -- i.e.CTLD.RadioModulation.FM or CTLD.RadioModulation.AM
----@field name string -- Name of zone for the coordinate
+---@field private frequency number -- in mHz
+---@field private modulation number -- i.e.CTLD.RadioModulation.FM or CTLD.RadioModulation.AM
+---@field private name string -- Name of zone for the coordinate
 CTLD.ZoneBeacon = {}
 
 
@@ -2396,6 +2472,7 @@ CTLD.ZoneBeacon = {}
 ---@field ClassName string Class name.
 ---@field CratesNeeded number Crates needed to build.
 ---@field DontShowInMenu boolean Show this item in menu or not.
+---@field Enum CTLD_CARGO.Enum 
 ---@field HasBeenDropped boolean True if dropped from heli.
 ---@field HasBeenMoved boolean Flag for moving.
 ---@field ID number ID of this cargo.
@@ -2404,12 +2481,15 @@ CTLD.ZoneBeacon = {}
 ---@field Name string Name for menu.
 ---@field PerCrateMass number Mass in kg.
 ---@field Positionable POSITIONABLE Representation of cargo in the mission.
+---@field ResourceMap table Resource Map information table if it has been set for static cargo items.
 ---@field StaticCategory string Individual static category if set.
 ---@field StaticShape string Individual shape if set.
 ---@field StaticType string Individual type if set.
 ---@field Stock number Number of builds available, -1 for unlimited.
 ---@field Stock0 number Initial stock, if any given.
 ---@field Subcategory string Sub-category name.
+---@field Templates table Table of #POSITIONABLE objects.
+---@field TypeNames list Table of unit types able to pick this cargo up.
 CTLD_CARGO = {}
 
 ---Add mark
@@ -2603,7 +2683,7 @@ function CTLD_CARGO:Isloaded(loaded) end
 ---@param Stock number Number of builds available, nil for unlimited
 ---@param Subcategory string Name of subcategory, handy if using > 10 types to load.
 ---@param DontShowInMenu boolean Show this item in menu or not (default: false == show it).
----@param Location ZONE (optional) Where the cargo is available (one location only).
+---@param Location? ZONE (optional) Where the cargo is available (one location only).
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:New(ID, Name, Templates, Sorte, HasBeenMoved, LoadDirectly, CratesNeeded, Positionable, Dropped, PerCrateMass, Stock, Subcategory, DontShowInMenu, Location) end
 
@@ -2701,8 +2781,8 @@ CTLD_CARGO.Enum = {}
 ---@field State string 
 ---@field Unit UNIT 
 ---@field Version string 
----@field lid string 
----@field marktimer number 
+---@field private lid string 
+---@field private marktimer number 
 CTLD_ENGINEERING = {}
 
 ---(Internal) Arrived at crates in reach.
@@ -2812,15 +2892,21 @@ function CTLD_ENGINEERING:_GetDistance(_point1, _point2) end
 ---- **CTLD_HERCULES** class, extends Core.Base#BASE
 ---@class CTLD_HERCULES : BASE
 ---@field CTLD CTLD 
+---@field Cargo table 
 ---@field ClassName string 
 ---@field Name string 
+---@field ObjectTracker table 
+---@field ParatrooperCount table 
+---@field Types CTLD_HERCULES.Types 
 ---@field Version string 
----@field alias  
----@field coalition  
----@field coalitiontxt  
----@field infantrytemplate string 
----@field lid string 
----@field verbose boolean 
+---@field private alias NOTYPE 
+---@field private carrierGroups table 
+---@field private coalition NOTYPE 
+---@field private coalitiontxt NOTYPE 
+---@field private infantrytemplate string 
+---@field private j number 
+---@field private lid string 
+---@field private verbose boolean 
 CTLD_HERCULES = {}
 
 ---[Internal] Function to calc initiator heading
@@ -3029,22 +3115,84 @@ function CTLD_HERCULES:_HandleShot(Cargo_Drop_Event) end
 
 ---Cargo Object
 ---@class CTLD_HERCULES.CargoObject 
+---@field Cargo_Contents table 
 ---@field Cargo_Country number 
 ---@field Cargo_Drop_Direction number 
 ---@field Cargo_Type_name string 
 ---@field Cargo_over_water boolean 
 ---@field Container_Enclosed boolean 
 ---@field ParatrooperGroupSpawn boolean 
----@field all_cargo_gets_destroyed boolean 
----@field all_cargo_survive_to_the_ground boolean 
----@field destroy_cargo_dropped_without_parachute boolean 
----@field offload_cargo boolean 
----@field scheduleFunctionID TIMER 
+---@field private all_cargo_gets_destroyed boolean 
+---@field private all_cargo_survive_to_the_ground boolean 
+---@field private destroy_cargo_dropped_without_parachute boolean 
+---@field private offload_cargo boolean 
+---@field private scheduleFunctionID TIMER 
 CTLD_HERCULES.CargoObject = {}
 
 
 ---Define cargo types.
 ---@class CTLD_HERCULES.Types 
+---@field AAA GEPARD [34720lb] table 
+---@field AAA Vulcan M163 Air [21666lb] table 
+---@field AAA Vulcan M163 Skid [21577lb] table 
+---@field AAA ZSU-23-4 Shilka [32912lb] table 
+---@field APC BTR-80 Air [23936lb] table 
+---@field APC BTR-80 Skid [23826lb] table 
+---@field APC BTR-82A Air [24998lb] table 
+---@field APC BTR-82A Skid [24888lb] table 
+---@field APC Cobra Air [10912lb] table 
+---@field APC Cobra Skid [10802lb] table 
+---@field APC LAV-25 Air [22520lb] table 
+---@field APC LAV-25 Skid [22514lb] table 
+---@field APC M1043 HMMWV Armament Air [7023lb] table 
+---@field APC M1043 HMMWV Armament Skid [6912lb] table 
+---@field APC M1126 Stryker ICV [29542lb] table 
+---@field APC M113 Air [21624lb] table 
+---@field APC M113 Skid [21494lb] table 
+---@field APC MTLB Air [26400lb] table 
+---@field APC MTLB Skid [26290lb] table 
+---@field ART 2S9 NONA Air [19140lb] table 
+---@field ART 2S9 NONA Skid [19030lb] table 
+---@field ART GVOZDIKA [34720lb] table 
+---@field ARV BRDM-2 Air [12320lb] table 
+---@field ARV BRDM-2 Skid [12210lb] table 
+---@field ATGM M1045 HMMWV TOW Air [7183lb] table 
+---@field ATGM M1045 HMMWV TOW Skid [7073lb] table 
+---@field ATGM M1134 Stryker [30337lb] table 
+---@field EWR SBORKA Air [21624lb] table 
+---@field EWR SBORKA Skid [21624lb] table 
+---@field HEMTT TFFT [34400lb] table 
+---@field IFV BMD-1 Air [18040lb] table 
+---@field IFV BMD-1 Skid [17930lb] table 
+---@field IFV BMP-1 [23232lb] table 
+---@field IFV BMP-2 [25168lb] table 
+---@field IFV BMP-3 [32912lb] table 
+---@field IFV BTR-D Air [18040lb] table 
+---@field IFV BTR-D Skid [17930lb] table 
+---@field IFV M2A2 Bradley [34720lb] table 
+---@field IFV MARDER [34720lb] table 
+---@field IFV MCV-80 [34720lb] table 
+---@field IFV TPZ FUCH [33440lb] table 
+---@field M1025 HMMWV Air [6160lb] table 
+---@field M1025 HMMWV Skid [6050lb] table 
+---@field SAM Avenger M1097 Air [7200lb] table 
+---@field SAM Avenger M1097 Skid [7090lb] table 
+---@field SAM CHAPARRAL Air [21624lb] table 
+---@field SAM CHAPARRAL Skid [21516lb] table 
+---@field SAM LINEBACKER [34720lb] table 
+---@field SAM ROLAND ADS [34720lb] table 
+---@field SAM ROLAND LN [34720b] table 
+---@field SAM SA-13 STRELA [21624lb] table 
+---@field SAM SA-19 Tunguska 2S6 [34720lb] table 
+---@field SPG M1128 Stryker MGS [33036lb] table 
+---@field Tanker M978 HEMTT [34000lb] table 
+---@field Transport M818 [16000lb] table 
+---@field Transport Tigr Air [15900lb] table 
+---@field Transport Tigr Skid [15730lb] table 
+---@field Transport UAZ-469 Air [3747lb] table 
+---@field Transport UAZ-469 Skid [3630lb] table 
+---@field Transport URAL-375 [14815lb] table 
+---@field Type table Name of cargo type, container (boolean) in container or not.
 CTLD_HERCULES.Types = {}
 
 

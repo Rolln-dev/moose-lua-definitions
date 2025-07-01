@@ -157,14 +157,16 @@
 --- * #AI_ESCORT.New: Creates a new AI_ESCORT object from a Wrapper.Group#GROUP for a Wrapper.Client#CLIENT, with an optional briefing text.
 ---@class AI_ESCORT : AI_FORMATION
 ---@field CT1 number 
----@field Detection  
----@field EscortBriefing  
----@field EscortGroupSet  
----@field EscortMenuScan  
----@field EscortMenuTargetAssistance  
----@field EscortName  
+---@field Detection NOTYPE 
+---@field EscortBriefing NOTYPE 
+---@field EscortGroupSet NOTYPE 
+---@field EscortMenuScan NOTYPE 
+---@field EscortMenuScanForTargets table 
+---@field EscortMenuTargetAssistance NOTYPE 
+---@field EscortName NOTYPE 
 ---@field FollowDistance number 
 ---@field GT1 number 
+---@field Menu table 
 ---@field PlayerGroup GROUP 
 ---@field PlayerUnit UNIT 
 AI_ESCORT = {}
@@ -941,6 +943,7 @@ function AI_ESCORT.___Resume(EscortGroup, self) end
 ------
 ---@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
+---@private
 function AI_ESCORT:onafterStart(EscortGroupSet) end
 
 
@@ -948,6 +951,7 @@ function AI_ESCORT:onafterStart(EscortGroupSet) end
 ------
 ---@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
+---@private
 function AI_ESCORT:onafterStop(EscortGroupSet) end
 
 

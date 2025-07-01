@@ -219,79 +219,94 @@
 ---- **CSAR** class, extends Core.Base#BASE, Core.Fsm#FSM
 ---@class CSAR : FSM
 ---@field ADFRadioPwr number 
----@field BeaconTimer  
----@field CSARVoice  
----@field CSARVoiceMS  
----@field CallsignTranslations  
+---@field AircraftType CSAR.AircraftType 
+---@field BeaconTimer NOTYPE 
+---@field CSARVoice NOTYPE 
+---@field CSARVoiceMS NOTYPE 
+---@field CallsignTranslations NOTYPE 
 ---@field ClassName string Name of the class.
 ---@field FARPRescueDistance number 
----@field FreeVHFFrequencies  
+---@field FreeVHFFrequencies table 
 ---@field PilotWeight number 
----@field PlayerTaskQueue  
+---@field PlayerTaskQueue NOTYPE 
 ---@field SRSCulture string 
 ---@field SRSGender string 
----@field SRSModulation  
+---@field SRSModulation NOTYPE 
 ---@field SRSPath string 
 ---@field SRSQueue MSRSQUEUE 
----@field SRSVoice  
+---@field SRSVoice NOTYPE 
 ---@field SRSVolume number 
 ---@field SRSchannel number 
 ---@field SRSport number 
 ---@field ShortCallsign boolean 
+---@field UsedVHFFrequencies table 
 ---@field UserSetGroup SET_GROUP Set of CSAR heli groups as designed by the mission designer (if any set).
----@field alias  
----@field allheligroupset SET_GROUP Set of CSAR heli groups.
----@field allowDownedPilotCAcontrol boolean 
----@field allowFARPRescue boolean 
----@field allowbronco boolean 
----@field approachdist_far number 
----@field approachdist_near number 
----@field autosmoke boolean 
----@field autosmokedistance number 
----@field beaconRefresher number 
----@field coalition number Coalition side number, e.g. `coalition.side.RED`.
----@field coalitiontxt  
----@field coordinate COORDINATE 
----@field coordtype number 
----@field countryblue  
----@field countryneutral  
----@field countryred  
----@field csarOncrash boolean 
----@field csarUsePara boolean 
----@field downedPilots  
----@field downedpilotcounter number 
----@field enableForAI boolean 
----@field enableLoadSave boolean 
----@field extractDistance number 
----@field filename  
----@field immortalcrew boolean 
----@field invisiblecrew boolean 
----@field lid string Class id string for output to DCS log file.
----@field limitmaxdownedpilots boolean 
----@field loadDistance number 
----@field loadtimemax number 
----@field mash  
----@field max_units number 
----@field maxdownedpilots number 
----@field messageTime number 
----@field msrs MSRS 
----@field pilotRuntoExtractPoint boolean 
----@field pilotmustopendoors boolean 
----@field radioSound string 
----@field rescuedpilots number 
----@field rescuehoverdistance number 
----@field rescuehoverheight number 
----@field rescues number 
----@field saveinterval number 
----@field smokecolor number 
----@field staticmashes  
----@field suppressmessages boolean 
----@field useSRS boolean 
----@field useprefix boolean 
----@field usewetfeet boolean 
----@field verbose number Verbosity level.
----@field version string CSAR class version.
----@field zonemashes  
+---@field private addedTo table 
+---@field private alias NOTYPE 
+---@field private allheligroupset SET_GROUP Set of CSAR heli groups.
+---@field private allowDownedPilotCAcontrol boolean 
+---@field private allowFARPRescue boolean 
+---@field private allowbronco boolean 
+---@field private approachdist_far number 
+---@field private approachdist_near number 
+---@field private autosmoke boolean 
+---@field private autosmokedistance number 
+---@field private beaconRefresher number 
+---@field private coalition number Coalition side number, e.g. `coalition.side.RED`.
+---@field private coalitiontxt NOTYPE 
+---@field private coordinate COORDINATE 
+---@field private coordtype number 
+---@field private countryblue NOTYPE 
+---@field private countryneutral NOTYPE 
+---@field private countryred NOTYPE 
+---@field private csarOncrash boolean 
+---@field private csarPrefix table 
+---@field private csarUnits table 
+---@field private csarUsePara boolean 
+---@field private downedPilots table 
+---@field private downedpilotcounter number 
+---@field private enableForAI boolean 
+---@field private enableLoadSave boolean 
+---@field private extractDistance number 
+---@field private filename NOTYPE 
+---@field private heliCloseMessage table 
+---@field private heliVisibleMessage table 
+---@field private hoverStatus table 
+---@field private immortalcrew boolean 
+---@field private inTransitGroups table 
+---@field private invisiblecrew boolean 
+---@field private landedStatus table 
+---@field private lastCrash table 
+---@field private lid string Class id string for output to DCS log file.
+---@field private limitmaxdownedpilots boolean 
+---@field private loadDistance number 
+---@field private loadtimemax number 
+---@field private mash NOTYPE 
+---@field private mashprefix table 
+---@field private max_units number 
+---@field private maxdownedpilots number 
+---@field private messageTime number 
+---@field private msrs MSRS 
+---@field private pilotRuntoExtractPoint boolean 
+---@field private pilotmustopendoors boolean 
+---@field private radioSound string 
+---@field private rescuedpilots number 
+---@field private rescuehoverdistance number 
+---@field private rescuehoverheight number 
+---@field private rescues number 
+---@field private saveinterval number 
+---@field private smokeMarkers table 
+---@field private smokecolor number 
+---@field private staticmashes NOTYPE 
+---@field private suppressmessages boolean 
+---@field private takenOff table 
+---@field private useSRS boolean 
+---@field private useprefix boolean 
+---@field private usewetfeet boolean 
+---@field private verbose number Verbosity level.
+---@field private version string CSAR class version.
+---@field private woundedGroups table 
+---@field private zonemashes NOTYPE 
 CSAR = {}
 
 ---(User) Add a PLAYERTASK - FSM events will check success
@@ -373,8 +388,8 @@ function CSAR:OnAfterLanded(From, Event, To, HeliName, Airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
 function CSAR:OnAfterLoad(From, Event, To, path, filename) end
 
 ---On After "PilotDown" event.
@@ -424,8 +439,8 @@ function CSAR:OnAfterReturning(From, Event, To, Heliname, Woundedgroupname) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for saving. Default is "CSAR_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for saving. Default is "CSAR_<alias>_Persist.csv".
 function CSAR:OnAfterSave(From, Event, To, path, filename) end
 
 ---[User] Set callsign options for TTS output.
@@ -435,7 +450,7 @@ function CSAR:OnAfterSave(From, Event, To, path, filename) end
 ---@param self CSAR 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
----@param CallsignTranslations table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
+---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
 ---@return CSAR #self
 function CSAR:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations) end
 
@@ -464,11 +479,11 @@ function CSAR:SetOwnSetPilotGroups(Set) end
 ---@param self CSAR 
 ---@param Point COORDINATE 
 ---@param Coalition number Coalition.
----@param Description string (optional) Description.
----@param Nomessage boolean (optional) If true, don\'t send a message to SAR.
----@param Unitname string (optional) Name of the lost unit.
----@param Typename string (optional) Type of plane.
----@param Forcedesc boolean (optional) Force to use the **description passed only** for the pilot track entry. Use to have fully custom names.
+---@param Description? string (optional) Description.
+---@param Nomessage? boolean (optional) If true, don\'t send a message to SAR.
+---@param Unitname? string (optional) Name of the lost unit.
+---@param Typename? string (optional) Type of plane.
+---@param Forcedesc? boolean (optional) Force to use the **description passed only** for the pilot track entry. Use to have fully custom names.
 function CSAR:SpawnCASEVAC(Point, Coalition, Description, Nomessage, Unitname, Typename, Forcedesc) end
 
 ---Function to add a CSAR object into the scene at a zone coordinate.
@@ -487,12 +502,12 @@ function CSAR:SpawnCASEVAC(Point, Coalition, Description, Nomessage, Unitname, T
 ---@param self CSAR 
 ---@param Zone string Name of the zone. Can also be passed as a (normal, round) ZONE object.
 ---@param Coalition number Coalition.
----@param Description string (optional) Description.
----@param RandomPoint boolean (optional) Random yes or no.
----@param Nomessage boolean (optional) If true, don\'t send a message to SAR.
----@param Unitname string (optional) Name of the lost unit.
----@param Typename string (optional) Type of plane.
----@param Forcedesc boolean (optional) Force to use the **description passed only** for the pilot track entry. Use to have fully custom names.
+---@param Description? string (optional) Description.
+---@param RandomPoint? boolean (optional) Random yes or no.
+---@param Nomessage? boolean (optional) If true, don\'t send a message to SAR.
+---@param Unitname? string (optional) Name of the lost unit.
+---@param Typename? string (optional) Type of plane.
+---@param Forcedesc? boolean (optional) Force to use the **description passed only** for the pilot track entry. Use to have fully custom names.
 function CSAR:SpawnCSARAtZone(Zone, Coalition, Description, RandomPoint, Nomessage, Unitname, Typename, Forcedesc) end
 
 ---Triggers the FSM event "Start".
@@ -629,9 +644,9 @@ function CSAR:_DisplayActiveSAR(_unitName) end
 ---@param _unit UNIT Unit #UNIT to display to.
 ---@param _text string Text of message.
 ---@param _time number Message show duration.
----@param _clear boolean (optional) Clear screen.
----@param _speak boolean (optional) Speak message via SRS.
----@param _override boolean (optional) Override message suppression
+---@param _clear? boolean (optional) Clear screen.
+---@param _speak? boolean (optional) Speak message via SRS.
+---@param _override? boolean (optional) Override message suppression
 function CSAR:_DisplayMessageToSAR(_unit, _text, _time, _clear, _speak, _override) end
 
 ---(Internal) Display info to all SAR groups.
@@ -856,11 +871,11 @@ function CSAR:_SignalFlare(_unitName) end
 ---@param self CSAR 
 ---@param _Point COORDINATE 
 ---@param _coalition number Coalition.
----@param _description string (optional) Description.
----@param _nomessage boolean (optional) If true, don\'t send a message to SAR.
----@param unitname string (optional) Name of the lost unit.
----@param typename string (optional) Type of plane.
----@param forcedesc boolean (optional) Force to use the description passed only for the pilot track entry. Use to have fully custom names.
+---@param _description? string (optional) Description.
+---@param _nomessage? boolean (optional) If true, don\'t send a message to SAR.
+---@param unitname? string (optional) Name of the lost unit.
+---@param typename? string (optional) Type of plane.
+---@param forcedesc? boolean (optional) Force to use the description passed only for the pilot track entry. Use to have fully custom names.
 function CSAR:_SpawnCASEVAC(_Point, _coalition, _description, _nomessage, unitname, typename, forcedesc) end
 
 ---(Internal) Function to add a CSAR object into the scene at a zone coordinate.
@@ -870,12 +885,12 @@ function CSAR:_SpawnCASEVAC(_Point, _coalition, _description, _nomessage, unitna
 ---@param self CSAR 
 ---@param _zone string Name of the zone. Can also be passed as a (normal, round) ZONE object.
 ---@param _coalition number Coalition.
----@param _description string (optional) Description.
----@param _randomPoint boolean (optional) Random yes or no.
----@param _nomessage boolean (optional) If true, don\'t send a message to SAR.
----@param unitname string (optional) Name of the lost unit.
----@param typename string (optional) Type of plane.
----@param forcedesc boolean (optional) Force to use the description passed only for the pilot track entry. Use to have fully custom names.
+---@param _description? string (optional) Description.
+---@param _randomPoint? boolean (optional) Random yes or no.
+---@param _nomessage? boolean (optional) If true, don\'t send a message to SAR.
+---@param unitname? string (optional) Name of the lost unit.
+---@param typename? string (optional) Type of plane.
+---@param forcedesc? boolean (optional) Force to use the description passed only for the pilot track entry. Use to have fully custom names.
 function CSAR:_SpawnCsarAtZone(_zone, _coalition, _description, _randomPoint, _nomessage, unitname, typename, forcedesc) end
 
 ---(Internal) Spawn a downed pilot
@@ -944,8 +959,9 @@ function CSAR:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
+---@private
 function CSAR:onafterLoad(From, Event, To, path, filename) end
 
 ---On after "Save" event.
@@ -957,7 +973,8 @@ function CSAR:onafterLoad(From, Event, To, path, filename) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param path string Path where the file is saved. If nil, file is saved in the DCS root installtion directory or your "Saved Games" folder if lfs was desanitized.
----@param filename string (Optional) File name for saving. Default is Default is "CSAR_<alias>_Persist.csv".
+---@param filename? string (Optional) File name for saving. Default is Default is "CSAR_<alias>_Persist.csv".
+---@private
 function CSAR:onafterSave(From, Event, To, path, filename) end
 
 ---(Internal) Function called after Start() event.
@@ -967,6 +984,7 @@ function CSAR:onafterSave(From, Event, To, path, filename) end
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
+---@private
 function CSAR:onafterStart(From, Event, To) end
 
 ---(Internal) Function called after Status() event.
@@ -976,6 +994,7 @@ function CSAR:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
+---@private
 function CSAR:onafterStatus(From, Event, To) end
 
 ---(Internal) Function called after Stop() event.
@@ -985,6 +1004,7 @@ function CSAR:onafterStatus(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
+---@private
 function CSAR:onafterStop(From, Event, To) end
 
 ---(Internal) Function called before Approach() event.
@@ -996,6 +1016,7 @@ function CSAR:onafterStop(From, Event, To) end
 ---@param To string To state.
 ---@param Heliname string Name of the helicopter group.
 ---@param Woundedgroupname string Name of the downed pilot\'s group.
+---@private
 function CSAR:onbeforeApproach(From, Event, To, Heliname, Woundedgroupname) end
 
 ---(Internal) Function called before Boarded() event.
@@ -1007,6 +1028,7 @@ function CSAR:onbeforeApproach(From, Event, To, Heliname, Woundedgroupname) end
 ---@param To string To state.
 ---@param Heliname string Name of the helicopter group.
 ---@param Woundedgroupname string Name of the downed pilot\'s group.
+---@private
 function CSAR:onbeforeBoarded(From, Event, To, Heliname, Woundedgroupname) end
 
 ---(Internal) Function called before Landed() event.
@@ -1018,6 +1040,7 @@ function CSAR:onbeforeBoarded(From, Event, To, Heliname, Woundedgroupname) end
 ---@param To string To state.
 ---@param HeliName string Name of the #UNIT which has landed.
 ---@param Airbase AIRBASE Airbase where the heli landed.
+---@private
 function CSAR:onbeforeLanded(From, Event, To, HeliName, Airbase) end
 
 ---On before "Load" event.
@@ -1028,8 +1051,9 @@ function CSAR:onbeforeLanded(From, Event, To, HeliName, Airbase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is located. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for loading. Default is "CSAR_<alias>_Persist.csv".
+---@private
 function CSAR:onbeforeLoad(From, Event, To, path, filename) end
 
 ---(Internal) Function called before PilotDown() event.
@@ -1044,6 +1068,7 @@ function CSAR:onbeforeLoad(From, Event, To, path, filename) end
 ---@param Leadername string Name of the #UNIT of the downed pilot.
 ---@param CoordinatesText string String of the position of the pilot. Format determined by self.coordtype.
 ---@param Playername string Player name if any given. Might be nil!
+---@private
 function CSAR:onbeforePilotDown(From, Event, To, Group, Frequency, Leadername, CoordinatesText, Playername) end
 
 ---(Internal) Function called before Rescued() event.
@@ -1056,6 +1081,7 @@ function CSAR:onbeforePilotDown(From, Event, To, Group, Frequency, Leadername, C
 ---@param HeliUnit UNIT Unit of the helicopter.
 ---@param HeliName string Name of the helicopter group.
 ---@param PilotsSaved number Number of the saved pilots on board when landing.
+---@private
 function CSAR:onbeforeRescued(From, Event, To, HeliUnit, HeliName, PilotsSaved) end
 
 ---(Internal) Function called before Returning() event.
@@ -1069,6 +1095,7 @@ function CSAR:onbeforeRescued(From, Event, To, HeliUnit, HeliName, PilotsSaved) 
 ---@param Woundedgroupname string Name of the downed pilot\'s group.
 ---@param IsAirport boolean True if heli has landed on an AFB (from event land).
 ---@param IsAirPort NOTYPE 
+---@private
 function CSAR:onbeforeReturning(From, Event, To, Heliname, Woundedgroupname, IsAirport, IsAirPort) end
 
 ---On before "Save" event.
@@ -1079,8 +1106,9 @@ function CSAR:onbeforeReturning(From, Event, To, Heliname, Woundedgroupname, IsA
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
----@param path string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
----@param filename string (Optional) File name for saving. Default is "CSAR_<alias>_Persist.csv".
+---@param path? string (Optional) Path where the file is saved. Default is the DCS root installation folder or your "Saved Games\\DCS" folder if the lfs module is desanitized.
+---@param filename? string (Optional) File name for saving. Default is "CSAR_<alias>_Persist.csv".
+---@private
 function CSAR:onbeforeSave(From, Event, To, path, filename) end
 
 ---(Internal) Function called before Status() event.
@@ -1090,6 +1118,7 @@ function CSAR:onbeforeSave(From, Event, To, path, filename) end
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
+---@private
 function CSAR:onbeforeStatus(From, Event, To) end
 
 
@@ -1112,25 +1141,25 @@ function CSAR:onbeforeStatus(From, Event, To) end
 ---@field SA342Mistral number 
 ---@field UH-1H number 
 ---@field UH-60L number 
----@field typename string Unit type name.
+---@field private typename string Unit type name.
 CSAR.AircraftType = {}
 
 
 ---Downed pilots info.
 ---@class CSAR.DownedPilot 
 ---@field BeaconName string Name of radio beacon - if any.
----@field alive boolean Group is alive or dead/rescued.
----@field desc string Description.
----@field frequency number Frequency of the NDB.
----@field group GROUP Spawned group object.
----@field index number Pilot index.
----@field name string Name of the spawned group.
----@field originalUnit string Name of the original unit.
----@field player string Player name if applicable.
----@field side number Coalition.
----@field timestamp number Timestamp for approach process.
----@field typename string Typename of Unit.
----@field wetfeet boolean Group is spawned over (deep) water.
+---@field private alive boolean Group is alive or dead/rescued.
+---@field private desc string Description.
+---@field private frequency number Frequency of the NDB.
+---@field private group GROUP Spawned group object.
+---@field private index number Pilot index.
+---@field private name string Name of the spawned group.
+---@field private originalUnit string Name of the original unit.
+---@field private player string Player name if applicable.
+---@field private side number Coalition.
+---@field private timestamp number Timestamp for approach process.
+---@field private typename string Typename of Unit.
+---@field private wetfeet boolean Group is spawned over (deep) water.
 CSAR.DownedPilot = {}
 
 

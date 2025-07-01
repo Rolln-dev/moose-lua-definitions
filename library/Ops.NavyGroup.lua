@@ -41,33 +41,36 @@
 ---This class enhances naval groups.
 ---NAVYGROUP class.
 ---@class NAVYGROUP : OPSGROUP
----@field adinfinitum boolean 
----@field altWp  
----@field ammo  
----@field collisionwarning boolean If true, collition warning.
----@field depth number Ordered depth in meters.
----@field groupinitialized boolean 
----@field icls  
----@field intowindcounter number Counter of into wind IDs.
----@field intowindold boolean Use old calculation to determine heading into wind.
----@field isAI boolean 
----@field isDead boolean 
----@field isDestroyed boolean 
----@field isLateActivated  
----@field isMobile boolean 
----@field isUncontrolled boolean 
----@field ispathfinding boolean If true, group is currently path finding.
----@field lid  
----@field pathCorridor number Path corrdidor width in meters.
----@field pathfindingOn boolean If true, enable pathfining.
----@field speedMax  
----@field speedWp  
----@field tacan  
----@field timerCheckZone  
----@field timerQueueUpdate  
----@field timerStatus  
----@field turning boolean If true, group is currently turning.
----@field version string NavyGroup version.
+---@field Qintowind table Queue of "into wind" turns.
+---@field private adinfinitum boolean 
+---@field private altWp NOTYPE 
+---@field private ammo NOTYPE 
+---@field private collisionwarning boolean If true, collition warning.
+---@field private depth number Ordered depth in meters.
+---@field private engage NAVYGROUP.Target Engage target.
+---@field private groupinitialized boolean 
+---@field private icls NOTYPE 
+---@field private intowind NAVYGROUP.IntoWind Into wind info.
+---@field private intowindcounter number Counter of into wind IDs.
+---@field private intowindold boolean Use old calculation to determine heading into wind.
+---@field private isAI boolean 
+---@field private isDead boolean 
+---@field private isDestroyed boolean 
+---@field private isLateActivated NOTYPE 
+---@field private isMobile boolean 
+---@field private isUncontrolled boolean 
+---@field private ispathfinding boolean If true, group is currently path finding.
+---@field private lid NOTYPE 
+---@field private pathCorridor number Path corrdidor width in meters.
+---@field private pathfindingOn boolean If true, enable pathfining.
+---@field private speedMax NOTYPE 
+---@field private speedWp NOTYPE 
+---@field private tacan NOTYPE 
+---@field private timerCheckZone NOTYPE 
+---@field private timerQueueUpdate NOTYPE 
+---@field private timerStatus NOTYPE 
+---@field private turning boolean If true, group is currently turning.
+---@field private version string NavyGroup version.
 NAVYGROUP = {}
 
 ---Add a *scheduled* task.
@@ -165,7 +168,7 @@ function NAVYGROUP:Dive(Depth, Speed) end
 ------
 ---@param self NAVYGROUP 
 ---@param Duration number Duration in seconds. Default 300 sec.
----@param TurnIntoWind NAVYGROUP.IntoWind (Optional) Turn into window data table. If not given, the currently open one is used (if there is any).
+---@param TurnIntoWind? NAVYGROUP.IntoWind (Optional) Turn into window data table. If not given, the currently open one is used (if there is any).
 ---@return NAVYGROUP #self
 function NAVYGROUP:ExtendTurnIntoWind(Duration, TurnIntoWind) end
 
@@ -208,7 +211,7 @@ function NAVYGROUP:GetHeadingIntoWind_old(Offset, vdeck) end
 ---
 ------
 ---@param self NAVYGROUP 
----@param TID number (Optional) Turn Into wind ID. If not given, the currently open "Turn into Wind" data is return (if there is any).
+---@param TID? number (Optional) Turn Into wind ID. If not given, the currently open "Turn into Wind" data is return (if there is any).
 ---@return NAVYGROUP.IntoWind #Turn into window data table.
 function NAVYGROUP:GetTurnIntoWind(TID) end
 
@@ -653,6 +656,7 @@ function NAVYGROUP:__TurningStopped(delay) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Distance number Distance in meters where obstacle was detected.
+---@private
 function NAVYGROUP:onafterCollisionWarning(From, Event, To, Distance) end
 
 ---On after "Cruise" event.
@@ -663,6 +667,7 @@ function NAVYGROUP:onafterCollisionWarning(From, Event, To, Distance) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Speed number Speed in knots until next waypoint is reached. Default is speed set for waypoint.
+---@private
 function NAVYGROUP:onafterCruise(From, Event, To, Speed) end
 
 ---On after "Detour" event.
@@ -676,6 +681,7 @@ function NAVYGROUP:onafterCruise(From, Event, To, Speed) end
 ---@param Speed number Speed in knots. Default cruise speed.
 ---@param Depth number Depth in meters. Default 0 meters.
 ---@param ResumeRoute number If true, resume route after detour point was reached. If false, the group will stop at the detour point and wait for futher commands.
+---@private
 function NAVYGROUP:onafterDetour(From, Event, To, Coordinate, Speed, Depth, ResumeRoute) end
 
 ---On after "DetourReached" event.
@@ -685,6 +691,7 @@ function NAVYGROUP:onafterDetour(From, Event, To, Coordinate, Speed, Depth, Resu
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterDetourReached(From, Event, To) end
 
 ---On after "Disengage" event.
@@ -694,6 +701,7 @@ function NAVYGROUP:onafterDetourReached(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterDisengage(From, Event, To) end
 
 ---On after "Dive" event.
@@ -705,6 +713,7 @@ function NAVYGROUP:onafterDisengage(From, Event, To) end
 ---@param To string To state.
 ---@param Depth number Dive depth in meters. Default 50 meters.
 ---@param Speed number Speed in knots until next waypoint is reached.
+---@private
 function NAVYGROUP:onafterDive(From, Event, To, Depth, Speed) end
 
 ---On after "ElementSpawned" event.
@@ -715,6 +724,7 @@ function NAVYGROUP:onafterDive(From, Event, To, Depth, Speed) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Element OPSGROUP.Element The group element.
+---@private
 function NAVYGROUP:onafterElementSpawned(From, Event, To, Element) end
 
 ---On after "EngageTarget" event.
@@ -726,6 +736,7 @@ function NAVYGROUP:onafterElementSpawned(From, Event, To, Element) end
 ---@param To string To state.
 ---@param Group GROUP the group to be engaged.
 ---@param Target NOTYPE 
+---@private
 function NAVYGROUP:onafterEngageTarget(From, Event, To, Group, Target) end
 
 ---On after "FullStop" event.
@@ -735,6 +746,7 @@ function NAVYGROUP:onafterEngageTarget(From, Event, To, Group, Target) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterFullStop(From, Event, To) end
 
 ---On after "OutOfAmmo" event.
@@ -744,6 +756,7 @@ function NAVYGROUP:onafterFullStop(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterOutOfAmmo(From, Event, To) end
 
 ---On after "RTZ" event.
@@ -755,6 +768,7 @@ function NAVYGROUP:onafterOutOfAmmo(From, Event, To) end
 ---@param To string To state.
 ---@param Zone ZONE The zone to return to.
 ---@param Formation number Formation of the group.
+---@private
 function NAVYGROUP:onafterRTZ(From, Event, To, Zone, Formation) end
 
 ---On after "Returned" event.
@@ -764,6 +778,7 @@ function NAVYGROUP:onafterRTZ(From, Event, To, Zone, Formation) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterReturned(From, Event, To) end
 
 ---On after "Spawned" event.
@@ -773,6 +788,7 @@ function NAVYGROUP:onafterReturned(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterSpawned(From, Event, To) end
 
 ---On after "Surface" event.
@@ -783,6 +799,7 @@ function NAVYGROUP:onafterSpawned(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Speed number Speed in knots until next waypoint is reached.
+---@private
 function NAVYGROUP:onafterSurface(From, Event, To, Speed) end
 
 ---On after "TurnIntoWind" event.
@@ -794,6 +811,7 @@ function NAVYGROUP:onafterSurface(From, Event, To, Speed) end
 ---@param To string To state.
 ---@param Into NAVYGROUP.IntoWind wind parameters.
 ---@param IntoWind NOTYPE 
+---@private
 function NAVYGROUP:onafterTurnIntoWind(From, Event, To, Into, IntoWind) end
 
 ---On after "TurnIntoWindOver" event.
@@ -804,6 +822,7 @@ function NAVYGROUP:onafterTurnIntoWind(From, Event, To, Into, IntoWind) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param IntoWindData NAVYGROUP.IntoWind Data table.
+---@private
 function NAVYGROUP:onafterTurnIntoWindOver(From, Event, To, IntoWindData) end
 
 ---On after "TurnIntoWindStop" event.
@@ -813,6 +832,7 @@ function NAVYGROUP:onafterTurnIntoWindOver(From, Event, To, IntoWindData) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterTurnIntoWindStop(From, Event, To) end
 
 ---On after "TurningStarted" event.
@@ -822,6 +842,7 @@ function NAVYGROUP:onafterTurnIntoWindStop(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterTurningStarted(From, Event, To) end
 
 ---On after "TurningStarted" event.
@@ -831,6 +852,7 @@ function NAVYGROUP:onafterTurningStarted(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onafterTurningStopped(From, Event, To) end
 
 ---On after "UpdateRoute" event.
@@ -844,6 +866,7 @@ function NAVYGROUP:onafterTurningStopped(From, Event, To) end
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
 ---@param Speed number Speed in knots to the next waypoint.
 ---@param Depth number Depth in meters to the next waypoint.
+---@private
 function NAVYGROUP:onafterUpdateRoute(From, Event, To, n, N, Speed, Depth) end
 
 ---On before "TurnIntoWindStop" event.
@@ -853,6 +876,7 @@ function NAVYGROUP:onafterUpdateRoute(From, Event, To, n, N, Speed, Depth) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function NAVYGROUP:onbeforeTurnIntoWindStop(From, Event, To) end
 
 ---On before "UpdateRoute" event.
@@ -866,6 +890,7 @@ function NAVYGROUP:onbeforeTurnIntoWindStop(From, Event, To) end
 ---@param N number Waypoint  Max waypoint index to be included in the route. Default is the final waypoint.
 ---@param Speed number Speed in knots to the next waypoint.
 ---@param Depth number Depth in meters to the next waypoint.
+---@private
 function NAVYGROUP:onbeforeUpdateRoute(From, Event, To, n, N, Speed, Depth) end
 
 
@@ -882,7 +907,7 @@ function NAVYGROUP:onbeforeUpdateRoute(From, Event, To, n, N, Speed, Depth) end
 ---@field Tstart number Time to start.
 ---@field Tstop number Time to stop.
 ---@field Uturn boolean U-turn.
----@field waypoint OPSGROUP.Waypoint Turn into wind waypoint.
+---@field private waypoint OPSGROUP.Waypoint Turn into wind waypoint.
 NAVYGROUP.IntoWind = {}
 
 
@@ -891,8 +916,8 @@ NAVYGROUP.IntoWind = {}
 ---@field Coordinate COORDINATE Last known coordinate of the target.
 ---@field Target TARGET The target.
 ---@field Waypoint OPSGROUP.Waypoint the waypoint created to go to the target.
----@field alarmstate number Alarm state backup.
----@field roe number ROE backup.
+---@field private alarmstate number Alarm state backup.
+---@field private roe number ROE backup.
 NAVYGROUP.Target = {}
 
 

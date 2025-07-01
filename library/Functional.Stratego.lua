@@ -144,28 +144,37 @@
 ---- **STRATEGO** class, extends Core.Base#BASE
 ---@class STRATEGO : BASE
 ---@field Budget number 
+---@field CaptureObjectCategories table 
 ---@field CaptureThreatlevel number 
 ---@field CaptureUnits number 
 ---@field ClassName string 
 ---@field ExcludeShips boolean 
 ---@field NeutralBenefit number 
----@field POIs  
+---@field OpsZones table 
+---@field POIs NOTYPE 
 ---@field POIweight number 
 ---@field StrategoZone ZONE 
----@field bases  
----@field coalition number 
----@field coalitiontext  
----@field debug boolean 
----@field drawzone  
----@field lid  
----@field markzone  
----@field maxdist number 
----@field maxrunways number 
----@field ports  
----@field portweight number 
----@field routefactor number 
----@field usebudget boolean 
----@field version string 
+---@field Type STRATEGO.Type 
+---@field private airbasetable table 
+---@field private bases NOTYPE 
+---@field private coalition number 
+---@field private coalitiontext NOTYPE 
+---@field private colors table 
+---@field private debug boolean 
+---@field private disttable table 
+---@field private drawzone NOTYPE 
+---@field private easynames table 
+---@field private lid NOTYPE 
+---@field private markzone NOTYPE 
+---@field private maxdist number 
+---@field private maxrunways number 
+---@field private nonconnectedab table 
+---@field private ports NOTYPE 
+---@field private portweight number 
+---@field private routefactor number 
+---@field private routexists table 
+---@field private usebudget boolean 
+---@field private version string 
 STRATEGO = {}
 
 ---[USER] Add budget points.
@@ -183,9 +192,9 @@ function STRATEGO:AddBudget(Number) end
 ---@param self STRATEGO 
 ---@param Startpoint string Starting Point, e.g. AIRBASE.Syria.Hatay
 ---@param Endpoint string End Point, e.g. AIRBASE.Syria.H4
----@param Color table (Optional) RGB color table {r, g, b}, e.g. {1,0,0} for red. Defaults to violet.
----@param Linetype number (Optional) Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 5.
----@param Draw boolean (Optional) If true, draw route on the F10 map. Defaukt false.
+---@param Color? table (Optional) RGB color table {r, g, b}, e.g. {1,0,0} for red. Defaults to violet.
+---@param Linetype? number (Optional) Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 5.
+---@param Draw? boolean (Optional) If true, draw route on the F10 map. Defaukt false.
 ---@return STRATEGO #self
 function STRATEGO:AddRoutesManually(Startpoint, Endpoint, Color, Linetype, Draw) end
 
@@ -275,8 +284,8 @@ function STRATEGO:FindConsolidationTargets() end
 ------
 ---@param self STRATEGO 
 ---@param Name string The name to search the neighbors for.
----@param Enemies boolean (optional) If true, find only enemy neighbors.
----@param Friends boolean (optional) If true, find only friendly or neutral neighbors.
+---@param Enemies? boolean (optional) If true, find only enemy neighbors.
+---@param Friends? boolean (optional) If true, find only friendly or neutral neighbors.
 ---@return table #Neighbors Table of #STRATEGO.DistData entries indexed by neighbor node names.
 ---@return string #Nearest Name of the nearest node.
 ---@return number #Distance Distance of the nearest node.
@@ -290,8 +299,8 @@ function STRATEGO:FindNeighborNodes(Name, Enemies, Friends) end
 ---@param End string The name of the end node.
 ---@param Hops number Max iterations to find a route.
 ---@param Draw boolean If true, draw the route on the map.
----@param Color table (Optional) RGB color table {r, g, b}, e.g. {1,0,0} for red. Defaults to black.
----@param LineType number (Optional) Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 6.
+---@param Color? table (Optional) RGB color table {r, g, b}, e.g. {1,0,0} for red. Defaults to black.
+---@param LineType? number (Optional) Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 6.
 ---@param NoOptimize boolean If set to true, do not optimize (shorten) the resulting route if possible.
 ---@return table #Route Table of #string name entries of the route
 ---@return boolean #Complete If true, the route was found end-to-end.
@@ -316,7 +325,7 @@ function STRATEGO:GetBudget() end
 ---
 ------
 ---@param self STRATEGO 
----@param Coalition number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
+---@param Coalition? number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
 ---@return table #Table of nodes.
 ---@return number #Weight The consolidated weight associated with the nodes.
 ---@return number #Highest Highest weight found.
@@ -337,7 +346,7 @@ function STRATEGO:GetNewOpsZone(Zone, Coalition) end
 ------
 ---@param self STRATEGO 
 ---@param Weight number Weight - nodes need to have less than this weight.
----@param Coalition number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
+---@param Coalition? number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
 ---@return table #Table of nodes.
 ---@return number #Weight The consolidated weight associated with the nodes.
 function STRATEGO:GetNextHighestWeightNodes(Weight, Coalition) end
@@ -597,7 +606,7 @@ function STRATEGO:UpdateNodeCoalitions() end
 ------
 ---@param self STRATEGO 
 ---@param Start string Name of the start node
----@param ABTable table (Optional) #table of node names to check.
+---@param ABTable? table (Optional) #table of node names to check.
 ---@return STRATEGO #self
 function STRATEGO:_FloodFill(Start, ABTable) end
 
@@ -656,6 +665,7 @@ function STRATEGO:__Stop(delay) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return STRATEGO #self
+---@private
 function STRATEGO:onafterStart(From, Event, To) end
 
 ---[INTERNAL] Update knot association
@@ -666,37 +676,38 @@ function STRATEGO:onafterStart(From, Event, To) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return STRATEGO #self
+---@private
 function STRATEGO:onafterUpdate(From, Event, To) end
 
 
 ---@class STRATEGO.Data 
----@field baseweight number 
----@field coalition number 
----@field connections number 
----@field coord COORDINATE 
----@field name string 
----@field opszone OPSZONE 
----@field port boolean 
----@field type string 
----@field weight number 
----@field zone ZONE_RADIUS 
+---@field private baseweight number 
+---@field private coalition number 
+---@field private connections number 
+---@field private coord COORDINATE 
+---@field private name string 
+---@field private opszone OPSZONE 
+---@field private port boolean 
+---@field private type string 
+---@field private weight number 
+---@field private zone ZONE_RADIUS 
 STRATEGO.Data = {}
 
 
 ---@class STRATEGO.DistData 
----@field dist number 
----@field start string 
----@field target string 
+---@field private dist number 
+---@field private start string 
+---@field private target string 
 STRATEGO.DistData = {}
 
 
 ---@class STRATEGO.Target 
----@field coalition number 
----@field coalitionname string  
----@field coordinate COORDINATRE 
----@field dist number 
----@field name string 
----@field points number 
+---@field private coalition number 
+---@field private coalitionname string  
+---@field private coordinate COORDINATRE 
+---@field private dist number 
+---@field private name string 
+---@field private points number 
 STRATEGO.Target = {}
 
 

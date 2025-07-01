@@ -75,41 +75,51 @@
 ---
 ---### Author: **applevangelist**
 ---@class AUTOLASE 
----@field CurrentLasing  
+---@field CurrentLasing table 
 ---@field DetectDLINK boolean 
 ---@field DetectIRST boolean 
 ---@field DetectOptical boolean 
 ---@field DetectRWR boolean 
 ---@field DetectRadar boolean 
 ---@field DetectVisual boolean 
----@field GroupsByThreat  
----@field Label  
+---@field GroupsByThreat table 
+---@field Label NOTYPE 
 ---@field LaseDistance number 
 ---@field LaseDuration number 
----@field LaserCodes  
----@field Menu  
----@field MonitorFrequency number 
+---@field LaserCodes NOTYPE 
+---@field Menu NOTYPE 
 ---@field NoMenus boolean 
----@field PathToGoogleKey  
----@field RecceSet  
----@field SRS  
----@field SRSQueue  
----@field UnitsByThreat  
----@field Voice  
----@field alias  
----@field coalition  
----@field increasegroundawareness boolean 
----@field lid  
----@field minthreatlevel number 
----@field notifypilots boolean 
----@field pilotset  
----@field smokemenu boolean 
----@field smoketargets  
----@field targetsperrecce  
----@field threatmenu boolean 
----@field useSRS boolean 
----@field usepilotset boolean 
----@field version string AUTOLASE class version.
+---@field PathToGoogleKey NOTYPE 
+---@field RecceLaserCode table 
+---@field RecceNames table 
+---@field RecceSet NOTYPE 
+---@field RecceSmokeColor table 
+---@field RecceUnitNames table 
+---@field RecceUnits table 
+---@field RoundingPrecision number 
+---@field SRS NOTYPE 
+---@field SRSQueue NOTYPE 
+---@field UnitsByThreat table 
+---@field Voice NOTYPE 
+---@field private alias NOTYPE 
+---@field private blacklistattributes table 
+---@field private coalition NOTYPE 
+---@field private deadunitnotes table 
+---@field private increasegroundawareness boolean 
+---@field private lasingindex number 
+---@field private lid NOTYPE 
+---@field private minthreatlevel number 
+---@field private notifypilots boolean 
+---@field private pilotset NOTYPE 
+---@field private playermenus table 
+---@field private smokecolor NOTYPE 
+---@field private smokemenu boolean 
+---@field private smoketargets boolean 
+---@field private targetsperrecce table 
+---@field private threatmenu boolean 
+---@field private useSRS boolean 
+---@field private usepilotset boolean 
+---@field private version string AUTOLASE class version.
 AUTOLASE = {}
 
 ---(User) Set list of #UNIT level attributes that won't be lased.
@@ -196,7 +206,7 @@ function AUTOLASE:EnableImproveGroundUnitsDetection() end
 ---
 ------
 ---@param self AUTOLASE 
----@param Offset table (Optional) Define an offset for the smoke, i.e. not directly on the unit itself, angle is degrees and distance is meters. E.g. `autolase:EnableSmokeMenu({Angle=30,Distance=20})`
+---@param Offset? table (Optional) Define an offset for the smoke, i.e. not directly on the unit itself, angle is degrees and distance is meters. E.g. `autolase:EnableSmokeMenu({Angle=30,Distance=20})`
 ---@return AUTOLASE #self 
 function AUTOLASE:EnableSmokeMenu(Offset) end
 
@@ -238,8 +248,8 @@ function AUTOLASE:GetSmokeColor(RecceName) end
 ---@param self AUTOLASE 
 ---@param RecceSet SET_GROUP Set of detecting and lasing units
 ---@param Coalition number Coalition side. Can also be passed as a string "red", "blue" or "neutral".
----@param Alias string (Optional) An alias how this object is called in the logs etc.
----@param PilotSet SET_CLIENT (Optional) Set of clients for precision bombing, steering menu creation. Leave nil for a coalition-wide F10 entry and display.
+---@param Alias? string (Optional) An alias how this object is called in the logs etc.
+---@param PilotSet? SET_CLIENT (Optional) Set of clients for precision bombing, steering menu creation. Leave nil for a coalition-wide F10 entry and display.
 ---@return AUTOLASE #self 
 function AUTOLASE:New(RecceSet, Coalition, Alias, PilotSet) end
 
@@ -450,13 +460,13 @@ function AUTOLASE:SetSmokeTargets(OnOff, Color) end
 ---@param Path string Path to SRS directory, e.g. C:\\Program Files\\DCS-SimpleRadio-Standalone
 ---@param Frequency number Frequency to send, e.g. 243
 ---@param Modulation number Modulation i.e. radio.modulation.AM or radio.modulation.FM
----@param Label string (Optional) Short label to be used on the SRS Client Overlay
----@param Gender string (Optional) Defaults to "male"
----@param Culture string (Optional) Defaults to "en-US"
----@param Port number (Optional) Defaults to 5002
----@param Voice string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
----@param Volume number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
----@param PathToGoogleKey string (Optional) Path to your google key if you want to use google TTS
+---@param Label? string (Optional) Short label to be used on the SRS Client Overlay
+---@param Gender? string (Optional) Defaults to "male"
+---@param Culture? string (Optional) Defaults to "en-US"
+---@param Port? number (Optional) Defaults to 5002
+---@param Voice? string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
+---@param Volume? number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
+---@param PathToGoogleKey? string (Optional) Path to your google key if you want to use google TTS
 ---@return AUTOLASE #self 
 function AUTOLASE:SetUsingSRS(OnOff, Path, Frequency, Modulation, Label, Gender, Culture, Port, Voice, Volume, PathToGoogleKey) end
 
@@ -464,8 +474,8 @@ function AUTOLASE:SetUsingSRS(OnOff, Path, Frequency, Modulation, Label, Gender,
 ---
 ------
 ---@param self AUTOLASE 
----@param Group GROUP (Optional) show to a certain group
----@param Unit UNIT (Optional) show to a certain unit
+---@param Group? GROUP (Optional) show to a certain group
+---@param Unit? UNIT (Optional) show to a certain unit
 ---@return AUTOLASE #self
 function AUTOLASE:ShowStatus(Group, Unit) end
 
@@ -512,6 +522,7 @@ function AUTOLASE:__Status(delay) end
 ---@param Event string The event
 ---@param To string The to state
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onafterMonitor(From, Event, To) end
 
 ---(Internal) FSM Function onbeforeCancel
@@ -522,6 +533,7 @@ function AUTOLASE:onafterMonitor(From, Event, To) end
 ---@param Event string The event
 ---@param To string The to state
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeCancel(From, Event, To) end
 
 ---(Internal) FSM Function onbeforeLaserTimeout
@@ -534,6 +546,7 @@ function AUTOLASE:onbeforeCancel(From, Event, To) end
 ---@param UnitName string The lost unit\'s name
 ---@param RecceName string The Recce name lasing
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeLaserTimeout(From, Event, To, UnitName, RecceName) end
 
 ---(Internal) FSM Function onbeforeLasing
@@ -545,6 +558,7 @@ function AUTOLASE:onbeforeLaserTimeout(From, Event, To, UnitName, RecceName) end
 ---@param To string The to state
 ---@param LaserSpot AUTOLASE.LaserSpot The LaserSpot data table
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeLasing(From, Event, To, LaserSpot) end
 
 ---(Internal) FSM Function for monitoring
@@ -555,6 +569,7 @@ function AUTOLASE:onbeforeLasing(From, Event, To, LaserSpot) end
 ---@param Event string The event
 ---@param To string The to state
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeMonitor(From, Event, To) end
 
 ---(Internal) FSM Function onbeforeRecceKIA
@@ -566,6 +581,7 @@ function AUTOLASE:onbeforeMonitor(From, Event, To) end
 ---@param To string The to state
 ---@param RecceName string The lost Recce
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeRecceKIA(From, Event, To, RecceName) end
 
 ---(Internal) FSM Function onbeforeTargetDestroyed
@@ -578,6 +594,7 @@ function AUTOLASE:onbeforeRecceKIA(From, Event, To, RecceName) end
 ---@param UnitName string The destroyed unit\'s name
 ---@param RecceName string The Recce name lasing
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeTargetDestroyed(From, Event, To, UnitName, RecceName) end
 
 ---(Internal) FSM Function onbeforeTargetLost
@@ -590,21 +607,22 @@ function AUTOLASE:onbeforeTargetDestroyed(From, Event, To, UnitName, RecceName) 
 ---@param UnitName string The lost unit\'s name
 ---@param RecceName string The Recce name lasing
 ---@return AUTOLASE #self
+---@private
 function AUTOLASE:onbeforeTargetLost(From, Event, To, UnitName, RecceName) end
 
 
 ---Laser spot info
 ---@class AUTOLASE.LaserSpot 
----@field coordinate COORDINATE 
----@field lasedunit UNIT 
----@field lasercode number 
----@field laserspot SPOT 
----@field lasingunit UNIT 
----@field location string 
----@field reccename string 
----@field timestamp number 
----@field unitname string 
----@field unittype string 
+---@field private coordinate COORDINATE 
+---@field private lasedunit UNIT 
+---@field private lasercode number 
+---@field private laserspot SPOT 
+---@field private lasingunit UNIT 
+---@field private location string 
+---@field private reccename string 
+---@field private timestamp number 
+---@field private unitname string 
+---@field private unittype string 
 AUTOLASE.LaserSpot = {}
 
 

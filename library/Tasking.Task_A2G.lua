@@ -175,6 +175,7 @@ function TASK_A2G:UpdateTaskInfo(DetectedItem) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_A2G:onafterGoal(TaskUnit, From, Event, To) end
 
 

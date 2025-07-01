@@ -20,9 +20,9 @@
 ---based on detected enemy ground targets.
 ---The TASK_CAPTURE_ZONE class
 ---@class TASK_CAPTURE_ZONE : TASK_ZONE_GOAL
----@field TaskCoalition  
----@field TaskCoalitionName  
----@field TaskZoneName  
+---@field TaskCoalition NOTYPE 
+---@field TaskCoalitionName NOTYPE 
+---@field TaskZoneName NOTYPE 
 ---@field ZoneGoal ZONE_GOAL_COALITION 
 TASK_CAPTURE_ZONE = {}
 
@@ -102,7 +102,7 @@ function TASK_CAPTURE_ZONE:UpdateTaskInfo(Persist) end
 ---The TASK_ZONE_GOAL class
 ---@deprecated
 ---@class TASK_ZONE_GOAL : TASK
----@field TaskType  
+---@field TaskType NOTYPE 
 ---@field ZoneGoal ZONE_GOAL 
 TASK_ZONE_GOAL = {}
 

@@ -44,7 +44,7 @@
 ---**IMPORTANT: ONE SHOULD NEVER SANITIZE these CLIENT OBJECT REFERENCES! (make the CLIENT object references nil).**
 ---The CLIENT class
 ---@class CLIENT : UNIT
----@field AliveCheckScheduler  
+---@field AliveCheckScheduler NOTYPE 
 ---@field ClassName string Name of the class.
 ---@field ClientAlive boolean Client alive.
 ---@field ClientAlive2 boolean Client alive 2.
@@ -54,9 +54,12 @@
 ---@field ClientGroupID number Group ID of the client.
 ---@field ClientGroupName string Group name.
 ---@field ClientName string Name of the client.
+---@field ClientParameters table Parameters of the callback function.
 ---@field ClientTransport boolean 
 ---@field MessageSwitch boolean 
+---@field Players table Player table.
 ---@field SpawnCoord COORDINATE Spawn coordinate from the template.
+---@field _Menus table 
 CLIENT = {}
 
 ---Adds a briefing to a CLIENT when a player joins a mission.
@@ -81,7 +84,7 @@ function CLIENT:AddPlayer(PlayerName) end
 ------
 ---@param self CLIENT 
 ---@param CallBackFunction function Create a function that will be called when a player joins the slot.
----@param ... NOTYPE (Optional) Arguments for callback function as comma separated list.
+---@param ...? NOTYPE (Optional) Arguments for callback function as comma separated list.
 ---@return CLIENT #
 function CLIENT:Alive(CallBackFunction, ...) end
 
@@ -195,7 +198,7 @@ function CLIENT:GetPlayer() end
 ---```
 ------
 ---@param self CLIENT 
----@param Attribute string (Optional) The attribute to obtain. List see below.
+---@param Attribute? string (Optional) The attribute to obtain. List see below.
 ---@return table #PlayerInfo or nil if it cannot be found
 function CLIENT:GetPlayerInfo(Attribute) end
 

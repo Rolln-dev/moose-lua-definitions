@@ -163,11 +163,13 @@
 ---The COMMANDCENTER class
 ---@deprecated
 ---@class COMMANDCENTER : BASE
+---@field AutoAssignMethods COMMANDCENTER.AutoAssignMethods 
 ---@field CommandCenterCoalition coalition 
----@field CommandCenterPositionable  
+---@field CommandCenterPositionable NOTYPE 
 ---@field CommunicationMode string 
 ---@field HQ GROUP 
----@field autoAssignTasksScheduleID  
+---@field Missions table 
+---@field private autoAssignTasksScheduleID NOTYPE 
 COMMANDCENTER = {}
 
 ---Get all the Groups active within the command center.

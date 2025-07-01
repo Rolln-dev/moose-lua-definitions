@@ -86,7 +86,7 @@ function SOUNDBASE:New() end
 ---
 ---SRS sound files need to be located on your local drive (not inside the miz). Therefore, you need to specify the full path.
 ---@class SOUNDFILE 
----@field useSRS boolean 
+---@field private useSRS boolean 
 SOUNDFILE = {}
 
 ---Get duration how long the sound file takes to play.
@@ -203,7 +203,7 @@ function SOUNDFILE:SetPlayWithSRS(Switch) end
 ---
 ---Note that this must be installed on your windos machine. Also note that this overrides any culture and gender settings.
 ---@class SOUNDTEXT 
----@field voice  
+---@field private voice NOTYPE 
 SOUNDTEXT = {}
 
 ---Constructor to create a new SOUNDTEXT object.

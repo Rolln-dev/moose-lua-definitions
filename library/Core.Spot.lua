@@ -63,13 +63,16 @@
 ---
 ---The method #SPOT.IsLasing() indicates whether lasing is on or off.
 ---@class SPOT : FSM
----@field LaseScheduler  
----@field LaserCode  
+---@field LaseScheduler NOTYPE 
+---@field LaserCode NOTYPE 
 ---@field Lasing boolean 
----@field Recce  
----@field RecceName  
----@field TargetCoord  
----@field TargetName  
+---@field Recce NOTYPE 
+---@field RecceName NOTYPE 
+---@field ScheduleID NOTYPE 
+---@field SpotIR NOTYPE 
+---@field SpotLaser NOTYPE 
+---@field TargetCoord NOTYPE 
+---@field TargetName NOTYPE 
 SPOT = {}
 
 ---Destroyed Trigger for SPOT
@@ -247,6 +250,7 @@ function SPOT:__LaseOn(Delay, Target, LaserCode, Duration) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@return SPOT #
+---@private
 function SPOT:onafterLaseOff(From, Event, To) end
 
 ---On after LaseOn event.
@@ -260,6 +264,7 @@ function SPOT:onafterLaseOff(From, Event, To) end
 ---@param Target POSITIONABLE Unit that is being lased.
 ---@param LaserCode number Laser code.
 ---@param Duration number Duration of lasing in seconds.
+---@private
 function SPOT:onafterLaseOn(From, Event, To, Target, LaserCode, Duration) end
 
 ---On after LaseOnCoordinate event.
@@ -273,6 +278,7 @@ function SPOT:onafterLaseOn(From, Event, To, Target, LaserCode, Duration) end
 ---@param Coordinate COORDINATE The coordinate at which the laser is pointing.
 ---@param LaserCode number Laser code.
 ---@param Duration number Duration of lasing in seconds.
+---@private
 function SPOT:onafterLaseOnCoordinate(From, Event, To, Coordinate, LaserCode, Duration) end
 
 
@@ -282,6 +288,7 @@ function SPOT:onafterLaseOnCoordinate(From, Event, To, Coordinate, LaserCode, Du
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function SPOT:onafterLasing(From, Event, To) end
 
 

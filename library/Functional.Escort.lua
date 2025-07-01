@@ -118,44 +118,49 @@
 --- * #ESCORT.New: Creates a new ESCORT object from a Wrapper.Group#GROUP for a Wrapper.Client#CLIENT, with an optional briefing text.
 ---@class ESCORT : BASE
 ---@field CT1 number 
----@field Detection  
----@field EscortBriefing  
+---@field Detection NOTYPE 
+---@field EscortBriefing NOTYPE 
 ---@field EscortClient CLIENT 
 ---@field EscortGroup GROUP 
----@field EscortMenu  
----@field EscortMenuAttackNearbyTargets  
----@field EscortMenuEvasion  
----@field EscortMenuEvasionEvadeFire  
----@field EscortMenuEvasionNoReaction  
----@field EscortMenuEvasionPassiveDefense  
----@field EscortMenuFlare  
----@field EscortMenuFlareGreen  
----@field EscortMenuFlareRed  
----@field EscortMenuFlareWhite  
----@field EscortMenuFlareYellow  
----@field EscortMenuHold  
----@field EscortMenuOptionEvasionVertical  
----@field EscortMenuROE  
----@field EscortMenuROEHoldFire  
----@field EscortMenuROEOpenFire  
----@field EscortMenuROEReturnFire  
----@field EscortMenuROEWeaponFree  
----@field EscortMenuReportNavigation  
----@field EscortMenuReportNearbyTargets  
----@field EscortMenuReportNearbyTargetsNow  
----@field EscortMenuReportNearbyTargetsOff  
----@field EscortMenuReportNearbyTargetsOn  
----@field EscortMenuResumeMission  
----@field EscortMenuScan  
----@field EscortMenuSmoke  
----@field EscortMenuSmokeBlue  
----@field EscortMenuSmokeGreen  
----@field EscortMenuSmokeOrange  
----@field EscortMenuSmokeRed  
----@field EscortMenuSmokeWhite  
----@field EscortMenuTargetAssistance  
+---@field EscortMenu NOTYPE 
+---@field EscortMenuAttackNearbyTargets NOTYPE 
+---@field EscortMenuEvasion NOTYPE 
+---@field EscortMenuEvasionEvadeFire NOTYPE 
+---@field EscortMenuEvasionNoReaction NOTYPE 
+---@field EscortMenuEvasionPassiveDefense NOTYPE 
+---@field EscortMenuFlare NOTYPE 
+---@field EscortMenuFlareGreen NOTYPE 
+---@field EscortMenuFlareRed NOTYPE 
+---@field EscortMenuFlareWhite NOTYPE 
+---@field EscortMenuFlareYellow NOTYPE 
+---@field EscortMenuHold NOTYPE 
+---@field EscortMenuHoldAtLeaderPosition table 
+---@field EscortMenuHoldPosition table 
+---@field EscortMenuJoinUpAndFollow table 
+---@field EscortMenuOptionEvasionVertical NOTYPE 
+---@field EscortMenuROE NOTYPE 
+---@field EscortMenuROEHoldFire NOTYPE 
+---@field EscortMenuROEOpenFire NOTYPE 
+---@field EscortMenuROEReturnFire NOTYPE 
+---@field EscortMenuROEWeaponFree NOTYPE 
+---@field EscortMenuReportNavigation NOTYPE 
+---@field EscortMenuReportNearbyTargets NOTYPE 
+---@field EscortMenuReportNearbyTargetsNow NOTYPE 
+---@field EscortMenuReportNearbyTargetsOff NOTYPE 
+---@field EscortMenuReportNearbyTargetsOn NOTYPE 
+---@field EscortMenuResumeMission NOTYPE 
+---@field EscortMenuScan NOTYPE 
+---@field EscortMenuScanForTargets table 
+---@field EscortMenuSmoke NOTYPE 
+---@field EscortMenuSmokeBlue NOTYPE 
+---@field EscortMenuSmokeGreen NOTYPE 
+---@field EscortMenuSmokeOrange NOTYPE 
+---@field EscortMenuSmokeRed NOTYPE 
+---@field EscortMenuSmokeWhite NOTYPE 
+---@field EscortMenuTargetAssistance NOTYPE 
+---@field EscortMode ESCORT.MODE The mode the escort is in.
 ---@field EscortName string 
----@field EscortSetGroup  
+---@field EscortSetGroup NOTYPE 
 ---@field FollowDistance number The current follow distance.
 ---@field FollowScheduler SCHEDULER The instance of the SCHEDULER class.
 ---@field GT1 number 
@@ -446,8 +451,10 @@ ESCORT.MODE = {}
 
 ---MENUPARAM type
 ---@class MENUPARAM 
+---@field ParamDistance Distance 
 ---@field ParamFunction function 
 ---@field ParamMessage string 
+---@field ParamSelf ESCORT 
 MENUPARAM = {}
 
 

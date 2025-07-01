@@ -9,6 +9,10 @@
 ---POLYGON class.
 ---@class POLYGON : BASE
 ---@field ClassName string Name of the class.
+---@field Coords table List of COORDINATE defining the path, this will be assigned automatically if you're passing in a drawing from the Mission Editor
+---@field MarkIDs table List any MARKIDs this class use, this will be assigned automatically if you're passing in a drawing from the Mission Editor
+---@field Points table List of 3D points defining the shape, this will be assigned automatically if you're passing in a drawing from the Mission Editor
+---@field Triangles table List of TRIANGLEs that make up the shape of the POLYGON after being triangulated
 POLYGON = {}
 
 ---Checks if a point is contained within the polygon.
@@ -16,7 +20,7 @@ POLYGON = {}
 ---
 ------
 ---@param point table The point to check
----@param points table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
+---@param points? table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
 ---@param self NOTYPE 
 ---@param polygon_points NOTYPE 
 ---@return bool #True if the point is contained, false otherwise
@@ -175,7 +179,7 @@ function POLYGON:RemoveDraw() end
 ---The polygon is divided into triangles.
 ---
 ------
----@param points table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
+---@param points? table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
 ---@param self NOTYPE 
 ---@return table #The triangles of the polygon
 function POLYGON.Triangulate(points, self) end

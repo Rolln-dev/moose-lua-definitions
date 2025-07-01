@@ -84,8 +84,8 @@
 ---@field Power number Power of the antenna is Watts.
 ---@field Subtitle string Subtitle of the transmission.
 ---@field SubtitleDuration number Duration of the Subtitle in seconds.
----@field alias string Name of the radio transmitter.
----@field moduhasbeenset boolean 
+---@field private alias string Name of the radio transmitter.
+---@field private moduhasbeenset boolean 
 RADIO = {}
 
 ---Broadcast the transmission.

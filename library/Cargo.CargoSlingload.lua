@@ -35,7 +35,7 @@
 ---Models the behaviour of cargo crates, which can only be slingloaded.
 ---@deprecated
 ---@class CARGO_SLINGLOAD : CARGO_REPRESENTABLE
----@field CargoObject  
+---@field CargoObject NOTYPE 
 CARGO_SLINGLOAD = {}
 
 ---Check if the cargo can be Boarded.
@@ -125,8 +125,8 @@ function CARGO_SLINGLOAD:IsNear(CargoCarrier, NearRadius) end
 ---@param CargoStatic STATIC 
 ---@param Type string 
 ---@param Name string 
----@param LoadRadius number (optional)
----@param NearRadius number (optional)
+---@param LoadRadius? number (optional)
+---@param NearRadius? number (optional)
 ---@return CARGO_SLINGLOAD #
 function CARGO_SLINGLOAD:New(CargoStatic, Type, Name, LoadRadius, NearRadius) end
 
@@ -154,6 +154,7 @@ function CARGO_SLINGLOAD:RouteTo(Coordinate) end
 ---
 ------
 ---@param self CARGO_SLINGLOAD 
+---@private
 function CARGO_SLINGLOAD:onafterReset() end
 
 

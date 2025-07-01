@@ -46,11 +46,12 @@
 ---  
 ---### 2.3 ZONE_GOAL_CARGO State Machine
 ---@class ZONE_GOAL_CARGO 
----@field Coalition  
----@field MarkBlue  
----@field MarkRed  
----@field ScheduleStatusZone  
----@field SmokeScheduler  
+---@field Coalition NOTYPE 
+---@field MarkBlue NOTYPE 
+---@field MarkRed NOTYPE 
+---@field ScheduleStatusZone NOTYPE 
+---@field SmokeScheduler NOTYPE 
+---@field States table 
 ZONE_GOAL_CARGO = {}
 
 ---Attack Trigger for ZONE_GOAL_CARGO
@@ -251,30 +252,35 @@ function ZONE_GOAL_CARGO:__Guard(Delay) end
 ---
 ------
 ---@param self ZONE_GOAL_CARGO 
+---@private
 function ZONE_GOAL_CARGO:onafterGuard() end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function ZONE_GOAL_CARGO:onenterAttacked() end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function ZONE_GOAL_CARGO:onenterCaptured() end
 
 
 ---
 ------
 ---@param self NOTYPE 
+---@private
 function ZONE_GOAL_CARGO:onenterEmpty() end
 
 ---Bound.
 ---
 ------
 ---@param self ZONE_GOAL_CARGO 
+---@private
 function ZONE_GOAL_CARGO:onenterGuarded() end
 
 

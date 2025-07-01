@@ -35,10 +35,11 @@
 ---@class MARKEROPS_BASE : FSM
 ---@field Casesensitive boolean Enforce case when identifying the Tag, i.e. tag ~= Tag
 ---@field ClassName string Name of the class.
+---@field Keywords table Table of keywords to recognize.
 ---@field Tag string Tag to identify commands.
----@field debug boolean 
----@field lid  
----@field version string Version of #MARKEROPS_BASE.
+---@field private debug boolean 
+---@field private lid NOTYPE 
+---@field private version string Version of #MARKEROPS_BASE.
 MARKEROPS_BASE = {}
 
 ---Function to instantiate a new #MARKEROPS_BASE object.
@@ -47,7 +48,7 @@ MARKEROPS_BASE = {}
 ---@param self MARKEROPS_BASE 
 ---@param Tagname string Name to identify us from the event text.
 ---@param Keywords table Table of keywords  recognized from the event text.
----@param Casesensitive boolean (Optional) Switch case sensitive identification of Tagname. Defaults to true.
+---@param Casesensitive? boolean (Optional) Switch case sensitive identification of Tagname. Defaults to true.
 ---@return MARKEROPS_BASE #self
 function MARKEROPS_BASE:New(Tagname, Keywords, Casesensitive) end
 
@@ -137,6 +138,7 @@ function MARKEROPS_BASE:_MatchTag(Eventtext) end
 ---@param MarkerID number Id of this marker
 ---@param CoalitionNumber number Coalition of the marker creator
 ---@param Coord COORDINATE Coordinate of the marker.
+---@private
 function MARKEROPS_BASE:onbeforeMarkAdded(From, Event, To, Text, Keywords, MarkerID, CoalitionNumber, Coord) end
 
 ---On before "MarkChanged" event.
@@ -152,6 +154,7 @@ function MARKEROPS_BASE:onbeforeMarkAdded(From, Event, To, Text, Keywords, Marke
 ---@param MarkerID number Id of this marker
 ---@param CoalitionNumber number Coalition of the marker creator
 ---@param Coord COORDINATE Coordinate of the marker.
+---@private
 function MARKEROPS_BASE:onbeforeMarkChanged(From, Event, To, Text, Keywords, MarkerID, CoalitionNumber, Coord) end
 
 ---On before "MarkDeleted" event.
@@ -162,6 +165,7 @@ function MARKEROPS_BASE:onbeforeMarkChanged(From, Event, To, Text, Keywords, Mar
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
+---@private
 function MARKEROPS_BASE:onbeforeMarkDeleted(From, Event, To) end
 
 ---On enter "Stopped" event.
@@ -172,6 +176,7 @@ function MARKEROPS_BASE:onbeforeMarkDeleted(From, Event, To) end
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
+---@private
 function MARKEROPS_BASE:onenterStopped(From, Event, To) end
 
 

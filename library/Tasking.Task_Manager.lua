@@ -43,7 +43,7 @@
 ---@class TASK_MANAGER : FSM
 ---@field ClassName string 
 ---@field SetGroup SET_GROUP The set of group objects containing players for which tasks are managed.
----@field _RefreshTimeInterval  
+---@field _RefreshTimeInterval NOTYPE 
 TASK_MANAGER = {}
 
 ---Manages the tasks for the Core.Set#SET_GROUP.
@@ -180,6 +180,7 @@ function TASK_MANAGER:__StopTasks(Delay) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_MANAGER:onafterManage(From, Event, To) end
 
 
@@ -189,6 +190,7 @@ function TASK_MANAGER:onafterManage(From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function TASK_MANAGER:onafterStartTasks(From, Event, To) end
 
 

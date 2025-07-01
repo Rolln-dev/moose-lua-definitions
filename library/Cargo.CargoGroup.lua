@@ -39,14 +39,16 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class CARGO_GROUP : CARGO_REPORTABLE
----@field CargoGroup  
----@field CargoName  
+---@field CargoGroup NOTYPE 
+---@field CargoName NOTYPE 
+---@field CargoObject NOTYPE 
 ---@field CargoSet SET_CARGO The collection of derived CARGO objects.
----@field CargoTemplate  
+---@field CargoTemplate NOTYPE 
+---@field CargoUnitTemplate table 
 ---@field GroupName string The name of the CargoGroup.
----@field GroupTemplate  
+---@field GroupTemplate NOTYPE 
 ---@field Grouped boolean 
----@field NearRadius  
+---@field NearRadius NOTYPE 
 ---@field Ã GROU  CargoCarrier The carrier group.
 CARGO_GROUP = {}
 
@@ -146,8 +148,8 @@ function CARGO_GROUP:IsNear(CargoCarrier, NearRadius) end
 ---@param CargoGroup GROUP Group to be transported as cargo.
 ---@param Type string Cargo type, e.g. "Infantry". This is the type used in SET_CARGO:New():FilterTypes("Infantry") to define the valid cargo groups of the set.
 ---@param Name string A user defined name of the cargo group. This name CAN be the same as the group object but can also have a different name. This name MUST be unique!
----@param LoadRadius number (optional) Distance in meters until which a cargo is loaded into the carrier. Cargo outside this radius has to be routed by other means to within the radius to be loaded.
----@param NearRadius number (optional) Once the units are within this radius of the carrier, they are actually loaded, i.e. disappear from the scene.
+---@param LoadRadius? number (optional) Distance in meters until which a cargo is loaded into the carrier. Cargo outside this radius has to be routed by other means to within the radius to be loaded.
+---@param NearRadius? number (optional) Once the units are within this radius of the carrier, they are actually loaded, i.e. disappear from the scene.
 ---@return CARGO_GROUP #Cargo group object.
 function CARGO_GROUP:New(CargoGroup, Type, Name, LoadRadius, NearRadius) end
 
@@ -207,6 +209,7 @@ function CARGO_GROUP:Ungroup() end
 ---@param CargoCarrier UNIT 
 ---@param NearRadius number If distance is smaller than this number, cargo is loaded into the carrier.
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterBoard(Event, From, To, CargoCarrier, NearRadius, ...) end
 
 ---Leave Boarding State.
@@ -219,6 +222,7 @@ function CARGO_GROUP:onafterBoard(Event, From, To, CargoCarrier, NearRadius, ...
 ---@param CargoCarrier UNIT 
 ---@param NearRadius number If distance is smaller than this number, cargo is loaded into the carrier.
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterBoarding(Event, From, To, CargoCarrier, NearRadius, ...) end
 
 ---Enter Loaded State.
@@ -230,6 +234,7 @@ function CARGO_GROUP:onafterBoarding(Event, From, To, CargoCarrier, NearRadius, 
 ---@param To string 
 ---@param CargoCarrier UNIT 
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterLoad(Event, From, To, CargoCarrier, ...) end
 
 ---Enter UnBoarding State.
@@ -242,6 +247,7 @@ function CARGO_GROUP:onafterLoad(Event, From, To, CargoCarrier, ...) end
 ---@param ToPointVec2 COORDINATE 
 ---@param NearRadius number If distance is smaller than this number, cargo is loaded into the carrier.
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterUnBoard(Event, From, To, ToPointVec2, NearRadius, ...) end
 
 ---Leave UnBoarding State.
@@ -254,6 +260,7 @@ function CARGO_GROUP:onafterUnBoard(Event, From, To, ToPointVec2, NearRadius, ..
 ---@param ToPointVec2 COORDINATE 
 ---@param NearRadius number If distance is smaller than this number, cargo is loaded into the carrier.
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterUnBoarding(Event, From, To, ToPointVec2, NearRadius, ...) end
 
 ---Enter UnLoaded State.
@@ -265,6 +272,7 @@ function CARGO_GROUP:onafterUnBoarding(Event, From, To, ToPointVec2, NearRadius,
 ---@param To string 
 ---@param ToPointVec2 COORDINATE 
 ---@param ... NOTYPE 
+---@private
 function CARGO_GROUP:onafterUnLoad(Event, From, To, ToPointVec2, ...) end
 
 

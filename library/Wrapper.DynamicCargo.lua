@@ -31,18 +31,25 @@
 ---# Constructor
 ---DYNAMICCARGO class.
 ---@class DYNAMICCARGO : POSITIONABLE
+---@field AircraftDimensions DYNAMICCARGO.AircraftDimensions 
+---@field AircraftTypes DYNAMICCARGO.AircraftTypes 
 ---@field CargoState string 
 ---@field ClassName string Name of the class.
+---@field DCS table Vec3 LastPosition.
 ---@field Interval number Check Interval. 20 secs default.
----@field LastPosition  
+---@field LastPosition NOTYPE 
+---@field Liquid DYNAMICCARGO.Liquid 
+---@field LiquidName DYNAMICCARGO.LiquidName 
 ---@field Owner string The playername who has created, loaded or unloaded this cargo. Depends on state.
----@field StaticName  
----@field lid string Class id string for output to DCS log file.
----@field testing boolean 
----@field timer TIMER Timmer to run intervals
----@field verbose number Verbosity level.
----@field version string 
----@field warehouse STORAGE The STORAGE object.
+---@field State DYNAMICCARGO.State 
+---@field StaticName NOTYPE 
+---@field Type DYNAMICCARGO.Type 
+---@field private lid string Class id string for output to DCS log file.
+---@field private testing boolean 
+---@field private timer TIMER Timmer to run intervals
+---@field private verbose number Verbosity level.
+---@field private version string 
+---@field private warehouse STORAGE The STORAGE object.
 DYNAMICCARGO = {}
 
 ---Find all DYNAMICCARGO objects matching using patterns.
@@ -240,6 +247,7 @@ function DYNAMICCARGO:_UpdatePosition() end
 
 ---Helo types possible.
 ---@class DYNAMICCARGO.AircraftDimensions 
+---@field CH-47Fbl1 table 
 DYNAMICCARGO.AircraftDimensions = {}
 
 

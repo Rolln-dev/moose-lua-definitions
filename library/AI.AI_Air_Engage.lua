@@ -334,6 +334,7 @@ function AI_AIR_ENGAGE.___EngageRoute(AIGroup, Fsm, AttackSetUnit) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_AIR_ENGAGE:onafterAbort(AIGroup, From, Event, To) end
 
 
@@ -344,6 +345,7 @@ function AI_AIR_ENGAGE:onafterAbort(AIGroup, From, Event, To) end
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
+---@private
 function AI_AIR_ENGAGE:onafterAccomplish(AIGroup, From, Event, To) end
 
 
@@ -355,6 +357,7 @@ function AI_AIR_ENGAGE:onafterAccomplish(AIGroup, From, Event, To) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param EventData NOTYPE 
+---@private
 function AI_AIR_ENGAGE:onafterDestroy(AIGroup, From, Event, To, EventData) end
 
 ---onafter event handler for Engage event.
@@ -365,6 +368,7 @@ function AI_AIR_ENGAGE:onafterDestroy(AIGroup, From, Event, To, EventData) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_AIR_ENGAGE:onafterEngage(AIGroup, From, Event, To) end
 
 
@@ -376,6 +380,7 @@ function AI_AIR_ENGAGE:onafterEngage(AIGroup, From, Event, To) end
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
 ---@param AttackSetUnit NOTYPE 
+---@private
 function AI_AIR_ENGAGE:onafterEngageRoute(DefenderGroup, From, Event, To, AttackSetUnit) end
 
 ---onafter event handler for Start event.
@@ -386,6 +391,7 @@ function AI_AIR_ENGAGE:onafterEngageRoute(DefenderGroup, From, Event, To, Attack
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_AIR_ENGAGE:onafterStart(AIGroup, From, Event, To) end
 
 ---onbefore event handler for Engage event.
@@ -396,6 +402,7 @@ function AI_AIR_ENGAGE:onafterStart(AIGroup, From, Event, To) end
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
+---@private
 function AI_AIR_ENGAGE:onbeforeEngage(AIGroup, From, Event, To) end
 
 

@@ -48,18 +48,28 @@
 ---OPERATION class.
 ---@class OPERATION : FSM
 ---@field ClassName string Name of the class.
+---@field PhaseStatus OPERATION.PhaseStatus 
 ---@field Tstart number Start time in seconds of abs mission time.
 ---@field Tstop number Stop time in seconds of abs mission time.
----@field conditionOver CONDITION Over condition.
----@field conditionStart CONDITION Start condition.
----@field counterBranch number Running number counting the branches.
----@field counterPhase number Running number counting the phases.
----@field duration number Duration of the operation in seconds.
----@field lid string Class id string for output to DCS log file.
----@field name string Name of the operation.
----@field uid number Unique ID of the operation.
----@field verbose number Verbosity level.
----@field version string OPERATION class version.
+---@field private branchActive OPERATION.Branch Active branch.
+---@field private branchMaster OPERATION.Branch Master branch.
+---@field private branches table Branches.
+---@field private cohorts table Dedicated cohorts.
+---@field private conditionOver CONDITION Over condition.
+---@field private conditionStart CONDITION Start condition.
+---@field private counterBranch number Running number counting the branches.
+---@field private counterPhase number Running number counting the phases.
+---@field private duration number Duration of the operation in seconds.
+---@field private legions table Dedicated legions.
+---@field private lid string Class id string for output to DCS log file.
+---@field private missions table Missions.
+---@field private name string Name of the operation.
+---@field private phase OPERATION.Phase Currently active phase (if any).
+---@field private phaseLast OPERATION.Phase The phase that was active before the current one.
+---@field private targets table Targets.
+---@field private uid number Unique ID of the operation.
+---@field private verbose number Verbosity level.
+---@field private version string OPERATION class version.
 OPERATION = {}
 
 ---Add a new branch to the operation.
@@ -97,7 +107,7 @@ function OPERATION:AddConditonOverAny(Function, ..., Phase) end
 ---@param self OPERATION 
 ---@param PhaseFrom OPERATION.Phase The phase of the *from* branch *after* which to switch.
 ---@param PhaseTo OPERATION.Phase The phase of the *to* branch *to* which to switch.
----@param ConditionSwitch CONDITION (Optional) Condition(s) when to switch the branches.
+---@param ConditionSwitch? CONDITION (Optional) Condition(s) when to switch the branches.
 ---@return OPERATION.Edge #Edge table object.
 function OPERATION:AddEdge(PhaseFrom, PhaseTo, ConditionSwitch) end
 
@@ -118,7 +128,7 @@ function OPERATION:AddEdgeConditonSwitchAll(Edge, Function, ...) end
 ------
 ---@param self OPERATION 
 ---@param Mission AUFTRAG The mission to add.
----@param Phase OPERATION.Phase (Optional) The phase in which the mission should be executed. If no phase is given, it will be exectuted ASAP.
+---@param Phase? OPERATION.Phase (Optional) The phase in which the mission should be executed. If no phase is given, it will be exectuted ASAP.
 function OPERATION:AddMission(Mission, Phase) end
 
 ---Add a new phase to the operation.
@@ -171,7 +181,7 @@ function OPERATION:AddPhaseConditonRepeatAll(Phase, Function, ...) end
 ------
 ---@param self OPERATION 
 ---@param Target TARGET The target to add.
----@param Phase OPERATION.Phase (Optional) The phase in which the target should be attacked. If no phase is given, it will be attacked ASAP.
+---@param Phase? OPERATION.Phase (Optional) The phase in which the target should be attacked. If no phase is given, it will be attacked ASAP.
 function OPERATION:AddTarget(Target, Phase) end
 
 ---Assign cohort to operation.
@@ -203,8 +213,8 @@ function OPERATION:BranchSwitch(Branch, Phase) end
 ---
 ------
 ---@param self OPERATION 
----@param Status string (Optional) Only count phases in a certain status, e.g. `OPERATION.PhaseStatus.PLANNED`.
----@param Branch OPERATION.Branch (Optional) Branch.
+---@param Status? string (Optional) Only count phases in a certain status, e.g. `OPERATION.PhaseStatus.PLANNED`.
+---@param Branch? OPERATION.Branch (Optional) Branch.
 ---@return number #Number of phases
 function OPERATION:CountPhases(Status, Branch) end
 
@@ -212,7 +222,7 @@ function OPERATION:CountPhases(Status, Branch) end
 ---
 ------
 ---@param self OPERATION 
----@param Phase OPERATION.Phase (Optional) Only count targets set for this phase.
+---@param Phase? OPERATION.Phase (Optional) Only count targets set for this phase.
 ---@return number #Number of phases
 function OPERATION:CountTargets(Phase) end
 
@@ -299,8 +309,8 @@ function OPERATION:GetPhaseName(Phase) end
 ---
 ------
 ---@param self OPERATION 
----@param Branch OPERATION.Branch (Optional) The branch from which the next phase is retrieved. Default is the currently active branch.
----@param PhaseStatus string (Optional) Only return a phase, which is in this status. For example, `OPERATION.PhaseStatus.PLANNED` to make sure, the next phase is planned.
+---@param Branch? OPERATION.Branch (Optional) The branch from which the next phase is retrieved. Default is the currently active branch.
+---@param PhaseStatus? string (Optional) Only return a phase, which is in this status. For example, `OPERATION.PhaseStatus.PLANNED` to make sure, the next phase is planned.
 ---@return OPERATION.Phase #Next phase or `nil` if no next phase exists.
 function OPERATION:GetPhaseNext(Branch, PhaseStatus) end
 
@@ -316,7 +326,7 @@ function OPERATION:GetPhaseStatus(Phase) end
 ---
 ------
 ---@param self OPERATION 
----@param Phase OPERATION.Phase (Optional) Only return targets set for this phase. Default is targets of all phases.
+---@param Phase? OPERATION.Phase (Optional) Only return targets set for this phase. Default is targets of all phases.
 ---@return table #Targets Table of #TARGET objects 
 function OPERATION:GetTargets(Phase) end
 
@@ -545,7 +555,7 @@ function OPERATION:SetPhaseStatus(Phase, Status) end
 ------
 ---@param self OPERATION 
 ---@param ClockStart string Time the mission is started, e.g. "05:00" for 5 am. If specified as a #number, it will be relative (in seconds) to the current mission time. Default is 5 seconds after mission was added.
----@param ClockStop string (Optional) Time the mission is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
+---@param ClockStop? string (Optional) Time the mission is stopped, e.g. "13:00" for 1 pm. If mission could not be started at that time, it will be removed from the queue. If specified as a #number it will be relative (in seconds) to the current mission time.
 ---@return OPERATION #self
 function OPERATION:SetTime(ClockStart, ClockStop) end
 
@@ -666,6 +676,7 @@ function OPERATION:__Stop(delay) end
 ---@param To string To state.
 ---@param Branch OPERATION.Branch The new branch.
 ---@param Phase OPERATION.Phase The phase.
+---@private
 function OPERATION:onafterBranchSwitch(From, Event, To, Branch, Phase) end
 
 ---On after "Over" event.
@@ -675,6 +686,7 @@ function OPERATION:onafterBranchSwitch(From, Event, To, Branch, Phase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPERATION:onafterOver(From, Event, To) end
 
 ---On after "PhaseChange" event.
@@ -685,6 +697,7 @@ function OPERATION:onafterOver(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Phase OPERATION.Phase The new phase.
+---@private
 function OPERATION:onafterPhaseChange(From, Event, To, Phase) end
 
 ---On after "PhaseNext" event.
@@ -694,6 +707,7 @@ function OPERATION:onafterPhaseChange(From, Event, To, Phase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPERATION:onafterPhaseNext(From, Event, To) end
 
 ---On after "PhaseOver" event.
@@ -704,6 +718,7 @@ function OPERATION:onafterPhaseNext(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Phase OPERATION.Phase The phase that is over.
+---@private
 function OPERATION:onafterPhaseOver(From, Event, To, Phase) end
 
 ---On after "Start" event.
@@ -713,6 +728,7 @@ function OPERATION:onafterPhaseOver(From, Event, To, Phase) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPERATION:onafterStart(From, Event, To) end
 
 ---On after "StatusUpdate" event.
@@ -722,32 +738,40 @@ function OPERATION:onafterStart(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function OPERATION:onafterStatusUpdate(From, Event, To) end
 
 
 ---Operation branch.
 ---@class OPERATION.Branch 
----@field name string Name of the branch.
----@field uid number Unique ID of the branch.
+---@field private edges table Edges of this branch.
+---@field private name string Name of the branch.
+---@field private phases table Phases of this branch.
+---@field private uid number Unique ID of the branch.
 OPERATION.Branch = {}
 
 
 ---Operation edge.
 ---@class OPERATION.Edge 
----@field conditionSwitch CONDITION Conditions when to switch the branch.
----@field uid number Unique ID of the edge.
+---@field private branchFrom OPERATION.Branch The from branch.
+---@field private branchTo OPERATION.Branch The branch to switch to.
+---@field private conditionSwitch CONDITION Conditions when to switch the branch.
+---@field private phaseFrom OPERATION.Phase The from phase after which to switch.
+---@field private phaseTo OPERATION.Phase The phase to switch to.
+---@field private uid number Unique ID of the edge.
 OPERATION.Edge = {}
 
 
 ---Operation phase.
 ---@class OPERATION.Phase 
 ---@field Tstart number Abs. mission time when the phase was started.
----@field conditionOver CONDITION Conditions when the phase is over.
----@field duration number Duration in seconds how long the phase should be active after it started.
----@field nActive number Number of times the phase was active.
----@field name string Name of the phase.
----@field status string Phase status.
----@field uid number Unique ID of the phase.
+---@field private branch OPERATION.Branch The branch this phase belongs to.
+---@field private conditionOver CONDITION Conditions when the phase is over.
+---@field private duration number Duration in seconds how long the phase should be active after it started.
+---@field private nActive number Number of times the phase was active.
+---@field private name string Name of the phase.
+---@field private status string Phase status.
+---@field private uid number Unique ID of the phase.
 OPERATION.Phase = {}
 
 

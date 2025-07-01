@@ -38,6 +38,9 @@
 ---@class SCHEDULEDISPATCHER : BASE
 ---@field CallID number Call ID counter.
 ---@field ClassName string Name of the class.
+---@field ObjectSchedulers table Schedulers that only exist as long as the master object exists.
+---@field PersistentSchedulers table Persistent schedulers.
+---@field Schedule table Meta table setmetatable( {}, { __mode = "k" } ).
 SCHEDULEDISPATCHER = {}
 
 ---Add a Schedule to the ScheduleDispatcher.
@@ -100,8 +103,8 @@ function SCHEDULEDISPATCHER:ShowTrace(Scheduler) end
 ------
 ---@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
----@param CallID table (Optional) Call ID.
----@param Info string (Optional) Debug info.
+---@param CallID? table (Optional) Call ID.
+---@param Info? string (Optional) Debug info.
 function SCHEDULEDISPATCHER:Start(Scheduler, CallID, Info) end
 
 ---Stop dispatcher.
@@ -109,12 +112,13 @@ function SCHEDULEDISPATCHER:Start(Scheduler, CallID, Info) end
 ------
 ---@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
----@param CallID string (Optional) Scheduler Call ID. If nil, all pending schedules are stopped recursively.
+---@param CallID? string (Optional) Scheduler Call ID. If nil, all pending schedules are stopped recursively.
 function SCHEDULEDISPATCHER:Stop(Scheduler, CallID) end
 
 
 ---Player data table holding all important parameters of each player.
 ---@class SCHEDULEDISPATCHER.ScheduleData 
+---@field Arguments table Schedule function arguments.
 ---@field CallHandler function Function to be passed to the DCS timer.scheduleFunction().
 ---@field Function function The schedule function to be called.
 ---@field Randomize number Randomization factor [0,1].

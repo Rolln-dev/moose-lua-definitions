@@ -26,28 +26,36 @@
 ---A target can consist of one or multiple "objects".
 ---TARGET class.
 ---@class TARGET : FSM
+---@field Category TARGET.Category 
 ---@field ClassName string Name of the class.
 ---@field N0 number Number of initial target elements/units.
 ---@field Ndead number Number of target elements/units that are dead (destroyed or despawned).
 ---@field Ndestroyed number Number of target elements/units that were destroyed.
 ---@field Ntargets0 number Number of initial target objects.
+---@field ObjectStatus TARGET.ObjectStatus 
+---@field ObjectType TARGET.ObjectType 
 ---@field TStatus number 
----@field category number Target category (Ground, Air, Sea).
----@field contact INTEL.Contact Contact attached to this target.
----@field importance number Importance.
----@field isDestroyed boolean If true, target objects were destroyed.
----@field lid string Class id string for output to DCS log file.
----@field life number Total life points on last status update.
----@field life0 number Total life points of completely healthy targets.
----@field mission AUFTRAG Mission attached to this target.
----@field name  
----@field operation OPERATION Operation this target is part of.
----@field prio number Priority.
----@field targetcounter number Running number to generate target object IDs.
----@field threatlevel0 number Initial threat level.
----@field uid number Unique ID of the target.
----@field verbose number Verbosity level.
----@field version string TARGET class version.
+---@field private casualties table Table of dead element names.
+---@field private category number Target category (Ground, Air, Sea).
+---@field private conditionStart table Start condition functions.
+---@field private contact INTEL.Contact Contact attached to this target.
+---@field private elements table Table of target elements/units.
+---@field private importance number Importance.
+---@field private isDestroyed boolean If true, target objects were destroyed.
+---@field private lid string Class id string for output to DCS log file.
+---@field private life number Total life points on last status update.
+---@field private life0 number Total life points of completely healthy targets.
+---@field private mission AUFTRAG Mission attached to this target.
+---@field private name NOTYPE 
+---@field private operation OPERATION Operation this target is part of.
+---@field private prio number Priority.
+---@field private resources table Resource list.
+---@field private targetcounter number Running number to generate target object IDs.
+---@field private targets table Table of target objects.
+---@field private threatlevel0 number Initial threat level.
+---@field private uid number Unique ID of the target.
+---@field private verbose number Verbosity level.
+---@field private version string TARGET class version.
 TARGET = {}
 
 ---Add start condition.
@@ -108,7 +116,7 @@ function TARGET:AddResource(MissionType, Nmin, Nmax, Attributes, Properties) end
 ------
 ---@param self TARGET 
 ---@param Target TARGET.Object Target objective.
----@param Coalitions table (Optional) Only count targets of the given coalition(s). 
+---@param Coalitions? table (Optional) Only count targets of the given coalition(s). 
 ---@return number #Number of alive target objects.
 function TARGET:CountObjectives(Target, Coalitions) end
 
@@ -116,7 +124,7 @@ function TARGET:CountObjectives(Target, Coalitions) end
 ---
 ------
 ---@param self TARGET 
----@param Coalitions table (Optional) Only count targets of the given coalition(s). 
+---@param Coalitions? table (Optional) Only count targets of the given coalition(s). 
 ---@return number #Number of alive target objects.
 function TARGET:CountTargets(Coalitions) end
 
@@ -224,7 +232,7 @@ function TARGET:GetName() end
 ------
 ---@param self TARGET 
 ---@param RefCoordinate COORDINATE Reference coordinate to determine the closest target objective.
----@param Coalitions table (Optional) Only consider targets of the given coalition(s). 
+---@param Coalitions? table (Optional) Only consider targets of the given coalition(s). 
 ---@return POSITIONABLE #The target object or nil.
 function TARGET:GetObject(RefCoordinate, Coalitions) end
 
@@ -232,8 +240,8 @@ function TARGET:GetObject(RefCoordinate, Coalitions) end
 ---
 ------
 ---@param self TARGET 
----@param RefCoordinate COORDINATE (Optional) Reference coordinate to determine the closest target objective.
----@param Coalitions table (Optional) Only consider targets of the given coalition(s). 
+---@param RefCoordinate? COORDINATE (Optional) Reference coordinate to determine the closest target objective.
+---@param Coalitions? table (Optional) Only consider targets of the given coalition(s). 
 ---@return TARGET.Object #The target objective.
 function TARGET:GetObjective(RefCoordinate, Coalitions) end
 
@@ -566,6 +574,7 @@ function TARGET:__Stop(delay) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function TARGET:onafterDamaged(From, Event, To) end
 
 ---On after "Dead" event.
@@ -575,6 +584,7 @@ function TARGET:onafterDamaged(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function TARGET:onafterDead(From, Event, To) end
 
 ---On after "Destroyed" event.
@@ -584,6 +594,7 @@ function TARGET:onafterDead(From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function TARGET:onafterDestroyed(From, Event, To) end
 
 ---On after "ObjectDamaged" event.
@@ -594,6 +605,7 @@ function TARGET:onafterDestroyed(From, Event, To) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target TARGET.Object Target object.
+---@private
 function TARGET:onafterObjectDamaged(From, Event, To, Target) end
 
 ---On after "ObjectDead" event.
@@ -604,6 +616,7 @@ function TARGET:onafterObjectDamaged(From, Event, To, Target) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target TARGET.Object Target object.
+---@private
 function TARGET:onafterObjectDead(From, Event, To, Target) end
 
 ---On after "ObjectDestroyed" event.
@@ -614,6 +627,7 @@ function TARGET:onafterObjectDead(From, Event, To, Target) end
 ---@param Event string Event.
 ---@param To string To state.
 ---@param Target TARGET.Object Target object.
+---@private
 function TARGET:onafterObjectDestroyed(From, Event, To, Target) end
 
 ---On after Start event.
@@ -625,6 +639,7 @@ function TARGET:onafterObjectDestroyed(From, Event, To, Target) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function TARGET:onafterStart(Group, From, Event, To) end
 
 ---On after "Status" event.
@@ -635,6 +650,7 @@ function TARGET:onafterStart(Group, From, Event, To) end
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
+---@private
 function TARGET:onafterStatus(Group, From, Event, To) end
 
 
@@ -688,10 +704,12 @@ TARGET.ObjectType = {}
 
 ---Resource.
 ---@class TARGET.Resource 
+---@field Attributes table Generalized attribute, e.g. `{GROUP.Attribute.GROUND_INFANTRY}`.
 ---@field MissionType string Mission type, e.g. `AUFTRAG.Type.BAI`.
 ---@field Nmax number Max number of assets.
 ---@field Nmin number Min number of assets.
----@field mission AUFTRAG Attached mission.
+---@field Properties table Properties ([DCS attributes](https://wiki.hoggitworld.com/view/DCS_enum_attributes)), e.g. `"Attack helicopters"` or `"Mobile AAA"`.
+---@field private mission AUFTRAG Attached mission.
 TARGET.Resource = {}
 
 

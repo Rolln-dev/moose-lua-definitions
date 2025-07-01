@@ -10,7 +10,7 @@
 ---
 ---  * #ZONE_DETECTION.New(): Constructor.
 ---@class ZONE_DETECTION : ZONE_BASE
----@field Detection  
+---@field Detection NOTYPE 
 ---@field Radius Distance The radius of the zone.
 ---@field Vec2 Vec2 The current location of the zone.
 ZONE_DETECTION = {}
@@ -19,9 +19,9 @@ ZONE_DETECTION = {}
 ---
 ------
 ---@param self ZONE_DETECTION 
----@param Points number (optional) The amount of points in the circle. Default 360.
+---@param Points? number (optional) The amount of points in the circle. Default 360.
 ---@param CountryID country.id The country id of the tire objects, e.g. country.id.USA for blue or country.id.RUSSIA for red.
----@param UnBound boolean (Optional) If true the tyres will be destroyed.
+---@param UnBound? boolean (Optional) If true the tyres will be destroyed.
 ---@return ZONE_DETECTION #self
 function ZONE_DETECTION:BoundZone(Points, CountryID, UnBound) end
 
@@ -30,9 +30,9 @@ function ZONE_DETECTION:BoundZone(Points, CountryID, UnBound) end
 ------
 ---@param self ZONE_DETECTION 
 ---@param FlareColor FLARECOLOR The flare color.
----@param Points number (optional) The amount of points in the circle.
----@param Azimuth Azimuth (optional) Azimuth The azimuth of the flare.
----@param AddHeight number (optional) The height to be added for the smoke.
+---@param Points? number (optional) The amount of points in the circle.
+---@param Azimuth? Azimuth (optional) Azimuth The azimuth of the flare.
+---@param AddHeight? number (optional) The height to be added for the smoke.
 ---@return ZONE_DETECTION #self
 function ZONE_DETECTION:FlareZone(FlareColor, Points, Azimuth, AddHeight) end
 
@@ -82,9 +82,9 @@ function ZONE_DETECTION:SetRadius(Radius) end
 ------
 ---@param self ZONE_DETECTION 
 ---@param SmokeColor SMOKECOLOR The smoke color.
----@param Points number (optional) The amount of points in the circle.
----@param AddHeight number (optional) The height to be added for the smoke.
----@param AddOffSet number (optional) The angle to be added for the smoking start position.
+---@param Points? number (optional) The amount of points in the circle.
+---@param AddHeight? number (optional) The height to be added for the smoke.
+---@param AddOffSet? number (optional) The angle to be added for the smoking start position.
 ---@param AngleOffset NOTYPE 
 ---@return ZONE_DETECTION #self
 function ZONE_DETECTION:SmokeZone(SmokeColor, Points, AddHeight, AddOffSet, AngleOffset) end

@@ -31,6 +31,8 @@
 ---@field FlareColor number 
 ---@field Freetext string 
 ---@field FreetextTTS string 
+---@field NextTaskFailure table 
+---@field NextTaskSuccess table 
 ---@field PlayerTaskNr number (Globally unique) Number of the task.
 ---@field PreviousCount number 
 ---@field Repeat boolean 
@@ -42,13 +44,15 @@
 ---@field TaskSubType string 
 ---@field Type AUFTRAG.Type The type of the task
 ---@field TypeName string 
----@field coalition number 
----@field lastsmoketime number 
----@field lid string Class id string for output to DCS log file.
----@field repeats number 
----@field timestamp number 
----@field verbose boolean Switch verbosity.
----@field version string PLAYERTASK class version.
+---@field private coalition number 
+---@field private conditionFailure table 
+---@field private conditionSuccess table 
+---@field private lastsmoketime number 
+---@field private lid string Class id string for output to DCS log file.
+---@field private repeats number 
+---@field private timestamp number 
+---@field private verbose boolean Switch verbosity.
+---@field private version string PLAYERTASK class version.
 PLAYERTASK = {}
 
 ---[User] Add a client to this task
@@ -158,7 +162,7 @@ function PLAYERTASK:AddOpsZoneCaptureSuccessCondition(CaptureSquadGroupNamePrefi
 ---```
 ------
 ---@param self PLAYERTASK 
----@param MinDistance number (Optional) Minimum distance in meters from client to target in LOS for success condition. (Default 5 NM)
+---@param MinDistance? number (Optional) Minimum distance in meters from client to target in LOS for success condition. (Default 5 NM)
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddReconSuccessCondition(MinDistance) end
 
@@ -207,7 +211,7 @@ function PLAYERTASK:AddTimeLimitFailureCondition(TimeLimit) end
 ---
 ------
 ---@param self PLAYERTASK 
----@param Client CLIENT (optional)
+---@param Client? CLIENT (optional)
 ---@return PLAYERTASK #self
 function PLAYERTASK:ClientAbort(Client) end
 
@@ -333,9 +337,9 @@ function PLAYERTASK:IsNotDone() end
 ---
 ------
 ---@param self PLAYERTASK 
----@param Text string (optional) Text to show on the marker
----@param Coalition number (optional) Coalition this marker is for. Default = All.
----@param ReadOnly boolean (optional) Make target marker read-only. Default = false.
+---@param Text? string (optional) Text to show on the marker
+---@param Coalition? number (optional) Coalition this marker is for. Default = All.
+---@param ReadOnly? boolean (optional) Make target marker read-only. Default = false.
 ---@return PLAYERTASK #self
 function PLAYERTASK:MarkTargetOnF10Map(Text, Coalition, ReadOnly) end
 
@@ -557,6 +561,7 @@ function PLAYERTASK:_SetController(Controller) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterCancel(From, Event, To) end
 
 ---[Internal] On after client added call
@@ -568,6 +573,7 @@ function PLAYERTASK:onafterCancel(From, Event, To) end
 ---@param To string 
 ---@param Client CLIENT 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterClientAdded(From, Event, To, Client) end
 
 ---[Internal] On after done call
@@ -578,6 +584,7 @@ function PLAYERTASK:onafterClientAdded(From, Event, To, Client) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterDone(From, Event, To) end
 
 ---[Internal] On after executing call
@@ -588,6 +595,7 @@ function PLAYERTASK:onafterDone(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterExecuting(From, Event, To) end
 
 ---[Internal] On after failed call
@@ -598,6 +606,7 @@ function PLAYERTASK:onafterExecuting(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterFailed(From, Event, To) end
 
 ---[Internal] On after planned call
@@ -608,6 +617,7 @@ function PLAYERTASK:onafterFailed(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterPlanned(From, Event, To) end
 
 ---[Internal] On after progress call
@@ -619,6 +629,7 @@ function PLAYERTASK:onafterPlanned(From, Event, To) end
 ---@param To string 
 ---@param TargetCount number 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterProgress(From, Event, To, TargetCount) end
 
 ---[Internal] On after requested call
@@ -629,6 +640,7 @@ function PLAYERTASK:onafterProgress(From, Event, To, TargetCount) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterRequested(From, Event, To) end
 
 ---[Internal] On after status call
@@ -639,6 +651,7 @@ function PLAYERTASK:onafterRequested(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterStatus(From, Event, To) end
 
 ---[Internal] On after status call
@@ -649,6 +662,7 @@ function PLAYERTASK:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterStop(From, Event, To) end
 
 ---[Internal] On after success call
@@ -659,12 +673,14 @@ function PLAYERTASK:onafterStop(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASK #self
+---@private
 function PLAYERTASK:onafterSuccess(From, Event, To) end
 
 
 ---Generic task condition.
 ---@class PLAYERTASK.Condition 
----@field func function Callback function to check for a condition. Should return a #boolean.
+---@field private arg table Optional arguments passed to the condition callback function.
+---@field private func function Callback function to check for a condition. Should return a #boolean.
 PLAYERTASK.Condition = {}
 
 
@@ -979,25 +995,28 @@ PLAYERTASK.Condition = {}
 ---
 ---PLAYERTASKCONTROLLER class.
 ---@class PLAYERTASKCONTROLLER : FSM
----@field AccessKey  
+---@field AccessKey NOTYPE 
 ---@field ActiveClientSet SET_CLIENT 
 ---@field ActiveInfoMenu CLIENTMENU 
 ---@field ActiveTaskMenuTemplate CLIENTMENUMANAGER 
 ---@field ActiveTopMenu CLIENTMENU 
 ---@field AllowFlash boolean Flashing directions for players allowed
----@field BCFrequency  
----@field BCModulation  
----@field CallsignCustomFunc  
+---@field BCFrequency NOTYPE 
+---@field BCModulation NOTYPE 
+---@field BlackList table 
+---@field CallsignCustomFunc NOTYPE 
+---@field CallsignTranslations table 
 ---@field ClassName string Name of the class.
 ---@field ClientFilter string 
 ---@field ClientSet SET_CLIENT 
 ---@field ClusterRadius number 
 ---@field Coalition number 
----@field CoalitionName  
+---@field CoalitionName NOTYPE 
+---@field FlashPlayer table List of player who switched Flashing Direction Info on
 ---@field InfoHasCoordinate boolean 
 ---@field InfoHasLLDDM boolean 
 ---@field InformationMenu boolean Show Radio Info Menu
----@field Intel  
+---@field Intel NOTYPE 
 ---@field IsClientSet boolean 
 ---@field JoinInfoMenu CLIENTMENU 
 ---@field JoinMenu CLIENTMENU 
@@ -1005,22 +1024,29 @@ PLAYERTASK.Condition = {}
 ---@field JoinTopMenu CLIENTMENU 
 ---@field Keepnumber boolean 
 ---@field LasingDrone FLIGHTGROUP 
----@field LasingDroneSet SET_OPSGROUP 
+---@field LasingDroneSet NOTYPE 
 ---@field MarkerOps MARKEROPS_BASE 
 ---@field MarkerReadOnly boolean 
 ---@field MenuName string 
 ---@field MenuNoTask CLIENTMENU 
 ---@field MenuParent MENU_MISSION 
+---@field Messages table 
 ---@field Name string 
 ---@field NoScreenOutput boolean 
----@field PathToGoogleKey  
+---@field PathToGoogleKey NOTYPE 
+---@field PlayerFlashMenu table 
+---@field PlayerInfoMenu table 
+---@field PlayerJoinMenu table 
+---@field PlayerMenu table 
+---@field PlayerMenuTag table 
 ---@field PlayerRecce PLAYERRECCE 
 ---@field PrecisionTasks FIFO 
----@field RecceSet  
----@field SRS  
----@field SRSQueue  
+---@field RecceSet NOTYPE 
+---@field SRS NOTYPE 
+---@field SRSQueue NOTYPE 
+---@field Scores Scores 
 ---@field Scoring SCORING 
----@field SeadAttributes  
+---@field SeadAttributes NOTYPE 
 ---@field ShortCallsign boolean 
 ---@field ShowMagnetic boolean Also show magnetic angles
 ---@field TargetQueue FIFO 
@@ -1035,22 +1061,24 @@ PLAYERTASK.Condition = {}
 ---@field UseSRS boolean 
 ---@field UseTypeNames boolean 
 ---@field UseWhiteList boolean 
----@field activehasinfomenu boolean 
----@field buddylasing boolean 
----@field gettext TEXTANDSOUND 
----@field holdmenutime number 
----@field illumenu boolean 
----@field lasttaskcount  
----@field lid string Class id string for output to DCS log file.
----@field locale string 
----@field menuitemlimit number 
----@field noflaresmokemenu boolean 
----@field precisionbombing boolean 
----@field repeatonfailed boolean 
----@field taskinfomenu boolean 
----@field usecluster boolean 
----@field verbose boolean Switch verbosity.
----@field version string PLAYERTASK class version.
+---@field WhiteList table 
+---@field private activehasinfomenu boolean 
+---@field private buddylasing boolean 
+---@field private customcallsigns table 
+---@field private gettext TEXTANDSOUND 
+---@field private holdmenutime number 
+---@field private illumenu boolean 
+---@field private lasttaskcount NOTYPE 
+---@field private lid string Class id string for output to DCS log file.
+---@field private locale string 
+---@field private menuitemlimit number 
+---@field private noflaresmokemenu boolean 
+---@field private precisionbombing boolean 
+---@field private repeatonfailed boolean 
+---@field private taskinfomenu boolean 
+---@field private usecluster boolean 
+---@field private verbose boolean Switch verbosity.
+---@field private version string PLAYERTASK class version.
 PLAYERTASKCONTROLLER = {}
 
 ---[User] Add an accept zone to INTEL detection.
@@ -1146,9 +1174,9 @@ function PLAYERTASKCONTROLLER:AddPlayerTaskToQueue(PlayerTask, Silent, TaskFilte
 ---@param self PLAYERTASKCONTROLLER 
 ---@param FlightGroup FLIGHTGROUP The FlightGroup (e.g. drone) to be used for lasing (one unit in one group only). Can optionally be handed as Ops.ArmyGroup#ARMYGROUP - **Note** might not find an LOS spot or get lost on the way. Cannot island-hop.
 ---@param LaserCode number The lasercode to be used. Defaults to 1688.
----@param HoldingPoint COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
----@param Alt number (Optional) Altitude in feet. Only applies if using a FLIGHTGROUP object! Defaults to 10000.
----@param Speed number (Optional) Speed in knots. Only applies if using a FLIGHTGROUP object! Defaults to 120.
+---@param HoldingPoint? COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
+---@param Alt? number (Optional) Altitude in feet. Only applies if using a FLIGHTGROUP object! Defaults to 10000.
+---@param Speed? number (Optional) Speed in knots. Only applies if using a FLIGHTGROUP object! Defaults to 120.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddPrecisionBombingOpsGroup(FlightGroup, LaserCode, HoldingPoint, Alt, Speed) end
 
@@ -1220,7 +1248,7 @@ function PLAYERTASKCONTROLLER:DisableTaskInfoMenu() end
 ---
 ------
 ---@param self PLAYERTASKCONTROLLER 
----@param Recce PLAYERRECCE (Optional) The PLAYERRECCE object governing the lasing players.
+---@param Recce? PLAYERRECCE (Optional) The PLAYERRECCE object governing the lasing players.
 ---@return PLAYERTASKCONTROLLER #self 
 function PLAYERTASKCONTROLLER:EnableBuddyLasing(Recce) end
 
@@ -1243,7 +1271,7 @@ function PLAYERTASKCONTROLLER:EnableBuddyLasing(Recce) end
 ---```
 ------
 ---@param self PLAYERTASKCONTROLLER 
----@param Tag string (Optional) The tagname to use to identify commands, defaults to "TASK"
+---@param Tag? string (Optional) The tagname to use to identify commands, defaults to "TASK"
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnableMarkerOps(Tag) end
 
@@ -1269,10 +1297,10 @@ function PLAYERTASKCONTROLLER:EnableMarkerOps(Tag) end
 ---@param self PLAYERTASKCONTROLLER 
 ---@param FlightGroup FLIGHTGROUP The FlightGroup (e.g. drone) to be used for lasing (one unit in one group only). Can optionally be handed as Ops.ArmyGroup#ARMYGROUP - **Note** might not find an LOS spot or get lost on the way. Cannot island-hop.
 ---@param LaserCode number The lasercode to be used. Defaults to 1688.
----@param HoldingPoint COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
----@param Alt number (Optional) Altitude in feet. Only applies if using a FLIGHTGROUP object! Defaults to 10000.
----@param Speed number (Optional) Speed in knots. Only applies if using a FLIGHTGROUP object! Defaults to 120.
----@param MaxTravelDist number (Optional) Max distance to travel to traget. Only applies if using a FLIGHTGROUP object! Defaults to 100 NM.
+---@param HoldingPoint? COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
+---@param Alt? number (Optional) Altitude in feet. Only applies if using a FLIGHTGROUP object! Defaults to 10000.
+---@param Speed? number (Optional) Speed in knots. Only applies if using a FLIGHTGROUP object! Defaults to 120.
+---@param MaxTravelDist? number (Optional) Max distance to travel to traget. Only applies if using a FLIGHTGROUP object! Defaults to 100 NM.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnablePrecisionBombing(FlightGroup, LaserCode, HoldingPoint, Alt, Speed, MaxTravelDist) end
 
@@ -1280,7 +1308,7 @@ function PLAYERTASKCONTROLLER:EnablePrecisionBombing(FlightGroup, LaserCode, Hol
 ---
 ------
 ---@param self PLAYERTASKCONTROLLER 
----@param Scoring SCORING (optional) the Scoring object
+---@param Scoring? SCORING (optional) the Scoring object
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnableScoring(Scoring) end
 
@@ -1298,7 +1326,7 @@ function PLAYERTASKCONTROLLER:EnableTaskInfoMenu() end
 ---@param Name string Name of this controller
 ---@param Coalition number of this controller, e.g. coalition.side.BLUE
 ---@param Type string Type of the tasks controlled, defaults to PLAYERTASKCONTROLLER.Type.A2G
----@param ClientFilter string (optional) Additional prefix filter for the SET_CLIENT. Can be handed as @{Core.Set#SET_CLIENT} also.
+---@param ClientFilter? string (optional) Additional prefix filter for the SET_CLIENT. Can be handed as @{Core.Set#SET_CLIENT} also.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:New(Name, Coalition, Type, ClientFilter) end
 
@@ -1489,9 +1517,9 @@ function PLAYERTASKCONTROLLER:SetBriefingDuration(Seconds) end
 ---@param self PLAYERTASKCONTROLLER 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
----@param CallsignTranslations table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
----@param CallsignCustomFunc func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
----@param ... arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
+---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
+---@param CallsignCustomFunc? func (Optional) For player names only(!). If given, this function will return the callsign. Needs to take the groupname and the playername as first two arguments.
+---@param ...? arg (Optional) Comma separated arguments to add to the custom function call after groupname and playername.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations, CallsignCustomFunc, ...) end
 
@@ -1632,15 +1660,15 @@ function PLAYERTASKCONTROLLER:SetSEADAttributes(Attributes) end
 ---@param Frequency number Frequency to be used. Can also be given as a table of multiple frequencies, e.g. 271 or {127,251}. There needs to be exactly the same number of modulations!
 ---@param Modulation number Modulation to be used. Can also be given as a table of multiple modulations, e.g. radio.modulation.AM or {radio.modulation.FM,radio.modulation.AM}. There needs to be exactly the same number of frequencies!
 ---@param PathToSRS string Defaults to "C:\\Program Files\\DCS-SimpleRadio-Standalone"
----@param Gender string (Optional) Defaults to "male"
----@param Culture string (Optional) Defaults to "en-US"
----@param Port number (Optional) Defaults to 5002
----@param Voice string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
----@param Volume number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
----@param PathToGoogleKey string (Optional) Path to your google key if you want to use google TTS; if you use a config file for MSRS, hand in nil here.
----@param AccessKey string (Optional) Your Google API access key. This is necessary if DCS-gRPC is used as backend; if you use a config file for MSRS, hand in nil here.
+---@param Gender? string (Optional) Defaults to "male"
+---@param Culture? string (Optional) Defaults to "en-US"
+---@param Port? number (Optional) Defaults to 5002
+---@param Voice? string (Optional) Use a specifc voice with the @{Sound.SRS#SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
+---@param Volume? number (Optional) Volume - between 0.0 (silent) and 1.0 (loudest)
+---@param PathToGoogleKey? string (Optional) Path to your google key if you want to use google TTS; if you use a config file for MSRS, hand in nil here.
+---@param AccessKey? string (Optional) Your Google API access key. This is necessary if DCS-gRPC is used as backend; if you use a config file for MSRS, hand in nil here.
 ---@param Coordinate COORDINATE Coordinate from which the controller radio is sending
----@param Backend string (Optional) MSRS Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC; if you use a config file for MSRS, hand in nil here.
+---@param Backend? string (Optional) MSRS Backend to be used, can be MSRS.Backend.SRSEXE or MSRS.Backend.GRPC; if you use a config file for MSRS, hand in nil here.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetSRS(Frequency, Modulation, PathToSRS, Gender, Culture, Port, Voice, Volume, PathToGoogleKey, AccessKey, Coordinate, Backend) end
 
@@ -1987,7 +2015,7 @@ function PLAYERTASKCONTROLLER:_RemoveMenuEntriesForTask(Task, Client) end
 ------
 ---@param self PLAYERTASKCONTROLLER 
 ---@param Text string the text to be send
----@param Seconds number (optional) Seconds to show, default 10
+---@param Seconds? number (optional) Seconds to show, default 10
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_SendMessageToClients(Text, Seconds) end
 
@@ -2041,6 +2069,7 @@ function PLAYERTASKCONTROLLER:_UpdateJoinMenuTemplate() end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterStart(From, Event, To) end
 
 ---[Internal] On after Status call
@@ -2051,6 +2080,7 @@ function PLAYERTASKCONTROLLER:onafterStart(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterStatus(From, Event, To) end
 
 ---[Internal] On after Stop call
@@ -2061,6 +2091,7 @@ function PLAYERTASKCONTROLLER:onafterStatus(From, Event, To) end
 ---@param Event string 
 ---@param To string 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterStop(From, Event, To) end
 
 ---[Internal] On after task added
@@ -2072,6 +2103,7 @@ function PLAYERTASKCONTROLLER:onafterStop(From, Event, To) end
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskAdded(From, Event, To, Task) end
 
 ---[Internal] On after task cancelled
@@ -2083,6 +2115,7 @@ function PLAYERTASKCONTROLLER:onafterTaskAdded(From, Event, To, Task) end
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskCancelled(From, Event, To, Task) end
 
 ---[Internal] On after task done
@@ -2094,6 +2127,7 @@ function PLAYERTASKCONTROLLER:onafterTaskCancelled(From, Event, To, Task) end
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskDone(From, Event, To, Task) end
 
 ---[Internal] On after task failed
@@ -2105,6 +2139,7 @@ function PLAYERTASKCONTROLLER:onafterTaskDone(From, Event, To, Task) end
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskFailed(From, Event, To, Task) end
 
 ---[Internal] On after task failed, repeat planned
@@ -2116,6 +2151,7 @@ function PLAYERTASKCONTROLLER:onafterTaskFailed(From, Event, To, Task) end
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskRepeatOnFailed(From, Event, To, Task) end
 
 ---[Internal] On after task success
@@ -2127,6 +2163,7 @@ function PLAYERTASKCONTROLLER:onafterTaskRepeatOnFailed(From, Event, To, Task) e
 ---@param To string 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASKCONTROLLER #self
+---@private
 function PLAYERTASKCONTROLLER:onafterTaskSuccess(From, Event, To, Task) end
 
 

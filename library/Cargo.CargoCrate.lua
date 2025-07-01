@@ -121,8 +121,8 @@ function CARGO_CRATE:IsNear(CargoCarrier, NearRadius) end
 ---@param CargoStatic STATIC 
 ---@param Type string 
 ---@param Name string 
----@param LoadRadius number (optional)
----@param NearRadius number (optional)
+---@param LoadRadius? number (optional)
+---@param NearRadius? number (optional)
 ---@return CARGO_CRATE #
 function CARGO_CRATE:New(CargoStatic, Type, Name, LoadRadius, NearRadius) end
 
@@ -150,6 +150,7 @@ function CARGO_CRATE:RouteTo(Coordinate) end
 ---
 ------
 ---@param self CARGO_CRATE 
+---@private
 function CARGO_CRATE:onafterReset() end
 
 ---Loaded State.
@@ -160,6 +161,7 @@ function CARGO_CRATE:onafterReset() end
 ---@param From string 
 ---@param To string 
 ---@param CargoCarrier UNIT 
+---@private
 function CARGO_CRATE:onenterLoaded(Event, From, To, CargoCarrier) end
 
 ---Enter UnLoaded State.
@@ -171,6 +173,7 @@ function CARGO_CRATE:onenterLoaded(Event, From, To, CargoCarrier) end
 ---@param To string 
 ---@param Core NOTYPE Point#COORDINATE
 ---@param ToPointVec2 NOTYPE 
+---@private
 function CARGO_CRATE:onenterUnLoaded(Event, From, To, Core, ToPointVec2) end
 
 

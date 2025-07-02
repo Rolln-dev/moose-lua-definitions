@@ -186,7 +186,6 @@ AI_ESCORT_REQUEST = {}
 ---Escort:__Start( 5 )
 ---```
 ------
----@param self AI_ESCORT_REQUEST 
 ---@param EscortUnit CLIENT The client escorted by the EscortGroup.
 ---@param EscortSpawn SPAWN The spawn object of AI, escorting the EscortUnit.
 ---@param EscortAirbase AIRBASE The airbase where escorts will be spawned once requested.
@@ -198,19 +197,16 @@ function AI_ESCORT_REQUEST:New(EscortUnit, EscortSpawn, EscortAirbase, EscortNam
 ---Set the spawn mode to be mission execution.
 ---
 ------
----@param self AI_ESCORT_REQUEST 
 function AI_ESCORT_REQUEST:SetEscortSpawnMission() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT_REQUEST:SpawnEscort() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
 ---@private
 function AI_ESCORT_REQUEST:onafterStart(EscortGroupSet) end
@@ -218,7 +214,6 @@ function AI_ESCORT_REQUEST:onafterStart(EscortGroupSet) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
 ---@private
 function AI_ESCORT_REQUEST:onafterStop(EscortGroupSet) end

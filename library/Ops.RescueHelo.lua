@@ -197,49 +197,42 @@ RESCUEHELO = {}
 ---Alias of helo spawn group.
 ---
 ------
----@param self RESCUEHELO 
 ---@return string #Alias of the helo. 
 function RESCUEHELO:GetAlias() end
 
 ---Get unit name of the spawned helo.
 ---
 ------
----@param self RESCUEHELO 
 ---@return string #Name of the helo unit or nil if it does not exist. 
 function RESCUEHELO:GetUnitName() end
 
 ---Check if helo is on a rescue mission.
 ---
 ------
----@param self RESCUEHELO 
 ---@return boolean #If true, helo is rescuing somebody. 
 function RESCUEHELO:IsRescuing() end
 
 ---Check if helo is returning to base.
 ---
 ------
----@param self RESCUEHELO 
 ---@return boolean #If true, helo is returning to base. 
 function RESCUEHELO:IsReturning() end
 
 ---Check if helo is operating.
 ---
 ------
----@param self RESCUEHELO 
 ---@return boolean #If true, helo is operating. 
 function RESCUEHELO:IsRunning() end
 
 ---Check if FMS was stopped.
 ---
 ------
----@param self RESCUEHELO 
 ---@return boolean #If true, is stopped. 
 function RESCUEHELO:IsStopped() end
 
 ---Create a new RESCUEHELO object.
 ---
 ------
----@param self RESCUEHELO 
 ---@param carrierunit UNIT Carrier unit object or simply the unit name.
 ---@param helogroupname string Name of the late activated rescue helo template group.
 ---@return RESCUEHELO #RESCUEHELO object.
@@ -249,7 +242,6 @@ function RESCUEHELO:New(carrierunit, helogroupname) end
 ---Called when a the the helo returns to its home base.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -260,7 +252,6 @@ function RESCUEHELO:OnAfterRTB(From, Event, To, airbase) end
 ---Called when a the the helo goes on a rescue mission.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -271,7 +262,6 @@ function RESCUEHELO:OnAfterRescue(From, Event, To, RescueCoord) end
 ---Called when a the the helo has landed at an airbase.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -282,7 +272,6 @@ function RESCUEHELO:OnAfterReturned(From, Event, To, airbase) end
 ---Called when FSM is started.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -291,35 +280,30 @@ function RESCUEHELO:OnAfterStart(From, Event, To) end
 ---Handle landing event of rescue helo.
 ---
 ------
----@param self RESCUEHELO 
 ---@param EventData EVENTDATA Event data.
 function RESCUEHELO:OnEventLand(EventData) end
 
 ---Triggers the FSM event "RTB" that sends the helo home.
 ---
 ------
----@param self RESCUEHELO 
 ---@param airbase AIRBASE The airbase to return to. Default is the home base.
 function RESCUEHELO:RTB(airbase) end
 
 ---Triggers the FSM event "Rescue" that sends the helo on a rescue mission to a specifc coordinate.
 ---
 ------
----@param self RESCUEHELO 
 ---@param RescueCoord COORDINATE Coordinate where the resue mission takes place.
 function RESCUEHELO:Rescue(RescueCoord) end
 
 ---Triggers the FSM event "Returned" after the helo has landed.
 ---
 ------
----@param self RESCUEHELO 
 ---@param airbase AIRBASE The airbase the helo has landed.
 function RESCUEHELO:Returned(airbase) end
 
 ---Route helo back to its home base.
 ---
 ------
----@param self RESCUEHELO 
 ---@param RTBAirbase AIRBASE 
 ---@param Speed number Speed.
 function RESCUEHELO:RouteRTB(RTBAirbase, Speed) end
@@ -327,13 +311,11 @@ function RESCUEHELO:RouteRTB(RTBAirbase, Speed) end
 ---Triggers the FSM event "Run".
 ---
 ------
----@param self RESCUEHELO 
 function RESCUEHELO:Run() end
 
 ---Set altitude of helo.
 ---
 ------
----@param self RESCUEHELO 
 ---@param alt number Altitude in meters. Default 70 m.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetAltitude(alt) end
@@ -342,7 +324,6 @@ function RESCUEHELO:SetAltitude(alt) end
 ---This is also the default setting.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetDebugModeOFF() end
 
@@ -350,14 +331,12 @@ function RESCUEHELO:SetDebugModeOFF() end
 ---Display debug messages on screen.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetDebugModeON() end
 
 ---Set follow time update interval.
 ---
 ------
----@param self RESCUEHELO 
 ---@param dt number Time interval in seconds. Default 1.0 sec.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetFollowTimeInterval(dt) end
@@ -366,7 +345,6 @@ function RESCUEHELO:SetFollowTimeInterval(dt) end
 ---This is the airbase where the helo is spawned (if not in air) and will go when it is out of fuel.
 ---
 ------
----@param self RESCUEHELO 
 ---@param airbase AIRBASE The home airbase. Can be the airbase name (passed as a string) or a Moose AIRBASE object.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetHomeBase(airbase) end
@@ -375,7 +353,6 @@ function RESCUEHELO:SetHomeBase(airbase) end
 ---When fuel is below this threshold, the helo will RTB or be respawned if takeoff type is in air.
 ---
 ------
----@param self RESCUEHELO 
 ---@param threshold number Low fuel threshold in percent. Default 5%.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetLowFuelThreshold(threshold) end
@@ -383,7 +360,6 @@ function RESCUEHELO:SetLowFuelThreshold(threshold) end
 ---Set modex (tail number) of the helo.
 ---
 ------
----@param self RESCUEHELO 
 ---@param modex number Tail number.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetModex(modex) end
@@ -391,7 +367,6 @@ function RESCUEHELO:SetModex(modex) end
 ---Set offset parallel to orientation of carrier.
 ---
 ------
----@param self RESCUEHELO 
 ---@param distance number Offset distance in meters. Default 200 m (~660 ft).
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetOffsetX(distance) end
@@ -399,7 +374,6 @@ function RESCUEHELO:SetOffsetX(distance) end
 ---Set offset perpendicular to orientation to carrier.
 ---
 ------
----@param self RESCUEHELO 
 ---@param distance number Offset distance in meters. Default 240 m (~780 ft).
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetOffsetZ(distance) end
@@ -408,7 +382,6 @@ function RESCUEHELO:SetOffsetZ(distance) end
 ---This is the time it takes to rescue a pilot at the crash site.
 ---
 ------
----@param self RESCUEHELO 
 ---@param duration number Duration in minutes. Default 5 min.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueDuration(duration) end
@@ -416,7 +389,6 @@ function RESCUEHELO:SetRescueDuration(duration) end
 ---Set rescue hover speed.
 ---
 ------
----@param self RESCUEHELO 
 ---@param speed number Speed in knots. Default 5 kts.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueHoverSpeed(speed) end
@@ -425,7 +397,6 @@ function RESCUEHELO:SetRescueHoverSpeed(speed) end
 ---Crashed and ejected pilots will not be rescued.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueOff() end
 
@@ -433,7 +404,6 @@ function RESCUEHELO:SetRescueOff() end
 ---Crashed and ejected pilots will be rescued. This is the default setting.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueOn() end
 
@@ -441,7 +411,6 @@ function RESCUEHELO:SetRescueOn() end
 ---This is the default setting.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueStopBoatOff() end
 
@@ -449,7 +418,6 @@ function RESCUEHELO:SetRescueStopBoatOff() end
 ---NOT WORKING!
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueStopBoatOn() end
 
@@ -457,7 +425,6 @@ function RESCUEHELO:SetRescueStopBoatOn() end
 ---Crashed or ejected units inside this radius of the carrier will be rescued if possible.
 ---
 ------
----@param self RESCUEHELO 
 ---@param radius number Radius of rescue zone in nautical miles. Default is 15 NM.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRescueZone(radius) end
@@ -467,14 +434,12 @@ function RESCUEHELO:SetRescueZone(radius) end
 ---This allows for undisrupted operations and less problems on the carrier deck.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRespawnInAir() end
 
 ---Disable respawning of helo.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRespawnOff() end
 
@@ -482,14 +447,12 @@ function RESCUEHELO:SetRespawnOff() end
 ---Note that this is the default behaviour.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRespawnOn() end
 
 ---Set whether helo shall be respawned or not.
 ---
 ------
----@param self RESCUEHELO 
 ---@param switch boolean If true (or nil), helo will be respawned. If false, helo will not be respawned. 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetRespawnOnOff(switch) end
@@ -497,7 +460,6 @@ function RESCUEHELO:SetRespawnOnOff(switch) end
 ---Set takeoff type.
 ---
 ------
----@param self RESCUEHELO 
 ---@param takeofftype number Takeoff type. Default SPAWN.Takeoff.Hot.
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetTakeoff(takeofftype) end
@@ -505,21 +467,18 @@ function RESCUEHELO:SetTakeoff(takeofftype) end
 ---Set takeoff in air near the carrier.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetTakeoffAir() end
 
 ---Set takeoff with engines off (cold).
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetTakeoffCold() end
 
 ---Set takeoff with engines running (hot).
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetTakeoffHot() end
 
@@ -528,7 +487,6 @@ function RESCUEHELO:SetTakeoffHot() end
 ---The group name is the one specified in the #RESCUEHELO.New function.
 ---
 ------
----@param self RESCUEHELO 
 ---@return RESCUEHELO #self
 function RESCUEHELO:SetUseUncontrolledAircraft() end
 
@@ -536,40 +494,34 @@ function RESCUEHELO:SetUseUncontrolledAircraft() end
 ---Initializes parameters and starts event handlers.
 ---
 ------
----@param self RESCUEHELO 
 function RESCUEHELO:Start() end
 
 ---Triggers the FSM event "Status" that updates the helo status.
 ---
 ------
----@param self RESCUEHELO 
 function RESCUEHELO:Status() end
 
 ---Triggers the FSM event "Stop" that stops the rescue helo.
 ---Event handlers are stopped.
 ---
 ------
----@param self RESCUEHELO 
 function RESCUEHELO:Stop() end
 
 ---A unit crashed or a player ejected.
 ---
 ------
----@param self RESCUEHELO 
 ---@param EventData EVENTDATA Event data.
 function RESCUEHELO:_OnEventCrashOrEject(EventData) end
 
 ---Task to send the helo RTB.
 ---
 ------
----@param self RESCUEHELO 
 ---@return Task #DCS Task table.
 function RESCUEHELO:_TaskRTB() end
 
 ---Triggers the FSM event "RTB" that sends the helo home after a delay.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 ---@param airbase AIRBASE The airbase to return to. Default is the home base.
 function RESCUEHELO:__RTB(delay, airbase) end
@@ -577,7 +529,6 @@ function RESCUEHELO:__RTB(delay, airbase) end
 ---Triggers the delayed FSM event "Rescue" that sends the helo on a rescue mission to a specifc coordinate.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 ---@param RescueCoord COORDINATE Coordinate where the resue mission takes place.
 function RESCUEHELO:__Rescue(delay, RescueCoord) end
@@ -585,7 +536,6 @@ function RESCUEHELO:__Rescue(delay, RescueCoord) end
 ---Triggers the delayed FSM event "Returned" after the helo has landed.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 ---@param airbase AIRBASE The airbase the helo has landed.
 function RESCUEHELO:__Returned(delay, airbase) end
@@ -593,7 +543,6 @@ function RESCUEHELO:__Returned(delay, airbase) end
 ---Triggers the delayed FSM event "Run".
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 function RESCUEHELO:__Run(delay) end
 
@@ -601,14 +550,12 @@ function RESCUEHELO:__Run(delay) end
 ---Initializes parameters and starts event handlers.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 function RESCUEHELO:__Start(delay) end
 
 ---Triggers the delayed FSM event "Status" that updates the helo status.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 function RESCUEHELO:__Status(delay) end
 
@@ -616,7 +563,6 @@ function RESCUEHELO:__Status(delay) end
 ---Event handlers are stopped.
 ---
 ------
----@param self RESCUEHELO 
 ---@param delay number Delay in seconds.
 function RESCUEHELO:__Stop(delay) end
 
@@ -624,7 +570,6 @@ function RESCUEHELO:__Stop(delay) end
 ---Send helo back to carrier.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -636,7 +581,6 @@ function RESCUEHELO:onafterRTB(From, Event, To, airbase) end
 ---Helo will fly to the given coordinate, orbit there for 5 minutes and then return to the carrier.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -648,7 +592,6 @@ function RESCUEHELO:onafterRescue(From, Event, To, RescueCoord) end
 ---Helo has landed.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -660,7 +603,6 @@ function RESCUEHELO:onafterReturned(From, Event, To, airbase) end
 ---FSM will go to "Running" state. If formation is stopped, it will be started again.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -671,7 +613,6 @@ function RESCUEHELO:onafterRun(From, Event, To) end
 ---Starts the warehouse. Addes event handlers and schedules status updates of reqests and queue.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -682,7 +623,6 @@ function RESCUEHELO:onafterStart(From, Event, To) end
 ---Checks player status.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -693,7 +633,6 @@ function RESCUEHELO:onafterStatus(From, Event, To) end
 ---Unhandle events and stop status updates. If helo is alive, it is despawned.
 ---
 ------
----@param self RESCUEHELO 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

@@ -58,7 +58,6 @@ PLAYERTASK = {}
 ---[User] Add a client to this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Client CLIENT 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddClient(Client) end
@@ -66,7 +65,6 @@ function PLAYERTASK:AddClient(Client) end
 ---[User] Add failure condition.
 ---
 ------
----@param self PLAYERTASK 
 ---@param ConditionFunction function If this function returns `true`, the task is cancelled.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return PLAYERTASK #self
@@ -75,7 +73,6 @@ function PLAYERTASK:AddConditionFailure(ConditionFunction, ...) end
 ---[User] Add success condition.
 ---
 ------
----@param self PLAYERTASK 
 ---@param ConditionFunction function If this function returns `true`, the mission is cancelled.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return PLAYERTASK #self
@@ -84,7 +81,6 @@ function PLAYERTASK:AddConditionSuccess(ConditionFunction, ...) end
 ---[USER] Add a free text description to this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Text string 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddFreetext(Text) end
@@ -92,7 +88,6 @@ function PLAYERTASK:AddFreetext(Text) end
 ---[USER] Add a free text description for TTS to this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param TextTTS string 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddFreetextTTS(TextTTS) end
@@ -100,7 +95,6 @@ function PLAYERTASK:AddFreetextTTS(TextTTS) end
 ---[USER] Add a task to be assigned to same clients when task was a failure.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddNextTaskAfterFailure(Task) end
@@ -108,7 +102,6 @@ function PLAYERTASK:AddNextTaskAfterFailure(Task) end
 ---[USER] Add a task to be assigned to same clients when task was a success.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Task PLAYERTASK 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddNextTaskAfterSuccess(Task) end
@@ -137,7 +130,6 @@ function PLAYERTASK:AddNextTaskAfterSuccess(Task) end
 ---playerTaskManager:AddPlayerTaskToQueue(mytask)
 ---```
 ------
----@param self PLAYERTASK 
 ---@param CaptureSquadGroupNamePrefix SET_BASE The prefix of the group name that needs to capture the zone.
 ---@param Coalition number The coalition that needs to capture the zone.
 ---@param CheckClientInZone boolean If true, a CLIENT assigned to this task also needs to be in the zone for the task to be successful.
@@ -161,7 +153,6 @@ function PLAYERTASK:AddOpsZoneCaptureSuccessCondition(CaptureSquadGroupNamePrefi
 ---playerTaskManager:AddPlayerTaskToQueue(mytask)
 ---```
 ------
----@param self PLAYERTASK 
 ---@param MinDistance? number (Optional) Minimum distance in meters from client to target in LOS for success condition. (Default 5 NM)
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddReconSuccessCondition(MinDistance) end
@@ -181,7 +172,6 @@ function PLAYERTASK:AddReconSuccessCondition(MinDistance) end
 ---playerTaskManager:AddPlayerTaskToQueue(mytask)
 ---```
 ------
----@param self NOTYPE 
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddStaticObjectSuccessCondition() end
 
@@ -202,7 +192,6 @@ function PLAYERTASK:AddStaticObjectSuccessCondition() end
 ---playerTaskManager:AddPlayerTaskToQueue(mytask)
 ---```
 ------
----@param self PLAYERTASK 
 ---@param TimeLimit number Time limit in seconds for the task to be completed. (Default 0 = no time limit)
 ---@return PLAYERTASK #self
 function PLAYERTASK:AddTimeLimitFailureCondition(TimeLimit) end
@@ -210,7 +199,6 @@ function PLAYERTASK:AddTimeLimitFailureCondition(TimeLimit) end
 ---[User] Client has aborted task this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Client? CLIENT (optional)
 ---@return PLAYERTASK #self
 function PLAYERTASK:ClientAbort(Client) end
@@ -218,14 +206,12 @@ function PLAYERTASK:ClientAbort(Client) end
 ---[User] Count clients
 ---
 ------
----@param self PLAYERTASK 
 ---@return number #clientcount
 function PLAYERTASK:CountClients() end
 
 ---[User] Flare Target
 ---
 ------
----@param self PLAYERTASK 
 ---@param Color number  defaults to FLARECOLOR.Red
 ---@return PLAYERTASK #self
 function PLAYERTASK:FlareTarget(Color) end
@@ -233,7 +219,6 @@ function PLAYERTASK:FlareTarget(Color) end
 ---[User] Get #CLIENT objects assigned as table
 ---
 ------
----@param self PLAYERTASK 
 ---@return table #clients
 ---@return number #clientcount
 function PLAYERTASK:GetClientObjects() end
@@ -241,7 +226,6 @@ function PLAYERTASK:GetClientObjects() end
 ---[User] Get client names assigned as table of #strings
 ---
 ------
----@param self PLAYERTASK 
 ---@return table #clients
 ---@return number #clientcount
 function PLAYERTASK:GetClients() end
@@ -249,63 +233,54 @@ function PLAYERTASK:GetClients() end
 ---[User] Get the coalition side for this task
 ---
 ------
----@param self PLAYERTASK 
 ---@return number #Coalition Coaltion side, e.g. coalition.side.BLUE, or nil if not set
 function PLAYERTASK:GetCoalition() end
 
 ---[USER] Get the free text description from this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@return string #Text
 function PLAYERTASK:GetFreetext() end
 
 ---[USER] Get the free text TTS description from this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@return string #Text
 function PLAYERTASK:GetFreetextTTS() end
 
 ---[USER] Get task sub type description from this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@return string #Type or nil
 function PLAYERTASK:GetSubType() end
 
 ---[User] Get the Ops.Target#TARGET object for this task
 ---
 ------
----@param self PLAYERTASK 
 ---@return TARGET #Target
 function PLAYERTASK:GetTarget() end
 
 ---[User] Check if PLAYERTASK has clients assigned to it.
 ---
 ------
----@param self PLAYERTASK 
 ---@return boolean #hasclients
 function PLAYERTASK:HasClients() end
 
 ---[USER] Query if a task has free text description.
 ---
 ------
----@param self PLAYERTASK 
 ---@return PLAYERTASK #self
 function PLAYERTASK:HasFreetext() end
 
 ---[USER] Query if a task has free text TTS description.
 ---
 ------
----@param self PLAYERTASK 
 ---@return PLAYERTASK #self
 function PLAYERTASK:HasFreetextTTS() end
 
 ---[User] Check if a player name is assigned to this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Name string 
 ---@return boolean #HasName
 function PLAYERTASK:HasPlayerName(Name) end
@@ -313,7 +288,6 @@ function PLAYERTASK:HasPlayerName(Name) end
 ---[User] Illuminate Target Area
 ---
 ------
----@param self PLAYERTASK 
 ---@param Power number Power of illumination bomb in Candela. Default 1000 cd.
 ---@param Height number Height above target used to release the bomb, default 150m.
 ---@return PLAYERTASK #self
@@ -322,21 +296,18 @@ function PLAYERTASK:IlluminateTarget(Power, Height) end
 ---[User] Check if task is done
 ---
 ------
----@param self PLAYERTASK 
 ---@return boolean #done
 function PLAYERTASK:IsDone() end
 
 ---[User] Check if task is NOT done
 ---
 ------
----@param self PLAYERTASK 
 ---@return boolean #done
 function PLAYERTASK:IsNotDone() end
 
 ---[User] Create target mark on F10 map
 ---
 ------
----@param self PLAYERTASK 
 ---@param Text? string (optional) Text to show on the marker
 ---@param Coalition? number (optional) Coalition this marker is for. Default = All.
 ---@param ReadOnly? boolean (optional) Make target marker read-only. Default = false.
@@ -346,7 +317,6 @@ function PLAYERTASK:MarkTargetOnF10Map(Text, Coalition, ReadOnly) end
 ---Constructor
 ---
 ------
----@param self PLAYERTASK 
 ---@param Type AUFTRAG.Type Type of this task
 ---@param Target TARGET Target for this task
 ---@param Repeat boolean Repeat this task if true (default = false)
@@ -358,7 +328,6 @@ function PLAYERTASK:New(Type, Target, Repeat, Times, TTSType) end
 ---Constructor that automatically determines the task type based on the target.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Target TARGET Target for this task
 ---@param Repeat boolean Repeat this task if true (default = false)
 ---@param Times number Repeat on failure this many times if Repeat is true (default = 1)
@@ -370,7 +339,6 @@ function PLAYERTASK:NewFromTarget(Target, Repeat, Times, TTSType) end
 ---Task has been cancelled.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -380,7 +348,6 @@ function PLAYERTASK:OnAfterCancel(From, Event, To) end
 ---A client has aborted the task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -390,7 +357,6 @@ function PLAYERTASK:OnAfterClientAborted(From, Event, To) end
 ---Client has been added to the task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -401,7 +367,6 @@ function PLAYERTASK:OnAfterClientAdded(From, Event, To, Client) end
 ---Client has been removed from the task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -411,7 +376,6 @@ function PLAYERTASK:OnAfterClientRemoved(From, Event, To) end
 ---Task is done.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -421,7 +385,6 @@ function PLAYERTASK:OnAfterDone(From, Event, To) end
 ---Task is executed by the 1st client.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -431,7 +394,6 @@ function PLAYERTASK:OnAfterExecuting(From, Event, To) end
 ---Task has been a failure.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -441,7 +403,6 @@ function PLAYERTASK:OnAfterFailed(From, Event, To) end
 ---Task has been planned.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -451,7 +412,6 @@ function PLAYERTASK:OnAfterPilotPlanned(From, Event, To) end
 ---Task has been planned.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -461,7 +421,6 @@ function PLAYERTASK:OnAfterPlanned(From, Event, To) end
 ---Task has been Requested.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -471,7 +430,6 @@ function PLAYERTASK:OnAfterRequested(From, Event, To) end
 ---Task has been a success.
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -480,7 +438,6 @@ function PLAYERTASK:OnAfterSuccess(From, Event, To) end
 ---[User] Remove a client from this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Client CLIENT 
 ---@param Name string Name of the client
 ---@return PLAYERTASK #self
@@ -489,7 +446,6 @@ function PLAYERTASK:RemoveClient(Client, Name) end
 ---[User] Set a coalition side for this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Coalition number Coaltion side to add, e.g. coalition.side.BLUE
 ---@return PLAYERTASK #self
 function PLAYERTASK:SetCoalition(Coalition) end
@@ -497,7 +453,6 @@ function PLAYERTASK:SetCoalition(Coalition) end
 ---[USER] Add a short free text description for the menu entry of this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Text string 
 ---@return PLAYERTASK #self
 function PLAYERTASK:SetMenuName(Text) end
@@ -505,7 +460,6 @@ function PLAYERTASK:SetMenuName(Text) end
 ---[USER] Set a task sub type description to this task.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Type string 
 ---@return PLAYERTASK #self
 function PLAYERTASK:SetSubType(Type) end
@@ -513,7 +467,6 @@ function PLAYERTASK:SetSubType(Type) end
 ---[User] Smoke Target
 ---
 ------
----@param self PLAYERTASK 
 ---@param Color number  defaults to SMOKECOLOR.Red
 ---@return PLAYERTASK #self
 function PLAYERTASK:SmokeTarget(Color) end
@@ -521,7 +474,6 @@ function PLAYERTASK:SmokeTarget(Color) end
 ---[Internal] Check OpsZone capture success condition.
 ---
 ------
----@param self PLAYERTASK 
 ---@param OpsZone OPSZONE The OpsZone target object.
 ---@param CaptureSquadGroupNamePrefix string The prefix of the group name that needs to capture the zone.
 ---@param Coalition number The coalition that needs to capture the zone.
@@ -532,7 +484,6 @@ function PLAYERTASK:_CheckCaptureOpsZoneSuccess(OpsZone, CaptureSquadGroupNamePr
 ---[Internal] Check if any of the given conditions is true.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Conditions table Table of conditions.
 ---@return boolean #If true, at least one condition is true.
 function PLAYERTASK:_EvalConditionsAny(Conditions) end
@@ -540,7 +491,6 @@ function PLAYERTASK:_EvalConditionsAny(Conditions) end
 ---[Internal] Determines AUFTRAG type based on the target characteristics.
 ---
 ------
----@param self PLAYERTASK 
 ---@param Target TARGET Target for this task
 ---@return string #AUFTRAG.Type 
 function PLAYERTASK:_GetTaskTypeForTarget(Target) end
@@ -548,7 +498,6 @@ function PLAYERTASK:_GetTaskTypeForTarget(Target) end
 ---[Internal] Add a PLAYERTASKCONTROLLER for this task
 ---
 ------
----@param self PLAYERTASK 
 ---@param Controller PLAYERTASKCONTROLLER 
 ---@return PLAYERTASK #self
 function PLAYERTASK:_SetController(Controller) end
@@ -556,7 +505,6 @@ function PLAYERTASK:_SetController(Controller) end
 ---[Internal] On after cancel call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -567,7 +515,6 @@ function PLAYERTASK:onafterCancel(From, Event, To) end
 ---[Internal] On after client added call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -579,7 +526,6 @@ function PLAYERTASK:onafterClientAdded(From, Event, To, Client) end
 ---[Internal] On after done call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -590,7 +536,6 @@ function PLAYERTASK:onafterDone(From, Event, To) end
 ---[Internal] On after executing call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -601,7 +546,6 @@ function PLAYERTASK:onafterExecuting(From, Event, To) end
 ---[Internal] On after failed call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -612,7 +556,6 @@ function PLAYERTASK:onafterFailed(From, Event, To) end
 ---[Internal] On after planned call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -623,7 +566,6 @@ function PLAYERTASK:onafterPlanned(From, Event, To) end
 ---[Internal] On after progress call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -635,7 +577,6 @@ function PLAYERTASK:onafterProgress(From, Event, To, TargetCount) end
 ---[Internal] On after requested call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -646,7 +587,6 @@ function PLAYERTASK:onafterRequested(From, Event, To) end
 ---[Internal] On after status call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -657,7 +597,6 @@ function PLAYERTASK:onafterStatus(From, Event, To) end
 ---[Internal] On after status call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -668,7 +607,6 @@ function PLAYERTASK:onafterStop(From, Event, To) end
 ---[Internal] On after success call
 ---
 ------
----@param self PLAYERTASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1075,6 +1013,7 @@ PLAYERTASK.Condition = {}
 ---@field private noflaresmokemenu boolean 
 ---@field private precisionbombing boolean 
 ---@field private repeatonfailed boolean 
+---@field private repeattimes number 
 ---@field private taskinfomenu boolean 
 ---@field private usecluster boolean 
 ---@field private verbose boolean Switch verbosity.
@@ -1085,7 +1024,6 @@ PLAYERTASKCONTROLLER = {}
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param AcceptZone ZONE Add a zone to the accept zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddAcceptZone(AcceptZone) end
@@ -1094,7 +1032,6 @@ function PLAYERTASKCONTROLLER:AddAcceptZone(AcceptZone) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param AcceptZoneSet SET_ZONE Add a SET_ZONE to the accept zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddAcceptZoneSet(AcceptZoneSet) end
@@ -1103,7 +1040,6 @@ function PLAYERTASKCONTROLLER:AddAcceptZoneSet(AcceptZoneSet) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Recce GROUP Group of agents. Can also be an @{Ops.OpsGroup#OPSGROUP} object.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddAgent(Recce) end
@@ -1112,7 +1048,6 @@ function PLAYERTASKCONTROLLER:AddAgent(Recce) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param RecceSet SET_GROUP SET_GROUP of agents.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddAgentSet(RecceSet) end
@@ -1121,7 +1056,6 @@ function PLAYERTASKCONTROLLER:AddAgentSet(RecceSet) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param ConflictZone ZONE Add a zone to the conflict zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddConflictZone(ConflictZone) end
@@ -1130,7 +1064,6 @@ function PLAYERTASKCONTROLLER:AddConflictZone(ConflictZone) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param ConflictZoneSet SET_ZONE Add a zone to the conflict zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddConflictZoneSet(ConflictZoneSet) end
@@ -1161,7 +1094,6 @@ function PLAYERTASKCONTROLLER:AddConflictZoneSet(ConflictZoneSet) end
 ---       taskmanager:AddPlayerTaskToQueue(PlayerTask)
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param PlayerTask PLAYERTASK 
 ---@param Silent boolean If true, make no "has new task" announcement
 ---@param TaskFilter boolean If true, apply the white/black-list task filters here, also
@@ -1171,7 +1103,6 @@ function PLAYERTASKCONTROLLER:AddPlayerTaskToQueue(PlayerTask, Silent, TaskFilte
 ---[User] Convenience function - add done or ground allowing precision laser-guided bombing on statics and "high-value" ground units (MBT etc)
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param FlightGroup FLIGHTGROUP The FlightGroup (e.g. drone) to be used for lasing (one unit in one group only). Can optionally be handed as Ops.ArmyGroup#ARMYGROUP - **Note** might not find an LOS spot or get lost on the way. Cannot island-hop.
 ---@param LaserCode number The lasercode to be used. Defaults to 1688.
 ---@param HoldingPoint? COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
@@ -1184,7 +1115,6 @@ function PLAYERTASKCONTROLLER:AddPrecisionBombingOpsGroup(FlightGroup, LaserCode
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param RejectZone ZONE Add a zone to the reject zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddRejectZone(RejectZone) end
@@ -1193,7 +1123,6 @@ function PLAYERTASKCONTROLLER:AddRejectZone(RejectZone) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param RejectZoneSet SET_ZONE Add a zone to the reject zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddRejectZoneSet(RejectZoneSet) end
@@ -1201,7 +1130,6 @@ function PLAYERTASKCONTROLLER:AddRejectZoneSet(RejectZoneSet) end
 ---[User] Add a target object to the target queue
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Target POSITIONABLE The target GROUP, SET\_GROUP, UNIT, SET\_UNIT, STATIC, SET\_STATIC, AIRBASE, ZONE or COORDINATE.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:AddTarget(Target) end
@@ -1209,7 +1137,6 @@ function PLAYERTASKCONTROLLER:AddTarget(Target) end
 ---[User] Manually cancel a specific task
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Task PLAYERTASK The task to be cancelled
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:CancelTask(Task) end
@@ -1217,14 +1144,12 @@ function PLAYERTASKCONTROLLER:CancelTask(Task) end
 ---[User] Allow precision laser-guided bombing on statics and "high-value" ground units (MBT etc) with player units lasing.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:DisableBuddyLasing() end
 
 ---[User] Disable precision laser-guided bombing on statics and "high-value" ground units (MBT etc)
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param FlightGroup NOTYPE 
 ---@param LaserCode NOTYPE 
 ---@return PLAYERTASKCONTROLLER #self
@@ -1233,21 +1158,18 @@ function PLAYERTASKCONTROLLER:DisablePrecisionBombing(FlightGroup, LaserCode) en
 ---[User] Remove the SCORING object from this taskcontroller
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:DisableScoring() end
 
 ---[User] Disable extra menu to show task detail information before joining
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:DisableTaskInfoMenu() end
 
 ---[User] Allow precision laser-guided bombing on statics and "high-value" ground units (MBT etc) with player units lasing.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Recce? PLAYERRECCE (Optional) The PLAYERRECCE object governing the lasing players.
 ---@return PLAYERTASKCONTROLLER #self 
 function PLAYERTASKCONTROLLER:EnableBuddyLasing(Recce) end
@@ -1270,7 +1192,6 @@ function PLAYERTASKCONTROLLER:EnableBuddyLasing(Recce) end
 ---**Text=** tells the controller the supposed free text task description (optional, only taken if **Name=** is present first). No extra spaces!
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Tag? string (Optional) The tagname to use to identify commands, defaults to "TASK"
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnableMarkerOps(Tag) end
@@ -1294,7 +1215,6 @@ function PLAYERTASKCONTROLLER:EnableMarkerOps(Tag) end
 ---       taskmanager:EnablePrecisionBombing(ArmyGroup,1688)
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param FlightGroup FLIGHTGROUP The FlightGroup (e.g. drone) to be used for lasing (one unit in one group only). Can optionally be handed as Ops.ArmyGroup#ARMYGROUP - **Note** might not find an LOS spot or get lost on the way. Cannot island-hop.
 ---@param LaserCode number The lasercode to be used. Defaults to 1688.
 ---@param HoldingPoint? COORDINATE (Optional) Point where the drone should initially circle. If not set, defaults to BullsEye of the coalition.
@@ -1307,7 +1227,6 @@ function PLAYERTASKCONTROLLER:EnablePrecisionBombing(FlightGroup, LaserCode, Hol
 ---[User] Set or create a SCORING object for this taskcontroller
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Scoring? SCORING (optional) the Scoring object
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnableScoring(Scoring) end
@@ -1315,14 +1234,12 @@ function PLAYERTASKCONTROLLER:EnableScoring(Scoring) end
 ---[User] Enable extra menu to show task detail information before joining
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:EnableTaskInfoMenu() end
 
 ---Create and run a new TASKCONTROLLER instance.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Name string Name of this controller
 ---@param Coalition number of this controller, e.g. coalition.side.BLUE
 ---@param Type string Type of the tasks controlled, defaults to PLAYERTASKCONTROLLER.Type.A2G
@@ -1334,7 +1251,6 @@ function PLAYERTASKCONTROLLER:New(Name, Coalition, Type, ClientFilter) end
 ---Player aborted a task.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1347,7 +1263,6 @@ function PLAYERTASKCONTROLLER:OnAfterPlayerAbortedTask(From, Event, To, Group, C
 ---Player joined a task.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1360,7 +1275,6 @@ function PLAYERTASKCONTROLLER:OnAfterPlayerJoinedTask(From, Event, To, Group, Cl
 ---Task has been added.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1371,7 +1285,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskAdded(From, Event, To, Task) end
 ---Task has been cancelled.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1382,7 +1295,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskCancelled(From, Event, To, Task) end
 ---Task is done.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1393,7 +1305,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskDone(From, Event, To, Task) end
 ---Task has failed.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1404,7 +1315,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskFailed(From, Event, To, Task) end
 ---Task target count has been reduced.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1416,7 +1326,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskProgress(From, Event, To, Task, TargetC
 ---Task has failed and will be repeated.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1427,7 +1336,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskRepeatOnFailed(From, Event, To, Task) e
 ---Task has been a success.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1438,7 +1346,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskSuccess(From, Event, To, Task) end
 ---Task flared.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1449,7 +1356,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskTargetFlared(From, Event, To, Task) end
 ---Task illuminated.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1460,7 +1366,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskTargetIlluminated(From, Event, To, Task
 ---Task smoked.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1471,7 +1376,6 @@ function PLAYERTASKCONTROLLER:OnAfterTaskTargetSmoked(From, Event, To, Task) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param AcceptZone ZONE Remove this zone from the accept zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:RemoveAcceptZone(AcceptZone) end
@@ -1480,7 +1384,6 @@ function PLAYERTASKCONTROLLER:RemoveAcceptZone(AcceptZone) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param ConflictZone ZONE Remove this zone from the conflict zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:RemoveConflictZone(ConflictZone) end
@@ -1489,7 +1392,6 @@ function PLAYERTASKCONTROLLER:RemoveConflictZone(ConflictZone) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param RejectZone ZONE Remove this zone from the reject zone set.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:RemoveRejectZone(RejectZone) end
@@ -1497,7 +1399,6 @@ function PLAYERTASKCONTROLLER:RemoveRejectZone(RejectZone) end
 ---[User] Set flash directions option for player (player based info)
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean Set to `true` to switch on and `false` to switch off. Default is OFF.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetAllowFlashDirection(OnOff) end
@@ -1505,7 +1406,6 @@ function PLAYERTASKCONTROLLER:SetAllowFlashDirection(OnOff) end
 ---[User] Set how long the briefing is shown on screen.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Seconds number Duration in seconds. Defaults to 30 seconds.
 ---@return PLAYERTASKCONTROLLER #self 
 function PLAYERTASKCONTROLLER:SetBriefingDuration(Seconds) end
@@ -1514,7 +1414,6 @@ function PLAYERTASKCONTROLLER:SetBriefingDuration(Seconds) end
 ---See Wrapper.Group#GROUP.GetCustomCallSign() on how to set customized callsigns.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
 ---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
@@ -1527,7 +1426,6 @@ function PLAYERTASKCONTROLLER:SetCallSignOptions(ShortCallsign, Keepnumber, Call
 ---Note that for a controller type A2A target clustering is on by default. Also remember that the diameter of the resulting zone is double the radius.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Radius number Target cluster radius in kilometers. Default is 0.5km.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetClusterRadius(Radius) end
@@ -1535,21 +1433,18 @@ function PLAYERTASKCONTROLLER:SetClusterRadius(Radius) end
 ---[User] Do not show menu entries to illuminate targets.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetDisableIlluminateTask() end
 
 ---[User] Do not show menu entries to smoke or flare targets
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetDisableSmokeFlareTask() end
 
 ---[User] Do not show target menu entries of type names for GROUND targets
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetDisableUseTypeNames() end
 
@@ -1557,14 +1452,12 @@ function PLAYERTASKCONTROLLER:SetDisableUseTypeNames() end
 ---Needs smoke/flare enabled.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetEnableIlluminateTask() end
 
 ---[User] Show menu entries to smoke or flare targets (on by default!)
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetEnableSmokeFlareTask() end
 
@@ -1572,14 +1465,12 @@ function PLAYERTASKCONTROLLER:SetEnableSmokeFlareTask() end
 ---"Tank Group..."
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetEnableUseTypeNames() end
 
 ---[User] Show info text on screen with a coordinate info in any case (OFF by default)
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean Switch on = true or off = false
 ---@param LLDDM boolean Show LLDDM = true or LLDMS = false
 ---@return PLAYERTASKCONTROLLER #self
@@ -1589,7 +1480,6 @@ function PLAYERTASKCONTROLLER:SetInfoShowsCoordinate(OnOff, LLDDM) end
 ---Defaults to "en"
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Locale string The locale to use
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetLocale(Locale) end
@@ -1598,7 +1488,6 @@ function PLAYERTASKCONTROLLER:SetLocale(Locale) end
 ---Note: Marker will auto-delete when the undelying task is done.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetMarkerDeleteable() end
 
@@ -1606,14 +1495,12 @@ function PLAYERTASKCONTROLLER:SetMarkerDeleteable() end
 ---Note: Marker will auto-delete when the undelying task is done.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetMarkerReadOnly() end
 
 ---[User] Set the top menu name to a custom string.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Name string The name to use as the top menu designation.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetMenuName(Name) end
@@ -1621,7 +1508,6 @@ function PLAYERTASKCONTROLLER:SetMenuName(Name) end
 ---[User] Set menu build fine-tuning options
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param InfoMenu boolean If `true` this option will allow to show the Task Info-Menu also when a player has an active task.  Since the menu isn't refreshed if a player holds an active task, the info in there might be stale.
 ---@param ItemLimit number Number of items per task type to show, default 5. 
 ---@param HoldTime number Minimum number of seconds between menu refreshes (called every 30 secs) if a player has **no active task**.
@@ -1631,7 +1517,6 @@ function PLAYERTASKCONTROLLER:SetMenuOptions(InfoMenu, ItemLimit, HoldTime) end
 ---[User] Set the top menu to be a sub-menu of another MENU entry.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Menu MENU_MISSION 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetParentMenu(Menu) end
@@ -1648,7 +1533,6 @@ function PLAYERTASKCONTROLLER:SetParentMenu(Menu) end
 ---           `mycontroller:SetSEADAttributes({GROUP.Attribute.GROUND_SAM, GROUP.Attribute.GROUND_EWR})`
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Attributes table Table of attribute types considered to lead to a SEAD type player task.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetSEADAttributes(Attributes) end
@@ -1656,7 +1540,6 @@ function PLAYERTASKCONTROLLER:SetSEADAttributes(Attributes) end
 ---[User] Set SRS TTS details - see Sound.SRS for details.`SetSRS()` will try to use as many attributes configured with Sound.SRS#MSRS.LoadConfigFile() as possible.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Frequency number Frequency to be used. Can also be given as a table of multiple frequencies, e.g. 271 or {127,251}. There needs to be exactly the same number of modulations!
 ---@param Modulation number Modulation to be used. Can also be given as a table of multiple modulations, e.g. radio.modulation.AM or {radio.modulation.FM,radio.modulation.AM}. There needs to be exactly the same number of frequencies!
 ---@param PathToSRS string Defaults to "C:\\Program Files\\DCS-SimpleRadio-Standalone"
@@ -1676,7 +1559,6 @@ function PLAYERTASKCONTROLLER:SetSRS(Frequency, Modulation, PathToSRS, Gender, C
 ---Use in case you want to set this differently to the standard SRS.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Frequency number Frequency to be used. Can also be given as a table of multiple frequencies, e.g. 271 or {127,251}.  There needs to be exactly the same number of modulations!
 ---@param Modulation number Modulation to be used. Can also be given as a table of multiple modulations, e.g. radio.modulation.AM or {radio.modulation.FM,radio.modulation.AM}.  There needs to be exactly the same number of frequencies!
 ---@return PLAYERTASKCONTROLLER #self
@@ -1685,7 +1567,6 @@ function PLAYERTASKCONTROLLER:SetSRSBroadcast(Frequency, Modulation) end
 ---[User] Set to show a menu entry to retrieve the radio frequencies used.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean Set to `true` to switch on and `false` to switch off. Default is OFF.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetShowRadioInfoMenu(OnOff) end
@@ -1694,7 +1575,6 @@ function PLAYERTASKCONTROLLER:SetShowRadioInfoMenu(OnOff) end
 ---Determines the zone radius to distinguish CAS from BAI tasks and to find enemies if the TARGET object is a COORDINATE.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Radius number Radius to use in meters. Defaults to 500 meters.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetTargetRadius(Radius) end
@@ -1716,7 +1596,6 @@ function PLAYERTASKCONTROLLER:SetTargetRadius(Radius) end
 ---           `mycontroller:SetTaskBlackList({AUFTRAG.Type.SEAD})`
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param BlackList table Table of task types that cannot be generated. Use to restrict available types.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetTaskBlackList(BlackList) end
@@ -1730,7 +1609,6 @@ function PLAYERTASKCONTROLLER:SetTaskBlackList(BlackList) end
 ---`taskmanager:SetTaskRepetition(true, 5)`
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean Set to `true` to switch on and `false` to switch off (defaults to true)
 ---@param Repeats number Number of repeats (defaults to 5)
 ---@return PLAYERTASKCONTROLLER #self
@@ -1753,7 +1631,6 @@ function PLAYERTASKCONTROLLER:SetTaskRepetition(OnOff, Repeats) end
 ---           `mycontroller:SetTaskWhiteList({AUFTRAG.Type.CAS, AUFTRAG.Type.BAI, AUFTRAG.Type.BOMBING, AUFTRAG.Type.BOMBRUNWAY})`
 ---```
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param WhiteList table Table of task types that can be generated. Use to restrict available types.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetTaskWhiteList(WhiteList) end
@@ -1761,7 +1638,6 @@ function PLAYERTASKCONTROLLER:SetTaskWhiteList(WhiteList) end
 ---[User] For SRS - Switch to only transmit if there are players on the server.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Switch boolean If true, only send SRS if there are alive Players.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetTransmitOnlyWithPlayers(Switch) end
@@ -1769,7 +1645,6 @@ function PLAYERTASKCONTROLLER:SetTransmitOnlyWithPlayers(Switch) end
 ---[User] Set up INTEL detection
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param RecceName string This name will be used to build a detection group set. All groups with this string somewhere in their group name will be added as Recce.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SetupIntel(RecceName) end
@@ -1777,7 +1652,6 @@ function PLAYERTASKCONTROLLER:SetupIntel(RecceName) end
 ---[User] Switch screen output.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean  Switch screen output off (true) or on (false)
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SuppressScreenOutput(OnOff) end
@@ -1786,7 +1660,6 @@ function PLAYERTASKCONTROLLER:SuppressScreenOutput(OnOff) end
 ---You need to set up detection with #PLAYERTASKCONTROLLER.SetupIntel() **before** using this.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean Set to `true`for on and `false`for off.
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SwitchDetectStatics(OnOff) end
@@ -1794,7 +1667,6 @@ function PLAYERTASKCONTROLLER:SwitchDetectStatics(OnOff) end
 ---[User] Switch showing additional magnetic angles
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean If true, set to on (default), if nil or false, set to off
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SwitchMagenticAngles(OnOff) end
@@ -1802,7 +1674,6 @@ function PLAYERTASKCONTROLLER:SwitchMagenticAngles(OnOff) end
 ---[User] Switch usage of target names for menu entries on or off
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param OnOff boolean If true, set to on (default), if nil or false, set to off
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:SwitchUseGroupNames(OnOff) end
@@ -1810,7 +1681,6 @@ function PLAYERTASKCONTROLLER:SwitchUseGroupNames(OnOff) end
 ---[Internal] Abort Task
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -1819,7 +1689,6 @@ function PLAYERTASKCONTROLLER:_AbortTask(Group, Client) end
 ---[Internal] Show active task info
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Task PLAYERTASK 
 ---@param Group GROUP 
 ---@param Client CLIENT 
@@ -1829,7 +1698,6 @@ function PLAYERTASKCONTROLLER:_ActiveTaskInfo(Task, Group, Client) end
 ---[Internal] Add a task to the task queue
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Target TARGET 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_AddTask(Target) end
@@ -1837,7 +1705,6 @@ function PLAYERTASKCONTROLLER:_AddTask(Target) end
 ---[Internal] Check task queue for a specific player name
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param PlayerName NOTYPE 
 ---@return boolean #outcome
 function PLAYERTASKCONTROLLER:_CheckPlayerHasTask(PlayerName) end
@@ -1845,28 +1712,24 @@ function PLAYERTASKCONTROLLER:_CheckPlayerHasTask(PlayerName) end
 ---[Internal] Check precision task queue
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_CheckPrecisionTasks() end
 
 ---[Internal] Check target queue
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_CheckTargetQueue() end
 
 ---[Internal] Check task queue
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_CheckTaskQueue() end
 
 ---[Internal] Check for allowed task type, if there is a (positive) whitelist
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Type string 
 ---@return boolean #Outcome
 function PLAYERTASKCONTROLLER:_CheckTaskTypeAllowed(Type) end
@@ -1874,7 +1737,6 @@ function PLAYERTASKCONTROLLER:_CheckTaskTypeAllowed(Type) end
 ---[Internal] Check for allowed task type, if there is a (negative) blacklist
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Type string 
 ---@return boolean #Outcome
 function PLAYERTASKCONTROLLER:_CheckTaskTypeDisallowed(Type) end
@@ -1882,21 +1744,18 @@ function PLAYERTASKCONTROLLER:_CheckTaskTypeDisallowed(Type) end
 ---[Internal] _CreateActiveTaskMenuTemplate
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_CreateActiveTaskMenuTemplate() end
 
 ---[Internal] _CreateJoinMenuTemplate
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_CreateJoinMenuTemplate() end
 
 ---[Internal] Event handling
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param EventData EVENTDATA 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_EventHandler(EventData) end
@@ -1904,7 +1763,6 @@ function PLAYERTASKCONTROLLER:_EventHandler(EventData) end
 ---[Internal] Find matching drone for precision bombing task, if any is assigned.
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param ID number Task ID to look for
 ---@return OPSGROUP #Drone
 function PLAYERTASKCONTROLLER:_FindLasingDroneForTaskID(ID) end
@@ -1912,7 +1770,6 @@ function PLAYERTASKCONTROLLER:_FindLasingDroneForTaskID(ID) end
 ---[Internal] Flare task location
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -1921,21 +1778,18 @@ function PLAYERTASKCONTROLLER:_FlareTask(Group, Client) end
 ---[Internal] Flashing directional info for a client
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_FlashInfo() end
 
 ---[Internal] Get task types for the menu
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return table #TaskTypes
 function PLAYERTASKCONTROLLER:_GetAvailableTaskTypes() end
 
 ---[Internal] Get player name
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Client CLIENT 
 ---@return string #playername
 ---@return string #ttsplayername
@@ -1944,7 +1798,6 @@ function PLAYERTASKCONTROLLER:_GetPlayerName(Client) end
 ---[Internal] Get task per type for the menu
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return table #TasksPerTypes
 function PLAYERTASKCONTROLLER:_GetTasksPerType() end
 
@@ -1952,7 +1805,6 @@ function PLAYERTASKCONTROLLER:_GetTasksPerType() end
 ---Numbers are spaced out, e.g. "Heading 180" becomes "Heading 1 8 0 ".
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param text string Original text.
 ---@return string #Spoken text.
 function PLAYERTASKCONTROLLER:_GetTextForSpeech(text) end
@@ -1960,7 +1812,6 @@ function PLAYERTASKCONTROLLER:_GetTextForSpeech(text) end
 ---[Internal] Illuminate task location
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -1969,14 +1820,12 @@ function PLAYERTASKCONTROLLER:_IlluminateTask(Group, Client) end
 ---[Internal] Init localization
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@return PLAYERTASKCONTROLLER #self
 function PLAYERTASKCONTROLLER:_InitLocalization() end
 
 ---[Internal] Function the check against SeadAttributes
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Attribute string 
 ---@return boolean #IsSead
 function PLAYERTASKCONTROLLER:_IsAttributeSead(Attribute) end
@@ -1984,7 +1833,6 @@ function PLAYERTASKCONTROLLER:_IsAttributeSead(Attribute) end
 ---[Internal] Join a player to a task
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Task PLAYERTASK 
 ---@param Force boolean Assign task even if client already has one
 ---@param Group GROUP 
@@ -1995,7 +1843,6 @@ function PLAYERTASKCONTROLLER:_JoinTask(Task, Force, Group, Client) end
 ---[Internal] Mark task on F10 map
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -2004,7 +1851,6 @@ function PLAYERTASKCONTROLLER:_MarkTask(Group, Client) end
 ---[Internal] _RemoveMenuEntriesForTask
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Task PLAYERTASK 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -2013,7 +1859,6 @@ function PLAYERTASKCONTROLLER:_RemoveMenuEntriesForTask(Task, Client) end
 ---[Internal] Send message to SET_CLIENT of players
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Text string the text to be send
 ---@param Seconds? number (optional) Seconds to show, default 10
 ---@return PLAYERTASKCONTROLLER #self
@@ -2022,7 +1867,6 @@ function PLAYERTASKCONTROLLER:_SendMessageToClients(Text, Seconds) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Group NOTYPE 
 ---@param Client NOTYPE 
 function PLAYERTASKCONTROLLER:_ShowRadioInfo(Group, Client) end
@@ -2030,7 +1874,6 @@ function PLAYERTASKCONTROLLER:_ShowRadioInfo(Group, Client) end
 ---[Internal] Smoke task location
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -2039,7 +1882,6 @@ function PLAYERTASKCONTROLLER:_SmokeTask(Group, Client) end
 ---[Internal] Switch flashing info for a client
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Group GROUP 
 ---@param Client CLIENT 
 ---@return PLAYERTASKCONTROLLER #self
@@ -2048,7 +1890,6 @@ function PLAYERTASKCONTROLLER:_SwitchFlashing(Group, Client) end
 ---[Internal] _SwitchMenuForClient
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param Client CLIENT The client
 ---@param MenuType string 
 ---@param Delay number 
@@ -2058,13 +1899,11 @@ function PLAYERTASKCONTROLLER:_SwitchMenuForClient(Client, MenuType, Delay) end
 
 ---
 ------
----@param self NOTYPE 
 function PLAYERTASKCONTROLLER:_UpdateJoinMenuTemplate() end
 
 ---[Internal] On after start call
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2075,7 +1914,6 @@ function PLAYERTASKCONTROLLER:onafterStart(From, Event, To) end
 ---[Internal] On after Status call
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2086,7 +1924,6 @@ function PLAYERTASKCONTROLLER:onafterStatus(From, Event, To) end
 ---[Internal] On after Stop call
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2097,7 +1934,6 @@ function PLAYERTASKCONTROLLER:onafterStop(From, Event, To) end
 ---[Internal] On after task added
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2109,7 +1945,6 @@ function PLAYERTASKCONTROLLER:onafterTaskAdded(From, Event, To, Task) end
 ---[Internal] On after task cancelled
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2121,7 +1956,6 @@ function PLAYERTASKCONTROLLER:onafterTaskCancelled(From, Event, To, Task) end
 ---[Internal] On after task done
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2133,7 +1967,6 @@ function PLAYERTASKCONTROLLER:onafterTaskDone(From, Event, To, Task) end
 ---[Internal] On after task failed
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2145,7 +1978,6 @@ function PLAYERTASKCONTROLLER:onafterTaskFailed(From, Event, To, Task) end
 ---[Internal] On after task failed, repeat planned
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -2157,7 +1989,6 @@ function PLAYERTASKCONTROLLER:onafterTaskRepeatOnFailed(From, Event, To, Task) e
 ---[Internal] On after task success
 ---
 ------
----@param self PLAYERTASKCONTROLLER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

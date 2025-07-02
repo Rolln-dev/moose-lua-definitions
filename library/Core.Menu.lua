@@ -76,7 +76,6 @@ MENU_COALITION = {}
 ---Creates a new MENU_COALITION object and creates the menu for a complete coalition.
 ---
 ------
----@param self MENU_COALITION 
 ---@param Coalition coalition.side The coalition owning the menu.
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu table The parent menu. This parameter can be ignored if you want the menu to be located at the parent menu of DCS world (under F10 other).
@@ -86,14 +85,12 @@ function MENU_COALITION:New(Coalition, MenuText, ParentMenu) end
 ---Refreshes a radio item for a coalition
 ---
 ------
----@param self MENU_COALITION 
 ---@return MENU_COALITION #
 function MENU_COALITION:Refresh() end
 
 ---Removes the main menu and the sub menus recursively of this MENU_COALITION.
 ---
 ------
----@param self MENU_COALITION 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE 
 ---@return nil #
@@ -103,7 +100,6 @@ function MENU_COALITION:Remove(MenuStamp, MenuTag) end
 ---Note that the main menu is kept!
 ---
 ------
----@param self MENU_COALITION 
 ---@return MENU_COALITION #
 function MENU_COALITION:RemoveSubMenus() end
 
@@ -120,7 +116,6 @@ MENU_COALITION_COMMAND = {}
 ---Creates a new radio command item for a coalition, which can invoke a function with parameters.
 ---
 ------
----@param self MENU_COALITION_COMMAND 
 ---@param Coalition coalition.side The coalition owning the menu.
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu MENU_COALITION The parent menu.
@@ -133,14 +128,12 @@ function MENU_COALITION_COMMAND:New(Coalition, MenuText, ParentMenu, CommandMenu
 ---Refreshes a radio item for a coalition
 ---
 ------
----@param self MENU_COALITION_COMMAND 
 ---@return MENU_COALITION_COMMAND #
 function MENU_COALITION_COMMAND:Refresh() end
 
 ---Removes a radio command item for a coalition
 ---
 ------
----@param self MENU_COALITION_COMMAND 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE 
 ---@return nil #
@@ -157,7 +150,6 @@ MENU_COMMAND_BASE = {}
 ---Constructor
 ---
 ------
----@param self NOTYPE 
 ---@param MenuText NOTYPE 
 ---@param ParentMenu NOTYPE 
 ---@param CommandMenuFunction NOTYPE 
@@ -171,7 +163,6 @@ function MENU_COMMAND_BASE:New(MenuText, ParentMenu, CommandMenuFunction, Comman
 ---If the arguments change, no new menu needs to be generated if the menu text is the same!!!
 ---
 ------
----@param self NOTYPE 
 ---@param CommandMenuArguments NOTYPE 
 ---@return MENU_COMMAND_BASE #
 function MENU_COMMAND_BASE:SetCommandMenuArguments(CommandMenuArguments) end
@@ -182,7 +173,6 @@ function MENU_COMMAND_BASE:SetCommandMenuArguments(CommandMenuArguments) end
 ---If the function changes, no new menu needs to be generated if the menu text is the same!!!
 ---
 ------
----@param self NOTYPE 
 ---@param CommandMenuFunction NOTYPE 
 ---@return MENU_COMMAND_BASE #
 function MENU_COMMAND_BASE:SetCommandMenuFunction(CommandMenuFunction) end
@@ -202,7 +192,6 @@ MENU_GROUP = {}
 ---Creates a new radio menu item for a group.
 ---
 ------
----@param self MENU_GROUP 
 ---@param Group GROUP The Group owning the menu.
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu table The parent menu.
@@ -212,21 +201,18 @@ function MENU_GROUP:New(Group, MenuText, ParentMenu) end
 ---Refreshes a new radio item for a group and submenus
 ---
 ------
----@param self MENU_GROUP 
 ---@return MENU_GROUP #
 function MENU_GROUP:Refresh() end
 
 ---Refreshes a new radio item for a group and submenus, ordering by (numerical) MenuTag
 ---
 ------
----@param self MENU_GROUP 
 ---@return MENU_GROUP #
 function MENU_GROUP:RefreshAndOrderByTag() end
 
 ---Removes the main menu and sub menus recursively of this MENU_GROUP.
 ---
 ------
----@param self MENU_GROUP 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return nil #
@@ -235,7 +221,6 @@ function MENU_GROUP:Remove(MenuStamp, MenuTag) end
 ---Removes the sub menus recursively of this MENU_GROUP.
 ---
 ------
----@param self MENU_GROUP 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return MENU_GROUP #self
@@ -254,7 +239,6 @@ MENU_GROUP_COMMAND = {}
 ---Creates a new radio command item for a group
 ---
 ------
----@param self MENU_GROUP_COMMAND 
 ---@param Group GROUP The Group owning the menu.
 ---@param MenuText NOTYPE The text for the menu.
 ---@param ParentMenu NOTYPE The parent menu.
@@ -267,14 +251,12 @@ function MENU_GROUP_COMMAND:New(Group, MenuText, ParentMenu, CommandMenuFunction
 ---Refreshes a radio item for a group
 ---
 ------
----@param self MENU_GROUP_COMMAND 
 ---@return MENU_GROUP_COMMAND #
 function MENU_GROUP_COMMAND:Refresh() end
 
 ---Removes a menu structure for a group.
 ---
 ------
----@param self MENU_GROUP_COMMAND 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return nil #
@@ -295,7 +277,6 @@ MENU_GROUP_COMMAND_DELAYED = {}
 ---Creates a new radio command item for a group
 ---
 ------
----@param self MENU_GROUP_COMMAND_DELAYED 
 ---@param Group GROUP The Group owning the menu.
 ---@param MenuText NOTYPE The text for the menu.
 ---@param ParentMenu NOTYPE The parent menu.
@@ -308,14 +289,12 @@ function MENU_GROUP_COMMAND_DELAYED:New(Group, MenuText, ParentMenu, CommandMenu
 ---Refreshes a radio item for a group
 ---
 ------
----@param self MENU_GROUP_COMMAND_DELAYED 
 ---@return MENU_GROUP_COMMAND_DELAYED #
 function MENU_GROUP_COMMAND_DELAYED:Refresh() end
 
 ---Removes a menu structure for a group.
 ---
 ------
----@param self MENU_GROUP_COMMAND_DELAYED 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return nil #
@@ -324,7 +303,6 @@ function MENU_GROUP_COMMAND_DELAYED:Remove(MenuStamp, MenuTag) end
 ---Refreshes a radio item for a group
 ---
 ------
----@param self MENU_GROUP_COMMAND_DELAYED 
 ---@return MENU_GROUP_COMMAND_DELAYED #
 function MENU_GROUP_COMMAND_DELAYED:Set() end
 
@@ -345,7 +323,6 @@ MENU_GROUP_DELAYED = {}
 ---Creates a new radio menu item for a group.
 ---
 ------
----@param self MENU_GROUP_DELAYED 
 ---@param Group GROUP The Group owning the menu.
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu table The parent menu.
@@ -355,14 +332,12 @@ function MENU_GROUP_DELAYED:New(Group, MenuText, ParentMenu) end
 ---Refreshes a new radio item for a group and submenus
 ---
 ------
----@param self MENU_GROUP_DELAYED 
 ---@return MENU_GROUP_DELAYED #
 function MENU_GROUP_DELAYED:Refresh() end
 
 ---Removes the main menu and sub menus recursively of this MENU_GROUP.
 ---
 ------
----@param self MENU_GROUP_DELAYED 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return nil #
@@ -371,7 +346,6 @@ function MENU_GROUP_DELAYED:Remove(MenuStamp, MenuTag) end
 ---Removes the sub menus recursively of this MENU_GROUP_DELAYED.
 ---
 ------
----@param self MENU_GROUP_DELAYED 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE A Tag or Key to filter the menus to be refreshed with the Tag set.
 ---@return MENU_GROUP_DELAYED #self
@@ -380,7 +354,6 @@ function MENU_GROUP_DELAYED:RemoveSubMenus(MenuStamp, MenuTag) end
 ---Refreshes a new radio item for a group and submenus
 ---
 ------
----@param self MENU_GROUP_DELAYED 
 ---@return MENU_GROUP_DELAYED #
 function MENU_GROUP_DELAYED:Set() end
 
@@ -395,7 +368,6 @@ MENU_MISSION = {}
 ---Creates a new MENU_MISSION object and creates the menu for a complete mission file.
 ---
 ------
----@param self MENU_MISSION 
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu table The parent menu. This parameter can be ignored if you want the menu to be located at the parent menu of DCS world (under F10 other).
 ---@return MENU_MISSION #
@@ -404,14 +376,12 @@ function MENU_MISSION:New(MenuText, ParentMenu) end
 ---Refreshes a radio item for a mission
 ---
 ------
----@param self MENU_MISSION 
 ---@return MENU_MISSION #
 function MENU_MISSION:Refresh() end
 
 ---Removes the main menu and the sub menus recursively of this MENU_MISSION.
 ---
 ------
----@param self MENU_MISSION 
 ---@param MenuStamp NOTYPE 
 ---@param MenuTag NOTYPE 
 ---@return nil #
@@ -421,7 +391,6 @@ function MENU_MISSION:Remove(MenuStamp, MenuTag) end
 ---Note that the main menu is kept!
 ---
 ------
----@param self MENU_MISSION 
 ---@return MENU_MISSION #
 function MENU_MISSION:RemoveSubMenus() end
 
@@ -437,7 +406,6 @@ MENU_MISSION_COMMAND = {}
 ---Creates a new radio command item for a complete mission file, which can invoke a function with parameters.
 ---
 ------
----@param self MENU_MISSION_COMMAND 
 ---@param MenuText string The text for the menu.
 ---@param ParentMenu MENU_MISSION The parent menu.
 ---@param CommandMenuFunction NOTYPE A function that is called when the menu key is pressed.
@@ -449,14 +417,12 @@ function MENU_MISSION_COMMAND:New(MenuText, ParentMenu, CommandMenuFunction, Com
 ---Refreshes a radio item for a mission
 ---
 ------
----@param self MENU_MISSION_COMMAND 
 ---@return MENU_MISSION_COMMAND #
 function MENU_MISSION_COMMAND:Refresh() end
 
 ---Removes a radio command item for a coalition
 ---
 ------
----@param self MENU_MISSION_COMMAND 
 ---@return nil #
 function MENU_MISSION_COMMAND:Remove() end
 

@@ -31,7 +31,6 @@ USERSOUND = {}
 ---USERSOUND Constructor.
 ---
 ------
----@param self USERSOUND 
 ---@param UserSoundFileName string The filename of the usersound.
 ---@return USERSOUND #
 function USERSOUND:New(UserSoundFileName) end
@@ -46,7 +45,6 @@ function USERSOUND:New(UserSoundFileName) end
 ---  BlueVictory:SetFileName( "BlueVictoryLoud.ogg" ) -- Set the BlueVictory to change the file name to play a louder sound.
 ---```
 ------
----@param self USERSOUND 
 ---@param UserSoundFileName string The filename of the usersound.
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:SetFileName(UserSoundFileName) end
@@ -61,7 +59,6 @@ function USERSOUND:SetFileName(UserSoundFileName) end
 ---  BlueVictory:ToAll() -- Play the sound that Blue has won.
 ---```
 ------
----@param self USERSOUND 
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToAll() end
 
@@ -76,7 +73,6 @@ function USERSOUND:ToAll() end
 ---  BlueVictory:ToClient( PlayerUnit ) -- Play the victory sound to the player unit.
 ---```
 ------
----@param self USERSOUND 
 ---@param The CLIENT @{Wrapper.Client} to play the usersound to.
 ---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@param Client NOTYPE 
@@ -93,7 +89,6 @@ function USERSOUND:ToClient(The, Delay, Client) end
 ---  BlueVictory:ToCoalition( coalition.side.BLUE ) -- Play the sound that Blue has won to the blue coalition.
 ---```
 ------
----@param self USERSOUND 
 ---@param Coalition coalition The coalition to play the usersound to.
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToCoalition(Coalition) end
@@ -108,7 +103,6 @@ function USERSOUND:ToCoalition(Coalition) end
 ---  BlueVictory:ToCountry( country.id.USA ) -- Play the sound that Blue has won to the USA country.
 ---```
 ------
----@param self USERSOUND 
 ---@param Country country The country to play the usersound to.
 ---@return USERSOUND #The usersound instance.
 function USERSOUND:ToCountry(Country) end
@@ -124,7 +118,6 @@ function USERSOUND:ToCountry(Country) end
 ---  BlueVictory:ToGroup( PlayerGroup ) -- Play the victory sound to the player group.
 ---```
 ------
----@param self USERSOUND 
 ---@param Group GROUP The @{Wrapper.Group} to play the usersound to.
 ---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@return USERSOUND #The usersound instance.
@@ -141,7 +134,6 @@ function USERSOUND:ToGroup(Group, Delay) end
 ---  BlueVictory:ToUnit( PlayerUnit ) -- Play the victory sound to the player unit.
 ---```
 ------
----@param self USERSOUND 
 ---@param Unit UNIT The @{Wrapper.Unit} to play the usersound to.
 ---@param Delay? number (Optional) Delay in seconds, before the sound is played. Default 0.
 ---@return USERSOUND #The usersound instance.

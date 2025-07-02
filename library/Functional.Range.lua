@@ -330,7 +330,6 @@ RANGE = {}
 ---This
 ---
 ------
----@param self RANGE 
 ---@param coord COORDINATE The coordinate.
 ---@param name string Name of target.
 ---@param goodhitrange number Max distance from unit which is considered as a good hit.
@@ -340,7 +339,6 @@ function RANGE:AddBombingTargetCoordinate(coord, name, goodhitrange) end
 ---Add all units of a group as bombing targets.
 ---
 ------
----@param self RANGE 
 ---@param group GROUP Group of bombing targets. Can also be given as group name.
 ---@param goodhitrange number Max distance from unit which is considered as a good hit.
 ---@param randommove boolean If true, unit will move randomly within the range. Default is false.
@@ -350,7 +348,6 @@ function RANGE:AddBombingTargetGroup(group, goodhitrange, randommove) end
 ---Add a scenery object as bombing target.
 ---
 ------
----@param self RANGE 
 ---@param scenery SCENERY Scenary object.
 ---@param goodhitrange number Max distance from unit which is considered as a good hit.
 ---@return RANGE #self
@@ -359,7 +356,6 @@ function RANGE:AddBombingTargetScenery(scenery, goodhitrange) end
 ---Add a unit or static object as bombing target.
 ---
 ------
----@param self RANGE 
 ---@param unit POSITIONABLE Positionable (unit or static) of the bombing target.
 ---@param goodhitrange number Max distance from unit which is considered as a good hit.
 ---@param randommove boolean If true, unit will move randomly within the range. Default is false.
@@ -369,7 +365,6 @@ function RANGE:AddBombingTargetUnit(unit, goodhitrange, randommove) end
 ---Add bombing target(s) to range.
 ---
 ------
----@param self RANGE 
 ---@param targetnames table Single or multiple (Table) names of unit or static objects serving as bomb targets.
 ---@param goodhitrange? number (Optional) Max distance from target unit (in meters) which is considered as a good hit. Default is 25 m.
 ---@param randommove boolean If true, unit will move randomly within the range. Default is false.
@@ -382,7 +377,6 @@ function RANGE:AddBombingTargets(targetnames, goodhitrange, randommove) end
 ---Furthermore, the player must not be too high and fly in the direction of the pit to make a valid target apporoach.
 ---
 ------
----@param self RANGE 
 ---@param targetnames table Single or multiple (Table) unit or static names defining the strafe targets. The first target in the list determines the approach box origin (heading and box).
 ---@param boxlength? number (Optional) Length of the approach box in meters. Default is 3000 m.
 ---@param boxwidth? number (Optional) Width of the approach box in meters. Default is 300 m.
@@ -399,7 +393,6 @@ function RANGE:AddStrafePit(targetnames, boxlength, boxwidth, heading, inversehe
 ---Furthermore, the player must not be too high and fly in the direction of the pit to make a valid target apporoach.
 ---
 ------
----@param self RANGE 
 ---@param group GROUP MOOSE group of unit names defining the strafe target pit. The first unit in the group determines the approach zone (heading and box).
 ---@param boxlength? number (Optional) Length of the approach box in meters. Default is 3000 m.
 ---@param boxwidth? number (Optional) Width of the approach box in meters. Default is 300 m.
@@ -413,14 +406,12 @@ function RANGE:AddStrafePitGroup(group, boxlength, boxwidth, heading, inversehea
 ---Disable debug modus.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:DebugOFF() end
 
 ---Enable debug modus.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:DebugON() end
 
@@ -428,7 +419,6 @@ function RANGE:DebugON() end
 ---Aircraft must be below the ceiling altitude to be considered in the range zone.
 ---
 ------
----@param self RANGE 
 ---@param enabled boolean True if you would like to enable the ceiling check.  If no value give, will Default to false.
 ---@return RANGE #self
 function RANGE:EnableRangeCeiling(enabled) end
@@ -436,21 +426,18 @@ function RANGE:EnableRangeCeiling(enabled) end
 ---Triggers the FSM event "EnterRange".
 ---
 ------
----@param self RANGE 
 ---@param player RANGE.PlayerData Data of player settings etc.
 function RANGE:EnterRange(player) end
 
 ---Triggers the FSM event "ExitRange".
 ---
 ------
----@param self RANGE 
 ---@param player RANGE.PlayerData Data of player settings etc.
 function RANGE:ExitRange(player) end
 
 ---Measures the foule line distance between two unit or static objects.
 ---
 ------
----@param self RANGE 
 ---@param namepit string Name of the strafe pit target object.
 ---@param namefoulline string Name of the fould line distance marker object.
 ---@return number #Foul line distance in meters.
@@ -459,7 +446,6 @@ function RANGE:GetFoullineDistance(namepit, namefoulline) end
 ---Triggers the FSM event "Impact".
 ---
 ------
----@param self RANGE 
 ---@param result RANGE.BombResult Data of bombing run.
 ---@param player RANGE.PlayerData Data of player settings etc.
 function RANGE:Impact(result, player) end
@@ -468,7 +454,6 @@ function RANGE:Impact(result, player) end
 ---Creates a new RANGE object.
 ---
 ------
----@param self RANGE 
 ---@param RangeName string Name of the range. Has to be unique. Will we used to create F10 menu items etc.
 ---@param Coalition? number (optional) Coalition of the range, if any, e.g. coalition.side.BLUE.
 ---@return RANGE #RANGE object.
@@ -478,7 +463,6 @@ function RANGE:New(RangeName, Coalition) end
 ---Called when a player enters the range zone.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -489,7 +473,6 @@ function RANGE:OnAfterEnterRange(From, Event, To, player) end
 ---Called when a player leaves the range zone.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -500,7 +483,6 @@ function RANGE:OnAfterExitRange(From, Event, To, player) end
 ---Called when a bomb/rocket/missile impacted.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -512,7 +494,6 @@ function RANGE:OnAfterImpact(From, Event, To, result, player) end
 ---Called when a player rolls in to a strafe taret.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -524,7 +505,6 @@ function RANGE:OnAfterRollingIn(From, Event, To, player, target) end
 ---Called when a player finished a strafing run.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -535,28 +515,24 @@ function RANGE:OnAfterStrafeResult(From, Event, To, player, result) end
 ---Range event handler for event birth.
 ---
 ------
----@param self RANGE 
 ---@param EventData EVENTDATA 
 function RANGE:OnEventBirth(EventData) end
 
 ---Range event handler for event hit.
 ---
 ------
----@param self RANGE 
 ---@param EventData EVENTDATA 
 function RANGE:OnEventHit(EventData) end
 
 ---Range event handler for event shot (when a unit releases a rocket or bomb (but not a fast firing gun).
 ---
 ------
----@param self RANGE 
 ---@param EventData EVENTDATA 
 function RANGE:OnEventShot(EventData) end
 
 ---Triggers the FSM event "RollingIn".
 ---
 ------
----@param self RANGE 
 ---@param player RANGE.PlayerData Data of player settings etc.
 ---@param target RANGE.StrafeTarget Strafe target.
 function RANGE:RollingIn(player, target) end
@@ -564,14 +540,12 @@ function RANGE:RollingIn(player, target) end
 ---Switch off auto save player results.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:SetAutosaveOff() end
 
 ---Automatically save player results to disc.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:SetAutosaveOn() end
 
@@ -579,7 +553,6 @@ function RANGE:SetAutosaveOn() end
 ---By default bomb targets are marked by red smoke.
 ---
 ------
----@param self RANGE 
 ---@param colorid SMOKECOLOR Color id. Default `SMOKECOLOR.Red`.
 ---@return RANGE #self
 function RANGE:SetBombTargetSmokeColor(colorid) end
@@ -588,7 +561,6 @@ function RANGE:SetBombTargetSmokeColor(colorid) end
 ---Bombs/rockets/missiles are only tracked if player-range distance is less than this distance. Default 25 km.
 ---
 ------
----@param self RANGE 
 ---@param distance number Threshold distance in km. Default 25 km.
 ---@return RANGE #self
 function RANGE:SetBombtrackThreshold(distance) end
@@ -597,7 +569,6 @@ function RANGE:SetBombtrackThreshold(distance) end
 ---A smaller time step increases accuracy but needs more CPU time.
 ---
 ------
----@param self RANGE 
 ---@param dt number Time interval in seconds. Default is 0.005 s.
 ---@return RANGE #self
 function RANGE:SetBombtrackTimestep(dt) end
@@ -605,7 +576,6 @@ function RANGE:SetBombtrackTimestep(dt) end
 ---Set player setting whether bomb impact points are smoked or not.
 ---
 ------
----@param self RANGE 
 ---@param switch boolean If true nor nil default is to smoke impact points of bombs.
 ---@return RANGE #self
 function RANGE:SetDefaultPlayerSmokeBomb(switch) end
@@ -613,7 +583,6 @@ function RANGE:SetDefaultPlayerSmokeBomb(switch) end
 ---Set max number of player results that are displayed.
 ---
 ------
----@param self RANGE 
 ---@param nmax number Number of results. Default is 10.
 ---@return RANGE #self
 function RANGE:SetDisplayedMaxPlayerResults(nmax) end
@@ -623,7 +592,6 @@ function RANGE:SetDisplayedMaxPlayerResults(nmax) end
 ---**Requires running FunkMan program**.
 ---
 ------
----@param self RANGE 
 ---@param Port number Port. Default `10042`.
 ---@param Host string Host. Default "127.0.0.1".
 ---@return RANGE #self
@@ -632,7 +600,6 @@ function RANGE:SetFunkManOn(Port, Host) end
 ---Enable instructor radio and set frequency (non-SRS).
 ---
 ------
----@param self RANGE 
 ---@param frequency number Frequency in MHz. Default 305 MHz.
 ---@param relayunitname string Name of the unit used for transmission.
 ---@return RANGE #self
@@ -642,7 +609,6 @@ function RANGE:SetInstructorRadio(frequency, relayunitname) end
 ---Player entering a strafe pit above that altitude are not registered for a valid pass.
 ---
 ------
----@param self RANGE 
 ---@param maxalt number Maximum altitude in meters AGL. Default is 914 m = 3000 ft.
 ---@return RANGE #self
 function RANGE:SetMaxStrafeAlt(maxalt) end
@@ -650,7 +616,6 @@ function RANGE:SetMaxStrafeAlt(maxalt) end
 ---Set the root F10 menu under which the range F10 menu is created.
 ---
 ------
----@param self RANGE 
 ---@param menu MENU_MISSION The root F10 menu.
 ---@return RANGE #self
 function RANGE:SetMenuRoot(menu) end
@@ -658,7 +623,6 @@ function RANGE:SetMenuRoot(menu) end
 ---Set time how long (most) messages are displayed.
 ---
 ------
----@param self RANGE 
 ---@param time number Time in seconds. Default is 30 s.
 ---@return RANGE #self
 function RANGE:SetMessageTimeDuration(time) end
@@ -667,7 +631,6 @@ function RANGE:SetMessageTimeDuration(time) end
 ---The examiner will receive messages from all clients.
 ---
 ------
----@param self RANGE 
 ---@param examinergroupname string Name of the group of the examiner.
 ---@param exclusively boolean If true, messages are send exclusively to the examiner, i.e. not to the clients.
 ---@return RANGE #self
@@ -676,7 +639,6 @@ function RANGE:SetMessageToExaminer(examinergroupname, exclusively) end
 ---Disable ALL messages to players.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:SetMessagesOFF() end
 
@@ -684,14 +646,12 @@ function RANGE:SetMessagesOFF() end
 ---This is the default
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:SetMessagesON() end
 
 ---Set range ceiling altitude in feet MSL.
 ---
 ------
----@param self RANGE 
 ---@param altitude? number (optional) Ceiling altitude of the range in ft MSL. Default 20000ft MSL
 ---@return RANGE #self
 function RANGE:SetRangeCeiling(altitude) end
@@ -699,7 +659,6 @@ function RANGE:SetRangeCeiling(altitude) end
 ---Enable range control and set frequency (non-SRS).
 ---
 ------
----@param self RANGE 
 ---@param frequency number Frequency in MHz. Default 256 MHz.
 ---@param relayunitname string Name of the unit used for transmission.
 ---@return RANGE #self
@@ -710,7 +669,6 @@ function RANGE:SetRangeControl(frequency, relayunitname) end
 ---The range location determines the position at which the weather data is evaluated.
 ---
 ------
----@param self RANGE 
 ---@param coordinate COORDINATE Coordinate of the range.
 ---@return RANGE #self
 function RANGE:SetRangeLocation(coordinate) end
@@ -719,7 +677,6 @@ function RANGE:SetRangeLocation(coordinate) end
 ---Defines the area in which e.g. bomb impacts are smoked.
 ---
 ------
----@param self RANGE 
 ---@param radius number Radius in km. Default 5 km.
 ---@return RANGE #self
 function RANGE:SetRangeRadius(radius) end
@@ -729,7 +686,6 @@ function RANGE:SetRangeRadius(radius) end
 ---If a zone is not explicitly specified, the range zone is determined by its location and radius.
 ---
 ------
----@param self RANGE 
 ---@param zone ZONE MOOSE zone defining the range perimeters.
 ---@return RANGE #self
 function RANGE:SetRangeZone(zone) end
@@ -738,7 +694,6 @@ function RANGE:SetRangeZone(zone) end
 ---No sound files necessary.
 ---
 ------
----@param self RANGE 
 ---@param PathToSRS string Path to SRS directory.
 ---@param Port number SRS port. Default 5002.
 ---@param Coalition number Coalition side, e.g. `coalition.side.BLUE` or `coalition.side.RED`. Default `coalition.side.BLUE`.
@@ -753,7 +708,6 @@ function RANGE:SetSRS(PathToSRS, Port, Coalition, Frequency, Modulation, Volume,
 ---Use `RANGE:SetSRS()` once first before using this function.
 ---
 ------
----@param self RANGE 
 ---@param frequency number Frequency in MHz. Default 256 MHz.
 ---@param modulation number Modulation, defaults to radio.modulation.AM.
 ---@param voice string Voice.
@@ -767,7 +721,6 @@ function RANGE:SetSRSRangeControl(frequency, modulation, voice, culture, gender,
 ---Use `RANGE:SetSRS()` once first before using this function.
 ---
 ------
----@param self RANGE 
 ---@param frequency number Frequency in MHz. Default 305 MHz.
 ---@param modulation number Modulation, defaults to radio.modulation.AM.
 ---@param voice string Voice.
@@ -780,7 +733,6 @@ function RANGE:SetSRSRangeInstructor(frequency, modulation, voice, culture, gend
 ---Set score bomb distance.
 ---
 ------
----@param self RANGE 
 ---@param distance number Distance in meters. Default 1000 m.
 ---@return RANGE #self
 function RANGE:SetScoreBombDistance(distance) end
@@ -788,7 +740,6 @@ function RANGE:SetScoreBombDistance(distance) end
 ---Set time delay between bomb impact and starting to smoke the impact point.
 ---
 ------
----@param self RANGE 
 ---@param delay number Time delay in seconds. Default is 3 seconds.
 ---@return RANGE #self
 function RANGE:SetSmokeTimeDelay(delay) end
@@ -797,7 +748,6 @@ function RANGE:SetSmokeTimeDelay(delay) end
 ---The parameter file has to be located on your local disk (**not** inside the miz file).
 ---
 ------
----@param self RANGE 
 ---@param csvfile string Full path to the csv file on your local disk.
 ---@return RANGE #self
 function RANGE:SetSoundfilesInfo(csvfile) end
@@ -805,7 +755,6 @@ function RANGE:SetSoundfilesInfo(csvfile) end
 ---Set sound files folder within miz file.
 ---
 ------
----@param self RANGE 
 ---@param path string Path for sound files. Default "Range Soundfiles/". Mind the slash "/" at the end!
 ---@return RANGE #self
 function RANGE:SetSoundfilesPath(path) end
@@ -814,7 +763,6 @@ function RANGE:SetSoundfilesPath(path) end
 ---By default strafe pit boxes are marked by white smoke.
 ---
 ------
----@param self RANGE 
 ---@param colorid SMOKECOLOR Color id. Default `SMOKECOLOR.White`.
 ---@return RANGE #self
 function RANGE:SetStrafePitSmokeColor(colorid) end
@@ -823,7 +771,6 @@ function RANGE:SetStrafePitSmokeColor(colorid) end
 ---By default strafe targets are marked by green smoke.
 ---
 ------
----@param self RANGE 
 ---@param colorid SMOKECOLOR Color id. Default `SMOKECOLOR.Green`.
 ---@return RANGE #self
 function RANGE:SetStrafeTargetSmokeColor(colorid) end
@@ -831,7 +778,6 @@ function RANGE:SetStrafeTargetSmokeColor(colorid) end
 ---Enable saving of player's target sheets and specify an optional directory path.
 ---
 ------
----@param self RANGE 
 ---@param path? string (Optional) Path where to save the target sheets.
 ---@param prefix? string (Optional) Prefix for target sheet files. File name will be saved as *prefix_aircrafttype-0001.csv*, *prefix_aircrafttype-0002.csv*, etc.
 ---@return RANGE #self
@@ -841,19 +787,16 @@ function RANGE:SetTargetSheet(path, prefix) end
 ---Starts the RANGE. Initializes parameters and starts event handlers.
 ---
 ------
----@param self RANGE 
 function RANGE:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self RANGE 
 function RANGE:Status() end
 
 ---Triggers the FSM event "StrafeResult".
 ---
 ------
----@param self RANGE 
 ---@param player RANGE.PlayerData Data of player settings etc.
 ---@param result RANGE.StrafeResult Data of the strafing run.
 function RANGE:StrafeResult(player, result) end
@@ -861,7 +804,6 @@ function RANGE:StrafeResult(player, result) end
 ---Disables tracking of all bomb types.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackBombsOFF() end
 
@@ -869,14 +811,12 @@ function RANGE:TrackBombsOFF() end
 ---Note that this is the default setting.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackBombsON() end
 
 ---Disables tracking of all missile types.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackMissilesOFF() end
 
@@ -884,14 +824,12 @@ function RANGE:TrackMissilesOFF() end
 ---Note that this is the default setting.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackMissilesON() end
 
 ---Disables tracking of all rocket types.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackRocketsOFF() end
 
@@ -899,14 +837,12 @@ function RANGE:TrackRocketsOFF() end
 ---Note that this is the default setting.
 ---
 ------
----@param self RANGE 
 ---@return RANGE #self
 function RANGE:TrackRocketsON() end
 
 ---Add menu commands for player.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of player unit.
 function RANGE:_AddF10Commands(_unitName) end
 
@@ -914,14 +850,12 @@ function RANGE:_AddF10Commands(_unitName) end
 ---If he is, we start looking for hits. If he was and left the zone again, the result is stored.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of player unit.
 function RANGE:_CheckInZone(_unitName) end
 
 ---Check status of players.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of player unit.
 function RANGE:_CheckPlayers(_unitName) end
 
@@ -929,7 +863,6 @@ function RANGE:_CheckPlayers(_unitName) end
 ---It also added it to the MOOSE data base, if it is not already in there.
 ---
 ------
----@param self RANGE 
 ---@param name string Name of the potential static object.
 ---@return boolean #Returns true if a static with this name exists. Retruns false if a unit with this name exists. Returns nil if neither unit or static exist.
 function RANGE:_CheckStatic(name) end
@@ -937,21 +870,18 @@ function RANGE:_CheckStatic(name) end
 ---Display bombing target locations to player.
 ---
 ------
----@param self RANGE 
 ---@param _unitname string Name of the player unit.
 function RANGE:_DisplayBombTargets(_unitname) end
 
 ---Display best bombing results of top 10 players.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of player unit.
 function RANGE:_DisplayBombingResults(_unitName) end
 
 ---Display message to group.
 ---
 ------
----@param self RANGE 
 ---@param _unit UNIT Player unit.
 ---@param _text string Message text.
 ---@param _time number Duration how long the message is displayed.
@@ -963,21 +893,18 @@ function RANGE:_DisplayMessageToGroup(_unit, _text, _time, _clear, display, _tog
 ---Display top 10 bombing run results of specific player.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 function RANGE:_DisplayMyBombingResults(_unitName) end
 
 ---Display top 10 stafing results of a specific player.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 function RANGE:_DisplayMyStrafePitResults(_unitName) end
 
 ---Report information like bearing and range from player unit to range.
 ---
 ------
----@param self RANGE 
 ---@param _unitname string Name of the player unit.
 function RANGE:_DisplayRangeInfo(_unitname) end
 
@@ -985,43 +912,37 @@ function RANGE:_DisplayRangeInfo(_unitname) end
 ---Temperature, QFE pressure and wind data.
 ---
 ------
----@param self RANGE 
 ---@param _unitname string Name of the player unit.
 function RANGE:_DisplayRangeWeather(_unitname) end
 
 ---Display top 10 strafing results of all players.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name fo the player unit.
 function RANGE:_DisplayStrafePitResults(_unitName) end
 
 ---Display pit location and heading to player.
 ---
 ------
----@param self RANGE 
 ---@param _unitname string Name of the player unit.
 function RANGE:_DisplayStrafePits(_unitname) end
 
 ---Toggle status of flaring direct hits of range targets.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_FlareDirectHitsOnOff(unitname) end
 
 ---Get the number of shells a unit currently has.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
----@return  #Number of shells left
+---@return NOTYPE #Number of shells left
 function RANGE:_GetAmmo(unitname) end
 
 ---Get the number of shells a unit currently has.
 ---
 ------
----@param self RANGE 
 ---@param target RANGE.BombTarget Bomb target data.
 ---@return COORDINATE #Target coordinate.
 function RANGE:_GetBombTargetCoordinate(target) end
@@ -1030,7 +951,6 @@ function RANGE:_GetBombTargetCoordinate(target) end
 ---If the unit does not belong to a player, nil is returned.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 ---@param PlayerName NOTYPE 
 ---@return UNIT #Unit of player.
@@ -1041,37 +961,32 @@ function RANGE:_GetPlayerUnitAndName(_unitName, PlayerName) end
 ---Get max speed of controllable.
 ---
 ------
----@param self RANGE 
 ---@param controllable CONTROLLABLE 
----@return  #Maximum speed in km/h.
+---@return NOTYPE #Maximum speed in km/h.
 function RANGE:_GetSpeed(controllable) end
 
 ---Illuminate targets.
 ---Fires illumination bombs at one random bomb and one random strafe target at a random altitude between 400 and 800 m.
 ---
 ------
----@param self RANGE 
 ---@param _unitName? string (Optional) Name of the player unit.
 function RANGE:_IlluminateBombTargets(_unitName) end
 
 ---Mark targets on F10 map.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 function RANGE:_MarkTargetsOnMap(_unitName) end
 
 ---Toggle display messages to player.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_MessagesToPlayerOnOff(unitname) end
 
 ---Function called on impact of a tracked weapon.
 ---
 ------
----@param weapon WEAPON The weapon object.
 ---@param self RANGE RANGE object.
 ---@param playerData RANGE.PlayerData Player data table.
 ---@param attackHdg number Attack heading.
@@ -1082,14 +997,12 @@ function RANGE._OnImpact(weapon, self, playerData, attackHdg, attackAlt, attackV
 ---Reset player statistics.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 function RANGE:_ResetRangeStats(_unitName) end
 
 ---Save target sheet.
 ---
 ------
----@param self RANGE 
 ---@param _playername string Player name.
 ---@param result RANGE.StrafeResult Results table.
 function RANGE:_SaveTargetSheet(_playername, result) end
@@ -1097,49 +1010,42 @@ function RANGE:_SaveTargetSheet(_playername, result) end
 ---Toggle status of time delay for smoking bomb impact points
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_SmokeBombDelayOnOff(unitname) end
 
 ---Toggle status of smoking bomb impact points.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_SmokeBombImpactOnOff(unitname) end
 
 ---Mark bombing targets with smoke.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_SmokeBombTargets(unitname) end
 
 ---Mark approach boxes of strafe targets with smoke.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_SmokeStrafeTargetBoxes(unitname) end
 
 ---Mark strafing targets with smoke.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_SmokeStrafeTargets(unitname) end
 
 ---Targetsheet saves if player on or off.
 ---
 ------
----@param self RANGE 
 ---@param _unitname string Name of the player unit.
 function RANGE:_TargetsheetOnOff(_unitname) end
 
 ---Triggers the FSM delayed event "EnterRange".
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds before the function is called.
 ---@param player RANGE.PlayerData Data of player settings etc.
 function RANGE:__EnterRange(delay, player) end
@@ -1147,7 +1053,6 @@ function RANGE:__EnterRange(delay, player) end
 ---Triggers the FSM delayed event "ExitRange".
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds before the function is called.
 ---@param player RANGE.PlayerData Data of player settings etc.
 function RANGE:__ExitRange(delay, player) end
@@ -1155,7 +1060,6 @@ function RANGE:__ExitRange(delay, player) end
 ---Triggers the FSM delayed event "Impact".
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds before the function is called.
 ---@param result RANGE.BombResult Data of the bombing run.
 ---@param player RANGE.PlayerData Data of player settings etc.
@@ -1165,14 +1069,12 @@ function RANGE:__Impact(delay, result, player) end
 ---Starts the RANGE. Initializes parameters and starts event handlers.
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds.
 function RANGE:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds.
 function RANGE:__Status(delay) end
 
@@ -1180,14 +1082,12 @@ function RANGE:__Status(delay) end
 ---Stops the RANGE and all its event handlers.
 ---
 ------
----@param self RANGE 
 ---@param delay number Delay in seconds.
 function RANGE:__Stop(delay) end
 
 ---Sets the flare color used to flare players direct target hits.
 ---
 ------
----@param self RANGE 
 ---@param color FLARECOLOR Color Id.
 ---@return string #Color text.
 function RANGE:_flarecolor2text(color) end
@@ -1195,14 +1095,12 @@ function RANGE:_flarecolor2text(color) end
 ---Returns a string which consists of the player name.
 ---
 ------
----@param self RANGE 
 ---@param unitname string Name of the player unit.
 function RANGE:_myname(unitname) end
 
 ---Sets the flare color used when player makes a direct hit on target.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 ---@param color FLARECOLOR ID of flare color.
 function RANGE:_playerflarecolor(_unitName, color) end
@@ -1210,7 +1108,6 @@ function RANGE:_playerflarecolor(_unitName, color) end
 ---Sets the smoke color used to smoke players bomb impact points.
 ---
 ------
----@param self RANGE 
 ---@param _unitName string Name of the player unit.
 ---@param color SMOKECOLOR ID of the smoke color.
 function RANGE:_playersmokecolor(_unitName, color) end
@@ -1219,7 +1116,6 @@ function RANGE:_playersmokecolor(_unitName, color) end
 ---E.g. SMOKECOLOR.Blue --> "blue".
 ---
 ------
----@param self RANGE 
 ---@param color SMOKECOLOR Color Id.
 ---@return string #Color text.
 function RANGE:_smokecolor2text(color) end
@@ -1227,7 +1123,6 @@ function RANGE:_smokecolor2text(color) end
 ---Function called after player enters the range zone.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1238,7 +1133,6 @@ function RANGE:onafterEnterRange(From, Event, To, player) end
 ---Function called after player leaves the range zone.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1249,7 +1143,6 @@ function RANGE:onafterExitRange(From, Event, To, player) end
 ---Function called after bomb impact on range.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1262,7 +1155,6 @@ function RANGE:onafterImpact(From, Event, To, result, player) end
 ---Loads results of all players from file.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1272,7 +1164,6 @@ function RANGE:onafterLoad(From, Event, To) end
 ---Function called after save.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1283,7 +1174,6 @@ function RANGE:onafterSave(From, Event, To) end
 ---Starts the event handlers.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1293,7 +1183,6 @@ function RANGE:onafterStart(From, Event, To) end
 ---Check spawn queue and spawn aircraft if necessary.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1303,7 +1192,6 @@ function RANGE:onafterStatus(From, Event, To) end
 ---Function called after strafing run.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1316,7 +1204,6 @@ function RANGE:onafterStrafeResult(From, Event, To, player, result) end
 ---Checks that io and lfs are desanitized.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1327,7 +1214,6 @@ function RANGE:onbeforeLoad(From, Event, To) end
 ---Checks that io and lfs are desanitized.
 ---
 ------
----@param self RANGE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

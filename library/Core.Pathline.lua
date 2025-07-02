@@ -59,7 +59,6 @@ PATHLINE = {}
 ---The third dimension is determined from the land height.
 ---
 ------
----@param self PATHLINE 
 ---@param Vec2 Vec2 The 2D vector (x,y) to add.
 ---@return PATHLINE #self
 function PATHLINE:AddPointFromVec2(Vec2) end
@@ -67,7 +66,6 @@ function PATHLINE:AddPointFromVec2(Vec2) end
 ---Add a point to the path from a given 3D position.
 ---
 ------
----@param self PATHLINE 
 ---@param Vec3 Vec3 The 3D vector (x,y) to add.
 ---@return PATHLINE #self
 function PATHLINE:AddPointFromVec3(Vec3) end
@@ -75,7 +73,6 @@ function PATHLINE:AddPointFromVec3(Vec3) end
 ---Find a pathline in the database.
 ---
 ------
----@param self PATHLINE 
 ---@param Name string The name of the pathline.
 ---@return PATHLINE #self
 function PATHLINE:FindByName(Name) end
@@ -84,28 +81,24 @@ function PATHLINE:FindByName(Name) end
 ---Note that COORDINATE objects are created when calling this function. That does involve deep copy calls and can have an impact on performance if done too often.
 ---
 ------
----@param self PATHLINE 
----@return  #<Core.Point#COORDINATE> List of COORDINATES points.
+---@return NOTYPE #<Core.Point#COORDINATE> List of COORDINATES points.
 function PATHLINE:GetCoordinates() end
 
 ---Get name of pathline.
 ---
 ------
----@param self PATHLINE 
 ---@return string #Name of the pathline.
 function PATHLINE:GetName() end
 
 ---Get number of points.
 ---
 ------
----@param self PATHLINE 
 ---@return number #Number of points.
 function PATHLINE:GetNumberOfPoints() end
 
 ---Get the 2D position of the n-th point.
 ---
 ------
----@param self PATHLINE 
 ---@param n number The n-th point.
 ---@return VEC2 #Position in 3D.
 function PATHLINE:GetPoint2DFromIndex(n) end
@@ -113,7 +106,6 @@ function PATHLINE:GetPoint2DFromIndex(n) end
 ---Get the 3D position of the n-th point.
 ---
 ------
----@param self PATHLINE 
 ---@param n number The n-th point.
 ---@return VEC3 #Position in 3D.
 function PATHLINE:GetPoint3DFromIndex(n) end
@@ -121,7 +113,6 @@ function PATHLINE:GetPoint3DFromIndex(n) end
 ---Get the n-th point of the pathline.
 ---
 ------
----@param self PATHLINE 
 ---@param n number The index of the point. Default is the first point.
 ---@return PATHLINE.Point #Point.
 function PATHLINE:GetPointFromIndex(n) end
@@ -130,37 +121,32 @@ function PATHLINE:GetPointFromIndex(n) end
 ---Not that points are tables, that contain more information as just the 2D or 3D position but also the surface type etc.
 ---
 ------
----@param self PATHLINE 
 ---@return list #List of points.
 function PATHLINE:GetPoints() end
 
 ---Get 2D points of pathline.
 ---
 ------
----@param self PATHLINE 
----@return  #<DCS#Vec2> List of DCS#Vec2 points.
+---@return NOTYPE #<DCS#Vec2> List of DCS#Vec2 points.
 function PATHLINE:GetPoints2D() end
 
 ---Get 3D points of pathline.
 ---
 ------
----@param self PATHLINE 
----@return  #<DCS#Vec3> List of DCS#Vec3 points.
+---@return NOTYPE #<DCS#Vec3> List of DCS#Vec3 points.
 function PATHLINE:GetPoints3D() end
 
 ---Mark points on F10 map.
 ---
 ------
----@param self PATHLINE 
 ---@param Switch boolean If `true` or nil, set marks. If `false`, remove marks.
----@return  #<DCS#Vec3> List of DCS#Vec3 points.
+---@return NOTYPE #<DCS#Vec3> List of DCS#Vec3 points.
 function PATHLINE:MarkPoints(Switch) end
 
 ---Create a new PATHLINE object.
 ---Points need to be added later.
 ---
 ------
----@param self PATHLINE 
 ---@param Name string Name of the path.
 ---@return PATHLINE #self
 function PATHLINE:New(Name) end
@@ -168,7 +154,6 @@ function PATHLINE:New(Name) end
 ---Create a new PATHLINE object from a given list of 2D points.
 ---
 ------
----@param self PATHLINE 
 ---@param Name string Name of the pathline.
 ---@param Vec2Array table List of DCS#Vec2 points.
 ---@return PATHLINE #self
@@ -177,7 +162,6 @@ function PATHLINE:NewFromVec2Array(Name, Vec2Array) end
 ---Create a new PATHLINE object from a given list of 3D points.
 ---
 ------
----@param self PATHLINE 
 ---@param Name string Name of the pathline.
 ---@param Vec3Array table List of DCS#Vec3 points.
 ---@return PATHLINE #self
@@ -186,7 +170,6 @@ function PATHLINE:NewFromVec3Array(Name, Vec3Array) end
 ---Get 3D points of pathline.
 ---
 ------
----@param self PATHLINE 
 ---@param Vec Vec3 Position vector. Can also be a DCS#Vec2 in which case the altitude at landheight is taken.
 ---@return PATHLINE.Point #
 function PATHLINE:_CreatePoint(Vec) end

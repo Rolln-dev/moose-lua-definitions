@@ -242,7 +242,6 @@ MSRS = {}
 ---Add frequencies.
 ---
 ------
----@param self MSRS 
 ---@param Frequencies table Frequencies in MHz. Can also be given as a #number if only one frequency should be used.
 ---@return MSRS #self
 function MSRS:AddFrequencies(Frequencies) end
@@ -250,7 +249,6 @@ function MSRS:AddFrequencies(Frequencies) end
 ---Add modulations.
 ---
 ------
----@param self MSRS 
 ---@param Modulations table Modulations. Can also be given as a #number if only one modulation should be used.
 ---@return MSRS #self
 function MSRS:AddModulations(Modulations) end
@@ -258,63 +256,54 @@ function MSRS:AddModulations(Modulations) end
 ---Get currently set backend.
 ---
 ------
----@param self MSRS 
 ---@return string #Backend.
 function MSRS:GetBackend() end
 
 ---Get coalition.
 ---
 ------
----@param self MSRS 
 ---@return number #Coalition.
 function MSRS:GetCoalition() end
 
 ---Get frequencies.
 ---
 ------
----@param self MSRS 
 ---@return table #Frequencies in MHz.
 function MSRS:GetFrequencies() end
 
 ---Get label.
 ---
 ------
----@param self MSRS 
 ---@return number #Label.
 function MSRS:GetLabel() end
 
 ---Get modulations.
 ---
 ------
----@param self MSRS 
 ---@return table #Modulations.
 function MSRS:GetModulations() end
 
 ---Get path to SRS directory.
 ---
 ------
----@param self MSRS 
 ---@return string #Path to the directory. This includes the final slash "/".
 function MSRS:GetPath() end
 
 ---Get port.
 ---
 ------
----@param self MSRS 
 ---@return number #Port.
 function MSRS:GetPort() end
 
 ---Get provider.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:GetProvider() end
 
 ---Get provider options.
 ---
 ------
----@param self MSRS 
 ---@param Provider string Provider. Default is as set via @{#MSRS.SetProvider}.
 ---@return MSRS.ProviderOptions #Provider options.
 function MSRS:GetProviderOptions(Provider) end
@@ -322,7 +311,6 @@ function MSRS:GetProviderOptions(Provider) end
 ---Get voice.
 ---
 ------
----@param self MSRS 
 ---@param Provider string Provider. Default is the currently set provider (`self.provider`).
 ---@return string #Voice.
 function MSRS:GetVoice(Provider) end
@@ -330,14 +318,12 @@ function MSRS:GetVoice(Provider) end
 ---Get SRS volume.
 ---
 ------
----@param self MSRS 
 ---@return number #Volume Volume - 1.0 is max, 0.0 is silence
 function MSRS:GetVolume() end
 
 ---Print SRS help to DCS log file.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:Help() end
 
@@ -421,7 +407,6 @@ function MSRS:Help() end
 ---        atis:Start()
 ---```
 ------
----@param self MSRS 
 ---@param Path string Path to config file, defaults to "C:\Users\<yourname>\Saved Games\DCS\Config"
 ---@param Filename string File to load, defaults to "Moose_MSRS.lua"
 ---@return boolean #success
@@ -433,7 +418,6 @@ function MSRS:LoadConfigFile(Path, Filename) end
 ---set the path to the exe file via #MSRS.SetPath.
 ---
 ------
----@param self MSRS 
 ---@param Path string Path to SRS directory. Default `C:\\Program Files\\DCS-SimpleRadio-Standalone`.
 ---@param Frequency number Radio frequency in MHz. Default 143.00 MHz. Can also be given as a #table of multiple frequencies.
 ---@param Modulation number Radio modulation: 0=AM (default), 1=FM. See `radio.modulation.AM` and `radio.modulation.FM` enumerators. Can also be given as a #table of multiple modulations.
@@ -444,7 +428,6 @@ function MSRS:New(Path, Frequency, Modulation, Backend) end
 ---Play sound file (ogg or mp3) via SRS.
 ---
 ------
----@param self MSRS 
 ---@param Soundfile SOUNDFILE Sound file to play.
 ---@param Delay number Delay in seconds, before the sound file is played.
 ---@return MSRS #self
@@ -453,7 +436,6 @@ function MSRS:PlaySoundFile(Soundfile, Delay) end
 ---Play a SOUNDTEXT text-to-speech object.
 ---
 ------
----@param self MSRS 
 ---@param SoundText SOUNDTEXT Sound text.
 ---@param Delay number Delay in seconds, before the sound file is played.
 ---@return MSRS #self
@@ -462,7 +444,6 @@ function MSRS:PlaySoundText(SoundText, Delay) end
 ---Play text message via MSRS.
 ---
 ------
----@param self MSRS 
 ---@param Text string Text message.
 ---@param Delay number Delay in seconds, before the message is played.
 ---@param Coordinate COORDINATE Coordinate.
@@ -472,7 +453,6 @@ function MSRS:PlayText(Text, Delay, Coordinate) end
 ---Play text message via MSRS with explicitly specified options.
 ---
 ------
----@param self MSRS 
 ---@param Text string Text message.
 ---@param Delay number Delay in seconds, before the message is played.
 ---@param Frequencies table Radio frequencies.
@@ -489,7 +469,6 @@ function MSRS:PlayTextExt(Text, Delay, Frequencies, Modulations, Gender, Culture
 ---Play text file via MSRS.
 ---
 ------
----@param self MSRS 
 ---@param TextFile string Full path to the file.
 ---@param Delay number Delay in seconds, before the message is played.
 ---@return MSRS #self
@@ -502,7 +481,6 @@ function MSRS:PlayTextFile(TextFile, Delay) end
 ---- `MSRS.Backend.GRPC`: Via DCS-gRPC.
 ---
 ------
----@param self MSRS 
 ---@param Backend string Backend used. Default is `MSRS.Backend.SRSEXE`.
 ---@return MSRS #self
 function MSRS:SetBackend(Backend) end
@@ -510,21 +488,18 @@ function MSRS:SetBackend(Backend) end
 ---Set DCS-gRPC as backend to communicate with SRS.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetBackendGRPC() end
 
 ---Set `DCS-SR-ExternalAudio.exe` as backend to communicate with SRS.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetBackendSRSEXE() end
 
 ---Set coalition.
 ---
 ------
----@param self MSRS 
 ---@param Coalition number Coalition. Default 0.
 ---@return MSRS #self
 function MSRS:SetCoalition(Coalition) end
@@ -533,7 +508,6 @@ function MSRS:SetCoalition(Coalition) end
 ---Note that this is only a factor if SRS has line-of-sight or distance enabled.
 ---
 ------
----@param self MSRS 
 ---@param Coordinate COORDINATE Origin of the transmission.
 ---@return MSRS #self
 function MSRS:SetCoordinate(Coordinate) end
@@ -541,7 +515,6 @@ function MSRS:SetCoordinate(Coordinate) end
 ---Set culture.
 ---
 ------
----@param self MSRS 
 ---@param Culture string Culture, *e.g.* "en-GB".
 ---@return MSRS #self
 function MSRS:SetCulture(Culture) end
@@ -549,19 +522,16 @@ function MSRS:SetCulture(Culture) end
 ---Set the default backend.
 ---
 ------
----@param Backend string 
 function MSRS.SetDefaultBackend(Backend) end
 
 ---Set DCS-gRPC to be the default backend.
 ---
 ------
----@param self MSRS 
 function MSRS:SetDefaultBackendGRPC() end
 
 ---Set frequencies.
 ---
 ------
----@param self MSRS 
 ---@param Frequencies table Frequencies in MHz. Can also be given as a #number if only one frequency should be used.
 ---@return MSRS #self
 function MSRS:SetFrequencies(Frequencies) end
@@ -569,7 +539,6 @@ function MSRS:SetFrequencies(Frequencies) end
 ---Set gender.
 ---
 ------
----@param self MSRS 
 ---@param Gender string Gender: "male" or "female" (default).
 ---@return MSRS #self
 function MSRS:SetGender(Gender) end
@@ -578,7 +547,6 @@ function MSRS:SetGender(Gender) end
 ---Also sets Google as default TTS provider.
 ---
 ------
----@param self MSRS 
 ---@param PathToCredentials string Full path to the google credentials JSON file, e.g. "C:\Users\username\Downloads\service-account-file.json". Can also be the Google API key.
 ---@return MSRS #self
 function MSRS:SetGoogle(PathToCredentials) end
@@ -586,7 +554,6 @@ function MSRS:SetGoogle(PathToCredentials) end
 ---**[Deprecated]** Use google text-to-speech set the API key (only for DCS-gRPC).
 ---
 ------
----@param self MSRS 
 ---@param APIKey string API Key, usually a string of length 40 with characters and numbers.
 ---@return MSRS #self
 function MSRS:SetGoogleAPIKey(APIKey) end
@@ -594,7 +561,6 @@ function MSRS:SetGoogleAPIKey(APIKey) end
 ---Set label.
 ---
 ------
----@param self MSRS 
 ---@param Label number  Default "ROBOT"
 ---@return MSRS #self
 function MSRS:SetLabel(Label) end
@@ -602,7 +568,6 @@ function MSRS:SetLabel(Label) end
 ---Set modulations.
 ---
 ------
----@param self MSRS 
 ---@param Modulations table Modulations. Can also be given as a #number if only one modulation should be used.
 ---@return MSRS #self
 function MSRS:SetModulations(Modulations) end
@@ -611,7 +576,6 @@ function MSRS:SetModulations(Modulations) end
 ---More precisely, path to where the `DCS-SR-ExternalAudio.exe` is located.
 ---
 ------
----@param self MSRS 
 ---@param Path string Path to the directory, where the sound file is located. Default is `C:\\Program Files\\DCS-SimpleRadio-Standalone`.
 ---@return MSRS #self
 function MSRS:SetPath(Path) end
@@ -619,7 +583,6 @@ function MSRS:SetPath(Path) end
 ---Set port.
 ---
 ------
----@param self MSRS 
 ---@param Port number Port. Default 5002.
 ---@return MSRS #self
 function MSRS:SetPort(Port) end
@@ -635,7 +598,6 @@ function MSRS:SetPort(Port) end
 ---Note that all providers except Microsoft Windows need as additonal information the credentials of your account.
 ---
 ------
----@param self MSRS 
 ---@param Provider string 
 ---@return MSRS #self
 function MSRS:SetProvider(Provider) end
@@ -643,7 +605,6 @@ function MSRS:SetProvider(Provider) end
 ---Set provider options and credentials.
 ---
 ------
----@param self MSRS 
 ---@param Provider string Provider.
 ---@param CredentialsFile string Full path to your credentials file. For Google this is the path to a JSON file.
 ---@param AccessKey string Your API access key.
@@ -656,7 +617,6 @@ function MSRS:SetProviderOptions(Provider, CredentialsFile, AccessKey, SecretKey
 ---Only supported in combination with DCS-gRPC as backend.
 ---
 ------
----@param self MSRS 
 ---@param AccessKey string Your API access key.
 ---@param SecretKey string Your secret key.
 ---@param Region string Your AWS [region](https://docs.aws.amazon.com/general/latest/gr/pol.html).
@@ -667,7 +627,6 @@ function MSRS:SetProviderOptionsAmazon(AccessKey, SecretKey, Region) end
 ---Only supported in combination with DCS-gRPC as backend.
 ---
 ------
----@param self MSRS 
 ---@param AccessKey string Your API access key.
 ---@param Region string Your Azure [region](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/regions).
 ---@return MSRS #self
@@ -676,7 +635,6 @@ function MSRS:SetProviderOptionsAzure(AccessKey, Region) end
 ---Set provider options and credentials for Google Cloud.
 ---
 ------
----@param self MSRS 
 ---@param CredentialsFile string Full path to your credentials file. For Google this is the path to a JSON file. This is used if `DCS-SR-ExternalAudio.exe` is used as backend.
 ---@param AccessKey string Your API access key. This is necessary if DCS-gRPC is used as backend.
 ---@return MSRS #self
@@ -686,7 +644,6 @@ function MSRS:SetProviderOptionsGoogle(CredentialsFile, AccessKey) end
 ---Only supported if used in combination with DCS-gRPC as backend.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetTTSProviderAmazon() end
 
@@ -694,21 +651,18 @@ function MSRS:SetTTSProviderAmazon() end
 ---Only supported if used in combination with DCS-gRPC as backend.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetTTSProviderAzure() end
 
 ---Use Google to provide text-to-speech.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetTTSProviderGoogle() end
 
 ---Use Microsoft to provide text-to-speech.
 ---
 ------
----@param self MSRS 
 ---@return MSRS #self
 function MSRS:SetTTSProviderMicrosoft() end
 
@@ -716,7 +670,6 @@ function MSRS:SetTTSProviderMicrosoft() end
 ---Note that this will override any gender and culture settings as a voice already has a certain gender/culture.
 ---
 ------
----@param self MSRS 
 ---@param Voice string Voice.
 ---@return MSRS #self
 function MSRS:SetVoice(Voice) end
@@ -725,7 +678,6 @@ function MSRS:SetVoice(Voice) end
 ---Note that this will override any gender and culture settings.
 ---
 ------
----@param self MSRS 
 ---@param Voice string [AWS Voice](https://docs.aws.amazon.com/polly/latest/dg/voicelist.html). Default `"Brian"`.
 ---@return MSRS #self
 function MSRS:SetVoiceAmazon(Voice) end
@@ -734,7 +686,6 @@ function MSRS:SetVoiceAmazon(Voice) end
 ---Note that this will override any gender and culture settings.
 ---
 ------
----@param self MSRS 
 ---@param Voice string [Azure Voice](https://learn.microsoft.com/azure/cognitive-services/speech-service/language-support). Default `"en-US-AriaNeural"`.
 ---@return MSRS #self
 function MSRS:SetVoiceAzure(Voice) end
@@ -743,7 +694,6 @@ function MSRS:SetVoiceAzure(Voice) end
 ---Note that this will override any gender and culture settings.
 ---
 ------
----@param self MSRS 
 ---@param Voice string Voice. Default `MSRS.Voices.Google.Standard.en_GB_Standard_A`.
 ---@return MSRS #self
 function MSRS:SetVoiceGoogle(Voice) end
@@ -752,7 +702,6 @@ function MSRS:SetVoiceGoogle(Voice) end
 ---Note that this will override any gender and culture settings.
 ---
 ------
----@param self MSRS 
 ---@param Voice string Voice.
 ---@param Provider string Provider. Default is as set by @{#MSRS.SetProvider}, which itself defaults to `MSRS.Provider.WINDOWS` if not set.
 ---@return MSRS #self
@@ -762,7 +711,6 @@ function MSRS:SetVoiceProvider(Voice, Provider) end
 ---Note that this will override any gender and culture settings.
 ---
 ------
----@param self MSRS 
 ---@param Voice string Voice. Default `"Microsoft Hazel Desktop"`.
 ---@return MSRS #self
 function MSRS:SetVoiceWindows(Voice) end
@@ -770,7 +718,6 @@ function MSRS:SetVoiceWindows(Voice) end
 ---Set SRS volume.
 ---
 ------
----@param self MSRS 
 ---@param Volume number Volume - 1.0 is max, 0.0 is silence
 ---@return MSRS #self
 function MSRS:SetVolume(Volume) end
@@ -778,7 +725,6 @@ function MSRS:SetVolume(Volume) end
 ---Create MSRS.ProviderOptions.
 ---
 ------
----@param Provider string Provider.
 ---@param CredentialsFile string Full path to your credentials file. For Google this is the path to a JSON file.
 ---@param AccessKey string Your API access key.
 ---@param SecretKey string Your secret key.
@@ -789,7 +735,6 @@ function MSRS._CreateProviderOptions(Provider, CredentialsFile, AccessKey, Secre
 ---Make DCS-gRPC API call to transmit text-to-speech over SRS.
 ---
 ------
----@param self MSRS 
 ---@param Text string Text of message to transmit (can also be SSML).
 ---@param Frequencies table Radio frequencies to transmit on. Can also accept a number in MHz.
 ---@param Gender string Gender.
@@ -804,7 +749,6 @@ function MSRS:_DCSgRPCtts(Text, Frequencies, Gender, Culture, Voice, Volume, Lab
 ---Execute SRS command to play sound using the `DCS-SR-ExternalAudio.exe`.
 ---
 ------
----@param self MSRS 
 ---@param command string Command to executer
 ---@return number #Return value of os.execute() command.
 function MSRS:_ExecCommand(command) end
@@ -812,7 +756,6 @@ function MSRS:_ExecCommand(command) end
 ---Get SRS command to play sound using the `DCS-SR-ExternalAudio.exe`.
 ---
 ------
----@param self MSRS 
 ---@param freqs table Frequencies in MHz.
 ---@param modus table Modulations.
 ---@param coal number Coalition.
@@ -830,7 +773,6 @@ function MSRS:_GetCommand(freqs, modus, coal, gender, voice, culture, volume, sp
 ---Get lat, long and alt from coordinate.
 ---
 ------
----@param self MSRS 
 ---@param Coordinate Coordinate Coordinate. Can also be a DCS#Vec3.
 ---@return number #Latitude (or 0 if no input coordinate was given).
 ---@return number #Longitude (or 0 if no input coordinate was given).
@@ -847,7 +789,6 @@ function MSRS:_GetLatLongAlt(Coordinate) end
 ---* (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 ---
 ------
----@param length number can also be passed as #string
 ---@param speed number Defaults to 1.0
 ---@param isGoogle boolean We're using Google TTS
 ---@private
@@ -931,7 +872,6 @@ MSRSQUEUE = {}
 ---Add a transmission to the radio queue.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param transmission MSRSQUEUE.Transmission The transmission data table.
 ---@return MSRSQUEUE #self
 function MSRSQUEUE:AddTransmission(transmission) end
@@ -939,28 +879,24 @@ function MSRSQUEUE:AddTransmission(transmission) end
 ---Broadcast radio message.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param transmission MSRSQUEUE.Transmission The transmission.
 function MSRSQUEUE:Broadcast(transmission) end
 
 ---Calculate total transmission duration of all transmission in the queue.
 ---
 ------
----@param self MSRSQUEUE 
 ---@return number #Total transmission duration.
 function MSRSQUEUE:CalcTransmisstionDuration() end
 
 ---Clear the radio queue.
 ---
 ------
----@param self MSRSQUEUE 
 ---@return MSRSQUEUE #self The MSRSQUEUE object.
 function MSRSQUEUE:Clear() end
 
 ---Create a new MSRSQUEUE object for a given radio frequency/modulation.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param alias? string (Optional) Name of the radio queue.
 ---@return MSRSQUEUE #self The MSRSQUEUE object.
 function MSRSQUEUE:New(alias) end
@@ -968,7 +904,6 @@ function MSRSQUEUE:New(alias) end
 ---Create a new transmission and add it to the radio queue.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param text string Text to play.
 ---@param duration number Duration in seconds the file lasts. Default is determined by number of characters of the text message.
 ---@param msrs MSRS MOOSE SRS object.
@@ -991,7 +926,6 @@ function MSRSQUEUE:NewTransmission(text, duration, msrs, tstart, interval, subgr
 ---Switch to only transmit if there are players on the server.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param Switch boolean If true, only send SRS if there are alive Players.
 ---@return MSRSQUEUE #self
 function MSRSQUEUE:SetTransmitOnlyWithPlayers(Switch) end
@@ -999,7 +933,6 @@ function MSRSQUEUE:SetTransmitOnlyWithPlayers(Switch) end
 ---Check radio queue for transmissions to be broadcasted.
 ---
 ------
----@param self MSRSQUEUE 
 ---@param delay number Delay in seconds before checking.
 function MSRSQUEUE:_CheckRadioQueue(delay) end
 

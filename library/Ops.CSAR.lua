@@ -226,7 +226,7 @@
 ---@field CallsignTranslations NOTYPE 
 ---@field ClassName string Name of the class.
 ---@field FARPRescueDistance number 
----@field FreeVHFFrequencies table 
+---@field FreeVHFFrequencies NOTYPE 
 ---@field PilotWeight number 
 ---@field PlayerTaskQueue NOTYPE 
 ---@field SRSCulture string 
@@ -254,7 +254,7 @@
 ---@field private beaconRefresher number 
 ---@field private coalition number Coalition side number, e.g. `coalition.side.RED`.
 ---@field private coalitiontxt NOTYPE 
----@field private coordinate COORDINATE 
+---@field private coordinate NOTYPE 
 ---@field private coordtype number 
 ---@field private countryblue NOTYPE 
 ---@field private countryneutral NOTYPE 
@@ -312,7 +312,6 @@ CSAR = {}
 ---(User) Add a PLAYERTASK - FSM events will check success
 ---
 ------
----@param self CSAR 
 ---@param PlayerTask PLAYERTASK 
 ---@return CSAR #self
 function CSAR:AddPlayerTask(PlayerTask) end
@@ -320,13 +319,11 @@ function CSAR:AddPlayerTask(PlayerTask) end
 ---Triggers the FSM event "Save".
 ---
 ------
----@param self CSAR 
 function CSAR:Load() end
 
 ---Create a new CSAR object and start the FSM.
 ---
 ------
----@param self CSAR 
 ---@param Coalition number Coalition side. Can also be passed as a string "red", "blue" or "neutral".
 ---@param Template string Name of the late activated infantry unit standing in for the downed pilot.
 ---@param Alias string An *optional* alias how this object is called in the logs etc.
@@ -337,7 +334,6 @@ function CSAR:New(Coalition, Template, Alias) end
 ---Heli close to downed Pilot.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -349,7 +345,6 @@ function CSAR:OnAfterApproach(From, Event, To, Heliname, Woundedgroupname) end
 ---Downed pilot boarded heli.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -362,7 +357,6 @@ function CSAR:OnAfterBoarded(From, Event, To, Heliname, Woundedgroupname, Descri
 ---Pilot is dead.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -373,7 +367,6 @@ function CSAR:OnAfterKIA(From, Event, To, Pilotname) end
 ---Heli landed at an airbase.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -384,7 +377,6 @@ function CSAR:OnAfterLanded(From, Event, To, HeliName, Airbase) end
 ---FSM Function OnAfterLoad.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -396,7 +388,6 @@ function CSAR:OnAfterLoad(From, Event, To, path, filename) end
 ---Downed Pilot detected.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -411,7 +402,6 @@ function CSAR:OnAfterPilotDown(From, Event, To, Group, Frequency, Leadername, Co
 ---Pilot(s) have been brought to the MASH/FARP/AFB.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -424,7 +414,6 @@ function CSAR:OnAfterRescued(From, Event, To, HeliUnit, HeliName, PilotsSaved) e
 ---Heli can return home with downed pilot(s).
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -435,7 +424,6 @@ function CSAR:OnAfterReturning(From, Event, To, Heliname, Woundedgroupname) end
 ---FSM Function OnAfterSave.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -447,7 +435,6 @@ function CSAR:OnAfterSave(From, Event, To, path, filename) end
 ---See Wrapper.Group#GROUP.GetCustomCallSign() on how to set customized callsigns.
 ---
 ------
----@param self CSAR 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
 ---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
@@ -458,7 +445,6 @@ function CSAR:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslations
 ---Needs to be set before starting the CSAR instance.
 ---
 ------
----@param self CSAR 
 ---@param Set SET_GROUP The SET_GROUP object created by the mission designer/user to represent the CSAR pilot groups.
 ---@return CSAR #self 
 function CSAR:SetOwnSetPilotGroups(Set) end
@@ -476,7 +462,6 @@ function CSAR:SetOwnSetPilotGroups(Set) end
 ---       my_csar:SpawnCASEVAC( coordinate, coalition.side.BLUE )
 ---```
 ------
----@param self CSAR 
 ---@param Point COORDINATE 
 ---@param Coalition number Coalition.
 ---@param Description? string (optional) Description.
@@ -499,7 +484,6 @@ function CSAR:SpawnCASEVAC(Point, Coalition, Description, Nomessage, Unitname, T
 ---       my_csar:SpawnCSARAtZone( "CSAR_Start_1", coalition.side.BLUE, "Wagner", true, false, "Charly-1-1", "F5E" )
 ---```
 ------
----@param self CSAR 
 ---@param Zone string Name of the zone. Can also be passed as a (normal, round) ZONE object.
 ---@param Coalition number Coalition.
 ---@param Description? string (optional) Description.
@@ -514,19 +498,16 @@ function CSAR:SpawnCSARAtZone(Zone, Coalition, Description, RandomPoint, Nomessa
 ---Starts the CSAR. Initializes parameters and starts event handlers.
 ---
 ------
----@param self CSAR 
 function CSAR:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self CSAR 
 function CSAR:Status() end
 
 ---(Internal) Function to add beacon to downed pilot.
 ---
 ------
----@param self CSAR 
 ---@param _group GROUP Group #GROUP object.
 ---@param _freq number Frequency to use
 ---@param BeaconName string Beacon Name to use
@@ -536,7 +517,6 @@ function CSAR:_AddBeaconToGroup(_group, _freq, BeaconName) end
 ---(Internal) Function to spawn a CSAR object into the scene.
 ---
 ------
----@param self CSAR 
 ---@param _coalition number Coalition
 ---@param _country country.id Country ID
 ---@param _point COORDINATE Coordinate
@@ -554,20 +534,17 @@ function CSAR:_AddCsar(_coalition, _country, _point, _typeName, _unitName, _play
 ---(Internal) Populate F10 menu for CSAR players.
 ---
 ------
----@param self CSAR 
 function CSAR:_AddMedevacMenuItem() end
 
 ---(Internal) Add options to a downed pilot
 ---
 ------
----@param self CSAR 
 ---@param group GROUP Group to use.
 function CSAR:_AddSpecialOptions(group) end
 
 ---(Internal) Function to check if heli is close to group.
 ---
 ------
----@param self CSAR 
 ---@param _distance number 
 ---@param _heliUnit UNIT 
 ---@param _heliName string 
@@ -579,13 +556,11 @@ function CSAR:_CheckCloseWoundedGroup(_distance, _heliUnit, _heliName, _woundedG
 ---(Internal) Function called before Status() event.
 ---
 ------
----@param self CSAR 
 function CSAR:_CheckDownedPilotTable() end
 
 ---(Internal) Check if a name is in downed pilot table
 ---
 ------
----@param self CSAR 
 ---@param name string Name to search for.
 ---@return boolean #Outcome.
 ---@return CSAR.DownedPilot #Table if found else nil.
@@ -594,14 +569,12 @@ function CSAR:_CheckNameInDownedPilots(name) end
 ---(Internal) Display onboarded rescued pilots.
 ---
 ------
----@param self CSAR 
 ---@param _unitName string Name of the chopper
 function CSAR:_CheckOnboard(_unitName) end
 
 ---(Internal) Check state of wounded group.
 ---
 ------
----@param self CSAR 
 ---@param heliname string heliname
 ---@param woundedgroupname string woundedgroupname
 function CSAR:_CheckWoundedGroupStatus(heliname, woundedgroupname) end
@@ -609,14 +582,12 @@ function CSAR:_CheckWoundedGroupStatus(heliname, woundedgroupname) end
 ---(Internal) Helper function to count active downed pilots.
 ---
 ------
----@param self CSAR 
 ---@return number #Number of pilots in the field.
 function CSAR:_CountActiveDownedPilots() end
 
 ---(Internal) Function to insert downed pilot tracker object.
 ---
 ------
----@param self CSAR 
 ---@param Group GROUP The #GROUP object
 ---@param Groupname string Name of the spawned group.
 ---@param Side number Coalition.
@@ -633,14 +604,12 @@ function CSAR:_CreateDownedPilotTrack(Group, Groupname, Side, OriginalUnit, Desc
 ---(Internal) Display active SAR tasks to player.
 ---
 ------
----@param self CSAR 
 ---@param _unitName string Unit to display to
 function CSAR:_DisplayActiveSAR(_unitName) end
 
 ---(Internal) Display message to single Unit.
 ---
 ------
----@param self CSAR 
 ---@param _unit UNIT Unit #UNIT to display to.
 ---@param _text string Text of message.
 ---@param _time number Message show duration.
@@ -652,7 +621,6 @@ function CSAR:_DisplayMessageToSAR(_unit, _text, _time, _clear, _speak, _overrid
 ---(Internal) Display info to all SAR groups.
 ---
 ------
----@param self CSAR 
 ---@param _message string Message to display.
 ---@param _side number Coalition of message. 
 ---@param _messagetime number How long to show.
@@ -663,7 +631,6 @@ function CSAR:_DisplayToAllSAR(_message, _side, _messagetime, ToSRS, ToScreen) e
 ---(Internal) Function to check for dupe eject events.
 ---
 ------
----@param self CSAR 
 ---@param _unitname string Name of unit.
 ---@return boolean #Outcome
 function CSAR:_DoubleEjection(_unitname) end
@@ -671,27 +638,23 @@ function CSAR:_DoubleEjection(_unitname) end
 ---(Internal) Event handler.
 ---
 ------
----@param self CSAR 
 ---@param EventData NOTYPE 
 function CSAR:_EventHandler(EventData) end
 
 ---(Internal) Pop frequency from prepopulated table.
 ---
 ------
----@param self CSAR 
 ---@return number #frequency
 function CSAR:_GenerateADFFrequency() end
 
 ---(Internal) Populate table with available beacon frequencies.
 ---
 ------
----@param self CSAR 
 function CSAR:_GenerateVHFrequencies() end
 
 ---(Internal) Function to determine clockwise direction for flares.
 ---
 ------
----@param self CSAR 
 ---@param _heli UNIT The Helicopter
 ---@param _group GROUP The downed Group
 ---@return number #direction
@@ -700,7 +663,6 @@ function CSAR:_GetClockDirection(_heli, _group) end
 ---(Internal) Find the closest downed pilot to a heli.
 ---
 ------
----@param self CSAR 
 ---@param _heli UNIT Helicopter #UNIT
 ---@return table #Table of results
 function CSAR:_GetClosestDownedPilot(_heli) end
@@ -708,7 +670,6 @@ function CSAR:_GetClosestDownedPilot(_heli) end
 ---(Internal) Determine distance to closest MASH.
 ---
 ------
----@param self CSAR 
 ---@param _heli UNIT Helicopter #UNIT
 ---@return number #Distance in meters
 ---@return string #MASH Name as string
@@ -717,7 +678,6 @@ function CSAR:_GetClosestMASH(_heli) end
 ---(Internal) Check if a name is in downed pilot table and remove it.
 ---
 ------
----@param self CSAR 
 ---@param UnitName string 
 ---@return string #CallSign
 function CSAR:_GetCustomCallSign(UnitName) end
@@ -725,7 +685,6 @@ function CSAR:_GetCustomCallSign(UnitName) end
 ---(Internal) Return distance in meters between two coordinates.
 ---
 ------
----@param self CSAR 
 ---@param _point1 COORDINATE Coordinate one
 ---@param _point2 COORDINATE Coordinate two
 ---@return number #Distance in meters
@@ -734,7 +693,6 @@ function CSAR:_GetDistance(_point1, _point2) end
 ---(Internal) Function to get string of a group\'s position.
 ---
 ------
----@param self CSAR 
 ---@param _woundedGroup CONTROLLABLE Group or Unit object.
 ---@param _Unit UNIT Requesting helo pilot unit
 ---@return string #Coordinates as Text
@@ -743,7 +701,6 @@ function CSAR:_GetPositionOfWounded(_woundedGroup, _Unit) end
 ---(Internal) Check and return Wrappe.Unit#UNIT based on the name if alive.
 ---
 ------
----@param self CSAR 
 ---@param _unitname string Name of Unit
 ---@param _unitName NOTYPE 
 ---@return UNIT #The unit or nil
@@ -752,7 +709,6 @@ function CSAR:_GetSARHeli(_unitname, _unitName) end
 ---(Internal)  Initialize the action for a pilot.
 ---
 ------
----@param self CSAR 
 ---@param _downedGroup GROUP The group to rescue.
 ---@param _GroupName string Name of the Group
 ---@param _freq number Beacon frequency.
@@ -764,7 +720,6 @@ function CSAR:_InitSARForPilot(_downedGroup, _GroupName, _freq, _nomessage, _pla
 ---Thanks to Shadowze.
 ---
 ------
----@param self CSAR 
 ---@param unit_name string Name of unit.
 ---@return boolean #outcome The outcome.
 function CSAR:_IsLoadingDoorOpen(unit_name) end
@@ -772,7 +727,6 @@ function CSAR:_IsLoadingDoorOpen(unit_name) end
 ---(Internal) Move group to destination.
 ---
 ------
----@param self CSAR 
 ---@param _leader GROUP 
 ---@param _destination COORDINATE 
 function CSAR:_OrderGroupToMoveToPoint(_leader, _destination) end
@@ -780,7 +734,6 @@ function CSAR:_OrderGroupToMoveToPoint(_leader, _destination) end
 ---(Internal) Function to pickup the wounded pilot from the ground.
 ---
 ------
----@param self CSAR 
 ---@param _heliUnit UNIT Object of the group.
 ---@param _pilotName string Name of the pilot.
 ---@param _woundedGroup GROUP Object of the group.
@@ -790,7 +743,6 @@ function CSAR:_PickupUnit(_heliUnit, _pilotName, _woundedGroup, _woundedGroupNam
 ---(Internal) Count pilots on board.
 ---
 ------
----@param self CSAR 
 ---@param _heliName string 
 ---@return number #count  
 function CSAR:_PilotsOnboard(_heliName) end
@@ -798,7 +750,6 @@ function CSAR:_PilotsOnboard(_heliName) end
 ---(Internal) Function to pop a smoke at a wounded pilot\'s positions.
 ---
 ------
----@param self CSAR 
 ---@param _woundedGroupName string Name of the group.
 ---@param _woundedLeader GROUP Object of the group.
 function CSAR:_PopSmokeForGroup(_woundedGroupName, _woundedLeader) end
@@ -806,21 +757,18 @@ function CSAR:_PopSmokeForGroup(_woundedGroupName, _woundedLeader) end
 ---(Internal) Helper to decide if we're over max limit.
 ---
 ------
----@param self CSAR 
 ---@return boolean #True or false.
 function CSAR:_ReachedPilotLimit() end
 
 ---(Internal) Helper function to (re-)add beacon to downed pilot.
 ---
 ------
----@param self CSAR 
 ---@return CSAR #self
 function CSAR:_RefreshRadioBeacons() end
 
 ---(Internal) Check if a name is in downed pilot table and remove it.
 ---
 ------
----@param self CSAR 
 ---@param name string Name to search for.
 ---@param force boolean Force removal.
 ---@return boolean #Outcome.
@@ -829,28 +777,24 @@ function CSAR:_RemoveNameFromDownedPilots(name, force) end
 ---(Internal) Request IR Strobe at closest downed pilot.
 ---
 ------
----@param self CSAR 
 ---@param _unitName string Name of the helicopter
 function CSAR:_ReqIRStrobe(_unitName) end
 
 ---(Internal) Request smoke at closest downed pilot.
 ---
 ------
----@param self CSAR 
 ---@param _unitName string Name of the helicopter
 function CSAR:_Reqsmoke(_unitName) end
 
 ---(Internal) Mark pilot as rescued and remove from tables.
 ---
 ------
----@param self CSAR 
 ---@param _heliUnit UNIT 
 function CSAR:_RescuePilots(_heliUnit) end
 
 ---(Internal) Monitor in-flight returning groups.
 ---
 ------
----@param self CSAR 
 ---@param heliname string Heli name
 ---@param groupname string Group name
 ---@param isairport boolean If true, EVENT.Landing took place at an airport or FARP
@@ -860,7 +804,6 @@ function CSAR:_ScheduledSARFlight(heliname, groupname, isairport, noreschedule) 
 ---(Internal) Fire a flare at the point of a downed pilot.
 ---
 ------
----@param self CSAR 
 ---@param _unitName string Name of the unit.
 function CSAR:_SignalFlare(_unitName) end
 
@@ -868,7 +811,6 @@ function CSAR:_SignalFlare(_unitName) end
 ---For mission designers wanting to add e.g. casualties to the scene, that don't use beacons.
 ---
 ------
----@param self CSAR 
 ---@param _Point COORDINATE 
 ---@param _coalition number Coalition.
 ---@param _description? string (optional) Description.
@@ -882,7 +824,6 @@ function CSAR:_SpawnCASEVAC(_Point, _coalition, _description, _nomessage, unitna
 ---For mission designers wanting to add e.g. PoWs to the scene.
 ---
 ------
----@param self CSAR 
 ---@param _zone string Name of the zone. Can also be passed as a (normal, round) ZONE object.
 ---@param _coalition number Coalition.
 ---@param _description? string (optional) Description.
@@ -896,7 +837,6 @@ function CSAR:_SpawnCsarAtZone(_zone, _coalition, _description, _randomPoint, _n
 ---(Internal) Spawn a downed pilot
 ---
 ------
----@param self CSAR 
 ---@param country number Country for template.
 ---@param point COORDINATE Coordinate to spawn at.
 ---@param frequency number Frequency of the pilot's beacon
@@ -908,7 +848,6 @@ function CSAR:_SpawnPilotInField(country, point, frequency, wetfeet) end
 ---(Internal) Function to calculate and set Unit internal cargo mass
 ---
 ------
----@param self CSAR 
 ---@param _heliName string Unit name
 ---@return CSAR #self
 function CSAR:_UpdateUnitCargoMass(_heliName) end
@@ -916,14 +855,12 @@ function CSAR:_UpdateUnitCargoMass(_heliName) end
 ---Triggers the FSM event "Load" after a delay.
 ---
 ------
----@param self CSAR 
 ---@param delay number Delay in seconds.
 function CSAR:__Load(delay) end
 
 ---Triggers the FSM event "Save" after a delay.
 ---
 ------
----@param self CSAR 
 ---@param delay number Delay in seconds.
 function CSAR:__Save(delay) end
 
@@ -931,14 +868,12 @@ function CSAR:__Save(delay) end
 ---Starts the CSAR. Initializes parameters and starts event handlers.
 ---
 ------
----@param self CSAR 
 ---@param delay number Delay in seconds.
 function CSAR:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self CSAR 
 ---@param delay number Delay in seconds.    --- Triggers the FSM event "Load".
 ---@param self CSAR 
 function CSAR:__Status(delay, self) end
@@ -947,7 +882,6 @@ function CSAR:__Status(delay, self) end
 ---Stops the CSAR and all its event handlers.
 ---
 ------
----@param self CSAR 
 ---@param delay number Delay in seconds.
 function CSAR:__Stop(delay) end
 
@@ -955,7 +889,6 @@ function CSAR:__Stop(delay) end
 ---Loads dropped units from file.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -968,7 +901,6 @@ function CSAR:onafterLoad(From, Event, To, path, filename) end
 ---Player data is saved to file.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -980,7 +912,6 @@ function CSAR:onafterSave(From, Event, To, path, filename) end
 ---(Internal) Function called after Start() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -990,7 +921,6 @@ function CSAR:onafterStart(From, Event, To) end
 ---(Internal) Function called after Status() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1000,7 +930,6 @@ function CSAR:onafterStatus(From, Event, To) end
 ---(Internal) Function called after Stop() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1010,7 +939,6 @@ function CSAR:onafterStop(From, Event, To) end
 ---(Internal) Function called before Approach() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1022,7 +950,6 @@ function CSAR:onbeforeApproach(From, Event, To, Heliname, Woundedgroupname) end
 ---(Internal) Function called before Boarded() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1034,7 +961,6 @@ function CSAR:onbeforeBoarded(From, Event, To, Heliname, Woundedgroupname) end
 ---(Internal) Function called before Landed() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1047,7 +973,6 @@ function CSAR:onbeforeLanded(From, Event, To, HeliName, Airbase) end
 ---Checks if io and lfs and the file are available.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1059,7 +984,6 @@ function CSAR:onbeforeLoad(From, Event, To, path, filename) end
 ---(Internal) Function called before PilotDown() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1074,7 +998,6 @@ function CSAR:onbeforePilotDown(From, Event, To, Group, Frequency, Leadername, C
 ---(Internal) Function called before Rescued() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1087,7 +1010,6 @@ function CSAR:onbeforeRescued(From, Event, To, HeliUnit, HeliName, PilotsSaved) 
 ---(Internal) Function called before Returning() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.
@@ -1102,7 +1024,6 @@ function CSAR:onbeforeReturning(From, Event, To, Heliname, Woundedgroupname, IsA
 ---Checks if io and lfs are available.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1114,7 +1035,6 @@ function CSAR:onbeforeSave(From, Event, To, path, filename) end
 ---(Internal) Function called before Status() event.
 ---
 ------
----@param self CSAR 
 ---@param From string From state.
 ---@param Event string Event triggered.
 ---@param To string To state.

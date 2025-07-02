@@ -296,9 +296,7 @@
 ---@field Detection NOTYPE 
 ---@field FlashDetectionMessage table 
 ---@field FlashStatusMenu table 
----@field LaseDuration NOTYPE 
 ---@field LaseStart NOTYPE 
----@field LaserCodes table 
 ---@field LaserCodesUsed table 
 ---@field MarkScheduler NOTYPE 
 ---@field MaximumDesignations NOTYPE 
@@ -324,7 +322,6 @@ DESIGNATE = {}
 ---  RecceDesignation:AddMenuLaserCode( 1680, "Lase with %d for A-10A" )
 ---```
 ------
----@param self DESIGNATE 
 ---@param LaserCode number The specific laser code to be added to the lase menu.
 ---@param MenuText string The text to be shown to the player. If you specify a %d in the MenuText, the %d will be replaced with the LaserCode specified.
 ---@return DESIGNATE #
@@ -333,21 +330,18 @@ function DESIGNATE:AddMenuLaserCode(LaserCode, MenuText) end
 ---Coordinates the Auto Lase.
 ---
 ------
----@param self DESIGNATE 
 ---@return DESIGNATE #
 function DESIGNATE:CoordinateLase() end
 
 ---Adapt the designation scope according the detected items.
 ---
 ------
----@param self DESIGNATE 
 ---@return DESIGNATE #
 function DESIGNATE:DesignationScope() end
 
 ---Detect Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:Detect() end
 
 ---Generate an array of possible laser codes.
@@ -359,39 +353,33 @@ function DESIGNATE:Detect() end
 ---function below will use the range 1-7 just in case
 ---
 ------
----@param self DESIGNATE 
 ---@return DESIGNATE #
 function DESIGNATE:GenerateLaserCodes() end
 
 ---Illuminate Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:Illuminate() end
 
 ---LaseOff Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:LaseOff() end
 
 ---LaseOn Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:LaseOn() end
 
 
 ---
 ------
----@param self DESIGNATE 
 ---@param AutoLase NOTYPE 
 function DESIGNATE:MenuAutoLase(AutoLase) end
 
 
 ---
 ------
----@param self DESIGNATE 
 ---@param AttackGroup NOTYPE 
 ---@param Flash NOTYPE 
 function DESIGNATE:MenuFlashStatus(AttackGroup, Flash) end
@@ -399,21 +387,18 @@ function DESIGNATE:MenuFlashStatus(AttackGroup, Flash) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 function DESIGNATE:MenuForget(Index) end
 
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 function DESIGNATE:MenuIlluminate(Index) end
 
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 ---@param Duration NOTYPE 
 ---@param LaserCode NOTYPE 
@@ -422,7 +407,6 @@ function DESIGNATE:MenuLaseCode(Index, Duration, LaserCode) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 ---@param Duration NOTYPE 
 function DESIGNATE:MenuLaseOff(Index, Duration) end
@@ -430,7 +414,6 @@ function DESIGNATE:MenuLaseOff(Index, Duration) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 ---@param Duration NOTYPE 
 function DESIGNATE:MenuLaseOn(Index, Duration) end
@@ -438,7 +421,6 @@ function DESIGNATE:MenuLaseOn(Index, Duration) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param Index NOTYPE 
 ---@param Color NOTYPE 
 function DESIGNATE:MenuSmoke(Index, Color) end
@@ -446,7 +428,6 @@ function DESIGNATE:MenuSmoke(Index, Color) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param AttackGroup NOTYPE 
 function DESIGNATE:MenuStatus(AttackGroup) end
 
@@ -454,7 +435,6 @@ function DESIGNATE:MenuStatus(AttackGroup) end
 ---This class is an abstract class and should not be instantiated.
 ---
 ------
----@param self DESIGNATE 
 ---@param CC COMMANDCENTER 
 ---@param Detection DETECTION_BASE 
 ---@param AttackSet SET_GROUP The Attack collection of GROUP objects to designate and report for.
@@ -465,7 +445,6 @@ function DESIGNATE:New(CC, Detection, AttackSet, Mission) end
 ---Detect Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -474,7 +453,6 @@ function DESIGNATE:OnAfterDetect(From, Event, To) end
 ---Illuminate Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -483,7 +461,6 @@ function DESIGNATE:OnAfterIlluminate(From, Event, To) end
 ---LaseOff Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -492,7 +469,6 @@ function DESIGNATE:OnAfterLaseOff(From, Event, To) end
 ---LaseOn Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -501,7 +477,6 @@ function DESIGNATE:OnAfterLaseOn(From, Event, To) end
 ---Smoke Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -510,7 +485,6 @@ function DESIGNATE:OnAfterSmoke(From, Event, To) end
 ---Status Handler OnAfter for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -519,7 +493,6 @@ function DESIGNATE:OnAfterStatus(From, Event, To) end
 ---Detect Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -529,7 +502,6 @@ function DESIGNATE:OnBeforeDetect(From, Event, To) end
 ---Illuminate Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -539,7 +511,6 @@ function DESIGNATE:OnBeforeIlluminate(From, Event, To) end
 ---LaseOff Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -549,7 +520,6 @@ function DESIGNATE:OnBeforeLaseOff(From, Event, To) end
 ---LaseOn Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -559,7 +529,6 @@ function DESIGNATE:OnBeforeLaseOn(From, Event, To) end
 ---Smoke Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -569,7 +538,6 @@ function DESIGNATE:OnBeforeSmoke(From, Event, To) end
 ---Status Handler OnBefore for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -585,7 +553,6 @@ function DESIGNATE:OnBeforeStatus(From, Event, To) end
 ---  RecceDesignation:RemoveMenuLaserCode( 1113 )
 ---```
 ------
----@param self DESIGNATE 
 ---@param LaserCode number The specific laser code that was set to be added to the lase menu.
 ---@return DESIGNATE #
 function DESIGNATE:RemoveMenuLaserCode(LaserCode) end
@@ -593,7 +560,6 @@ function DESIGNATE:RemoveMenuLaserCode(LaserCode) end
 ---Sends the status to the Attack Groups.
 ---
 ------
----@param self DESIGNATE 
 ---@param AttackGroup GROUP 
 ---@param Duration number The time in seconds the report should be visible.
 ---@param MenuAttackGroup NOTYPE 
@@ -604,7 +570,6 @@ function DESIGNATE:SendStatus(AttackGroup, Duration, MenuAttackGroup) end
 ---Auto lase will start lasing targets immediately when these are in range.
 ---
 ------
----@param self DESIGNATE 
 ---@param AutoLase? boolean (optional) true sets autolase on, false off. Default is off.
 ---@param Message? boolean (optional) true is send message, false or nil won't send a message. Default is no message sent.
 ---@return DESIGNATE #
@@ -613,7 +578,6 @@ function DESIGNATE:SetAutoLase(AutoLase, Message) end
 ---Sets the Designate Menu for all the attack groups.
 ---
 ------
----@param self DESIGNATE 
 ---@return DESIGNATE #
 function DESIGNATE:SetDesignateMenu() end
 
@@ -622,7 +586,6 @@ function DESIGNATE:SetDesignateMenu() end
 ---This method can be used to control different designations for different plane types.
 ---
 ------
----@param self DESIGNATE 
 ---@param DesignateName string 
 ---@return DESIGNATE #
 function DESIGNATE:SetDesignateName(DesignateName) end
@@ -644,7 +607,6 @@ function DESIGNATE:SetDesignateName(DesignateName) end
 ---Designate:SetFlashDetectionMessages( false )
 ---```
 ------
----@param self DESIGNATE 
 ---@param FlashDetectionMessage boolean true: The detection message will be flashed every time a new detection was done; false: no messages will be displayed.
 ---@return DESIGNATE #
 function DESIGNATE:SetFlashDetectionMessages(FlashDetectionMessage) end
@@ -666,7 +628,6 @@ function DESIGNATE:SetFlashDetectionMessages(FlashDetectionMessage) end
 ---Designate:SetFlashStatusMenu( false )
 ---```
 ------
----@param self DESIGNATE 
 ---@param FlashMenu boolean true: the status menu will be flashed every detection run; false: no flashing of the menu.
 ---@return DESIGNATE #
 function DESIGNATE:SetFlashStatusMenu(FlashMenu) end
@@ -674,7 +635,6 @@ function DESIGNATE:SetFlashStatusMenu(FlashMenu) end
 ---Set the lase duration for designations.
 ---
 ------
----@param self DESIGNATE 
 ---@param LaseDuration number The time in seconds a lase will continue to hold on target. The default is 120 seconds.
 ---@return DESIGNATE #
 function DESIGNATE:SetLaseDuration(LaseDuration) end
@@ -683,7 +643,6 @@ function DESIGNATE:SetLaseDuration(LaseDuration) end
 ---Each new lase will select a code from this table.
 ---
 ------
----@param self DESIGNATE 
 ---@param LaserCodes list 
 ---@return DESIGNATE #
 function DESIGNATE:SetLaserCodes(LaserCodes) end
@@ -693,7 +652,6 @@ function DESIGNATE:SetLaserCodes(LaserCodes) end
 ---Using the menu system, the player can "forget" a designation, so that gradually a new designation can be put in scope when detected.
 ---
 ------
----@param self DESIGNATE 
 ---@param MaximumDesignations number 
 ---@return DESIGNATE #
 function DESIGNATE:SetMaximumDesignations(MaximumDesignations) end
@@ -701,7 +659,6 @@ function DESIGNATE:SetMaximumDesignations(MaximumDesignations) end
 ---Set the maximum air designation distance.
 ---
 ------
----@param self DESIGNATE 
 ---@param MaximumDistanceAirDesignation number Maximum air designation distance in meters.
 ---@return DESIGNATE #
 function DESIGNATE:SetMaximumDistanceAirDesignation(MaximumDistanceAirDesignation) end
@@ -709,7 +666,6 @@ function DESIGNATE:SetMaximumDistanceAirDesignation(MaximumDistanceAirDesignatio
 ---Set the overall maximum distance when designations can be accepted.
 ---
 ------
----@param self DESIGNATE 
 ---@param MaximumDistanceDesignations number Maximum distance in meters to accept designations.
 ---@return DESIGNATE #
 function DESIGNATE:SetMaximumDistanceDesignations(MaximumDistanceDesignations) end
@@ -717,7 +673,6 @@ function DESIGNATE:SetMaximumDistanceDesignations(MaximumDistanceDesignations) e
 ---Set the maximum ground designation distance.
 ---
 ------
----@param self DESIGNATE 
 ---@param MaximumDistanceGroundDesignation number Maximum ground designation distance in meters.
 ---@return DESIGNATE #
 function DESIGNATE:SetMaximumDistanceGroundDesignation(MaximumDistanceGroundDesignation) end
@@ -726,7 +681,6 @@ function DESIGNATE:SetMaximumDistanceGroundDesignation(MaximumDistanceGroundDesi
 ---This will limit the number of parallelly marked units of a target group.
 ---
 ------
----@param self DESIGNATE 
 ---@param MaximumMarkings number Maximum markings FACs will do, per designated target group.
 ---@return DESIGNATE #
 function DESIGNATE:SetMaximumMarkings(MaximumMarkings) end
@@ -734,7 +688,6 @@ function DESIGNATE:SetMaximumMarkings(MaximumMarkings) end
 ---Sets the Designate Menu for one attack groups.
 ---
 ------
----@param self DESIGNATE 
 ---@param AttackGroup NOTYPE 
 ---@return DESIGNATE #
 function DESIGNATE:SetMenu(AttackGroup) end
@@ -743,7 +696,6 @@ function DESIGNATE:SetMenu(AttackGroup) end
 ---When a MISSION object is assigned, the menu for the designation will be located at the Mission Menu.
 ---
 ------
----@param self DESIGNATE 
 ---@param Mission MISSION The MISSION object.
 ---@return DESIGNATE #
 function DESIGNATE:SetMission(Mission) end
@@ -751,7 +703,6 @@ function DESIGNATE:SetMission(Mission) end
 ---Set priorization of Targets based on the **Threat Level of the Target** in an Air to Ground context.
 ---
 ------
----@param self DESIGNATE 
 ---@param Prioritize boolean 
 ---@return DESIGNATE #
 function DESIGNATE:SetThreatLevelPrioritization(Prioritize) end
@@ -759,61 +710,52 @@ function DESIGNATE:SetThreatLevelPrioritization(Prioritize) end
 ---Smoke Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:Smoke() end
 
 ---Status Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 function DESIGNATE:Status() end
 
 ---Detect Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__Detect(Delay) end
 
 ---Illuminate Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__Illuminate(Delay) end
 
 ---LaseOff Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__LaseOff(Delay) end
 
 ---LaseOn Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__LaseOn(Delay) end
 
 ---Smoke Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__Smoke(Delay) end
 
 ---Status Asynchronous Trigger for DESIGNATE
 ---
 ------
----@param self DESIGNATE 
 ---@param Delay number 
 function DESIGNATE:__Status(Delay) end
 
 
 ---
 ------
----@param self DESIGNATE 
 ---@return DESIGNATE #
 ---@private
 function DESIGNATE:onafterDetect() end
@@ -821,7 +763,6 @@ function DESIGNATE:onafterDetect() end
 ---DoneIlluminating
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -833,7 +774,6 @@ function DESIGNATE:onafterDoneIlluminating(From, Event, To, Index) end
 ---DoneSmoking
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -845,7 +785,6 @@ function DESIGNATE:onafterDoneSmoking(From, Event, To, Index) end
 ---Illuminating
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -857,7 +796,6 @@ function DESIGNATE:onafterIlluminate(From, Event, To, Index) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -869,7 +807,6 @@ function DESIGNATE:onafterLaseOff(From, Event, To, Index) end
 
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -882,7 +819,6 @@ function DESIGNATE:onafterLaseOn(From, Event, To, Index, Duration, LaserCode) en
 
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -896,7 +832,6 @@ function DESIGNATE:onafterLasing(From, Event, To, Index, Duration, LaserCodeRequ
 
 ---
 ------
----@param self DESIGNATE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

@@ -268,14 +268,12 @@ TASK_CARGO_CSAR = {}
 
 ---
 ------
----@param self TASK_CARGO_CSAR 
 ---@return boolean #
 function TASK_CARGO_CSAR:IsAllCargoTransported() end
 
 ---Instantiates a new TASK_CARGO_CSAR.
 ---
 ------
----@param self TASK_CARGO_CSAR 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -287,7 +285,6 @@ function TASK_CARGO_CSAR:New(Mission, SetGroup, TaskName, SetCargo, TaskBriefing
 ---OnAfter Transition Handler for Event CargoDeployed.
 ---
 ------
----@param self TASK_CARGO_CSAR 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -299,7 +296,6 @@ function TASK_CARGO_CSAR:OnAfterCargoDeployed(From, Event, To, TaskUnit, Cargo, 
 ---OnAfter Transition Handler for Event CargoPickedUp.
 ---
 ------
----@param self TASK_CARGO_CSAR 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -310,14 +306,12 @@ function TASK_CARGO_CSAR:OnAfterCargoPickedUp(From, Event, To, TaskUnit, Cargo) 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function TASK_CARGO_CSAR:ReportOrder(ReportGroup) end
 
 
 ---
 ------
----@param self TASK_CARGO_CSAR 
 ---@param TaskUnit NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

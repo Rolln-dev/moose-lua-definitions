@@ -142,7 +142,6 @@ AI_CARGO_DISPATCHER_SHIP = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param Ship NOTYPE 
 ---@param CargoSet NOTYPE 
 function AI_CARGO_DISPATCHER_SHIP:AICargo(Ship, CargoSet) end
@@ -167,7 +166,6 @@ function AI_CARGO_DISPATCHER_SHIP:AICargo(Ship, CargoSet) end
 ---     AICargoDispatcherShip:Start()
 ---```
 ------
----@param self AI_CARGO_DISPATCHER_SHIP 
 ---@param ShipSet SET_GROUP  The set of @{Wrapper.Group#GROUP} objects of Ships that will transport the cargo
 ---@param CargoSet SET_CARGO  The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, or CARGO_SLINGLOAD objects.
 ---@param PickupZoneSet SET_ZONE  The set of pickup zones which are used to determine from where the cargo can be picked up by the Ship. 
@@ -179,7 +177,6 @@ function AI_CARGO_DISPATCHER_SHIP:New(ShipSet, CargoSet, PickupZoneSet, DeployZo
 
 ---
 ------
----@param self NOTYPE 
 ---@param ShippingLane NOTYPE 
 function AI_CARGO_DISPATCHER_SHIP:SetShippingLane(ShippingLane) end
 

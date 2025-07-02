@@ -75,18 +75,15 @@
 ---
 ---### Author: **applevangelist**
 ---@class AUTOLASE 
----@field CurrentLasing table 
+---@field CurrentLasing NOTYPE 
 ---@field DetectDLINK boolean 
 ---@field DetectIRST boolean 
 ---@field DetectOptical boolean 
 ---@field DetectRWR boolean 
 ---@field DetectRadar boolean 
 ---@field DetectVisual boolean 
----@field GroupsByThreat table 
+---@field GroupsByThreat NOTYPE 
 ---@field Label NOTYPE 
----@field LaseDistance number 
----@field LaseDuration number 
----@field LaserCodes NOTYPE 
 ---@field Menu NOTYPE 
 ---@field NoMenus boolean 
 ---@field PathToGoogleKey NOTYPE 
@@ -96,26 +93,27 @@
 ---@field RecceSmokeColor table 
 ---@field RecceUnitNames table 
 ---@field RecceUnits table 
----@field RoundingPrecision number 
 ---@field SRS NOTYPE 
+---@field SRSFreq number 
+---@field SRSMod NOTYPE 
+---@field SRSPath string 
 ---@field SRSQueue NOTYPE 
----@field UnitsByThreat table 
+---@field UnitsByThreat NOTYPE 
 ---@field Voice NOTYPE 
 ---@field private alias NOTYPE 
 ---@field private blacklistattributes table 
 ---@field private coalition NOTYPE 
+---@field private cooldowntime number 
 ---@field private deadunitnotes table 
+---@field private forcecooldown boolean 
 ---@field private increasegroundawareness boolean 
----@field private lasingindex number 
 ---@field private lid NOTYPE 
----@field private minthreatlevel number 
----@field private notifypilots boolean 
+---@field private minthreatlevel NOTYPE 
 ---@field private pilotset NOTYPE 
 ---@field private playermenus table 
----@field private smokecolor NOTYPE 
 ---@field private smokemenu boolean 
----@field private smoketargets boolean 
----@field private targetsperrecce table 
+---@field private smoketargets NOTYPE 
+---@field private targetsperrecce NOTYPE 
 ---@field private threatmenu boolean 
 ---@field private useSRS boolean 
 ---@field private usepilotset boolean 
@@ -138,7 +136,6 @@ AUTOLASE = {}
 ---           `myautolase:AddBlackListAttributes({"Trucks","Artillery"})`
 ---```
 ------
----@param self AUTOLASE 
 ---@param Attributes table Table of #string attributes to blacklist. Can be handed over as a single #string.
 ---@return AUTOLASE #self
 function AUTOLASE:AddBlackListAttributes(Attributes) end
@@ -146,7 +143,6 @@ function AUTOLASE:AddBlackListAttributes(Attributes) end
 ---(Internal) Function to check if a unit can be lased.
 ---
 ------
----@param self AUTOLASE 
 ---@param Recce UNIT The Recce #UNIT
 ---@param Unit UNIT The lased #UNIT
 ---@return boolean #outcome True or false
@@ -155,13 +151,11 @@ function AUTOLASE:CanLase(Recce, Unit) end
 ---Triggers the FSM event "Cancel".
 ---
 ------
----@param self AUTOLASE 
 function AUTOLASE:Cancel() end
 
 ---(Internal) Function to check if a unit is already lased.
 ---
 ------
----@param self AUTOLASE 
 ---@param unitname string Name of the unit to check
 ---@return boolean #outcome True or false
 function AUTOLASE:CheckIsLased(unitname) end
@@ -169,35 +163,30 @@ function AUTOLASE:CheckIsLased(unitname) end
 ---(Internal) Function to check on lased targets.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self
 function AUTOLASE:CleanCurrentLasing() end
 
 ---[User] Do not improve ground unit detection by using a zone scan and LOS check.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:DisableImproveGroundUnitsDetection() end
 
 ---(User) Do not show the "Switch smoke target..." menu entry for pilots.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:DisableSmokeMenu() end
 
 ---(User) Do not show the "Switch min threat lasing..." menu entry for pilots.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:DisableThreatLevelMenu() end
 
 ---[User] Improve ground unit detection by using a zone scan and LOS check.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:EnableImproveGroundUnitsDetection() end
 
@@ -205,7 +194,6 @@ function AUTOLASE:EnableImproveGroundUnitsDetection() end
 ---On by default.
 ---
 ------
----@param self AUTOLASE 
 ---@param Offset? table (Optional) Define an offset for the smoke, i.e. not directly on the unit itself, angle is degrees and distance is meters. E.g. `autolase:EnableSmokeMenu({Angle=30,Distance=20})`
 ---@return AUTOLASE #self 
 function AUTOLASE:EnableSmokeMenu(Offset) end
@@ -214,14 +202,12 @@ function AUTOLASE:EnableSmokeMenu(Offset) end
 ---On by default.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:EnableThreatLevelMenu() end
 
 ---(Internal) Function to get a laser code by recce name
 ---
 ------
----@param self AUTOLASE 
 ---@param RecceName string Unit(!) name of the Recce
 ---@return AUTOLASE #self 
 function AUTOLASE:GetLaserCode(RecceName) end
@@ -229,7 +215,6 @@ function AUTOLASE:GetLaserCode(RecceName) end
 ---(Internal) Function to calculate line of sight.
 ---
 ------
----@param self AUTOLASE 
 ---@param Unit UNIT 
 ---@return number #LOS Line of sight in meters
 function AUTOLASE:GetLosFromUnit(Unit) end
@@ -237,7 +222,6 @@ function AUTOLASE:GetLosFromUnit(Unit) end
 ---(Internal) Function to get a smoke color by recce name
 ---
 ------
----@param self AUTOLASE 
 ---@param RecceName string Unit(!) name of the Recce
 ---@return AUTOLASE #self 
 function AUTOLASE:GetSmokeColor(RecceName) end
@@ -245,7 +229,6 @@ function AUTOLASE:GetSmokeColor(RecceName) end
 ---Constructor for a new Autolase instance.
 ---
 ------
----@param self AUTOLASE 
 ---@param RecceSet SET_GROUP Set of detecting and lasing units
 ---@param Coalition number Coalition side. Can also be passed as a string "red", "blue" or "neutral".
 ---@param Alias? string (Optional) An alias how this object is called in the logs etc.
@@ -256,7 +239,6 @@ function AUTOLASE:New(RecceSet, Coalition, Alias, PilotSet) end
 ---(Internal) Function to show messages.
 ---
 ------
----@param self AUTOLASE 
 ---@param Message string The message to be sent
 ---@param Duration number Duration in seconds
 ---@return AUTOLASE #self
@@ -276,7 +258,6 @@ function AUTOLASE:NotifyPilots(Message, Duration) end
 ---           end
 ---```
 ------
----@param self AUTOLASE 
 ---@param Message string The (short!) message to be sent, e.g. "Lasing target!"
 ---@return AUTOLASE #self
 function AUTOLASE:NotifyPilotsWithSRS(Message) end
@@ -284,7 +265,6 @@ function AUTOLASE:NotifyPilotsWithSRS(Message) end
 ---On After "LaserTimeout" event.
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -295,7 +275,6 @@ function AUTOLASE:OnAfterLaserTimeout(From, Event, To, UnitName, RecceName) end
 ---On After "Lasing" event.
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -305,7 +284,6 @@ function AUTOLASE:OnAfterLasing(From, Event, To, LaserSpot) end
 ---On After "RecceKIA" event.
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -315,7 +293,6 @@ function AUTOLASE:OnAfterRecceKIA(From, Event, To, RecceName) end
 ---On After "TargetDestroyed" event.
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -326,7 +303,6 @@ function AUTOLASE:OnAfterTargetDestroyed(From, Event, To, UnitName, RecceName) e
 ---On After "TargetLost" event.
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -338,7 +314,6 @@ function AUTOLASE:OnAfterTargetLost(From, Event, To, UnitName, RecceName) end
 ---Each new RECCE can select a code from this table, default is { 1688, 1130, 4785, 6547, 1465, 4578 }.
 ---
 ------
----@param self AUTOLASE 
 ---@param LaserCodes list 
 ---@return AUTOLASE #self
 function AUTOLASE:SetLaserCodes(LaserCodes) end
@@ -346,7 +321,6 @@ function AUTOLASE:SetLaserCodes(LaserCodes) end
 ---(User) Function to force laser cooldown and cool down time
 ---
 ------
----@param self AUTOLASE 
 ---@param OnOff boolean Switch cool down on (true) or off (false) - defaults to true
 ---@param Seconds number Number of seconds for cooldown - dafaults to 60 seconds
 ---@return AUTOLASE #self 
@@ -355,7 +329,6 @@ function AUTOLASE:SetLaserCoolDown(OnOff, Seconds) end
 ---(User) Function to set lasing distance in meters and duration in seconds
 ---
 ------
----@param self AUTOLASE 
 ---@param Distance number (Max) distance for lasing in meters - default 5000 meters
 ---@param Duration number (Max) duration for lasing in seconds - default 300 secs
 ---@return AUTOLASE #self 
@@ -364,7 +337,6 @@ function AUTOLASE:SetLasingParameters(Distance, Duration) end
 ---(User) Function set max lasing targets
 ---
 ------
----@param self AUTOLASE 
 ---@param Number number Max number of targets to lase at once
 ---@return AUTOLASE #self 
 function AUTOLASE:SetMaxLasingTargets(Number) end
@@ -379,7 +351,6 @@ function AUTOLASE:SetMaxLasingTargets(Number) end
 ---           `myautolase:SetMinThreatLevel(3)`
 ---```
 ------
----@param self AUTOLASE 
 ---@param Level number Level used for filtering, defaults to 0. SAM systems and manpads have level 7 to 10, AAA level 6, MTBs and armoured vehicles level 3 to 5, APC, Artillery, Infantry and EWR level 1 to 2.
 ---@return AUTOLASE #self
 function AUTOLASE:SetMinThreatLevel(Level) end
@@ -387,7 +358,6 @@ function AUTOLASE:SetMinThreatLevel(Level) end
 ---[User] When using Monitor, set the frequency here in which the report will appear
 ---
 ------
----@param self AUTOLASE 
 ---@param Seconds number Run the report loop every number of seconds defined here.
 ---@return AUTOLASE #self
 function AUTOLASE:SetMonitorFrequency(Seconds) end
@@ -395,7 +365,6 @@ function AUTOLASE:SetMonitorFrequency(Seconds) end
 ---(Internal) Function set notify pilots on events
 ---
 ------
----@param self AUTOLASE 
 ---@param OnOff boolean Switch messaging on (true) or off (false)
 ---@return AUTOLASE #self 
 function AUTOLASE:SetNotifyPilots(OnOff) end
@@ -403,14 +372,12 @@ function AUTOLASE:SetNotifyPilots(OnOff) end
 ---(Internal) Function to set pilot menu.
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:SetPilotMenu() end
 
 ---(User) Function to set a specific code to a Recce.
 ---
 ------
----@param self AUTOLASE 
 ---@param RecceName string (Unit!) Name of the Recce
 ---@param Code number The lase code
 ---@param Refresh boolean If true, refresh menu entries
@@ -420,7 +387,6 @@ function AUTOLASE:SetRecceLaserCode(RecceName, Code, Refresh) end
 ---(User) Function to set a specific smoke color for a Recce.
 ---
 ------
----@param self AUTOLASE 
 ---@param RecceName string (Unit!) Name of the Recce
 ---@param Color number The color, e.g. SMOKECOLOR.Red, SMOKECOLOR.Green etc
 ---@return AUTOLASE #self 
@@ -429,7 +395,6 @@ function AUTOLASE:SetRecceSmokeColor(RecceName, Color) end
 ---(User) Function to set message show times.
 ---
 ------
----@param self AUTOLASE 
 ---@param long number Longer show time
 ---@param short number Shorter show time
 ---@return AUTOLASE #self 
@@ -438,7 +403,6 @@ function AUTOLASE:SetReportingTimes(long, short) end
 ---(User) Function to set rounding precision for BR distance output.
 ---
 ------
----@param self AUTOLASE 
 ---@param IDP number Rounding precision before/after the decimal sign. Defaults to zero. Positive values round right of the decimal sign, negative ones left of the decimal sign. 
 ---@return AUTOLASE #self 
 function AUTOLASE:SetRoundingPrecsion(IDP) end
@@ -446,7 +410,6 @@ function AUTOLASE:SetRoundingPrecsion(IDP) end
 ---(User) Function to set smoking of targets.
 ---
 ------
----@param self AUTOLASE 
 ---@param OnOff boolean Switch smoking on or off
 ---@param Color number Smokecolor, e.g. SMOKECOLOR.Red
 ---@return AUTOLASE #self 
@@ -455,7 +418,6 @@ function AUTOLASE:SetSmokeTargets(OnOff, Color) end
 ---(User) Function enable sending messages via SRS.
 ---
 ------
----@param self AUTOLASE 
 ---@param OnOff boolean Switch usage on and off
 ---@param Path string Path to SRS directory, e.g. C:\\Program Files\\DCS-SimpleRadio-Standalone
 ---@param Frequency number Frequency to send, e.g. 243
@@ -473,7 +435,6 @@ function AUTOLASE:SetUsingSRS(OnOff, Path, Frequency, Modulation, Label, Gender,
 ---(Internal) Function to show status.
 ---
 ------
----@param self AUTOLASE 
 ---@param Group? GROUP (Optional) show to a certain group
 ---@param Unit? UNIT (Optional) show to a certain unit
 ---@return AUTOLASE #self
@@ -482,13 +443,11 @@ function AUTOLASE:ShowStatus(Group, Unit) end
 ---Triggers the FSM event "Monitor".
 ---
 ------
----@param self AUTOLASE 
 function AUTOLASE:Status() end
 
 ---(Internal) Event function for new pilots.
 ---
 ------
----@param self AUTOLASE 
 ---@param EventData EVENTDATA 
 ---@return AUTOLASE #self 
 function AUTOLASE:_EventHandler(EventData) end
@@ -496,28 +455,24 @@ function AUTOLASE:_EventHandler(EventData) end
 ---(Internal) Function to do a zone check per ground Recce and make found units and statics "known".
 ---
 ------
----@param self AUTOLASE 
 ---@return AUTOLASE #self 
 function AUTOLASE:_Prescient() end
 
 ---Triggers the FSM event "Cancel" after a delay.
 ---
 ------
----@param self AUTOLASE 
 ---@param delay number Delay in seconds.
 function AUTOLASE:__Cancel(delay) end
 
 ---Triggers the FSM event "Monitor" after a delay.
 ---
 ------
----@param self AUTOLASE 
 ---@param delay number Delay in seconds.
 function AUTOLASE:__Status(delay) end
 
 ---(Internal) FSM Function for monitoring
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -528,7 +483,6 @@ function AUTOLASE:onafterMonitor(From, Event, To) end
 ---(Internal) FSM Function onbeforeCancel
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -539,7 +493,6 @@ function AUTOLASE:onbeforeCancel(From, Event, To) end
 ---(Internal) FSM Function onbeforeLaserTimeout
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -552,7 +505,6 @@ function AUTOLASE:onbeforeLaserTimeout(From, Event, To, UnitName, RecceName) end
 ---(Internal) FSM Function onbeforeLasing
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -564,7 +516,6 @@ function AUTOLASE:onbeforeLasing(From, Event, To, LaserSpot) end
 ---(Internal) FSM Function for monitoring
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -575,7 +526,6 @@ function AUTOLASE:onbeforeMonitor(From, Event, To) end
 ---(Internal) FSM Function onbeforeRecceKIA
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -587,7 +537,6 @@ function AUTOLASE:onbeforeRecceKIA(From, Event, To, RecceName) end
 ---(Internal) FSM Function onbeforeTargetDestroyed
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state
@@ -600,7 +549,6 @@ function AUTOLASE:onbeforeTargetDestroyed(From, Event, To, UnitName, RecceName) 
 ---(Internal) FSM Function onbeforeTargetLost
 ---
 ------
----@param self AUTOLASE 
 ---@param From string The from state
 ---@param Event string The event
 ---@param To string The to state

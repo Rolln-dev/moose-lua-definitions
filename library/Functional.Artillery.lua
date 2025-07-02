@@ -539,16 +539,14 @@ ARTY = {}
 ---Enables addressing all ARTY groups within a cluster simultaniously via marker assignments.
 ---
 ------
----@param self ARTY 
 ---@param clusters table Table of cluster names the group should belong to.
----@return  #self
+---@return NOTYPE #self
 function ARTY:AddToCluster(clusters) end
 
 ---Tell ARTY group it has arrived at its destination.
 ---Triggers the FSM event "Arrived".
 ---
 ------
----@param self ARTY 
 function ARTY:Arrived() end
 
 ---Assign a target group to the ARTY group.
@@ -563,7 +561,6 @@ function ARTY:Arrived() end
 ---paladin:Start()
 ---```
 ------
----@param self ARTY 
 ---@param group GROUP Target group.
 ---@param prio? number (Optional) Priority of target. Number between 1 (high) and 100 (low). Default 50.
 ---@param radius? number (Optional) Radius. Default is 100 m.
@@ -579,7 +576,6 @@ function ARTY:AssignAttackGroup(group, prio, radius, nshells, maxengage, time, w
 ---Assign coordinate to where the ARTY group should move.
 ---
 ------
----@param self ARTY 
 ---@param coord COORDINATE Coordinates of the new position.
 ---@param time? string (Optional) Day time at which the group should start moving. Passed as a string in format "08:13:45". Default is now.
 ---@param speed number (Optinal) Speed in km/h the group should move at. Default 70% of max posible speed of group.
@@ -602,7 +598,6 @@ function ARTY:AssignMoveCoord(coord, time, speed, onroad, cancel, name, unique) 
 ---paladin:Start()
 ---```
 ------
----@param self ARTY 
 ---@param coord COORDINATE Coordinates of the target.
 ---@param prio? number (Optional) Priority of target. Number between 1 (high) and 100 (low). Default 50.
 ---@param radius? number (Optional) Radius. Default is 100 m.
@@ -619,7 +614,6 @@ function ARTY:AssignTargetCoord(coord, prio, radius, nshells, maxengage, time, w
 ---Triggers the FSM event "CeaseFire".
 ---
 ------
----@param self ARTY 
 ---@param target table Array holding the target data.
 function ARTY:CeaseFire(target) end
 
@@ -627,14 +621,12 @@ function ARTY:CeaseFire(target) end
 ---Triggers the FSM event "CombatReady".
 ---
 ------
----@param self ARTY 
 function ARTY:CombatReady() end
 
 ---Function called when a unit of the ARTY group died.
 ---Triggers the FSM event "Dead".
 ---
 ------
----@param self ARTY 
 ---@param unitname string Name of the unit that died.
 function ARTY:Dead(unitname) end
 
@@ -642,7 +634,6 @@ function ARTY:Dead(unitname) end
 ---For a group the ammo count of all units is summed up.
 ---
 ------
----@param self ARTY 
 ---@param display boolean Display ammo table as message to all. Default false.
 ---@return number #Total amount of ammo the whole group has left.
 ---@return number #Number of shells the group has left.
@@ -655,14 +646,12 @@ function ARTY:GetAmmo(display) end
 ---Triggers the FSM event "Move".
 ---
 ------
----@param self ARTY 
 ---@param move table Array holding the relocation move data.
 function ARTY:Move(move) end
 
 ---Creates a new ARTY object from a MOOSE group object.
 ---
 ------
----@param self ARTY 
 ---@param group GROUP The GROUP object for which artillery tasks should be assigned.
 ---@param alias? NOTYPE (Optional) Alias name the group will be calling itself when sending messages. Default is the group name.
 ---@return ARTY #ARTY object or nil if group does not exist or is not a ground or naval group.
@@ -671,7 +660,6 @@ function ARTY:New(group, alias) end
 ---Creates a new ARTY object from a MOOSE CARGO_GROUP object.
 ---
 ------
----@param self ARTY 
 ---@param cargogroup CARGO_GROUP The CARGO GROUP object for which artillery tasks should be assigned.
 ---@param alias? NOTYPE (Optional) Alias name the group will be calling itself when sending messages. Default is the group name.
 ---@return ARTY #ARTY object or nil if group does not exist or is not a ground or naval group.
@@ -681,7 +669,6 @@ function ARTY:NewFromCargoGroup(cargogroup, alias) end
 ---Triggers the FSM event "NewMove".
 ---
 ------
----@param self ARTY 
 ---@param move table Array holding the relocation move data.
 function ARTY:NewMove(move) end
 
@@ -689,14 +676,12 @@ function ARTY:NewMove(move) end
 ---Triggers the FSM event "NewTarget".
 ---
 ------
----@param self ARTY 
 ---@param target table Array holding the target data.
 function ARTY:NewTarget(target) end
 
 ---User function for OnAfer "Arrived" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -706,7 +691,6 @@ function ARTY:OnAfterArrvied(Controllable, From, Event, To) end
 ---User function for OnAfter "CeaseFire" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -717,7 +701,6 @@ function ARTY:OnAfterCeaseFire(Controllable, From, Event, To, target) end
 ---User function for OnAfter "Dead" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -728,7 +711,6 @@ function ARTY:OnAfterDead(Controllable, From, Event, To, Unitname) end
 ---User function for OnAfer "Move" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -739,7 +721,6 @@ function ARTY:OnAfterMove(Controllable, From, Event, To, move) end
 ---User function for OnAfer "NewMove" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -750,7 +731,6 @@ function ARTY:OnAfterNewMove(Controllable, From, Event, To, move) end
 ---User function for OnAfter "NewTarget" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -761,7 +741,6 @@ function ARTY:OnAfterNewTarget(Controllable, From, Event, To, target) end
 ---User function for OnAfter "OpenFire" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -772,7 +751,6 @@ function ARTY:OnAfterOpenFire(Controllable, From, Event, To, target) end
 ---User function for OnAfter "Rearm" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -782,7 +760,6 @@ function ARTY:OnAfterRearm(Controllable, From, Event, To) end
 ---User function for OnAfter "Rearmed" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -792,7 +769,6 @@ function ARTY:OnAfterRearmed(Controllable, From, Event, To) end
 ---User function for OnAfter "Respawn" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -802,7 +778,6 @@ function ARTY:OnAfterRespawn(Controllable, From, Event, To) end
 ---User function for OnAfter "Start" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -812,7 +787,6 @@ function ARTY:OnAfterStart(Controllable, From, Event, To) end
 ---User function for OnAfter "Status" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -822,7 +796,6 @@ function ARTY:OnAfterStatus(Controllable, From, Event, To) end
 ---User function for OnAfter "Winchester" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -832,7 +805,6 @@ function ARTY:OnAfterWinchester(Controllable, From, Event, To) end
 ---User function for OnEnter "CombatReady" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -842,7 +814,6 @@ function ARTY:OnEnterCombatReady(Controllable, From, Event, To) end
 ---User function for OnEnter "Firing" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -852,7 +823,6 @@ function ARTY:OnEnterFiring(Controllable, From, Event, To) end
 ---User function for OnEnter "Moving" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -862,7 +832,6 @@ function ARTY:OnEnterMoving(Controllable, From, Event, To) end
 ---User function for OnEnter "OutOfAmmo" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -872,7 +841,6 @@ function ARTY:OnEnterOutOfAmmo(Controllable, From, Event, To) end
 ---User function for OnEnter "Rearmed" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -882,7 +850,6 @@ function ARTY:OnEnterRearmed(Controllable, From, Event, To) end
 ---User function for OnEnter "Rearming" state.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -892,14 +859,12 @@ function ARTY:OnEnterRearming(Controllable, From, Event, To) end
 ---Event handler for event Dead.
 ---
 ------
----@param self ARTY 
 ---@param EventData EVENTDATA 
 function ARTY:OnEventDead(EventData) end
 
 ---Eventhandler for shot event.
 ---
 ------
----@param self ARTY 
 ---@param EventData EVENTDATA 
 function ARTY:OnEventShot(EventData) end
 
@@ -907,20 +872,17 @@ function ARTY:OnEventShot(EventData) end
 ---Triggers the FSM event "OpenFire".
 ---
 ------
----@param self ARTY 
 ---@param target table Array holding the target data.
 function ARTY:OpenFire(target) end
 
 ---Delete ALL targets from current target list.
 ---
 ------
----@param self ARTY 
 function ARTY:RemoveAllTargets() end
 
 ---Delete a move from move list.
 ---
 ------
----@param self ARTY 
 ---@param name string Name of the target.
 function ARTY:RemoveMove(name) end
 
@@ -928,59 +890,52 @@ function ARTY:RemoveMove(name) end
 ---If the target is currently engaged, it is cancelled.
 ---
 ------
----@param self ARTY 
 ---@param name string Name of the target.
 function ARTY:RemoveTarget(name) end
 
 ---Respawn ARTY group.
 ---
 ------
----@param self ARTY 
 function ARTY:Respawn() end
 
 ---Set alias, i.e.
 ---the name the group will use when sending messages.
 ---
 ------
----@param self ARTY 
 ---@param alias string The alias for the group.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetAlias(alias) end
 
 ---Set relocate after firing.
 ---Group will find a new location after each engagement. Default is off
 ---
 ------
----@param self ARTY 
 ---@param rmax? number (Optional) Max distance in meters, the group will move to relocate. Default is 800 m.
 ---@param rmin? number (Optional) Min distance in meters, the group will move to relocate. Default is 300 m.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetAutoRelocateAfterEngagement(rmax, rmin) end
 
 ---Set automatic relocation of ARTY group if a target is assigned which is out of range.
 ---The unit will drive automatically towards or away from the target to be in max/min firing range.
 ---
 ------
----@param self ARTY 
 ---@param maxdistance? number (Optional) The maximum distance in km the group will travel to get within firing range. Default is 50 km. No automatic relocation is performed if targets are assigned which are further away.
 ---@param onroad? boolean (Optional) If true, ARTY group uses roads whenever possible. Default false, i.e. group will move in a straight line to the assigned coordinate.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetAutoRelocateToFiringRange(maxdistance, onroad) end
 
 ---Turn debug mode off.
 ---This is the default setting.
 ---
 ------
----@param self ARTY 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetDebugOFF() end
 
 ---Turn debug mode on.
 ---Information is printed to screen.
 ---
 ------
----@param self ARTY 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetDebugON() end
 
 ---Set minimum and maximum detotation altitude for illumination shells.
@@ -988,256 +943,225 @@ function ARTY:SetDebugON() end
 ---The illumination bomb will burn for 300 seconds (5 minutes). Assuming a descent rate of ~3 m/s the "optimal" altitude would be 900 m.
 ---
 ------
----@param self ARTY 
 ---@param minalt? number (Optional) Minium altitude in meters. Default 500 m.
 ---@param maxalt? number (Optional) Maximum altitude in meters. Default 1000 m.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetIlluminationMinMaxAlt(minalt, maxalt) end
 
 ---Set number of illumination shells available to the group.
 ---Note that it can be max the number of normal shells. Also if all normal shells are empty, firing illumination shells is also not possible any more until group gets rearmed.
 ---
 ------
----@param self ARTY 
 ---@param n number Number of illumination shells for the whole group.
 ---@param power? number (Optional) Power of illumination warhead in mega candela. Default 1.0 mcd.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetIlluminationShells(n, power) end
 
 ---Enable assigning targets and moves by placing markers on the F10 map.
 ---
 ------
----@param self ARTY 
 ---@param key? number (Optional) Authorization key. Only players knowing this key can assign targets. Default is no authorization required.
 ---@param readonly? boolean (Optional) Marks are readonly and cannot be removed by players. This also means that targets cannot be cancelled by removing the mark. Default false.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetMarkAssignmentsOn(key, readonly) end
 
 ---Disable assigning targets by placing markers on the F10 map.
 ---
 ------
----@param self ARTY 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetMarkTargetsOff() end
 
 ---Set maximum firing range.
 ---Targets further away than this distance are not engaged.
 ---
 ------
----@param self ARTY 
 ---@param range number Max range in kilometers. Default is 1000 km.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetMaxFiringRange(range) end
 
 ---Set minimum firing range.
 ---Targets closer than this distance are not engaged.
 ---
 ------
----@param self ARTY 
 ---@param range number Min range in kilometers. Default is 0.1 km.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetMinFiringRange(range) end
 
 ---Define missile types that are counted to determine the ammo amount the ARTY group has.
 ---
 ------
----@param self ARTY 
 ---@param tableofnames table Table of rocket type names.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetMissileTypes(tableofnames) end
 
 ---Define if ARTY group uses mainly roads to drive to the rearming place.
 ---
 ------
----@param self ARTY 
 ---@param onroad boolean If true, ARTY group uses mainly roads. If false, it drives directly to the rearming place.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingArtyOnRoad(onroad) end
 
 ---Define the safe distance between ARTY group and rearming unit or rearming place at which rearming process is possible.
 ---
 ------
----@param self ARTY 
 ---@param distance number Safe distance in meters. Default is 100 m.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingDistance(distance) end
 
 ---Assign a group, which is responsible for rearming the ARTY group.
 ---If the group is too far away from the ARTY group it will be guided towards the ARTY group.
 ---
 ------
----@param self ARTY 
 ---@param group GROUP Group that is supposed to rearm the ARTY group. For the blue coalition, this is often a unarmed M939 transport whilst for red an unarmed Ural-375 transport can be used.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingGroup(group) end
 
 ---Define if rearming group uses mainly roads to drive to the ARTY group or rearming place.
 ---
 ------
----@param self ARTY 
 ---@param onroad boolean If true, rearming group uses mainly roads. If false, it drives directly to the ARTY group or rearming place.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingGroupOnRoad(onroad) end
 
 ---Set the speed the rearming group moves at towards the ARTY group or the rearming place.
 ---
 ------
----@param self ARTY 
 ---@param speed number Speed in km/h.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingGroupSpeed(speed) end
 
 ---Defines the rearming place of the ARTY group.
 ---If the place is too far away from the ARTY group it will be routed to the place.
 ---
 ------
----@param self ARTY 
 ---@param coord COORDINATE Coordinates of the rearming place.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRearmingPlace(coord) end
 
 ---Report messages of ARTY group turned off.
 ---Default is on.
 ---
 ------
----@param self ARTY 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetReportOFF() end
 
 ---Report messages of ARTY group turned on.
 ---This is the default.
 ---
 ------
----@param self ARTY 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetReportON() end
 
 ---Respawn group once all units are dead.
 ---
 ------
----@param self ARTY 
 ---@param delay? number (Optional) Delay before respawn in seconds.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRespawnOnDeath(delay) end
 
 ---Define rocket types that are counted to determine the ammo amount the ARTY group has.
 ---
 ------
----@param self ARTY 
 ---@param tableofnames table Table of rocket type names.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetRocketTypes(tableofnames) end
 
 ---Define shell types that are counted to determine the ammo amount the ARTY group has.
 ---
 ------
----@param self ARTY 
 ---@param tableofnames table Table of shell type names.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetShellTypes(tableofnames) end
 
 ---Set number of smoke shells available to the group.
 ---Note that it can be max the number of normal shells. Also if all normal shells are empty, firing smoke shells is also not possible any more until group gets rearmed.
 ---
 ------
----@param self ARTY 
 ---@param n number Number of smoke shells for the whole group.
 ---@param color? SMOKECOLOR (Optional) Color of the smoke. Default SMOKECOLOR.Red.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetSmokeShells(n, color) end
 
 ---Set default speed the group is moving at if not specified otherwise.
 ---
 ------
----@param self ARTY 
 ---@param speed number Speed in km/h.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetSpeed(speed) end
 
 ---Set time interval between status updates.
 ---During the status check, new events are triggered.
 ---
 ------
----@param self ARTY 
 ---@param interval number Time interval in seconds. Default 10 seconds.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetStatusInterval(interval) end
 
 ---Set nuclear fires and extra demolition explosions.
 ---
 ------
----@param self ARTY 
 ---@param nfires? number (Optional) Number of big smoke and fire objects created in the demolition zone.
 ---@param demolitionrange? number (Optional) Demolition range in meters.
 ---@param range NOTYPE 
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetTacNukeFires(nfires, demolitionrange, range) end
 
 ---Set number of tactical nuclear warheads available to the group.
 ---Note that it can be max the number of normal shells. Also if all normal shells are empty, firing nuclear shells is also not possible any more until group gets rearmed.
 ---
 ------
----@param self ARTY 
 ---@param n number Number of warheads for the whole group.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetTacNukeShells(n) end
 
 ---Set nuclear warhead explosion strength.
 ---
 ------
----@param self ARTY 
 ---@param strength number Explosion strength in kilo tons TNT. Default is 0.075 kt.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetTacNukeWarhead(strength) end
 
 ---Set time interval for weapon tracking.
 ---
 ------
----@param self ARTY 
 ---@param interval number Time interval in seconds. Default 0.2 seconds.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetTrackInterval(interval) end
 
 ---Set time how it is waited a unit the first shot event happens.
 ---If no shot is fired after this time, the task to fire is aborted and the target removed.
 ---
 ------
----@param self ARTY 
 ---@param waittime number Time in seconds. Default 300 seconds.
----@return  #self
+---@return NOTYPE #self
 function ARTY:SetWaitForShotTime(waittime) end
 
 ---Function to start the ARTY FSM process.
 ---
 ------
----@param self ARTY 
 function ARTY:Start() end
 
 ---Function to update the status of the ARTY group and tigger FSM events.
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self ARTY 
 function ARTY:Status() end
 
 ---Tell ARTY group it is out of ammo.
 ---Triggers the FSM event "Winchester".
 ---
 ------
----@param self ARTY 
 function ARTY:Winchester() end
 
 ---Set task for attacking a group.
 ---
 ------
----@param self ARTY 
 ---@param target ARTY.Target Target data.
 function ARTY:_AttackGroup(target) end
 
 ---Check the DB for properties of the specified artillery unit type.
 ---
 ------
----@param self ARTY 
 ---@param displayname NOTYPE 
 ---@return table #Properties of the requested artillery type. Returns nil if no matching DB entry could be found.
 function ARTY:_CheckDB(displayname) end
@@ -1245,7 +1169,6 @@ function ARTY:_CheckDB(displayname) end
 ---Check all moves and return the one which should be executed next.
 ---
 ------
----@param self ARTY 
 ---@return table #Move which is due.
 function ARTY:_CheckMoves() end
 
@@ -1253,7 +1176,6 @@ function ARTY:_CheckMoves() end
 ---If not, a new unique name can be created by adding a running index #01, #02, ...
 ---
 ------
----@param self ARTY 
 ---@param givennames table Table with entries of already given names. Must contain a .name item.
 ---@param name string Name to check if it already exists in givennames table.
 ---@param makeunique boolean If true, a new unique name is returned by appending the running index.
@@ -1263,23 +1185,20 @@ function ARTY:_CheckName(givennames, name, makeunique) end
 ---Check all normal (untimed) targets and return the target with the highest priority which has been engaged the fewest times.
 ---
 ------
----@param self ARTY 
 ---@return table #Target which is due to be attacked now or nil if no target could be found.
 function ARTY:_CheckNormalTargets() end
 
 ---Check if group is (partly) out of ammo of a special weapon type.
 ---
 ------
----@param self ARTY 
 ---@param targets table Table of targets.
----@return  #@boolean True if any target requests a weapon type that is empty.
+---@return NOTYPE #@boolean True if any target requests a weapon type that is empty.
 function ARTY:_CheckOutOfAmmo(targets) end
 
 ---Check if ARTY group is rearmed, i.e.
 ---has its full amount of ammo.
 ---
 ------
----@param self ARTY 
 ---@return boolean #True if rearming is complete, false otherwise.
 function ARTY:_CheckRearmed() end
 
@@ -1287,19 +1206,16 @@ function ARTY:_CheckRearmed() end
 ---If not, the current target is considered invalid and removed from the target list.
 ---
 ------
----@param self ARTY 
 function ARTY:_CheckShootingStarted() end
 
 ---Check all targets whether they are in range.
 ---
 ------
----@param self ARTY 
 function ARTY:_CheckTargetsInRange() end
 
 ---Check all timed targets and return the target which should be attacked next.
 ---
 ------
----@param self ARTY 
 ---@return table #Target which is due to be attacked now.
 function ARTY:_CheckTimedTargets() end
 
@@ -1307,7 +1223,6 @@ function ARTY:_CheckTimedTargets() end
 ---if the current amount of ammo of this weapon type is currently available.
 ---
 ------
----@param self ARTY 
 ---@param target boolean Target array data structure.
 ---@return number #Amount of shells, rockets or missiles available of the weapon type selected for the target.
 function ARTY:_CheckWeaponTypeAvailable(target) end
@@ -1316,7 +1231,6 @@ function ARTY:_CheckWeaponTypeAvailable(target) end
 ---The current amount of ammo might be zero but the group still can be rearmed at a later point in time.
 ---
 ------
----@param self ARTY 
 ---@param target boolean Target array data structure.
 ---@return boolean #True if the group can carry this weapon type, false otherwise.
 function ARTY:_CheckWeaponTypePossible(target) end
@@ -1324,14 +1238,12 @@ function ARTY:_CheckWeaponTypePossible(target) end
 ---Convert clock time from hours, minutes and seconds to seconds.
 ---
 ------
----@param self ARTY 
 ---@param clock string String of clock time. E.g., "06:12:35".
 function ARTY:_ClockToSeconds(clock) end
 
 ---Print event-from-to string to DCS log file.
 ---
 ------
----@param self ARTY 
 ---@param BA string Before/after info.
 ---@param Event string Event.
 ---@param From string From state.
@@ -1341,7 +1253,6 @@ function ARTY:_EventFromTo(BA, Event, From, To) end
 ---Set task for firing at a coordinate.
 ---
 ------
----@param self ARTY 
 ---@param coord COORDINATE Coordinates to fire upon.
 ---@param radius number Radius around coordinate.
 ---@param nshells number Number of shells to fire.
@@ -1351,7 +1262,6 @@ function ARTY:_FireAtCoord(coord, radius, nshells, weapontype) end
 ---Function called after impact of weapon.
 ---
 ------
----@param weapon WEAPON Weapon object.
 ---@param self ARTY ARTY object.
 ---@param target ARTY.Target Target of the weapon.
 function ARTY._FuncImpact(weapon, self, target) end
@@ -1359,7 +1269,6 @@ function ARTY._FuncImpact(weapon, self, target) end
 ---Function called during tracking of weapon.
 ---
 ------
----@param weapon WEAPON Weapon object.
 ---@param self ARTY ARTY object.
 ---@param target ARTY.Target Target of the weapon.
 function ARTY._FuncTrack(weapon, self, target) end
@@ -1367,7 +1276,6 @@ function ARTY._FuncTrack(weapon, self, target) end
 --- Heading from point a to point b in degrees.
 ---
 ------
----@param self ARTY 
 ---@param a COORDINATE Coordinate.
 ---@param b COORDINATE Coordinate.
 ---@return number #angle Angle from a to b in degrees.
@@ -1376,7 +1284,6 @@ function ARTY:_GetHeading(a, b) end
 ---Get the marker ID from the assigned task name.
 ---
 ------
----@param self ARTY 
 ---@param name string Name of the assignment.
 ---@return string #Name of the ARTY group or nil
 ---@return number #ID of the marked target or nil.
@@ -1386,7 +1293,6 @@ function ARTY:_GetMarkIDfromName(name) end
 ---Get the index of a move by its name.
 ---
 ------
----@param self ARTY 
 ---@param name string Name of move.
 ---@return number #Arrayindex of move.
 function ARTY:_GetMoveIndexByName(name) end
@@ -1394,7 +1300,6 @@ function ARTY:_GetMoveIndexByName(name) end
 ---Get the index of a target by its name.
 ---
 ------
----@param self ARTY 
 ---@param name string Name of target.
 ---@return number #Arrayindex of target.
 function ARTY:_GetTargetIndexByName(name) end
@@ -1402,7 +1307,6 @@ function ARTY:_GetTargetIndexByName(name) end
 ---Convert Latitude and Lontigude from DMS to DD.
 ---
 ------
----@param self ARTY 
 ---@param l1 string Latitude or longitude as string in the format DD:MM:SS N/S/W/E
 ---@param l2 string Latitude or longitude as string in the format DD:MM:SS N/S/W/E
 ---@return number #Latitude in decimal degree format.
@@ -1412,7 +1316,6 @@ function ARTY:_LLDMS2DD(l1, l2) end
 ---Create a name for a relocation move initiated by placing a marker.
 ---
 ------
----@param self ARTY 
 ---@param markerid number ID of the placed marker.
 ---@return string #Name of relocation move.
 function ARTY:_MarkMoveName(markerid) end
@@ -1420,31 +1323,26 @@ function ARTY:_MarkMoveName(markerid) end
 ---Request ammo via mark.
 ---
 ------
----@param self ARTY 
 function ARTY:_MarkRequestAmmo() end
 
 ---Request Moves.
 ---
 ------
----@param self ARTY 
 function ARTY:_MarkRequestMoves() end
 
 ---Request status via mark.
 ---
 ------
----@param self ARTY 
 function ARTY:_MarkRequestStatus() end
 
 ---Request Targets.
 ---
 ------
----@param self ARTY 
 function ARTY:_MarkRequestTargets() end
 
 ---Create a name for an engagement initiated by placing a marker.
 ---
 ------
----@param self ARTY 
 ---@param markerid number ID of the placed marker.
 ---@return string #Name of target engagement.
 function ARTY:_MarkTargetName(markerid) end
@@ -1452,7 +1350,6 @@ function ARTY:_MarkTargetName(markerid) end
 ---Extract engagement assignments and parameters from mark text.
 ---
 ------
----@param self ARTY 
 ---@param text string Marker text.
 ---@return boolean #If true, authentification successful.
 function ARTY:_MarkerKeyAuthentification(text) end
@@ -1460,7 +1357,6 @@ function ARTY:_MarkerKeyAuthentification(text) end
 ---Extract engagement assignments and parameters from mark text.
 ---
 ------
----@param self ARTY 
 ---@param text string Marker text to be analyzed.
 ---@return table #Table with assignment parameters, e.g. number of shots, radius, time etc.
 function ARTY:_Markertext(text) end
@@ -1468,7 +1364,6 @@ function ARTY:_Markertext(text) end
 ---Returns a name of a missile category.
 ---
 ------
----@param self ARTY 
 ---@param categorynumber number Number of missile category from weapon missile category enumerator. See https://wiki.hoggitworld.com/view/DCS_Class_Weapon
 ---@return string #Missile category name.
 function ARTY:_MissileCategoryName(categorynumber) end
@@ -1476,7 +1371,6 @@ function ARTY:_MissileCategoryName(categorynumber) end
 ---Route group to a certain point.
 ---
 ------
----@param self ARTY 
 ---@param group GROUP Group to route.
 ---@param ToCoord COORDINATE Coordinate where we want to go.
 ---@param Speed? number (Optional) Speed in km/h. Default is 70% of max speed the group can do.
@@ -1486,7 +1380,6 @@ function ARTY:_Move(group, ToCoord, Speed, OnRoad) end
 ---Returns a formatted string with information about all move parameters.
 ---
 ------
----@param self ARTY 
 ---@param move table Move table item.
 ---@return string #Info string.
 function ARTY:_MoveInfo(move) end
@@ -1494,7 +1387,6 @@ function ARTY:_MoveInfo(move) end
 ---Model a nuclear blast/destruction by creating fires and destroy scenery.
 ---
 ------
----@param self ARTY 
 ---@param _coord COORDINATE Coordinate of the impact point (center of the blast).
 function ARTY:_NuclearBlast(_coord) end
 
@@ -1502,21 +1394,18 @@ function ARTY:_NuclearBlast(_coord) end
 ---This happens when a user enters text.
 ---
 ------
----@param self ARTY 
 ---@param Event table Event data.
 function ARTY:_OnEventMarkChange(Event) end
 
 ---Function called when a F10 map mark was removed.
 ---
 ------
----@param self ARTY 
 ---@param Event table Event data.
 function ARTY:_OnEventMarkRemove(Event) end
 
 ---Function called when group is passing a waypoint.
 ---
 ------
----@param group GROUP Group for which waypoint passing should be monitored.
 ---@param arty ARTY ARTY object.
 ---@param i number Waypoint number that has been reached.
 ---@param final boolean True if it is the final waypoint.
@@ -1526,13 +1415,11 @@ function ARTY._PassingWaypoint(group, arty, i, final) end
 ---after an engagement to avoid couter strikes.
 ---
 ------
----@param self ARTY 
 function ARTY:_Relocate() end
 
 ---Convert time in seconds to hours, minutes and seconds.
 ---
 ------
----@param self ARTY 
 ---@param seconds number Time in seconds.
 ---@return string #Time in format Hours:minutes:seconds.
 function ARTY:_SecondsToClock(seconds) end
@@ -1541,28 +1428,24 @@ function ARTY:_SecondsToClock(seconds) end
 ---Array elements must have a .time entry.
 ---
 ------
----@param self ARTY 
 ---@param queue table Array to sort. Should have elemnt .time.
 function ARTY:_SortQueueTime(queue) end
 
 ---Sort targets with respect to priority and number of times it was already engaged.
 ---
 ------
----@param self ARTY 
 function ARTY:_SortTargetQueuePrio() end
 
 ---After "Start" event.
 ---Initialized ROE and alarm state. Starts the event handler.
 ---
 ------
----@param self ARTY 
 ---@param display? boolean (Optional) If true, send message to coalition. Default false.
 function ARTY:_StatusReport(display) end
 
 ---Check if target is in range.
 ---
 ------
----@param self ARTY 
 ---@param target table Target table.
 ---@param message? boolean (Optional) If true, send a message to the coalition if the target is not in range. Default is no message is send.
 ---@return boolean #True if target is in range, false otherwise.
@@ -1574,7 +1457,6 @@ function ARTY:_TargetInRange(target, message) end
 ---Returns the target parameters as formatted string.
 ---
 ------
----@param self ARTY 
 ---@param target ARTY.Target The target data.
 ---@return string #name, prio, radius, nshells, engaged, maxengage, time, weapontype
 function ARTY:_TargetInfo(target) end
@@ -1582,7 +1464,6 @@ function ARTY:_TargetInfo(target) end
 ---Find a random coordinate in the vicinity of another coordinate.
 ---
 ------
----@param self ARTY 
 ---@param coord COORDINATE Center coordinate.
 ---@param rmin? number (Optional) Minimum distance in meters from center coordinate. Default 20 m.
 ---@param rmax? number (Optional) Maximum distance in meters from center coordinate. Default 80 m.
@@ -1592,7 +1473,6 @@ function ARTY:_VicinityCoord(coord, rmin, rmax) end
 ---Get the weapon type name, which should be used to attack the target.
 ---
 ------
----@param self ARTY 
 ---@param tnumber number Number of weapon type ARTY.WeaponType.XXX
 ---@return number #tnumber of weapon type.
 function ARTY:_WeaponTypeName(tnumber) end
@@ -1601,7 +1481,6 @@ function ARTY:_WeaponTypeName(tnumber) end
 ---Triggers the FSM event "Arrived".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 function ARTY:__Arrived(delay) end
 
@@ -1609,7 +1488,6 @@ function ARTY:__Arrived(delay) end
 ---Triggers the FSM event "CeaseFire".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 ---@param target table Array holding the target data.
 function ARTY:__CeaseFire(delay, target) end
@@ -1618,7 +1496,6 @@ function ARTY:__CeaseFire(delay, target) end
 ---Triggers the FSM event "CombatReady".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 function ARTY:__CombatReady(delay) end
 
@@ -1626,7 +1503,6 @@ function ARTY:__CombatReady(delay) end
 ---Triggers the FSM event "Dead".
 ---
 ------
----@param self ARTY 
 ---@param Delay number in seconds.
 ---@param unitname string Name of the unit that died.
 function ARTY:__Dead(Delay, unitname) end
@@ -1635,7 +1511,6 @@ function ARTY:__Dead(Delay, unitname) end
 ---Triggers the FSM event "Move".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 ---@param move table Array holding the relocation move data.
 function ARTY:__Move(delay, move) end
@@ -1644,7 +1519,6 @@ function ARTY:__Move(delay, move) end
 ---Triggers the FSM event "NewMove".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 ---@param move table Array holding the relocation move data.
 function ARTY:__NewMove(delay, move) end
@@ -1653,7 +1527,6 @@ function ARTY:__NewMove(delay, move) end
 ---Triggers the FSM event "NewTarget".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 ---@param target table Array holding the target data.
 function ARTY:__NewTarget(delay, target) end
@@ -1662,7 +1535,6 @@ function ARTY:__NewTarget(delay, target) end
 ---Triggers the FSM event "Move".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 ---@param target table Array holding the target data.
 function ARTY:__OpenFire(delay, target) end
@@ -1670,14 +1542,12 @@ function ARTY:__OpenFire(delay, target) end
 ---Respawn ARTY group after a delay.
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 function ARTY:__Respawn(delay) end
 
 ---Function to start the ARTY FSM process after a delay.
 ---
 ------
----@param self ARTY 
 ---@param Delay number before start in seconds.
 function ARTY:__Start(Delay) end
 
@@ -1685,7 +1555,6 @@ function ARTY:__Start(Delay) end
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self ARTY 
 ---@param Delay number in seconds.
 function ARTY:__Status(Delay) end
 
@@ -1693,7 +1562,6 @@ function ARTY:__Status(Delay) end
 ---Triggers the FSM event "Winchester".
 ---
 ------
----@param self ARTY 
 ---@param delay number Delay in seconds.
 function ARTY:__Winchester(delay) end
 
@@ -1701,7 +1569,6 @@ function ARTY:__Winchester(delay) end
 ---C.f. http://stackoverflow.com/questions/1426954/split-string-in-lua
 ---
 ------
----@param self ARTY 
 ---@param str string Sting to split.
 ---@param sep string Speparator for split.
 ---@return table #Split text.
@@ -1711,7 +1578,6 @@ function ARTY:_split(str, sep) end
 ---Initialized ROE and alarm state. Starts the event handler.
 ---
 ------
----@param self ARTY 
 ---@param Event table 
 ---@private
 function ARTY:onEvent(Event) end
@@ -1720,7 +1586,6 @@ function ARTY:onEvent(Event) end
 ---Group has reached its destination.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1732,7 +1597,6 @@ function ARTY:onafterArrived(Controllable, From, Event, To) end
 ---Clears task of the group and removes the target if max engagement was reached.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1745,7 +1609,6 @@ function ARTY:onafterCeaseFire(Controllable, From, Event, To, target) end
 ---When all units of a group are dead trigger "Stop" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1758,7 +1621,6 @@ function ARTY:onafterDead(Controllable, From, Event, To, Unitname) end
 ---Route group to given coordinate.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1770,7 +1632,6 @@ function ARTY:onafterMove(Controllable, From, Event, To, move) end
 ---After "NewMove" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1782,7 +1643,6 @@ function ARTY:onafterNewMove(Controllable, From, Event, To, move) end
 ---After "NewTarget" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1795,7 +1655,6 @@ function ARTY:onafterNewTarget(Controllable, From, Event, To, target) end
 ---Sets the current target and starts the fire at point task.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1808,7 +1667,6 @@ function ARTY:onafterOpenFire(Controllable, From, Event, To, target) end
 ---Send message if reporting is on. Route rearming unit to ARTY group.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1820,7 +1678,6 @@ function ARTY:onafterRearm(Controllable, From, Event, To) end
 ---Send ARTY and rearming group back to their inital positions.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1832,7 +1689,6 @@ function ARTY:onafterRearmed(Controllable, From, Event, To) end
 ---When all units of a group are dead trigger "Stop" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1844,7 +1700,6 @@ function ARTY:onafterRespawn(Controllable, From, Event, To) end
 ---Initialized ROE and alarm state. Starts the event handler.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1856,7 +1711,6 @@ function ARTY:onafterStart(Controllable, From, Event, To) end
 ---Report status of group.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1868,7 +1722,6 @@ function ARTY:onafterStatus(Controllable, From, Event, To) end
 ---Unhandle events and cease fire on current target.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1880,7 +1733,6 @@ function ARTY:onafterStop(Controllable, From, Event, To) end
 ---Group is combat ready again.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1893,7 +1745,6 @@ function ARTY:onafterUnLoaded(Controllable, From, Event, To) end
 ---Group is out of ammo. Trigger "Rearm" event.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1905,7 +1756,6 @@ function ARTY:onafterWinchester(Controllable, From, Event, To) end
 ---Checks if group is currently firing and removes the target by calling CeaseFire.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1918,7 +1768,6 @@ function ARTY:onbeforeLoaded(Controllable, From, Event, To) end
 ---Check if a unit to rearm the ARTY group has been defined.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1934,7 +1783,6 @@ function ARTY:onbeforeMove(Controllable, From, Event, To, move, ToCoord, OnRoad)
 ---Checks if group already has a target. Checks for valid min/max range and removes the target if necessary.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1948,7 +1796,6 @@ function ARTY:onbeforeOpenFire(Controllable, From, Event, To, target) end
 ---Check if a unit to rearm the ARTY group has been defined.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1961,7 +1808,6 @@ function ARTY:onbeforeRearm(Controllable, From, Event, To) end
 ---Route the group back if necessary.
 ---
 ------
----@param self ARTY 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.

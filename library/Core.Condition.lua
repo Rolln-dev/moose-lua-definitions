@@ -56,7 +56,6 @@ CONDITION = {}
 ---myCondition:AddFunction(isAequalB, a, b)
 ---```
 ------
----@param self CONDITION 
 ---@param Function function The function to call.
 ---@param ...? NOTYPE (Optional) Parameters passed to the function (if any). 
 ---@return CONDITION.Function #Condition function table.
@@ -66,7 +65,6 @@ function CONDITION:AddFunction(Function, ...) end
 ---It must return a `#boolean` value, *i.e.* either `true` or `false` (or `nil`).
 ---
 ------
----@param self CONDITION 
 ---@param Function function The function to call.
 ---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
 ---@return CONDITION.Function #Condition function table.
@@ -76,7 +74,6 @@ function CONDITION:AddFunctionAll(Function, ...) end
 ---It must return a `#boolean` value, *i.e.* either `true` or `false` (or `nil`).
 ---
 ------
----@param self CONDITION 
 ---@param Function function The function to call.
 ---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
 ---@return CONDITION.Function #Condition function table.
@@ -85,7 +82,6 @@ function CONDITION:AddFunctionAny(Function, ...) end
 ---Evaluate conditon functions.
 ---
 ------
----@param self CONDITION 
 ---@param AnyTrue boolean If `true`, evaluation return `true` if *any* condition function returns `true`. By default, *all* condition functions must return true.
 ---@return boolean #Result of condition functions.
 function CONDITION:Evaluate(AnyTrue) end
@@ -95,14 +91,12 @@ function CONDITION:Evaluate(AnyTrue) end
 ---Technically, a random number between 0 and 100 is created. If the given success probability is less then this number, `true` is returned.
 ---
 ------
----@param Probability number Success probability in percent. Default 50 %.
 ---@return boolean #Returns `true` for success and `false` otherwise.
 function CONDITION.IsRandomSuccess(Probability) end
 
 ---Condition to check if time is greater than a given threshold time.
 ---
 ------
----@param Time number Time in seconds.
 ---@param Absolute boolean If `true`, abs. mission time from `timer.getAbsTime()` is checked. Default is relative mission time from `timer.getTime()`.
 ---@return boolean #Returns `true` if time is greater than give the time.
 function CONDITION.IsTimeGreater(Time, Absolute) end
@@ -110,7 +104,6 @@ function CONDITION.IsTimeGreater(Time, Absolute) end
 ---Create a new CONDITION object.
 ---
 ------
----@param self CONDITION 
 ---@param Name? string (Optional) Name used in the logs. 
 ---@return CONDITION #self
 function CONDITION:New(Name) end
@@ -118,7 +111,6 @@ function CONDITION:New(Name) end
 ---Remove a condition function.
 ---
 ------
----@param self CONDITION 
 ---@param ConditionFunction CONDITION.Function The condition function to be removed.
 ---@return CONDITION #self
 function CONDITION:RemoveFunction(ConditionFunction) end
@@ -126,7 +118,6 @@ function CONDITION:RemoveFunction(ConditionFunction) end
 ---Remove all non-persistant condition functions.
 ---
 ------
----@param self CONDITION 
 ---@return CONDITION #self
 function CONDITION:RemoveNonPersistant() end
 
@@ -146,7 +137,6 @@ function CONDITION.ReturnTrue() end
 ---Default is that *all* functions must return `true`.
 ---
 ------
----@param self CONDITION 
 ---@param Any boolean If `true`, *any* condition can be true. Else *all* conditions must result `true`.
 ---@return CONDITION #self
 function CONDITION:SetAny(Any) end
@@ -154,7 +144,6 @@ function CONDITION:SetAny(Any) end
 ---Set whether condition functions are persistent, *i.e.* are removed.
 ---
 ------
----@param self CONDITION 
 ---@param IsPersistent boolean If `true`, condition functions are persistent.
 ---@return CONDITION #self
 function CONDITION:SetDefaultPersistence(IsPersistent) end
@@ -162,7 +151,6 @@ function CONDITION:SetDefaultPersistence(IsPersistent) end
 ---Negate result.
 ---
 ------
----@param self CONDITION 
 ---@param Negate boolean If `true`, result is negated else  not.
 ---@return CONDITION #self
 function CONDITION:SetNegateResult(Negate) end
@@ -171,7 +159,6 @@ function CONDITION:SetNegateResult(Negate) end
 ---By default `false` is returned.
 ---
 ------
----@param self CONDITION 
 ---@param ReturnValue boolean Returns this boolean.
 ---@return CONDITION #self
 function CONDITION:SetNoneResult(ReturnValue) end
@@ -179,7 +166,6 @@ function CONDITION:SetNoneResult(ReturnValue) end
 ---Create conditon function object.
 ---
 ------
----@param self CONDITION 
 ---@param Ftype number Function type: 0=Gen, 1=All, 2=Any.
 ---@param Function function The function to call.
 ---@param ...? NOTYPE (Optional) Parameters passed to the function (if any).
@@ -189,7 +175,6 @@ function CONDITION:_CreateCondition(Ftype, Function, ...) end
 ---Check if all given condition are true.
 ---
 ------
----@param self CONDITION 
 ---@param functions table Functions to evaluate.
 ---@return boolean #If true, all conditions were true (or functions was empty/nil). Returns false if at least one condition returned false.
 function CONDITION:_EvalConditionsAll(functions) end
@@ -197,7 +182,6 @@ function CONDITION:_EvalConditionsAll(functions) end
 ---Check if any of the given conditions is true.
 ---
 ------
----@param self CONDITION 
 ---@param functions table Functions to evaluate.
 ---@return boolean #If true, at least one condition is true (or functions was emtpy/nil).
 function CONDITION:_EvalConditionsAny(functions) end

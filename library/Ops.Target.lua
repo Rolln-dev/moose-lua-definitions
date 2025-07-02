@@ -61,7 +61,6 @@ TARGET = {}
 ---Add start condition.
 ---
 ------
----@param self TARGET 
 ---@param ConditionFunction function Function that needs to be true before the mission can be started. Must return a #boolean.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return TARGET #self
@@ -70,7 +69,6 @@ function TARGET:AddConditionStart(ConditionFunction, ...) end
 ---Add stop condition.
 ---
 ------
----@param self TARGET 
 ---@param ConditionFunction function Function that needs to be true before the mission can be started. Must return a #boolean.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return TARGET #self
@@ -95,14 +93,12 @@ function TARGET:AddConditionStop(ConditionFunction, ...) end
 ---* SET_OPSZONE
 ---
 ------
----@param self TARGET 
 ---@param Object POSITIONABLE The target UNIT, GROUP, STATIC, SCENERY, AIRBASE, COORDINATE, ZONE, SET_GROUP, SET_UNIT, SET_STATIC, SET_SCENERY, SET_ZONE
 function TARGET:AddObject(Object) end
 
 ---Add mission type and number of required assets to resource.
 ---
 ------
----@param self TARGET 
 ---@param MissionType string Mission Type.
 ---@param Nmin number Min number of required assets.
 ---@param Nmax number Max number of requried assets.
@@ -114,7 +110,6 @@ function TARGET:AddResource(MissionType, Nmin, Nmax, Attributes, Properties) end
 ---Count alive objects.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target objective.
 ---@param Coalitions? table (Optional) Only count targets of the given coalition(s). 
 ---@return number #Number of alive target objects.
@@ -123,7 +118,6 @@ function TARGET:CountObjectives(Target, Coalitions) end
 ---Count alive targets.
 ---
 ------
----@param self TARGET 
 ---@param Coalitions? table (Optional) Only count targets of the given coalition(s). 
 ---@return number #Number of alive target objects.
 function TARGET:CountTargets(Coalitions) end
@@ -131,25 +125,21 @@ function TARGET:CountTargets(Coalitions) end
 ---Triggers the FSM event "Damaged".
 ---
 ------
----@param self TARGET 
 function TARGET:Damaged() end
 
 ---Triggers the FSM event "Dead".
 ---
 ------
----@param self TARGET 
 function TARGET:Dead() end
 
 ---Triggers the FSM event "Destroyed".
 ---
 ------
----@param self TARGET 
 function TARGET:Destroyed() end
 
 ---Check if all given condition are true.
 ---
 ------
----@param self TARGET 
 ---@param Conditions table Table of conditions.
 ---@return boolean #If true, all conditions were true. Returns false if at least one condition returned false.
 function TARGET:EvalConditionsAll(Conditions) end
@@ -157,7 +147,6 @@ function TARGET:EvalConditionsAll(Conditions) end
 ---Check if any of the given conditions is true.
 ---
 ------
----@param self TARGET 
 ---@param Conditions table Table of conditions.
 ---@return boolean #If true, at least one condition is true.
 function TARGET:EvalConditionsAny(Conditions) end
@@ -165,21 +154,18 @@ function TARGET:EvalConditionsAny(Conditions) end
 ---Get average coordinate.
 ---
 ------
----@param self TARGET 
 ---@return COORDINATE #Coordinate of the target.
 function TARGET:GetAverageCoordinate() end
 
 ---Get category.
 ---
 ------
----@param self TARGET 
 ---@return string #Target category. See `TARGET.Category.X`, where `X=AIRCRAFT, GROUND`.
 function TARGET:GetCategory() end
 
 ---Get coordinate.
 ---
 ------
----@param self TARGET 
 ---@return COORDINATE #Coordinate of the target.
 function TARGET:GetCoordinate() end
 
@@ -187,21 +173,18 @@ function TARGET:GetCoordinate() end
 ---(e.g. for a SET_STATIC)
 ---
 ------
----@param self TARGET 
 ---@return table #Table with coordinates of all targets.
 function TARGET:GetCoordinates() end
 
 ---Get current damage.
 ---
 ------
----@param self TARGET 
 ---@return number #Damage in percent.
 function TARGET:GetDamage() end
 
 ---Get heading of target.
 ---
 ------
----@param self TARGET 
 ---@return number #Heading of the target in degrees.
 function TARGET:GetHeading() end
 
@@ -209,28 +192,24 @@ function TARGET:GetHeading() end
 ---This is the sum of all target objects.
 ---
 ------
----@param self TARGET 
 ---@return number #Life points of target.
 function TARGET:GetLife() end
 
 ---Get target life points.
 ---
 ------
----@param self TARGET 
 ---@return number #Number of initial life points when mission was planned.
 function TARGET:GetLife0() end
 
 ---Get name.
 ---
 ------
----@param self TARGET 
 ---@return string #Name of the target usually the first object.
 function TARGET:GetName() end
 
 ---Get the first target object alive.
 ---
 ------
----@param self TARGET 
 ---@param RefCoordinate COORDINATE Reference coordinate to determine the closest target objective.
 ---@param Coalitions? table (Optional) Only consider targets of the given coalition(s). 
 ---@return POSITIONABLE #The target object or nil.
@@ -239,7 +218,6 @@ function TARGET:GetObject(RefCoordinate, Coalitions) end
 ---Get the first target objective alive.
 ---
 ------
----@param self TARGET 
 ---@param RefCoordinate? COORDINATE (Optional) Reference coordinate to determine the closest target objective.
 ---@param Coalitions? table (Optional) Only consider targets of the given coalition(s). 
 ---@return TARGET.Object #The target objective.
@@ -248,14 +226,12 @@ function TARGET:GetObjective(RefCoordinate, Coalitions) end
 ---Get all target objects.
 ---
 ------
----@param self TARGET 
 ---@return table #List of target objects.
 function TARGET:GetObjects() end
 
 ---Get a target object by its name.
 ---
 ------
----@param self TARGET 
 ---@param ObjectName string Object name.
 ---@return TARGET.Object #The target object table or nil.
 function TARGET:GetTargetByName(ObjectName) end
@@ -263,7 +239,6 @@ function TARGET:GetTargetByName(ObjectName) end
 ---Get target category.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return TARGET.Category #Target category.
 function TARGET:GetTargetCategory(Target) end
@@ -272,7 +247,6 @@ function TARGET:GetTargetCategory(Target) end
 ---If an object has no coalition (*e.g.* a coordinate) it is returned as neutral.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return number #Coalition number.
 function TARGET:GetTargetCoalition(Target) end
@@ -280,7 +254,6 @@ function TARGET:GetTargetCoalition(Target) end
 ---Get target coordinate.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@param Average boolean 
 ---@return COORDINATE #Coordinate of the target.
@@ -289,7 +262,6 @@ function TARGET:GetTargetCoordinate(Target, Average) end
 ---Get heading of the target.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return number #Heading in degrees.
 function TARGET:GetTargetHeading(Target) end
@@ -297,7 +269,6 @@ function TARGET:GetTargetHeading(Target) end
 ---Get target life points.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return number #Life points of target.
 function TARGET:GetTargetLife(Target) end
@@ -305,7 +276,6 @@ function TARGET:GetTargetLife(Target) end
 ---Get target name.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return string #Name of the target object.
 function TARGET:GetTargetName(Target) end
@@ -313,7 +283,6 @@ function TARGET:GetTargetName(Target) end
 ---Get target threat level
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return number #Threat level of target.
 function TARGET:GetTargetThreatLevelMax(Target) end
@@ -321,7 +290,6 @@ function TARGET:GetTargetThreatLevelMax(Target) end
 ---Get target 2D position vector.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@return Vec2 #Vector with x,y components.
 function TARGET:GetTargetVec2(Target) end
@@ -329,7 +297,6 @@ function TARGET:GetTargetVec2(Target) end
 ---Get target 3D position vector.
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 ---@param Average boolean 
 ---@return Vec3 #Vector with x,y,z components.
@@ -338,35 +305,30 @@ function TARGET:GetTargetVec3(Target, Average) end
 ---Get threat level.
 ---
 ------
----@param self TARGET 
 ---@return number #Threat level.
 function TARGET:GetThreatLevelMax() end
 
 ---Get 2D vector.
 ---
 ------
----@param self TARGET 
 ---@return Vec2 #2D vector of the target.
 function TARGET:GetVec2() end
 
 ---Get 3D vector.
 ---
 ------
----@param self TARGET 
 ---@return Vec3 #3D vector of the target.
 function TARGET:GetVec3() end
 
 ---Check if TARGET is alive.
 ---
 ------
----@param self TARGET 
 ---@return boolean #If true, target is alive.
 function TARGET:IsAlive() end
 
 ---Check if something is a a casualty of this TARGET.
 ---
 ------
----@param self TARGET 
 ---@param Name string The name of the potential element.
 ---@return boolean #If `true`, this name is a casualty of this TARGET.
 function TARGET:IsCasualty(Name) end
@@ -374,21 +336,18 @@ function TARGET:IsCasualty(Name) end
 ---Check if TARGET is dead.
 ---
 ------
----@param self TARGET 
 ---@return boolean #If true, target is dead.
 function TARGET:IsDead() end
 
 ---Check if TARGET is destroyed.
 ---
 ------
----@param self TARGET 
 ---@return boolean #If true, target is destroyed.
 function TARGET:IsDestroyed() end
 
 ---Check if something is an element of the TARGET.
 ---
 ------
----@param self TARGET 
 ---@param Name string The name of the potential element.
 ---@return boolean #If `true`, this name is part of this TARGET.
 function TARGET:IsElement(Name) end
@@ -396,7 +355,6 @@ function TARGET:IsElement(Name) end
 ---Check if target object is alive.
 ---
 ------
----@param self TARGET 
 ---@param TargetObject TARGET.Object The target object.
 ---@return boolean #If true, target is dead.
 function TARGET:IsTargetAlive(TargetObject) end
@@ -404,7 +362,6 @@ function TARGET:IsTargetAlive(TargetObject) end
 ---Check if target object is dead.
 ---
 ------
----@param self TARGET 
 ---@param TargetObject TARGET.Object The target object.
 ---@return boolean #If true, target is dead.
 function TARGET:IsTargetDead(TargetObject) end
@@ -412,7 +369,6 @@ function TARGET:IsTargetDead(TargetObject) end
 ---Create a new TARGET object and start the FSM.
 ---
 ------
----@param self TARGET 
 ---@param TargetObject table Target object. Can be a: UNIT, GROUP, STATIC, SCENERY, AIRBASE, COORDINATE, ZONE, SET_GROUP, SET_UNIT, SET_STATIC, SET_SCENERY, SET_ZONE
 ---@return TARGET #self
 function TARGET:New(TargetObject) end
@@ -420,21 +376,18 @@ function TARGET:New(TargetObject) end
 ---Triggers the FSM event "ObjectDamaged".
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 function TARGET:ObjectDamaged(Target) end
 
 ---Triggers the FSM event "ObjectDead".
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 function TARGET:ObjectDead(Target) end
 
 ---Triggers the FSM event "ObjectDestroyed".
 ---
 ------
----@param self TARGET 
 ---@param Target TARGET.Object Target object.
 function TARGET:ObjectDestroyed(Target) end
 
@@ -442,7 +395,6 @@ function TARGET:ObjectDestroyed(Target) end
 ---Any of the target objects has been damaged.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -452,7 +404,6 @@ function TARGET:OnAfterDamaged(From, Event, To) end
 ---All target objects are dead.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -462,7 +413,6 @@ function TARGET:OnAfterDead(From, Event, To) end
 ---All target objects have been destroyed.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -472,7 +422,6 @@ function TARGET:OnAfterDestroyed(From, Event, To) end
 ---A (sub-) target object has been damaged, e.g. a UNIT of a GROUP, or an object of a SET
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -483,7 +432,6 @@ function TARGET:OnAfterObjectDamaged(From, Event, To, Target) end
 ---A (sub-) target object is dead, e.g. a UNIT of a GROUP, or an object of a SET
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -494,7 +442,6 @@ function TARGET:OnAfterObjectDead(From, Event, To, Target) end
 ---A (sub-) target object has been destroyed, e.g. a UNIT of a GROUP, or an object of a SET
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -504,14 +451,12 @@ function TARGET:OnAfterObjectDestroyed(From, Event, To, Target) end
 ---Event function handling the loss of a unit.
 ---
 ------
----@param self TARGET 
 ---@param EventData EVENTDATA Event data.
 function TARGET:OnEventUnitDeadOrLost(EventData) end
 
 ---Set importance of the target.
 ---
 ------
----@param self TARGET 
 ---@param Importance number Importance of the target. Default `nil`.
 ---@return TARGET #self
 function TARGET:SetImportance(Importance) end
@@ -519,7 +464,6 @@ function TARGET:SetImportance(Importance) end
 ---Set priority of the target.
 ---
 ------
----@param self TARGET 
 ---@param Priority number Priority of the target. Default 50.
 ---@return TARGET #self
 function TARGET:SetPriority(Priority) end
@@ -528,19 +472,16 @@ function TARGET:SetPriority(Priority) end
 ---Starts the TARGET. Initializes parameters and starts event handlers.
 ---
 ------
----@param self TARGET 
 function TARGET:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self TARGET 
 function TARGET:Status() end
 
 ---Create target data from a given object.
 ---
 ------
----@param self TARGET 
 ---@param Object POSITIONABLE The target UNIT, GROUP, STATIC, SCENERY, AIRBASE, COORDINATE, ZONE, SET_GROUP, SET_UNIT, SET_STATIC, SET_SCENERY, SET_ZONE
 function TARGET:_AddObject(Object) end
 
@@ -548,14 +489,12 @@ function TARGET:_AddObject(Object) end
 ---Starts the TARGET. Initializes parameters and starts event handlers.
 ---
 ------
----@param self TARGET 
 ---@param delay number Delay in seconds.
 function TARGET:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self TARGET 
 ---@param delay number Delay in seconds.
 function TARGET:__Status(delay) end
 
@@ -563,14 +502,12 @@ function TARGET:__Status(delay) end
 ---Stops the TARGET and all its event handlers.
 ---
 ------
----@param self TARGET 
 ---@param delay number Delay in seconds.
 function TARGET:__Stop(delay) end
 
 ---On after "Damaged" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -580,7 +517,6 @@ function TARGET:onafterDamaged(From, Event, To) end
 ---On after "Dead" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -590,7 +526,6 @@ function TARGET:onafterDead(From, Event, To) end
 ---On after "Destroyed" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -600,7 +535,6 @@ function TARGET:onafterDestroyed(From, Event, To) end
 ---On after "ObjectDamaged" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -611,7 +545,6 @@ function TARGET:onafterObjectDamaged(From, Event, To, Target) end
 ---On after "ObjectDead" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -622,7 +555,6 @@ function TARGET:onafterObjectDead(From, Event, To, Target) end
 ---On after "ObjectDestroyed" event.
 ---
 ------
----@param self TARGET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -634,7 +566,6 @@ function TARGET:onafterObjectDestroyed(From, Event, To, Target) end
 ---Starts the FLIGHTGROUP FSM and event handlers.
 ---
 ------
----@param self TARGET 
 ---@param Group GROUP Flight group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -645,7 +576,6 @@ function TARGET:onafterStart(Group, From, Event, To) end
 ---On after "Status" event.
 ---
 ------
----@param self TARGET 
 ---@param Group GROUP Flight group.
 ---@param From string From state.
 ---@param Event string Event.

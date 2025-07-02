@@ -36,14 +36,12 @@ PLATOON = {}
 ---Get brigade of this platoon.
 ---
 ------
----@param self PLATOON 
 ---@return BRIGADE #The brigade.
 function PLATOON:GetBrigade() end
 
 ---Create a new PLATOON object and start the FSM.
 ---
 ------
----@param self PLATOON 
 ---@param TemplateGroupName string Name of the template group.
 ---@param Ngroups number Number of asset groups of this platoon. Default 3.
 ---@param PlatoonName string Name of the platoon. Must be **unique**!
@@ -53,7 +51,6 @@ function PLATOON:New(TemplateGroupName, Ngroups, PlatoonName) end
 ---Set brigade of this platoon.
 ---
 ------
----@param self PLATOON 
 ---@param Brigade BRIGADE The brigade.
 ---@return PLATOON #self
 function PLATOON:SetBrigade(Brigade) end
@@ -61,7 +58,6 @@ function PLATOON:SetBrigade(Brigade) end
 ---On after "Status" event.
 ---
 ------
----@param self PLATOON 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

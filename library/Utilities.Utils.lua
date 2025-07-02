@@ -93,7 +93,6 @@ UTILS = {}
 ---- UTILS.AngleBetween(22, 95, 20) would return False
 ---
 ------
----@param angle number Min value to remap from
 ---@param min number Max value to remap from
 ---@param max number Max value to remap from
 ---@return boolean #
@@ -102,20 +101,17 @@ function UTILS.AngleBetween(angle, min, max) end
 ---Basic serialize (porting in Slmod's "safestring" basic serialize).
 ---
 ------
----@param s string Table to serialize.
 function UTILS.BasicSerialize(s) end
 
 ---Heading Degrees (0-360) to Cardinal
 ---
 ------
----@param Heading number The heading
 ---@return string #Cardinal, e.g. "NORTH"
 function UTILS.BearingToCardinal(Heading) end
 
 ---Beaufort scale: returns Beaufort number and wind description as a function of wind speed in m/s.
 ---
 ------
----@param speed number Wind speed in m/s.
 ---@return number #Beaufort number.
 ---@return string #Beauford wind description.
 function UTILS.BeaufortScale(speed) end
@@ -123,14 +119,12 @@ function UTILS.BeaufortScale(speed) end
 ---Convert temperature from Celsius to Fahrenheit.
 ---
 ------
----@param Celcius number Temperature in degrees Celsius.
 ---@return number #Temperature in degrees Fahrenheit.
 function UTILS.CelsiusToFahrenheit(Celcius) end
 
 ---Function to check if a file exists.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return boolean #outcome True if reading is possible, else false.
 function UTILS.CheckFileExists(Path, Filename) end
@@ -139,14 +133,12 @@ function UTILS.CheckFileExists(Path, Filename) end
 ---Info is printed to the DCS log file. Time stamp is the current mission runtime.
 ---
 ------
----@param output boolean If true, print to DCS log file.
 ---@return number #Memory usage in kByte.
 function UTILS.CheckMemory(output) end
 
 ---Easy to read one liner to clamp a value
 ---
 ------
----@param value number Input value
 ---@param min number Minimal value that should be respected
 ---@param max number Maximal value that should be respected
 ---@return number #Clamped value
@@ -155,7 +147,6 @@ function UTILS.Clamp(value, min, max) end
 ---Clamp an angle so that it's always between 0 and 360 while still being correct
 ---
 ------
----@param value number Input value
 ---@return number #Clamped value
 function UTILS.ClampAngle(value) end
 
@@ -183,7 +174,6 @@ function UTILS.ClampAngle(value) end
 ---         MESSAGE:New("Contact BTR at " .. clockString .. " for " .. distTarget  .. "m!):ToUnit( myUnit )
 ---```
 ------
----@param refHdg number The heading of the reference object (such as a Wrapper.UNIT) in 0-360
 ---@param tgtHdg number The absolute heading from the reference object to the target object/point in 0-360
 ---@return string #text Text in clock heading such as "4 O'CLOCK"
 function UTILS.ClockHeadingString(refHdg, tgtHdg) end
@@ -191,7 +181,6 @@ function UTILS.ClockHeadingString(refHdg, tgtHdg) end
 ---Convert clock time from hours, minutes and seconds to seconds.
 ---
 ------
----@param clock string String of clock time. E.g., "06:12:35" or "5:1:30+1". Format is (H)H:(M)M:((S)S)(+D) H=Hours, M=Minutes, S=Seconds, D=Days.
 ---@return number #Seconds. Corresponds to what you cet from timer.getAbsTime() function.
 function UTILS.ClockToSeconds(clock) end
 
@@ -199,7 +188,6 @@ function UTILS.ClockToSeconds(clock) end
 ---For example "15:16:32" and "02:06:24" would return "17:22:56"
 ---
 ------
----@param time_string_01 string Time string like "07:15:22"
 ---@param time_string_02 string Time string like "08:11:27"
 ---@return string #Result of the two time string combined
 function UTILS.CombineTimeStrings(time_string_01, time_string_02) end
@@ -207,7 +195,6 @@ function UTILS.CombineTimeStrings(time_string_01, time_string_02) end
 ---Convert a decimal to octal
 ---
 ------
----@param Number number the number to convert
 ---@return number #Octal
 function UTILS.DecimalToOctal(Number) end
 
@@ -215,28 +202,24 @@ function UTILS.DecimalToOctal(Number) end
 ---See http://lua-users.org/wiki/CopyTable
 ---
 ------
----@param object table The input table.
 ---@return table #Copy of the input table.
 function UTILS.DeepCopy(object) end
 
 ---Display clock and mission time on screen as a message to all.
 ---
 ------
----@param duration number Duration in seconds how long the time is displayed. Default is 5 seconds.
 function UTILS.DisplayMissionTime(duration) end
 
 ---Executes the given string.
 ---borrowed from Slmod
 ---
 ------
----@param s string string containing LUA code.
 ---@return boolean #`true` if successfully executed, `false` otherwise.
 function UTILS.DoString(s) end
 
 ---Ensure the passed object is a table.
 ---
 ------
----@param Object table The object that should be a table.
 ---@param ReturnNil boolean If `true`, return `#nil` if `Object` is nil. Otherwise an empty table `{}` is returned.
 ---@return table #The object that now certainly *is* a table.
 function UTILS.EnsureTable(Object, ReturnNil) end
@@ -244,14 +227,12 @@ function UTILS.EnsureTable(Object, ReturnNil) end
 
 ---
 ------
----@param feet NOTYPE 
 function UTILS.FeetToMeters(feet) end
 
 ---Checks if a file exists or not.
 ---This requires **io** to be desanitized.
 ---
 ------
----@param file string File that should be checked.
 ---@return boolean #True if the file exists, false if the file does not exist or nil if the io module is not available and the check could not be performed.
 function UTILS.FileExists(file) end
 
@@ -266,7 +247,6 @@ function UTILS.GMTToLocalTimeDifference() end
 ---This function requires you to disable script sanitization in $DCS_ROOT\Scripts\MissionScripting.lua to access lfs and io libraries.
 ---
 ------
----@param fname string File name.
 function UTILS.Gdump(fname) end
 
 ---Function to generate valid FM frequencies in mHz for radio beacons (FM).
@@ -285,7 +265,6 @@ function UTILS.GenerateLaserCodes() end
 ---Can be between 220 and 399 mHz. 243 is auto-excluded.
 ---
 ------
----@param Start? NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 244
 ---@param End? NOTYPE (Optional) Avoid frequencies between Start and End in mHz, e.g. 320
 ---@return table #UHF Frequencies
 function UTILS.GenerateUHFrequencies(Start, End) end
@@ -299,21 +278,18 @@ function UTILS.GenerateVHFrequencies() end
 ---Get the callsign name from its enumerator value
 ---
 ------
----@param Callsign number The enumerator callsign.
 ---@return string #The callsign name or "Ghostrider".
 function UTILS.GetCallsignName(Callsign) end
 
 ---Get a table of all characters in a string.
 ---
 ------
----@param str string Sting.
 ---@return table #Individual characters.
 function UTILS.GetCharacters(str) end
 
 ---Get the enemy coalition for a given coalition.
 ---
 ------
----@param Coalition number The coalition ID.
 ---@param Neutral boolean Include neutral as enemy.
 ---@return table #Enemy coalition table.
 function UTILS.GetCoalitionEnemy(Coalition, Neutral) end
@@ -322,14 +298,12 @@ function UTILS.GetCoalitionEnemy(Coalition, Neutral) end
 ---coalition.side.RED.
 ---
 ------
----@param Coalition number The coalition ID.
 ---@return string #The coalition name, i.e. "Neutral", "Red" or "Blue" (or "Unknown").
 function UTILS.GetCoalitionName(Coalition) end
 
 ---Function to obtain a table of typenames from the group given with the number of units of the same type in the group.
 ---
 ------
----@param Group GROUP The group to list
 ---@return table #Table of typnames and typename counts, e.g. `{["KAMAZ Truck"]=3,["ATZ-5"]=1}`
 function UTILS.GetCountPerTypeName(Group) end
 
@@ -352,7 +326,6 @@ function UTILS.GetDCSMissionDate() end
 ---Convert time in seconds to a DHMS table `{d = days, h = hours, m = minutes, s = seconds}`
 ---
 ------
----@param timeInSec NOTYPE Time in Seconds
 ---@return table #Table with DHMS data
 function UTILS.GetDHMS(timeInSec) end
 
@@ -360,7 +333,6 @@ function UTILS.GetDHMS(timeInSec) end
 ---Counting starts on 1st of January.
 ---
 ------
----@param Year number The year.
 ---@param Month number The month.
 ---@param Day number The day.
 ---@return number #The day of the year.
@@ -370,9 +342,8 @@ function UTILS.GetDayOfYear(Year, Month, Day) end
 ---True-north corrected direction from point along vector vec.
 ---
 ------
----@param vec NOTYPE Vec3 Starting point
 ---@param point NOTYPE Vec2 Direction
----@return  #direction corrected direction from point.
+---@return NOTYPE #direction corrected direction from point.
 function UTILS.GetDirectionRadians(vec, point) end
 
 ---Returns the magnetic declination of the map.
@@ -393,7 +364,6 @@ function UTILS.GetDirectionRadians(vec, point) end
 ---* Germany Cold War +0.1 (East) - near Fulda
 ---
 ------
----@param map? string (Optional) Map for which the declination is returned. Default is from `env.mission.theatre`.
 ---@return number #Declination in degrees.
 function UTILS.GetMagneticDeclination(map) end
 
@@ -405,29 +375,25 @@ function UTILS.GetMarkID() end
 ---Returns the day of the mission.
 ---
 ------
----@param Time? number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
 ---@return number #Day of the mission. Mission starts on day 0.
 function UTILS.GetMissionDay(Time) end
 
 ---Returns the current day of the year of the mission.
 ---
 ------
----@param Time? number (Optional) Abs. time in seconds. Default now, i.e. the value return from timer.getAbsTime().
 ---@return number #Current day of year of the mission. For example, January 1st returns 0, January 2nd returns 1 etc.
 function UTILS.GetMissionDayOfYear(Time) end
 
 ---Get the modulation name from its numerical value.
 ---
 ------
----@param Modulation number The modulation enumerator number. Can be either 0 or 1.
 ---@return string #The modulation name, i.e. "AM"=0 or "FM"=1. Anything else will return "Unknown".
 function UTILS.GetModulationName(Modulation) end
 
 ---Get the correction needed for true north in radians
 ---
 ------
----@param gPoint NOTYPE The map point vec2 or vec3
----@return  #number correction
+---@return NOTYPE #number correction
 function UTILS.GetNorthCorrection(gPoint) end
 
 ---Get OS time.
@@ -440,7 +406,6 @@ function UTILS.GetOSTime() end
 --- Get a random element of a table.
 ---
 ------
----@param t table Table.
 ---@param replace boolean If `true`, the drawn element is replaced, i.e. not deleted.
 ---@return number #Table element.
 function UTILS.GetRandomTableElement(t, replace) end
@@ -448,14 +413,12 @@ function UTILS.GetRandomTableElement(t, replace) end
 ---Get the NATO reporting name of a unit type name
 ---
 ------
----@param Typename number The type name.
 ---@return string #The Reporting name or "Bogey".
 function UTILS.GetReportingName(Typename) end
 
 ---Get sunrise or sun set of a specific day of the year at a specific location.
 ---
 ------
----@param DayOfYear number The day of the year.
 ---@param Latitude number Latitude.
 ---@param Longitude number Longitude.
 ---@param Rising boolean If true, calc sun rise, or sun set otherwise.
@@ -466,7 +429,6 @@ function UTILS.GetSunRiseAndSet(DayOfYear, Latitude, Longitude, Rising, Tlocal) 
 ---Get sun rise of a specific day of the year at a specific location.
 ---
 ------
----@param Day number Day of the year.
 ---@param Month number Month of the year.
 ---@param Year number Year.
 ---@param Latitude number Latitude.
@@ -479,7 +441,6 @@ function UTILS.GetSunrise(Day, Month, Year, Latitude, Longitude, Rising, Tlocal)
 ---Get sun set of a specific day of the year at a specific location.
 ---
 ------
----@param Day number Day of the year.
 ---@param Month number Month of the year.
 ---@param Year number Year.
 ---@param Latitude number Latitude.
@@ -493,7 +454,6 @@ function UTILS.GetSunset(Day, Month, Year, Latitude, Longitude, Rising, Tlocal) 
 ---- This doesn't work for any zones created in MOOSE
 ---
 ------
----@param zone_name string Name of the zone as set up in the Mission Editor
 ---@return table #with all the properties on a zone
 function UTILS.GetZoneProperties(zone_name) end
 
@@ -501,7 +461,6 @@ function UTILS.GetZoneProperties(zone_name) end
 ---angles in [0,360) deg.
 ---
 ------
----@param h1 number Heading one.
 ---@param h2 number Heading two.
 ---@return number #Heading difference in degrees.
 function UTILS.HdgDiff(h1, h2) end
@@ -509,7 +468,6 @@ function UTILS.HdgDiff(h1, h2) end
 ---Returns the heading from one vec3 to another vec3.
 ---
 ------
----@param a Vec3 From vec3.
 ---@param b Vec3 To vec3.
 ---@return number #Heading in degrees.
 function UTILS.HdgTo(a, b) end
@@ -517,7 +475,6 @@ function UTILS.HdgTo(a, b) end
 ---HexToRGBA
 ---
 ------
----@param hex_string NOTYPE table
 ---@return table #R, G, B, A
 function UTILS.HexToRGBA(hex_string) end
 
@@ -525,7 +482,6 @@ function UTILS.HexToRGBA(hex_string) end
 ---The conversion is based on the approximation that TAS is ~2% higher than IAS with every 1000 ft altitude above sea level.
 ---
 ------
----@param ias number Indicated air speed in any unit (m/s, km/h, knots, ...)
 ---@param altitude number Altitude above main sea level in meters.
 ---@param oatcorr? number (Optional) Outside air temperature correction factor. Default 0.017.
 ---@return number #True airspeed in the same unit the IAS has been given.
@@ -534,7 +490,6 @@ function UTILS.IasToTas(ias, altitude, oatcorr) end
 ---Check if any object of multiple given objects is contained in a table.
 ---
 ------
----@param Table table The table.
 ---@param Objects table The objects to check.
 ---@param Key? string (Optional) Key to check.
 ---@return boolean #Returns `true` if object is in table.
@@ -543,7 +498,6 @@ function UTILS.IsAnyInTable(Table, Objects, Key) end
 
 ---
 ------
----@param InVec2 NOTYPE 
 ---@param Vec2 NOTYPE 
 ---@param Radius NOTYPE 
 function UTILS.IsInRadius(InVec2, Vec2, Radius) end
@@ -551,7 +505,6 @@ function UTILS.IsInRadius(InVec2, Vec2, Radius) end
 
 ---
 ------
----@param InVec3 NOTYPE 
 ---@param Vec3 NOTYPE 
 ---@param Radius NOTYPE 
 function UTILS.IsInSphere(InVec3, Vec3, Radius) end
@@ -559,7 +512,6 @@ function UTILS.IsInSphere(InVec3, Vec3, Radius) end
 ---Check if an object is contained in a table.
 ---
 ------
----@param Table table The table.
 ---@param Object table The object to check.
 ---@param Key? string (Optional) Key to check. By default, the object itself is checked.
 ---@return boolean #Returns `true` if object is in table.
@@ -583,7 +535,6 @@ function UTILS.IsInTable(Table, Object, Key) end
 ---   * UTILS.IsInstanceOf( ZONE:New( 'some zone', 'GROUP' ) will return false
 ---
 ------
----@param object NOTYPE is the object to be evaluated
 ---@param className NOTYPE is the name of the class to evaluate (can be either a string or a Moose class)
 ---@return boolean #
 function UTILS.IsInstanceOf(object, className) end
@@ -591,7 +542,6 @@ function UTILS.IsInstanceOf(object, className) end
 --- (Helicopter) Check if one loading door is open.
 ---
 ------
----@param unit_name string Unit name to be checked
 ---@return boolean #Outcome - true if a (loading door) is open, false if not, nil if none exists.
 function UTILS.IsLoadingDoorOpen(unit_name) end
 
@@ -599,7 +549,6 @@ function UTILS.IsLoadingDoorOpen(unit_name) end
 ---Code from http://softsurfer.com/Archive/algorithm_0103/algorithm_0103.htm
 ---
 ------
----@param point NOTYPE Vec2 or Vec3 to test
 ---@param poly table Polygon Table of Vec2/3 point forming the Polygon
 ---@param maxalt? number Altitude limit (optional)
 ---@param outcome boolean 
@@ -608,38 +557,32 @@ function UTILS.IsPointInPolygon(point, poly, maxalt, outcome) end
 
 ---
 ------
----@param kilometers NOTYPE 
 function UTILS.KiloMetersToFeet(kilometers) end
 
 
 ---
 ------
----@param kilometers NOTYPE 
 function UTILS.KiloMetersToNM(kilometers) end
 
 
 ---
 ------
----@param kilometers NOTYPE 
 function UTILS.KiloMetersToSM(kilometers) end
 
 
 ---
 ------
----@param knots NOTYPE 
 function UTILS.KmphToKnots(knots) end
 
 
 ---
 ------
----@param kmph NOTYPE 
 function UTILS.KmphToMps(kmph) end
 
 ---Convert knots to altitude corrected KIAS, e.g.
 ---for tankers.
 ---
 ------
----@param knots number Speed in knots.
 ---@param altitude number Altitude in feet
 ---@return number #Corrected KIAS
 function UTILS.KnotsToAltKIAS(knots, altitude) end
@@ -647,13 +590,11 @@ function UTILS.KnotsToAltKIAS(knots, altitude) end
 
 ---
 ------
----@param knots NOTYPE 
 function UTILS.KnotsToKmph(knots) end
 
 ---Convert knots to meters per second.
 ---
 ------
----@param knots number Speed in knots.
 ---@return number #Speed in m/s.
 function UTILS.KnotsToMps(knots) end
 
@@ -666,13 +607,11 @@ function UTILS.LCGRandom() end
 ---Seed the LCG random number generator.
 ---
 ------
----@param seed number Seed value. Default is a random number using math.random()
 function UTILS.LCGRandomSeed(seed) end
 
 ---Function to load an object from a file.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return boolean #outcome True if reading is possible and successful, else false.
 ---@return table #data The data read from the filesystem (table of lines of text). Each line is one single #string!
@@ -681,7 +620,6 @@ function UTILS.LoadFromFile(Path, Filename) end
 ---Load back a SET of groups from file.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Spawn boolean If set to false, do not re-spawn the groups loaded in location and reduce to size.
 ---@param Structured boolean (Optional, needs Spawn=true)If true, and the data has been saved as structure before, remove the correct unit types as per the saved list.
@@ -695,7 +633,6 @@ function UTILS.LoadSetOfGroups(Path, Filename, Spawn, Structured, Cinematic, Eff
 ---Load back a #OPSGROUP (ARMYGROUP) data from file for use with Ops.Brigade#BRIGADE.LoadBackAssetInPosition()
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return table #Returns a table of data entries: `{ groupname=groupname, size=size, coordinate=coordinate, template=template, structure=structure, legion=legion, alttemplate=alttemplate }` Returns nil when the file cannot be read.
 function UTILS.LoadSetOfOpsGroups(Path, Filename) end
@@ -703,7 +640,6 @@ function UTILS.LoadSetOfOpsGroups(Path, Filename) end
 ---Load back a SET of statics from file.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return SET_STATIC #Set SET_STATIC containing the static objects.
 function UTILS.LoadSetOfStatics(Path, Filename) end
@@ -711,7 +647,6 @@ function UTILS.LoadSetOfStatics(Path, Filename) end
 ---Load back a stationary list of groups from file.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Reduce boolean If false, existing loaded groups will not be reduced to fit the saved number.
 ---@param Structured boolean (Optional, needs Reduce = true) If true, and the data has been saved as structure before, remove the correct unit types as per the saved list.
@@ -725,7 +660,6 @@ function UTILS.LoadStationaryListOfGroups(Path, Filename, Reduce, Structured, Ci
 ---Load back a stationary list of statics from file.
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Reduce boolean If false, do not destroy the units with size=0.
 ---@param Dead boolean (Optional, needs Reduce = true) If Dead is true, re-spawn the dead object as dead and do not just delete it.
@@ -739,7 +673,6 @@ function UTILS.LoadStationaryListOfStatics(Path, Filename, Reduce, Dead, Cinemat
 ---Get a NATO abbreviated MGRS text for SRS use, optionally with prosody slow tag
 ---
 ------
----@param Text string The input string, e.g. "MGRS 4Q FJ 12345 67890"
 ---@param Slow boolean Optional - add slow tags
 ---@return string #Output for (Slow) spelling in SRS TTS e.g. "MGRS;<prosody rate="slow">4;Quebec;Foxtrot;Juliett;1;2;3;4;5;6;7;8;niner;zero;</prosody>"
 function UTILS.MGRSStringToSRSFriendly(Text, Slow) end
@@ -747,70 +680,59 @@ function UTILS.MGRSStringToSRSFriendly(Text, Slow) end
 
 ---
 ------
----@param meters NOTYPE 
 function UTILS.MetersToFeet(meters) end
 
 
 ---
 ------
----@param meters NOTYPE 
 function UTILS.MetersToNM(meters) end
 
 
 ---
 ------
----@param meters NOTYPE 
 function UTILS.MetersToSM(meters) end
 
 
 ---
 ------
----@param miph NOTYPE 
 function UTILS.MiphToMps(miph) end
 
 
 ---
 ------
----@param mps NOTYPE 
 function UTILS.MpsToKmph(mps) end
 
 ---Convert meters per second to knots.
 ---
 ------
----@param mps number Speed in m/s.
 ---@return number #Speed in knots.
 function UTILS.MpsToKnots(mps) end
 
 ---Convert meters per second to miles per hour.
 ---
 ------
----@param mps number Speed in m/s.
 ---@return number #Speed in miles per hour.
 function UTILS.MpsToMiph(mps) end
 
 
 ---
 ------
----@param NM NOTYPE 
 function UTILS.NMToKiloMeters(NM) end
 
 
 ---
 ------
----@param NM NOTYPE 
 function UTILS.NMToMeters(NM) end
 
 ---Convert an octal to decimal
 ---
 ------
----@param Number number the number to convert
 ---@return number #Decimal
 function UTILS.OctalToDecimal(Number) end
 
 ---Serialize a given table.
 ---
 ------
----@param tbl table Input table.
 ---@return string #Table as a string.
 function UTILS.OneLineSerialize(tbl) end
 
@@ -818,14 +740,12 @@ function UTILS.OneLineSerialize(tbl) end
 ---1% is very unlikely to happen, 99% is very likely to happen
 ---
 ------
----@param chance? number (optional) Percentage chance you want something to happen. Defaults to a random number if not given
 ---@return boolean #True if the dice roll was within the given percentage chance of happening
 function UTILS.PercentageChance(chance) end
 
 ---Helper function to plot a racetrack on the F10 Map - curtesy of Buur.
 ---
 ------
----@param Coordinate COORDINATE 
 ---@param Altitude number Altitude in feet
 ---@param Speed number Speed in knots
 ---@param Heading number Heading in degrees
@@ -840,7 +760,6 @@ function UTILS.PlotRacetrack(Coordinate, Altitude, Speed, Heading, Leg, Coalitio
 ---Print a table to log in a nice format
 ---
 ------
----@param table table The table to print
 ---@param indent number Number of indents
 ---@param noprint boolean Don't log but return text
 ---@return string #text Text created on the fly of the log output
@@ -849,7 +768,6 @@ function UTILS.PrintTableToLog(table, indent, noprint) end
 ---Generate a Gaussian pseudo-random number.
 ---
 ------
----@param x0 number Expectation value of distribution.
 ---@param sigma? number (Optional) Standard deviation. Default 10.
 ---@param xmin? number (Optional) Lower cut-off value.
 ---@param xmax? number (Optional) Upper cut-off value.
@@ -860,7 +778,6 @@ function UTILS.RandomGaussian(x0, sigma, xmin, xmax, imax) end
 ---Given a triangle made out of 3 vector 2s, return a vec2 that is a random number in this triangle
 ---
 ------
----@param pt1 Vec2 Min value to remap from
 ---@param pt2 Vec2 Max value to remap from
 ---@param pt3 Vec2 Max value to remap from
 ---@return Vec2 #Random point in triangle
@@ -875,7 +792,6 @@ function UTILS.RandomPointInTriangle(pt1, pt2, pt3) end
 ---UTILS.Randomize(100, 0.1) returns a value between 90 and 110, i.e. a plus/minus ten percent variation.
 ---```
 ------
----@param value number The value which should be randomized
 ---@param fac number Randomization factor.
 ---@param lower? number (Optional) Lower limit of the returned value.
 ---@param upper? number (Optional) Upper limit of the returned value.
@@ -886,7 +802,6 @@ function UTILS.Randomize(value, fac, lower, upper) end
 ---The csv must have a header specifing the names of the columns. The column names are used as table keys.
 ---
 ------
----@param filename string File name including full path on local disk.
 ---@return table #The table filled with data from the csv file.
 function UTILS.ReadCSV(filename) end
 
@@ -894,7 +809,6 @@ function UTILS.ReadCSV(filename) end
 ---- json.lua exists in the DCS install Scripts folder
 ---
 ------
----@param file_path string File path
 ---@return table #
 function UTILS.ReadJSON(file_path) end
 
@@ -905,7 +819,6 @@ function UTILS.ReadJSON(file_path) end
 ---- 50% between 0 and 200 is 100
 ---
 ------
----@param value number Input value
 ---@param old_min number Min value to remap from
 ---@param old_max number Max value to remap from
 ---@param new_min number Min value to remap to
@@ -916,14 +829,12 @@ function UTILS.RemapValue(value, old_min, old_max, new_min, new_max) end
 ---Remove an object (marker, circle, arrow, text, quad, ...) on the F10 map.
 ---
 ------
----@param MarkID number Unique ID of the object.
 ---@param Delay? number (Optional) Delay in seconds before the mark is removed.
 function UTILS.RemoveMark(MarkID, Delay) end
 
 ---Replace illegal characters [<>|/?*:\\] in a string.
 ---
 ------
----@param Text string Input text.
 ---@param ReplaceBy string Replace illegal characters by this character or string. Default underscore "_".
 ---@return string #The input text with illegal chars replaced.
 function UTILS.ReplaceIllegalCharacters(Text, ReplaceBy) end
@@ -932,7 +843,6 @@ function UTILS.ReplaceIllegalCharacters(Text, ReplaceBy) end
 ---y-component (usually altitude) unchanged.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param angle number Rotation angle in degrees.
 ---@return Vec3 #Vector rotated in the (x,z) plane.
 function UTILS.Rotate2D(a, angle) end
@@ -943,7 +853,6 @@ function UTILS.Rotate2D(a, angle) end
 ---- and then rotate all the positions of every object around this center point.
 ---
 ------
----@param point Vec2 Point that you want to rotate
 ---@param pivot Vec2 Pivot point of the rotation
 ---@param angle number How many degrees the point should be rotated
 ---@return Vec2 #Rotated point
@@ -952,7 +861,6 @@ function UTILS.RotatePointAroundPivot(point, pivot, angle) end
 
 ---
 ------
----@param num NOTYPE 
 ---@param idp NOTYPE 
 function UTILS.Round(num, idp) end
 
@@ -971,7 +879,6 @@ function UTILS.Round(num, idp) end
 ---The current task/waypoint/etc cannot be restored.
 ---```
 ------
----@param Set SET_BASE of objects to save
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Structured boolean Append the data with a list of typenames in the group plus their count.
@@ -981,7 +888,6 @@ function UTILS.SaveSetOfGroups(Set, Path, Filename, Structured) end
 ---Function to save the position of a set of #OPSGROUP (ARMYGROUP) objects.
 ---
 ------
----@param Set SET_OPSGROUP of ops objects to save
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Structured boolean Append the data with a list of typenames in the group plus their count.
@@ -998,7 +904,6 @@ function UTILS.SaveSetOfOpsGroups(Set, Path, Filename, Structured) end
 ---The data will be a simple comma separated list of name and state etc, with one header line.
 ---```
 ------
----@param Set SET_BASE of objects to save
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return boolean #outcome True if saving is successful, else false.
@@ -1017,7 +922,6 @@ function UTILS.SaveSetOfStatics(Set, Path, Filename) end
 ---The data will be a simple comma separated list of groupname and size, with one header line.
 ---```
 ------
----@param List table Table of strings with groupnames
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Structured boolean Append the data with a list of typenames in the group plus their count.
@@ -1036,7 +940,6 @@ function UTILS.SaveStationaryListOfGroups(List, Path, Filename, Structured) end
 ---The data will be a simple comma separated list of name and state etc, with one header line.
 ---```
 ------
----@param List table Table of strings with statics names
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return boolean #outcome True if saving is successful, else false.
@@ -1045,7 +948,6 @@ function UTILS.SaveStationaryListOfStatics(List, Path, Filename) end
 ---Function to save an object to a file
 ---
 ------
----@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file. Existing file will be overwritten.
 ---@param Data string The data structure to save. This will be e.g. a string of text lines with an \\n at the end of each line.
 ---@return boolean #outcome True if saving is possible, else false.
@@ -1054,9 +956,8 @@ function UTILS.SaveToFile(Path, Filename, Data) end
 ---Vector scalar multiplication.
 ---
 ------
----@param vec NOTYPE Vec3 vector to multiply
 ---@param mult number scalar multiplicator
----@return  #Vec3 new vector multiplied with the given scalar
+---@return NOTYPE #Vec3 new vector multiplied with the given scalar
 function UTILS.ScalarMult(vec, mult) end
 
 ---Seconds of today.
@@ -1068,7 +969,6 @@ function UTILS.SecondsOfToday() end
 ---Convert time in seconds to hours, minutes and seconds.
 ---
 ------
----@param seconds number Time in seconds, e.g. from timer.getAbsTime() function.
 ---@param short? boolean (Optional) If true, use short output, i.e. (HH:)MM:SS without day.
 ---@return string #Time in format Hours:Minutes:Seconds+Days (HH:MM:SS+D).
 function UTILS.SecondsToClock(seconds, short) end
@@ -1082,7 +982,6 @@ function UTILS.SecondsToMidnight() end
 --- Shuffle a table accoring to Fisher Yeates algorithm
 ---
 ------
----@param t table Table to be shuffled.
 ---@return table #Shuffled table.
 function UTILS.ShuffleTable(t) end
 
@@ -1091,7 +990,6 @@ function UTILS.ShuffleTable(t) end
 ---References: [DCS Forum Topic](https://forum.dcs.world/topic/282989-farp-equipment-to-run-it)
 ---
 ------
----@param Name string Name of this FARP installation. Must be unique. 
 ---@param Coordinate COORDINATE Where to spawn the FARP.
 ---@param FARPType string Type of FARP, can be one of the known types ENUMS.FARPType.FARP, ENUMS.FARPType.INVISIBLE, ENUMS.FARPType.HELIPADSINGLE, ENUMS.FARPType.PADSINGLE. Defaults to ENUMS.FARPType.FARP.
 ---@param Coalition number Coalition of this FARP, i.e. coalition.side.BLUE or coalition.side.RED, defaults to coalition.side.BLUE.
@@ -1112,7 +1010,6 @@ function UTILS.SpawnFARPAndFunctionalStatics(Name, Coordinate, FARPType, Coaliti
 ---C.f. [split-string-in-lua](http://stackoverflow.com/questions/1426954/split-string-in-lua).
 ---
 ------
----@param str string Sting to split.
 ---@param sep string Separator for split.
 ---@return table #Split text.
 function UTILS.Split(str, sep) end
@@ -1121,7 +1018,6 @@ function UTILS.Split(str, sep) end
 ---For example "15:16:32" and "02:06:24" would return "13:10:08"
 ---
 ------
----@param time_string_01 string Time string like "07:15:22"
 ---@param time_string_02 string Time string like "08:11:27"
 ---@return string #Result of the two time string subtracted
 function UTILS.SubtractTimeStrings(time_string_01, time_string_02) end
@@ -1129,7 +1025,6 @@ function UTILS.SubtractTimeStrings(time_string_01, time_string_02) end
 ---Converts a TACAN Channel/Mode couple into a frequency in Hz.
 ---
 ------
----@param TACANChannel number The TACAN channel, i.e. the 10 in "10X".
 ---@param TACANMode string The TACAN mode, i.e. the "X" in "10X".
 ---@return number #Frequency in Hz or #nil if parameters are invalid.
 function UTILS.TACANToFrequency(TACANChannel, TACANMode) end
@@ -1137,25 +1032,22 @@ function UTILS.TACANToFrequency(TACANChannel, TACANMode) end
 ---Counts the number of elements in a table.
 ---
 ------
----@param T table Table to count
 ---@return number #Number of elements in the table
 function UTILS.TableLength(T) end
 
 ---Returns table in a easy readable string representation.
 ---
 ------
----@param tbl NOTYPE table to show
 ---@param loc NOTYPE 
 ---@param indent NOTYPE 
 ---@param tableshow_tbls NOTYPE 
----@return  #Human readable string representation of given table.
+---@return NOTYPE #Human readable string representation of given table.
 function UTILS.TableShow(tbl, loc, indent, tableshow_tbls) end
 
 ---Convert true airspeed (TAS) to indicated airspeed (IAS) for a given altitude above main sea level.
 ---The conversion is based on the approximation that TAS is ~2% higher than IAS with every 1000 ft altitude above sea level.
 ---
 ------
----@param tas number True air speed in any unit (m/s, km/h, knots, ...)
 ---@param altitude number Altitude above main sea level in meters.
 ---@param oatcorr? number (Optional) Outside air temperature correction factor. Default 0.017.
 ---@return number #Indicated airspeed in the same unit the TAS has been given.
@@ -1164,7 +1056,6 @@ function UTILS.TasToIas(tas, altitude, oatcorr) end
 ---Check if the current time is before time_string.
 ---
 ------
----@param start_time string Time string like "07:15:22"
 ---@param time_string NOTYPE 
 ---@return boolean #False if later, True if before
 function UTILS.TimeBefore(start_time, time_string) end
@@ -1172,7 +1063,6 @@ function UTILS.TimeBefore(start_time, time_string) end
 ---Checks if the current time is in between start_time and end_time
 ---
 ------
----@param time_string_01 string Time string like "07:15:22"
 ---@param time_string_02 string Time string like "08:11:27"
 ---@param start_time NOTYPE 
 ---@param end_time NOTYPE 
@@ -1182,7 +1072,6 @@ function UTILS.TimeBetween(time_string_01, time_string_02, start_time, end_time)
 ---Given 2 "nice" time string, returns the difference between the two in seconds
 ---
 ------
----@param start_time string Time string like "07:15:22"
 ---@param end_time string Time string like "08:11:27"
 ---@return number #Seconds between start_time and end_time
 function UTILS.TimeDifferenceInSeconds(start_time, end_time) end
@@ -1190,7 +1079,6 @@ function UTILS.TimeDifferenceInSeconds(start_time, end_time) end
 ---Check if the current time is later than time_string.
 ---
 ------
----@param start_time string Time string like "07:15:22"
 ---@param time_string NOTYPE 
 ---@return boolean #True if later, False if before
 function UTILS.TimeLaterThan(start_time, time_string) end
@@ -1204,19 +1092,16 @@ function UTILS.TimeNow() end
 
 ---
 ------
----@param angle NOTYPE 
 function UTILS.ToDegree(angle) end
 
 
 ---
 ------
----@param angle NOTYPE 
 function UTILS.ToRadian(angle) end
 
 ---Create a BRAA NATO call string BRAA between two GROUP objects
 ---
 ------
----@param FromGrp GROUP GROUP object
 ---@param ToGrp GROUP GROUP object
 ---@return string #Formatted BRAA NATO call
 function UTILS.ToStringBRAANATO(FromGrp, ToGrp) end
@@ -1224,14 +1109,12 @@ function UTILS.ToStringBRAANATO(FromGrp, ToGrp) end
 ---Makes a string semi-unique by attaching a random number between 0 and 1 million to it
 ---
 ------
----@param base string String you want to unique-fy
 ---@return string #Unique string
 function UTILS.UniqueName(base) end
 
 ---Calculate the total vector of two 2D vectors by adding the x,y components of each other.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param b Vec2 Vector in 2D with x, y components.
 ---@return Vec2 #Vector c=a+b with c(i)=a(i)+b(i), i=x,y.
 function UTILS.Vec2Add(a, b) end
@@ -1240,7 +1123,6 @@ function UTILS.Vec2Add(a, b) end
 ---The result is a number.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param b Vec2 Vector in 2D with x, y components.
 ---@return number #Scalar product of the two vectors a*b.
 function UTILS.Vec2Dot(a, b) end
@@ -1248,21 +1130,18 @@ function UTILS.Vec2Dot(a, b) end
 ---Calculate "heading" of a 2D vector in the X-Y plane.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@return number #Heading in degrees in [0,360).
 function UTILS.Vec2Hdg(a) end
 
 ---Calculate the [euclidean norm](https://en.wikipedia.org/wiki/Euclidean_distance) (length) of a 2D vector.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@return number #Norm of the vector.
 function UTILS.Vec2Norm(a) end
 
 ---Rotate 2D vector in the 2D (x,z) plane.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param angle number Rotation angle in degrees.
 ---@return Vec2 #Vector rotated in the (x,y) plane.
 function UTILS.Vec2Rotate2D(a, angle) end
@@ -1270,7 +1149,6 @@ function UTILS.Vec2Rotate2D(a, angle) end
 ---Calculate the difference between two 2D vectors by substracting the x,y components from each other.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param b Vec2 Vector in 2D with x, y components.
 ---@return Vec2 #Vector c=a-b with c(i)=a(i)-b(i), i=x,y.
 function UTILS.Vec2Substract(a, b) end
@@ -1278,14 +1156,12 @@ function UTILS.Vec2Substract(a, b) end
 
 ---
 ------
----@param a NOTYPE 
 ---@param b NOTYPE 
 function UTILS.Vec2Subtract(a, b) end
 
 ---Translate 2D vector in the 2D (x,z) plane.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param distance number The distance to translate.
 ---@param angle number Rotation angle in degrees.
 ---@return Vec2 #Translated vector.
@@ -1294,14 +1170,12 @@ function UTILS.Vec2Translate(a, distance, angle) end
 ---Converts a Vec2 to a Vec3.
 ---
 ------
----@param vec NOTYPE the 2D vector
 ---@param y NOTYPE optional new y axis (altitude) value. If omitted it's 0.
 function UTILS.Vec2toVec3(vec, y) end
 
 ---Calculate the total vector of two 3D vectors by adding the x,y,z components of each other.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return Vec3 #Vector c=a+b with c(i)=a(i)+b(i), i=x,y,z.
 function UTILS.VecAdd(a, b) end
@@ -1309,7 +1183,6 @@ function UTILS.VecAdd(a, b) end
 ---Calculate the angle between two 3D vectors.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return number #Angle alpha between and b in degrees. alpha=acos(a*b)/(|a||b|), (* denotes the dot product).
 function UTILS.VecAngle(a, b) end
@@ -1318,7 +1191,6 @@ function UTILS.VecAngle(a, b) end
 ---The result is a 3D vector.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return Vec3 #Vector
 function UTILS.VecCross(a, b) end
@@ -1326,7 +1198,6 @@ function UTILS.VecCross(a, b) end
 ---Calculate the distance between two 2D vectors.
 ---
 ------
----@param a Vec2 Vector in 2D with x, y components.
 ---@param b Vec2 Vector in 2D with x, y components.
 ---@return number #Distance between the vectors.
 function UTILS.VecDist2D(a, b) end
@@ -1334,7 +1205,6 @@ function UTILS.VecDist2D(a, b) end
 ---Calculate the distance between two 3D vectors.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return number #Distance between the vectors.
 function UTILS.VecDist3D(a, b) end
@@ -1343,7 +1213,6 @@ function UTILS.VecDist3D(a, b) end
 ---The result is a number.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return number #Scalar product of the two vectors a*b.
 function UTILS.VecDot(a, b) end
@@ -1351,21 +1220,18 @@ function UTILS.VecDot(a, b) end
 ---Calculate "heading" of a 3D vector in the X-Z plane.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@return number #Heading in degrees in [0,360).
 function UTILS.VecHdg(a) end
 
 ---Calculate the [euclidean norm](https://en.wikipedia.org/wiki/Euclidean_distance) (length) of a 3D vector.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@return number #Norm of the vector.
 function UTILS.VecNorm(a) end
 
 ---Calculate the difference between two 3D vectors by substracting the x,y,z components from each other.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param b Vec3 Vector in 3D with x, y, z components.
 ---@return Vec3 #Vector c=a-b with c(i)=a(i)-b(i), i=x,y,z.
 function UTILS.VecSubstract(a, b) end
@@ -1373,7 +1239,6 @@ function UTILS.VecSubstract(a, b) end
 
 ---
 ------
----@param a NOTYPE 
 ---@param b NOTYPE 
 function UTILS.VecSubtract(a, b) end
 
@@ -1381,7 +1246,6 @@ function UTILS.VecSubtract(a, b) end
 ---y-component (usually altitude) unchanged.
 ---
 ------
----@param a Vec3 Vector in 3D with x, y, z components.
 ---@param distance number The distance to translate.
 ---@param angle number Rotation angle in degrees.
 ---@return Vec3 #Vector rotated in the (x,z) plane.
@@ -1392,21 +1256,18 @@ function UTILS.VecTranslate(a, distance, angle) end
 ---- json.lua exists in the DCS install Scripts folder
 ---
 ------
----@param data table table to write
 ---@param file_path string File path
 function UTILS.WriteJSON(data, file_path) end
 
 ---Serialize a table to a single line string.
 ---
 ------
----@param tbl table table to serialize.
 ---@return string #string containing serialized table.
 function UTILS._OneLineSerialize(tbl) end
 
 ---Convert pressure from hecto Pascal (hPa) to inches of mercury (inHg).
 ---
 ------
----@param hPa number Pressure in hPa.
 ---@return number #Pressure in inHg.
 ---@private
 function UTILS.hPa2inHg(hPa) end
@@ -1414,7 +1275,6 @@ function UTILS.hPa2inHg(hPa) end
 ---Convert pressure from hecto Pascal (hPa) to millimeters of mercury (mmHg).
 ---
 ------
----@param hPa number Pressure in hPa.
 ---@return number #Pressure in mmHg.
 ---@private
 function UTILS.hPa2mmHg(hPa) end
@@ -1422,7 +1282,6 @@ function UTILS.hPa2mmHg(hPa) end
 ---Convert kilo gramms (kg) to pounds (lbs).
 ---
 ------
----@param kg number Mass in kg.
 ---@return number #Mass in lbs.
 ---@private
 function UTILS.kg2lbs(kg) end
@@ -1438,7 +1297,6 @@ function UTILS.kg2lbs(kg) end
 ---           end
 ---```
 ------
----@param t table The table
 ---@param getkey string The function to determine the keys for sorting
 ---@param order? string (Optional) The sorting function itself
 ---@return string #key The index key
@@ -1457,7 +1315,6 @@ function UTILS.kpairs(t, getkey, order) end
 ---           end
 ---```
 ------
----@param t table The table
 ---@return string #key The index key
 ---@return string #value The value at the indexed key
 ---@private
@@ -1474,7 +1331,6 @@ function UTILS.rpairs(t) end
 ---           end
 ---```
 ------
----@param t table The table
 ---@param order? string (Optional) The sorting function
 ---@return string #key The index key
 ---@return string #value The value at the indexed key
@@ -1484,7 +1340,6 @@ function UTILS.spairs(t, order) end
 
 ---
 ------
----@param lat NOTYPE 
 ---@param lon NOTYPE 
 ---@param acc NOTYPE 
 ---@param DMS NOTYPE 
@@ -1494,7 +1349,6 @@ function UTILS.tostringLL(lat, lon, acc, DMS) end
 
 ---
 ------
----@param lat NOTYPE 
 ---@param lon NOTYPE 
 ---@param acc NOTYPE 
 ---@private
@@ -1503,7 +1357,6 @@ function UTILS.tostringLLM2KData(lat, lon, acc) end
 
 ---
 ------
----@param MGRS NOTYPE 
 ---@param acc NOTYPE 
 ---@private
 function UTILS.tostringMGRS(MGRS, acc) end
@@ -1558,19 +1411,16 @@ function UTILS.Weather.RemoveFog() end
 ---           })
 ---```
 ------
----@param AnimationKeys table Table of AnimationKey tables
 function UTILS.Weather.SetFogAnimation(AnimationKeys) end
 
 ---Sets the fog to the desired thickness in meters at sea level.
 ---
 ------
----@param Thickness number Thickness in meters. Any fog animation will be discarded. Valid range : 100 to 5000 meters
 function UTILS.Weather.SetFogThickness(Thickness) end
 
 ---Sets the maximum visibility at sea level in meters.
 ---
 ------
----@param Thickness number Thickness in meters. Limit: 100 to 100000 
 function UTILS.Weather.SetFogVisibilityDistance(Thickness) end
 
 

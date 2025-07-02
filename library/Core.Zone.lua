@@ -89,7 +89,6 @@ ZONE = {}
 ---Find a zone in the _DATABASE using the name of the zone.
 ---
 ------
----@param self ZONE 
 ---@param ZoneName string The name of the zone.
 ---@return ZONE #self
 function ZONE:FindByName(ZoneName) end
@@ -97,7 +96,6 @@ function ZONE:FindByName(ZoneName) end
 ---Constructor of ZONE taking the zone name.
 ---
 ------
----@param self ZONE 
 ---@param ZoneName string The name of the zone as defined within the mission editor.
 ---@return ZONE #self
 function ZONE:New(ZoneName) end
@@ -114,7 +112,6 @@ ZONE_AIRBASE = {}
 ---Get the airbase as part of the ZONE_AIRBASE object.
 ---
 ------
----@param self ZONE_AIRBASE 
 ---@return AIRBASE #The airbase.
 function ZONE_AIRBASE:GetAirbase() end
 
@@ -122,7 +119,6 @@ function ZONE_AIRBASE:GetAirbase() end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_AIRBASE 
 ---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
@@ -131,14 +127,12 @@ function ZONE_AIRBASE:GetRandomPointVec2(inner, outer) end
 ---Returns the current location of the AIRBASE.
 ---
 ------
----@param self ZONE_AIRBASE 
 ---@return Vec2 #The location of the zone based on the AIRBASE location.
 function ZONE_AIRBASE:GetVec2() end
 
 ---Constructor to create a ZONE_AIRBASE instance, taking the zone name, a zone Wrapper.Airbase#AIRBASE and a radius.
 ---
 ------
----@param self ZONE_AIRBASE 
 ---@param AirbaseName string Name of the airbase.
 ---@param Radius? Distance (Optional)The radius of the zone in meters. Default 4000 meters.
 ---@return ZONE_AIRBASE #self
@@ -209,13 +203,11 @@ ZONE_BASE = {}
 ---Bound the zone boundaries with a tires.
 ---
 ------
----@param self ZONE_BASE 
 function ZONE_BASE:BoundZone() end
 
 ---Get 2D distance to a coordinate.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Coordinate COORDINATE Reference coordinate. Can also be a DCS#Vec2 or DCS#Vec3 object.
 ---@return number #Distance to the reference coordinate in meters.
 function ZONE_BASE:Get2DDistance(Coordinate) end
@@ -223,42 +215,36 @@ function ZONE_BASE:Get2DDistance(Coordinate) end
 ---Returns the zone Properties table.
 ---
 ------
----@param self ZONE_BASE 
 ---@return table #The Key:Value table of TriggerZone properties of the zone.
 function ZONE_BASE:GetAllProperties() end
 
 ---Get the bounding square the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return nil #The bounding square.
 function ZONE_BASE:GetBoundingSquare() end
 
 ---Get color table of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return table #Table with four entries, e.g. {1, 0, 0, 0.15}. First three are RGB color code. Fourth is the transparency Alpha value.
 function ZONE_BASE:GetColor() end
 
 ---Get transparency Alpha value of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return number #Alpha value.
 function ZONE_BASE:GetColorAlpha() end
 
 ---Get RGB color of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return table #Table with three entries, e.g. {1, 0, 0}, which is the RGB color code.
 function ZONE_BASE:GetColorRGB() end
 
 ---Returns a Core.Point#COORDINATE of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return COORDINATE #The Coordinate of the zone.
 function ZONE_BASE:GetCoordinate(Height) end
@@ -266,7 +252,6 @@ function ZONE_BASE:GetCoordinate(Height) end
 ---Get draw coalition of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return number #Draw coalition.
 function ZONE_BASE:GetDrawCoalition() end
 
@@ -274,42 +259,36 @@ function ZONE_BASE:GetDrawCoalition() end
 ---The ID can be used to remove the drawn object from the F10 map view via `UTILS.RemoveMark(MarkID)`.
 ---
 ------
----@param self ZONE_BASE 
 ---@return number #Unique ID of the
 function ZONE_BASE:GetDrawID() end
 
 ---Get fill color table of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return table #Table with four entries, e.g. {1, 0, 0, 0.15}. First three are RGB color code. Fourth is the transparency Alpha value.
 function ZONE_BASE:GetFillColor() end
 
 ---Get transparency Alpha fill value of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return number #Alpha value.
 function ZONE_BASE:GetFillColorAlpha() end
 
 ---Get RGB fill color of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return table #Table with three entries, e.g. {1, 0, 0}, which is the RGB color code.
 function ZONE_BASE:GetFillColorRGB() end
 
 ---Returns the name of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return string #The name of the zone.
 function ZONE_BASE:GetName() end
 
 ---Returns a Core.Point#COORDINATE of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return COORDINATE #The COORDINATE of the zone.
 function ZONE_BASE:GetPointVec2(Height) end
@@ -317,7 +296,6 @@ function ZONE_BASE:GetPointVec2(Height) end
 ---Returns a Core.Point#COORDINATE of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return COORDINATE #The PointVec3 of the zone.
 function ZONE_BASE:GetPointVec3(Height) end
@@ -334,7 +312,6 @@ function ZONE_BASE:GetPointVec3(Height) end
 ---local PropertyValue = PropertiesZone:GetProperty(Property)
 ---```
 ------
----@param self ZONE_BASE 
 ---@param PropertyName string The name of a the TriggerZone Property to be retrieved.
 ---@return string #The Value of the TriggerZone Property with the given PropertyName, or nil if absent.
 function ZONE_BASE:GetProperty(PropertyName) end
@@ -343,7 +320,6 @@ function ZONE_BASE:GetProperty(PropertyName) end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_BASE 
 ---@return COORDINATE #The COORDINATE coordinates.
 function ZONE_BASE:GetRandomPointVec2() end
 
@@ -351,35 +327,30 @@ function ZONE_BASE:GetRandomPointVec2() end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec3 table.
 ---
 ------
----@param self ZONE_BASE 
 ---@return COORDINATE #The COORDINATE coordinates.
 function ZONE_BASE:GetRandomPointVec3() end
 
 ---Define a random DCS#Vec2 within the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return Vec2 #The Vec2 coordinates.
 function ZONE_BASE:GetRandomVec2() end
 
 ---Get surface type of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return SurfaceType #Type of surface.
 function ZONE_BASE:GetSurfaceType() end
 
 ---Returns the DCS#Vec2 coordinate of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@return nil #
 function ZONE_BASE:GetVec2() end
 
 ---Returns the DCS#Vec3 of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return Vec3 #The Vec3 of the zone.
 function ZONE_BASE:GetVec3(Height) end
@@ -411,7 +382,6 @@ function ZONE_BASE:GetVec3(Height) end
 ----- The result should be that Zone1 would be more probable selected than Zone2.
 ---```
 ------
----@param self ZONE_BASE 
 ---@return ZONE_BASE #The zone is selected taking into account the randomization probability factor.
 ---@return nil #The zone is not selected taking into account the randomization probability factor.
 function ZONE_BASE:GetZoneMaybe() end
@@ -419,14 +389,12 @@ function ZONE_BASE:GetZoneMaybe() end
 ---Get the randomization probability of a zone to be selected.
 ---
 ------
----@param self ZONE_BASE 
 ---@return number #A value between 0 and 1. 0 = 0% and 1 = 100% probability.
 function ZONE_BASE:GetZoneProbability() end
 
 ---Returns if a Coordinate is within the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Coordinate COORDINATE The coordinate to test.
 ---@return boolean #true if the coordinate is within the zone.
 function ZONE_BASE:IsCoordinateInZone(Coordinate) end
@@ -435,7 +403,6 @@ function ZONE_BASE:IsCoordinateInZone(Coordinate) end
 ---(Name is misleading, actually takes a #COORDINATE)
 ---
 ------
----@param self ZONE_BASE 
 ---@param Coordinate COORDINATE The coordinate to test.
 ---@return boolean #true if the PointVec2 is within the zone.
 function ZONE_BASE:IsPointVec2InZone(Coordinate) end
@@ -443,7 +410,6 @@ function ZONE_BASE:IsPointVec2InZone(Coordinate) end
 ---Returns if a PointVec3 is within the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param PointVec3 COORDINATE The PointVec3 to test.
 ---@return boolean #true if the PointVec3 is within the zone.
 function ZONE_BASE:IsPointVec3InZone(PointVec3) end
@@ -451,7 +417,6 @@ function ZONE_BASE:IsPointVec3InZone(PointVec3) end
 ---Returns if a Vec2 is within the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Vec2 Vec2 The Vec2 to test.
 ---@return boolean #true if the Vec2 is within the zone.
 function ZONE_BASE:IsVec2InZone(Vec2) end
@@ -459,7 +424,6 @@ function ZONE_BASE:IsVec2InZone(Vec2) end
 ---Returns if a Vec3 is within the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Vec3 Vec3 The point to test.
 ---@return boolean #true if the Vec3 is within the zone.
 function ZONE_BASE:IsVec3InZone(Vec3) end
@@ -467,7 +431,6 @@ function ZONE_BASE:IsVec3InZone(Vec3) end
 ---ZONE_BASE constructor
 ---
 ------
----@param self ZONE_BASE 
 ---@param ZoneName string Name of the zone.
 ---@return ZONE_BASE #self
 function ZONE_BASE:New(ZoneName) end
@@ -476,7 +439,6 @@ function ZONE_BASE:New(ZoneName) end
 ---An observed object has entered the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -487,7 +449,6 @@ function ZONE_BASE:OnAfterEnteredZone(From, Event, To, Controllable) end
 ---An observed object has left the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -498,7 +459,6 @@ function ZONE_BASE:OnAfterLeftZone(From, Event, To, Controllable) end
 ---An observed object has left the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -509,7 +469,6 @@ function ZONE_BASE:OnAfterObjectDead(From, Event, To, Controllable) end
 ---All observed objects have left the zone or are dead.
 ---
 ------
----@param self ZONE_BASE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -518,7 +477,6 @@ function ZONE_BASE:OnAfterZoneEmpty(From, Event, To) end
 ---Set the check time for ZONE:Trigger()
 ---
 ------
----@param self ZONE_BASE 
 ---@param seconds number Check every seconds for objects entering or leaving the zone. Defaults to 5 secs.
 ---@return ZONE_BASE #self
 function ZONE_BASE:SetCheckTime(seconds) end
@@ -526,7 +484,6 @@ function ZONE_BASE:SetCheckTime(seconds) end
 ---Set color of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param RGBcolor table RGB color table. Default `{1, 0, 0}`.
 ---@param Alpha number Transparency between 0 and 1. Default 0.15.
 ---@return ZONE_BASE #self
@@ -535,7 +492,6 @@ function ZONE_BASE:SetColor(RGBcolor, Alpha) end
 ---Set draw coalition of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Coalition number Coalition. Default -1.
 ---@return ZONE_BASE #self
 function ZONE_BASE:SetDrawCoalition(Coalition) end
@@ -543,7 +499,6 @@ function ZONE_BASE:SetDrawCoalition(Coalition) end
 ---Set fill color of zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param RGBcolor table RGB color table. Default `{1, 0, 0}`.
 ---@param Alpha number Transparacy between 0 and 1. Default 0.15.
 ---@return ZONE_BASE #self
@@ -552,7 +507,6 @@ function ZONE_BASE:SetFillColor(RGBcolor, Alpha) end
 ---Sets the name of the zone.
 ---
 ------
----@param self ZONE_BASE 
 ---@param ZoneName string The name of the zone.
 ---@return ZONE_BASE #
 function ZONE_BASE:SetName(ZoneName) end
@@ -560,7 +514,6 @@ function ZONE_BASE:SetName(ZoneName) end
 ---Set the randomization probability of a zone to be selected.
 ---
 ------
----@param self ZONE_BASE 
 ---@param ZoneProbability number A value between 0 and 1. 0 = 0% and 1 = 100% probability.
 ---@return ZONE_BASE #self
 function ZONE_BASE:SetZoneProbability(ZoneProbability) end
@@ -568,7 +521,6 @@ function ZONE_BASE:SetZoneProbability(ZoneProbability) end
 ---Smokes the zone boundaries in a color.
 ---
 ------
----@param self ZONE_BASE 
 ---@param SmokeColor SMOKECOLOR The smoke color.
 function ZONE_BASE:SmokeZone(SmokeColor) end
 
@@ -595,7 +547,6 @@ function ZONE_BASE:SmokeZone(SmokeColor) end
 ---          triggerzone:__TriggerStop(3600)
 ---```
 ------
----@param self ZONE_BASE 
 ---@param Objects CONTROLLABLE Object or Objects to watch, can be of type UNIT, GROUP, CLIENT, or SET\_UNIT, SET\_GROUP, SET\_CLIENT
 ---@return ZONE_BASE #self
 function ZONE_BASE:Trigger(Objects) end
@@ -604,13 +555,11 @@ function ZONE_BASE:Trigger(Objects) end
 ---Stops the ZONE_BASE Trigger.
 ---
 ------
----@param self ZONE_BASE 
 function ZONE_BASE:TriggerStop() end
 
 ---Remove the drawing of the zone from the F10 map.
 ---
 ------
----@param self ZONE_BASE 
 ---@param Delay? number (Optional) Delay before the drawing is removed.
 ---@return ZONE_BASE #self
 function ZONE_BASE:UndrawZone(Delay) end
@@ -618,7 +567,6 @@ function ZONE_BASE:UndrawZone(Delay) end
 ---(Internal) Check the assigned objects for being in/out of the zone
 ---
 ------
----@param self ZONE_BASE 
 ---@param fromstart boolean If true, do the init of the objects
 ---@return ZONE_BASE #self
 function ZONE_BASE:_TriggerCheck(fromstart) end
@@ -626,14 +574,12 @@ function ZONE_BASE:_TriggerCheck(fromstart) end
 ---Triggers the FSM event "TriggerStop" after a delay.
 ---
 ------
----@param self ZONE_BASE 
 ---@param delay number Delay in seconds.
 function ZONE_BASE:__TriggerStop(delay) end
 
 ---(Internal) Check the assigned objects for being in/out of the zone
 ---
 ------
----@param self ZONE_BASE 
 ---@param From string 
 ---@param Event string 
 ---@param to string 
@@ -667,7 +613,6 @@ ZONE_ELASTIC = {}
 ---Positions of the group will be considered as polygon vertices when contructing the convex hull.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param GroupSet SET_GROUP Set of groups.
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:AddSetGroup(GroupSet) end
@@ -675,7 +620,6 @@ function ZONE_ELASTIC:AddSetGroup(GroupSet) end
 ---Add a vertex (point) to the polygon.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Vec2 Vec2 Point in 2D (with x and y coordinates).
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:AddVertex2D(Vec2) end
@@ -683,7 +627,6 @@ function ZONE_ELASTIC:AddVertex2D(Vec2) end
 ---Add a vertex (point) to the polygon.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Vec3 Vec3 Point in 3D (with x, y and z coordinates). Only the x and z coordinates are used.
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:AddVertex3D(Vec3) end
@@ -691,7 +634,6 @@ function ZONE_ELASTIC:AddVertex3D(Vec3) end
 ---Constructor to create a ZONE_ELASTIC instance.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param ZoneName string Name of the zone.
 ---@param Points? Vec2 (Optional) Fixed points.
 ---@return ZONE_ELASTIC #self
@@ -700,7 +642,6 @@ function ZONE_ELASTIC:New(ZoneName, Points) end
 ---Remove a vertex (point) from the polygon.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Vec2 Vec2 Point in 2D (with x and y coordinates).
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:RemoveVertex2D(Vec2) end
@@ -708,7 +649,6 @@ function ZONE_ELASTIC:RemoveVertex2D(Vec2) end
 ---Remove a vertex (point) from the polygon.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Vec3 Vec3 Point in 3D (with x, y and z coordinates). Only the x and z coordinates are used.
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:RemoveVertex3D(Vec3) end
@@ -716,7 +656,6 @@ function ZONE_ELASTIC:RemoveVertex3D(Vec3) end
 ---Start the updating scheduler.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Tstart number Time in seconds before the updating starts.
 ---@param dT number Time interval in seconds between updates. Default 60 sec.
 ---@param Tstop number Time in seconds after which the updating stops. Default `nil`.
@@ -727,7 +666,6 @@ function ZONE_ELASTIC:StartUpdate(Tstart, dT, Tstop, Draw) end
 ---Stop the updating scheduler.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Delay number Delay in seconds before the scheduler will be stopped. Default 0.
 ---@return ZONE_ELASTIC #self
 function ZONE_ELASTIC:StopUpdate(Delay) end
@@ -736,7 +674,6 @@ function ZONE_ELASTIC:StopUpdate(Delay) end
 ---This uses the [Graham scan](https://en.wikipedia.org/wiki/Graham_scan).
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param Delay number Delay in seconds before the zone is updated. Default 0.
 ---@param Draw boolean Draw the zone. Default `nil`.
 ---@return ZONE_ELASTIC #self
@@ -745,7 +682,6 @@ function ZONE_ELASTIC:Update(Delay, Draw) end
 ---Create a convex hull.
 ---
 ------
----@param self ZONE_ELASTIC 
 ---@param pl table Points
 ---@return table #Points
 function ZONE_ELASTIC:_ConvexHull(pl) end
@@ -761,7 +697,6 @@ ZONE_GROUP = {}
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_GROUP 
 ---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
@@ -770,21 +705,18 @@ function ZONE_GROUP:GetRandomPointVec2(inner, outer) end
 ---Returns a random location within the zone of the Wrapper.Group.
 ---
 ------
----@param self ZONE_GROUP 
 ---@return Vec2 #The random location of the zone based on the @{Wrapper.Group} location.
 function ZONE_GROUP:GetRandomVec2() end
 
 ---Returns the current location of the Wrapper.Group.
 ---
 ------
----@param self ZONE_GROUP 
 ---@return Vec2 #The location of the zone based on the @{Wrapper.Group} location.
 function ZONE_GROUP:GetVec2() end
 
 ---Constructor to create a ZONE_GROUP instance, taking the zone name, a zone Wrapper.Group#GROUP and a radius.
 ---
 ------
----@param self ZONE_GROUP 
 ---@param ZoneName string Name of the zone.
 ---@param ZoneGROUP GROUP The @{Wrapper.Group} as the center of the zone.
 ---@param Radius Distance The radius of the zone.
@@ -799,8 +731,7 @@ function ZONE_GROUP:New(ZoneName, ZoneGROUP, Radius) end
 ---ZONE_OVAL created from a center point, major axis, minor axis, and angle.
 ---Ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Oval.lua
 ---@class ZONE_OVAL : ZONE_BASE
----@field Angle NOTYPE 
----@field CenterVec2 table 
+---@field CenterVec2 NOTYPE 
 ---@field DrawPoly NOTYPE 
 ---@field MajorAxis NOTYPE 
 ---@field MinorAxis NOTYPE 
@@ -811,7 +742,6 @@ ZONE_OVAL = {}
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Oval.lua
 ---
 ------
----@param self ZONE_OVAL 
 ---@param Coalition number Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1=All.
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
@@ -825,7 +755,6 @@ function ZONE_OVAL:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineT
 ---Gets the angle of the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return number #The angle of the oval
 function ZONE_OVAL:GetAngle() end
 
@@ -833,21 +762,18 @@ function ZONE_OVAL:GetAngle() end
 ---The bounding box is the smallest rectangle that contains the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return table #The bounding box of the oval
 function ZONE_OVAL:GetBoundingSquare() end
 
 ---Gets the major axis of the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return number #The major axis of the oval
 function ZONE_OVAL:GetMajorAxis() end
 
 ---Gets the minor axis of the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return number #The minor axis of the oval
 function ZONE_OVAL:GetMinorAxis() end
 
@@ -855,7 +781,6 @@ function ZONE_OVAL:GetMinorAxis() end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return COORDINATE #The COORDINATE coordinates.
 function ZONE_OVAL:GetRandomPointVec2() end
 
@@ -863,28 +788,24 @@ function ZONE_OVAL:GetRandomPointVec2() end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec3 table.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return COORDINATE #The COORDINATE coordinates.
 function ZONE_OVAL:GetRandomPointVec3() end
 
 ---Returns a random Vec2 within the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@return table #The random Vec2
 function ZONE_OVAL:GetRandomVec2() end
 
 ---Returns a the center point of the oval
 ---
 ------
----@param self ZONE_OVAL 
 ---@return table #The center Vec2
 function ZONE_OVAL:GetVec2() end
 
 ---Checks if a point is contained within the oval.
 ---
 ------
----@param self ZONE_OVAL 
 ---@param point table The point to check
 ---@param vec2 NOTYPE 
 ---@return boolean #True if the point is contained, false otherwise
@@ -894,7 +815,6 @@ function ZONE_OVAL:IsVec2InZone(point, vec2) end
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Oval.lua
 ---
 ------
----@param self ZONE_OVAL 
 ---@param name string Name of the zone.
 ---@param vec2 table The center point of the oval
 ---@param major_axis number The major axis of the oval
@@ -907,7 +827,6 @@ function ZONE_OVAL:New(name, vec2, major_axis, minor_axis, angle) end
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Oval.lua
 ---
 ------
----@param self ZONE_OVAL 
 ---@param DrawingName string The name of the drawing in the Mission Editor
 ---@return ZONE_OVAL #self
 function ZONE_OVAL:NewFromDrawing(DrawingName) end
@@ -915,7 +834,6 @@ function ZONE_OVAL:NewFromDrawing(DrawingName) end
 ---Find points on the edge of the oval
 ---
 ------
----@param self ZONE_OVAL 
 ---@param num_points number How many points should be found. More = smoother shape
 ---@return table #Points on he edge
 function ZONE_OVAL:PointsOnEdge(num_points) end
@@ -923,7 +841,6 @@ function ZONE_OVAL:PointsOnEdge(num_points) end
 ---Remove drawing from F10 map
 ---
 ------
----@param self ZONE_OVAL 
 function ZONE_OVAL:UndrawZone() end
 
 
@@ -964,7 +881,6 @@ ZONE_POLYGON = {}
 ---Check if a certain coalition is inside a scanned zone.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition number The coalition id, e.g. coalition.side.BLUE.
 ---@return boolean #If true, the coalition is inside the zone.
 function ZONE_POLYGON:CheckScannedCoalition(Coalition) end
@@ -972,14 +888,12 @@ function ZONE_POLYGON:CheckScannedCoalition(Coalition) end
 ---Count the number of different coalitions inside the zone.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return number #Counted coalitions.
 function ZONE_POLYGON:CountScannedCoalitions() end
 
 ---Find a polygon zone in the _DATABASE using the name of the polygon zone.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param ZoneName string The name of the polygon zone.
 ---@return ZONE_POLYGON #self
 function ZONE_POLYGON:FindByName(ZoneName) end
@@ -990,7 +904,6 @@ function ZONE_POLYGON:FindByName(ZoneName) end
 ---Returns the Coalition for the given Coalition if there are units of the Coalition in the Zone.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition NOTYPE 
 ---@return table #
 function ZONE_POLYGON:GetScannedCoalition(Coalition) end
@@ -998,21 +911,18 @@ function ZONE_POLYGON:GetScannedCoalition(Coalition) end
 ---Get scanned scenery table
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return table #Structured table of [type].[name].Wrapper.Scenery#SCENERY scenery objects.
 function ZONE_POLYGON:GetScannedScenery() end
 
 ---Get scanned scenery table
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return table #Table of Wrapper.Scenery#SCENERY scenery objects.
 function ZONE_POLYGON:GetScannedSceneryObjects() end
 
 ---Get scanned scenery types
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param SceneryType NOTYPE 
 ---@return table #Table of DCS scenery type objects.
 function ZONE_POLYGON:GetScannedSceneryType(SceneryType) end
@@ -1020,28 +930,24 @@ function ZONE_POLYGON:GetScannedSceneryType(SceneryType) end
 ---Get a set of scanned units.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return SET_GROUP #Set of groups.
 function ZONE_POLYGON:GetScannedSetGroup() end
 
 ---Get scanned set of scenery objects
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return table #Table of Wrapper.Scenery#SCENERY scenery objects.
 function ZONE_POLYGON:GetScannedSetScenery() end
 
 ---Get a set of scanned units.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return SET_UNIT #Set of units and statics inside the zone.
 function ZONE_POLYGON:GetScannedSetUnit() end
 
 ---Count the number of different coalitions inside the zone.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@return table #Table of DCS units and DCS statics inside the zone.
 function ZONE_POLYGON:GetScannedUnits() end
 
@@ -1056,7 +962,6 @@ function ZONE_POLYGON:GetScannedUnits() end
 ---   local IsGuarded = self.Zone:IsAllInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition number Coalition ID of the coalition which is checked to be the only one in the zone.
 ---@return boolean #True, if **only** that coalition is inside the zone and no one else.
 function ZONE_POLYGON:IsAllInZoneOfCoalition(Coalition) end
@@ -1074,7 +979,6 @@ function ZONE_POLYGON:IsAllInZoneOfCoalition(Coalition) end
 ---   local IsCaptured = self.Zone:IsAllInZoneOfOtherCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition number Coalition ID of the coalition which is not supposed to be in the zone.
 ---@return boolean #True, if and only if only one coalition is inside the zone and the specified coalition is not it.
 function ZONE_POLYGON:IsAllInZoneOfOtherCoalition(Coalition) end
@@ -1091,7 +995,6 @@ function ZONE_POLYGON:IsAllInZoneOfOtherCoalition(Coalition) end
 ---   local IsEmpty = self.Zone:IsNoneInZone()
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@return boolean #
 function ZONE_POLYGON:IsNoneInZone() end
 
@@ -1107,7 +1010,6 @@ function ZONE_POLYGON:IsNoneInZone() end
 ---   local IsOccupied = self.Zone:IsNoneInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition NOTYPE 
 ---@return boolean #
 function ZONE_POLYGON:IsNoneInZoneOfCoalition(Coalition) end
@@ -1125,7 +1027,6 @@ function ZONE_POLYGON:IsNoneInZoneOfCoalition(Coalition) end
 ---   local IsAttacked = self.Zone:IsSomeInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@param Coalition number ID of the coalition which is checked to be inside the zone.
 ---@return boolean #True if more than one coalition is inside the zone and the specified coalition is one of them.
 function ZONE_POLYGON:IsSomeInZoneOfCoalition(Coalition) end
@@ -1134,7 +1035,6 @@ function ZONE_POLYGON:IsSomeInZoneOfCoalition(Coalition) end
 ---The Wrapper.Group#GROUP waypoints define the polygon corners. The first and the last point are automatically connected by ZONE_POLYGON.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param ZoneName string Name of the zone.
 ---@param ZoneGroup GROUP The GROUP waypoints as defined within the Mission Editor define the polygon shape.
 ---@return ZONE_POLYGON #self
@@ -1143,7 +1043,6 @@ function ZONE_POLYGON:New(ZoneName, ZoneGroup) end
 ---Constructor to create a ZONE_POLYGON instance, taking the name of a drawing made with the draw tool in the Mission Editor.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param DrawingName string The name of the drawing in the Mission Editor
 ---@return ZONE_POLYGON #self
 function ZONE_POLYGON:NewFromDrawing(DrawingName) end
@@ -1152,7 +1051,6 @@ function ZONE_POLYGON:NewFromDrawing(DrawingName) end
 ---The Wrapper.Group#GROUP waypoints define the polygon corners. The first and the last point are automatically connected by ZONE_POLYGON.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param GroupName string The group name of the GROUP defining the waypoints within the Mission Editor to define the polygon shape.
 ---@return ZONE_POLYGON #self
 function ZONE_POLYGON:NewFromGroupName(GroupName) end
@@ -1160,7 +1058,6 @@ function ZONE_POLYGON:NewFromGroupName(GroupName) end
 ---Constructor to create a ZONE_POLYGON instance, taking the zone name and an array of DCS#Vec2, forming a polygon.
 ---
 ------
----@param self ZONE_POLYGON 
 ---@param ZoneName string Name of the zone.
 ---@param PointsArray ZONE_POLYGON_BASE.ListVec2 An array of @{DCS#Vec2}, forming a polygon.
 ---@return ZONE_POLYGON #self
@@ -1184,7 +1081,6 @@ function ZONE_POLYGON:NewFromPointsArray(ZoneName, PointsArray) end
 ---   local IsAttacked = myzone:IsSomeInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_POLYGON 
 ---@param ObjectCategories NOTYPE An array of categories of the objects to find in the zone. E.g. `{Object.Category.UNIT}`
 ---@param UnitCategories NOTYPE An array of unit categories of the objects to find in the zone. E.g. `{Unit.Category.GROUND_UNIT,Unit.Category.SHIP}`
 function ZONE_POLYGON:Scan(ObjectCategories, UnitCategories) end
@@ -1218,7 +1114,6 @@ ZONE_POLYGON_BASE = {}
 ---Smokes the zone boundaries in a color.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param UnBound boolean If true, the tyres will be destroyed.
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:BoundZone(UnBound) end
@@ -1226,7 +1121,6 @@ function ZONE_POLYGON_BASE:BoundZone(UnBound) end
 ---Draw a frontier on the F10 map with small filled circles.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Coalition? number (Optional) Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1= All.
 ---@param Color? table (Optional) RGB color table {r, g, b}, e.g. {1, 0, 0} for red. Default {1, 1, 1}= White.
 ---@param Radius? number (Optional) Radius of the circles in meters. Default 1000.
@@ -1241,7 +1135,6 @@ function ZONE_POLYGON_BASE:Boundary(Coalition, Color, Radius, Alpha, Segments, C
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Polygon.lua
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Coalition number Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1=All.
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
@@ -1256,7 +1149,6 @@ function ZONE_POLYGON_BASE:DrawZone(Coalition, Color, Alpha, FillColor, FillAlph
 ---Flare the zone boundaries in a color.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param FlareColor FLARECOLOR The flare color.
 ---@param Segments? number (Optional) Number of segments within boundary line. Default 10.
 ---@param Azimuth? Azimuth (optional) Azimuth The azimuth of the flare.
@@ -1267,21 +1159,18 @@ function ZONE_POLYGON_BASE:FlareZone(FlareColor, Segments, Azimuth, AddHeight) e
 ---Flush polygon coordinates as a table in DCS.log.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:Flush() end
 
 ---Get the bounding square the zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return ZONE_POLYGON_BASE.BoundingSquare #The bounding square.
 function ZONE_POLYGON_BASE:GetBoundingSquare() end
 
 ---Get the bounding 2D vectors of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return Vec2 #Coordinates of western-southern-lower vertex of the box.
 ---@return Vec2 #Coordinates of eastern-northern-upper vertex of the box.
 function ZONE_POLYGON_BASE:GetBoundingVec2() end
@@ -1289,14 +1178,12 @@ function ZONE_POLYGON_BASE:GetBoundingVec2() end
 ---Get the smallest radius encompassing all points of the polygon zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return number #Radius of the zone in meters.
 function ZONE_POLYGON_BASE:GetRadius() end
 
 ---Return a Core.Point#COORDINATE object representing a random 3D point at landheight within the zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return COORDINATE #
 function ZONE_POLYGON_BASE:GetRandomCoordinate() end
 
@@ -1304,44 +1191,38 @@ function ZONE_POLYGON_BASE:GetRandomCoordinate() end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
----@return  #@{Core.Point#COORDINATE}
+---@return NOTYPE #@{Core.Point#COORDINATE}
 function ZONE_POLYGON_BASE:GetRandomPointVec2() end
 
 ---Return a Core.Point#COORDINATE object representing a random 3D point at landheight within the zone.
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec3 table.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
----@return  #@{Core.Point#COORDINATE}
+---@return NOTYPE #@{Core.Point#COORDINATE}
 function ZONE_POLYGON_BASE:GetRandomPointVec3() end
 
 ---Define a random DCS#Vec2 within the zone.
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Polygon.lua
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return Vec2 #The Vec2 coordinate.
 function ZONE_POLYGON_BASE:GetRandomVec2() end
 
 ---Get the surface area of this polygon
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return number #Surface area
 function ZONE_POLYGON_BASE:GetSurfaceArea() end
 
 ---Returns the center location of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return Vec2 #The location of the zone based on the @{Wrapper.Group} location.
 function ZONE_POLYGON_BASE:GetVec2() end
 
 ---Get a vertex of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Index number Index of the vertex. Default 1.
 ---@return COORDINATE #Vertex of the polygon.
 function ZONE_POLYGON_BASE:GetVertexCoordinate(Index) end
@@ -1349,7 +1230,6 @@ function ZONE_POLYGON_BASE:GetVertexCoordinate(Index) end
 ---Get a vertex of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Index number Index of the vertex. Default 1.
 ---@return Vec2 #Vertex of the polygon.
 function ZONE_POLYGON_BASE:GetVertexVec2(Index) end
@@ -1357,7 +1237,6 @@ function ZONE_POLYGON_BASE:GetVertexVec2(Index) end
 ---Get a vertex of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Index number Index of the vertex. Default 1.
 ---@return Vec3 #Vertex of the polygon.
 function ZONE_POLYGON_BASE:GetVertexVec3(Index) end
@@ -1365,28 +1244,24 @@ function ZONE_POLYGON_BASE:GetVertexVec3(Index) end
 ---Get a list of verticies of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return table #List of COORDINATES verticies defining the edges of the polygon.
 function ZONE_POLYGON_BASE:GetVerticiesCoordinates() end
 
 ---Get a list of verticies of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
----@return  #<DCS#Vec2> List of DCS#Vec2 verticies defining the edges of the polygon.
+---@return NOTYPE #<DCS#Vec2> List of DCS#Vec2 verticies defining the edges of the polygon.
 function ZONE_POLYGON_BASE:GetVerticiesVec2() end
 
 ---Get a list of verticies of the polygon.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return table #List of DCS#Vec3 verticies defining the edges of the polygon.
 function ZONE_POLYGON_BASE:GetVerticiesVec3() end
 
 ---Get the smallest rectangular zone encompassing all points points of the polygon zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param ZoneName? string (Optional) Name of the zone. Default is the name of the polygon zone.
 ---@param DoNotRegisterZone? boolean (Optional) If `true`, zone is not registered.
 ---@return ZONE_POLYGON #The rectangular zone.
@@ -1395,7 +1270,6 @@ function ZONE_POLYGON_BASE:GetZoneQuad(ZoneName, DoNotRegisterZone) end
 ---Get the smallest circular zone encompassing all points of the polygon zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param ZoneName? string (Optional) Name of the zone. Default is the name of the polygon zone.
 ---@param DoNotRegisterZone? boolean (Optional) If `true`, zone is not registered.
 ---@return ZONE_RADIUS #The circular zone.
@@ -1405,7 +1279,6 @@ function ZONE_POLYGON_BASE:GetZoneRadius(ZoneName, DoNotRegisterZone) end
 ---Source learned and taken from: https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Vec2 Vec2 The location to test.
 ---@return boolean #true if the location is within the zone.
 function ZONE_POLYGON_BASE:IsVec2InZone(Vec2) end
@@ -1413,7 +1286,6 @@ function ZONE_POLYGON_BASE:IsVec2InZone(Vec2) end
 ---Returns if a point is within the zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Vec3 Vec3 The point to test.
 ---@return boolean #true if the point is within the zone.
 function ZONE_POLYGON_BASE:IsVec3InZone(Vec3) end
@@ -1422,7 +1294,6 @@ function ZONE_POLYGON_BASE:IsVec3InZone(Vec3) end
 ---The Wrapper.Group#GROUP waypoints define the polygon corners. The first and the last point are automatically connected.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param ZoneName string Name of the zone.
 ---@param PointsArray ZONE_POLYGON_BASE.ListVec2 An array of @{DCS#Vec2}, forming a polygon.
 ---@return ZONE_POLYGON_BASE #self
@@ -1431,7 +1302,6 @@ function ZONE_POLYGON_BASE:New(ZoneName, PointsArray) end
 ---Change/Re-draw the border of a Polygon Zone
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
 ---@param LineType number Line type: 0=No line, 1=Solid, 2=Dashed, 3=Dotted, 4=Dot dash, 5=Long dash, 6=Two dash. Default 1=Solid.
@@ -1441,7 +1311,6 @@ function ZONE_POLYGON_BASE:ReDrawBorderline(Color, Alpha, LineType) end
 ---Change/Re-fill a Polygon Zone
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
 ---@return ZONE_POLYGON_BASE #self
@@ -1451,7 +1320,6 @@ function ZONE_POLYGON_BASE:ReFill(Color, Alpha) end
 ---Due to DCS limitations, this works only for rectangular zones. So we get the smallest rectangular zone encompassing all points points of the polygon zone.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Height number Height of the box in meters. Default 1000.
 ---@return number #Number of removed objects.
 function ZONE_POLYGON_BASE:RemoveJunk(Height) end
@@ -1459,7 +1327,6 @@ function ZONE_POLYGON_BASE:RemoveJunk(Height) end
 ---Smokes the zone boundaries in a color.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param SmokeColor SMOKECOLOR The smoke color.
 ---@param Segments? number (Optional) Number of segments within boundary line. Default 10.
 ---@return ZONE_POLYGON_BASE #self
@@ -1468,7 +1335,6 @@ function ZONE_POLYGON_BASE:SmokeZone(SmokeColor, Segments) end
 ---Update polygon points with an array of DCS#Vec2.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Vec2Array ZONE_POLYGON_BASE.ListVec2 An array of @{DCS#Vec2}, forming a polygon.
 ---@return ZONE_POLYGON_BASE #self
 function ZONE_POLYGON_BASE:UpdateFromVec2(Vec2Array) end
@@ -1476,7 +1342,6 @@ function ZONE_POLYGON_BASE:UpdateFromVec2(Vec2Array) end
 ---Update polygon points with an array of DCS#Vec3.
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@param Vec2Array ZONE_POLYGON_BASE.ListVec3 An array of @{DCS#Vec3}, forming a polygon.
 ---@param Vec3Array NOTYPE 
 ---@return ZONE_POLYGON_BASE #self
@@ -1487,7 +1352,6 @@ function ZONE_POLYGON_BASE:UpdateFromVec3(Vec2Array, Vec3Array) end
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Polygon.lua
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return number #The surface area of the polygon
 function ZONE_POLYGON_BASE:_CalculateSurfaceArea() end
 
@@ -1495,7 +1359,6 @@ function ZONE_POLYGON_BASE:_CalculateSurfaceArea() end
 ---- ported from https://github.com/nielsvaes/CCMOOSE/blob/master/Moose%20Development/Moose/Shapes/Polygon.lua
 ---
 ------
----@param self ZONE_POLYGON_BASE 
 ---@return table #The #_ZONE_TRIANGLE list that makes up the polygon
 function ZONE_POLYGON_BASE:_Triangulate() end
 
@@ -1541,7 +1404,6 @@ ZONE_RADIUS = {}
 ---Bounds the zone with tires.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Points? number (optional) The amount of points in the circle. Default 360.
 ---@param CountryID country.id The country id of the tire objects, e.g. country.id.USA for blue or country.id.RUSSIA for red.
 ---@param UnBound? boolean (Optional) If true the tyres will be destroyed.
@@ -1551,7 +1413,6 @@ function ZONE_RADIUS:BoundZone(Points, CountryID, UnBound) end
 ---Check if a certain coalition is inside a scanned zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition number The coalition id, e.g. coalition.side.BLUE.
 ---@return boolean #If true, the coalition is inside the zone.
 function ZONE_RADIUS:CheckScannedCoalition(Coalition) end
@@ -1559,14 +1420,12 @@ function ZONE_RADIUS:CheckScannedCoalition(Coalition) end
 ---Count the number of different coalitions inside the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return number #Counted coalitions.
 function ZONE_RADIUS:CountScannedCoalitions() end
 
 ---Draw the zone circle on the F10 map.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition number Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1=All.
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
@@ -1580,7 +1439,6 @@ function ZONE_RADIUS:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, Lin
 ---Flares the zone boundaries in a color.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param FlareColor FLARECOLOR The flare color.
 ---@param Points? number (optional) The amount of points in the circle.
 ---@param Azimuth? Azimuth (optional) Azimuth The azimuth of the flare.
@@ -1591,14 +1449,12 @@ function ZONE_RADIUS:FlareZone(FlareColor, Points, Azimuth, AddHeight) end
 ---Returns the radius of the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return Distance #The radius of the zone.
 function ZONE_RADIUS:GetRadius() end
 
 ---Returns a Core.Point#COORDINATE object reflecting a random 3D location within the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (Optional) Minimal distance from the center of the zone in meters. Default is 0 m.
 ---@param outer? number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
 ---@param surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
@@ -1609,7 +1465,6 @@ function ZONE_RADIUS:GetRandomCoordinate(inner, outer, surfacetypes) end
 ---Does not find statics you might have placed there. **Note** This might be quite CPU intensive, use with care.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (Optional) Minimal distance from the center of the zone in meters. Default is 0m.
 ---@param outer? number (Optional) Maximal distance from the outer edge of the zone in meters. Default is the radius of the zone.
 ---@param distance? number (Optional) Minimum distance from any building coordinate. Defaults to 100m.
@@ -1622,7 +1477,6 @@ function ZONE_RADIUS:GetRandomCoordinateWithoutBuildings(inner, outer, distance,
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec2 table.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
@@ -1632,7 +1486,6 @@ function ZONE_RADIUS:GetRandomPointVec2(inner, outer) end
 ---Note that this is actually a Core.Point#COORDINATE type object, and not a simple Vec3 table.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return COORDINATE #The @{Core.Point#COORDINATE} object reflecting the random 3D location within the zone.
@@ -1641,7 +1494,6 @@ function ZONE_RADIUS:GetRandomPointVec3(inner, outer) end
 ---Returns a random Vec2 location within the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (Optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (Optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@param surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 100 times to find the right type!
@@ -1651,7 +1503,6 @@ function ZONE_RADIUS:GetRandomVec2(inner, outer, surfacetypes) end
 ---Returns Returns a random Vec3 location within the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param inner? number (optional) Minimal distance from the center of the zone. Default is 0.
 ---@param outer? number (optional) Maximal distance from the outer edge of the zone. Default is the radius of the zone.
 ---@return Vec3 #The random location within the zone.
@@ -1663,7 +1514,6 @@ function ZONE_RADIUS:GetRandomVec3(inner, outer) end
 ---Returns the Coalition for the given Coalition if there are units of the Coalition in the Zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition NOTYPE 
 ---@return table #
 function ZONE_RADIUS:GetScannedCoalition(Coalition) end
@@ -1671,21 +1521,18 @@ function ZONE_RADIUS:GetScannedCoalition(Coalition) end
 ---Get scanned scenery table
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return table #Structured object table: [type].[name].SCENERY
 function ZONE_RADIUS:GetScannedScenery() end
 
 ---Get table of scanned scenery objects
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return table #Table of SCENERY objects.
 function ZONE_RADIUS:GetScannedSceneryObjects() end
 
 ---Get scanned scenery type
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param SceneryType NOTYPE 
 ---@return table #Table of DCS scenery type objects.
 function ZONE_RADIUS:GetScannedSceneryType(SceneryType) end
@@ -1693,42 +1540,36 @@ function ZONE_RADIUS:GetScannedSceneryType(SceneryType) end
 ---Get a set of scanned groups.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return SET_GROUP #Set of groups.
 function ZONE_RADIUS:GetScannedSetGroup() end
 
 ---Get set of scanned scenery objects
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return table #Table of Wrapper.Scenery#SCENERY scenery objects.
 function ZONE_RADIUS:GetScannedSetScenery() end
 
 ---Get a set of scanned units.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return SET_UNIT #Set of units and statics inside the zone.
 function ZONE_RADIUS:GetScannedSetUnit() end
 
 ---Get a table  of scanned units.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return table #Table of DCS units and DCS statics inside the zone.
 function ZONE_RADIUS:GetScannedUnits() end
 
 ---Returns the DCS#Vec2 of the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return Vec2 #The location of the zone.
 function ZONE_RADIUS:GetVec2() end
 
 ---Returns the DCS#Vec3 of the ZONE_RADIUS.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return Vec3 #The point of the zone.
 function ZONE_RADIUS:GetVec3(Height) end
@@ -1744,7 +1585,6 @@ function ZONE_RADIUS:GetVec3(Height) end
 ---   local IsGuarded = self.Zone:IsAllInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition number Coalition ID of the coalition which is checked to be the only one in the zone.
 ---@return boolean #True, if **only** that coalition is inside the zone and no one else.
 function ZONE_RADIUS:IsAllInZoneOfCoalition(Coalition) end
@@ -1762,7 +1602,6 @@ function ZONE_RADIUS:IsAllInZoneOfCoalition(Coalition) end
 ---   local IsCaptured = self.Zone:IsAllInZoneOfOtherCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition number Coalition ID of the coalition which is not supposed to be in the zone.
 ---@return boolean #True, if and only if only one coalition is inside the zone and the specified coalition is not it.
 function ZONE_RADIUS:IsAllInZoneOfOtherCoalition(Coalition) end
@@ -1779,7 +1618,6 @@ function ZONE_RADIUS:IsAllInZoneOfOtherCoalition(Coalition) end
 ---   local IsEmpty = self.Zone:IsNoneInZone()
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@return boolean #
 function ZONE_RADIUS:IsNoneInZone() end
 
@@ -1795,7 +1633,6 @@ function ZONE_RADIUS:IsNoneInZone() end
 ---   local IsOccupied = self.Zone:IsNoneInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition NOTYPE 
 ---@return boolean #
 function ZONE_RADIUS:IsNoneInZoneOfCoalition(Coalition) end
@@ -1813,7 +1650,6 @@ function ZONE_RADIUS:IsNoneInZoneOfCoalition(Coalition) end
 ---   local IsAttacked = self.Zone:IsSomeInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@param Coalition number ID of the coalition which is checked to be inside the zone.
 ---@return boolean #True if more than one coalition is inside the zone and the specified coalition is one of them.
 function ZONE_RADIUS:IsSomeInZoneOfCoalition(Coalition) end
@@ -1821,7 +1657,6 @@ function ZONE_RADIUS:IsSomeInZoneOfCoalition(Coalition) end
 ---Returns if a location is within the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Vec2 Vec2 The location to test.
 ---@return boolean #true if the location is within the zone.
 function ZONE_RADIUS:IsVec2InZone(Vec2) end
@@ -1829,7 +1664,6 @@ function ZONE_RADIUS:IsVec2InZone(Vec2) end
 ---Returns if a point is within the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Vec3 Vec3 The point to test.
 ---@return boolean #true if the point is within the zone.
 function ZONE_RADIUS:IsVec3InZone(Vec3) end
@@ -1837,7 +1671,6 @@ function ZONE_RADIUS:IsVec3InZone(Vec3) end
 ---Mark the zone with markers on the F10 map.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Points? number (Optional) The amount of points in the circle. Default 360.
 ---@return ZONE_RADIUS #self
 function ZONE_RADIUS:MarkZone(Points) end
@@ -1845,7 +1678,6 @@ function ZONE_RADIUS:MarkZone(Points) end
 ---Constructor of #ZONE_RADIUS, taking the zone name, the zone location and a radius.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param ZoneName string Name of the zone.
 ---@param Vec2 Vec2 The location of the zone.
 ---@param Radius Distance The radius of the zone.
@@ -1856,7 +1688,6 @@ function ZONE_RADIUS:New(ZoneName, Vec2, Radius, DoNotRegisterZone) end
 ---Remove junk inside the zone using the `world.removeJunk` function.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@return number #Number of deleted objects.
 function ZONE_RADIUS:RemoveJunk() end
 
@@ -1877,7 +1708,6 @@ function ZONE_RADIUS:RemoveJunk() end
 ---   local IsAttacked = myzone:IsSomeInZoneOfCoalition( self.Coalition )
 ---```
 ------
----@param self ZONE_RADIUS 
 ---@param ObjectCategories NOTYPE An array of categories of the objects to find in the zone. E.g. `{Object.Category.UNIT}`
 ---@param UnitCategories NOTYPE An array of unit categories of the objects to find in the zone. E.g. `{Unit.Category.GROUND_UNIT,Unit.Category.SHIP}`
 function ZONE_RADIUS:Scan(ObjectCategories, UnitCategories) end
@@ -1885,7 +1715,6 @@ function ZONE_RADIUS:Scan(ObjectCategories, UnitCategories) end
 ---Searches the zone
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param ObjectCategories NOTYPE A list of categories, which are members of Object.Category
 ---@param EvaluateFunction NOTYPE 
 function ZONE_RADIUS:SearchZone(ObjectCategories, EvaluateFunction) end
@@ -1893,7 +1722,6 @@ function ZONE_RADIUS:SearchZone(ObjectCategories, EvaluateFunction) end
 ---Sets the radius of the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Radius Distance The radius of the zone.
 ---@return Distance #The radius of the zone.
 function ZONE_RADIUS:SetRadius(Radius) end
@@ -1901,7 +1729,6 @@ function ZONE_RADIUS:SetRadius(Radius) end
 ---Sets the DCS#Vec2 of the zone.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Vec2 Vec2 The new location of the zone.
 ---@return Vec2 #The new location of the zone.
 function ZONE_RADIUS:SetVec2(Vec2) end
@@ -1909,7 +1736,6 @@ function ZONE_RADIUS:SetVec2(Vec2) end
 ---Smokes the zone boundaries in a color.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param SmokeColor SMOKECOLOR The smoke color.
 ---@param Points? number (optional) The amount of points in the circle.
 ---@param AddHeight? number (optional) The height to be added for the smoke.
@@ -1921,7 +1747,6 @@ function ZONE_RADIUS:SmokeZone(SmokeColor, Points, AddHeight, AddOffSet, AngleOf
 ---Update zone from a 2D vector.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Vec2 Vec2 The location of the zone.
 ---@param Radius Distance The radius of the zone.
 ---@return ZONE_RADIUS #self
@@ -1930,7 +1755,6 @@ function ZONE_RADIUS:UpdateFromVec2(Vec2, Radius) end
 ---Update zone from a 2D vector.
 ---
 ------
----@param self ZONE_RADIUS 
 ---@param Vec3 Vec3 The location of the zone.
 ---@param Radius Distance The radius of the zone.
 ---@return ZONE_RADIUS #self
@@ -1949,21 +1773,18 @@ ZONE_UNIT = {}
 ---Returns a random location within the zone.
 ---
 ------
----@param self ZONE_UNIT 
 ---@return Vec2 #The random location within the zone.
 function ZONE_UNIT:GetRandomVec2() end
 
 ---Returns the current location of the Wrapper.Unit#UNIT.
 ---
 ------
----@param self ZONE_UNIT 
 ---@return Vec2 #The location of the zone based on the @{Wrapper.Unit#UNIT}location and the offset, if any.
 function ZONE_UNIT:GetVec2() end
 
 ---Returns the DCS#Vec3 of the ZONE_UNIT.
 ---
 ------
----@param self ZONE_UNIT 
 ---@param Height Distance The height to add to the land height where the center of the zone is located.
 ---@return Vec3 #The point of the zone.
 function ZONE_UNIT:GetVec3(Height) end
@@ -1971,7 +1792,6 @@ function ZONE_UNIT:GetVec3(Height) end
 ---Constructor to create a ZONE_UNIT instance, taking the zone name, a zone unit and a radius and optional offsets in X and Y directions.
 ---
 ------
----@param self ZONE_UNIT 
 ---@param ZoneName string Name of the zone.
 ---@param ZoneUNIT UNIT The unit as the center of the zone.
 ---@param Radius number The radius of the zone in meters.
@@ -1994,7 +1814,6 @@ _ZONE_TRIANGLE = {}
 ---Checks if a point is contained within the triangle.
 ---
 ------
----@param self _ZONE_TRIANGLE 
 ---@param pt table The point to check
 ---@param points? table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@return boolean #True if the point is contained, false otherwise
@@ -2003,7 +1822,6 @@ function _ZONE_TRIANGLE:ContainsPoint(pt, points) end
 ---Draw the triangle
 ---
 ------
----@param self _ZONE_TRIANGLE 
 ---@param Coalition NOTYPE 
 ---@param Color NOTYPE 
 ---@param Alpha NOTYPE 
@@ -2017,7 +1835,6 @@ function _ZONE_TRIANGLE:Draw(Coalition, Color, Alpha, FillColor, FillAlpha, Line
 ---Draw the triangle
 ---
 ------
----@param self _ZONE_TRIANGLE 
 ---@param Coalition NOTYPE 
 ---@param FillColor NOTYPE 
 ---@param FillAlpha NOTYPE 
@@ -2028,7 +1845,6 @@ function _ZONE_TRIANGLE:Fill(Coalition, FillColor, FillAlpha, ReadOnly) end
 ---Returns a random Vec2 within the triangle.
 ---
 ------
----@param self _ZONE_TRIANGLE 
 ---@param points table The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@return table #The random Vec2
 function _ZONE_TRIANGLE:GetRandomVec2(points) end
@@ -2036,7 +1852,6 @@ function _ZONE_TRIANGLE:GetRandomVec2(points) end
 
 ---
 ------
----@param self _ZONE_TRIANGLE 
 ---@param p1 Vec 
 ---@param p2 Vec 
 ---@param p3 Vec 

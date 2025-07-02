@@ -80,14 +80,12 @@ DETECTION_AREAS = {}
 ---Bound the detected zones
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:BoundDetectedZones() end
 
 ---Calculate the optimal intercept point of the DetectedItem.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 function DETECTION_AREAS:CalculateIntercept(DetectedItem) end
 
@@ -95,14 +93,12 @@ function DETECTION_AREAS:CalculateIntercept(DetectedItem) end
 ---This function will be overridden in the derived classes.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:CreateDetectionItems() end
 
 ---Report summary of a detected item using a given numeric index.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
 ---@param Settings? SETTINGS (Optional) Message formatting settings to use.
@@ -112,7 +108,6 @@ function DETECTION_AREAS:DetectedItemReportMenu(DetectedItem, AttackGroup, Setti
 ---Report summary of a detected item using a given numeric index.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
 ---@param Settings? SETTINGS (Optional) Message formatting settings to use.
@@ -122,7 +117,6 @@ function DETECTION_AREAS:DetectedItemReportSummary(DetectedItem, AttackGroup, Se
 ---Report detailed of a detection result.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@return string #
 function DETECTION_AREAS:DetectedReportDetailed(AttackGroup) end
@@ -130,21 +124,18 @@ function DETECTION_AREAS:DetectedReportDetailed(AttackGroup) end
 ---Flare the detected units
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:FlareDetectedUnits() end
 
 ---Flare the detected zones
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:FlareDetectedZones() end
 
 ---Make text documenting the changes of the detected zone.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return string #The Changes text
 function DETECTION_AREAS:GetChangeText(DetectedItem) end
@@ -152,7 +143,6 @@ function DETECTION_AREAS:GetChangeText(DetectedItem) end
 ---Retrieve a specific zone by its ID (number)
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param ID number 
 ---@return ZONE_UNIT #The zone or nil if it does not exist
 function DETECTION_AREAS:GetDetectionZoneByID(ID) end
@@ -160,21 +150,18 @@ function DETECTION_AREAS:GetDetectionZoneByID(ID) end
 ---Retrieve number of detected zones.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return number #The number of zones.
 function DETECTION_AREAS:GetDetectionZoneCount() end
 
 ---Retrieve set of detected zones.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return SET_ZONE #The @{Core.Set} of ZONE_UNIT objects detected.
 function DETECTION_AREAS:GetDetectionZones() end
 
 ---DETECTION_AREAS constructor.
 ---
 ------
----@param self DETECTION_AREAS 
 ---@param DetectionSetGroup SET_GROUP The @{Core.Set} of GROUPs in the Forward Air Controller role.
 ---@param DetectionZoneRange number The range in meters within which targets are grouped upon the first detected target. Default 5000m.
 ---@return DETECTION_AREAS #
@@ -183,14 +170,12 @@ function DETECTION_AREAS:New(DetectionSetGroup, DetectionZoneRange) end
 ---Smoke the detected units
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:SmokeDetectedUnits() end
 
 ---Smoke the detected zones
 ---
 ------
----@param self DETECTION_AREAS 
 ---@return DETECTION_AREAS #self
 function DETECTION_AREAS:SmokeDetectedZones() end
 
@@ -418,6 +403,8 @@ function DETECTION_AREAS:SmokeDetectedZones() end
 ---@field DetectRWR NOTYPE 
 ---@field DetectRadar NOTYPE 
 ---@field DetectVisual NOTYPE 
+---@field DetectedItemCount number 
+---@field DetectedItemMax number 
 ---@field DetectedItems table 
 ---@field DetectedObjects DETECTION_BASE.DetectedObjects The list of detected objects.
 ---@field DetectedObjectsIdentified table Map of the DetectedObjects identified.
@@ -430,7 +417,6 @@ function DETECTION_AREAS:SmokeDetectedZones() end
 ---@field FriendliesRange NOTYPE 
 ---@field Intercept NOTYPE 
 ---@field InterceptDelay NOTYPE 
----@field Locking boolean 
 ---@field RadarBlur boolean 
 ---@field RefreshTimeInterval NOTYPE 
 ---@field RejectZones table 
@@ -442,7 +428,6 @@ DETECTION_BASE = {}
 ---Accepts changes from the detected item.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:AcceptChanges(DetectedItem) end
@@ -450,7 +435,6 @@ function DETECTION_BASE:AcceptChanges(DetectedItem) end
 ---Add a change to the detected zone.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@param ChangeCode string 
 ---@param ItemUnitType NOTYPE 
@@ -460,7 +444,6 @@ function DETECTION_BASE:AddChangeItem(DetectedItem, ChangeCode, ItemUnitType) en
 ---Add a change to the detected zone.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@param ChangeCode string 
 ---@param ChangeUnitType string 
@@ -471,7 +454,6 @@ function DETECTION_BASE:AddChangeUnit(DetectedItem, ChangeCode, ChangeUnitType) 
 ---The DetectedItem is a table and contains a SET_UNIT in the field Set.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param ItemPrefix string Prefix of detected item.
 ---@param DetectedItemKey number The key of the DetectedItem. Default self.DetectedItemMax. Could also be a string in principle.
 ---@param Set? SET_UNIT (optional) The Set of Units to be added.
@@ -482,7 +464,6 @@ function DETECTION_BASE:AddDetectedItem(ItemPrefix, DetectedItemKey, Set) end
 ---The DetectedItem is a table and contains a SET_UNIT in the field Set.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItemKey NOTYPE The key of the DetectedItem.
 ---@param Set? SET_UNIT (optional) The Set of Units to be added.
 ---@param Zone? ZONE_UNIT (optional) The Zone to be added where the Units are located.
@@ -493,7 +474,6 @@ function DETECTION_BASE:AddDetectedItemZone(DetectedItemKey, Set, Zone, ItemPref
 ---Clean the DetectedItem table.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem NOTYPE 
 ---@param DetectedItemID NOTYPE 
 ---@return DETECTION_BASE #
@@ -502,34 +482,29 @@ function DETECTION_BASE:CleanDetectionItem(DetectedItem, DetectedItemID) end
 
 ---
 ------
----@param self NOTYPE 
 function DETECTION_BASE:CountAliveRecce() end
 
 ---Make a DetectionSet table.
 ---This function will be overridden in the derived clsses.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE #
 function DETECTION_BASE:CreateDetectionItems() end
 
 ---Synchronous Event Trigger for Event Detect.
 ---
 ------
----@param self DETECTION_BASE 
 function DETECTION_BASE:Detect() end
 
 ---Synchronous Event Trigger for Event Detected.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Units table Table of detected units.
 function DETECTION_BASE:Detected(Units) end
 
 ---Report summary of a detected item using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@param Settings SETTINGS Message formatting settings to use.
@@ -539,7 +514,6 @@ function DETECTION_BASE:DetectedItemReportSummary(DetectedItem, AttackGroup, Set
 ---Report detailed of a detection result.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@return string #
 function DETECTION_BASE:DetectedReportDetailed(AttackGroup) end
@@ -564,7 +538,6 @@ function DETECTION_BASE:DetectedReportDetailed(AttackGroup) end
 ---    DetectionObject:FilterCategories( { Unit.Category.AIRPLANE, Unit.Category.HELICOPTER } )
 ---
 ------
----@param self DETECTION_BASE 
 ---@param FilterCategories list The Categories entries
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:FilterCategories(FilterCategories) end
@@ -572,7 +545,6 @@ function DETECTION_BASE:FilterCategories(FilterCategories) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param IteratorFunction NOTYPE 
 ---@param ... NOTYPE 
 function DETECTION_BASE:ForEachAliveRecce(IteratorFunction, ...) end
@@ -580,7 +552,6 @@ function DETECTION_BASE:ForEachAliveRecce(IteratorFunction, ...) end
 ---Forget a Unit from a DetectionItem
 ---
 ------
----@param self DETECTION_BASE 
 ---@param UnitName string The UnitName that needs to be forgotten from the DetectionItem Sets.
 ---@return DETECTION_BASE #
 function DETECTION_BASE:ForgetDetectedUnit(UnitName) end
@@ -588,7 +559,6 @@ function DETECTION_BASE:ForgetDetectedUnit(UnitName) end
 ---Get a detected ID using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Index number 
 ---@return string #DetectedItemID
 function DETECTION_BASE:GetDetectedID(Index) end
@@ -596,7 +566,6 @@ function DETECTION_BASE:GetDetectedID(Index) end
 ---Get a detected item using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Index number 
 ---@return DETECTION_BASE.DetectedItem #
 function DETECTION_BASE:GetDetectedItemByIndex(Index) end
@@ -604,7 +573,6 @@ function DETECTION_BASE:GetDetectedItemByIndex(Index) end
 ---Get a detected item using a given Key.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Key NOTYPE 
 ---@return DETECTION_BASE.DetectedItem #
 function DETECTION_BASE:GetDetectedItemByKey(Key) end
@@ -612,7 +580,6 @@ function DETECTION_BASE:GetDetectedItemByKey(Key) end
 ---Get the detected item coordinate.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem to set the coordinate at.
 ---@return COORDINATE #
 function DETECTION_BASE:GetDetectedItemCoordinate(DetectedItem) end
@@ -620,14 +587,12 @@ function DETECTION_BASE:GetDetectedItemCoordinate(DetectedItem) end
 ---Get a list of the detected item coordinates.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return table #A table of Core.Point#COORDINATE
 function DETECTION_BASE:GetDetectedItemCoordinates() end
 
 ---Get a detected ItemID using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return string #DetectedItemID
 function DETECTION_BASE:GetDetectedItemID(DetectedItem) end
@@ -635,7 +600,6 @@ function DETECTION_BASE:GetDetectedItemID(DetectedItem) end
 ---Get the Core.Set#SET_UNIT of a detection area using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return SET_UNIT #DetectedSet
 function DETECTION_BASE:GetDetectedItemSet(DetectedItem) end
@@ -643,7 +607,6 @@ function DETECTION_BASE:GetDetectedItemSet(DetectedItem) end
 ---Get the detected item coordinate.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return number #ThreatLevel
 function DETECTION_BASE:GetDetectedItemThreatLevel(DetectedItem) end
@@ -651,7 +614,6 @@ function DETECTION_BASE:GetDetectedItemThreatLevel(DetectedItem) end
 ---Get the Core.Zone#ZONE_UNIT of a detection area using a given numeric index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return ZONE_UNIT #DetectedZone
 function DETECTION_BASE:GetDetectedItemZone(DetectedItem) end
@@ -660,7 +622,6 @@ function DETECTION_BASE:GetDetectedItemZone(DetectedItem) end
 ---This will return the DetectedItems collection, indexed by the Key, which can be any object that acts as the key of the detection.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE.DetectedItems #
 function DETECTION_BASE:GetDetectedItems() end
 
@@ -668,21 +629,18 @@ function DETECTION_BASE:GetDetectedItems() end
 ---This will return the DetectedItems collection, indexed by an internal numerical Index.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE.DetectedItems #
 function DETECTION_BASE:GetDetectedItemsByIndex() end
 
 ---Get the amount of SETs with detected objects.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return number #The amount of detected items. Note that the amount of detected items can differ with the reality, because detections are not real-time but done in intervals!
 function DETECTION_BASE:GetDetectedItemsCount() end
 
 ---Gets a detected object with a given name.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param ObjectName string 
 ---@return DETECTION_BASE.DetectedObject #
 function DETECTION_BASE:GetDetectedObject(ObjectName) end
@@ -690,7 +648,6 @@ function DETECTION_BASE:GetDetectedObject(ObjectName) end
 ---Gets a detected unit type name, taking into account the detection results.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedUnit UNIT 
 ---@return string #The type name
 function DETECTION_BASE:GetDetectedUnitTypeName(DetectedUnit) end
@@ -698,14 +655,12 @@ function DETECTION_BASE:GetDetectedUnitTypeName(DetectedUnit) end
 ---Get the Detection Set.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:GetDetectionSet() end
 
 ---Returns the distance used to identify friendlies near the detected item ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return table #A table of distances to friendlies. 
 function DETECTION_BASE:GetFriendliesDistance(DetectedItem) end
@@ -713,7 +668,6 @@ function DETECTION_BASE:GetFriendliesDistance(DetectedItem) end
 ---Returns friendly units nearby the FAC units ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@param Category Unit.Category The category of the unit.
 ---@return map #The map of Friendly UNITs.
@@ -722,7 +676,6 @@ function DETECTION_BASE:GetFriendliesNearBy(DetectedItem, Category) end
 ---Returns friendly units nearby the intercept point ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return map #The map of Friendly UNITs. 
 function DETECTION_BASE:GetFriendliesNearIntercept(DetectedItem) end
@@ -730,7 +683,6 @@ function DETECTION_BASE:GetFriendliesNearIntercept(DetectedItem) end
 ---Returns friendly units nearby the FAC units ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return map #The map of Friendly UNITs.
 function DETECTION_BASE:GetPlayersNearBy(DetectedItem) end
@@ -738,14 +690,12 @@ function DETECTION_BASE:GetPlayersNearBy(DetectedItem) end
 ---Identifies a detected object during detection processing.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedObject DETECTION_BASE.DetectedObject 
 function DETECTION_BASE:IdentifyDetectedObject(DetectedObject) end
 
 ---Detect DLINK.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectDLINK boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectDLINK(DetectDLINK) end
@@ -753,7 +703,6 @@ function DETECTION_BASE:InitDetectDLINK(DetectDLINK) end
 ---Detect IRST.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectIRST boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectIRST(DetectIRST) end
@@ -761,7 +710,6 @@ function DETECTION_BASE:InitDetectIRST(DetectIRST) end
 ---Detect Optical.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectOptical boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectOptical(DetectOptical) end
@@ -769,7 +717,6 @@ function DETECTION_BASE:InitDetectOptical(DetectOptical) end
 ---Detect RWR.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectRWR boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectRWR(DetectRWR) end
@@ -777,7 +724,6 @@ function DETECTION_BASE:InitDetectRWR(DetectRWR) end
 ---Detect Radar.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectRadar boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectRadar(DetectRadar) end
@@ -785,7 +731,6 @@ function DETECTION_BASE:InitDetectRadar(DetectRadar) end
 ---Detect Visual.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectVisual boolean 
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:InitDetectVisual(DetectVisual) end
@@ -793,7 +738,6 @@ function DETECTION_BASE:InitDetectVisual(DetectVisual) end
 ---Checks if there is at least one UNIT detected in the Set of the the DetectedItem.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return boolean #true if at least one UNIT is detected from the DetectedSet, false if no UNIT was detected from the DetectedSet.
 function DETECTION_BASE:IsDetectedItemDetected(DetectedItem) end
@@ -801,7 +745,6 @@ function DETECTION_BASE:IsDetectedItemDetected(DetectedItem) end
 ---Validate if the detected item is locked.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return boolean #
 function DETECTION_BASE:IsDetectedItemLocked(DetectedItem) end
@@ -809,7 +752,6 @@ function DETECTION_BASE:IsDetectedItemLocked(DetectedItem) end
 ---Determines if a detected object has already been identified during detection processing.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedObject DETECTION_BASE.DetectedObject 
 ---@return boolean #true if already identified.
 function DETECTION_BASE:IsDetectedObjectIdentified(DetectedObject) end
@@ -817,7 +759,6 @@ function DETECTION_BASE:IsDetectedObjectIdentified(DetectedObject) end
 ---Returns if there are friendlies nearby the FAC units ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@param Category Unit.Category The category of the unit.
 ---@return boolean #true if there are friendlies nearby 
@@ -826,7 +767,6 @@ function DETECTION_BASE:IsFriendliesNearBy(DetectedItem, Category) end
 ---Returns if there are friendlies nearby the intercept ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return boolean #trhe if there are friendlies near the intercept.
 function DETECTION_BASE:IsFriendliesNearIntercept(DetectedItem) end
@@ -834,7 +774,6 @@ function DETECTION_BASE:IsFriendliesNearIntercept(DetectedItem) end
 ---Returns if there are friendlies nearby the FAC units ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return boolean #true if there are friendlies nearby
 function DETECTION_BASE:IsPlayersNearBy(DetectedItem) end
@@ -842,7 +781,6 @@ function DETECTION_BASE:IsPlayersNearBy(DetectedItem) end
 ---Lock a detected item.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return DETECTION_BASE #
 function DETECTION_BASE:LockDetectedItem(DetectedItem) end
@@ -850,14 +788,12 @@ function DETECTION_BASE:LockDetectedItem(DetectedItem) end
 ---Lock the detected items when created and lock all existing detected items.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE #
 function DETECTION_BASE:LockDetectedItems() end
 
 ---Find the nearest Recce of the DetectedItem.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return UNIT #The nearest FAC unit
 function DETECTION_BASE:NearestRecce(DetectedItem) end
@@ -865,7 +801,6 @@ function DETECTION_BASE:NearestRecce(DetectedItem) end
 ---DETECTION constructor.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectionSet SET_GROUP The @{Core.Set} of @{Wrapper.Group}s that is used to detect the units.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:New(DetectionSet) end
@@ -873,7 +808,6 @@ function DETECTION_BASE:New(DetectionSet) end
 ---OnAfter Transition Handler for Event Detect.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -882,7 +816,6 @@ function DETECTION_BASE:OnAfterDetect(From, Event, To) end
 ---OnAfter Transition Handler for Event Detected.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -892,7 +825,6 @@ function DETECTION_BASE:OnAfterDetected(From, Event, To, Units) end
 ---OnAfter Transition Handler for Event DetectedItem.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -902,7 +834,6 @@ function DETECTION_BASE:OnAfterDetectedItem(From, Event, To, DetectedItem) end
 ---OnAfter Transition Handler for Event Start.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -911,7 +842,6 @@ function DETECTION_BASE:OnAfterStart(From, Event, To) end
 ---OnAfter Transition Handler for Event Stop.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -920,7 +850,6 @@ function DETECTION_BASE:OnAfterStop(From, Event, To) end
 ---OnBefore Transition Handler for Event Detect.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -930,7 +859,6 @@ function DETECTION_BASE:OnBeforeDetect(From, Event, To) end
 ---OnBefore Transition Handler for Event Detected.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -940,7 +868,6 @@ function DETECTION_BASE:OnBeforeDetected(From, Event, To) end
 ---OnBefore Transition Handler for Event Start.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -950,7 +877,6 @@ function DETECTION_BASE:OnBeforeStart(From, Event, To) end
 ---OnBefore Transition Handler for Event Stop.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -960,7 +886,6 @@ function DETECTION_BASE:OnBeforeStop(From, Event, To) end
 ---OnEnter Transition Handler for State Detecting.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -969,7 +894,6 @@ function DETECTION_BASE:OnEnterDetecting(From, Event, To) end
 ---OnEnter Transition Handler for State Stopped.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -978,7 +902,6 @@ function DETECTION_BASE:OnEnterStopped(From, Event, To) end
 ---OnLeave Transition Handler for State Detecting.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -988,7 +911,6 @@ function DETECTION_BASE:OnLeaveDetecting(From, Event, To) end
 ---OnLeave Transition Handler for State Stopped.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -999,21 +921,18 @@ function DETECTION_BASE:OnLeaveStopped(From, Event, To) end
 ---The DetectedItem is a table and contains a SET_UNIT in the field Set.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItemKey NOTYPE The key in the DetectedItems list where the item needs to be removed.
 function DETECTION_BASE:RemoveDetectedItem(DetectedItemKey) end
 
 ---Background worker function to determine if there are friendlies nearby ...
 ---
 ------
----@param self DETECTION_BASE 
 ---@param TargetData table 
 function DETECTION_BASE:ReportFriendliesNearBy(TargetData) end
 
 ---Schedule the DETECTION construction.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DelayTime number The delay in seconds to wait the reporting.
 ---@param RepeatInterval number The repeat interval in seconds for the reporting to happen repeatedly.
 ---@return DETECTION_BASE #self
@@ -1022,7 +941,6 @@ function DETECTION_BASE:Schedule(DelayTime, RepeatInterval) end
 ---Accept detections if within a range in meters.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param AcceptRange number Accept a detection if the unit is within the AcceptRange in meters.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetAcceptRange(AcceptRange) end
@@ -1030,7 +948,6 @@ function DETECTION_BASE:SetAcceptRange(AcceptRange) end
 ---Accept detections if within the specified zone(s).
 ---
 ------
----@param self DETECTION_BASE 
 ---@param AcceptZones ZONE_BASE Can be a list or ZONE_BASE objects, or a single ZONE_BASE object.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetAcceptZones(AcceptZones) end
@@ -1044,7 +961,6 @@ function DETECTION_BASE:SetAcceptZones(AcceptZones) end
 ---0°: 70%, 10°: 75,21%, 20°: 80,26%, 30°: 85%, 40°: 89,28%, 50°: 92,98%, 60°: 95,98%, 70°: 98,19%, 80°: 99,54%, 90°: 100%
 ---
 ------
----@param self DETECTION_BASE 
 ---@param AlphaAngleProbability NOTYPE The probability factor.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetAlphaAngleProbability(AlphaAngleProbability) end
@@ -1052,7 +968,6 @@ function DETECTION_BASE:SetAlphaAngleProbability(AlphaAngleProbability) end
 ---Set the detected item coordinate.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem to set the coordinate at.
 ---@param Coordinate COORDINATE The coordinate to set the last know detected position at.
 ---@param DetectedItemUnit UNIT The unit to set the heading and altitude from.
@@ -1062,7 +977,6 @@ function DETECTION_BASE:SetDetectedItemCoordinate(DetectedItem, Coordinate, Dete
 ---Set the detected item threat level.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param The DETECTION_BASE.DetectedItem DetectedItem to calculate the threat level for.
 ---@param DetectedItem NOTYPE 
 ---@return DETECTION_BASE #
@@ -1075,7 +989,6 @@ function DETECTION_BASE:SetDetectedItemThreatLevel(The, DetectedItem) end
 ---1 km: 96%, 2 km: 92%, 3 km: 88%, 4 km: 84%, 5 km: 80%, 6 km: 76%, 7 km: 72%, 8 km: 68%, 9 km: 64%, 10 km: 60%, 11 km: 56%, 12 km: 52%, 13 km: 48%, 14 km: 44%, 15 km: 40%.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DistanceProbability NOTYPE The probability factor.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetDistanceProbability(DistanceProbability) end
@@ -1083,7 +996,6 @@ function DETECTION_BASE:SetDistanceProbability(DistanceProbability) end
 ---Set the radius in meters to validate if friendlies are nearby.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param FriendliesRange number Radius to use when checking if Friendlies are nearby.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetFriendliesRange(FriendliesRange) end
@@ -1095,7 +1007,6 @@ function DETECTION_BASE:SetFriendliesRange(FriendliesRange) end
 ---This, this method allows to register for a detection the CAP unit name prefixes to be considered CAP.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param FriendlyPrefixes string A string or a list of prefixes.
 ---@return DETECTION_BASE #
 function DETECTION_BASE:SetFriendlyPrefixes(FriendlyPrefixes) end
@@ -1103,7 +1014,6 @@ function DETECTION_BASE:SetFriendlyPrefixes(FriendlyPrefixes) end
 ---Set the parameters to calculate to optimal intercept point.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Intercept boolean Intercept is true if an intercept point is calculated. Intercept is false if it is disabled. The default Intercept is false.
 ---@param InterceptDelay number If Intercept is true, then InterceptDelay is the average time it takes to get airplanes airborne.
 ---@return DETECTION_BASE #self
@@ -1113,7 +1023,6 @@ function DETECTION_BASE:SetIntercept(Intercept, InterceptDelay) end
 ---for WWII scenarios.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param minheight number Minimum flight height to be detected, in meters AGL (above ground)
 ---@param thresheight number Threshold to escape the radar if flying below minheight, defaults to 90 (90% escape chance)
 ---@param thresblur number Threshold to be detected by the radar overall, defaults to 85 (85% chance to be found)
@@ -1124,7 +1033,6 @@ function DETECTION_BASE:SetRadarBlur(minheight, thresheight, thresblur, closing)
 ---Set the detection interval time in seconds.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param RefreshTimeInterval number Interval in seconds.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetRefreshTimeInterval(RefreshTimeInterval) end
@@ -1132,7 +1040,6 @@ function DETECTION_BASE:SetRefreshTimeInterval(RefreshTimeInterval) end
 ---Reject detections if within the specified zone(s).
 ---
 ------
----@param self DETECTION_BASE 
 ---@param RejectZones ZONE_BASE Can be a list or ZONE_BASE objects, or a single ZONE_BASE object.
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetRejectZones(RejectZones) end
@@ -1142,7 +1049,6 @@ function DETECTION_BASE:SetRejectZones(RejectZones) end
 ---zones that reflect cloudy areas where detected units may not be so easily visually detected.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param ZoneArray NOTYPE Aray of a The ZONE_BASE object and a ZoneProbability pair..
 ---@return DETECTION_BASE #self
 function DETECTION_BASE:SetZoneProbability(ZoneArray) end
@@ -1150,32 +1056,27 @@ function DETECTION_BASE:SetZoneProbability(ZoneArray) end
 ---Synchronous Event Trigger for Event Start.
 ---
 ------
----@param self DETECTION_BASE 
 function DETECTION_BASE:Start() end
 
 ---Synchronous Event Trigger for Event Stop.
 ---
 ------
----@param self DETECTION_BASE 
 function DETECTION_BASE:Stop() end
 
 ---UnIdentify all detected objects during detection processing.
 ---
 ------
----@param self DETECTION_BASE 
 function DETECTION_BASE:UnIdentifyAllDetectedObjects() end
 
 ---UnIdentify a detected object during detection processing.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedObject DETECTION_BASE.DetectedObject 
 function DETECTION_BASE:UnIdentifyDetectedObject(DetectedObject) end
 
 ---Unlock a detected item.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@return DETECTION_BASE #
 function DETECTION_BASE:UnlockDetectedItem(DetectedItem) end
@@ -1183,14 +1084,12 @@ function DETECTION_BASE:UnlockDetectedItem(DetectedItem) end
 ---Unlock the detected items when created and unlock all existing detected items.
 ---
 ------
----@param self DETECTION_BASE 
 ---@return DETECTION_BASE #
 function DETECTION_BASE:UnlockDetectedItems() end
 
 ---Set IsDetected flag for the DetectedItem, which can have more units.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param DetectedItem NOTYPE 
 ---@return DETECTION_BASE.DetectedItem #DetectedItem
 ---@return boolean #true if at least one UNIT is detected from the DetectedSet, false if no UNIT was detected from the DetectedSet.
@@ -1199,14 +1098,12 @@ function DETECTION_BASE:UpdateDetectedItemDetection(DetectedItem) end
 ---Asynchronous Event Trigger for Event Detect.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Delay number The delay in seconds.
 function DETECTION_BASE:__Detect(Delay) end
 
 ---Asynchronous Event Trigger for Event Detected.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Delay number The delay in seconds.
 ---@param Units table Table of detected units.
 function DETECTION_BASE:__Detected(Delay, Units) end
@@ -1214,21 +1111,18 @@ function DETECTION_BASE:__Detected(Delay, Units) end
 ---Asynchronous Event Trigger for Event Start.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Delay number The delay in seconds.
 function DETECTION_BASE:__Start(Delay) end
 
 ---Asynchronous Event Trigger for Event Stop.
 ---
 ------
----@param self DETECTION_BASE 
 ---@param Delay number The delay in seconds.
 function DETECTION_BASE:__Stop(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -1238,7 +1132,6 @@ function DETECTION_BASE:onafterDetect(From, Event, To) end
 
 ---
 ------
----@param self DETECTION_BASE 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -1250,7 +1143,6 @@ function DETECTION_BASE:onafterDetection(From, Event, To, Detection, DetectionTi
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -1320,14 +1212,12 @@ DETECTION_TYPES = {}
 ---For each DetectedItem, a one field array is created containing the Unit detected.
 ---
 ------
----@param self DETECTION_TYPES 
 ---@return DETECTION_TYPES #self
 function DETECTION_TYPES:CreateDetectionItems() end
 
 ---Report summary of a DetectedItem using a given numeric index.
 ---
 ------
----@param self DETECTION_TYPES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@param Settings SETTINGS Message formatting settings to use.
@@ -1337,7 +1227,6 @@ function DETECTION_TYPES:DetectedItemReportSummary(DetectedItem, AttackGroup, Se
 ---Report detailed of a detection result.
 ---
 ------
----@param self DETECTION_TYPES 
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@return string #
 function DETECTION_TYPES:DetectedReportDetailed(AttackGroup) end
@@ -1345,7 +1234,6 @@ function DETECTION_TYPES:DetectedReportDetailed(AttackGroup) end
 ---Make text documenting the changes of the detected zone.
 ---
 ------
----@param self DETECTION_TYPES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return string #The Changes text
 function DETECTION_TYPES:GetChangeText(DetectedItem) end
@@ -1353,7 +1241,6 @@ function DETECTION_TYPES:GetChangeText(DetectedItem) end
 ---DETECTION_TYPES constructor.
 ---
 ------
----@param self DETECTION_TYPES 
 ---@param DetectionSetGroup SET_GROUP The @{Core.Set} of GROUPs in the Recce role.
 ---@return DETECTION_TYPES #self
 function DETECTION_TYPES:New(DetectionSetGroup) end
@@ -1376,14 +1263,12 @@ DETECTION_UNITS = {}
 ---For each DetectedItem, a one field array is created containing the Unit detected.
 ---
 ------
----@param self DETECTION_UNITS 
 ---@return DETECTION_UNITS #self
 function DETECTION_UNITS:CreateDetectionItems() end
 
 ---Report summary of a DetectedItem using a given numeric index.
 ---
 ------
----@param self DETECTION_UNITS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@param Settings SETTINGS Message formatting settings to use.
@@ -1394,7 +1279,6 @@ function DETECTION_UNITS:DetectedItemReportSummary(DetectedItem, AttackGroup, Se
 ---Report detailed of a detection result.
 ---
 ------
----@param self DETECTION_UNITS 
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@return string #
 function DETECTION_UNITS:DetectedReportDetailed(AttackGroup) end
@@ -1402,7 +1286,6 @@ function DETECTION_UNITS:DetectedReportDetailed(AttackGroup) end
 ---Make text documenting the changes of the detected zone.
 ---
 ------
----@param self DETECTION_UNITS 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return string #The Changes text
 function DETECTION_UNITS:GetChangeText(DetectedItem) end
@@ -1410,7 +1293,6 @@ function DETECTION_UNITS:GetChangeText(DetectedItem) end
 ---DETECTION_UNITS constructor.
 ---
 ------
----@param self DETECTION_UNITS 
 ---@param DetectionSetGroup SET_GROUP The @{Core.Set} of GROUPs in the Forward Air Controller role.
 ---@return DETECTION_UNITS #self
 function DETECTION_UNITS:New(DetectionSetGroup) end

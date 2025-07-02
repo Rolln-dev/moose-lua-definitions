@@ -39,6 +39,7 @@
 ---Therefore, this class is considered to be deprecated
 ---@deprecated
 ---@class CARGO_GROUP : CARGO_REPORTABLE
+---@field CargoCarrier NOTYPE 
 ---@field CargoGroup NOTYPE 
 ---@field CargoName NOTYPE 
 ---@field CargoObject NOTYPE 
@@ -55,14 +56,12 @@ CARGO_GROUP = {}
 ---Signal a flare at the position of the CargoGroup.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param FlareColor FLARECOLOR 
 function CARGO_GROUP:Flare(FlareColor) end
 
 ---Get the current Coordinate of the CargoGroup.
 ---
 ------
----@param self CARGO_GROUP 
 ---@return COORDINATE #The current Coordinate of the first Cargo of the CargoGroup.
 ---@return nil #There is no valid Cargo in the CargoGroup.
 function CARGO_GROUP:GetCoordinate() end
@@ -70,21 +69,18 @@ function CARGO_GROUP:GetCoordinate() end
 ---Get the amount of cargo units in the group.
 ---
 ------
----@param self CARGO_GROUP 
 ---@return CARGO_GROUP #
 function CARGO_GROUP:GetCount() end
 
 ---Get the first alive Cargo Unit of the Cargo Group.
 ---
 ------
----@param self CARGO_GROUP 
 ---@return CARGO_GROUP #
 function CARGO_GROUP:GetFirstAlive() end
 
 ---Get the underlying GROUP object from the CARGO_GROUP.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Cargo NOTYPE 
 ---@return CARGO_GROUP #
 function CARGO_GROUP:GetGroup(Cargo) end
@@ -92,14 +88,12 @@ function CARGO_GROUP:GetGroup(Cargo) end
 ---Get the transportation method of the Cargo.
 ---
 ------
----@param self CARGO_GROUP 
 ---@return string #The transportation method of the Cargo.
 function CARGO_GROUP:GetTransportationMethod() end
 
 ---Check if the CargoGroup is alive.
 ---
 ------
----@param self CARGO_GROUP 
 ---@return boolean #true if the CargoGroup is alive.
 ---@return boolean #false if the CargoGroup is dead.
 function CARGO_GROUP:IsAlive() end
@@ -107,7 +101,6 @@ function CARGO_GROUP:IsAlive() end
 ---Check if Cargo Group is in the radius for the Cargo to be Boarded.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Coordinate COORDINATE 
 ---@return boolean #true if the Cargo Group is within the load radius.
 function CARGO_GROUP:IsInLoadRadius(Coordinate) end
@@ -115,7 +108,6 @@ function CARGO_GROUP:IsInLoadRadius(Coordinate) end
 ---Check if Cargo Group is in the report radius.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Coordinate Coordinate 
 ---@return boolean #true if the Cargo Group is within the report radius.
 function CARGO_GROUP:IsInReportRadius(Coordinate) end
@@ -123,7 +115,6 @@ function CARGO_GROUP:IsInReportRadius(Coordinate) end
 ---Check if the first element of the CargoGroup is the given Core.Zone.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Zone ZONE_BASE 
 ---@return boolean #**true** if the first element of the CargoGroup is in the Zone
 ---@return boolean #**false** if there is no element of the CargoGroup in the Zone.
@@ -133,7 +124,6 @@ function CARGO_GROUP:IsInZone(Zone) end
 ---The Cargo is near to the Carrier if the first unit of the Cargo Group is within NearRadius.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param CargoCarrier GROUP 
 ---@param NearRadius number 
 ---@return boolean #The Cargo is near to the Carrier or #nil if the Cargo is not near to the Carrier.
@@ -144,7 +134,6 @@ function CARGO_GROUP:IsNear(CargoCarrier, NearRadius) end
 ---It will "ungroup" the group object within the sim, and will create a Core.Set of individual Unit objects.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param CargoGroup GROUP Group to be transported as cargo.
 ---@param Type string Cargo type, e.g. "Infantry". This is the type used in SET_CARGO:New():FilterTypes("Infantry") to define the valid cargo groups of the set.
 ---@param Name string A user defined name of the cargo group. This name CAN be the same as the group object but can also have a different name. This name MUST be unique!
@@ -156,7 +145,6 @@ function CARGO_GROUP:New(CargoGroup, Type, Name, LoadRadius, NearRadius) end
 
 ---
 ------
----@param self CARGO_GROUP 
 ---@param EventData EVENTDATA 
 function CARGO_GROUP:OnEventCargoDead(EventData) end
 
@@ -166,26 +154,22 @@ function CARGO_GROUP:OnEventCargoDead(EventData) end
 ---This works for ground only groups.
 ---
 ------
----@param self CARGO_GROUP 
 function CARGO_GROUP:Regroup() end
 
 ---Respawn the CargoGroup.
 ---
 ------
----@param self CARGO_GROUP 
 function CARGO_GROUP:Respawn() end
 
 ---Route Cargo to Coordinate and randomize locations.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Coordinate COORDINATE 
 function CARGO_GROUP:RouteTo(Coordinate) end
 
 ---Smoke the CargoGroup.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param SmokeColor SMOKECOLOR The color of the smoke.
 ---@param Radius number The radius of randomization around the center of the first element of the CargoGroup.
 function CARGO_GROUP:Smoke(SmokeColor, Radius) end
@@ -196,13 +180,11 @@ function CARGO_GROUP:Smoke(SmokeColor, Radius) end
 ---This works for ground only groups.
 ---
 ------
----@param self CARGO_GROUP 
 function CARGO_GROUP:Ungroup() end
 
 ---After Board Event.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -215,7 +197,6 @@ function CARGO_GROUP:onafterBoard(Event, From, To, CargoCarrier, NearRadius, ...
 ---Leave Boarding State.
 ---
 ------
----@param self CARGO_GROUP  
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -228,7 +209,6 @@ function CARGO_GROUP:onafterBoarding(Event, From, To, CargoCarrier, NearRadius, 
 ---Enter Loaded State.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -240,7 +220,6 @@ function CARGO_GROUP:onafterLoad(Event, From, To, CargoCarrier, ...) end
 ---Enter UnBoarding State.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -253,7 +232,6 @@ function CARGO_GROUP:onafterUnBoard(Event, From, To, ToPointVec2, NearRadius, ..
 ---Leave UnBoarding State.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -266,7 +244,6 @@ function CARGO_GROUP:onafterUnBoarding(Event, From, To, ToPointVec2, NearRadius,
 ---Enter UnLoaded State.
 ---
 ------
----@param self CARGO_GROUP 
 ---@param Event string 
 ---@param From string 
 ---@param To string 

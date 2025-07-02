@@ -86,14 +86,12 @@ ACT_ASSIST = {}
 ---The process will request from the menu if it accepts the task, if not, the unit is removed from the simulator.
 ---
 ------
----@param self ACT_ASSIST 
 ---@return ACT_ASSIST #
 function ACT_ASSIST:New() end
 
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIST 
 ---@param ProcessUnit CONTROLLABLE 
 ---@param Event string 
 ---@param From string 
@@ -104,7 +102,6 @@ function ACT_ASSIST:onafterStart(ProcessUnit, Event, From, To) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIST 
 ---@param ProcessUnit CONTROLLABLE 
 ---@param Event string 
 ---@param From string 
@@ -123,7 +120,6 @@ ACT_ASSIST_SMOKE_TARGETS_ZONE = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param FsmSmoke NOTYPE 
 function ACT_ASSIST_SMOKE_TARGETS_ZONE:Init(FsmSmoke) end
 
@@ -131,7 +127,6 @@ function ACT_ASSIST_SMOKE_TARGETS_ZONE:Init(FsmSmoke) end
 ---The process will request from the menu if it accepts the task, if not, the unit is removed from the simulator.
 ---
 ------
----@param self ACT_ASSIST_SMOKE_TARGETS_ZONE 
 ---@param TargetSetUnit SET_UNIT 
 ---@param TargetZone ZONE_BASE 
 function ACT_ASSIST_SMOKE_TARGETS_ZONE:New(TargetSetUnit, TargetZone) end
@@ -139,7 +134,6 @@ function ACT_ASSIST_SMOKE_TARGETS_ZONE:New(TargetSetUnit, TargetZone) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIST_SMOKE_TARGETS_ZONE 
 ---@param ProcessUnit CONTROLLABLE 
 ---@param Event string 
 ---@param From string 

@@ -122,7 +122,6 @@ CLIENTWATCH = {}
 ---Filter out all clients that are not of the given category
 ---
 ------
----@param self CLIENTWATCH 
 ---@param Category number number (0 = airplane, 1 = helicopter)
 ---@param Category string string ('airplane' or 'helicopter')
 ---@param value NOTYPE 
@@ -131,7 +130,6 @@ function CLIENTWATCH:FilterByCategory(Category, Category, value) end
 ---Filter out all clients not belonging to the provided coalition
 ---
 ------
----@param self CLIENTWATCH 
 ---@param Coalition number number (1 = red, 2 = blue)
 ---@param Coalition string string ('red' or 'blue')
 ---@param value NOTYPE 
@@ -141,7 +139,6 @@ function CLIENTWATCH:FilterByCoalition(Coalition, Coalition, value) end
 ---Can be used multiple times with the same client/prefixes if you need it for multiple scripts.
 ---
 ------
----@param self CLIENTWATCH 
 ---@param Will string watch for clients whos UNIT NAME or GROUP NAME matches part of the #string as a prefix.
 ---@param Put table strings in a table to use multiple prefixes for the above method.
 ---@param Provide CLIENT a Moose CLIENT object to apply to that specific aircraft slot (static slots only!)
@@ -153,7 +150,6 @@ function CLIENTWATCH:New(Will, Put, Provide, Leave, client) end
 ---User function for OnAfter "Spawn" event.
 ---
 ------
----@param self CLIENTWATCH 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.

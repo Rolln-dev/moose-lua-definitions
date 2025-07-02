@@ -155,7 +155,6 @@ WEAPON = {}
 ---Destroy the weapon object.
 ---
 ------
----@param self WEAPON 
 ---@param Delay number Delay before destroy in seconds.
 ---@return WEAPON #self
 function WEAPON:Destroy(Delay) end
@@ -163,21 +162,18 @@ function WEAPON:Destroy(Delay) end
 ---Get coalition.
 ---
 ------
----@param self WEAPON 
 ---@return number #Coalition ID.
 function WEAPON:GetCoalition() end
 
 ---Get country.
 ---
 ------
----@param self WEAPON 
 ---@return number #Country ID.
 function WEAPON:GetCountry() end
 
 ---Get DCS object.
 ---
 ------
----@param self WEAPON 
 ---@return Weapon #The weapon object.
 function WEAPON:GetDCSObject() end
 
@@ -185,7 +181,6 @@ function WEAPON:GetDCSObject() end
 ---Note that this might not exist if the weapon has not impacted yet!
 ---
 ------
----@param self WEAPON 
 ---@return COORDINATE #Impact coordinate (if any).
 function WEAPON:GetImpactCoordinate() end
 
@@ -193,7 +188,6 @@ function WEAPON:GetImpactCoordinate() end
 ---Note that this might not exist if the weapon has not impacted yet!
 ---
 ------
----@param self WEAPON 
 ---@param AccountForMagneticInclination? bool (Optional) If true will account for the magnetic declination of the current map. Default is true
 ---@return number #Heading
 function WEAPON:GetImpactHeading(AccountForMagneticInclination) end
@@ -202,42 +196,36 @@ function WEAPON:GetImpactHeading(AccountForMagneticInclination) end
 ---Note that this might not exist if the weapon has not impacted yet!
 ---
 ------
----@param self WEAPON 
 ---@return Vec3 #Impact position vector (if any).
 function WEAPON:GetImpactVec3() end
 
 ---Get the unit that launched the weapon.
 ---
 ------
----@param self WEAPON 
 ---@return UNIT #Laucher unit.
 function WEAPON:GetLauncher() end
 
 ---Get the altitude above ground level at which the weapon was released
 ---
 ------
----@param self WEAPON 
 ---@return number #Altitude in meters
 function WEAPON:GetReleaseAltitudeAGL() end
 
 ---Get the altitude above sea level at which the weapon was released
 ---
 ------
----@param self WEAPON 
 ---@return number #Altitude in meters
 function WEAPON:GetReleaseAltitudeASL() end
 
 ---Get the coordinate where the weapon was released
 ---
 ------
----@param self WEAPON 
 ---@return COORDINATE #Impact coordinate (if any).
 function WEAPON:GetReleaseCoordinate() end
 
 ---Get the heading on which the weapon was released
 ---
 ------
----@param self WEAPON 
 ---@param AccountForMagneticInclination? bool (Optional) If true will account for the magnetic declination of the current map. Default is true
 ---@return number #Heading
 function WEAPON:GetReleaseHeading(AccountForMagneticInclination) end
@@ -245,14 +233,12 @@ function WEAPON:GetReleaseHeading(AccountForMagneticInclination) end
 ---Get the pitch of the unit when the weapon was released
 ---
 ------
----@param self WEAPON 
 ---@return number #Degrees
 function WEAPON:GetReleasePitch() end
 
 ---Get speed of weapon.
 ---
 ------
----@param self WEAPON 
 ---@param ConversionFunction? function (Optional) Conversion function from m/s to desired unit, *e.g.* `UTILS.MpsToKmph`.
 ---@return number #Speed in meters per second.
 function WEAPON:GetSpeed(ConversionFunction) end
@@ -260,14 +246,12 @@ function WEAPON:GetSpeed(ConversionFunction) end
 ---Get the target, which the weapon is guiding to.
 ---
 ------
----@param self WEAPON 
 ---@return OBJECT #The target object, which can be a UNIT or STATIC object.
 function WEAPON:GetTarget() end
 
 ---Get the distance to the current target the weapon is guiding to.
 ---
 ------
----@param self WEAPON 
 ---@param ConversionFunction? function (Optional) Conversion function from meters to desired unit, *e.g.* `UTILS.MpsToKmph`.
 ---@return number #Distance from weapon to target in meters.
 function WEAPON:GetTargetDistance(ConversionFunction) end
@@ -275,35 +259,30 @@ function WEAPON:GetTargetDistance(ConversionFunction) end
 ---Get name the current target the weapon is guiding to.
 ---
 ------
----@param self WEAPON 
 ---@return string #Name of the target or "None" if no target.
 function WEAPON:GetTargetName() end
 
 ---Get type name.
 ---
 ------
----@param self WEAPON 
 ---@return string #The type name.
 function WEAPON:GetTypeName() end
 
 ---Get the current 2D position vector.
 ---
 ------
----@param self WEAPON 
 ---@return Vec2 #Current position vector in 2D.
 function WEAPON:GetVec2() end
 
 ---Get the current 3D position vector.
 ---
 ------
----@param self WEAPON 
 ---@return Vec3 #Current position vector in 3D.
 function WEAPON:GetVec3() end
 
 ---Get velocity vector of weapon.
 ---
 ------
----@param self WEAPON 
 ---@return Vec3 #Velocity vector with x, y and z components in meters/second.
 function WEAPON:GetVelocityVec3() end
 
@@ -311,77 +290,66 @@ function WEAPON:GetVelocityVec3() end
 ---Obviously not really useful for torpedos. Well, then again, this is DCS...
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, weapon is in the air and `false` if not. Returns `nil` if weapon object itself is `nil`.
 function WEAPON:InAir() end
 
 ---Check if weapon is a bomb.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a bomb.
 function WEAPON:IsBomb() end
 
 ---Check if weapon object (still) exists.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, the weapon object still exists and `false` otherwise. Returns `nil` if weapon object itself is `nil`.
 function WEAPON:IsExist() end
 
 ---Check if weapon is a Fox One missile (Radar Semi-Active).
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a Fox One.
 function WEAPON:IsFoxOne() end
 
 ---Check if weapon is a Fox Three missile (Radar Active).
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a Fox Three.
 function WEAPON:IsFoxThree() end
 
 ---Check if weapon is a Fox Two missile (IR guided).
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a Fox Two.
 function WEAPON:IsFoxTwo() end
 
 ---Check if weapon is a missile.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a missile.
 function WEAPON:IsMissile() end
 
 ---Check if weapon is a rocket.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a missile.
 function WEAPON:IsRocket() end
 
 ---Check if weapon is a shell.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a shell.
 function WEAPON:IsShell() end
 
 ---Check if weapon is a torpedo.
 ---
 ------
----@param self WEAPON 
 ---@return boolean #If `true`, is a torpedo.
 function WEAPON:IsTorpedo() end
 
 ---Create a new WEAPON object from the DCS weapon object.
 ---
 ------
----@param self WEAPON 
 ---@param WeaponObject Weapon The DCS weapon object.
 ---@return WEAPON #self
 function WEAPON:New(WeaponObject) end
@@ -393,7 +361,6 @@ function WEAPON:New(WeaponObject) end
 ---It uses the DCS function [getIP](https://wiki.hoggitworld.com/view/DCS_func_getIP).
 ---
 ------
----@param self WEAPON 
 ---@param Distance number Distance in meters. Default is 50 m. Set to 0 to deactivate.
 ---@return WEAPON #self
 function WEAPON:SetDistanceInterceptPoint(Distance) end
@@ -416,7 +383,6 @@ function WEAPON:SetDistanceInterceptPoint(Distance) end
 ---myweapon:Track()
 ---```
 ------
----@param self WEAPON 
 ---@param FuncImpact function Function called once the weapon impacted.
 ---@param ... NOTYPE Optional function arguments.
 ---@return WEAPON #self 
@@ -427,7 +393,6 @@ function WEAPON:SetFuncImpact(FuncImpact, ...) end
 ---Note that this can be called many times per second. So be careful for performance reasons.
 ---
 ------
----@param self WEAPON 
 ---@param FuncTrack function Function called during tracking.
 ---@param ... NOTYPE Optional function arguments.
 ---@return WEAPON #self
@@ -437,7 +402,6 @@ function WEAPON:SetFuncTrack(FuncTrack, ...) end
 ---This requires that the tracking has been started.
 ---
 ------
----@param self WEAPON 
 ---@param Switch boolean If `true` or nil, impact is marked.
 ---@return WEAPON #self
 function WEAPON:SetMarkImpact(Switch) end
@@ -446,7 +410,6 @@ function WEAPON:SetMarkImpact(Switch) end
 ---This requires that the tracking has been started.
 ---
 ------
----@param self WEAPON 
 ---@param Switch boolean If `true` or nil, impact is smoked.
 ---@param SmokeColor number Color of smoke. Default is `SMOKECOLOR.Red`.
 ---@return WEAPON #self
@@ -455,7 +418,6 @@ function WEAPON:SetSmokeImpact(Switch, SmokeColor) end
 ---Set track position time step.
 ---
 ------
----@param self WEAPON 
 ---@param TimeStep number Time step in seconds when the position is updated. Default 0.01 sec ==> 100 evaluations per second.
 ---@return WEAPON #self
 function WEAPON:SetTimeStepTrack(TimeStep) end
@@ -463,7 +425,6 @@ function WEAPON:SetTimeStepTrack(TimeStep) end
 ---Set verbosity level.
 ---
 ------
----@param self WEAPON 
 ---@param VerbosityLevel number Level of output (higher=more). Default 0.
 ---@return WEAPON #self
 function WEAPON:SetVerbosity(VerbosityLevel) end
@@ -474,7 +435,6 @@ function WEAPON:SetVerbosity(VerbosityLevel) end
 ---calculations per second need to be carried out.
 ---
 ------
----@param self WEAPON 
 ---@param Delay number Delay in seconds before the tracking starts. Default 0.001 sec.
 ---@return WEAPON #self
 function WEAPON:StartTrack(Delay) end
@@ -482,7 +442,6 @@ function WEAPON:StartTrack(Delay) end
 ---Stop tracking the weapon by removing the scheduler function.
 ---
 ------
----@param self WEAPON 
 ---@param Delay? number (Optional) Delay in seconds before the tracking is stopped.
 ---@return WEAPON #self
 function WEAPON:StopTrack(Delay) end
@@ -490,7 +449,6 @@ function WEAPON:StopTrack(Delay) end
 ---Compute estimated intercept/impact point (IP) based on last known position and direction.
 ---
 ------
----@param self WEAPON 
 ---@param Distance number Distance in meters. Default 50 m.
 ---@return Vec3 #Estimated intercept/impact point. Can also return `nil`, if no IP can be determined.
 function WEAPON:_GetIP(Distance) end
@@ -498,7 +456,6 @@ function WEAPON:_GetIP(Distance) end
 ---Track weapon until impact.
 ---
 ------
----@param self WEAPON 
 ---@param time Time Time in seconds.
 ---@return number #Time when called next or nil if not called again.
 function WEAPON:_TrackWeapon(time) end

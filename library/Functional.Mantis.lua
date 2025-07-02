@@ -226,11 +226,10 @@
 ---- **MANTIS** class, extends Core.Base#BASE
 ---@class MANTIS : BASE
 ---@field AWACS_Detection DETECTION_AREAS The #DETECTION_AREAS object for AWACS
----@field AcceptZones table 
+---@field AWACS_Prefix NOTYPE 
 ---@field Adv_EWR_Group SET_GROUP The EWR #SET_GROUP used for advanced mode
 ---@field AdvancedState MANTIS.AdvancedState 
 ---@field ClassName string 
----@field ConflictZones table 
 ---@field DLTimeStamp NOTYPE 
 ---@field DLink boolean 
 ---@field DLinkCacheTime number Seconds after which cached contacts in DLink will decay.
@@ -241,7 +240,6 @@
 ---@field Groupset NOTYPE 
 ---@field HQ_CC GROUP The #GROUP object of the HQ
 ---@field HQ_Template_CC string The ME name of the HQ object
----@field RejectZones table 
 ---@field SAM_Group SET_GROUP The SAM #SET_GROUP
 ---@field SAM_Table table Table of SAM sites
 ---@field SAM_Table_Long NOTYPE 
@@ -261,7 +259,7 @@
 ---@field ShoradGroupSet SET_GROUP 
 ---@field ShoradLink boolean If true, #MANTIS has #SHORAD enabled
 ---@field ShoradTime number Timer in seconds, how long #SHORAD will be active after a detection inside of the defense range
----@field SkateNumber number 
+---@field SkateZones NOTYPE 
 ---@field SmokeDecoy boolean If true, smoke short range SAM units as decoy if a plane is in firing range.
 ---@field SmokeDecoyColor number Color to use, defaults to SMOKECOLOR.White
 ---@field SuppressedGroups table 
@@ -303,7 +301,6 @@ MANTIS = {}
 ---Add a SET_ZONE of zones for Shoot&Scoot - SHORAD units will move around
 ---
 ------
----@param self MANTIS 
 ---@param ZoneSet SET_ZONE Set of zones to be used. Units will move around to the next (random) zone between 100m and 3000m away.
 ---@param Number number Number of closest zones to be considered, defaults to 3.
 ---@param Random boolean If true, use a random coordinate inside the next zone to scoot to.
@@ -314,7 +311,6 @@ function MANTIS:AddScootZones(ZoneSet, Number, Random, Formation) end
 ---Function to link up #MANTIS with a #SHORAD installation
 ---
 ------
----@param self MANTIS 
 ---@param Shorad SHORAD The #SHORAD object
 ---@param Shoradtime number Number of seconds #SHORAD stays active post wake-up
 function MANTIS:AddShorad(Shorad, Shoradtime) end
@@ -331,7 +327,6 @@ function MANTIS:AddShorad(Shorad, Shoradtime) end
 ---Accept- and RejectZones. Last, if it is inside a conflict zone, it is accepted.
 ---```
 ------
----@param self MANTIS 
 ---@param AcceptZones table Table of @{Core.Zone#ZONE} objects
 ---@param RejectZones table Table of @{Core.Zone#ZONE} objects
 ---@param ConflictZones table Table of @{Core.Zone#ZONE} objects
@@ -341,14 +336,12 @@ function MANTIS:AddZones(AcceptZones, RejectZones, ConflictZones) end
 ---Function to set switch-on/off the debug state
 ---
 ------
----@param self MANTIS 
 ---@param onoff boolean Set true to switch on
 function MANTIS:Debug(onoff) end
 
 ---Function to get the HQ object for further use
 ---
 ------
----@param self MANTIS 
 ---@return GROUP #The HQ #GROUP object or *nil* if it doesn't exist
 function MANTIS:GetCommandCenter() end
 
@@ -376,7 +369,6 @@ function MANTIS:GetCommandCenter() end
 ---        mybluemantis:Start()
 ---```
 ------
----@param self MANTIS 
 ---@param name string Name of this MANTIS for reporting
 ---@param samprefix string Prefixes for the SAM groups from the ME, e.g. all groups starting with "Red Sam..."
 ---@param ewrprefix string Prefixes for the EWR groups from the ME, e.g. all groups starting with "Red EWR..."
@@ -394,7 +386,6 @@ function MANTIS:New(name, samprefix, ewrprefix, hq, coalition, dynamic, awacs, E
 ---Advanced state changed, influencing detection speed.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -408,7 +399,6 @@ function MANTIS:OnAfterAdvStateChange(From, Event, To, Oldstate, Newstate, Inter
 ---A SAM group was switched to GREEN alert.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -420,7 +410,6 @@ function MANTIS:OnAfterGreenState(From, Event, To, Group) end
 ---A SAM group was switched to RED alert.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -432,7 +421,6 @@ function MANTIS:OnAfterRedState(From, Event, To, Group) end
 ---HQ and/or EWR moved.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -443,7 +431,6 @@ function MANTIS:OnAfterRelocating(From, Event, To) end
 ---Mantis has switched on a site after a SEAD attack.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -455,7 +442,6 @@ function MANTIS:OnAfterSeadSuppressionEnd(From, Event, To, Group, Name) end
 ---Mantis has planned to switch off a site to defend SEAD attack.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -470,7 +456,6 @@ function MANTIS:OnAfterSeadSuppressionPlanned(From, Event, To, Group, Name, Supp
 ---Mantis has switched off a site to defend a SEAD attack.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -483,7 +468,6 @@ function MANTIS:OnAfterSeadSuppressionStart(From, Event, To, Group, Name, Attack
 ---Mantis has activated a SHORAD.
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -495,7 +479,6 @@ function MANTIS:OnAfterShoradActivated(From, Event, To, Name, Radius, Ontime) en
 ---Function to unlink #MANTIS from a #SHORAD installation
 ---
 ------
----@param self MANTIS 
 function MANTIS:RemoveShorad() end
 
 ---Function to set Advanded Mode
@@ -508,7 +491,6 @@ function MANTIS:RemoveShorad() end
 ---E.g. `mymantis:SetAdvancedMode(true, 90)`
 ---```
 ------
----@param self MANTIS 
 ---@param onoff boolean If true, will activate Advanced Mode
 ---@param ratio number [optional] Percentage to use for advanced mode, defaults to 100%
 function MANTIS:SetAdvancedMode(onoff, ratio) end
@@ -517,7 +499,6 @@ function MANTIS:SetAdvancedMode(onoff, ratio) end
 ---Note: Units must be actually mobile in DCS!
 ---
 ------
----@param self MANTIS 
 ---@param hq boolean If true, will relocate HQ object
 ---@param ewr boolean If true, will relocate  EWR objects
 function MANTIS:SetAutoRelocate(hq, ewr) end
@@ -525,7 +506,6 @@ function MANTIS:SetAutoRelocate(hq, ewr) end
 ---Function to set separate AWACS detection instance
 ---
 ------
----@param self MANTIS 
 ---@param prefix string Name of the AWACS group in the mission editor
 function MANTIS:SetAwacs(prefix) end
 
@@ -533,21 +513,18 @@ function MANTIS:SetAwacs(prefix) end
 ---Defaults to 250.000m (250km) - use **before** starting your Mantis!
 ---
 ------
----@param self MANTIS 
 ---@param range number Detection range of the AWACS group
 function MANTIS:SetAwacsRange(range) end
 
 ---Function to set the HQ object for further use
 ---
 ------
----@param self MANTIS 
 ---@param group GROUP The #GROUP object to be set as HQ
 function MANTIS:SetCommandCenter(group) end
 
 ---Function to set how long INTEL DLINK remembers contacts.
 ---
 ------
----@param self MANTIS 
 ---@param seconds number Remember this many seconds, at least 5 seconds.
 ---@return MANTIS #self
 function MANTIS:SetDLinkCacheTime(seconds) end
@@ -555,14 +532,12 @@ function MANTIS:SetDLinkCacheTime(seconds) end
 ---Function to set the detection interval
 ---
 ------
----@param self MANTIS 
 ---@param interval number The interval in seconds
 function MANTIS:SetDetectInterval(interval) end
 
 ---Function to set the grouping radius of the detection in meters
 ---
 ------
----@param self MANTIS 
 ---@param radius number Radius upon which detected objects will be grouped
 function MANTIS:SetEWRGrouping(radius) end
 
@@ -570,14 +545,12 @@ function MANTIS:SetEWRGrouping(radius) end
 ---(Deprecated, SAM range is used)
 ---
 ------
----@param self MANTIS 
 ---@param radius number Radius of the EWR detection zone
 function MANTIS:SetEWRRange(radius) end
 
 ---Function to set number of SAMs going active on a valid, detected thread
 ---
 ------
----@param self MANTIS 
 ---@param Short number Number of short-range systems activated, defaults to 1.
 ---@param Mid number Number of mid-range systems activated, defaults to 2.
 ---@param Long number Number of long-range systems activated, defaults to 2.
@@ -590,7 +563,6 @@ function MANTIS:SetMaxActiveSAMs(Short, Mid, Long, Classic, Point) end
 ---for different setups day and night
 ---
 ------
----@param self MANTIS 
 ---@param range number Percent of the max fire range
 function MANTIS:SetNewSAMRangeWhileRunning(range) end
 
@@ -598,7 +570,6 @@ function MANTIS:SetNewSAMRangeWhileRunning(range) end
 ---Overwritten per SAM in automode.
 ---
 ------
----@param self MANTIS 
 ---@param radius number Radius of the firing zone in classic mode
 function MANTIS:SetSAMRadius(radius) end
 
@@ -606,21 +577,18 @@ function MANTIS:SetSAMRadius(radius) end
 ---85
 ---
 ------
----@param self MANTIS 
 ---@param range number Percent of the max fire range
 function MANTIS:SetSAMRange(range) end
 
 ---[Internal] Function to set the SAM start state
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self
 function MANTIS:SetSAMStartState() end
 
 ---Function to set Short Range SAMs to spit out smoke as decoy, if an enemy plane is in range.
 ---
 ------
----@param self MANTIS 
 ---@param Onoff boolean Set to true for on and nil/false for off.
 ---@param Color? number (Optional) Color to use, defaults to `SMOKECOLOR.White`
 function MANTIS:SetSmokeDecoy(Onoff, Color) end
@@ -628,14 +596,12 @@ function MANTIS:SetSmokeDecoy(Onoff, Color) end
 ---Set using your own #INTEL_DLINK object instead of #DETECTION
 ---
 ------
----@param self MANTIS 
 ---@param DLink INTEL_DLINK The data link object to be used.
 function MANTIS:SetUsingDLink(DLink) end
 
 ---Set using Emissions on/off instead of changing alarm state
 ---
 ------
----@param self MANTIS 
 ---@param switch boolean Decide if we are changing alarm state or Emission state
 function MANTIS:SetUsingEmOnOff(switch) end
 
@@ -643,40 +609,34 @@ function MANTIS:SetUsingEmOnOff(switch) end
 ---Starts the MANTIS. Initializes parameters and starts event handlers.
 ---
 ------
----@param self MANTIS 
 function MANTIS:Start() end
 
 ---[Internal] Function to start the detection via AWACS if defined as separate (classic)
 ---
 ------
----@param self MANTIS 
 ---@return DETECTION_AREAS #The running detection set
 function MANTIS:StartAwacsDetection() end
 
 ---[Internal] Function to start the detection via EWR groups - if INTEL isn\'t available
 ---
 ------
----@param self MANTIS 
 ---@return DETECTION_AREAS #The running detection set
 function MANTIS:StartDetection() end
 
 ---[Internal] Function to start the detection with INTEL via EWR groups
 ---
 ------
----@param self MANTIS 
 ---@return INTEL_DLINK #The running detection set
 function MANTIS:StartIntelDetection() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self MANTIS 
 function MANTIS:Status() end
 
 ---[Internal] Function to determine state of the advanced mode
 ---
 ------
----@param self MANTIS 
 ---@return number #Newly calculated interval
 ---@return number #Previous state for tracking 0, 1, or 2
 function MANTIS:_CalcAdvState() end
@@ -684,7 +644,6 @@ function MANTIS:_CalcAdvState() end
 ---[Internal] Check detection function
 ---
 ------
----@param self MANTIS 
 ---@param detection DETECTION_AREAS Detection object
 ---@param dlink boolean 
 ---@param reporttolog boolean 
@@ -694,21 +653,18 @@ function MANTIS:_Check(detection, dlink, reporttolog) end
 ---[Internal] Check advanced state
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self
 function MANTIS:_CheckAdvState() end
 
 ---[Internal] Check if any EWR or AWACS is still alive
 ---
 ------
----@param self MANTIS 
 ---@return boolean #outcome
 function MANTIS:_CheckAnyEWRAlive() end
 
 ---[Internal] Function to check accept and reject zones
 ---
 ------
----@param self MANTIS 
 ---@param coord COORDINATE The coordinate to check
 ---@return boolean #outcome
 function MANTIS:_CheckCoordinateInZones(coord) end
@@ -716,28 +672,24 @@ function MANTIS:_CheckCoordinateInZones(coord) end
 ---[Internal] Check DLink state
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self
 function MANTIS:_CheckDLinkState() end
 
 ---[Internal] Function to check if EWR is (at least partially) alive
 ---
 ------
----@param self MANTIS 
 ---@return boolean #True if EWR is alive, else false
 function MANTIS:_CheckEWRState() end
 
 ---[Internal] Function to check if HQ is alive
 ---
 ------
----@param self MANTIS 
 ---@return boolean #True if HQ is alive, else false
 function MANTIS:_CheckHQState() end
 
 ---[Internal] Check detection function
 ---
 ------
----@param self MANTIS 
 ---@param samset table Table of SAM data
 ---@param detset table Table of COORDINATES
 ---@param dlink boolean Using DLINK
@@ -750,7 +702,6 @@ function MANTIS:_CheckLoop(samset, detset, dlink, limit) end
 ---[Internal] Function to check if any object is in the given SAM zone
 ---
 ------
----@param self MANTIS 
 ---@param dectset table Table of coordinates of detected items
 ---@param samcoordinate COORDINATE Coordinate object.
 ---@param radius number Radius to check.
@@ -763,7 +714,6 @@ function MANTIS:_CheckObjectInZone(dectset, samcoordinate, radius, height, dlink
 ---[Internal] Function to get SAM firing data from units types.
 ---
 ------
----@param self MANTIS 
 ---@param grpname string Name of the group
 ---@param mod boolean HDS mod flag
 ---@param sma boolean SMA mod flag
@@ -777,7 +727,6 @@ function MANTIS:_GetSAMDataFromUnits(grpname, mod, sma, chm) end
 ---[Internal] Function to get SAM firing data
 ---
 ------
----@param self MANTIS 
 ---@param grpname string Name of the group
 ---@return number #range Max firing range
 ---@return number #height Max firing height
@@ -788,14 +737,12 @@ function MANTIS:_GetSAMRange(grpname) end
 ---[Internal] Function to get the self.SAM_Table
 ---
 ------
----@param self MANTIS 
 ---@return table #table
 function MANTIS:_GetSAMTable() end
 
 ---[Internal] Function to prefilter height based
 ---
 ------
----@param self MANTIS 
 ---@param height number 
 ---@return table #set
 function MANTIS:_PreFilterHeight(height) end
@@ -803,28 +750,24 @@ function MANTIS:_PreFilterHeight(height) end
 ---[Internal] Function to update SAM table and SEAD state
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self
 function MANTIS:_RefreshSAMTable() end
 
 ---[Internal] Relocation relay function
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self
 function MANTIS:_Relocate() end
 
 ---[Internal] Function to execute the relocation
 ---
 ------
----@param self MANTIS 
 ---@return MANTIS #self 
 function MANTIS:_RelocateGroups() end
 
 ---[Internal] Function to set the self.SAM_Table
 ---
 ------
----@param self MANTIS 
 ---@param table NOTYPE 
 ---@return MANTIS #self
 function MANTIS:_SetSAMTable(table) end
@@ -833,14 +776,12 @@ function MANTIS:_SetSAMTable(table) end
 ---Starts the MANTIS. Initializes parameters and starts event handlers.
 ---
 ------
----@param self MANTIS 
 ---@param delay number Delay in seconds.
 function MANTIS:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self MANTIS 
 ---@param delay number Delay in seconds.
 function MANTIS:__Status(delay) end
 
@@ -848,14 +789,12 @@ function MANTIS:__Status(delay) end
 ---Stops the MANTIS and all its event handlers.
 ---
 ------
----@param self MANTIS 
 ---@param delay number Delay in seconds.
 function MANTIS:__Stop(delay) end
 
 ---[Internal] Function triggered by Event AdvStateChange
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -869,7 +808,6 @@ function MANTIS:onafterAdvStateChange(From, Event, To, Oldstate, Newstate, Inter
 ---[Internal] Function triggered by Event GreenState
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -881,7 +819,6 @@ function MANTIS:onafterGreenState(From, Event, To, Group) end
 ---[Internal] Function triggered by Event RedState
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -893,7 +830,6 @@ function MANTIS:onafterRedState(From, Event, To, Group) end
 ---[Internal] Function triggered by Event Relocating
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -904,7 +840,6 @@ function MANTIS:onafterRelocating(From, Event, To) end
 ---[Internal] Function triggered by Event SeadSuppressionEnd
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -916,7 +851,6 @@ function MANTIS:onafterSeadSuppressionEnd(From, Event, To, Group, Name) end
 ---[Internal] Function triggered by Event SeadSuppressionPlanned
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -931,7 +865,6 @@ function MANTIS:onafterSeadSuppressionPlanned(From, Event, To, Group, Name, Supp
 ---[Internal] Function triggered by Event SeadSuppressionStart
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -944,7 +877,6 @@ function MANTIS:onafterSeadSuppressionStart(From, Event, To, Group, Name, Attack
 ---[Internal] Function triggered by Event ShoradActivated
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -957,7 +889,6 @@ function MANTIS:onafterShoradActivated(From, Event, To, Name, Radius, Ontime) en
 ---[Internal] Function to set start state
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -968,7 +899,6 @@ function MANTIS:onafterStart(From, Event, To) end
 ---[Internal] Status function for MANTIS
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -979,7 +909,6 @@ function MANTIS:onafterStatus(From, Event, To) end
 ---[Internal] Function to stop MANTIS
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State
@@ -990,7 +919,6 @@ function MANTIS:onafterStop(From, Event, To) end
 ---[Internal] Before status function for MANTIS
 ---
 ------
----@param self MANTIS 
 ---@param From string The From State
 ---@param Event string The Event
 ---@param To string The To State

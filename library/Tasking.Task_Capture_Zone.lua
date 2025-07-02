@@ -29,7 +29,6 @@ TASK_CAPTURE_ZONE = {}
 ---This function is called from the Tasking.CommandCenter#COMMANDCENTER to determine the method of automatic task selection.
 ---
 ------
----@param self TASK_CAPTURE_ZONE 
 ---@param AutoAssignMethod number The method to be applied to the task.
 ---@param CommandCenter COMMANDCENTER The command center.
 ---@param TaskGroup GROUP The player group.
@@ -39,7 +38,6 @@ function TASK_CAPTURE_ZONE:GetAutoAssignPriority(AutoAssignMethod, CommandCenter
 ---Instantiates a new TASK_CAPTURE_ZONE.
 ---
 ------
----@param self TASK_CAPTURE_ZONE 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -51,7 +49,6 @@ function TASK_CAPTURE_ZONE:New(Mission, SetGroup, TaskName, ZoneGoalCoalition, T
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -62,14 +59,12 @@ function TASK_CAPTURE_ZONE:OnAfterGoal(From, Event, To, PlayerUnit, PlayerName) 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function TASK_CAPTURE_ZONE:ReportOrder(ReportGroup) end
 
 ---Instantiates a new TASK_CAPTURE_ZONE.
 ---
 ------
----@param self TASK_CAPTURE_ZONE 
 ---@param Persist NOTYPE 
 function TASK_CAPTURE_ZONE:UpdateTaskInfo(Persist) end
 
@@ -109,26 +104,22 @@ TASK_ZONE_GOAL = {}
 
 ---
 ------
----@param self NOTYPE 
 function TASK_ZONE_GOAL:GetGoalTotal() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_ZONE_GOAL:GetPlannedMenuText() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_ZONE_GOAL:GetTargetZone(TaskUnit) end
 
 ---Instantiates a new TASK_ZONE_GOAL.
 ---
 ------
----@param self TASK_ZONE_GOAL 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -141,21 +132,18 @@ function TASK_ZONE_GOAL:New(Mission, SetGroup, TaskName, ZoneGoal, TaskType, Tas
 
 ---
 ------
----@param self NOTYPE 
 ---@param GoalTotal NOTYPE 
 function TASK_ZONE_GOAL:SetGoalTotal(GoalTotal) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ZoneGoal NOTYPE 
 function TASK_ZONE_GOAL:SetProtect(ZoneGoal) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TargetZone NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_ZONE_GOAL:SetTargetZone(TargetZone, TaskUnit) end

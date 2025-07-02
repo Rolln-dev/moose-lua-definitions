@@ -188,13 +188,11 @@ SCHEDULER = {}
 ---Clears all pending schedules.
 ---
 ------
----@param self SCHEDULER 
 function SCHEDULER:Clear() end
 
 ---SCHEDULER constructor.
 ---
 ------
----@param self SCHEDULER 
 ---@param MasterObject table Specified for which Moose object the timer is setup. If a value of nil is provided, a scheduler will be setup without an object reference.
 ---@param SchedulerFunction function The event function to be called when a timer event occurs. The event function needs to accept the parameters specified in SchedulerArguments.
 ---@param SchedulerArguments table Optional arguments that can be given as part of scheduler. The arguments need to be given as a table { param1, param 2, ... }.
@@ -209,13 +207,11 @@ function SCHEDULER:New(MasterObject, SchedulerFunction, SchedulerArguments, Star
 ---No tracing for this scheduler.
 ---
 ------
----@param self SCHEDULER 
 function SCHEDULER:NoTrace() end
 
 ---Removes a specific schedule if a valid ScheduleID is provided.
 ---
 ------
----@param self SCHEDULER 
 ---@param ScheduleID? string (optional) The ScheduleID of the planned (repeating) schedule.
 function SCHEDULER:Remove(ScheduleID) end
 
@@ -223,7 +219,6 @@ function SCHEDULER:Remove(ScheduleID) end
 ---Note that the schedule will only take place if the scheduler is *started*. Even for a single schedule event, the scheduler needs to be started also.
 ---
 ------
----@param self SCHEDULER 
 ---@param MasterObject table Specified for which Moose object the timer is setup. If a value of nil is provided, a scheduler will be setup without an object reference.
 ---@param SchedulerFunction function The event function to be called when a timer event occurs. The event function needs to accept the parameters specified in SchedulerArguments.
 ---@param SchedulerArguments table Optional arguments that can be given as part of scheduler. The arguments need to be given as a table { param1, param 2, ... }.
@@ -239,14 +234,12 @@ function SCHEDULER:Schedule(MasterObject, SchedulerFunction, SchedulerArguments,
 ---(Re-)Starts the schedules or a specific schedule if a valid ScheduleID is provided.
 ---
 ------
----@param self SCHEDULER 
 ---@param ScheduleID? string (Optional) The Schedule ID of the planned (repeating) schedule.
 function SCHEDULER:Start(ScheduleID) end
 
 ---Stops the schedules or a specific schedule if a valid ScheduleID is provided.
 ---
 ------
----@param self SCHEDULER 
 ---@param ScheduleID? string (Optional) The ScheduleID of the planned (repeating) schedule.
 function SCHEDULER:Stop(ScheduleID) end
 

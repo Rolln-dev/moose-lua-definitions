@@ -64,7 +64,6 @@ MESSAGE = {}
 ---Not that this must come before all functions starting with ToX(), e.g. ToAll(), ToGroup() etc.
 ---
 ------
----@param self MESSAGE 
 ---@return MESSAGE #
 function MESSAGE:Clear() end
 
@@ -87,7 +86,6 @@ function MESSAGE:Clear() end
 ---  MessageClient2 = MESSAGE:New( "Congratulations, you've just killed a target", 25, "Score")
 ---```
 ------
----@param self NOTYPE 
 ---@param Text string is the text of the Message.
 ---@param Duration number Duration in seconds how long the message text is shown.
 ---@param Category? string (Optional) String expressing the "category" of the Message. The category will be shown as the first text in the message followed by a ": ".
@@ -111,7 +109,6 @@ function MESSAGE:New(Text, Duration, Category, ClearScreen) end
 ---  MessageClient2 = MESSAGE:NewType( "Congratulations, you've just killed a target", MESSAGE.Type.Update )
 ---```
 ------
----@param self NOTYPE 
 ---@param MessageText string is the text of the Message.
 ---@param MessageType MESSAGE.Type The type of the message.
 ---@param ClearScreen? boolean (optional) Clear all previous messages.
@@ -132,7 +129,6 @@ function MESSAGE:NewType(MessageText, MessageType, ClearScreen) end
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRS()
 ---```
 ------
----@param PathToSRS? string (optional) Path to SRS Folder, defaults to "C:\\\\Program Files\\\\DCS-SimpleRadio-Standalone" or your configuration file setting.
 ---@param Port? number Port (optional) number of SRS, defaults to 5002 or your configuration file setting.
 ---@param PathToCredentials? string (optional) Path to credentials file for Google.
 ---@param Frequency number Frequency in MHz. Can also be given as a #table of frequencies.
@@ -163,7 +159,6 @@ function MESSAGE.SetMSRS(PathToSRS, Port, PathToCredentials, Frequency, Modulati
 ---  MessageAll:ToAll()
 ---```
 ------
----@param self MESSAGE 
 ---@param Settings? Settings (Optional) Settings for message display.
 ---@param Delay? number (Optional) Delay in seconds before the message is send. Default instantly (`nil`).
 ---@return MESSAGE #self
@@ -172,7 +167,6 @@ function MESSAGE:ToAll(Settings, Delay) end
 ---Sends a MESSAGE to all players if the given Condition is true.
 ---
 ------
----@param self MESSAGE 
 ---@param Condition boolean 
 ---@return MESSAGE #
 function MESSAGE:ToAllIf(Condition) end
@@ -193,7 +187,6 @@ function MESSAGE:ToAllIf(Condition) end
 ---  MessageBLUE:ToBlue()
 ---```
 ------
----@param self MESSAGE 
 ---@return MESSAGE #
 function MESSAGE:ToBlue() end
 
@@ -221,7 +214,6 @@ function MESSAGE:ToBlue() end
 ---  MessageClient2:ToClient( Client )
 ---```
 ------
----@param self MESSAGE 
 ---@param Client CLIENT is the Group of the Client.
 ---@param Settings SETTINGS used to display the message.
 ---@return MESSAGE #
@@ -243,7 +235,6 @@ function MESSAGE:ToClient(Client, Settings) end
 ---  MessageRED:ToCoalition( coalition.side.RED )
 ---```
 ------
----@param self MESSAGE 
 ---@param CoalitionSide coalition.side @{#DCS.coalition.side} to which the message is displayed.
 ---@param Settings? SETTINGS (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
@@ -252,7 +243,6 @@ function MESSAGE:ToCoalition(CoalitionSide, Settings) end
 ---Sends a MESSAGE to a Coalition if the given Condition is true.
 ---
 ------
----@param self MESSAGE 
 ---@param CoalitionSide NOTYPE needs to be filled out by the defined structure of the standard scripting engine @{#DCS.coalition.side}.
 ---@param Condition boolean Sends the message only if the condition is true.
 ---@return MESSAGE #self
@@ -261,7 +251,6 @@ function MESSAGE:ToCoalitionIf(CoalitionSide, Condition) end
 ---Sends a MESSAGE to a Country.
 ---
 ------
----@param self MESSAGE 
 ---@param Country number to which the message is displayed, e.g. country.id.GERMANY. For all country numbers see here: [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_country)
 ---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
@@ -270,7 +259,6 @@ function MESSAGE:ToCountry(Country, Settings) end
 ---Sends a MESSAGE to a Country.
 ---
 ------
----@param self MESSAGE 
 ---@param Country number to which the message is displayed, , e.g. country.id.GERMANY. For all country numbers see here: [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_country)
 ---@param Condition boolean Sends the message only if the condition is true.
 ---@param Settings? Settings (Optional) Settings for message display.
@@ -280,7 +268,6 @@ function MESSAGE:ToCountryIf(Country, Condition, Settings) end
 ---Sends a MESSAGE to a Group.
 ---
 ------
----@param self MESSAGE 
 ---@param Group GROUP to which the message is displayed.
 ---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.
@@ -289,14 +276,12 @@ function MESSAGE:ToGroup(Group, Settings) end
 ---Sends a MESSAGE to DCS log file.
 ---
 ------
----@param self MESSAGE 
 ---@return MESSAGE #self
 function MESSAGE:ToLog() end
 
 ---Sends a MESSAGE to DCS log file if the given Condition is true.
 ---
 ------
----@param self MESSAGE 
 ---@param Condition NOTYPE 
 ---@return MESSAGE #self
 function MESSAGE:ToLogIf(Condition) end
@@ -317,7 +302,6 @@ function MESSAGE:ToLogIf(Condition) end
 ---  MessageRED:ToRed()
 ---```
 ------
----@param self MESSAGE 
 ---@return MESSAGE #
 function MESSAGE:ToRed() end
 
@@ -335,7 +319,6 @@ function MESSAGE:ToRed() end
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRS()
 ---```
 ------
----@param self MESSAGE 
 ---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
@@ -360,7 +343,6 @@ function MESSAGE:ToSRS(frequency, modulation, gender, culture, voice, coalition,
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRSAll()
 ---```
 ------
----@param self MESSAGE 
 ---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
@@ -384,7 +366,6 @@ function MESSAGE:ToSRSAll(frequency, modulation, gender, culture, voice, volume,
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRSBlue()
 ---```
 ------
----@param self MESSAGE 
 ---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
@@ -408,7 +389,6 @@ function MESSAGE:ToSRSBlue(frequency, modulation, gender, culture, voice, volume
 ---         MESSAGE:New("Test message!",15,"SPAWN"):ToSRSRed()
 ---```
 ------
----@param self MESSAGE 
 ---@param frequency? number (optional) Frequency in MHz. Can also be given as a #table of frequencies. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param modulation? number (optional) Modulation, i.e. radio.modulation.AM  or radio.modulation.FM. Can also be given as a #table of modulations. Only needed if you want to override defaults set with `MESSAGE.SetMSRS()` for this one setting.
 ---@param gender? string (optional) Gender, i.e. "male" or "female". Only needed if you want to change defaults set with `MESSAGE.SetMSRS()`.
@@ -422,7 +402,6 @@ function MESSAGE:ToSRSRed(frequency, modulation, gender, culture, voice, volume,
 ---Sends a MESSAGE to a Unit.
 ---
 ------
----@param self MESSAGE 
 ---@param Unit UNIT to which the message is displayed.
 ---@param Settings? Settings (Optional) Settings for message display.
 ---@return MESSAGE #Message object.

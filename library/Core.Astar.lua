@@ -140,7 +140,6 @@ ASTAR = {}
 ---Add a node to the table of grid nodes.
 ---
 ------
----@param self ASTAR 
 ---@param Node ASTAR.Node The node to be added.
 ---@return ASTAR #self
 function ASTAR:AddNode(Node) end
@@ -148,7 +147,6 @@ function ASTAR:AddNode(Node) end
 ---Add a node to the table of grid nodes specifying its coordinate.
 ---
 ------
----@param self ASTAR 
 ---@param Coordinate COORDINATE The coordinate where the node is created.
 ---@return ASTAR.Node #The node.
 function ASTAR:AddNodeFromCoordinate(Coordinate) end
@@ -156,7 +154,6 @@ function ASTAR:AddNodeFromCoordinate(Coordinate) end
 ---Check if the coordinate of a node has is at a valid surface type.
 ---
 ------
----@param self ASTAR 
 ---@param Node ASTAR.Node The node to be added.
 ---@param SurfaceTypes table Surface types, for example `{land.SurfaceType.WATER}`. By default all surface types are valid.
 ---@return boolean #If true, surface type of node is valid.
@@ -166,7 +163,6 @@ function ASTAR:CheckValidSurfaceType(Node, SurfaceTypes) end
 ---The coordinate system is oriented along the line between start and end point.
 ---
 ------
----@param self ASTAR 
 ---@param ValidSurfaceTypes table Valid surface types. By default is all surfaces are allowed.
 ---@param BoxHY number Box "height" in meters along the y-coordinate. Default 40000 meters (40 km).
 ---@param SpaceX number Additional space in meters before start and after end coordinate. Default 10000 meters (10 km).
@@ -179,7 +175,6 @@ function ASTAR:CreateGrid(ValidSurfaceTypes, BoxHY, SpaceX, deltaX, deltaY, Mark
 ---Heuristic cost is given by the 2D distance between the nodes.
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@return number #Distance between the two nodes.
 function ASTAR.Dist2D(nodeA, nodeB) end
@@ -187,7 +182,6 @@ function ASTAR.Dist2D(nodeA, nodeB) end
 ---Heuristic cost is given by the 3D distance between the nodes.
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@return number #Distance between the two nodes.
 function ASTAR.Dist3D(nodeA, nodeB) end
@@ -195,7 +189,6 @@ function ASTAR.Dist3D(nodeA, nodeB) end
 ---Function to check if distance between two nodes is less than a threshold distance.
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@param distmax number Max distance in meters. Default is 2000 m.
 ---@return boolean #If true, distance between the two nodes is below threshold.
@@ -204,7 +197,6 @@ function ASTAR.DistMax(nodeA, nodeB, distmax) end
 ---Heuristic cost is given by the distance between the nodes on road.
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@return number #Distance between the two nodes.
 function ASTAR.DistRoad(nodeA, nodeB) end
@@ -212,7 +204,6 @@ function ASTAR.DistRoad(nodeA, nodeB) end
 ---Find the closest node from a given coordinate.
 ---
 ------
----@param self ASTAR 
 ---@param Coordinate COORDINATE 
 ---@return ASTAR.Node #Cloest node to the coordinate.
 ---@return number #Distance to closest node in meters.
@@ -221,7 +212,6 @@ function ASTAR:FindClosestNode(Coordinate) end
 ---Add a node.
 ---
 ------
----@param self ASTAR 
 ---@param Node ASTAR.Node The node to be added to the nodes table.
 ---@return ASTAR #self
 function ASTAR:FindEndNode(Node) end
@@ -229,7 +219,6 @@ function ASTAR:FindEndNode(Node) end
 ---Find the start node.
 ---
 ------
----@param self ASTAR 
 ---@param Node ASTAR.Node The node to be added to the nodes table.
 ---@return ASTAR #self
 function ASTAR:FindStartNode(Node) end
@@ -237,7 +226,6 @@ function ASTAR:FindStartNode(Node) end
 ---Create a node from a given coordinate.
 ---
 ------
----@param self ASTAR 
 ---@param Coordinate COORDINATE The coordinate where to create the node.
 ---@return ASTAR.Node #The node.
 function ASTAR:GetNodeFromCoordinate(Coordinate) end
@@ -246,7 +234,6 @@ function ASTAR:GetNodeFromCoordinate(Coordinate) end
 ---This seaches the path along nodes between start and end nodes/coordinates.
 ---
 ------
----@param self ASTAR 
 ---@param ExcludeStartNode boolean If *true*, do not include start node in found path. Default is to include it.
 ---@param ExcludeEndNode boolean If *true*, do not include end node in found path. Default is to include it.
 ---@return table #Table of nodes from start to finish.
@@ -255,7 +242,6 @@ function ASTAR:GetPath(ExcludeStartNode, ExcludeEndNode) end
 ---Function to check if two nodes have line of sight (LoS).
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@param corridor? number (Optional) Width of corridor in meters.
 ---@return boolean #If true, two nodes have LoS.
@@ -264,14 +250,12 @@ function ASTAR.LoS(nodeA, nodeB, corridor) end
 ---Create a new ASTAR object.
 ---
 ------
----@param self ASTAR 
 ---@return ASTAR #self
 function ASTAR:New() end
 
 ---Function to check if two nodes have a road connection.
 ---
 ------
----@param nodeA ASTAR.Node First node.
 ---@param nodeB ASTAR.Node Other node.
 ---@return boolean #If true, two nodes are connected via a road.
 function ASTAR.Road(nodeA, nodeB) end
@@ -279,14 +263,12 @@ function ASTAR.Road(nodeA, nodeB) end
 ---Set heuristic cost to go from one node to another to be their 2D distance.
 ---
 ------
----@param self ASTAR 
 ---@return ASTAR #self
 function ASTAR:SetCostDist2D() end
 
 ---Set heuristic cost to go from one node to another to be their 3D distance.
 ---
 ------
----@param self ASTAR 
 ---@return ASTAR #self
 function ASTAR:SetCostDist3D() end
 
@@ -295,7 +277,6 @@ function ASTAR:SetCostDist3D() end
 ---Very often the distance between nodes is a good measure for the cost.
 ---
 ------
----@param self ASTAR 
 ---@param CostFunction function Function that returns the "cost".
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return ASTAR #self
@@ -304,14 +285,12 @@ function ASTAR:SetCostFunction(CostFunction, ...) end
 ---Set heuristic cost to go from one node to another to be their 3D distance.
 ---
 ------
----@param self ASTAR 
 ---@return ASTAR #self
 function ASTAR:SetCostRoad() end
 
 ---Set coordinate where you want to go.
 ---
 ------
----@param self ASTAR 
 ---@param Coordinate COORDINATE end coordinate.
 ---@return ASTAR #self
 function ASTAR:SetEndCoordinate(Coordinate) end
@@ -319,7 +298,6 @@ function ASTAR:SetEndCoordinate(Coordinate) end
 ---Set coordinate from where to start.
 ---
 ------
----@param self ASTAR 
 ---@param Coordinate COORDINATE Start coordinate.
 ---@return ASTAR #self
 function ASTAR:SetStartCoordinate(Coordinate) end
@@ -327,7 +305,6 @@ function ASTAR:SetStartCoordinate(Coordinate) end
 ---Set valid neighbours to be in a certain distance.
 ---
 ------
----@param self ASTAR 
 ---@param MaxDistance number Max distance between nodes in meters. Default is 2000 m.
 ---@return ASTAR #self
 function ASTAR:SetValidNeighbourDistance(MaxDistance) end
@@ -335,7 +312,6 @@ function ASTAR:SetValidNeighbourDistance(MaxDistance) end
 ---Add a function to determine if a neighbour of a node is valid.
 ---
 ------
----@param self ASTAR 
 ---@param NeighbourFunction function Function that needs to return *true* for a neighbour to be valid.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return ASTAR #self
@@ -344,7 +320,6 @@ function ASTAR:SetValidNeighbourFunction(NeighbourFunction, ...) end
 ---Set valid neighbours to require line of sight between two nodes.
 ---
 ------
----@param self ASTAR 
 ---@param CorridorWidth number Width of LoS corridor in meters.
 ---@return ASTAR #self
 function ASTAR:SetValidNeighbourLoS(CorridorWidth) end
@@ -352,7 +327,6 @@ function ASTAR:SetValidNeighbourLoS(CorridorWidth) end
 ---Set valid neighbours to be in a certain distance.
 ---
 ------
----@param self ASTAR 
 ---@param MaxDistance number Max distance between nodes in meters. Default is 2000 m.
 ---@return ASTAR #self
 function ASTAR:SetValidNeighbourRoad(MaxDistance) end
@@ -360,7 +334,6 @@ function ASTAR:SetValidNeighbourRoad(MaxDistance) end
 ---Calculate 2D distance between two nodes.
 ---
 ------
----@param self ASTAR 
 ---@param nodeA ASTAR.Node Node A.
 ---@param nodeB ASTAR.Node Node B.
 ---@return number #Distance between nodes in meters.
@@ -370,7 +343,6 @@ function ASTAR:_DistNodes(nodeA, nodeB) end
 ---Default is the distance between the nodes.
 ---
 ------
----@param self ASTAR 
 ---@param nodeA ASTAR.Node Node A.
 ---@param nodeB ASTAR.Node Node B.
 ---@return number #"Cost" to go from node A to node B.
@@ -379,7 +351,6 @@ function ASTAR:_HeuristicCost(nodeA, nodeB) end
 ---Check if going from a node to a neighbour is possible.
 ---
 ------
----@param self ASTAR 
 ---@param node ASTAR.Node A node.
 ---@param neighbor ASTAR.Node Neighbour node.
 ---@return boolean #If true, transition between nodes is possible.
@@ -388,7 +359,6 @@ function ASTAR:_IsValidNeighbour(node, neighbor) end
 ---Function that calculates the lowest F score.
 ---
 ------
----@param self ASTAR 
 ---@param set table The set of nodes IDs.
 ---@param f_score number F score.
 ---@return ASTAR.Node #Best node.
@@ -397,7 +367,6 @@ function ASTAR:_LowestFscore(set, f_score) end
 ---Function to get valid neighbours of a node.
 ---
 ------
----@param self ASTAR 
 ---@param theNode ASTAR.Node The node.
 ---@param nodes table Possible neighbours.
 ---@param Valid table neighbour nodes.
@@ -406,7 +375,6 @@ function ASTAR:_NeighbourNodes(theNode, nodes, Valid) end
 ---Function to check if a node is not in a set.
 ---
 ------
----@param self ASTAR 
 ---@param set table Set of nodes.
 ---@param theNode ASTAR.Node The node to check.
 ---@return boolean #If true, the node is not in the set.
@@ -415,7 +383,6 @@ function ASTAR:_NotIn(set, theNode) end
 ---Unwind path function.
 ---
 ------
----@param self ASTAR 
 ---@param flat_path table Flat path.
 ---@param map table Map.
 ---@param current_node ASTAR.Node The current node.

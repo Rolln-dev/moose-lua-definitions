@@ -174,7 +174,6 @@ AI_ESCORT = {}
 ---Measure distance between coordinate player and coordinate detected item.
 ---
 ------
----@param self AI_ESCORT 
 ---@param PlayerUnit NOTYPE 
 ---@param DetectedItem NOTYPE 
 function AI_ESCORT:Distance(PlayerUnit, DetectedItem) end
@@ -182,7 +181,6 @@ function AI_ESCORT:Distance(PlayerUnit, DetectedItem) end
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:GetFlightReportType() end
 
 ---Defines a menu slot to let the escort attack its detected targets using assisted attack from another escort joined also with the client.
@@ -190,7 +188,6 @@ function AI_ESCORT:GetFlightReportType() end
 ---Note that this method needs to be preceded with the method MenuTargets.
 ---
 ------
----@param self AI_ESCORT 
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuAssistedAttack() end
 
@@ -199,7 +196,6 @@ function AI_ESCORT:MenuAssistedAttack() end
 ---The flare will be fired from the first unit in the group.
 ---
 ------
----@param self AI_ESCORT 
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. If no text is given, the default text will be displayed.
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuFlare(MenuTextFormat) end
@@ -207,7 +203,6 @@ function AI_ESCORT:MenuFlare(MenuTextFormat) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Formation NOTYPE 
 ---@param ... NOTYPE 
 function AI_ESCORT:MenuFormation(Formation, ...) end
@@ -216,7 +211,6 @@ function AI_ESCORT:MenuFormation(Formation, ...) end
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -231,7 +225,6 @@ function AI_ESCORT:MenuFormationBox(XStart, XSpace, YStart, YSpace, ZStart, ZSpa
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -245,7 +238,6 @@ function AI_ESCORT:MenuFormationCenterWing(XStart, XSpace, YStart, YSpace, ZStar
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
@@ -257,7 +249,6 @@ function AI_ESCORT:MenuFormationLeftLine(XStart, YStart, ZStart, ZSpace) end
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -270,7 +261,6 @@ function AI_ESCORT:MenuFormationLeftWing(XStart, XSpace, YStart, ZStart, ZSpace)
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
 ---@param ZStart number The start position on the Z-axis in meters for the first group.
@@ -282,7 +272,6 @@ function AI_ESCORT:MenuFormationRightLine(XStart, YStart, ZStart, ZSpace) end
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -295,7 +284,6 @@ function AI_ESCORT:MenuFormationRightWing(XStart, XSpace, YStart, ZStart, ZSpace
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -307,7 +295,6 @@ function AI_ESCORT:MenuFormationStack(XStart, XSpace, YStart, YSpace) end
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -318,7 +305,6 @@ function AI_ESCORT:MenuFormationTrail(XStart, XSpace, YStart) end
 ---This menu will appear under **Formation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -332,7 +318,6 @@ function AI_ESCORT:MenuFormationVic(XStart, XSpace, YStart, YSpace, ZStart, ZSpa
 ---This menu will appear under **Hold position**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Speed Time Optional parameter that lets the escort orbit with a specified speed. The default value is a speed that is average for the type of airplane or helicopter.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -343,7 +328,6 @@ function AI_ESCORT:MenuHoldAtEscortPosition(Height, Speed, MenuTextFormat) end
 ---This menu will appear under **Navigation**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Speed Time Optional parameter that lets the escort orbit at the current position for a specified time. (not implemented yet). The default value is 0 seconds, meaning, that the escort will orbit forever until a sequent command is given.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain one or two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -353,7 +337,6 @@ function AI_ESCORT:MenuHoldAtLeaderPosition(Height, Speed, MenuTextFormat) end
 ---Defines --- Defines a menu slot to let the escort to join formation.
 ---
 ------
----@param self AI_ESCORT 
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuJoinUp() end
 
@@ -361,7 +344,6 @@ function AI_ESCORT:MenuJoinUp() end
 ---All rules of engagement will appear under the menu **ROE**.
 ---
 ------
----@param self AI_ESCORT 
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuROE() end
 
@@ -369,7 +351,6 @@ function AI_ESCORT:MenuROE() end
 ---All rules of engagement will appear under the menu **Evasion**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param MenuTextFormat NOTYPE 
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuROT(MenuTextFormat) end
@@ -378,7 +359,6 @@ function AI_ESCORT:MenuROT(MenuTextFormat) end
 ---This menu will appear under **Scan targets**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Seconds Time Optional parameter that lets the escort orbit at the current position for a specified time. (not implemented yet). The default value is 0 seconds, meaning, that the escort will orbit forever until a sequent command is given.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain one or two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -391,7 +371,6 @@ function AI_ESCORT:MenuScanForTargets(Height, Seconds, MenuTextFormat) end
 ---The smoke will be fired from the first unit in the group.
 ---
 ------
----@param self AI_ESCORT 
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. If no text is given, the default text will be displayed.
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuSmoke(MenuTextFormat) end
@@ -401,7 +380,6 @@ function AI_ESCORT:MenuSmoke(MenuTextFormat) end
 ---Note that if a report targets menu is not specified, no targets will be detected by the escort, and the attack and assisted attack menus will not be displayed.
 ---
 ------
----@param self AI_ESCORT 
 ---@param Seconds Time Optional parameter that lets the escort report their current detected targets after specified time interval in seconds. The default time is 30 seconds.
 ---@return AI_ESCORT #
 function AI_ESCORT:MenuTargets(Seconds) end
@@ -409,7 +387,6 @@ function AI_ESCORT:MenuTargets(Seconds) end
 ---Defines the default menus for airplanes.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -423,7 +400,6 @@ function AI_ESCORT:MenusAirplanes(XStart, XSpace, YStart, YSpace, ZStart, ZSpace
 ---Defines the default menus for helicopters.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -452,7 +428,6 @@ function AI_ESCORT:MenusHelicopters(XStart, XSpace, YStart, YSpace, ZStart, ZSpa
 ---EscortPlanes:__Start(2)
 ---```
 ------
----@param self AI_ESCORT 
 ---@param EscortUnit CLIENT The client escorted by the EscortGroup.
 ---@param EscortGroupSet SET_GROUP The set of group AI escorting the EscortUnit.
 ---@param EscortName string Name of the escort.
@@ -463,7 +438,6 @@ function AI_ESCORT:New(EscortUnit, EscortGroupSet, EscortName, EscortBriefing) e
 ---Registers the waypoints
 ---
 ------
----@param self AI_ESCORT 
 ---@return table #
 function AI_ESCORT:RegisterRoute() end
 
@@ -471,35 +445,30 @@ function AI_ESCORT:RegisterRoute() end
 ---Detection methods are based on the derived classes from DETECTION_BASE.
 ---
 ------
----@param self AI_ESCORT 
 ---@param Detection DETECTION_AREAS 
 function AI_ESCORT:SetDetection(Detection) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuFlare(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuHoldAtEscortPosition(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuHoldAtLeaderPosition(EscortGroup) end
 
 ---Sets a menu slot to join formation for an escort.
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup NOTYPE 
 ---@return AI_ESCORT #
 function AI_ESCORT:SetEscortMenuJoinUp(EscortGroup) end
@@ -507,14 +476,12 @@ function AI_ESCORT:SetEscortMenuJoinUp(EscortGroup) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuROE(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuROT(EscortGroup) end
 
@@ -522,7 +489,6 @@ function AI_ESCORT:SetEscortMenuROT(EscortGroup) end
 ---All rules of engagement will appear under the menu **Resume mission from**.
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup NOTYPE 
 ---@return AI_ESCORT #
 function AI_ESCORT:SetEscortMenuResumeMission(EscortGroup) end
@@ -530,82 +496,69 @@ function AI_ESCORT:SetEscortMenuResumeMission(EscortGroup) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuSmoke(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:SetEscortMenuTargets(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuFlare() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Formation NOTYPE 
 function AI_ESCORT:SetFlightMenuFormation(Formation) end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuHoldAtEscortPosition() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuHoldAtLeaderPosition() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuJoinUp() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuROE() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuROT() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuReportType() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuSmoke() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:SetFlightMenuTargets() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportType NOTYPE 
 function AI_ESCORT:SetFlightReportType(ReportType) end
 
@@ -613,14 +566,12 @@ function AI_ESCORT:SetFlightReportType(ReportType) end
 ---This allows to visualize where the escort is flying to.
 ---
 ------
----@param self AI_ESCORT 
 ---@param SmokeDirection boolean If true, then the direction vector will be smoked.
 function AI_ESCORT:TestSmokeDirectionVector(SmokeDirection) end
 
 
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup GROUP The escort group that will attack the detected item.
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 function AI_ESCORT:_AssistTarget(EscortGroup, DetectedItem) end
@@ -628,7 +579,6 @@ function AI_ESCORT:_AssistTarget(EscortGroup, DetectedItem) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param DetectedItem NOTYPE 
 function AI_ESCORT:_AttackTarget(EscortGroup, DetectedItem) end
@@ -636,7 +586,6 @@ function AI_ESCORT:_AttackTarget(EscortGroup, DetectedItem) end
 ---Lets the escort to join in a stacked formation.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -648,7 +597,6 @@ function AI_ESCORT:_EscortFormationStack(XStart, XSpace, YStart, YSpace, EscortG
 ---Lets the escort to join in a trail formation.
 ---
 ------
----@param self AI_ESCORT 
 ---@param XStart number The start position on the X-axis in meters for the first group.
 ---@param XSpace number The space between groups on the X-axis in meters for each sequent group.
 ---@param YStart number The start position on the Y-axis in meters for the first group.
@@ -659,7 +607,6 @@ function AI_ESCORT:_EscortFormationTrail(XStart, XSpace, YStart, EscortGroup) en
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
@@ -668,21 +615,18 @@ function AI_ESCORT:_Flare(EscortGroup, Color, Message) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TargetType NOTYPE 
 function AI_ESCORT:_FlightAttackNearestTarget(TargetType) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param DetectedItem NOTYPE 
 function AI_ESCORT:_FlightAttackTarget(DetectedItem) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
 function AI_ESCORT:_FlightFlare(Color, Message) end
@@ -690,7 +634,6 @@ function AI_ESCORT:_FlightFlare(Color, Message) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param XStart NOTYPE 
 ---@param XSpace NOTYPE 
 ---@param YStart NOTYPE 
@@ -700,7 +643,6 @@ function AI_ESCORT:_FlightFormationStack(XStart, XSpace, YStart, YSpace) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param XStart NOTYPE 
 ---@param XSpace NOTYPE 
 ---@param YStart NOTYPE 
@@ -709,7 +651,6 @@ function AI_ESCORT:_FlightFormationTrail(XStart, XSpace, YStart) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param OrbitGroup NOTYPE 
 ---@param OrbitHeight NOTYPE 
 ---@param OrbitSeconds NOTYPE 
@@ -718,83 +659,71 @@ function AI_ESCORT:_FlightHoldPosition(OrbitGroup, OrbitHeight, OrbitSeconds) en
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightJoinUp() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROEMessage NOTYPE 
 function AI_ESCORT:_FlightROEHoldFire(EscortROEMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROEMessage NOTYPE 
 function AI_ESCORT:_FlightROEOpenFire(EscortROEMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROEMessage NOTYPE 
 function AI_ESCORT:_FlightROEReturnFire(EscortROEMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROEMessage NOTYPE 
 function AI_ESCORT:_FlightROEWeaponFree(EscortROEMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROTMessage NOTYPE 
 function AI_ESCORT:_FlightROTEvadeFire(EscortROTMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROTMessage NOTYPE 
 function AI_ESCORT:_FlightROTNoReaction(EscortROTMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROTMessage NOTYPE 
 function AI_ESCORT:_FlightROTPassiveDefense(EscortROTMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROTMessage NOTYPE 
 function AI_ESCORT:_FlightROTVertical(EscortROTMessage) end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightReportNearbyTargetsNow() end
 
 ---Report Targets Scheduler for the flight.
 ---The report is generated from the perspective of the player plane, and is reported by the first plane in the formation set.
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup GROUP 
 function AI_ESCORT:_FlightReportTargetsScheduler(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
 function AI_ESCORT:_FlightSmoke(Color, Message) end
@@ -802,38 +731,32 @@ function AI_ESCORT:_FlightSmoke(Color, Message) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportTargets NOTYPE 
 function AI_ESCORT:_FlightSwitchReportNearbyTargets(ReportTargets) end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightSwitchReportTypeAirborne() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightSwitchReportTypeAll() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightSwitchReportTypeGround() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_FlightSwitchReportTypeGroundRadar() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param OrbitGroup NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param OrbitHeight NOTYPE 
@@ -843,34 +766,29 @@ function AI_ESCORT:_HoldPosition(OrbitGroup, EscortGroup, OrbitHeight, OrbitSeco
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:_InitEscortMenus(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:_InitEscortRoute(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_ESCORT:_InitFlightMenus() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:_JoinUp(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param EscortROEFunction NOTYPE 
 ---@param EscortROEMessage NOTYPE 
@@ -879,7 +797,6 @@ function AI_ESCORT:_ROE(EscortGroup, EscortROEFunction, EscortROEMessage) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param EscortROTFunction NOTYPE 
 ---@param EscortROTMessage NOTYPE 
@@ -888,14 +805,12 @@ function AI_ESCORT:_ROT(EscortGroup, EscortROTFunction, EscortROTMessage) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 function AI_ESCORT:_ReportNearbyTargetsNow(EscortGroup) end
 
 ---Report Targets Scheduler.
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup GROUP 
 ---@param Report NOTYPE 
 function AI_ESCORT:_ReportTargetsScheduler(EscortGroup, Report) end
@@ -903,7 +818,6 @@ function AI_ESCORT:_ReportTargetsScheduler(EscortGroup, Report) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param WayPoint NOTYPE 
 function AI_ESCORT:_ResumeMission(EscortGroup, WayPoint) end
@@ -911,21 +825,18 @@ function AI_ESCORT:_ResumeMission(EscortGroup, WayPoint) end
 ---Resume Scheduler.
 ---
 ------
----@param self AI_ESCORT 
 ---@param EscortGroup GROUP 
 function AI_ESCORT:_ResumeScheduler(EscortGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ScanDuration NOTYPE 
 function AI_ESCORT:_ScanTargets(ScanDuration) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroup NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
@@ -934,14 +845,12 @@ function AI_ESCORT:_Smoke(EscortGroup, Color, Message) end
 
 ---
 ------
----@param EscortGroup NOTYPE 
 ---@param self NOTYPE 
 function AI_ESCORT.___Resume(EscortGroup, self) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
 ---@private
 function AI_ESCORT:onafterStart(EscortGroupSet) end
@@ -949,7 +858,6 @@ function AI_ESCORT:onafterStart(EscortGroupSet) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortGroupSet NOTYPE 
 ---@private
 function AI_ESCORT:onafterStop(EscortGroupSet) end

@@ -99,14 +99,12 @@ TIMER = {}
 ---Check if the timer has been started and was not stopped.
 ---
 ------
----@param self TIMER 
 ---@return boolean #If `true`, the timer is running.
 function TIMER:IsRunning() end
 
 ---Create a new TIMER object.
 ---
 ------
----@param self TIMER 
 ---@param Function function The function to call.
 ---@param ... NOTYPE Parameters passed to the function if any.
 ---@return TIMER #self
@@ -116,7 +114,6 @@ function TIMER:New(Function, ...) end
 ---When the function has been called this many times, the TIMER is stopped.
 ---
 ------
----@param self TIMER 
 ---@param Nmax number Set number of max function calls.
 ---@return TIMER #self
 function TIMER:SetMaxFunctionCalls(Nmax) end
@@ -125,7 +122,6 @@ function TIMER:SetMaxFunctionCalls(Nmax) end
 ---Can also be set when the timer is already running and is applied after the next function call.
 ---
 ------
----@param self TIMER 
 ---@param dT number Time interval in seconds.
 ---@return TIMER #self
 function TIMER:SetTimeInterval(dT) end
@@ -133,7 +129,6 @@ function TIMER:SetTimeInterval(dT) end
 ---Start TIMER object.
 ---
 ------
----@param self TIMER 
 ---@param Tstart number Relative start time in seconds.
 ---@param dT number Interval between function calls in seconds. If not specified `nil`, the function is called only once.
 ---@param Duration number Time in seconds for how long the timer is running. If not specified `nil`, the timer runs forever or until stopped manually by the `TIMER:Stop()` function.
@@ -144,7 +139,6 @@ function TIMER:Start(Tstart, dT, Duration) end
 ---Useful for e.g. debugging.
 ---
 ------
----@param self TIMER 
 ---@param Condition boolean Must be true for the TIMER to start
 ---@param Tstart number Relative start time in seconds.
 ---@param dT number Interval between function calls in seconds. If not specified `nil`, the function is called only once.
@@ -155,7 +149,6 @@ function TIMER:StartIf(Condition, Tstart, dT, Duration) end
 ---Stop the timer by removing the timer function.
 ---
 ------
----@param self TIMER 
 ---@param Delay? number (Optional) Delay in seconds, before the timer is stopped.
 ---@return TIMER #self
 function TIMER:Stop(Delay) end
@@ -163,7 +156,6 @@ function TIMER:Stop(Delay) end
 ---Call timer function.
 ---
 ------
----@param self TIMER 
 ---@param time number DCS model time in seconds.
 ---@return number #Time when the function is called again or `nil` if the timer is stopped.
 function TIMER:_Function(time) end

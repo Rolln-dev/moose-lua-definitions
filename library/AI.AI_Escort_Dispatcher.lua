@@ -63,7 +63,6 @@ AI_ESCORT_DISPATCHER = {}
 ---Red_SU25T_EscortDispatcher:Start()
 ---```
 ------
----@param self AI_ESCORT_DISPATCHER 
 ---@param CarrierSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of carriers for which escorts are spawned in.
 ---@param EscortSpawn SPAWN The spawn object that will spawn in the Escorts.
 ---@param EscortAirbase AIRBASE The airbase where the escorts are spawned.
@@ -75,47 +74,40 @@ function AI_ESCORT_DISPATCHER:New(CarrierSet, EscortSpawn, EscortAirbase, Escort
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_ESCORT_DISPATCHER:OnEventBirth(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_ESCORT_DISPATCHER:OnEventExit(EventData) end
 
 ---Start Trigger for AI_ESCORT_DISPATCHER
 ---
 ------
----@param self AI_ESCORT_DISPATCHER 
 function AI_ESCORT_DISPATCHER:Start() end
 
 ---Stop Trigger for AI_ESCORT_DISPATCHER
 ---
 ------
----@param self AI_ESCORT_DISPATCHER 
 function AI_ESCORT_DISPATCHER:Stop() end
 
 ---Start Asynchronous Trigger for AI_ESCORT_DISPATCHER
 ---
 ------
----@param self AI_ESCORT_DISPATCHER 
 ---@param Delay number 
 function AI_ESCORT_DISPATCHER:__Start(Delay) end
 
 ---Stop Asynchronous Trigger for AI_ESCORT_DISPATCHER
 ---
 ------
----@param self AI_ESCORT_DISPATCHER 
 ---@param Delay number 
 function AI_ESCORT_DISPATCHER:__Stop(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

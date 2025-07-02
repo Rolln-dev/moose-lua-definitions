@@ -44,7 +44,6 @@ RADIOQUEUE = {}
 ---Add a SOUNDFILE to the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param soundfile SOUNDFILE Sound file object to be added.
 ---@param tstart number Start time (abs) seconds. Default now.
 ---@param interval number Interval in seconds after the last transmission finished.
@@ -54,7 +53,6 @@ function RADIOQUEUE:AddSoundFile(soundfile, tstart, interval) end
 ---Add a SOUNDTEXT to the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param soundtext SOUNDTEXT Text-to-speech text.
 ---@param tstart number Start time (abs) seconds. Default now.
 ---@param interval number Interval in seconds after the last transmission finished.
@@ -64,7 +62,6 @@ function RADIOQUEUE:AddSoundText(soundtext, tstart, interval) end
 ---Add a transmission to the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param transmission RADIOQUEUE.Transmission The transmission data table. 
 ---@return RADIOQUEUE #self
 function RADIOQUEUE:AddTransmission(transmission) end
@@ -72,14 +69,12 @@ function RADIOQUEUE:AddTransmission(transmission) end
 ---Broadcast radio message.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param transmission RADIOQUEUE.Transmission The transmission.
 function RADIOQUEUE:Broadcast(transmission) end
 
 ---Create a new RADIOQUEUE object for a given radio frequency/modulation.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param frequency number The radio frequency in MHz.
 ---@param modulation? number (Optional) The radio modulation. Default `radio.modulation.AM` (=0).
 ---@param alias? string (Optional) Name of the radio queue.
@@ -89,7 +84,6 @@ function RADIOQUEUE:New(frequency, modulation, alias) end
 ---Create a new transmission and add it to the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param filename string Name of the sound file. Usually an ogg or wav file type.
 ---@param duration number Duration in seconds the file lasts.
 ---@param path number Directory path inside the miz file where the sound file is located. Default "l10n/DEFAULT/".
@@ -104,7 +98,6 @@ function RADIOQUEUE:NewTransmission(filename, duration, path, tstart, interval, 
 ---E.g. for board number or headings.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param number string Number string, e.g. "032" or "183".
 ---@param delay number Delay before transmission in seconds.
 ---@param interval number Interval between the next call.
@@ -114,7 +107,6 @@ function RADIOQUEUE:Number2Transmission(number, delay, interval) end
 ---Set parameters of a digit.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param digit number The digit 0-9.
 ---@param filename string The name of the sound file.
 ---@param duration number The duration of the sound file in seconds.
@@ -128,7 +120,6 @@ function RADIOQUEUE:SetDigit(digit, filename, duration, path, subtitle, subdurat
 ---Note that this only applies if no relay unit is used.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param power number Radio power in Watts. Default 100 W.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:SetRadioPower(power) end
@@ -136,7 +127,6 @@ function RADIOQUEUE:SetRadioPower(power) end
 ---Set SRS.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param PathToSRS string Path to SRS.
 ---@param Port number SRS port. Default 5002.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
@@ -145,7 +135,6 @@ function RADIOQUEUE:SetSRS(PathToSRS, Port) end
 ---Set coordinate from where the transmission is broadcasted.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param coordinate COORDINATE Coordinate of the sender.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:SetSenderCoordinate(coordinate) end
@@ -153,7 +142,6 @@ function RADIOQUEUE:SetSenderCoordinate(coordinate) end
 ---Set name of unit or static from which transmissions are made.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param name string Name of the unit or static used for transmissions.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:SetSenderUnitName(name) end
@@ -161,7 +149,6 @@ function RADIOQUEUE:SetSenderUnitName(name) end
 ---Start the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param delay? number (Optional) Delay in seconds, before the radio queue is started. Default 1 sec.
 ---@param dt? number (Optional) Time step in seconds for checking the queue. Default 0.01 sec.
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
@@ -171,27 +158,23 @@ function RADIOQUEUE:Start(delay, dt) end
 ---Stop scheduler and delete queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@return RADIOQUEUE #self The RADIOQUEUE object.
 function RADIOQUEUE:Stop() end
 
 ---Broadcast radio message.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param transmission RADIOQUEUE.Transmission The transmission.
 function RADIOQUEUE:_BroadcastSRS(transmission) end
 
 ---Check radio queue for transmissions to be broadcasted.
 ---
 ------
----@param self RADIOQUEUE 
 function RADIOQUEUE:_CheckRadioQueue() end
 
 ---Start checking the radio queue.
 ---
 ------
----@param self RADIOQUEUE 
 ---@param delay number Delay in seconds before checking.
 function RADIOQUEUE:_CheckRadioQueueDelayed(delay) end
 
@@ -199,7 +182,6 @@ function RADIOQUEUE:_CheckRadioQueueDelayed(delay) end
 ---This has to be an aircraft for subtitles to work.
 ---
 ------
----@param self RADIOQUEUE 
 ---@return UNIT #Sending unit or nil if was not setup, is not an aircraft or ground unit or is not alive.
 function RADIOQUEUE:_GetRadioSender() end
 
@@ -207,7 +189,6 @@ function RADIOQUEUE:_GetRadioSender() end
 ---This has to be an aircraft or ground unit for subtitles to work.
 ---
 ------
----@param self RADIOQUEUE 
 ---@return Vec3 #Vector 3D.
 function RADIOQUEUE:_GetRadioSenderCoord() end
 

@@ -99,7 +99,6 @@ AI_AIR_PATROL = {}
 ---Creates a new AI_AIR_PATROL object
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AI_Air AI_AIR The AI_AIR FSM.
 ---@param AIGroup GROUP The AI group.
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
@@ -114,7 +113,6 @@ function AI_AIR_PATROL:New(AI_Air, AIGroup, PatrolZone, PatrolFloorAltitude, Pat
 ---OnAfter Transition Handler for Event Patrol.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -124,7 +122,6 @@ function AI_AIR_PATROL:OnAfterPatrol(AIPatrol, From, Event, To) end
 ---OnAfter Transition Handler for Event PatrolRoute.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -134,7 +131,6 @@ function AI_AIR_PATROL:OnAfterPatrolRoute(AIPatrol, From, Event, To) end
 ---OnBefore Transition Handler for Event Patrol.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -145,7 +141,6 @@ function AI_AIR_PATROL:OnBeforePatrol(AIPatrol, From, Event, To) end
 ---OnBefore Transition Handler for Event PatrolRoute.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -156,7 +151,6 @@ function AI_AIR_PATROL:OnBeforePatrolRoute(AIPatrol, From, Event, To) end
 ---OnEnter Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -166,7 +160,6 @@ function AI_AIR_PATROL:OnEnterPatrolling(AIPatrol, From, Event, To) end
 ---OnLeave Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -177,26 +170,22 @@ function AI_AIR_PATROL:OnLeavePatrolling(AIPatrol, From, Event, To) end
 ---Synchronous Event Trigger for Event Patrol.
 ---
 ------
----@param self AI_AIR_PATROL 
 function AI_AIR_PATROL:Patrol() end
 
 ---Synchronous Event Trigger for Event PatrolRoute.
 ---
 ------
----@param self AI_AIR_PATROL 
 function AI_AIR_PATROL:PatrolRoute() end
 
 ---Resumes the AIPatrol
 ---
 ------
----@param AIPatrol GROUP 
 ---@param Fsm FSM 
 function AI_AIR_PATROL.Resume(AIPatrol, Fsm) end
 
 ---Set the Engage Range when the AI will engage with airborne enemies.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param EngageRange number The Engage Range.
 ---@return AI_AIR_PATROL #self
 function AI_AIR_PATROL:SetEngageRange(EngageRange) end
@@ -205,7 +194,6 @@ function AI_AIR_PATROL:SetEngageRange(EngageRange) end
 ---CAP flights will perform race track patterns rather than randomly patrolling the zone.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param LegMin number Min Length of the race track leg in meters. Default 10,000 m.
 ---@param LegMax number Max length of the race track leg in meters. Default 15,000 m.
 ---@param HeadingMin number Min heading of the race track in degrees. Default 0 deg, i.e. from South to North.
@@ -219,14 +207,12 @@ function AI_AIR_PATROL:SetRaceTrackPattern(LegMin, LegMax, HeadingMin, HeadingMa
 ---Asynchronous Event Trigger for Event Patrol.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param Delay number The delay in seconds.
 function AI_AIR_PATROL:__Patrol(Delay) end
 
 ---Asynchronous Event Trigger for Event PatrolRoute.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param Delay number The delay in seconds.
 function AI_AIR_PATROL:__PatrolRoute(Delay) end
 
@@ -234,14 +220,12 @@ function AI_AIR_PATROL:__PatrolRoute(Delay) end
 ---Note that this method is required, as triggers the next route when patrolling for the AIPatrol.
 ---
 ------
----@param AIPatrol GROUP The AI group.
 ---@param Fsm AI_AIR_PATROL The FSM.
 function AI_AIR_PATROL.___PatrolRoute(AIPatrol, Fsm) end
 
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -253,7 +237,6 @@ function AI_AIR_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_AIR_PATROL 
 ---@param AIPatrol GROUP The Group managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.

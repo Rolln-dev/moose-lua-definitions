@@ -162,21 +162,18 @@ PLAYERRECCE = {}
 ---Default is - smoke all positions.
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #
 function PLAYERRECCE:DisableSmokeAverageTargetPosition() end
 
 ---[User] Disable smoking of own position
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #
 function PLAYERRECCE:DisableSmokeOwnPosition() end
 
 ---[User] Enable auto lasing for the Kiowa OH-58D.
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:EnableKiowaAutolase() end
 
@@ -184,21 +181,18 @@ function PLAYERRECCE:EnableKiowaAutolase() end
 ---Loses smoke per threatlevel -- each is med threat. Default is - smoke all positions.
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:EnableSmokeAverageTargetPosition() end
 
 ---[User] Enable smoking of own position
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:EnableSmokeOwnPosition() end
 
 ---Create and run a new PlayerRecce instance.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Name string The name of this instance
 ---@param Coalition number  e.g. coalition.side.BLUE
 ---@param PlayerSet SET_CLIENT The set of pilots working as recce
@@ -209,7 +203,6 @@ function PLAYERRECCE:New(Name, Coalition, PlayerSet) end
 ---Illumination rocket shot.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -223,7 +216,6 @@ function PLAYERRECCE:OnAfterIllumination(From, Event, To, Client, Playername, Ta
 ---Recce went off duty.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -236,7 +228,6 @@ function PLAYERRECCE:OnAfterRecceOffStation(From, Event, To, Client, Playername)
 ---Recce came on station.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -249,7 +240,6 @@ function PLAYERRECCE:OnAfterRecceOnStation(From, Event, To, Client, Playername) 
 ---Lased target has been destroyed.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -262,7 +252,6 @@ function PLAYERRECCE:OnAfterShack(From, Event, To, Client, Target) end
 ---Targets detected.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -276,7 +265,6 @@ function PLAYERRECCE:OnAfterTargetDetected(From, Event, To, Targetsbyclock, Clie
 ---Lost LOS on lased target.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -289,7 +277,6 @@ function PLAYERRECCE:OnAfterTargetLOSLost(From, Event, To, Client, Target) end
 ---Lasing a new target.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -304,7 +291,6 @@ function PLAYERRECCE:OnAfterTargetLasing(From, Event, To, Client, Target, Laserc
 ---Laser target report sent.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -319,7 +305,6 @@ function PLAYERRECCE:OnAfterTargetReport(From, Event, To, Client, TargetSet, Tar
 ---All targets report sent.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -333,7 +318,6 @@ function PLAYERRECCE:OnAfterTargetReportSent(From, Event, To, Client, Playername
 ---Flares shot.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -347,7 +331,6 @@ function PLAYERRECCE:OnAfterTargetsFlared(From, Event, To, Client, Playername, T
 ---Smoke grenade shot.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -360,7 +343,6 @@ function PLAYERRECCE:OnAfterTargetsSmoked(From, Event, To, Client, Playername, T
 ---[User] Set a set of clients which will receive target reports
 ---
 ------
----@param self PLAYERRECCE 
 ---@param AttackSet SET_CLIENT 
 ---@return PLAYERRECCE #
 function PLAYERRECCE:SetAttackSet(AttackSet) end
@@ -369,7 +351,6 @@ function PLAYERRECCE:SetAttackSet(AttackSet) end
 ---See Wrapper.Group#GROUP.GetCustomCallSign() on how to set customized callsigns.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers.
 ---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
@@ -382,7 +363,6 @@ function PLAYERRECCE:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTrans
 ---Each new RECCE can select a code from this table, default is { 1688, 1130, 4785, 6547, 1465, 4578 }.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param LaserCodes list 
 ---@return PLAYERRECCE #
 function PLAYERRECCE:SetLaserCodes(LaserCodes) end
@@ -390,7 +370,6 @@ function PLAYERRECCE:SetLaserCodes(LaserCodes) end
 ---[User] Set the top menu name to a custom string.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Name string The name to use as the top menu designation.
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:SetMenuName(Name) end
@@ -399,7 +378,6 @@ function PLAYERRECCE:SetMenuName(Name) end
 ---Allows to upload target reports to the controller, in turn creating tasks for other players.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Controller PLAYERTASKCONTROLLER 
 ---@return PLAYERRECCE #
 function PLAYERRECCE:SetPlayerTaskController(Controller) end
@@ -408,7 +386,6 @@ function PLAYERRECCE:SetPlayerTaskController(Controller) end
 ---Will be used in coordinate references.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Coordinate COORDINATE Coordinate of the RP
 ---@param Name string Name of the RP
 ---@return PLAYERRECCE #
@@ -417,7 +394,6 @@ function PLAYERRECCE:SetReferencePoint(Coordinate, Name) end
 ---[User] Set reporting to be BULLS only or BULLS plus playersettings based coordinate.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param OnOff boolean 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:SetReportBullsOnly(OnOff) end
@@ -425,7 +401,6 @@ function PLAYERRECCE:SetReportBullsOnly(OnOff) end
 ---[User] Set SRS TTS details - see Sound.SRS for details
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Frequency number Frequency to be used. Can also be given as a table of multiple frequencies, e.g. 271 or {127,251}. There needs to be exactly the same number of modulations!
 ---@param Modulation number Modulation to be used. Can also be given as a table of multiple modulations, e.g. radio.modulation.AM or {radio.modulation.FM,radio.modulation.AM}. There needs to be exactly the same number of frequencies!
 ---@param PathToSRS string Defaults to "C:\\Program Files\\DCS-SimpleRadio-Standalone"
@@ -442,7 +417,6 @@ function PLAYERRECCE:SetSRS(Frequency, Modulation, PathToSRS, Gender, Culture, P
 ---[User] For SRS - Switch to only transmit if there are players on the server.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Switch boolean If true, only send SRS if there are alive Players.
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:SetTransmitOnlyWithPlayers(Switch) end
@@ -451,13 +425,11 @@ function PLAYERRECCE:SetTransmitOnlyWithPlayers(Switch) end
 ---Starts the PLAYERRECCE. Note: Start() is called automatically after New().
 ---
 ------
----@param self PLAYERRECCE 
 function PLAYERRECCE:Start() end
 
 ---[Internal] Build Menus
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Client? CLIENT (optional) Client object
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:_BuildMenus(Client) end
@@ -465,7 +437,6 @@ function PLAYERRECCE:_BuildMenus(Client) end
 ---[Internal] Check Helicopter camera in on
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param playername string 
 ---@return boolean #OnOff
@@ -474,7 +445,6 @@ function PLAYERRECCE:_CameraOn(client, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param targetset SET_UNIT 
 ---@param client CLIENT 
 ---@param playername string 
@@ -484,14 +454,12 @@ function PLAYERRECCE:_CheckNewTargets(targetset, client, playername) end
 --- [Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:_CleanupTargetCache() end
 
 ---[Internal] Event handling
 ---
 ------
----@param self PLAYERRECCE 
 ---@param EventData EVENTDATA 
 ---@return PLAYERRECCE #self
 function PLAYERRECCE:_EventHandler(EventData) end
@@ -499,7 +467,6 @@ function PLAYERRECCE:_EventHandler(EventData) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -510,7 +477,6 @@ function PLAYERRECCE:_FlareTargets(client, group, playername) end
 ---Returns 0 if camera is off.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param unit UNIT The unit which LOS we want
 ---@param vheading number Heading where the unit or camera is looking
 ---@param vnod number Nod down in degrees
@@ -521,7 +487,6 @@ function PLAYERRECCE:_GetActualMaxLOSight(unit, vheading, vnod, vivoff) end
 ---(Internal) Function to determine clockwise direction to target.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param unit UNIT The Helicopter
 ---@param target UNIT The downed Group
 ---@return number #direction
@@ -530,7 +495,6 @@ function PLAYERRECCE:_GetClockDirection(unit, target) end
 ---[Internal] Get the view parameters from a Gazelle camera
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Gazelle UNIT 
 ---@return number #cameraheading in degrees.
 ---@return number #cameranodding in degrees.
@@ -541,7 +505,6 @@ function PLAYERRECCE:_GetGazelleVivianneSight(Gazelle) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param targetset SET_UNIT Set of targets, can be empty!
 ---@return UNIT #Target or nil
 function PLAYERRECCE:_GetHVTTarget(targetset) end
@@ -549,7 +512,6 @@ function PLAYERRECCE:_GetHVTTarget(targetset) end
 ---[Internal] Get the view parameters from a Kiowa MMS camera
 ---
 ------
----@param self PLAYERRECCE 
 ---@param Kiowa UNIT 
 ---@return number #cameraheading in degrees.
 ---@return number #cameranodding in degrees.
@@ -560,7 +522,6 @@ function PLAYERRECCE:_GetKiowaMMSSight(Kiowa) end
 --- [Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@return SET_UNIT #Set of targets, can be empty!
 ---@return number #count Count of targets
@@ -569,7 +530,6 @@ function PLAYERRECCE:_GetKnownTargets(client) end
 --- [Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param unit UNIT The FACA unit
 ---@param camera boolean If true, use the unit's camera for targets in sight
 ---@param laser laser Use laser zone
@@ -581,7 +541,6 @@ function PLAYERRECCE:_GetTargetSet(unit, camera, laser) end
 ---Numbers are spaced out, e.g. "Heading 180" becomes "Heading 1 8 0 ".
 ---
 ------
----@param self PLAYERRECCE 
 ---@param text string Original text.
 ---@return string #Spoken text.
 function PLAYERRECCE:_GetTextForSpeech(text) end
@@ -589,7 +548,6 @@ function PLAYERRECCE:_GetTextForSpeech(text) end
 ---[Internal] Build a ZONE_POLYGON from a given viewport of a unit
 ---
 ------
----@param self PLAYERRECCE 
 ---@param unit UNIT The unit which is looking
 ---@param vheading number Heading where the unit or camera is looking
 ---@param minview number Min line of sight - for lasing
@@ -603,7 +561,6 @@ function PLAYERRECCE:_GetViewZone(unit, vheading, minview, maxview, angle, camon
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -613,7 +570,6 @@ function PLAYERRECCE:_IlluTargets(client, group, playername) end
 --- [Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT The FACA unit
 ---@param targetset SET_UNIT Set of targets, can be empty!
 ---@return PLAYERRECCE #self
@@ -622,7 +578,6 @@ function PLAYERRECCE:_LaseTarget(client, targetset) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -632,7 +587,6 @@ function PLAYERRECCE:_ReportLaserTargets(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -642,7 +596,6 @@ function PLAYERRECCE:_ReportVisualTargets(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -653,7 +606,6 @@ function PLAYERRECCE:_SetClientLaserCode(client, group, playername, code) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -663,7 +615,6 @@ function PLAYERRECCE:_SmokeTargets(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -673,7 +624,6 @@ function PLAYERRECCE:_SwitchLasing(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -685,7 +635,6 @@ function PLAYERRECCE:_SwitchLasingDist(client, group, playername, mindist, maxdi
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -695,7 +644,6 @@ function PLAYERRECCE:_SwitchOnStation(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -705,7 +653,6 @@ function PLAYERRECCE:_SwitchSmoke(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -715,7 +662,6 @@ function PLAYERRECCE:_UploadTargets(client, group, playername) end
 ---[Internal]
 ---
 ------
----@param self PLAYERRECCE 
 ---@param client CLIENT 
 ---@param group GROUP 
 ---@param playername string 
@@ -726,7 +672,6 @@ function PLAYERRECCE:_WIP(client, group, playername) end
 ---Starts the PLAYERRECCE. Note: Start() is called automatically after New().
 ---
 ------
----@param self PLAYERRECCE 
 ---@param delay number Delay in seconds.
 function PLAYERRECCE:__Start(delay) end
 
@@ -734,14 +679,12 @@ function PLAYERRECCE:__Start(delay) end
 ---Stops the PLAYERRECCE and all its event handlers.
 ---
 ------
----@param self PLAYERRECCE 
 ---@param delay number Delay in seconds.
 function PLAYERRECCE:__Stop(delay) end
 
 ---[Internal] Targets Illuminated
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -755,7 +698,6 @@ function PLAYERRECCE:onafterIllumination(From, Event, To, Client, Playername, Ta
 ---[Internal] Recce off station
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -768,7 +710,6 @@ function PLAYERRECCE:onafterRecceOffStation(From, Event, To, Client, Playername)
 ---[Internal] Recce on station
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -781,7 +722,6 @@ function PLAYERRECCE:onafterRecceOnStation(From, Event, To, Client, Playername) 
 ---[Internal] Lased target destroyed
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -794,7 +734,6 @@ function PLAYERRECCE:onafterShack(From, Event, To, Client, Target) end
 ---[Internal] Status Loop
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -805,7 +744,6 @@ function PLAYERRECCE:onafterStatus(From, Event, To) end
 ---[Internal] Stop
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -816,7 +754,6 @@ function PLAYERRECCE:onafterStop(From, Event, To) end
 ---[Internal] Target Detected
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -830,7 +767,6 @@ function PLAYERRECCE:onafterTargetDetected(From, Event, To, Targetsbyclock, Clie
 ---[Internal] Laser lost LOS
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -843,7 +779,6 @@ function PLAYERRECCE:onafterTargetLOSLost(From, Event, To, Client, Target) end
 ---[Internal] Target lasing
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -858,7 +793,6 @@ function PLAYERRECCE:onafterTargetLasing(From, Event, To, Client, Target, Laserc
 ---[Internal] Target report
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -873,7 +807,6 @@ function PLAYERRECCE:onafterTargetReport(From, Event, To, Client, TargetSet, Tar
 ---[Internal] Target data upload
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -887,7 +820,6 @@ function PLAYERRECCE:onafterTargetReportSent(From, Event, To, Client, Playername
 ---[Internal] Targets Flared
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -901,7 +833,6 @@ function PLAYERRECCE:onafterTargetsFlared(From, Event, To, Client, Playername, T
 ---[Internal] Targets Smoked
 ---
 ------
----@param self PLAYERRECCE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

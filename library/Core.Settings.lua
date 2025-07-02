@@ -206,12 +206,11 @@
 ---===
 ---@class SETTINGS : BASE
 ---@field A2ASystem string 
----@field A2GSystem string 
+---@field A2GSystem NOTYPE 
 ---@field Era NOTYPE 
 ---@field LL_Accuracy NOTYPE 
 ---@field MGRS_Accuracy NOTYPE 
 ---@field Metric NOTYPE 
----@field PlayerMenu NOTYPE 
 ---@field ShowPlayerMenu boolean 
 ---@field __Enum table 
 SETTINGS = {}
@@ -219,7 +218,6 @@ SETTINGS = {}
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param A2ASystem NOTYPE 
@@ -228,7 +226,6 @@ function SETTINGS:A2AMenuSystem(MenuGroup, RootMenu, A2ASystem) end
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param A2GSystem NOTYPE 
@@ -237,28 +234,24 @@ function SETTINGS:A2GMenuSystem(MenuGroup, RootMenu, A2GSystem) end
 ---Gets the SETTINGS LL accuracy.
 ---
 ------
----@param self SETTINGS 
 ---@return number #
 function SETTINGS:GetLL_DDM_Accuracy() end
 
 ---Gets the SETTINGS text locale.
 ---
 ------
----@param self SETTINGS 
 ---@return string #
 function SETTINGS:GetLocale() end
 
 ---Gets the SETTINGS MGRS accuracy.
 ---
 ------
----@param self SETTINGS 
 ---@return number #
 function SETTINGS:GetMGRS_Accuracy() end
 
 ---Gets the SETTINGS Message Display Timing of a MessageType
 ---
 ------
----@param self SETTINGS 
 ---@param MessageType MESSAGE The type of the message.
 ---@return number #
 function SETTINGS:GetMessageTime(MessageType) end
@@ -266,84 +259,72 @@ function SETTINGS:GetMessageTime(MessageType) end
 ---Is BRA
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if BRA
 function SETTINGS:IsA2A_BRAA() end
 
 ---Is BULLS
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if BULLS
 function SETTINGS:IsA2A_BULLS() end
 
 ---Is LL DDM
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if LL DDM
 function SETTINGS:IsA2A_LL_DDM() end
 
 ---Is LL DMS
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if LL DMS
 function SETTINGS:IsA2A_LL_DMS() end
 
 ---Is MGRS
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if MGRS
 function SETTINGS:IsA2A_MGRS() end
 
 ---Is BRA
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if BRA
 function SETTINGS:IsA2G_BR() end
 
 ---Is LL DDM
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if LL DDM
 function SETTINGS:IsA2G_LL_DDM() end
 
 ---Is LL DMS
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if LL DMS
 function SETTINGS:IsA2G_LL_DMS() end
 
 ---Is MGRS
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if MGRS
 function SETTINGS:IsA2G_MGRS() end
 
 ---Gets if the SETTINGS is imperial.
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if imperial.
 function SETTINGS:IsImperial() end
 
 ---Gets if the SETTINGS is metric.
 ---
 ------
----@param self SETTINGS 
 ---@return boolean #true if metric.
 function SETTINGS:IsMetric() end
 
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -353,7 +334,6 @@ function SETTINGS:MenuGroupA2ASystem(PlayerUnit, PlayerGroup, PlayerName, A2ASys
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -363,7 +343,6 @@ function SETTINGS:MenuGroupA2GSystem(PlayerUnit, PlayerGroup, PlayerName, A2GSys
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -373,7 +352,6 @@ function SETTINGS:MenuGroupLL_DDM_AccuracySystem(PlayerUnit, PlayerGroup, Player
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -383,7 +361,6 @@ function SETTINGS:MenuGroupMGRS_AccuracySystem(PlayerUnit, PlayerGroup, PlayerNa
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -393,7 +370,6 @@ function SETTINGS:MenuGroupMWSystem(PlayerUnit, PlayerGroup, PlayerName, MW) end
 
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit NOTYPE 
 ---@param PlayerGroup NOTYPE 
 ---@param PlayerName NOTYPE 
@@ -404,7 +380,6 @@ function SETTINGS:MenuGroupMessageTimingsSystem(PlayerUnit, PlayerGroup, PlayerN
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param LL_Accuracy NOTYPE 
@@ -413,7 +388,6 @@ function SETTINGS:MenuLL_DDM_Accuracy(MenuGroup, RootMenu, LL_Accuracy) end
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param MGRS_Accuracy NOTYPE 
@@ -422,7 +396,6 @@ function SETTINGS:MenuMGRS_Accuracy(MenuGroup, RootMenu, MGRS_Accuracy) end
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param MW NOTYPE 
@@ -431,7 +404,6 @@ function SETTINGS:MenuMWSystem(MenuGroup, RootMenu, MW) end
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup NOTYPE 
 ---@param RootMenu NOTYPE 
 ---@param MessageType NOTYPE 
@@ -441,7 +413,6 @@ function SETTINGS:MenuMessageTimingsSystem(MenuGroup, RootMenu, MessageType, Mes
 ---Removes the player menu from the PlayerUnit.
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit CLIENT 
 ---@return SETTINGS #self
 function SETTINGS:RemovePlayerMenu(PlayerUnit) end
@@ -449,7 +420,6 @@ function SETTINGS:RemovePlayerMenu(PlayerUnit) end
 ---SETTINGS constructor.
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerName? string (Optional) Set settings for this player.
 ---@return SETTINGS #
 function SETTINGS:Set(PlayerName) end
@@ -457,104 +427,89 @@ function SETTINGS:Set(PlayerName) end
 ---Sets A2A BRA
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2A_BRAA() end
 
 ---Sets A2A BULLS
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2A_BULLS() end
 
 ---Sets A2A LL DDM
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2A_LL_DDM() end
 
 ---Sets A2A LL DMS
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2A_LL_DMS() end
 
 ---Sets A2A MGRS
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2A_MGRS() end
 
 ---Sets A2G BRA
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2G_BR() end
 
 ---Sets A2G LL DDM
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2G_LL_DDM() end
 
 ---Sets A2G LL DMS
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2G_LL_DMS() end
 
 ---Sets A2G MGRS
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetA2G_MGRS() end
 
 ---Configures the era of the mission to be Cold war.
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #self
 function SETTINGS:SetEraCold() end
 
 ---Configures the era of the mission to be Korea.
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #self
 function SETTINGS:SetEraKorea() end
 
 ---Configures the era of the mission to be Modern war.
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #self
 function SETTINGS:SetEraModern() end
 
 ---Configures the era of the mission to be WWII.
 ---
 ------
----@param self SETTINGS 
 ---@return SETTINGS #self
 function SETTINGS:SetEraWWII() end
 
 ---Sets the SETTINGS imperial.
 ---
 ------
----@param self SETTINGS 
 function SETTINGS:SetImperial() end
 
 ---Sets the SETTINGS LL accuracy.
 ---
 ------
----@param self SETTINGS 
 ---@param LL_Accuracy number 
 ---@return SETTINGS #
 function SETTINGS:SetLL_Accuracy(LL_Accuracy) end
@@ -562,14 +517,12 @@ function SETTINGS:SetLL_Accuracy(LL_Accuracy) end
 ---Sets the SETTINGS default text locale.
 ---
 ------
----@param self SETTINGS 
 ---@param Locale string 
 function SETTINGS:SetLocale(Locale) end
 
 ---Sets the SETTINGS MGRS accuracy.
 ---
 ------
----@param self SETTINGS 
 ---@param MGRS_Accuracy number 0 to 5
 ---@return SETTINGS #
 function SETTINGS:SetMGRS_Accuracy(MGRS_Accuracy) end
@@ -577,7 +530,6 @@ function SETTINGS:SetMGRS_Accuracy(MGRS_Accuracy) end
 ---Set menu to be static.
 ---
 ------
----@param self SETTINGS 
 ---@param onoff boolean If *true* menu is static. If *false* menu will be updated after changes (default).
 function SETTINGS:SetMenuStatic(onoff) end
 
@@ -585,14 +537,12 @@ function SETTINGS:SetMenuStatic(onoff) end
 ---Short text are better suited for, e.g., VR.
 ---
 ------
----@param self SETTINGS 
 ---@param onoff boolean If *true* use short menu texts. If *false* long ones (default).
 function SETTINGS:SetMenutextShort(onoff) end
 
 ---Sets the SETTINGS Message Display Timing of a MessageType
 ---
 ------
----@param self SETTINGS 
 ---@param MessageType MESSAGE The type of the message.
 ---@param MessageTime number The display time duration in seconds of the MessageType.
 function SETTINGS:SetMessageTime(MessageType, MessageTime) end
@@ -600,13 +550,11 @@ function SETTINGS:SetMessageTime(MessageType, MessageTime) end
 ---Sets the SETTINGS metric.
 ---
 ------
----@param self SETTINGS 
 function SETTINGS:SetMetric() end
 
 ---Updates the menu of the player seated in the PlayerUnit.
 ---
 ------
----@param self SETTINGS 
 ---@param PlayerUnit CLIENT 
 ---@return SETTINGS #self
 function SETTINGS:SetPlayerMenu(PlayerUnit) end
@@ -622,7 +570,6 @@ function SETTINGS:SetPlayerMenu(PlayerUnit) end
 ---  _SETTINGS:SetPlayerMenuOff() -- will disable the player menus.
 ---```
 ------
----@param self SETTINGS 
 ---@return SETTINGS #self
 function SETTINGS:SetPlayerMenuOff() end
 
@@ -637,14 +584,12 @@ function SETTINGS:SetPlayerMenuOff() end
 ---  _SETTINGS:SetPlayerMenuOn() -- will enable the player menus.
 ---```
 ------
----@param self SETTINGS 
 ---@return SETTINGS #
 function SETTINGS:SetPlayerMenuOn() end
 
 
 ---
 ------
----@param self SETTINGS 
 ---@param MenuGroup GROUP Group for which to add menus.
 ---@param RootMenu table Root menu table
 ---@return SETTINGS #

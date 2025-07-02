@@ -163,7 +163,6 @@ STORAGE = {}
 ---Adds the amount of a given type of aircraft, liquid, weapon currently present the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid or name of aircraft, weapon or equipment.
 ---@param Amount number Amount of given type to add. Liquids in kg.
 ---@return STORAGE #self
@@ -172,7 +171,6 @@ function STORAGE:AddAmount(Type, Amount) end
 ---Adds the passed amount of a given item to the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Name string Name of the item to add.
 ---@param Amount number Amount of items to add.
 ---@return STORAGE #self
@@ -181,7 +179,6 @@ function STORAGE:AddItem(Name, Amount) end
 ---Adds the passed amount of a given liquid to the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid.
 ---@param Amount number Amount of liquid to add.
 ---@return STORAGE #self
@@ -190,7 +187,6 @@ function STORAGE:AddLiquid(Type, Amount) end
 ---Airbases only - Find a STORAGE in the **_DATABASE** using the name associated airbase.
 ---
 ------
----@param self STORAGE 
 ---@param AirbaseName string The Airbase Name.
 ---@return STORAGE #self
 function STORAGE:FindByName(AirbaseName) end
@@ -199,7 +195,6 @@ function STORAGE:FindByName(AirbaseName) end
 ---You need to put a (small, round) zone on top of it, because the name is not unique(!).
 ---
 ------
----@param self STORAGE 
 ---@param ZoneName string The name of the zone where to find the helipad.
 ---@return STORAGE #self or nil if not found.
 function STORAGE:FindSyriaHHelipadWarehouse(ZoneName) end
@@ -207,7 +202,6 @@ function STORAGE:FindSyriaHHelipadWarehouse(ZoneName) end
 ---Gets the amount of a given type of aircraft, liquid, weapon currently present the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid or name of aircraft, weapon or equipment.
 ---@return number #Amount of given type. Liquids in kg.
 function STORAGE:GetAmount(Type) end
@@ -216,7 +210,6 @@ function STORAGE:GetAmount(Type) end
 ---If a category is set to unlimited then the table will be returned empty.
 ---
 ------
----@param self STORAGE 
 ---@param Item string Name of item as #string or type of liquid as #number.
 ---@return table #Table of aircraft. Table is emtpy `{}` if number of aircraft is set to be unlimited.
 ---@return table #Table of liquids. Table is emtpy `{}` if number of liquids is set to be unlimited.
@@ -226,7 +219,6 @@ function STORAGE:GetInventory(Item) end
 ---Gets the amount of a given item currently present the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Name string Name of the item.
 ---@return number #Amount of items.
 function STORAGE:GetItemAmount(Name) end
@@ -234,7 +226,6 @@ function STORAGE:GetItemAmount(Name) end
 ---Gets the amount of a given liquid currently present the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid.
 ---@return number #Amount of liquid in kg.
 function STORAGE:GetLiquidAmount(Type) end
@@ -242,7 +233,6 @@ function STORAGE:GetLiquidAmount(Type) end
 ---Returns the name of the liquid from its numeric type.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid.
 ---@return string #Name of the liquid.
 function STORAGE:GetLiquidName(Type) end
@@ -250,7 +240,6 @@ function STORAGE:GetLiquidName(Type) end
 ---Returns whether a given type of aircraft, liquid, weapon is set to be limited.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid or name of aircraft, weapon or equipment.
 ---@return boolean #If `true` the given type is limited or `false` otherwise.
 function STORAGE:IsLimited(Type) end
@@ -258,28 +247,24 @@ function STORAGE:IsLimited(Type) end
 ---Returns whether aircraft are limited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` aircraft are limited or `false` otherwise.
 function STORAGE:IsLimitedAircraft() end
 
 ---Returns whether liquids are limited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` liquids are limited or `false` otherwise.
 function STORAGE:IsLimitedLiquids() end
 
 ---Returns whether weapons and equipment are limited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` liquids are limited or `false` otherwise.
 function STORAGE:IsLimitedWeapons() end
 
 ---Returns whether a given type of aircraft, liquid, weapon is set to be unlimited.
 ---
 ------
----@param self STORAGE 
 ---@param Type string Name of aircraft, weapon or equipment or type of liquid (as `#number`).
 ---@return boolean #If `true` the given type is unlimited or `false` otherwise.
 function STORAGE:IsUnlimited(Type) end
@@ -287,21 +272,18 @@ function STORAGE:IsUnlimited(Type) end
 ---Returns whether aircraft are unlimited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` aircraft are unlimited or `false` otherwise.
 function STORAGE:IsUnlimitedAircraft() end
 
 ---Returns whether liquids are unlimited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` liquids are unlimited or `false` otherwise.
 function STORAGE:IsUnlimitedLiquids() end
 
 ---Returns whether weapons and equipment are unlimited.
 ---
 ------
----@param self STORAGE 
 ---@return boolean #If `true` weapons and equipment are unlimited or `false` otherwise.
 function STORAGE:IsUnlimitedWeapons() end
 
@@ -309,7 +291,6 @@ function STORAGE:IsUnlimitedWeapons() end
 ---Filenames searched for are the Filename given amended by "_Liquids", "_Aircraft" and "_Weapons" followed by a ".csv". Requires io and lfs to be desanitized to be working.
 ---
 ------
----@param self STORAGE 
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@return STORAGE #self
@@ -318,7 +299,6 @@ function STORAGE:LoadFromFile(Path, Filename) end
 ---Create a new STORAGE object from the DCS airbase object.
 ---
 ------
----@param self STORAGE 
 ---@param AirbaseName string Name of the airbase.
 ---@return STORAGE #self
 function STORAGE:New(AirbaseName) end
@@ -326,7 +306,6 @@ function STORAGE:New(AirbaseName) end
 ---Create a new STORAGE object from a Wrapper.DynamicCargo#DYNAMICCARGO object.
 ---
 ------
----@param self STORAGE 
 ---@param DynamicCargoName string Unit name of the dynamic cargo.
 ---@return STORAGE #self
 function STORAGE:NewFromDynamicCargo(DynamicCargoName) end
@@ -334,7 +313,6 @@ function STORAGE:NewFromDynamicCargo(DynamicCargoName) end
 ---Create a new STORAGE object from an DCS static cargo object.
 ---
 ------
----@param self STORAGE 
 ---@param StaticCargoName string Unit name of the static.
 ---@return STORAGE #self
 function STORAGE:NewFromStaticCargo(StaticCargoName) end
@@ -342,7 +320,6 @@ function STORAGE:NewFromStaticCargo(StaticCargoName) end
 ---Removes the amount of a given type of aircraft, liquid, weapon from the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid or name of aircraft, weapon or equipment.
 ---@param Amount number Amount of given type to remove. Liquids in kg.
 ---@return STORAGE #self
@@ -351,7 +328,6 @@ function STORAGE:RemoveAmount(Type, Amount) end
 ---Removes the amount of the passed item from the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Name string Name of the item.
 ---@param Amount number Amount of items.
 ---@return STORAGE #self
@@ -360,7 +336,6 @@ function STORAGE:RemoveItem(Name, Amount) end
 ---Removes the amount of the given liquid type from the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid.
 ---@param Amount number Amount of liquid in kg to be removed.
 ---@return STORAGE #self
@@ -370,7 +345,6 @@ function STORAGE:RemoveLiquid(Type, Amount) end
 ---Filenames created are the Filename given amended by "_Liquids", "_Aircraft" and "_Weapons" followed by a ".csv". Requires io and lfs to be desanitized to be working.
 ---
 ------
----@param self STORAGE 
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The base name of the files. Existing files will be overwritten.
 ---@return STORAGE #self
@@ -379,7 +353,6 @@ function STORAGE:SaveToFile(Path, Filename) end
 ---Sets the amount of a given type of aircraft, liquid, weapon currently present the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid or name of aircraft, weapon or equipment.
 ---@param Amount number of given type. Liquids in kg.
 ---@return STORAGE #self
@@ -388,7 +361,6 @@ function STORAGE:SetAmount(Type, Amount) end
 ---Sets the specified amount of a given item to the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Name string Name of the item.
 ---@param Amount number Amount of items.
 ---@return STORAGE #self
@@ -397,7 +369,6 @@ function STORAGE:SetItem(Name, Amount) end
 ---Sets the specified amount of a given liquid to the warehouse.
 ---
 ------
----@param self STORAGE 
 ---@param Type number Type of liquid.
 ---@param Amount number Amount of liquid.
 ---@return STORAGE #self
@@ -406,7 +377,6 @@ function STORAGE:SetLiquid(Type, Amount) end
 ---Set verbosity level.
 ---
 ------
----@param self STORAGE 
 ---@param VerbosityLevel number Level of output (higher=more). Default 0.
 ---@return STORAGE #self
 function STORAGE:SetVerbosity(VerbosityLevel) end
@@ -414,7 +384,6 @@ function STORAGE:SetVerbosity(VerbosityLevel) end
 ---Start a STORAGE autosave process.
 ---
 ------
----@param self STORAGE 
 ---@param Path string The path to use. Use double backslashes \\\\ on Windows filesystems.
 ---@param Filename string The name of the file.
 ---@param Interval number The interval, start after this many seconds and repeat every interval seconds. Defaults to 300.
@@ -425,7 +394,6 @@ function STORAGE:StartAutoSave(Path, Filename, Interval, LoadOnce) end
 ---Stop a running STORAGE autosave process.
 ---
 ------
----@param self STORAGE 
 ---@return STORAGE #self
 function STORAGE:StopAutoSave() end
 

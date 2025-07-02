@@ -33,7 +33,6 @@ RADIOSPEECH = {}
 ---Add Sentence to the Speech collection.
 ---
 ------
----@param self RADIOSPEECH 
 ---@param RemainingSentence string The remaining sentence during recursion.
 ---@param Speech table The speech node.
 ---@param Sentence string The full sentence.
@@ -44,14 +43,12 @@ function RADIOSPEECH:AddSentenceToSpeech(RemainingSentence, Speech, Sentence, Da
 ---Build the tree structure based on the language words, in order to find the correct sentences and to ignore incomprehensible words.
 ---
 ------
----@param self RADIOSPEECH 
 ---@return RADIOSPEECH #self The RADIOSPEECH object.
 function RADIOSPEECH:BuildTree() end
 
 ---Create a new RADIOSPEECH object for a given radio frequency/modulation.
 ---
 ------
----@param self RADIOSPEECH 
 ---@param frequency number The radio frequency in MHz.
 ---@param modulation? number (Optional) The radio modulation. Default radio.modulation.AM.
 ---@return RADIOSPEECH #self The RADIOSPEECH object.
@@ -60,14 +57,12 @@ function RADIOSPEECH:New(frequency, modulation) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Langauge NOTYPE 
 function RADIOSPEECH:SetLanguage(Langauge) end
 
 ---Speak a sentence.
 ---
 ------
----@param self RADIOSPEECH 
 ---@param Sentence string The sentence to be spoken.
 ---@param Language NOTYPE 
 function RADIOSPEECH:Speak(Sentence, Language) end
@@ -75,7 +70,6 @@ function RADIOSPEECH:Speak(Sentence, Language) end
 ---Speak a sentence.
 ---
 ------
----@param self RADIOSPEECH 
 ---@param Sentence string The sentence to be spoken.
 ---@param Speech NOTYPE 
 ---@param Langauge NOTYPE 
@@ -84,7 +78,6 @@ function RADIOSPEECH:SpeakDigits(Sentence, Speech, Langauge) end
 ---Speak a sentence.
 ---
 ------
----@param self RADIOSPEECH 
 ---@param Sentence string The sentence to be spoken.
 ---@param Speech NOTYPE 
 ---@param Language NOTYPE 

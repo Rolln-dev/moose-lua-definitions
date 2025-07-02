@@ -175,14 +175,12 @@ COMMANDCENTER = {}
 ---Get all the Groups active within the command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return SET_GROUP #The set of groups active within the command center.
 function COMMANDCENTER:AddGroups() end
 
 ---Add a MISSION to be governed by the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Mission MISSION 
 ---@return MISSION #
 function COMMANDCENTER:AddMission(Mission) end
@@ -190,7 +188,6 @@ function COMMANDCENTER:AddMission(Mission) end
 ---Assigns a random task to a TaskGroup.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param TaskGroup NOTYPE 
 ---@return COMMANDCENTER #
 function COMMANDCENTER:AssignTask(TaskGroup) end
@@ -198,20 +195,17 @@ function COMMANDCENTER:AssignTask(TaskGroup) end
 ---Automatically assigns tasks to all TaskGroups.
 ---
 ------
----@param self COMMANDCENTER 
 function COMMANDCENTER:AssignTasks() end
 
 ---Gets the coalition of the command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return number #Coalition of the command center.
 function COMMANDCENTER:GetCoalition() end
 
 ---Gets the commandcenter menu structure governed by the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param TaskGroup Group Task Group.
 ---@return MENU_COALITION #
 function COMMANDCENTER:GetMenu(TaskGroup) end
@@ -219,42 +213,36 @@ function COMMANDCENTER:GetMenu(TaskGroup) end
 ---Get the Missions governed by the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return list #
 function COMMANDCENTER:GetMissions() end
 
 ---Gets the name of the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return string #
 function COMMANDCENTER:GetName() end
 
 ---Gets the POSITIONABLE of the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return POSITIONABLE #
 function COMMANDCENTER:GetPositionable() end
 
 ---Gets the short text string of the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return string #
 function COMMANDCENTER:GetShortText() end
 
 ---Gets the text string of the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return string #
 function COMMANDCENTER:GetText() end
 
 ---Checks of the command center has the given MissionGroup.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param MissionGroup GROUP The group active within one of the missions governed by the command center.
 ---@return boolean #
 function COMMANDCENTER:HasGroup(MissionGroup) end
@@ -262,7 +250,6 @@ function COMMANDCENTER:HasGroup(MissionGroup) end
 ---Checks of the TaskGroup has a Task.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param TaskGroup NOTYPE 
 ---@return boolean #When true, the TaskGroup has a Task, otherwise the returned value will be false.
 function COMMANDCENTER:IsGroupAssigned(TaskGroup) end
@@ -270,28 +257,24 @@ function COMMANDCENTER:IsGroupAssigned(TaskGroup) end
 ---Returns if the commandcenter operations is in WWII mode
 ---
 ------
----@param self COMMANDCENTER 
 ---@return boolean #true if in WWII mode.
 function COMMANDCENTER:IsModeWWII() end
 
 ---Let the command center send a Message to all players.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Message string The message text.
 function COMMANDCENTER:MessageToAll(Message) end
 
 ---Let the command center send a message to the coalition of the command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Message string The message text.
 function COMMANDCENTER:MessageToCoalition(Message) end
 
 ---Let the command center send a message to the MessageGroup.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Message string The message text.
 ---@param MessageGroup GROUP The group to receive the message.
 function COMMANDCENTER:MessageToGroup(Message, MessageGroup) end
@@ -299,7 +282,6 @@ function COMMANDCENTER:MessageToGroup(Message, MessageGroup) end
 ---Let the command center send a message of a specified type to the coalition of the command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Message string The message text.
 ---@param MessageType MESSAGE.MessageType The type of the message, resulting in automatic time duration and prefix of the message.
 function COMMANDCENTER:MessageTypeToCoalition(Message, MessageType) end
@@ -307,7 +289,6 @@ function COMMANDCENTER:MessageTypeToCoalition(Message, MessageType) end
 ---Let the command center send a message to the MessageGroup.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Message string The message text.
 ---@param MessageGroup GROUP The group to receive the message.
 ---@param MessageType MESSAGE.MessageType The type of the message, resulting in automatic time duration and prefix of the message.
@@ -316,7 +297,6 @@ function COMMANDCENTER:MessageTypeToGroup(Message, MessageGroup, MessageType) en
 ---The constructor takes an IDENTIFIABLE as the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param CommandCenterPositionable POSITIONABLE 
 ---@param CommandCenterName string 
 ---@return COMMANDCENTER #
@@ -326,7 +306,6 @@ function COMMANDCENTER:New(CommandCenterPositionable, CommandCenterName) end
 ---The given Mission is not nilified.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Mission MISSION 
 ---@return MISSION #
 function COMMANDCENTER:RemoveMission(Mission) end
@@ -335,7 +314,6 @@ function COMMANDCENTER:RemoveMission(Mission) end
 ---Report the details of a Mission, listing the Mission, and all the Task details.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param ReportGroup GROUP The group to receive the report.
 ---@param Task TASK The task to be reported.
 function COMMANDCENTER:ReportDetails(ReportGroup, Task) end
@@ -344,7 +322,6 @@ function COMMANDCENTER:ReportDetails(ReportGroup, Task) end
 ---Each Mission is listed, with an indication how many Tasks are still to be completed.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param ReportGroup GROUP The group to receive the report.
 function COMMANDCENTER:ReportMissionsPlayers(ReportGroup) end
 
@@ -352,7 +329,6 @@ function COMMANDCENTER:ReportMissionsPlayers(ReportGroup) end
 ---Each Mission is listed, with an indication how many Tasks are still to be completed.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param ReportGroup GROUP The group to receive the report.
 function COMMANDCENTER:ReportSummary(ReportGroup) end
 
@@ -363,7 +339,6 @@ function COMMANDCENTER:ReportSummary(ReportGroup) end
 ---If the task is not accepted within 30 seconds; the task will be cancelled and a new task will be assigned.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param AutoAccept boolean true for ON and false or nil for OFF.
 function COMMANDCENTER:SetAutoAcceptTasks(AutoAccept) end
 
@@ -378,7 +353,6 @@ function COMMANDCENTER:SetAutoAcceptTasks(AutoAccept) end
 ---The method Tasking.Task#TASK.GetAutoAssignPriority calculate the priority of the tasks to be assigned.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param AutoAssignMethod COMMANDCENTER.AutoAssignMethods A selection of an assign method from the COMMANDCENTER.AutoAssignMethods enumeration.
 function COMMANDCENTER:SetAutoAssignMethod(AutoAssignMethod) end
 
@@ -389,7 +363,6 @@ function COMMANDCENTER:SetAutoAssignMethod(AutoAssignMethod) end
 ---An Assign Menu will be accessible for the player under the command center menu, to configure the automatic tasking to switched on or off.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param AutoAssign boolean true for ON and false or nil for OFF.
 function COMMANDCENTER:SetAutoAssignTasks(AutoAssign) end
 
@@ -397,26 +370,22 @@ function COMMANDCENTER:SetAutoAssignTasks(AutoAssign) end
 ---This command is called within the :New() method.
 ---
 ------
----@param self COMMANDCENTER 
 function COMMANDCENTER:SetCommandMenu() end
 
 ---Let the command center flash a report of the status of the subscribed task to a group.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param Flash NOTYPE #boolean
 function COMMANDCENTER:SetFlashStatus(Flash) end
 
 ---Sets the menu structure of the Missions governed by the HQ command center.
 ---
 ------
----@param self COMMANDCENTER 
 function COMMANDCENTER:SetMenu() end
 
 ---Duration a command center message is shown.
 ---
 ------
----@param self COMMANDCENTER 
 ---@param seconds NOTYPE #number
 function COMMANDCENTER:SetMessageDuration(seconds) end
 
@@ -426,7 +395,6 @@ function COMMANDCENTER:SetMessageDuration(seconds) end
 ---It will also disable the settings at the settings menu for these.
 ---
 ------
----@param self COMMANDCENTER 
 ---@return COMMANDCENTER #
 function COMMANDCENTER:SetModeWWII() end
 
@@ -451,7 +419,6 @@ function COMMANDCENTER:SetModeWWII() end
 ---    CC:SetReferenceZones( "Station" )
 ---
 ------
----@param self COMMANDCENTER 
 ---@param ReferenceZonePrefix string The name before the #-mark indicating the class of the Reference Zones.
 ---@return COMMANDCENTER #
 function COMMANDCENTER:SetReferenceZones(ReferenceZonePrefix) end

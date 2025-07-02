@@ -230,46 +230,39 @@ SUPPRESSION = {}
 ---Trigger "Dead" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:Dead() end
 
 ---Turn Debug mode on.
 ---Enables messages and more output to DCS log file.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:DebugOn() end
 
 ---Trigger "FallBack" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param AttackUnit UNIT Attacking unit. We will move away from this.
 function SUPPRESSION:FallBack(AttackUnit) end
 
 ---Enable fall back if a group is hit.
 ---
 ------
----@param self SUPPRESSION 
 ---@param switch boolean Enable=true or disable=false fall back of group.
 function SUPPRESSION:Fallback(switch) end
 
 ---Trigger "FightBack" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:FightBack() end
 
 ---Flare units when they are hit, die or recover from suppression.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:FlareOn() end
 
 ---Trigger "Hit" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Unit UNIT Unit that was hit.
 ---@param AttackUnit UNIT Unit that attacked.
 function SUPPRESSION:Hit(Unit, AttackUnit) end
@@ -278,14 +271,12 @@ function SUPPRESSION:Hit(Unit, AttackUnit) end
 ---The menu is mainly for Debugging purposes.
 ---
 ------
----@param self SUPPRESSION 
 ---@param switch boolean Enable=true or disable=false menu group. Default is true.
 function SUPPRESSION:MenuOn(switch) end
 
 ---Creates a new AI_suppression object.
 ---
 ------
----@param self SUPPRESSION 
 ---@param group GROUP The GROUP object for which suppression should be applied.
 ---@return SUPPRESSION #self
 function SUPPRESSION:New(group) end
@@ -293,7 +284,6 @@ function SUPPRESSION:New(group) end
 ---User function for OnAfter "Dead" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -303,7 +293,6 @@ function SUPPRESSION:OnAfterDead(Controllable, From, Event, To) end
 ---User function for OnAfter "FallBack" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -314,7 +303,6 @@ function SUPPRESSION:OnAfterFallBack(Controllable, From, Event, To, AttackUnit) 
 ---User function for OnAfter "FlightBack" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -324,7 +312,6 @@ function SUPPRESSION:OnAfterFightBack(Controllable, From, Event, To) end
 ---User function for OnAfter "Hit" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -336,7 +323,6 @@ function SUPPRESSION:OnAfterHit(Controllable, From, Event, To, Unit, AttackUnit)
 ---User function for OnAfter "OutOfAmmo" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -346,7 +332,6 @@ function SUPPRESSION:OnAfterOutOfAmmo(Controllable, From, Event, To) end
 ---User function for OnAfter "Recovered" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -356,7 +341,6 @@ function SUPPRESSION:OnAfterRecovered(Controllable, From, Event, To) end
 ---User function for OnAfter "Retreat" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -366,7 +350,6 @@ function SUPPRESSION:OnAfterRetreat(Controllable, From, Event, To) end
 ---User function for OnAfter "Retreated" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -376,7 +359,6 @@ function SUPPRESSION:OnAfterRetreated(Controllable, From, Event, To) end
 ---User function for OnAfter "Status" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -386,7 +368,6 @@ function SUPPRESSION:OnAfterStatus(Controllable, From, Event, To) end
 ---User function for OnAfter "TakeCover" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -397,7 +378,6 @@ function SUPPRESSION:OnAfterTakeCover(Controllable, From, Event, To, Hideout) en
 ---User function for OnBefore "FallBack" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -409,7 +389,6 @@ function SUPPRESSION:OnBeforeFallBack(Controllable, From, Event, To, AttackUnit)
 ---User function for OnBefore "FlightBack" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -420,7 +399,6 @@ function SUPPRESSION:OnBeforeFightBack(Controllable, From, Event, To) end
 ---User function for OnBefore "Hit" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -433,7 +411,6 @@ function SUPPRESSION:OnBeforeHit(Controllable, From, Event, To, Unit, AttackUnit
 ---User function for OnBefore "Recovered" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -444,7 +421,6 @@ function SUPPRESSION:OnBeforeRecovered(Controllable, From, Event, To) end
 ---User function for OnBefore "Retreat" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -455,7 +431,6 @@ function SUPPRESSION:OnBeforeRetreat(Controllable, From, Event, To) end
 ---User function for OnBefore "Retreated" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -466,7 +441,6 @@ function SUPPRESSION:OnBeforeRetreated(Controllable, From, Event, To) end
 ---User function for OnBefore "TakeCover" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -478,78 +452,66 @@ function SUPPRESSION:OnBeforeTakeCover(Controllable, From, Event, To, Hideout) e
 ---Order group to fall back between 100 and 150 meters in a random direction.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:OrderFallBack() end
 
 ---Order group to retreat to a pre-defined zone.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:OrderRetreat() end
 
 ---Order group to take cover at a nearby scenery object.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:OrderTakeCover() end
 
 ---Trigger "OutOfAmmo" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:OutOfAmmo() end
 
 ---Trigger "Recovered" event after a delay.
 ---
 ------
----@param Delay number Delay in seconds. 
 ---@param self SUPPRESSION 
 function SUPPRESSION.Recovered(Delay, self) end
 
 ---Trigger "Retreat" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:Retreat() end
 
 ---Trigger "Retreated" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:Retreated() end
 
 ---Set alarm state a group will get after it returns from a fall back or take cover.
 ---
 ------
----@param self SUPPRESSION 
 ---@param alarmstate string Alarm state. Possible "Auto", "Green", "Red". Default is "Auto".
 function SUPPRESSION:SetDefaultAlarmState(alarmstate) end
 
 ---Set Rules of Engagement (ROE) a group will get when it recovers from suppression.
 ---
 ------
----@param self SUPPRESSION 
 ---@param roe string ROE after suppression. Possible "Free", "Hold" or "Return". Default "Free".
 function SUPPRESSION:SetDefaultROE(roe) end
 
 ---Set distance a group will fall back when it gets hit.
 ---
 ------
----@param self SUPPRESSION 
 ---@param distance number Distance in meters.
 function SUPPRESSION:SetFallbackDistance(distance) end
 
 ---Set time a group waits at its fall back position before it resumes its normal mission.
 ---
 ------
----@param self SUPPRESSION 
 ---@param time number Time in seconds.
 function SUPPRESSION:SetFallbackWait(time) end
 
 ---Set the formation a group uses for fall back, hide or retreat.
 ---
 ------
----@param self SUPPRESSION 
 ---@param formation string Formation of the group. Default "Vee".
 function SUPPRESSION:SetFormation(formation) end
 
@@ -557,7 +519,6 @@ function SUPPRESSION:SetFormation(formation) end
 ---Default is 90%.
 ---
 ------
----@param self SUPPRESSION 
 ---@param probability number Probability in percent.
 function SUPPRESSION:SetMaximumFleeProbability(probability) end
 
@@ -565,7 +526,6 @@ function SUPPRESSION:SetMaximumFleeProbability(probability) end
 ---Default is 10%.
 ---
 ------
----@param self SUPPRESSION 
 ---@param probability number Probability in percent.
 function SUPPRESSION:SetMinimumFleeProbability(probability) end
 
@@ -574,7 +534,6 @@ function SUPPRESSION:SetMinimumFleeProbability(probability) end
 ---If the group consists of more than one unit, this referrs to the group strength relative to its initial strength.
 ---
 ------
----@param self SUPPRESSION 
 ---@param damage number Damage in percent. If group gets damaged above this value, the group will retreat. Default 50 %.
 function SUPPRESSION:SetRetreatDamage(damage) end
 
@@ -582,28 +541,24 @@ function SUPPRESSION:SetRetreatDamage(damage) end
 ---Default is two hours.
 ---
 ------
----@param self SUPPRESSION 
 ---@param time number Time in seconds. Default 7200 seconds = 2 hours.
 function SUPPRESSION:SetRetreatWait(time) end
 
 ---Set the zone to which a group retreats after being damaged too much.
 ---
 ------
----@param self SUPPRESSION 
 ---@param zone ZONE MOOSE zone object.
 function SUPPRESSION:SetRetreatZone(zone) end
 
 ---Set speed a group moves at for fall back, hide or retreat.
 ---
 ------
----@param self SUPPRESSION 
 ---@param speed number Speed in km/h of group. Default max speed the group can do.
 function SUPPRESSION:SetSpeed(speed) end
 
 ---Set average, minimum and maximum time a unit is suppressed each time it gets hit.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Tave number Average time [seconds] a group will be suppressed. Default is 15 seconds.
 ---@param Tmin? number (Optional) Minimum time [seconds] a group will be suppressed. Default is 5 seconds.
 ---@param Tmax? number (Optional) Maximum time a group will be suppressed. Default is 25 seconds.
@@ -612,55 +567,47 @@ function SUPPRESSION:SetSuppressionTime(Tave, Tmin, Tmax) end
 ---Set hideout place explicitly.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Hideout COORDINATE Place where the group will hide after the TakeCover event.
 function SUPPRESSION:SetTakecoverPlace(Hideout) end
 
 ---Set distance a group searches for hideout places.
 ---
 ------
----@param self SUPPRESSION 
 ---@param range number Search range in meters.
 function SUPPRESSION:SetTakecoverRange(range) end
 
 ---Set time a group waits at its hideout position before it resumes its normal mission.
 ---
 ------
----@param self SUPPRESSION 
 ---@param time number Time in seconds.
 function SUPPRESSION:SetTakecoverWait(time) end
 
 ---Smoke positions where units fall back to, hide or retreat.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:SmokeOn() end
 
 ---Trigger "Status" event.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:Status() end
 
 ---Status of group.
 ---Current ROE, alarm state, life.
 ---
 ------
----@param self SUPPRESSION 
 ---@param message boolean Send message to all players.
 function SUPPRESSION:StatusReport(message) end
 
 ---Trigger "TakeCover" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Hideout COORDINATE Place where the group will hide.
 function SUPPRESSION:TakeCover(Hideout) end
 
 ---Enable take cover option if a unit is hit.
 ---
 ------
----@param self SUPPRESSION 
 ---@param switch boolean Enable=true or disable=false fall back of group.
 function SUPPRESSION:Takecover(switch) end
 
@@ -668,13 +615,11 @@ function SUPPRESSION:Takecover(switch) end
 ---F10/Suppression. The menu is mainly for Debugging purposes.
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:_CreateMenuGroup() end
 
 ---Print event-from-to string to DCS log file.
 ---
 ------
----@param self SUPPRESSION 
 ---@param BA string Before/after info.
 ---@param Event string Event.
 ---@param From string From state.
@@ -685,7 +630,6 @@ function SUPPRESSION:_EventFromTo(BA, Event, From, To) end
 ---Function returns the value of the units with the smallest and largest life. Also the average value of all groups is returned.
 ---
 ------
----@param self SUPPRESSION 
 ---@return number #Smallest life value of all units.
 ---@return number #Largest life value of all units.
 ---@return number #Average life value of all alife groups
@@ -696,7 +640,6 @@ function SUPPRESSION:_GetLife() end
 --- Heading from point a to point b in degrees.
 ---
 ------
----@param self SUPPRESSION 
 ---@param a COORDINATE Coordinate.
 ---@param b COORDINATE Coordinate.
 ---@return number #angle Angle from a to b in degrees.
@@ -705,14 +648,12 @@ function SUPPRESSION:_Heading(a, b) end
 ---Event handler for Dead event of suppressed groups.
 ---
 ------
----@param self SUPPRESSION 
 ---@param EventData EVENTDATA 
 function SUPPRESSION:_OnEventDead(EventData) end
 
 ---Event handler for Dead event of suppressed groups.
 ---
 ------
----@param self SUPPRESSION 
 ---@param EventData EVENTDATA 
 function SUPPRESSION:_OnEventHit(EventData) end
 
@@ -720,7 +661,6 @@ function SUPPRESSION:_OnEventHit(EventData) end
 ---At the last waypoint we set the group back to CombatReady.
 ---
 ------
----@param group GROUP Group which is passing a waypoint.
 ---@param Fsm SUPPRESSION The suppression object.
 ---@param i number Waypoint number that has been reached.
 ---@param final boolean True if it is the final waypoint. Start Fightback.
@@ -729,7 +669,6 @@ function SUPPRESSION._Passing_Waypoint(group, Fsm, i, final) end
 ---Generate Gaussian pseudo-random numbers.
 ---
 ------
----@param self SUPPRESSION 
 ---@param x0 number Expectation value of distribution.
 ---@param sigma? number (Optional) Standard deviation. Default 10.
 ---@param xmin? number (Optional) Lower cut-off value.
@@ -741,7 +680,6 @@ function SUPPRESSION:_Random_Gaussian(x0, sigma, xmin, xmax) end
 ---We put in several intermediate waypoints because sometimes the group stops before it arrived at the desired point.
 ---
 ------
----@param self SUPPRESSION 
 ---@param fin COORDINATE Coordinate where we want to go.
 ---@param speed number Speed of group. Default is 20.
 ---@param formation string Formation of group. Default is "Vee".
@@ -752,42 +690,36 @@ function SUPPRESSION:_Run(fin, speed, formation, wait) end
 ---This is any scenery object in the vicinity.
 ---
 ------
----@param self SUPPRESSION 
 ---@return COORDINATE #Coordinate of the hideout place.
----@return  #nil If no scenery object is within search radius.
+---@return NOTYPE #nil If no scenery object is within search radius.
 function SUPPRESSION:_SearchHideout() end
 
 ---Sets the alarm state of the group and updates the current alarm state variable.
 ---
 ------
----@param self SUPPRESSION 
 ---@param state string Alarm state the group will get. Possible "Auto", "Green", "Red". Default is self.DefaultAlarmState.
 function SUPPRESSION:_SetAlarmState(state) end
 
 ---Sets the ROE for the group and updates the current ROE variable.
 ---
 ------
----@param self SUPPRESSION 
 ---@param roe string ROE the group will get. Possible "Free", "Hold", "Return". Default is self.DefaultROE.
 function SUPPRESSION:_SetROE(roe) end
 
 ---Suppress fire of a unit by setting its ROE to "Weapon Hold".
 ---
 ------
----@param self SUPPRESSION 
 function SUPPRESSION:_Suppress() end
 
 ---Trigger "Dead" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 function SUPPRESSION:__Dead(Delay) end
 
 ---Trigger "FallBack" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 ---@param AttackUnit UNIT Attacking unit. We will move away from this.
 function SUPPRESSION:__FallBack(Delay, AttackUnit) end
@@ -795,14 +727,12 @@ function SUPPRESSION:__FallBack(Delay, AttackUnit) end
 ---Trigger "FightBack" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 function SUPPRESSION:__FightBack(Delay) end
 
 ---Trigger "Hit" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 ---@param Unit UNIT Unit that was hit.
 ---@param AttackUnit UNIT Unit that attacked.
@@ -811,35 +741,30 @@ function SUPPRESSION:__Hit(Delay, Unit, AttackUnit) end
 ---Trigger "OutOfAmmo" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 function SUPPRESSION:__OutOfAmmo(Delay) end
 
 ---Trigger "Retreat" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 function SUPPRESSION:__Retreat(Delay) end
 
 ---Trigger "Retreated" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 function SUPPRESSION:__Retreated(Delay) end
 
 ---Trigger "Status" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds.
 function SUPPRESSION:__Status(Delay) end
 
 ---Trigger "TakeCover" event after a delay.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Delay number Delay in seconds. 
 ---@param Hideout COORDINATE Place where the group will hide.
 function SUPPRESSION:__TakeCover(Delay, Hideout) end
@@ -847,7 +772,6 @@ function SUPPRESSION:__TakeCover(Delay, Hideout) end
 --- Event handler for suppressed groups.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Event NOTYPE 
 ---@private
 function SUPPRESSION:onEvent(Event) end
@@ -856,7 +780,6 @@ function SUPPRESSION:onEvent(Event) end
 ---When all units of a group are dead, FSM is stopped and eventhandler removed.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -868,7 +791,6 @@ function SUPPRESSION:onafterDead(Controllable, From, Event, To) end
 ---We get the heading away from the attacker and route the group a certain distance in that direction.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -881,7 +803,6 @@ function SUPPRESSION:onafterFallBack(Controllable, From, Event, To, AttackUnit) 
 ---ROE and Alarm state are set back to default.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -892,7 +813,6 @@ function SUPPRESSION:onafterFightBack(Controllable, From, Event, To) end
 ---After "Hit" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -906,7 +826,6 @@ function SUPPRESSION:onafterHit(Controllable, From, Event, To, Unit, AttackUnit)
 ---Triggered when group is completely out of ammo.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -918,7 +837,6 @@ function SUPPRESSION:onafterOutOfAmmo(Controllable, From, Event, To) end
 ---Group has recovered and its ROE is set back to the "normal" unsuppressed state. Optionally the group is flared green.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -930,7 +848,6 @@ function SUPPRESSION:onafterRecovered(Controllable, From, Event, To) end
 ---Find a random point in the retreat zone and route the group there.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -942,7 +859,6 @@ function SUPPRESSION:onafterRetreat(Controllable, From, Event, To) end
 ---Group has reached the retreat zone. Set ROE to return fire and alarm state to auto.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -954,7 +870,6 @@ function SUPPRESSION:onafterRetreated(Controllable, From, Event, To) end
 ---Initialized ROE and alarm state. Starts the event handler.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -965,7 +880,6 @@ function SUPPRESSION:onafterStart(Controllable, From, Event, To) end
 ---After "Status" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -976,7 +890,6 @@ function SUPPRESSION:onafterStatus(Controllable, From, Event, To) end
 ---After "Stop" event.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -988,7 +901,6 @@ function SUPPRESSION:onafterStop(Controllable, From, Event, To) end
 ---Group will run to a nearby scenery object and "hide" there for a certain time.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1001,7 +913,6 @@ function SUPPRESSION:onafterTakeCover(Controllable, From, Event, To, Hideout) en
 ---We check that group is not already falling back.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1015,7 +926,6 @@ function SUPPRESSION:onbeforeFallBack(Controllable, From, Event, To, AttackUnit)
 ---Check if suppression time is over.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1028,7 +938,6 @@ function SUPPRESSION:onbeforeRecovered(Controllable, From, Event, To) end
 ---We check that the group is not already retreating.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1041,7 +950,6 @@ function SUPPRESSION:onbeforeRetreat(Controllable, From, Event, To) end
 ---Check that the group is really in the retreat zone.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1053,7 +961,6 @@ function SUPPRESSION:onbeforeRetreated(Controllable, From, Event, To) end
 ---Search an area around the group for possible scenery objects where the group can hide.
 ---
 ------
----@param self SUPPRESSION 
 ---@param Controllable CONTROLLABLE Controllable of the group.
 ---@param From string From state.
 ---@param Event string Event.

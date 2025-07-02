@@ -68,14 +68,12 @@ ACT_ACCOUNT = {}
 ---Creates a new DESTROY process.
 ---
 ------
----@param self ACT_ACCOUNT 
 ---@return ACT_ACCOUNT #
 function ACT_ACCOUNT:New() end
 
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -86,7 +84,6 @@ function ACT_ACCOUNT:onafterEvent(ProcessUnit, Event, From, To) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -97,7 +94,6 @@ function ACT_ACCOUNT:onafterStart(ProcessUnit, Event, From, To) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -130,14 +126,12 @@ ACT_ACCOUNT_DEADS = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param FsmAccount NOTYPE 
 function ACT_ACCOUNT_DEADS:Init(FsmAccount) end
 
 ---Creates a new DESTROY process.
 ---
 ------
----@param self ACT_ACCOUNT_DEADS 
 ---@param TargetSetUnit SET_UNIT 
 ---@param TaskName string 
 function ACT_ACCOUNT_DEADS:New(TargetSetUnit, TaskName) end
@@ -145,14 +139,12 @@ function ACT_ACCOUNT_DEADS:New(TargetSetUnit, TaskName) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function ACT_ACCOUNT_DEADS:OnEventHit(EventData) end
 
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT_DEADS 
 ---@param ProcessUnit UNIT 
 ---@param Task TASK 
 ---@param From string 
@@ -165,7 +157,6 @@ function ACT_ACCOUNT_DEADS:onafterEvent(ProcessUnit, Task, From, Event, To, Even
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT_DEADS 
 ---@param ProcessUnit UNIT 
 ---@param Task TASK 
 ---@param From string 
@@ -178,7 +169,6 @@ function ACT_ACCOUNT_DEADS:onenterAccountForOther(ProcessUnit, Task, From, Event
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT_DEADS 
 ---@param ProcessUnit UNIT 
 ---@param Task TASK 
 ---@param From string 
@@ -191,7 +181,6 @@ function ACT_ACCOUNT_DEADS:onenterAccountForPlayer(ProcessUnit, Task, From, Even
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ACCOUNT_DEADS 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -203,7 +192,6 @@ function ACT_ACCOUNT_DEADS:onenterReport(ProcessUnit, Event, From, To, Task) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 ---@private
 function ACT_ACCOUNT_DEADS:onfuncEventCrash(EventData) end
@@ -211,7 +199,6 @@ function ACT_ACCOUNT_DEADS:onfuncEventCrash(EventData) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 ---@private
 function ACT_ACCOUNT_DEADS:onfuncEventDead(EventData) end

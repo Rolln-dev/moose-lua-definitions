@@ -71,7 +71,6 @@ AI_A2A_GCI = {}
 ---Evaluate the attack and create an AttackUnitTask list.
 ---
 ------
----@param self AI_A2A_GCI 
 ---@param AttackSetUnit SET_UNIT The set of units to attack.
 ---@param DefenderGroup GROUP The group of defenders.
 ---@param EngageAltitude number The altitude to engage the targets.
@@ -81,7 +80,6 @@ function AI_A2A_GCI:CreateAttackUnitTasks(AttackSetUnit, DefenderGroup, EngageAl
 ---Creates a new AI_A2A_GCI object
 ---
 ------
----@param self AI_A2A_GCI 
 ---@param AIIntercept GROUP 
 ---@param EngageMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h when engaging a target.
 ---@param EngageMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h when engaging a target.
@@ -94,7 +92,6 @@ function AI_A2A_GCI:New(AIIntercept, EngageMinSpeed, EngageMaxSpeed, EngageFloor
 ---Creates a new AI_A2A_GCI object
 ---
 ------
----@param self AI_A2A_GCI 
 ---@param AIIntercept GROUP 
 ---@param EngageMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h when engaging a target.
 ---@param EngageMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h when engaging a target.
@@ -107,7 +104,6 @@ function AI_A2A_GCI:New2(AIIntercept, EngageMinSpeed, EngageMaxSpeed, EngageFloo
 ---onafter State Transition for Event Patrol.
 ---
 ------
----@param self AI_A2A_GCI 
 ---@param AIIntercept GROUP The AI Group managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.

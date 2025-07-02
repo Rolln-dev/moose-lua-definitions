@@ -64,7 +64,6 @@ FLEET = {}
 ---Add asset group(s) to flotilla.
 ---
 ------
----@param self FLEET 
 ---@param Flotilla FLOTILLA The flotilla object.
 ---@param Nassets number Number of asset groups to add.
 ---@return FLEET #self
@@ -73,7 +72,6 @@ function FLEET:AddAssetToFlotilla(Flotilla, Nassets) end
 ---Add a flotilla to the fleet.
 ---
 ------
----@param self FLEET 
 ---@param Flotilla FLOTILLA The flotilla object.
 ---@return FLEET #self
 function FLEET:AddFlotilla(Flotilla) end
@@ -81,7 +79,6 @@ function FLEET:AddFlotilla(Flotilla) end
 ---Add a retreat zone.
 ---
 ------
----@param self FLEET 
 ---@param RetreatZone ZONE Retreat zone.
 ---@return FLEET #self
 function FLEET:AddRetreatZone(RetreatZone) end
@@ -89,7 +86,6 @@ function FLEET:AddRetreatZone(RetreatZone) end
 ---Get flotilla by name.
 ---
 ------
----@param self FLEET 
 ---@param FlotillaName string Name of the flotilla.
 ---@return FLOTILLA #The Flotilla object.
 function FLEET:GetFlotilla(FlotillaName) end
@@ -97,7 +93,6 @@ function FLEET:GetFlotilla(FlotillaName) end
 ---Get flotilla of an asset.
 ---
 ------
----@param self FLEET 
 ---@param Asset WAREHOUSE.Assetitem The flotilla asset.
 ---@return FLOTILLA #The flotilla object.
 function FLEET:GetFlotillaOfAsset(Asset) end
@@ -105,14 +100,12 @@ function FLEET:GetFlotillaOfAsset(Asset) end
 ---Get retreat zones.
 ---
 ------
----@param self FLEET 
 ---@return SET_ZONE #Set of retreat zones.
 function FLEET:GetRetreatZones() end
 
 ---Triggers the FSM event "NavyOnMission".
 ---
 ------
----@param self FLEET 
 ---@param ArmyGroup NAVYGROUP The NAVYGROUP on mission.
 ---@param Mission AUFTRAG The mission.
 function FLEET:NavyOnMission(ArmyGroup, Mission) end
@@ -120,7 +113,6 @@ function FLEET:NavyOnMission(ArmyGroup, Mission) end
 ---Create a new FLEET class object.
 ---
 ------
----@param self FLEET 
 ---@param WarehouseName string Name of the warehouse STATIC or UNIT object representing the warehouse.
 ---@param FleetName string Name of the fleet.
 ---@return FLEET #self
@@ -129,7 +121,6 @@ function FLEET:New(WarehouseName, FleetName) end
 ---On after "NavyOnMission" event.
 ---
 ------
----@param self FLEET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -140,14 +131,12 @@ function FLEET:OnAfterNavyOnMission(From, Event, To, NavyGroup, Mission) end
 ---Remove asset from flotilla.
 ---
 ------
----@param self FLEET 
 ---@param Asset WAREHOUSE.Assetitem The flotilla asset.
 function FLEET:RemoveAssetFromFlotilla(Asset) end
 
 ---Set pathfinding for all spawned naval groups.
 ---
 ------
----@param self FLEET 
 ---@param Switch boolean If `true`, pathfinding is used.
 ---@return FLEET #self
 function FLEET:SetPathfinding(Switch) end
@@ -155,7 +144,6 @@ function FLEET:SetPathfinding(Switch) end
 ---Define a set of retreat zones.
 ---
 ------
----@param self FLEET 
 ---@param RetreatZoneSet SET_ZONE Set of retreat zones.
 ---@return FLEET #self
 function FLEET:SetRetreatZones(RetreatZoneSet) end
@@ -164,13 +152,11 @@ function FLEET:SetRetreatZones(RetreatZoneSet) end
 ---Starts the FLEET. Initializes parameters and starts event handlers.
 ---
 ------
----@param self FLEET 
 function FLEET:Start() end
 
 ---Triggers the FSM event "NavyOnMission" after a delay.
 ---
 ------
----@param self FLEET 
 ---@param delay number Delay in seconds.
 ---@param ArmyGroup NAVYGROUP The NAVYGROUP on mission.
 ---@param Mission AUFTRAG The mission.
@@ -180,7 +166,6 @@ function FLEET:__NavyOnMission(delay, ArmyGroup, Mission) end
 ---Starts the FLEET. Initializes parameters and starts event handlers.
 ---
 ------
----@param self FLEET 
 ---@param delay number Delay in seconds.
 function FLEET:__Start(delay) end
 
@@ -188,14 +173,12 @@ function FLEET:__Start(delay) end
 ---Stops the FLEET and all its event handlers.
 ---
 ------
----@param self FLEET 
 ---@param delay number Delay in seconds.
 function FLEET:__Stop(delay) end
 
 ---On after "NavyOnMission".
 ---
 ------
----@param self FLEET 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -208,7 +191,6 @@ function FLEET:onafterNavyOnMission(From, Event, To, ArmyGroup, Mission, NavyGro
 ---Start FLEET FSM.
 ---
 ------
----@param self FLEET 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -218,7 +200,6 @@ function FLEET:onafterStart(From, Event, To) end
 ---Update status.
 ---
 ------
----@param self FLEET 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

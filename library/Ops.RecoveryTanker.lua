@@ -262,56 +262,48 @@ RECOVERYTANKER = {}
 ---Alias of tanker spawn group.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return string #Alias of the tanker. 
 function RECOVERYTANKER:GetAlias() end
 
 ---Get unit name of the spawned tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return string #Name of the tanker unit or nil if it does not exist. 
 function RECOVERYTANKER:GetUnitName() end
 
 ---Check if tanker is currently refueling another aircraft.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return boolean #If true, tanker is refueling. 
 function RECOVERYTANKER:IsRefueling() end
 
 ---Check if tanker has returned to base.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return boolean #If true, tanker has returned to base. 
 function RECOVERYTANKER:IsReturned() end
 
 ---Check if tanker is currently returning to base.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return boolean #If true, tanker is returning to base. 
 function RECOVERYTANKER:IsReturning() end
 
 ---Check if tanker is currently operating.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return boolean #If true, tanker is operating. 
 function RECOVERYTANKER:IsRunning() end
 
 ---Check if FMS was stopped.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return boolean #If true, is stopped. 
 function RECOVERYTANKER:IsStopped() end
 
 ---Create new RECOVERYTANKER object.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param carrierunit UNIT Carrier unit.
 ---@param tankergroupname string Name of the late activated tanker aircraft template group.
 ---@return RECOVERYTANKER #RECOVERYTANKER object.
@@ -321,7 +313,6 @@ function RECOVERYTANKER:New(carrierunit, tankergroupname) end
 ---Called when a the pattern of the tanker is updated.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -331,7 +322,6 @@ function RECOVERYTANKER:OnAfterPatternUpdate(From, Event, To) end
 ---Called when a the the tanker returns to its home base.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -342,7 +332,6 @@ function RECOVERYTANKER:OnAfterRTB(From, Event, To, airbase) end
 ---Called when a the the tanker started to refuel another unit.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -353,7 +342,6 @@ function RECOVERYTANKER:OnAfterRefuelStart(From, Event, To, receiver) end
 ---Called when a the the tanker stopped to refuel another unit.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -364,7 +352,6 @@ function RECOVERYTANKER:OnAfterRefuelStop(From, Event, To, receiver) end
 ---Called when a the the tanker has landed at an airbase.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -375,7 +362,6 @@ function RECOVERYTANKER:OnAfterReturned(From, Event, To, airbase) end
 ---Called when FSM is started.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -385,48 +371,41 @@ function RECOVERYTANKER:OnAfterStart(From, Event, To) end
 ---Respawn tanker group once it landed because it was out of fuel.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param EventData EVENTDATA Event data.
 function RECOVERYTANKER:OnEventEngineShutdown(EventData) end
 
 ---Event handler for landing of recovery tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param EventData EVENTDATA Event data.
 function RECOVERYTANKER:OnEventLand(EventData) end
 
 ---Triggers the FSM event "PatternUpdate" that updates the pattern of the tanker wrt to the carrier position.
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:PatternUpdate() end
 
 ---Triggers the FSM event "RTB" that sends the tanker home.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param airbase AIRBASE The airbase where the tanker should return to.
 function RECOVERYTANKER:RTB(airbase) end
 
 ---Triggers the FSM event "RefuelStart" when the tanker starts refueling another aircraft.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param receiver UNIT Unit receiving fuel from the tanker.
 function RECOVERYTANKER:RefuelStart(receiver) end
 
 ---Triggers the FSM event "RefuelStop" when the tanker stops refueling another aircraft.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param receiver UNIT Unit stoped receiving fuel from the tanker.
 function RECOVERYTANKER:RefuelStop(receiver) end
 
 ---Triggers the FSM event "Returned" after the tanker has landed.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param airbase AIRBASE The airbase the tanker has landed.
 function RECOVERYTANKER:Returned(airbase) end
 
@@ -434,13 +413,11 @@ function RECOVERYTANKER:Returned(airbase) end
 ---Simply puts the group into "Running" state.
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:Run() end
 
 ---Set that the group takes the role of an AWACS instead of a refueling tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param switch boolean If true or nil, set role AWACS.
 ---@param eplrs boolean If true or nil, enable EPLRS. If false, EPLRS will be off.
 ---@return RECOVERYTANKER #self
@@ -449,7 +426,6 @@ function RECOVERYTANKER:SetAWACS(switch, eplrs) end
 ---Set orbit pattern altitude of the tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param altitude number Tanker altitude in feet. Default 6000 ft.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetAltitude(altitude) end
@@ -457,7 +433,6 @@ function RECOVERYTANKER:SetAltitude(altitude) end
 ---Set callsign of the tanker group.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param callsignname number Number
 ---@param callsignnumber number Number
 ---@return RECOVERYTANKER #self
@@ -467,7 +442,6 @@ function RECOVERYTANKER:SetCallsign(callsignname, callsignnumber) end
 ---This is also the default setting.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetDebugModeOFF() end
 
@@ -475,7 +449,6 @@ function RECOVERYTANKER:SetDebugModeOFF() end
 ---Marks of pattern on F10 map and debug messages displayed on screen.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetDebugModeON() end
 
@@ -483,7 +456,6 @@ function RECOVERYTANKER:SetDebugModeON() end
 ---This is the airbase where the tanker will go when it is out of fuel.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param airbase AIRBASE The home airbase. Can be the airbase name or a Moose AIRBASE object.
 ---@param terminaltype? number (Optional) The terminal type of parking spots used for spawning at airbases. Default AIRBASE.TerminalType.OpenMedOrBig.
 ---@return RECOVERYTANKER #self
@@ -493,7 +465,6 @@ function RECOVERYTANKER:SetHomeBase(airbase, terminaltype) end
 ---When fuel is below this threshold, the tanker will RTB or be respawned if takeoff type is in air.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param fuelthreshold number Low fuel threshold in percent. Default 10 % of max fuel.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetLowFuelThreshold(fuelthreshold) end
@@ -501,7 +472,6 @@ function RECOVERYTANKER:SetLowFuelThreshold(fuelthreshold) end
 ---Set modex (tail number) of the tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param modex number Tail number.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetModex(modex) end
@@ -510,7 +480,6 @@ function RECOVERYTANKER:SetModex(modex) end
 ---Tanker will update its pattern when the carrier changes its position by more than this distance.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param distancechange number Distance threshold in NM. Default 5 NM (=9.62 km).
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetPatternUpdateDistance(distancechange) end
@@ -519,7 +488,6 @@ function RECOVERYTANKER:SetPatternUpdateDistance(distancechange) end
 ---Tanker will update its pattern when the carrier changes its heading by more than this value.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param headingchange number Heading threshold in degrees. Default 5 degrees.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetPatternUpdateHeading(headingchange) end
@@ -528,7 +496,6 @@ function RECOVERYTANKER:SetPatternUpdateHeading(headingchange) end
 ---After a pattern update this time interval has to pass before the next update is allowed.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param interval number Min interval in minutes. Default is 10 minutes.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetPatternUpdateInterval(interval) end
@@ -536,7 +503,6 @@ function RECOVERYTANKER:SetPatternUpdateInterval(interval) end
 ---Set race-track distances.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param distbow number Distance [NM] in front of the carrier. Default 10 NM.
 ---@param diststern number Distance [NM] behind the carrier. Default 4 NM.
 ---@return RECOVERYTANKER #self
@@ -545,7 +511,6 @@ function RECOVERYTANKER:SetRacetrackDistances(distbow, diststern) end
 ---Set radio frequency and optionally modulation of the tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param frequency number Radio frequency in MHz. Default 251 MHz.
 ---@param modulation string Radio modulation, either "AM" or "FM". Default "AM".
 ---@return RECOVERYTANKER #self
@@ -555,7 +520,6 @@ function RECOVERYTANKER:SetRadio(frequency, modulation) end
 ---Tanker will get a Marshal stack and perform a CASE I, II or III recovery when RTB.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param switch boolean If true or nil, recovery is done by AIRBOSS.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetRecoveryAirboss(switch) end
@@ -565,14 +529,12 @@ function RECOVERYTANKER:SetRecoveryAirboss(switch) end
 ---This allows for undisrupted operations and less problems on the carrier deck.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetRespawnInAir() end
 
 ---Disable respawning of tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetRespawnOff() end
 
@@ -580,14 +542,12 @@ function RECOVERYTANKER:SetRespawnOff() end
 ---Note that this is the default behaviour.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetRespawnOn() end
 
 ---Set whether tanker shall be respawned or not.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param switch boolean If true (or nil), tanker will be respawned. If false, tanker will not be respawned. 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetRespawnOnOff(switch) end
@@ -595,7 +555,6 @@ function RECOVERYTANKER:SetRespawnOnOff(switch) end
 ---Set the speed the tanker flys in its orbit pattern.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param speed number True air speed (TAS) in knots. Default 274 knots, which results in ~250 KIAS.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetSpeed(speed) end
@@ -604,7 +563,6 @@ function RECOVERYTANKER:SetSpeed(speed) end
 ---Note that mode is automatically set to "Y" for AA TACAN since only that works.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param channel number TACAN channel. Default 1.
 ---@param morse string TACAN morse code identifier. Three letters. Default "TKR".
 ---@param mode string TACAN mode, which can be either "Y" (default) or "X".
@@ -614,14 +572,12 @@ function RECOVERYTANKER:SetTACAN(channel, morse, mode) end
 ---Disable automatic TACAN activation.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self 
 function RECOVERYTANKER:SetTACANoff() end
 
 ---Set takeoff type.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param takeofftype number Takeoff type.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetTakeoff(takeofftype) end
@@ -629,28 +585,24 @@ function RECOVERYTANKER:SetTakeoff(takeofftype) end
 ---Set takeoff in air at the defined pattern altitude and ~10 NM astern the carrier.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetTakeoffAir() end
 
 ---Set takeoff with engines off (cold).
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetTakeoffCold() end
 
 ---Set takeoff with engines running (hot).
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetTakeoffHot() end
 
 ---Set the tanker to have unlimited fuel.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param OnOff boolean If true, the tanker will have unlimited fuel.
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetUnlimitedFuel(OnOff) end
@@ -660,7 +612,6 @@ function RECOVERYTANKER:SetUnlimitedFuel(OnOff) end
 ---The group name is the one specified in the #RECOVERYTANKER.New function.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return RECOVERYTANKER #self
 function RECOVERYTANKER:SetUseUncontrolledAircraft() end
 
@@ -668,33 +619,28 @@ function RECOVERYTANKER:SetUseUncontrolledAircraft() end
 ---Initializes parameters and starts event handlers.
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:Start() end
 
 ---Triggers the FSM event "Status" that updates the tanker status.
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:Status() end
 
 ---Triggers the FSM event "Stop" that stops the recovery tanker.
 ---Event handlers are stopped.
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:Stop() end
 
 ---Activate TACAN of tanker.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:_ActivateTACAN(delay) end
 
 ---Check if heading or position have changed significantly.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param dt number Time since last update in seconds.
 ---@return boolean #If true, heading and/or position have changed more than 5 degrees or 10 km, respectively.
 function RECOVERYTANKER:_CheckPatternUpdate(dt) end
@@ -702,14 +648,12 @@ function RECOVERYTANKER:_CheckPatternUpdate(dt) end
 ---Task function to
 ---
 ------
----@param self RECOVERYTANKER 
 function RECOVERYTANKER:_InitPatternTaskFunction() end
 
 ---Init waypoint after spawn.
 ---Tanker is first guided to a position astern the carrier and starts its racetrack pattern from there.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param dist number Distance [NM] of initial waypoint astern carrier. Default 8 NM.
 ---@param delay number Delay before routing in seconds. Default 1 second.
 function RECOVERYTANKER:_InitRoute(dist, delay) end
@@ -717,7 +661,6 @@ function RECOVERYTANKER:_InitRoute(dist, delay) end
 ---A unit crashed or died.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param EventData EVENTDATA Event data.
 function RECOVERYTANKER:_OnEventCrashOrDead(EventData) end
 
@@ -725,35 +668,30 @@ function RECOVERYTANKER:_OnEventCrashOrDead(EventData) end
 ---Not working as desired, since tanker changes course too rapidly after each waypoint.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@return table #Table of pattern waypoints.
 function RECOVERYTANKER:_Pattern() end
 
 ---Event handler for refueling started.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param EventData EVENTDATA Event data.
 function RECOVERYTANKER:_RefuelingStart(EventData) end
 
 ---Event handler for refueling stopped.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param EventData EVENTDATA Event data.
 function RECOVERYTANKER:_RefuelingStop(EventData) end
 
 ---Triggers the delayed FSM event "PatternUpdate" that updates the pattern of the tanker wrt to the carrier position.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:__PatternUpdate(delay) end
 
 ---Triggers the FSM event "RTB" that sends the tanker home after a delay.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 ---@param airbase AIRBASE The airbase where the tanker should return to.
 function RECOVERYTANKER:__RTB(delay, airbase) end
@@ -761,7 +699,6 @@ function RECOVERYTANKER:__RTB(delay, airbase) end
 ---Triggers the delayed FSM event "Returned" after the tanker has landed.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 ---@param airbase AIRBASE The airbase the tanker has landed.
 function RECOVERYTANKER:__Returned(delay, airbase) end
@@ -770,7 +707,6 @@ function RECOVERYTANKER:__Returned(delay, airbase) end
 ---Simply puts the group into "Running" state.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:__Run(delay) end
 
@@ -778,14 +714,12 @@ function RECOVERYTANKER:__Run(delay) end
 ---Initializes parameters and starts event handlers.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:__Start(delay) end
 
 ---Triggers the delayed FSM event "Status" that updates the tanker status.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:__Status(delay) end
 
@@ -793,7 +727,6 @@ function RECOVERYTANKER:__Status(delay) end
 ---Event handlers are stopped.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param delay number Delay in seconds.
 function RECOVERYTANKER:__Stop(delay) end
 
@@ -801,7 +734,6 @@ function RECOVERYTANKER:__Stop(delay) end
 ---Updates the racetrack pattern of the tanker wrt the carrier position.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -812,7 +744,6 @@ function RECOVERYTANKER:onafterPatternUpdate(From, Event, To) end
 ---Send tanker back to carrier.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -824,7 +755,6 @@ function RECOVERYTANKER:onafterRTB(From, Event, To, airbase) end
 ---The tanker has landed.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -836,7 +766,6 @@ function RECOVERYTANKER:onafterReturned(From, Event, To, airbase) end
 ---Starts the warehouse. Addes event handlers and schedules status updates of reqests and queue.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -847,7 +776,6 @@ function RECOVERYTANKER:onafterStart(From, Event, To) end
 ---Checks player status.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -858,7 +786,6 @@ function RECOVERYTANKER:onafterStatus(From, Event, To) end
 ---Unhandle events and stop status updates.
 ---
 ------
----@param self RECOVERYTANKER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

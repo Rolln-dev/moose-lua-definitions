@@ -98,7 +98,6 @@ RADIO = {}
 ---* If your POSITIONABLE is not a UNIT or a GROUP, the Subtitle, SubtitleDuration are ignored
 ---
 ------
----@param self RADIO 
 ---@param viatrigger boolean Use trigger.action.radioTransmission() in any case, i.e. also for UNITS and GROUPS.
 ---@return RADIO #self
 function RADIO:Broadcast(viatrigger) end
@@ -106,7 +105,6 @@ function RADIO:Broadcast(viatrigger) end
 ---Get alias of the transmitter.
 ---
 ------
----@param self RADIO 
 ---@return string #Name of the transmitter.
 function RADIO:GetAlias() end
 
@@ -115,7 +113,6 @@ function RADIO:GetAlias() end
 ---If you want to create a RADIO, you probably should use Wrapper.Positionable#POSITIONABLE.GetRadio() instead.
 ---
 ------
----@param self RADIO 
 ---@param Positionable POSITIONABLE The @{Wrapper.Positionable#POSITIONABLE} that will receive radio capabilities.
 ---@return RADIO #The RADIO object or #nil if Positionable is invalid.
 function RADIO:New(Positionable) end
@@ -126,7 +123,6 @@ function RADIO:New(Positionable) end
 ---Only the #RADIO and the Filename are mandatory
 ---
 ------
----@param self RADIO 
 ---@param FileName string Name of the sound file that will be transmitted.
 ---@param Frequency number Frequency in MHz.
 ---@param Modulation number Modulation of frequency, which is either radio.modulation.AM or radio.modulation.FM.
@@ -141,7 +137,6 @@ function RADIO:NewGenericTransmission(FileName, Frequency, Modulation, Power, Lo
 ---Only the RADIO and the Filename are mandatory.
 ---
 ------
----@param self RADIO 
 ---@param FileName string Name of sound file.
 ---@param Subtitle string Subtitle to be displayed with sound file.
 ---@param SubtitleDuration number Duration of subtitle display in seconds.
@@ -154,7 +149,6 @@ function RADIO:NewUnitTransmission(FileName, Subtitle, SubtitleDuration, Frequen
 ---Set alias of the transmitter.
 ---
 ------
----@param self RADIO 
 ---@param alias string Name of the radio transmitter.
 ---@return RADIO #self
 function RADIO:SetAlias(alias) end
@@ -162,7 +156,6 @@ function RADIO:SetAlias(alias) end
 ---Set the file name for the radio transmission.
 ---
 ------
----@param self RADIO 
 ---@param FileName string File name of the sound file (i.e. "Noise.ogg")
 ---@return RADIO #self
 function RADIO:SetFileName(FileName) end
@@ -171,7 +164,6 @@ function RADIO:SetFileName(FileName) end
 ---If the transmitting positionable is a unit or group, this also set the command "SetFrequency" with the defined frequency and modulation.
 ---
 ------
----@param self RADIO 
 ---@param Frequency number Frequency in MHz.
 ---@return RADIO #self
 function RADIO:SetFrequency(Frequency) end
@@ -179,7 +171,6 @@ function RADIO:SetFrequency(Frequency) end
 ---Set message looping on or off.
 ---
 ------
----@param self RADIO 
 ---@param Loop boolean If true, message is repeated indefinitely.
 ---@return RADIO #self
 function RADIO:SetLoop(Loop) end
@@ -188,7 +179,6 @@ function RADIO:SetLoop(Loop) end
 ---Set this before you set a frequency!
 ---
 ------
----@param self RADIO 
 ---@param Modulation number Modulation is either radio.modulation.AM or radio.modulation.FM.
 ---@return RADIO #self
 function RADIO:SetModulation(Modulation) end
@@ -196,7 +186,6 @@ function RADIO:SetModulation(Modulation) end
 ---Check validity of the power passed and sets RADIO.Power
 ---
 ------
----@param self RADIO 
 ---@param Power number Power in W.
 ---@return RADIO #self
 function RADIO:SetPower(Power) end
@@ -216,7 +205,6 @@ function RADIO:SetPower(Power) end
 ---MyUnitRadio:SetSubtitle("My Subtitle, 10)
 ---```
 ------
----@param self RADIO 
 ---@param Subtitle string 
 ---@param SubtitleDuration number in s
 ---@return RADIO #self
@@ -226,7 +214,6 @@ function RADIO:SetSubtitle(Subtitle, SubtitleDuration) end
 ---This function is especially useful to stop the broadcast of looped transmissions
 ---
 ------
----@param self RADIO 
 ---@return RADIO #self
 function RADIO:StopBroadcast() end
 

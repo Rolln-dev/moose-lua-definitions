@@ -189,7 +189,6 @@ EASYGCICAP = {}
 ---Add an AWACS Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -205,7 +204,6 @@ function EASYGCICAP:AddAWACSSquadron(TemplateName, SquadName, AirbaseName, AirFr
 ---Add a zone to the accepted zones set.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Zone ZONE_BASE 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddAcceptZone(Zone) end
@@ -213,7 +211,6 @@ function EASYGCICAP:AddAcceptZone(Zone) end
 ---Add an AirWing to the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param Airbasename string 
 ---@param Alias string 
 ---@return EASYGCICAP #self 
@@ -222,7 +219,6 @@ function EASYGCICAP:AddAirwing(Airbasename, Alias) end
 ---Add a zone to the conflict zones set.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Zone ZONE_BASE 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddConflictZone(Zone) end
@@ -230,7 +226,6 @@ function EASYGCICAP:AddConflictZone(Zone) end
 ---Add an AWACS patrol point to a Wing
 ---
 ------
----@param self EASYGCICAP 
 ---@param AirbaseName string Name of the Wing's airbase
 ---@param Coordinate COORDINATE 
 ---@param Altitude number Defaults to 25000 feet.
@@ -243,7 +238,6 @@ function EASYGCICAP:AddPatrolPointAwacs(AirbaseName, Coordinate, Altitude, Speed
 ---Add a CAP patrol point to a Wing
 ---
 ------
----@param self EASYGCICAP 
 ---@param AirbaseName string Name of the Wing's airbase
 ---@param Coordinate COORDINATE 
 ---@param Altitude number Defaults to 25000 feet ASL.
@@ -256,7 +250,6 @@ function EASYGCICAP:AddPatrolPointCAP(AirbaseName, Coordinate, Altitude, Speed, 
 ---Add a RECON patrol point to a Wing
 ---
 ------
----@param self EASYGCICAP 
 ---@param AirbaseName string Name of the Wing's airbase
 ---@param Coordinate COORDINATE 
 ---@param Altitude number Defaults to 25000 feet.
@@ -269,7 +262,6 @@ function EASYGCICAP:AddPatrolPointRecon(AirbaseName, Coordinate, Altitude, Speed
 ---Add a TANKER patrol point to a Wing
 ---
 ------
----@param self EASYGCICAP 
 ---@param AirbaseName string Name of the Wing's airbase
 ---@param Coordinate COORDINATE 
 ---@param Altitude number Defaults to 25000 feet.
@@ -282,7 +274,6 @@ function EASYGCICAP:AddPatrolPointTanker(AirbaseName, Coordinate, Altitude, Spee
 ---Add a Recon Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -296,7 +287,6 @@ function EASYGCICAP:AddReconSquadron(TemplateName, SquadName, AirbaseName, AirFr
 ---Add a zone to the rejected zones set.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Zone ZONE_BASE 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:AddRejectZone(Zone) end
@@ -304,7 +294,6 @@ function EASYGCICAP:AddRejectZone(Zone) end
 ---Add a Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -318,7 +307,6 @@ function EASYGCICAP:AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames,
 ---Add a Tanker Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -335,7 +323,6 @@ function EASYGCICAP:AddTankerSquadron(TemplateName, SquadName, AirbaseName, AirF
 ---Create a new GCICAP Manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param Alias string A Name for this GCICAP
 ---@param AirbaseName string Name of the Home Airbase
 ---@param Coalition string Coalition, e.g. "blue" or "red"
@@ -346,7 +333,6 @@ function EASYGCICAP:New(Alias, AirbaseName, Coalition, EWRName) end
 ---Set CAP formation.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Formation number Formation to fly, defaults to ENUMS.Formation.FixedWing.FingerFour.Group
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetCAPFormation(Formation) end
@@ -354,7 +340,6 @@ function EASYGCICAP:SetCAPFormation(Formation) end
 ---Set CAP mission start to vary randomly between Start end End seconds.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Start number 
 ---@param End number 
 ---@return EASYGCICAP #self
@@ -363,7 +348,6 @@ function EASYGCICAP:SetCapStartTimeVariation(Start, End) end
 ---Set default CAP Altitude in feet
 ---
 ------
----@param self EASYGCICAP 
 ---@param Altitude number Altitude defaults to 25000
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultCAPAlt(Altitude) end
@@ -371,7 +355,6 @@ function EASYGCICAP:SetDefaultCAPAlt(Altitude) end
 ---Set default CAP lieg initial direction in degrees
 ---
 ------
----@param self EASYGCICAP 
 ---@param Direction number Direction defaults to 90 (East)
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultCAPDirection(Direction) end
@@ -380,7 +363,6 @@ function EASYGCICAP:SetDefaultCAPDirection(Direction) end
 ---how many airplanes per CAP point
 ---
 ------
----@param self EASYGCICAP 
 ---@param Grouping number Grouping defaults to 2
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultCAPGrouping(Grouping) end
@@ -388,7 +370,6 @@ function EASYGCICAP:SetDefaultCAPGrouping(Grouping) end
 ---Set default leg length in NM
 ---
 ------
----@param self EASYGCICAP 
 ---@param Leg number Leg defaults to 15
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultCAPLeg(Leg) end
@@ -396,7 +377,6 @@ function EASYGCICAP:SetDefaultCAPLeg(Leg) end
 ---Set default CAP Speed in knots
 ---
 ------
----@param self EASYGCICAP 
 ---@param Speed number Speed defaults to 300
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultCAPSpeed(Speed) end
@@ -404,21 +384,18 @@ function EASYGCICAP:SetDefaultCAPSpeed(Speed) end
 ---Set default despawning after holding (despawn in air close to AFB).
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultDespawnAfterHolding() end
 
 ---Set default despawning after landing.
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultDespawnAfterLanding() end
 
 ---Set default engage range for intruders detected by CAP flights in NM.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Range number defaults to 50NM
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultEngageRange(Range) end
@@ -426,7 +403,6 @@ function EASYGCICAP:SetDefaultEngageRange(Range) end
 ---Set default range planes can fly from their homebase in NM
 ---
 ------
----@param self EASYGCICAP 
 ---@param Range number Range defaults to 100 NM
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultMissionRange(Range) end
@@ -434,7 +410,6 @@ function EASYGCICAP:SetDefaultMissionRange(Range) end
 ---Set default number of airframes standing by for intercept tasks (visible on the airfield)
 ---
 ------
----@param self EASYGCICAP 
 ---@param Airframes number defaults to 2
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultNumberAlert5Standby(Airframes) end
@@ -449,7 +424,6 @@ function EASYGCICAP:SetDefaultNumberAlert5Standby(Airframes) end
 ---be managed by 2 planes from the assigned AirWing. There is an maximum missions limitation per AirWing, so we do not spam the skies.
 ---```
 ------
----@param self EASYGCICAP 
 ---@param Overhead number The overhead to use.
 ---@return EASYGCICAP #self
 function EASYGCICAP:SetDefaultOverhead(Overhead) end
@@ -457,7 +431,6 @@ function EASYGCICAP:SetDefaultOverhead(Overhead) end
 ---Add default repeat attempts if an Intruder intercepts fails.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Retries number Retries, defaults to 3
 ---@return EASYGCICAP #self 
 function EASYGCICAP:SetDefaultRepeatOnFailure(Retries) end
@@ -465,7 +438,6 @@ function EASYGCICAP:SetDefaultRepeatOnFailure(Retries) end
 ---Add default time to resurrect Airwing building if destroyed
 ---
 ------
----@param self EASYGCICAP 
 ---@param Seconds number Seconds, defaults to 900
 ---@return EASYGCICAP #self 
 function EASYGCICAP:SetDefaultResurrection(Seconds) end
@@ -473,7 +445,6 @@ function EASYGCICAP:SetDefaultResurrection(Seconds) end
 ---Add default take off type for the airwings.
 ---
 ------
----@param self EASYGCICAP 
 ---@param Takeoff string Can be "hot", "cold", or "air" - default is "hot".
 ---@return EASYGCICAP #self 
 function EASYGCICAP:SetDefaultTakeOffType(Takeoff) end
@@ -481,7 +452,6 @@ function EASYGCICAP:SetDefaultTakeOffType(Takeoff) end
 ---Set Maximum of alive missions created by this instance to stop airplanes spamming the map
 ---
 ------
----@param self EASYGCICAP 
 ---@param Maxiumum number Maxmimum number of parallel missions allowed. Count is Intercept-Missions + Alert5-Missions, default is 8
 ---@return EASYGCICAP #self 
 function EASYGCICAP:SetMaxAliveMissions(Maxiumum) end
@@ -489,7 +459,6 @@ function EASYGCICAP:SetMaxAliveMissions(Maxiumum) end
 ---Set Tanker and AWACS to be invisible to enemy AI eyes
 ---
 ------
----@param self EASYGCICAP 
 ---@param Switch boolean Set to true or false, by default this is set to true already
 ---@return EASYGCICAP #self 
 function EASYGCICAP:SetTankerAndAWACSInvisible(Switch) end
@@ -497,7 +466,6 @@ function EASYGCICAP:SetTankerAndAWACSInvisible(Switch) end
 ---(Internal) Add a AWACS Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -513,7 +481,6 @@ function EASYGCICAP:_AddAWACSSquadron(TemplateName, SquadName, AirbaseName, AirF
 ---(internal) Create and add another AirWing to the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param Airbasename string 
 ---@param Alias string 
 ---@return EASYGCICAP #self 
@@ -522,7 +489,6 @@ function EASYGCICAP:_AddAirwing(Airbasename, Alias) end
 ---(Internal) Add a Recon Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -536,7 +502,6 @@ function EASYGCICAP:_AddReconSquadron(TemplateName, SquadName, AirbaseName, AirF
 ---(Internal) Add a Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -552,7 +517,6 @@ function EASYGCICAP:_AddSquadron(TemplateName, SquadName, AirbaseName, AirFrames
 ---(Internal) Add a Tanker Squadron to an Airwing of the manager
 ---
 ------
----@param self EASYGCICAP 
 ---@param TemplateName string Name of the group template.
 ---@param SquadName string Squadron name - must be unique!
 ---@param AirbaseName string Name of the airbase the airwing resides on, e.g. AIRBASE.Caucasus.Kutaisi
@@ -569,7 +533,6 @@ function EASYGCICAP:_AddTankerSquadron(TemplateName, SquadName, AirbaseName, Air
 ---Here, we'll decide if we need to launch an intercepting flight, and from where
 ---
 ------
----@param self EASYGCICAP 
 ---@param Cluster INTEL.Cluster 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_AssignIntercept(Cluster) end
@@ -577,63 +540,54 @@ function EASYGCICAP:_AssignIntercept(Cluster) end
 ---Count alive missions in our internal stack.
 ---
 ------
----@param self EASYGCICAP 
 ---@return number #count
 function EASYGCICAP:_CountAliveAuftrags() end
 
 ---(Internal) Create actual AirWings from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_CreateAirwings() end
 
 ---(Internal) Create actual Squadrons from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_CreateSquads() end
 
 ---(Internal) Set actual Awacs Points from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_SetAwacsPatrolPoints() end
 
 ---(Internal) Set actual PatrolPoints from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_SetCAPPatrolPoints() end
 
 ---(Internal) Set actual PatrolPoints from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_SetReconPatrolPoints() end
 
 ---(Internal) Set actual Tanker Points from the list
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self 
 function EASYGCICAP:_SetTankerPatrolPoints() end
 
 ---(Internal) Start detection.
 ---
 ------
----@param self EASYGCICAP 
 ---@return EASYGCICAP #self
 function EASYGCICAP:_StartIntel() end
 
 ---(Internal) Try to assign the intercept to a FlightGroup already in air and ready.
 ---
 ------
----@param self EASYGCICAP 
 ---@param ReadyFlightGroups table ReadyFlightGroups
 ---@param InterceptAuftrag AUFTRAG The Auftrag
 ---@param Group GROUP The Target
@@ -645,7 +599,6 @@ function EASYGCICAP:_TryAssignIntercept(ReadyFlightGroups, InterceptAuftrag, Gro
 ---(Internal) FSM Function onafterStart
 ---
 ------
----@param self EASYGCICAP 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -656,7 +609,6 @@ function EASYGCICAP:onafterStart(From, Event, To) end
 ---(Internal) FSM Function onafterStatus
 ---
 ------
----@param self EASYGCICAP 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -667,7 +619,6 @@ function EASYGCICAP:onafterStatus(From, Event, To) end
 ---(Internal) FSM Function onafterStop
 ---
 ------
----@param self EASYGCICAP 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -678,7 +629,6 @@ function EASYGCICAP:onafterStop(From, Event, To) end
 ---(Internal) FSM Function onbeforeStatus
 ---
 ------
----@param self EASYGCICAP 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

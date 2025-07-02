@@ -540,7 +540,6 @@ AWACS = {}
 ---[User] Add another AirWing for AI CAP Flights under management
 ---
 ------
----@param self AWACS 
 ---@param AirWing AIRWING The AirWing to (also) obtain CAP flights from
 ---@param Zone? ZONE_RADIUS (optional) This AirWing has it's own station zone, AI CAP will be send there
 ---@return AWACS #self
@@ -549,7 +548,6 @@ function AWACS:AddCAPAirWing(AirWing, Zone) end
 ---[User] Add additional frequency and modulation for AWACS SRS output.
 ---
 ------
----@param self AWACS 
 ---@param Frequency number The frequency to add, e.g. 132.5
 ---@param Modulation number The modulation to add for the frequency, e.g. radio.modulation.AM
 ---@return AWACS #self
@@ -558,7 +556,6 @@ function AWACS:AddFrequencyAndModulation(Frequency, Modulation) end
 ---[User] Add a radar GROUP object to the INTEL detection SET_GROUP
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP The GROUP to be added. Can be passed as SET_GROUP.
 ---@return AWACS #self
 function AWACS:AddGroupToDetection(Group) end
@@ -566,14 +563,12 @@ function AWACS:AddGroupToDetection(Group) end
 ---[User] Draw a line around the FEZ on the F10 map.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:DrawFEZ() end
 
 ---[User] Get AWACS Name
 ---
 ------
----@param self AWACS 
 ---@return string #Name of this instance
 function AWACS:GetName() end
 
@@ -589,7 +584,6 @@ function AWACS:GetName() end
 ---* As a string denominating a polygon zone from the mission editor (same late activated helo, but named "Rock#ZONE_POLYGON" in the mission editor. Here, Moose will auto-create a polygon zone when loading, and name it "Rock". Pass as `ZONE:FindByName("Rock")`.
 ---```
 ------
----@param self AWACS 
 ---@param Name string Name of this AWACS for the radio menu.
 ---@param AirWing string The core Ops.Airwing#AIRWING managing the AWACS, Escort and (optionally) AI CAP planes for us.
 ---@param Coalition number Coalition, e.g. coalition.side.BLUE. Can also be passed as "blue", "red" or "neutral".
@@ -606,7 +600,6 @@ function AWACS:New(Name, AirWing, Coalition, AirbaseName, AwacsOrbit, OpsZone, S
 ---AI or Player has been assigned a CAP station.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -616,7 +609,6 @@ function AWACS:OnAfterAssignedAnchor(From, Event, To) end
 ---AWACS shift change.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -626,7 +618,6 @@ function AWACS:OnAfterAwacsShiftChange(From, Event, To) end
 ---AI or Player checked in.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -636,7 +627,6 @@ function AWACS:OnAfterCheckedIn(From, Event, To) end
 ---AI or Player checked out.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -646,7 +636,6 @@ function AWACS:OnAfterCheckedOut(From, Event, To) end
 ---AWACS escorts shift change.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -656,7 +645,6 @@ function AWACS:OnAfterEscortShiftChange(From, Event, To) end
 ---Intercept failure.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -666,7 +654,6 @@ function AWACS:OnAfterIntercept(From, Event, To) end
 ---AWACS lost a radar cluster.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -676,7 +663,6 @@ function AWACS:OnAfterLostCluster(From, Event, To) end
 ---AWACS lost a radar contact.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -686,7 +672,6 @@ function AWACS:OnAfterLostContact(From, Event, To) end
 ---AWACS detected a cluster.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -696,7 +681,6 @@ function AWACS:OnAfterNewCluster(From, Event, To) end
 ---AWACS detected a contact.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -706,7 +690,6 @@ function AWACS:OnAfterNewContact(From, Event, To) end
 ---AI or Player has been send back to station.
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -715,7 +698,6 @@ function AWACS:OnAfterReAnchor(From, Event, To) end
 ---[User] Set AI CAP Plane Details
 ---
 ------
----@param self AWACS 
 ---@param Callsign number Callsign name of AI CAP, e.g. CALLSIGN.Aircraft.Dodge. Defaults to CALLSIGN.Aircraft.Colt. Note that not all available callsigns work for all plane types.
 ---@param MaxAICap number Maximum number of AI CAP planes on station that AWACS will set up automatically. Default to 4.
 ---@param TOS number Time on station, in  hours. AI planes might go back to base earlier if they run out of fuel or missiles.
@@ -727,7 +709,6 @@ function AWACS:SetAICAPDetails(Callsign, MaxAICap, TOS, Speed) end
 ---the zone behind the FEZ to also be defended
 ---
 ------
----@param self AWACS 
 ---@param Zone ZONE 
 ---@param Draw boolean Draw lines around this zone if true
 ---@return AWACS #self
@@ -736,7 +717,6 @@ function AWACS:SetAdditionalZone(Zone, Draw) end
 ---[User] Set this instance to act as GCI TACS Theater Air Control System
 ---
 ------
----@param self AWACS 
 ---@param EWR GROUP The **main** Early Warning Radar (EWR) GROUP object for GCI.
 ---@param Delay? number (option) Start after this many seconds (optional).
 ---@return AWACS #self
@@ -745,7 +725,6 @@ function AWACS:SetAsGCI(EWR, Delay) end
 ---[User] Set AWACS flight details
 ---
 ------
----@param self AWACS 
 ---@param CallSign number Defaults to CALLSIGN.AWACS.Magic
 ---@param CallSignNo number Defaults to 1
 ---@param Angels number Defaults to 25 (i.e. 25000 ft)
@@ -759,7 +738,6 @@ function AWACS:SetAwacsDetails(CallSign, CallSignNo, Angels, Speed, Heading, Leg
 ---Defaults to "Rock"
 ---
 ------
----@param self AWACS 
 ---@param Name string 
 ---@return AWACS #self
 function AWACS:SetBullsEyeAlias(Name) end
@@ -768,7 +746,6 @@ function AWACS:SetBullsEyeAlias(Name) end
 ---See Wrapper.Group#GROUP.GetCustomCallSign() on how to set customized callsigns.
 ---
 ------
----@param self AWACS 
 ---@param ShortCallsign boolean If true, only call out the major flight number
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name as-is, no amendments or numbers.
 ---@param CallsignTranslations? table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized. callsigns from playername or group name.
@@ -782,7 +759,6 @@ function AWACS:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTranslation
 ---Sets TAC/Meld/Threat call distances to 35, 25 and 15 nm.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetColdWar() end
 
@@ -803,7 +779,6 @@ function AWACS:SetColdWar() end
 ---The default callsign used in AWACS is "Magic". With the above change, the AWACS will call itself "Bookshelf" over TTS instead.
 ---```
 ------
----@param self AWACS 
 ---@param CallsignTable table Table of custom callsigns to use with TTS
 ---@return AWACS #self
 function AWACS:SetCustomAWACSCallSign(CallsignTable) end
@@ -824,7 +799,6 @@ function AWACS:SetCustomAWACSCallSign(CallsignTable) end
 ---           })
 ---```
 ------
----@param self AWACS 
 ---@param translationTable table with DCS callsigns as keys and replacements as values
 ---@return AWACS #self
 function AWACS:SetCustomCallsigns(translationTable) end
@@ -832,7 +806,6 @@ function AWACS:SetCustomCallsigns(translationTable) end
 ---[User] Set AWACS Escorts Template
 ---
 ------
----@param self AWACS 
 ---@param EscortNumber number Number of fighther plane GROUPs to accompany this AWACS. 0 or nil means no escorts. If you want >1 plane in an escort group, you can either set the respective squadron grouping to the desired number, or use a template for escorts with >1 unit.
 ---@param Formation number Formation the escort should take (if more than one plane), e.g. `ENUMS.Formation.FixedWing.FingerFour.Group`. Formation is used on GROUP level, multiple groups of one unit will NOT conform to this formation.
 ---@param OffsetVector table Offset the escorts should fly behind the AWACS, given as table, distance in meters, e.g. `{x=-500,y=0,z=500}` - 500m behind (negative value) and to the right (negative for left), no vertical separation (positive over, negative under the AWACS flight). For multiple groups, the vectors will be slightly changed to avoid collisions.
@@ -843,7 +816,6 @@ function AWACS:SetEscort(EscortNumber, Formation, OffsetVector, EscortEngageMaxD
 ---[User] Set AWACS intercept timeline support distance.
 ---
 ------
----@param self AWACS 
 ---@param TacDistance number Distance for TAC call, default 45nm
 ---@param MeldDistance number Distance for Meld call, default 35nm
 ---@param ThreatDistance number Distance for Threat call, default 25nm
@@ -854,7 +826,6 @@ function AWACS:SetInterceptTimeline(TacDistance, MeldDistance, ThreatDistance) e
 ---Defaults to "en"
 ---
 ------
----@param self AWACS 
 ---@param Locale string The locale to use
 ---@return AWACS #self
 function AWACS:SetLocale(Locale) end
@@ -862,7 +833,6 @@ function AWACS:SetLocale(Locale) end
 ---[User] Set the max mission range flights can be away from their home base.
 ---
 ------
----@param self AWACS 
 ---@param NM number Distance in nautical miles
 ---@return AWACS #self
 function AWACS:SetMaxMissionRange(NM) end
@@ -871,7 +841,6 @@ function AWACS:SetMaxMissionRange(NM) end
 ---Radar blur 15%.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetModernEra() end
 
@@ -879,7 +848,6 @@ function AWACS:SetModernEra() end
 ---Radar blur 15%.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetModernEraAggressive() end
 
@@ -887,14 +855,12 @@ function AWACS:SetModernEraAggressive() end
 ---Radar blur 15%.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetModernEraDefensive() end
 
 ---[User] Set AWACS Player Guidance - influences missile callout and the "New" label in group callouts.
 ---
 ------
----@param self AWACS 
 ---@param Switch boolean If true (default) it is on, if false, it is off.
 ---@return AWACS #self
 function AWACS:SetPlayerGuidance(Switch) end
@@ -904,7 +870,6 @@ function AWACS:SetPlayerGuidance(Switch) end
 ---Sets TAC/Meld/Threat call distances to 35, 25 and 15 nm.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetPolicingColdWar() end
 
@@ -912,7 +877,6 @@ function AWACS:SetPolicingColdWar() end
 ---Radar blur 15%.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:SetPolicingModern() end
 
@@ -920,7 +884,6 @@ function AWACS:SetPolicingModern() end
 ---Defaults to 15 in Modern Era and 25 in Cold War.
 ---
 ------
----@param self AWACS 
 ---@param Percent number 
 ---@return AWACS #self
 function AWACS:SetRadarBlur(Percent) end
@@ -929,7 +892,6 @@ function AWACS:SetRadarBlur(Percent) end
 ---Defaults to 180.
 ---
 ------
----@param self AWACS 
 ---@param Seconds number 
 ---@return AWACS #self
 function AWACS:SetReassignmentPause(Seconds) end
@@ -938,7 +900,6 @@ function AWACS:SetReassignmentPause(Seconds) end
 ---a border of a foreign country. Detected bogeys in here won't be engaged.
 ---
 ------
----@param self AWACS 
 ---@param Zone ZONE 
 ---@param Draw boolean Draw lines around this zone if true
 ---@return AWACS #self
@@ -948,7 +909,6 @@ function AWACS:SetRejectionZone(Zone, Draw) end
 ---`SetSRS()` will try to use as many attributes configured with Sound.SRS#MSRS.LoadConfigFile() as possible.
 ---
 ------
----@param self AWACS 
 ---@param PathToSRS string Defaults to "C:\\Program Files\\DCS-SimpleRadio-Standalone"
 ---@param Gender string Defaults to "male"
 ---@param Culture string Defaults to "en-US"
@@ -964,7 +924,6 @@ function AWACS:SetSRS(PathToSRS, Gender, Culture, Port, Voice, Volume, PathToGoo
 ---[User] Set AWACS Voice Details for AI CAP Planes  - SRS TTS - see Sound.SRS for details
 ---
 ------
----@param self AWACS 
 ---@param Gender string Defaults to "male"
 ---@param Culture string Defaults to "en-US"
 ---@param Voice? string (Optional) Use a specifc voice with the @{#MSRS.SetVoice} function, e.g, `:SetVoice("Microsoft Hedda Desktop")`. Note that this must be installed on your windows system. Can also be Google voice types, if you are using Google TTS.
@@ -974,7 +933,6 @@ function AWACS:SetSRSVoiceCAP(Gender, Culture, Voice) end
 ---[User] Set TOS Time-on-Station in Hours
 ---
 ------
----@param self AWACS 
 ---@param AICHours number AWACS stays this number of hours on station before shift change, default is 4.
 ---@param CapHours? number (optional) CAP stays this number of hours on station before shift change, default is 4.
 ---@return AWACS #self
@@ -984,7 +942,6 @@ function AWACS:SetTOS(AICHours, CapHours) end
 ---You **need** to set up SRS first before using this!
 ---
 ------
----@param self AWACS 
 ---@param BaseFreq number Base Frequency to use, defaults to 130.
 ---@param Increase number Increase to use, defaults to 0.5, thus channels created are 130, 130.5, 131 .. etc.
 ---@param Modulation number Modulation to use, defaults to radio.modulation.AM.
@@ -997,13 +954,11 @@ function AWACS:SetTacticalRadios(BaseFreq, Increase, Modulation, Interval, Numbe
 ---Starts the AWACS. Initializes parameters and starts event handlers.
 ---
 ------
----@param self AWACS 
 function AWACS:Start() end
 
 ---[User] Do not show messages on screen
 ---
 ------
----@param self AWACS 
 ---@param Switch boolean If true, no messages will be shown on screen.
 ---@return AWACS #self
 function AWACS:SuppressScreenMessages(Switch) end
@@ -1011,14 +966,12 @@ function AWACS:SuppressScreenMessages(Switch) end
 ---[User] Do not show messages on screen, no extra calls for player guidance, use short callsigns etc.
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:ZipLip() end
 
 ---[Internal] Announce a new contact
 ---
 ------
----@param self AWACS 
 ---@param Contact AWACS.ManagedContact 
 ---@param IsNew boolean Is a new contact
 ---@param Group GROUP Announce to Group if not nil
@@ -1033,7 +986,6 @@ function AWACS:_AnnounceContact(Contact, IsNew, Group, IsBogeyDope, Tag, IsPopup
 ---[Internal] AWACS Assign Anchor Position to a Group
 ---
 ------
----@param self AWACS 
 ---@param GID number Managed Group ID
 ---@param HasOwnStation boolean 
 ---@param StationName string 
@@ -1043,7 +995,6 @@ function AWACS:_AssignAnchorToID(GID, HasOwnStation, StationName) end
 ---[Internal] Assign a Pilot to a target
 ---
 ------
----@param self AWACS 
 ---@param Pilots table Table of #AWACS.ManagedGroup Pilot 
 ---@param Targets FIFO FiFo of #AWACS.ManagedContact Targets
 ---@return AWACS #self 
@@ -1052,7 +1003,6 @@ function AWACS:_AssignPilotToTarget(Pilots, Targets) end
 ---[Internal] AWACS Menu for Bogey Dope
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@param Tactical boolean Check for tactical info
 ---@return AWACS #self
@@ -1061,20 +1011,17 @@ function AWACS:_BogeyDope(Group, Tactical) end
 ---[Internal] Check Enough AI CAP on Station
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_CheckAICAPOnStation() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AWACS:_CheckAwacsStatus() end
 
 ---[Internal] AWACS Menu for Check in
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_CheckIn(Group) end
@@ -1082,7 +1029,6 @@ function AWACS:_CheckIn(Group) end
 ---[Internal] AWACS Menu for CheckInAI
 ---
 ------
----@param self AWACS 
 ---@param FlightGroup FLIGHTGROUP to use
 ---@param Group GROUP Group to use
 ---@param AuftragsNr number Ops.Auftrag#AUFTRAG.auftragsnummer
@@ -1092,14 +1038,12 @@ function AWACS:_CheckInAI(FlightGroup, Group, AuftragsNr) end
 ---[Internal] Check merges for Players
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_CheckMerges() end
 
 ---[Internal] AWACS Menu for Check Out
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@param GID number GroupID
 ---@param dead boolean If true, group is dead crashed or otherwise n/a
@@ -1109,21 +1053,18 @@ function AWACS:_CheckOut(Group, GID, dead) end
 ---[Internal] _CheckSubscribers
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_CheckSubscribers() end
 
 ---[Internal] Check available tasks and status
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_CheckTaskQueue() end
 
 ---[Internal] Clean up mission stack
 ---
 ------
----@param self AWACS 
 ---@return number #CAPMissions
 ---@return number #Alert5Missions
 ---@return number #InterceptMissions
@@ -1132,14 +1073,12 @@ function AWACS:_CleanUpAIMissionStack() end
 ---[Internal] Clean up contacts list
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_CleanUpContacts() end
 
 ---[Internal] AWACS Menu for Commit
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_Commit(Group) end
@@ -1147,13 +1086,11 @@ function AWACS:_Commit(Group) end
 
 ---
 ------
----@param self NOTYPE 
 function AWACS:_ConsistencyCheck() end
 
 ---[Internal] AWACS Create a new Anchor Stack
 ---
 ------
----@param self AWACS 
 ---@return boolean #success
 ---@return number #AnchorStackNo
 function AWACS:_CreateAnchorStack() end
@@ -1161,7 +1098,6 @@ function AWACS:_CreateAnchorStack() end
 ---[Internal] AWACS Create a new Anchor Stack from a Marker - this then is the preferred station for players
 ---
 ------
----@param self AWACS 
 ---@param Name NOTYPE 
 ---@param Coord NOTYPE 
 ---@return AWACS #self 
@@ -1170,7 +1106,6 @@ function AWACS:_CreateAnchorStackFromMarker(Name, Coord) end
 ---[Internal] AWACS Speak Bogey Dope entries
 ---
 ------
----@param self AWACS 
 ---@param Callsign string Callsign to address
 ---@param GID number GroupID for comms
 ---@param Tactical boolean Is for tactical info
@@ -1180,7 +1115,6 @@ function AWACS:_CreateBogeyDope(Callsign, GID, Tactical) end
 ---[Internal] AWACS Speak Picture AO/EWR entries
 ---
 ------
----@param self AWACS 
 ---@param AO boolean If true this is for AO, else EWR
 ---@param Callsign string Callsign to address
 ---@param GID number GroupID for comms
@@ -1192,7 +1126,6 @@ function AWACS:_CreatePicture(AO, Callsign, GID, MaxEntries, IsGeneral) end
 ---[Internal] Register Task for Group by GID
 ---
 ------
----@param self AWACS 
 ---@param GroupID number ManagedGroup ID
 ---@param Description AWACS.TaskDescription Short Description Task Type
 ---@param ScreenText string Long task description for screen output
@@ -1207,7 +1140,6 @@ function AWACS:_CreateTaskForGroup(GroupID, Description, ScreenText, Object, Tas
 ---[Internal] AWACS Menu for Declare
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_Declare(Group) end
@@ -1215,7 +1147,6 @@ function AWACS:_Declare(Group) end
 ---[Internal] AWACS Delete a new Anchor Stack from a Marker - only works if no assignments are on the station
 ---
 ------
----@param self AWACS 
 ---@param Name NOTYPE 
 ---@param Coord NOTYPE 
 ---@return AWACS #self 
@@ -1224,7 +1155,6 @@ function AWACS:_DeleteAnchorStackFromMarker(Name, Coord) end
 ---[Internal] Event handler
 ---
 ------
----@param self AWACS 
 ---@param EventData EVENTDATA 
 ---@return AWACS #self
 function AWACS:_EventHandler(EventData) end
@@ -1232,7 +1162,6 @@ function AWACS:_EventHandler(EventData) end
 ---[Internal] Check for alive OpsGroup from Mission OpsGroups table
 ---
 ------
----@param self AWACS 
 ---@param OpsGroups table 
 ---@return OPSGROUP #or nil
 function AWACS:_GetAliveOpsGroupFromTable(OpsGroups) end
@@ -1240,7 +1169,6 @@ function AWACS:_GetAliveOpsGroupFromTable(OpsGroups) end
 ---[Internal] Get BR text for TTS - ie "Rock 214, 24 miles" and TTS "Rock 2 1 4, 24 miles"
 ---
 ------
----@param self AWACS 
 ---@param clustercoordinate COORDINATE 
 ---@return string #BRAText
 ---@return string #BRATextTTS
@@ -1249,7 +1177,6 @@ function AWACS:_GetBRAfromBullsOrAO(clustercoordinate) end
 ---[Internal] Get blurred size of group or cluster
 ---
 ------
----@param self AWACS 
 ---@param size number 
 ---@return number #adjusted size
 ---@return string #AWACS.Shipsize entry for size 1..4
@@ -1258,7 +1185,6 @@ function AWACS:_GetBlurredSize(size) end
 ---[Internal] AWACS Get TTS compatible callsign
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@param GID number GID to use
 ---@param IsPlayer boolean Check in player if true
@@ -1268,7 +1194,6 @@ function AWACS:_GetCallSign(Group, GID, IsPlayer) end
 ---[Internal] AWACS get free anchor stack for managed groups
 ---
 ------
----@param self AWACS 
 ---@return number #AnchorStackNo
 ---@return boolean #free 
 function AWACS:_GetFreeAnchorStack() end
@@ -1276,7 +1201,6 @@ function AWACS:_GetFreeAnchorStack() end
 ---[Internal] Event handler
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group, can also be passed as #string group name
 ---@return boolean #found
 ---@return number #GID
@@ -1286,7 +1210,6 @@ function AWACS:_GetGIDFromGroupOrName(Group) end
 ---[Internal] Select pilots available for tasking, return AI and Human
 ---
 ------
----@param self AWACS 
 ---@return table #AIPilots Table of #AWACS.ManagedGroup
 ---@return table #HumanPilots Table of #AWACS.ManagedGroup
 function AWACS:_GetIdlePilots() end
@@ -1294,7 +1217,6 @@ function AWACS:_GetIdlePilots() end
 ---[Internal] Check if a group has checked in
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to check
 ---@return number #ID
 ---@return boolean #CheckedIn
@@ -1304,7 +1226,6 @@ function AWACS:_GetManagedGrpID(Group) end
 ---[Internal] Get threat level as clear test
 ---
 ------
----@param self AWACS 
 ---@param threatlevel number 
 ---@return string #threattext
 function AWACS:_GetThreatLevelText(threatlevel) end
@@ -1312,14 +1233,12 @@ function AWACS:_GetThreatLevelText(threatlevel) end
 ---[Internal] Init localization
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_InitLocalization() end
 
 ---[Internal] AWACS Menu for Judy
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_Judy(Group) end
@@ -1327,14 +1246,12 @@ function AWACS:_Judy(Group) end
 ---[Internal] Write stats to log
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_LogStatistics() end
 
 ---[Internal] Meld Range Call to Pilot
 ---
 ------
----@param self AWACS 
 ---@param GID number GID
 ---@param Contact AWACS.ManagedContact 
 ---@return AWACS #self
@@ -1343,7 +1260,6 @@ function AWACS:_MeldRangeCall(GID, Contact) end
 ---[Internal] Merged Call to Pilot
 ---
 ------
----@param self AWACS 
 ---@param GID number 
 ---@return AWACS #self
 function AWACS:_MergedCall(GID) end
@@ -1351,7 +1267,6 @@ function AWACS:_MergedCall(GID) end
 ---[Internal] Create radio entry to tell players that CAP is on station in Anchor
 ---
 ------
----@param self AWACS 
 ---@param GID number Group ID 
 ---@return AWACS #self
 function AWACS:_MessageAIReadyForTasking(GID) end
@@ -1359,7 +1274,6 @@ function AWACS:_MessageAIReadyForTasking(GID) end
 ---[Internal] Message a vector BR to a position
 ---
 ------
----@param self AWACS 
 ---@param GID number Group GID
 ---@param Tag? string (optional) Text to add after Vector, e.g. " to Anchor" - NOTE the leading space
 ---@param Coordinate COORDINATE The Coordinate to use
@@ -1370,7 +1284,6 @@ function AWACS:_MessageVector(GID, Tag, Coordinate, Angels) end
 ---[Internal] Missile Warning Callout
 ---
 ------
----@param self AWACS 
 ---@param Coordinate COORDINATE Where the shot happened
 ---@param Type string Type to call out, e.i. "SAM" or "Missile"
 ---@param Warndist number Distance in NM to find friendly planes
@@ -1380,7 +1293,6 @@ function AWACS:_MissileWarning(Coordinate, Type, Warndist) end
 ---[Internal] AWACS Move a new Anchor Stack from a Marker
 ---
 ------
----@param self AWACS 
 ---@param Name NOTYPE 
 ---@param Coord NOTYPE 
 ---@return AWACS #self 
@@ -1389,7 +1301,6 @@ function AWACS:_MoveAnchorStackFromMarker(Name, Coord) end
 ---[Internal] Create a AIC-TTS message entry
 ---
 ------
----@param self AWACS 
 ---@param TextTTS string Text to speak
 ---@param TextScreen string Text for screen
 ---@param GID number Group ID #AWACS.ManagedGroup GID
@@ -1405,7 +1316,6 @@ function AWACS:_NewRadioEntry(TextTTS, TextScreen, GID, IsGroup, ToScreen, IsNew
 ---[Internal] AWACS Menu for Picture
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@param IsGeneral boolean General picture if true, address no-one specific
 ---@return AWACS #self
@@ -1414,7 +1324,6 @@ function AWACS:_Picture(Group, IsGeneral) end
 ---[Internal] Read assigned Group from a TaskID
 ---
 ------
----@param self AWACS 
 ---@param TaskID number ManagedTask ID
 ---@return AWACS.ManagedGroup #Group structure or nil if n/e
 function AWACS:_ReadAssignedGroupFromTID(TaskID) end
@@ -1422,7 +1331,6 @@ function AWACS:_ReadAssignedGroupFromTID(TaskID) end
 ---[Internal] Read registered Task for Group by its ID
 ---
 ------
----@param self AWACS 
 ---@param GroupID number ManagedGroup ID
 ---@return AWACS.ManagedTask #Task or nil if n/e
 function AWACS:_ReadAssignedTaskFromGID(GroupID) end
@@ -1431,14 +1339,12 @@ function AWACS:_ReadAssignedTaskFromGID(GroupID) end
 ---[Internal] _RefreshMenuNonSubscribed
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_RefreshMenuNonSubscribed() end
 
 ---[Internal] Remove GID (group) from Anchor Stack
 ---
 ------
----@param self AWACS 
 ---@param ID AWACS.ManagedGroup.GID 
 ---@param AnchorStackNo number 
 ---@param Angels number 
@@ -1449,7 +1355,6 @@ function AWACS:_RemoveIDFromAnchor(ID, AnchorStackNo, Angels, GID) end
 ---[Internal] Set ROE for AI CAP
 ---
 ------
----@param self AWACS 
 ---@param FlightGroup FLIGHTGROUP 
 ---@param Group GROUP 
 ---@return AWACS #self
@@ -1458,14 +1363,12 @@ function AWACS:_SetAIROE(FlightGroup, Group) end
 ---[Internal] AWACS set client menus
 ---
 ------
----@param self AWACS 
 ---@return AWACS #self
 function AWACS:_SetClientMenus() end
 
 ---[Internal] AWACS Menu for Show Info
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_ShowAwacsInfo(Group) end
@@ -1473,7 +1376,6 @@ function AWACS:_ShowAwacsInfo(Group) end
 ---[Internal] AWACS Menu for Showtask
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_Showtask(Group) end
@@ -1481,7 +1383,6 @@ function AWACS:_Showtask(Group) end
 ---[Internal] Start AWACS Escorts FlightGroup
 ---
 ------
----@param self AWACS 
 ---@param Shiftchange boolean This is a shift change call
 ---@return AWACS #self
 function AWACS:_StartEscorts(Shiftchange) end
@@ -1489,7 +1390,6 @@ function AWACS:_StartEscorts(Shiftchange) end
 ---[Internal] Start INTEL detection when we reach the AWACS Orbit Zone
 ---
 ------
----@param self AWACS 
 ---@param awacs GROUP 
 ---@return AWACS #self
 function AWACS:_StartIntel(awacs) end
@@ -1497,7 +1397,6 @@ function AWACS:_StartIntel(awacs) end
 ---[Internal] AWACS further Start Settings
 ---
 ------
----@param self AWACS 
 ---@param FlightGroup FLIGHTGROUP 
 ---@param Mission AUFTRAG 
 ---@return AWACS #self
@@ -1506,7 +1405,6 @@ function AWACS:_StartSettings(FlightGroup, Mission) end
 ---[Internal] _SubScribeTactRadio
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP 
 ---@param Frequency number 
 ---@return AWACS #self
@@ -1515,7 +1413,6 @@ function AWACS:_SubScribeTactRadio(Group, Frequency) end
 ---[Internal] TAC Range Call to Pilot
 ---
 ------
----@param self AWACS 
 ---@param GID number GID
 ---@param Contact AWACS.ManagedContact 
 ---@return AWACS #self
@@ -1524,7 +1421,6 @@ function AWACS:_TACRangeCall(GID, Contact) end
 ---[Internal] Select max 3 targets for picture, bogey dope etc
 ---
 ------
----@param self AWACS 
 ---@param Untargeted boolean Return not yet targeted contacts only
 ---@return boolean #HaveTargets True if targets could be found, else false
 ---@return FIFO #Targetselection
@@ -1533,7 +1429,6 @@ function AWACS:_TargetSelectionProcess(Untargeted) end
 ---[Internal] AWACS Menu for Abort
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_TaskAbort(Group) end
@@ -1541,7 +1436,6 @@ function AWACS:_TaskAbort(Group) end
 ---[Internal] Threat Range Call to Pilot
 ---
 ------
----@param self AWACS 
 ---@param GID NOTYPE 
 ---@param Contact NOTYPE 
 ---@return AWACS #self
@@ -1550,7 +1444,6 @@ function AWACS:_ThreatRangeCall(GID, Contact) end
 ---[Internal] Get BR text for TTS
 ---
 ------
----@param self AWACS 
 ---@param FromCoordinate COORDINATE 
 ---@param ToCoordinate COORDINATE 
 ---@return string #BRText Desired Output (BR) "214, 35 miles"
@@ -1560,7 +1453,6 @@ function AWACS:_ToStringBR(FromCoordinate, ToCoordinate) end
 ---[Internal] Get BRA text for TTS
 ---
 ------
----@param self AWACS 
 ---@param FromCoordinate COORDINATE 
 ---@param ToCoordinate COORDINATE 
 ---@param Altitude number Altitude in meters
@@ -1572,7 +1464,6 @@ function AWACS:_ToStringBRA(FromCoordinate, ToCoordinate, Altitude) end
 ---"Rock 021, 16" ("Rock" being the set BE name)
 ---
 ------
----@param self AWACS 
 ---@param Coordinate COORDINATE 
 ---@param ssml boolean Add SSML tag
 ---@param TTS boolean For non-Alpha checks, hand back in format "Rock 0 2 1, 16"
@@ -1583,7 +1474,6 @@ function AWACS:_ToStringBULLS(Coordinate, ssml, TTS) end
 ---"Bulls eye 0 2 1. 1 6"
 ---
 ------
----@param self AWACS 
 ---@param Text string Input text
 ---@return string #BullseyeBRTTS
 function AWACS:_ToStringBullsTTS(Text) end
@@ -1591,7 +1481,6 @@ function AWACS:_ToStringBullsTTS(Text) end
 ---[Internal] AWACS Menu for Unable
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@return AWACS #self
 function AWACS:_Unable(Group) end
@@ -1599,7 +1488,6 @@ function AWACS:_Unable(Group) end
 ---[Internal] _UnsubScribeTactRadio
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP 
 ---@return AWACS #self
 function AWACS:_UnsubScribeTactRadio(Group) end
@@ -1607,7 +1495,6 @@ function AWACS:_UnsubScribeTactRadio(Group) end
 ---[Internal] Update Contact Tag
 ---
 ------
----@param self AWACS 
 ---@param CID number Contact ID
 ---@param Text string Text to be used
 ---@param TAC boolean TAC Call done
@@ -1619,7 +1506,6 @@ function AWACS:_UpdateContactEngagementTag(CID, Text, TAC, MELD, TaskStatus) end
 ---[Internal] Update contact from cluster data
 ---
 ------
----@param self AWACS 
 ---@param CID number Contact ID
 ---@return AWACS #self
 function AWACS:_UpdateContactFromCluster(CID) end
@@ -1627,7 +1513,6 @@ function AWACS:_UpdateContactFromCluster(CID) end
 ---[Internal] AWACS Menu for VID
 ---
 ------
----@param self AWACS 
 ---@param Group GROUP Group to use
 ---@param Declaration string Text declaration the player used
 ---@return AWACS #self
@@ -1637,7 +1522,6 @@ function AWACS:_VID(Group, Declaration) end
 ---Starts the AWACS. Initializes parameters and starts event handlers.
 ---
 ------
----@param self AWACS 
 ---@param delay number Delay in seconds.
 function AWACS:__Start(delay) end
 
@@ -1645,14 +1529,12 @@ function AWACS:__Start(delay) end
 ---Stops the AWACS and all its event handlers.
 ---
 ------
----@param self AWACS 
 ---@param delay number Delay in seconds.
 function AWACS:__Stop(delay) end
 
 ---[Internal] onafterAssignAnchor
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1667,7 +1549,6 @@ function AWACS:onafterAssignAnchor(From, Event, To, GID, HasOwnStation, HasOwnSt
 ---[Internal] onafterAssignedAnchor
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1682,7 +1563,6 @@ function AWACS:onafterAssignedAnchor(From, Event, To, GID, Anchor, AnchorStackNo
 ---[Internal] onafterAwacsShiftChange
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1693,7 +1573,6 @@ function AWACS:onafterAwacsShiftChange(From, Event, To) end
 ---[Internal] onafterCheckRadioQueue
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1704,7 +1583,6 @@ function AWACS:onafterCheckRadioQueue(From, Event, To) end
 ---[Internal] onafterCheckTacticalQueue
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1715,7 +1593,6 @@ function AWACS:onafterCheckTacticalQueue(From, Event, To) end
 ---[Internal] onafterCheckedOut
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1730,7 +1607,6 @@ function AWACS:onafterCheckedOut(From, Event, To, Group, AnchorStackNo, Angels, 
 ---[Internal] onafterEscortShiftChange
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1741,7 +1617,6 @@ function AWACS:onafterEscortShiftChange(From, Event, To) end
 ---On after "FlightOnMission".
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1754,7 +1629,6 @@ function AWACS:onafterFlightOnMission(From, Event, To, FlightGroup, Mission) end
 ---[Internal] onafterLostCluster
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1767,7 +1641,6 @@ function AWACS:onafterLostCluster(From, Event, To, Cluster, Mission) end
 ---[Internal] onafterLostContact
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1779,7 +1652,6 @@ function AWACS:onafterLostContact(From, Event, To, Contact) end
 ---[Internal] onafterNewCluster
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1791,7 +1663,6 @@ function AWACS:onafterNewCluster(From, Event, To, Cluster) end
 ---[Internal] onafterNewContact
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1803,7 +1674,6 @@ function AWACS:onafterNewContact(From, Event, To, Contact) end
 ---On after "ReAnchor".
 ---
 ------
----@param self AWACS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1815,7 +1685,6 @@ function AWACS:onafterReAnchor(From, Event, To, GID) end
 ---[Internal] onafterStart
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1826,7 +1695,6 @@ function AWACS:onafterStart(From, Event, To) end
 ---[Internal] onafterStatus
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1837,7 +1705,6 @@ function AWACS:onafterStatus(From, Event, To) end
 ---[Internal] onafterStop
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1848,7 +1715,6 @@ function AWACS:onafterStop(From, Event, To) end
 ---[Internal] onbeforeStart
 ---
 ------
----@param self AWACS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

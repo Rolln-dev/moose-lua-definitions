@@ -52,35 +52,30 @@ DETECTION_ZONES = {}
 ---Bound the detected zones
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:BoundDetectedZones() end
 
 ---Calculate the optimal intercept point of the DetectedItem.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 function DETECTION_ZONES:CalculateIntercept(DetectedItem) end
 
 
 ---
 ------
----@param self NOTYPE 
 function DETECTION_ZONES:CountAliveRecce() end
 
 ---Make a DetectionSet table.
 ---This function will be overridden in the derived clsses.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:CreateDetectionItems() end
 
 ---Report summary of a detected item using a given numeric index.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The DetectedItem.
 ---@param AttackGroup GROUP The group to get the settings for.
 ---@param Settings? SETTINGS (Optional) Message formatting settings to use.
@@ -90,7 +85,6 @@ function DETECTION_ZONES:DetectedItemReportSummary(DetectedItem, AttackGroup, Se
 ---Report detailed of a detection result.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param AttackGroup GROUP The group to generate the report for.
 ---@return string #
 function DETECTION_ZONES:DetectedReportDetailed(AttackGroup) end
@@ -98,21 +92,18 @@ function DETECTION_ZONES:DetectedReportDetailed(AttackGroup) end
 ---Flare the detected units
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:FlareDetectedUnits() end
 
 ---Flare the detected zones
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:FlareDetectedZones() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param IteratorFunction NOTYPE 
 ---@param ... NOTYPE 
 function DETECTION_ZONES:ForEachAliveRecce(IteratorFunction, ...) end
@@ -120,7 +111,6 @@ function DETECTION_ZONES:ForEachAliveRecce(IteratorFunction, ...) end
 ---Make text documenting the changes of the detected zone.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return string #The Changes text
 function DETECTION_ZONES:GetChangeText(DetectedItem) end
@@ -128,7 +118,6 @@ function DETECTION_ZONES:GetChangeText(DetectedItem) end
 ---DETECTION_ZONES constructor.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param DetectionSetZone SET_ZONE The @{Core.Set} of ZONE_RADIUS.
 ---@param DetectionCoalition Coalition.side The coalition of the detection.
 ---@return DETECTION_ZONES #
@@ -137,21 +126,18 @@ function DETECTION_ZONES:New(DetectionSetZone, DetectionCoalition) end
 ---Smoke the detected units
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:SmokeDetectedUnits() end
 
 ---Smoke the detected zones
 ---
 ------
----@param self DETECTION_ZONES 
 ---@return DETECTION_ZONES #self
 function DETECTION_ZONES:SmokeDetectedZones() end
 
 ---Set IsDetected flag for the DetectedItem, which can have more units.
 ---
 ------
----@param self DETECTION_ZONES 
 ---@param DetectedItem NOTYPE 
 ---@return DETECTION_ZONES.DetectedItem #DetectedItem
 ---@return boolean #true if at least one UNIT is detected from the DetectedSet, false if no UNIT was detected from the DetectedSet.
@@ -160,7 +146,6 @@ function DETECTION_ZONES:UpdateDetectedItemDetection(DetectedItem) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

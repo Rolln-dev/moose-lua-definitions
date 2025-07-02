@@ -596,7 +596,6 @@ AI_CARGO_DISPATCHER = {}
 ---     AICargoDispatcherHelicopter:Start()
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param CarrierSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of carriers that will transport the cargo. 
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
 ---@param PickupZoneSet? SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the carriers. If nil, then cargo can be picked up everywhere. 
@@ -609,7 +608,6 @@ function AI_CARGO_DISPATCHER:New(CarrierSet, CargoSet, PickupZoneSet, DeployZone
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -625,7 +623,6 @@ function AI_CARGO_DISPATCHER:OnAfterDeploy(From, Event, To, CarrierGroup, Coordi
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -639,7 +636,6 @@ function AI_CARGO_DISPATCHER:OnAfterDeployed(From, Event, To, CarrierGroup, Depl
 ---If there is no HomeZone is specified, the CarrierGroup will stay at the current location after having deployed all cargo.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -655,7 +651,6 @@ function AI_CARGO_DISPATCHER:OnAfterHome(From, Event, To, CarrierGroup, Coordina
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -670,7 +665,6 @@ function AI_CARGO_DISPATCHER:OnAfterLoad(From, Event, To, CarrierGroup, PickupZo
 ---A CarrierUnit can be part of the larger CarrierGroup.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -686,7 +680,6 @@ function AI_CARGO_DISPATCHER:OnAfterLoaded(From, Event, To, CarrierGroup, Cargo,
 ---Note that this event is triggered repeatedly until all cargo (units) have been boarded into the carrier.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -701,7 +694,6 @@ function AI_CARGO_DISPATCHER:OnAfterLoading(From, Event, To, CarrierGroup, Cargo
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -714,7 +706,6 @@ function AI_CARGO_DISPATCHER:OnAfterPickedUp(From, Event, To, CarrierGroup, Pick
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -730,7 +721,6 @@ function AI_CARGO_DISPATCHER:OnAfterPickup(From, Event, To, CarrierGroup, Coordi
 ---You can use this event handler to post messages to players, or provide status updates etc.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -745,7 +735,6 @@ function AI_CARGO_DISPATCHER:OnAfterUnload(From, Event, To, CarrierGroup, Deploy
 ---A CarrierUnit can be part of the larger CarrierGroup.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -761,7 +750,6 @@ function AI_CARGO_DISPATCHER:OnAfterUnloaded(From, Event, To, CarrierGroup, Carg
 ---Note that this event is triggered repeatedly until all cargo (units) have been unboarded from the CarrierUnit.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From string A string that contains the "*from state name*" when the event was triggered.
 ---@param Event string A string that contains the "*event name*" when the event was triggered.
 ---@param To string A string that contains the "*to state name*" when the event was triggered.
@@ -786,7 +774,6 @@ function AI_CARGO_DISPATCHER:OnAfterUnloading(From, Event, To, CarrierGroup, Car
 ---AICargoDispatcherHelicopter:SetDeployHeight( 200, 50 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param MaxHeight? number (optional) The maximum height to fly to the cargo deploy location.
 ---@param MinHeight? number (optional) The minimum height to fly to the cargo deploy location.
 ---@return AI_CARGO_DISPATCHER #
@@ -814,7 +801,6 @@ function AI_CARGO_DISPATCHER:SetDeployHeight(MaxHeight, MinHeight) end
 ---AICargoDispatcherHelicopter:SetDeployRadius( 500, 300 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param OuterRadius number The outer radius in meters around the cargo coordinate.
 ---@param InnerRadius? number (optional) The inner radius in meters around the cargo coordinate.
 ---@return AI_CARGO_DISPATCHER #
@@ -834,7 +820,6 @@ function AI_CARGO_DISPATCHER:SetDeployRadius(OuterRadius, InnerRadius) end
 ---AICargoDispatcherHelicopter:SetDeploySpeed( 200, 100 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param MaxSpeed number The maximum speed to move to the cargo deploy location.
 ---@param MinSpeed? number (optional) The minimum speed to move to the cargo deploy location.
 ---@return AI_CARGO_DISPATCHER #
@@ -857,7 +842,6 @@ function AI_CARGO_DISPATCHER:SetDeploySpeed(MaxSpeed, MinSpeed) end
 ---AICargoDispatcherHelicopter:SetHomeZone( HomeZone )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param HomeZone ZONE_BASE The home zone where the carriers will return when there is no more cargo to pickup.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetHomeZone(HomeZone) end
@@ -865,7 +849,6 @@ function AI_CARGO_DISPATCHER:SetHomeZone(HomeZone) end
 ---Set the monitor time interval.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param MonitorTimeInterval number The interval in seconds when the cargo dispatcher will search for new cargo to be picked up.
 ---@return AI_CARGO_DISPATCHER #
 function AI_CARGO_DISPATCHER:SetMonitorTimeInterval(MonitorTimeInterval) end
@@ -885,7 +868,6 @@ function AI_CARGO_DISPATCHER:SetMonitorTimeInterval(MonitorTimeInterval) end
 ---AICargoDispatcherHelicopter:SetPickupHeight( 200, 50 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param MaxHeight? number (optional) The maximum height to fly to the cargo pickup location.
 ---@param MinHeight? number (optional) The minimum height to fly to the cargo pickup location.
 ---@return AI_CARGO_DISPATCHER #
@@ -916,7 +898,6 @@ function AI_CARGO_DISPATCHER:SetPickupHeight(MaxHeight, MinHeight) end
 ---AICargoDispatcherHelicopter:SetPickupRadius( 500, 300 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param OuterRadius number The outer radius in meters around the cargo coordinate.
 ---@param InnerRadius? number (optional) The inner radius in meters around the cargo coordinate.
 ---@return AI_CARGO_DISPATCHER #
@@ -936,7 +917,6 @@ function AI_CARGO_DISPATCHER:SetPickupRadius(OuterRadius, InnerRadius) end
 ---AICargoDispatcherHelicopter:SetPickupSpeed( 200, 100 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param MaxSpeed? number (optional) The maximum speed to move to the cargo pickup location.
 ---@param MinSpeed number The minimum speed to move to the cargo pickup location.
 ---@return AI_CARGO_DISPATCHER #
@@ -945,40 +925,34 @@ function AI_CARGO_DISPATCHER:SetPickupSpeed(MaxSpeed, MinSpeed) end
 ---Start Trigger for AI_CARGO_DISPATCHER
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 function AI_CARGO_DISPATCHER:Start() end
 
 ---Stop Trigger for AI_CARGO_DISPATCHER
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 function AI_CARGO_DISPATCHER:Stop() end
 
 ---Start Asynchronous Trigger for AI_CARGO_DISPATCHER
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param Delay number 
 function AI_CARGO_DISPATCHER:__Start(Delay) end
 
 ---Stop Asynchronous Trigger for AI_CARGO_DISPATCHER
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param Delay number 
 function AI_CARGO_DISPATCHER:__Stop(Delay) end
 
 ---The Start trigger event, which actually takes action at the specified time interval.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@private
 function AI_CARGO_DISPATCHER:onafterMonitor() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -988,7 +962,6 @@ function AI_CARGO_DISPATCHER:onafterStart(From, Event, To) end
 ---Make a Carrier run for a cargo deploy action after the cargo has been loaded, by default.
 ---
 ------
----@param self AI_CARGO_DISPATCHER 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

@@ -64,7 +64,6 @@ SQUADRON = {}
 ---Get airwing.
 ---
 ------
----@param self SQUADRON 
 ---@param Airwing NOTYPE 
 ---@return AIRWING #The airwing.
 function SQUADRON:GetAirwing(Airwing) end
@@ -72,7 +71,6 @@ function SQUADRON:GetAirwing(Airwing) end
 ---Create a new SQUADRON object and start the FSM.
 ---
 ------
----@param self SQUADRON 
 ---@param TemplateGroupName string Name of the template group.
 ---@param Ngroups number Number of asset groups of this squadron. Default 3.
 ---@param SquadronName string Name of the squadron, e.g. "VFA-37". Must be **unique**!
@@ -82,7 +80,6 @@ function SQUADRON:New(TemplateGroupName, Ngroups, SquadronName) end
 ---Set airwing.
 ---
 ------
----@param self SQUADRON 
 ---@param Airwing AIRWING The airwing.
 ---@return SQUADRON #self
 function SQUADRON:SetAirwing(Airwing) end
@@ -92,7 +89,6 @@ function SQUADRON:SetAirwing(Airwing) end
 ---Can help to avoid DCS AI taxiing issues.
 ---
 ------
----@param self SQUADRON 
 ---@param Switch boolean If `true` (default), activate despawn after holding.
 ---@return SQUADRON #self
 function SQUADRON:SetDespawnAfterHolding(Switch) end
@@ -102,7 +98,6 @@ function SQUADRON:SetDespawnAfterHolding(Switch) end
 ---Can help to avoid DCS AI taxiing issues.
 ---
 ------
----@param self SQUADRON 
 ---@param Switch boolean If `true` (default), activate despawn after landing.
 ---@return SQUADRON #self
 function SQUADRON:SetDespawnAfterLanding(Switch) end
@@ -110,7 +105,6 @@ function SQUADRON:SetDespawnAfterLanding(Switch) end
 ---Set if low fuel threshold is reached, flight tries to refuel at the neares tanker.
 ---
 ------
----@param self SQUADRON 
 ---@param switch boolean If true or nil, flight goes for refuelling. If false, turn this off.
 ---@return SQUADRON #self
 function SQUADRON:SetFuelLowRefuel(switch) end
@@ -118,7 +112,6 @@ function SQUADRON:SetFuelLowRefuel(switch) end
 ---Set low fuel threshold.
 ---
 ------
----@param self SQUADRON 
 ---@param LowFuel number Low fuel threshold in percent. Default 25.
 ---@return SQUADRON #self
 function SQUADRON:SetFuelLowThreshold(LowFuel) end
@@ -126,7 +119,6 @@ function SQUADRON:SetFuelLowThreshold(LowFuel) end
 ---Set number of units in groups.
 ---
 ------
----@param self SQUADRON 
 ---@param nunits number Number of units. Must be >=1 and <=4. Default 2.
 ---@return SQUADRON #self
 function SQUADRON:SetGrouping(nunits) end
@@ -135,7 +127,6 @@ function SQUADRON:SetGrouping(nunits) end
 ---Assets of this squad are only allowed to be spawned at these parking spots. **Note** that the IDs are different from the ones displayed in the mission editor!
 ---
 ------
----@param self SQUADRON 
 ---@param ParkingIDs table Table of parking ID numbers or a single `#number`.
 ---@return SQUADRON #self
 function SQUADRON:SetParkingIDs(ParkingIDs) end
@@ -144,7 +135,6 @@ function SQUADRON:SetParkingIDs(ParkingIDs) end
 ---All assets of this squadron will be spawned in air above the airbase.
 ---
 ------
----@param self SQUADRON 
 ---@return SQUADRON #self
 function SQUADRON:SetTakeoffAir() end
 
@@ -152,7 +142,6 @@ function SQUADRON:SetTakeoffAir() end
 ---All assets of this squadron will be spawned with engines off (cold).
 ---
 ------
----@param self SQUADRON 
 ---@return SQUADRON #self
 function SQUADRON:SetTakeoffCold() end
 
@@ -160,7 +149,6 @@ function SQUADRON:SetTakeoffCold() end
 ---All assets of this squadron will be spawned with engines on (hot).
 ---
 ------
----@param self SQUADRON 
 ---@return SQUADRON #self
 function SQUADRON:SetTakeoffHot() end
 
@@ -169,7 +157,6 @@ function SQUADRON:SetTakeoffHot() end
 ---Spawning on runways is not supported.
 ---
 ------
----@param self SQUADRON 
 ---@param TakeoffType string Take off type: "Cold" (default) or "Hot" with engines on or "Air" for spawning in air.
 ---@return SQUADRON #self
 function SQUADRON:SetTakeoffType(TakeoffType) end
@@ -178,7 +165,6 @@ function SQUADRON:SetTakeoffType(TakeoffType) end
 ---Starts the FLIGHTGROUP FSM and event handlers.
 ---
 ------
----@param self SQUADRON 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -188,7 +174,6 @@ function SQUADRON:onafterStart(From, Event, To) end
 ---On after "Status" event.
 ---
 ------
----@param self SQUADRON 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

@@ -30,28 +30,24 @@ VELOCITY = {}
 ---Get the velocity in Mps (meters per second).
 ---
 ------
----@param self VELOCITY 
 ---@return number #The velocity in meters per second. 
 function VELOCITY:Get() end
 
 ---Get the velocity in Kmph (kilometers per hour).
 ---
 ------
----@param self VELOCITY 
 ---@return number #The velocity in kilometers per hour. 
 function VELOCITY:GetKmph() end
 
 ---Get the velocity in Miph (miles per hour).
 ---
 ------
----@param self VELOCITY 
 ---@return number #The velocity in miles per hour. 
 function VELOCITY:GetMiph() end
 
 ---Get the velocity in text, according the player Core.Settings.
 ---
 ------
----@param self VELOCITY 
 ---@param Settings SETTINGS 
 ---@return string #The velocity in text. 
 function VELOCITY:GetText(Settings) end
@@ -59,7 +55,6 @@ function VELOCITY:GetText(Settings) end
 ---VELOCITY Constructor.
 ---
 ------
----@param self VELOCITY 
 ---@param VelocityMps number The velocity in meters per second. 
 ---@return VELOCITY #
 function VELOCITY:New(VelocityMps) end
@@ -67,7 +62,6 @@ function VELOCITY:New(VelocityMps) end
 ---Set the velocity in Mps (meters per second).
 ---
 ------
----@param self VELOCITY 
 ---@param VelocityMps number The velocity in meters per second. 
 ---@return VELOCITY #
 function VELOCITY:Set(VelocityMps) end
@@ -75,7 +69,6 @@ function VELOCITY:Set(VelocityMps) end
 ---Set the velocity in Kmph (kilometers per hour).
 ---
 ------
----@param self VELOCITY 
 ---@param VelocityKmph number The velocity in kilometers per hour. 
 ---@return VELOCITY #
 function VELOCITY:SetKmph(VelocityKmph) end
@@ -83,7 +76,6 @@ function VELOCITY:SetKmph(VelocityKmph) end
 ---Set the velocity in Miph (miles per hour).
 ---
 ------
----@param self VELOCITY 
 ---@param VelocityMiph number The velocity in miles per hour. 
 ---@return VELOCITY #
 function VELOCITY:SetMiph(VelocityMiph) end
@@ -91,7 +83,6 @@ function VELOCITY:SetMiph(VelocityMiph) end
 ---Get the velocity in text, according the player or default Core.Settings.
 ---
 ------
----@param self VELOCITY 
 ---@param Controllable CONTROLLABLE 
 ---@param Settings SETTINGS 
 ---@param VelocityGroup NOTYPE 
@@ -114,28 +105,24 @@ VELOCITY_POSITIONABLE = {}
 ---Get the velocity in Mps (meters per second).
 ---
 ------
----@param self VELOCITY_POSITIONABLE 
 ---@return number #The velocity in meters per second. 
 function VELOCITY_POSITIONABLE:Get() end
 
 ---Get the velocity in Kmph (kilometers per hour).
 ---
 ------
----@param self VELOCITY_POSITIONABLE 
 ---@return number #The velocity in kilometers per hour. 
 function VELOCITY_POSITIONABLE:GetKmph() end
 
 ---Get the velocity in Miph (miles per hour).
 ---
 ------
----@param self VELOCITY_POSITIONABLE 
 ---@return number #The velocity in miles per hour. 
 function VELOCITY_POSITIONABLE:GetMiph() end
 
 ---VELOCITY_POSITIONABLE Constructor.
 ---
 ------
----@param self VELOCITY_POSITIONABLE 
 ---@param Positionable POSITIONABLE The Positionable to monitor the speed. 
 ---@return VELOCITY_POSITIONABLE #
 function VELOCITY_POSITIONABLE:New(Positionable) end
@@ -143,7 +130,6 @@ function VELOCITY_POSITIONABLE:New(Positionable) end
 ---Get the velocity in text, according the player or default Core.Settings.
 ---
 ------
----@param self VELOCITY_POSITIONABLE 
 ---@return string #The velocity in text according the player or default @{Core.Settings}
 function VELOCITY_POSITIONABLE:ToString() end
 

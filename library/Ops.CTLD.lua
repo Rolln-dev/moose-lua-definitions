@@ -598,6 +598,7 @@
 ---@field RadioSound string 
 ---@field RadioSoundFC3 string 
 ---@field SmokeColor NOTYPE 
+---@field Spawned_Cargo table 
 ---@field Spawned_Crates table 
 ---@field TroopCounter number 
 ---@field UnitTypeCapabilities CTLD.UnitTypeCapabilities 
@@ -662,7 +663,6 @@ CTLD = {}
 ---User function - Activate Name #CTLD.CargoZone.Type ZoneType for this CTLD instance.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of the zone to change in the ME.
 ---@param ZoneType CTLD.CargoZoneType Type of zone this belongs to.
 ---@param NewState? boolean (Optional) Set to true to activate, false to switch off.
@@ -671,7 +671,6 @@ function CTLD:ActivateZone(Name, ZoneType, NewState) end
 ---(User) Add a new fixed wing type to the list of allowed types.
 ---
 ------
----@param self CTLD 
 ---@param typename string The typename to add. Can be handed as Wrapper.Unit#UNIT object. Do NOT forget to `myctld:SetUnitCapabilities()` for this type!
 ---@return CTLD #self
 function CTLD:AddAllowedFixedWingType(typename) end
@@ -682,7 +681,6 @@ function CTLD:AddAllowedFixedWingType(typename) end
 --- Zone of type MOVE: Dropped troops and vehicles will start moving to the nearest zone of this type (also see options).
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of this zone, as in Mission Editor.
 ---@param Type string Type of this zone, #CTLD.CargoZoneType
 ---@param Color number Smoke/Flare color e.g. #SMOKECOLOR.Red
@@ -699,7 +697,6 @@ function CTLD:AddCTLDZone(Name, Type, Color, Active, HasBeacon, Shiplength, Ship
 --- Zone of type MOVE: Dropped troops and vehicles will start moving to the nearest zone of this type (also see options).
 ---
 ------
----@param self CTLD 
 ---@param AirbaseName string Name of the Airbase, can be e.g. AIRBASE.Caucasus.Beslan or "Beslan". For FARPs, this will be the UNIT name.
 ---@param Type string Type of this zone, #CTLD.CargoZoneType
 ---@param Color number Smoke/Flare color e.g. #SMOKECOLOR.Red
@@ -712,7 +709,6 @@ function CTLD:AddCTLDZoneFromAirbase(AirbaseName, Type, Color, Active, HasBeacon
 ---This type will create crates that need to be loaded, moved, dropped and built.
 ---
 ------
----@param self CTLD 
 ---@param Name string Unique name of this type of cargo. E.g. "Humvee".
 ---@param Templates table Table of #string names of late activated Wrapper.Group#GROUP building this cargo.
 ---@param Type CTLD_CARGO.Enum Type of cargo. I.e. VEHICLE or FOB. VEHICLE will move to destination zones when dropped/build, FOB stays put.
@@ -733,7 +729,6 @@ function CTLD:AddCratesCargo(Name, Templates, Type, NoCrates, PerCrateMass, Stoc
 ---This type will create crates that need to be loaded, moved, dropped and built.
 ---
 ------
----@param self CTLD 
 ---@param Name string Unique name of this type of cargo. E.g. "Humvee".
 ---@param Template string Template of VEHICLE or FOB cargo that this can repair. MUST be the same as given in `AddCratesCargo(..)`!
 ---@param Type CTLD_CARGO.Enum Type of cargo, here REPAIR.
@@ -753,7 +748,6 @@ function CTLD:AddCratesRepair(Name, Template, Type, NoCrates, PerCrateMass, Stoc
 ---(User) Add a PLAYERTASK - FSM events will check success
 ---
 ------
----@param self CTLD 
 ---@param PlayerTask PLAYERTASK 
 ---@return CTLD #self
 function CTLD:AddPlayerTask(PlayerTask) end
@@ -762,7 +756,6 @@ function CTLD:AddPlayerTask(PlayerTask) end
 ---This type will create cargo that needs to be loaded, moved and dropped.
 ---
 ------
----@param self CTLD 
 ---@param Name string Unique name of this type of cargo as set in the mission editor (note: UNIT name!), e.g. "Ammunition-1".
 ---@param Mass number Mass in kg of each static in kg, e.g. 100.
 ---@param Stock number Number of groups in stock. Nil for unlimited.
@@ -775,7 +768,6 @@ function CTLD:AddStaticsCargo(Name, Mass, Stock, SubCategory, DontShowInMenu, Lo
 ---User - function to add stock of a certain crates type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -784,7 +776,6 @@ function CTLD:AddStockCrates(Name, Number) end
 ---User - function to add stock of a certain crates type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -793,7 +784,6 @@ function CTLD:AddStockStatics(Name, Number) end
 ---User - function to add stock of a certain troops type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -803,7 +793,6 @@ function CTLD:AddStockTroops(Name, Number) end
 ---This type will load directly into the heli without crates.
 ---
 ------
----@param self CTLD 
 ---@param Name string Unique name of this type of troop. E.g. "Anti-Air Small".
 ---@param Templates table Table of #string names of late activated Wrapper.Group#GROUP making up this troop.
 ---@param Type CTLD_CARGO.Enum Type of cargo, here TROOPS - these will move to a nearby destination zone when dropped/build.
@@ -816,14 +805,12 @@ function CTLD:AddTroopsCargo(Name, Templates, Type, NoTroops, PerTroopMass, Stoc
 ---User function - Add a #CTLD.CargoZoneType zone for this CTLD instance.
 ---
 ------
----@param self CTLD 
 ---@param Zone CTLD.CargoZone Zone #CTLD.CargoZone describing the zone.
 function CTLD:AddZone(Zone) end
 
 ---(User) Function to allow transport via Combined Arms Trucks.
 ---
 ------
----@param self CTLD 
 ---@param OnOff boolean Switch on (true) or off (false).
 ---@param ClientSet SET_CLIENT The CA handling client set for ground transport.
 ---@return CTLD #self
@@ -832,7 +819,6 @@ function CTLD:AllowCATransport(OnOff, ClientSet) end
 ---(Internal) Autoload if we can do crates, have capacity free and are in a load zone.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return CTLD #self
 function CTLD:AutoHoverLoad(Unit) end
@@ -840,7 +826,6 @@ function CTLD:AutoHoverLoad(Unit) end
 ---(Internal) Check if a unit is in a load zone and is hovering in parameters.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:CanHoverLoad(Unit) end
@@ -848,28 +833,24 @@ function CTLD:CanHoverLoad(Unit) end
 ---(Internal) Run through all pilots and see if we autoload.
 ---
 ------
----@param self CTLD 
 ---@return CTLD #self
 function CTLD:CheckAutoHoverload() end
 
 ---(Internal) Housekeeping dropped beacons.
 ---
 ------
----@param self CTLD 
 ---@return CTLD #self
 function CTLD:CheckDroppedBeacons() end
 
 ---(Internal) Run through DroppedTroops and capture alive units
 ---
 ------
----@param self CTLD 
 ---@return CTLD #self
 function CTLD:CleanDroppedTroops() end
 
 ---User function - Deactivate Name #CTLD.CargoZoneType ZoneType for this CTLD instance.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of the zone to change in the ME.
 ---@param ZoneType CTLD.CargoZoneType Type of zone this belongs to.
 function CTLD:DeactivateZone(Name, ZoneType) end
@@ -877,7 +858,6 @@ function CTLD:DeactivateZone(Name, ZoneType) end
 ---(Internal) Function to create a dropped beacon
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return CTLD #self
 function CTLD:DropBeaconNow(Unit) end
@@ -886,7 +866,6 @@ function CTLD:DropBeaconNow(Unit) end
 ---everything that is spawned as a GROUP object.
 ---
 ------
----@param self CTLD 
 ---@param GroupName string The name to use for the search
 ---@return CTLD_CARGO #The cargo object or nil if not found
 function CTLD:GetGenericCargoObjectFromGroupName(GroupName) end
@@ -894,7 +873,6 @@ function CTLD:GetGenericCargoObjectFromGroupName(GroupName) end
 ---User - Query the cargo loaded from a specific unit
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT The (client) unit to query.
 ---@return number #Troopsloaded
 ---@return number #Cratesloaded
@@ -904,7 +882,6 @@ function CTLD:GetLoadedCargo(Unit) end
 ---User function - Get a *generic* static-type loadable as #CTLD_CARGO object.
 ---
 ------
----@param self CTLD 
 ---@param Name string Unique Unit(!) name of this type of cargo as set in the mission editor (not: GROUP name!), e.g. "Ammunition-1".
 ---@param Mass number Mass in kg of each static in kg, e.g. 100.
 ---@return CTLD_CARGO #Cargo object
@@ -913,28 +890,24 @@ function CTLD:GetStaticsCargoFromTemplate(Name, Mass) end
 ---User - function to get a table of crates in stock
 ---
 ------
----@param self CTLD 
 ---@return table #Table Table of Stock, indexed by cargo type name
 function CTLD:GetStockCrates() end
 
 ---User - function to get a table of statics cargo in stock
 ---
 ------
----@param self CTLD 
 ---@return table #Table Table of Stock, indexed by cargo type name
 function CTLD:GetStockStatics() end
 
 ---User - function to get a table of troops in stock
 ---
 ------
----@param self CTLD 
 ---@return table #Table Table of Stock, indexed by cargo type name
 function CTLD:GetStockTroops() end
 
 ---(User) Inject static cargo objects.
 ---
 ------
----@param self CTLD 
 ---@param Zone ZONE Zone to spawn in. Will be a somewhat random coordinate.
 ---@param Template string Unit(!) name of the static cargo object to be used as template.
 ---@param Mass number Mass of the static in kg.
@@ -944,7 +917,6 @@ function CTLD:InjectStaticFromTemplate(Zone, Template, Mass) end
 ---(Internal) Inject crates and static cargo objects.
 ---
 ------
----@param self CTLD 
 ---@param Zone ZONE Zone to spawn in.
 ---@param Cargo CTLD_CARGO The cargo type to spawn.
 ---@param RandomCoord boolean Randomize coordinate.
@@ -967,7 +939,6 @@ function CTLD:InjectStatics(Zone, Cargo, RandomCoord, FromLoad) end
 ---           my_ctld:InjectTroops(dropzone,InjectTroopsType,{land.SurfaceType.LAND})
 ---```
 ------
----@param self CTLD 
 ---@param Zone ZONE The zone where to drop the troops.
 ---@param Cargo CTLD_CARGO The #CTLD_CARGO object to spawn.
 ---@param Surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
@@ -992,7 +963,6 @@ function CTLD:InjectTroops(Zone, Cargo, Surfacetypes, PreciseLocation, Structure
 ---           my_ctld:InjectVehicles(dropzone,InjectVehicleType)
 ---```
 ------
----@param self CTLD 
 ---@param Zone ZONE The zone where to drop the troops.
 ---@param Cargo CTLD_CARGO The #CTLD_CARGO object to spawn.
 ---@param Surfacetypes? table (Optional) Table of surface types. Can also be a single surface type. We will try max 1000 times to find the right type!
@@ -1005,7 +975,6 @@ function CTLD:InjectVehicles(Zone, Cargo, Surfacetypes, PreciseLocation, Structu
 ---(Internal) Check if a Hercules is flying *in parameters* for air drops.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:IsCorrectFlightParameters(Unit) end
@@ -1013,7 +982,6 @@ function CTLD:IsCorrectFlightParameters(Unit) end
 ---(Internal) Check if a unit is hovering *in parameters*.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:IsCorrectHover(Unit) end
@@ -1021,7 +989,6 @@ function CTLD:IsCorrectHover(Unit) end
 ---(Internal) Function to check if a unit is an allowed fixed wing.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:IsFixedWing(Unit) end
@@ -1029,7 +996,6 @@ function CTLD:IsFixedWing(Unit) end
 ---(Internal) Function to check if a unit is a CH-47
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:IsHook(Unit) end
@@ -1037,7 +1003,6 @@ function CTLD:IsHook(Unit) end
 ---(Internal) Check if a unit is above ground.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD:IsUnitInAir(Unit) end
@@ -1045,7 +1010,6 @@ function CTLD:IsUnitInAir(Unit) end
 ---(Internal) Function to see if a unit is in a specific zone type.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT Unit
 ---@param Zonetype CTLD.CargoZoneType Zonetype
 ---@return boolean #Outcome Is in zone or not
@@ -1058,13 +1022,11 @@ function CTLD:IsUnitInZone(Unit, Zonetype) end
 ---Triggers the FSM event "Save".
 ---
 ------
----@param self CTLD 
 function CTLD:Load() end
 
 ---Instantiate a new CTLD.
 ---
 ------
----@param self CTLD 
 ---@param Coalition string Coalition of this CTLD. I.e. coalition.side.BLUE or coalition.side.RED or coalition.side.NEUTRAL
 ---@param Prefixes table Table of pilot prefixes.
 ---@param Alias string Alias of this CTLD for logging.
@@ -1074,7 +1036,6 @@ function CTLD:New(Coalition, Prefixes, Alias) end
 ---FSM Function OnAfterCratesBuild.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1088,7 +1049,6 @@ function CTLD:OnAfterCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---Info event that a build has been started.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1101,7 +1061,6 @@ function CTLD:OnAfterCratesBuildStarted(From, Event, To, Group, Unit, CargoName)
 ---FSM Function OnAfterCratesDropped.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1114,7 +1073,6 @@ function CTLD:OnAfterCratesDropped(From, Event, To, Group, Unit, Cargotable) end
 ---FSM Function OnAfterCratesPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State .
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1128,7 +1086,6 @@ function CTLD:OnAfterCratesPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---Info event that a repair has been started.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1140,7 +1097,6 @@ function CTLD:OnAfterCratesRepairStarted(From, Event, To, Group, Unit) end
 ---FSM Function OnAfterCratesRepaired.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1153,7 +1109,6 @@ function CTLD:OnAfterCratesRepaired(From, Event, To, Group, Unit, Vehicle) end
 ---FSM Function OnAfterHelicopterLost.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1164,7 +1119,6 @@ function CTLD:OnAfterHelicopterLost(From, Event, To, Unitname, LostCargo) end
 ---FSM Function OnAfterLoad.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1175,7 +1129,6 @@ function CTLD:OnAfterLoad(From, Event, To, path, filename) end
 ---FSM Function OnAfterLoaded.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1185,7 +1138,6 @@ function CTLD:OnAfterLoaded(From, Event, To, LoadedGroups) end
 ---FSM Function OnAfterSave.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1196,7 +1148,6 @@ function CTLD:OnAfterSave(From, Event, To, path, filename) end
 ---FSM Function OnAfterTroopsDeployed.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1209,7 +1160,6 @@ function CTLD:OnAfterTroopsDeployed(From, Event, To, Group, Unit, Troops) end
 ---FSM Function OnAfterTroopsExtracted.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1223,7 +1173,6 @@ function CTLD:OnAfterTroopsExtracted(From, Event, To, Group, Unit, Troops, Troop
 ---FSM Function OnAfterTroopsPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1236,7 +1185,6 @@ function CTLD:OnAfterTroopsPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---FSM Function OnAfterTroopsRTB.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1247,7 +1195,6 @@ function CTLD:OnAfterTroopsRTB(From, Event, To, Group, Unit) end
 ---FSM Function OnBeforeCratesBuild.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1261,7 +1208,6 @@ function CTLD:OnBeforeCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---Info event that a build has been started.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1273,7 +1219,6 @@ function CTLD:OnBeforeCratesBuildStarted(From, Event, To, Group, Unit) end
 ---FSM Function OnBeforeCratesDropped.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1286,7 +1231,6 @@ function CTLD:OnBeforeCratesDropped(From, Event, To, Group, Unit, Cargotable) en
 ---FSM Function OnBeforeCratesPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State .
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1300,7 +1244,6 @@ function CTLD:OnBeforeCratesPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---Info event that a repair has been started.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1312,7 +1255,6 @@ function CTLD:OnBeforeCratesRepairStarted(From, Event, To, Group, Unit) end
 ---FSM Function OnBeforeCratesRepaired.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1325,7 +1267,6 @@ function CTLD:OnBeforeCratesRepaired(From, Event, To, Group, Unit, Vehicle) end
 ---FSM Function OnBeforeHelicopterLost.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1336,7 +1277,6 @@ function CTLD:OnBeforeHelicopterLost(From, Event, To, Unitname, LostCargo) end
 ---FSM Function OnBeforeTroopsDeployed.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1349,7 +1289,6 @@ function CTLD:OnBeforeTroopsDeployed(From, Event, To, Group, Unit, Troops) end
 ---FSM Function OnBeforeTroopsExtracted.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1363,7 +1302,6 @@ function CTLD:OnBeforeTroopsExtracted(From, Event, To, Group, Unit, Troops, Troo
 ---FSM Function OnBeforeTroopsPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1376,7 +1314,6 @@ function CTLD:OnBeforeTroopsPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---FSM Function OnBeforeTroopsRTB.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -1399,7 +1336,6 @@ function CTLD:OnBeforeTroopsRTB(From, Event, To, Group, Unit, ZoneName, ZoneObje
 ---         end
 ---```
 ------
----@param self CTLD 
 ---@param Unit UNIT The unit to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Cratesname string The name of the cargo to be loaded. Must be created prior in the CTLD setup!
 ---@param NumberOfCrates? number (Optional) Number of crates to be loaded. Default - all necessary to build this object. Might overload the helo!
@@ -1419,7 +1355,6 @@ function CTLD:PreloadCrates(Unit, Cratesname, NumberOfCrates) end
 ---         end
 ---```
 ------
----@param self CTLD 
 ---@param Unit UNIT The unit to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Troopname string The name of the Troops to be loaded. Must be created prior in the CTLD setup!
 ---@return CTLD #self
@@ -1428,7 +1363,6 @@ function CTLD:PreloadTroops(Unit, Troopname) end
 ---User - function to remove stock of a certain crates type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -1437,7 +1371,6 @@ function CTLD:RemoveStockCrates(Name, Number) end
 ---User - function to remove stock of a certain statics type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -1446,7 +1379,6 @@ function CTLD:RemoveStockStatics(Name, Number) end
 ---User - function to remove stock of a certain troops type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to add.
 ---@return CTLD #self
@@ -1456,7 +1388,6 @@ function CTLD:RemoveStockTroops(Name, Number) end
 ---Needs to be set before starting the CTLD instance.
 ---
 ------
----@param self CTLD 
 ---@param Set SET_GROUP The SET_GROUP object created by the mission designer/user to represent the CTLD pilot groups.
 ---@return CTLD #self 
 function CTLD:SetOwnSetPilotGroups(Set) end
@@ -1466,7 +1397,6 @@ function CTLD:SetOwnSetPilotGroups(Set) end
 ---However, if you create a new folder inside the miz file, which contains the sounds, it will not be deleted and can be used.
 ---
 ------
----@param self CTLD 
 ---@param FolderPath string The path to the sound files, e.g. "CTLD_Soundfiles/".
 ---@return CTLD #self
 function CTLD:SetSoundfilesFolder(FolderPath) end
@@ -1474,7 +1404,6 @@ function CTLD:SetSoundfilesFolder(FolderPath) end
 ---User - function to set the stock of a certain crates type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to be available. Nil equals unlimited
 ---@return CTLD #self
@@ -1483,7 +1412,6 @@ function CTLD:SetStockCrates(Name, Number) end
 ---User - function to set the stock of a certain statics type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to be available. Nil equals unlimited
 ---@return CTLD #self
@@ -1492,7 +1420,6 @@ function CTLD:SetStockStatics(Name, Number) end
 ---User - function to set the stock of a certain troops type
 ---
 ------
----@param self CTLD 
 ---@param Name string Name as defined in the generic cargo.
 ---@param Number number Number of units/groups to be available. Nil equals unlimited
 ---@return CTLD #self
@@ -1502,14 +1429,12 @@ function CTLD:SetStockTroops(Name, Number) end
 ---Minimum distance is 25m for security reasons.
 ---
 ------
----@param self CTLD 
 ---@param Radius number The radius to use.
 function CTLD:SetTroopDropZoneRadius(Radius) end
 
 ---User - Function to add/adjust unittype capabilities.
 ---
 ------
----@param self CTLD 
 ---@param Unittype string The unittype to adjust. If passed as Wrapper.Unit#UNIT, it will search for the unit in the mission.
 ---@param Cancrates boolean Unit can load crates. Default false.
 ---@param Cantroops boolean Unit can load troops. Default false.
@@ -1522,7 +1447,6 @@ function CTLD:SetUnitCapabilities(Unittype, Cancrates, Cantroops, Cratelimit, Tr
 ---User function - Drop a smoke or flare at current location.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT The Unit.
 ---@param Flare boolean If true, flare instead.
 ---@param SmokeColor number Color enumerator for smoke, e.g. SMOKECOLOR.Red
@@ -1531,7 +1455,6 @@ function CTLD:SmokePositionNow(Unit, Flare, SmokeColor) end
 ---User function - Start smoke/flare in a zone close to the Unit.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT The Unit.
 ---@param Flare boolean If true, flare instead.
 function CTLD:SmokeZoneNearBy(Unit, Flare) end
@@ -1540,27 +1463,23 @@ function CTLD:SmokeZoneNearBy(Unit, Flare) end
 ---Starts the CTLD. Initializes parameters and starts event handlers.
 ---
 ------
----@param self CTLD 
 function CTLD:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self CTLD 
 function CTLD:Status() end
 
 ---Triggers the FSM event "Stop".
 ---Stops the CTLD and all its event handlers.
 ---
 ------
----@param self CTLD 
 function CTLD:Stop() end
 
 ---[Deprecated] - Function to add/adjust unittype capabilities.
 ---Has been replaced with `SetUnitCapabilities()` - pls use the new one going forward!
 ---
 ------
----@param self CTLD 
 ---@param Unittype string The unittype to adjust. If passed as Wrapper.Unit#UNIT, it will search for the unit in the mission.
 ---@param Cancrates boolean Unit can load crates. Default false.
 ---@param Cantroops boolean Unit can load troops. Default false.
@@ -1574,7 +1493,6 @@ function CTLD:UnitCapabilities(Unittype, Cancrates, Cantroops, Cratelimit, Troop
 ---Runs 30 secs.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of zone.
 ---@param Sound string Name of soundfile.
 ---@param Mhz number Frequency in Mhz.
@@ -1586,7 +1504,6 @@ function CTLD:_AddRadioBeacon(Name, Sound, Mhz, Modulation, IsShip, IsDropped) e
 ---(Internal) Function to build nearby crates.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Engineering boolean If true build is by an engineering team.
@@ -1596,7 +1513,6 @@ function CTLD:_BuildCrates(Group, Unit, Engineering, MultiDrop) end
 ---(Internal) Function to actually SPAWN buildables in the mission.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Build CTLD.Buildable 
@@ -1608,14 +1524,12 @@ function CTLD:_BuildObjectFromCrates(Group, Unit, Build, Repair, RepairLocation,
 ---(Internal) Check on engineering teams
 ---
 ------
----@param self CTLD 
 ---@return CTLD #self
 function CTLD:_CheckEngineers() end
 
 ---[Internal] Function to check if a template exists in the mission.
 ---
 ------
----@param self CTLD 
 ---@param temptable table Table of string names
 ---@return boolean #outcome
 function CTLD:_CheckTemplates(temptable) end
@@ -1623,7 +1537,6 @@ function CTLD:_CheckTemplates(temptable) end
 ---(Internal) Housekeeping - Cleanup crates when build
 ---
 ------
----@param self CTLD 
 ---@param Crates table Table of #CTLD_CARGO objects near the unit.
 ---@param Build CTLD.Buildable Table build object.
 ---@param Number number Number of objects in Crates (found) to limit search.
@@ -1632,9 +1545,8 @@ function CTLD:_CleanUpCrates(Crates, Build, Number) end
 ---(Internal) Function to clean up tracked cargo crates
 ---
 ------
----@param self CTLD 
 ---@param crateIdsToRemove NOTYPE 
----@return  #self
+---@return NOTYPE #self
 function CTLD:_CleanupTrackedCrates(crateIdsToRemove) end
 
 ---User - Count both the stock and groups in the field for available cargo types.
@@ -1658,7 +1570,6 @@ function CTLD:_CleanupTrackedCrates(crateIdsToRemove) end
 ---       }
 ---```
 ------
----@param self CTLD 
 ---@param Restock boolean If true, restock the cargo and troop items.
 ---@param Threshold number Percentage below which to restock, used in conjunction with Restock (must be true). Defaults to 75 (percent).
 ---@return table #Table A table of contents with numbers.
@@ -1667,7 +1578,6 @@ function CTLD:_CountStockPlusInHeloPlusAliveGroups(Restock, Threshold) end
 ---(Internal) Helper - Drop **all** loaded crates nearby and build them.
 ---
 ------
----@param Group GROUP The calling group
 ---@param Unit UNIT  The calling unit
 ---@param self NOTYPE 
 function CTLD._DropAndBuild(Group, Unit, self) end
@@ -1675,7 +1585,6 @@ function CTLD._DropAndBuild(Group, Unit, self) end
 ---(Internal) Helper - Drop a **single** crate set and build it.
 ---
 ------
----@param Group GROUP     The calling group
 ---@param Unit UNIT       The calling unit
 ---@param number NOTYPE             setIndex   Index of the crate-set to drop
 ---@param self NOTYPE 
@@ -1685,14 +1594,12 @@ function CTLD._DropSingleAndBuild(Group, Unit, number, self, setIndex) end
 ---(Internal) Event handler function
 ---
 ------
----@param self CTLD 
 ---@param EventData EVENTDATA 
 function CTLD:_EventHandler(EventData) end
 
 ---(Internal) Function to extract (load from the field) troops into a heli.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_ExtractTroops(Group, Unit) end
@@ -1700,7 +1607,6 @@ function CTLD:_ExtractTroops(Group, Unit) end
 ---(Internal) Find a crates CTLD_CARGO object in stock
 ---
 ------
----@param self CTLD 
 ---@param Name string of the object
 ---@return CTLD_CARGO #Cargo object, nil if it cannot be found
 function CTLD:_FindCratesCargoObject(Name) end
@@ -1708,7 +1614,6 @@ function CTLD:_FindCratesCargoObject(Name) end
 ---(Internal) Function to find and return nearby crates.
 ---
 ------
----@param self CTLD 
 ---@param _group GROUP Group
 ---@param _unit UNIT Unit
 ---@param _dist number Distance
@@ -1723,7 +1628,6 @@ function CTLD:_FindCratesNearby(_group, _unit, _dist, _ignoreweight, ignoretype)
 
 ---
 ------
----@param self NOTYPE 
 ---@param Group NOTYPE 
 ---@param Unit NOTYPE 
 ---@param Repairtype NOTYPE 
@@ -1732,7 +1636,6 @@ function CTLD:_FindRepairNearby(Group, Unit, Repairtype) end
 ---(Internal) Find a troops CTLD_CARGO object in stock
 ---
 ------
----@param self CTLD 
 ---@param Name string of the object
 ---@return CTLD_CARGO #Cargo object, nil if it cannot be found
 function CTLD:_FindTroopsCargoObject(Name) end
@@ -1740,25 +1643,21 @@ function CTLD:_FindTroopsCargoObject(Name) end
 ---(Internal) Function to generate valid FM Frequencies
 ---
 ------
----@param self CTLD 
 function CTLD:_GenerateFMFrequencies() end
 
 ---(Internal) Function to generate valid UHF Frequencies
 ---
 ------
----@param self CTLD 
 function CTLD:_GenerateUHFrequencies() end
 
 ---(Internal) Populate table with available VHF beacon frequencies.
 ---
 ------
----@param self CTLD 
 function CTLD:_GenerateVHFrequencies() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Group NOTYPE 
 ---@param Unit NOTYPE 
 function CTLD:_GetAllAndLoad(Group, Unit) end
@@ -1766,7 +1665,6 @@ function CTLD:_GetAllAndLoad(Group, Unit) end
 ---(Internal) Helper - get and load in one step
 ---
 ------
----@param Group GROUP  The calling group
 ---@param Unit UNIT    The calling unit
 ---@param self NOTYPE 
 ---@param cargoObj NOTYPE 
@@ -1775,7 +1673,6 @@ function CTLD._GetAndLoad(Group, Unit, self, cargoObj) end
 ---(Internal) Function to spawn crates in front of the heli.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Cargo CTLD_CARGO 
@@ -1787,7 +1684,6 @@ function CTLD:_GetCrates(Group, Unit, Cargo, number, drop, pack) end
 ---(Internal) Return distance in meters between two coordinates.
 ---
 ------
----@param self CTLD 
 ---@param _point1 COORDINATE Coordinate one
 ---@param _point2 COORDINATE Coordinate two
 ---@return number #Distance in meters
@@ -1796,7 +1692,6 @@ function CTLD:_GetDistance(_point1, _point2) end
 ---(Internal) Function to obtain a valid FM frequency.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of zone.
 ---@return CTLD.ZoneBeacon #Beacon Beacon table.
 function CTLD:_GetFMBeacon(Name) end
@@ -1804,7 +1699,6 @@ function CTLD:_GetFMBeacon(Name) end
 ---(Internal) Function to calculate max loadable mass left over.
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return number #maxloadable Max loadable mass in kg
 function CTLD:_GetMaxLoadableMass(Unit) end
@@ -1812,7 +1706,6 @@ function CTLD:_GetMaxLoadableMass(Unit) end
 ---(Internal) Function to obtain a valid UHF frequency.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of zone.
 ---@return CTLD.ZoneBeacon #Beacon Beacon table.
 function CTLD:_GetUHFBeacon(Name) end
@@ -1820,7 +1713,6 @@ function CTLD:_GetUHFBeacon(Name) end
 ---(Internal) Function to get capabilities of a chopper
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT The unit
 ---@return table #Capabilities Table of caps
 function CTLD:_GetUnitCapabilities(Unit) end
@@ -1828,7 +1720,6 @@ function CTLD:_GetUnitCapabilities(Unit) end
 ---(Internal) Function to get current loaded mass
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 ---@return number #mass in kgs
 function CTLD:_GetUnitCargoMass(Unit) end
@@ -1836,7 +1727,6 @@ function CTLD:_GetUnitCargoMass(Unit) end
 ---(Internal) Function to set troops positions of a template to a nice circle
 ---
 ------
----@param self CTLD 
 ---@param Coordinate COORDINATE Start coordinate to use
 ---@param Radius number Radius to be used
 ---@param Heading number Heading starting with
@@ -1847,7 +1737,6 @@ function CTLD:_GetUnitPositions(Coordinate, Radius, Heading, Template) end
 ---(Internal) Function to obtain a valid VHF frequency.
 ---
 ------
----@param self CTLD 
 ---@param Name string Name of zone.
 ---@return CTLD.ZoneBeacon #Beacon Beacon table.
 function CTLD:_GetVHFBeacon(Name) end
@@ -1855,7 +1744,6 @@ function CTLD:_GetVHFBeacon(Name) end
 ---(Internal) Function to list loaded cargo.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@return CTLD #self
@@ -1864,7 +1752,6 @@ function CTLD:_ListCargo(Group, Unit) end
 ---(Internal) Function to find and list nearby crates.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param _group NOTYPE 
@@ -1875,7 +1762,6 @@ function CTLD:_ListCratesNearby(Group, Unit, _group, _unit) end
 ---(Internal) Function to list loaded cargo.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@return CTLD #self
@@ -1884,7 +1770,6 @@ function CTLD:_ListInventory(Group, Unit) end
 ---(Internal) Function to show list of radio beacons
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_ListRadioBeacons(Group, Unit) end
@@ -1892,7 +1777,6 @@ function CTLD:_ListRadioBeacons(Group, Unit) end
 ---(Internal) Function to get and load nearby crates.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@return CTLD #self
@@ -1902,7 +1786,6 @@ function CTLD:_LoadCratesNearby(Group, Unit) end
 ---If "Ammo Truck" needs 2 crates, we pick up 2 if available.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param cargoName string The cargo name, e.g. "Ammo Truck"
@@ -1911,7 +1794,6 @@ function CTLD:_LoadSingleCrateSet(Group, Unit, cargoName) end
 ---(Internal) Function to load troops into a heli.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Cargotype CTLD_CARGO 
@@ -1921,14 +1803,12 @@ function CTLD:_LoadTroops(Group, Unit, Cargotype, Inject) end
 ---(Internal) Function to move group to WP zone.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The Group to move.
 function CTLD:_MoveGroupToZone(Group) end
 
 ---(Internal) Helper - Pack crates near the unit and load them.
 ---
 ------
----@param Group GROUP  The calling group
 ---@param Unit UNIT    The calling unit
 ---@param self NOTYPE 
 function CTLD._PackAndLoad(Group, Unit, self) end
@@ -1936,7 +1816,6 @@ function CTLD._PackAndLoad(Group, Unit, self) end
 ---(Internal) Helper - Pack crates near the unit and then remove them.
 ---
 ------
----@param Group GROUP  The calling group
 ---@param Unit UNIT    The calling unit
 ---@param self NOTYPE 
 function CTLD._PackAndRemove(Group, Unit, self) end
@@ -1944,7 +1823,6 @@ function CTLD._PackAndRemove(Group, Unit, self) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Group NOTYPE 
 ---@param Unit NOTYPE 
 function CTLD:_PackCratesNearby(Group, Unit) end
@@ -1953,7 +1831,6 @@ function CTLD:_PackCratesNearby(Group, Unit) end
 ---Do not use standalone!
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The group to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Unit UNIT The unit to load into, can be handed as Wrapper.Client#CLIENT object
 ---@param Cargo CTLD_CARGO The Cargo crate object to load
@@ -1964,7 +1841,6 @@ function CTLD:_PreloadCrates(Group, Unit, Cargo, NumberOfCrates) end
 ---(Internal) Function to refresh the menu for a single unit after crates dropped.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The calling group.
 ---@param Unit UNIT The calling unit.
 ---@return CTLD #self
@@ -1973,7 +1849,6 @@ function CTLD:_RefreshDropCratesMenu(Group, Unit) end
 ---(Internal) Function to refresh menu for troops on drop for a specific unit
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The requesting group.
 ---@param Unit UNIT The requesting unit.
 ---@return CTLD #self
@@ -1982,7 +1857,6 @@ function CTLD:_RefreshDropTroopsMenu(Group, Unit) end
 ---(Internal) Housekeeping - Function to refresh F10 menus.
 ---
 ------
----@param self CTLD 
 ---@return CTLD #self
 function CTLD:_RefreshF10Menus() end
 
@@ -1990,7 +1864,6 @@ function CTLD:_RefreshF10Menus() end
 ---Triggered from land/getcrate/pack and more
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The calling group.
 ---@param Unit UNIT The calling unit.
 ---@return CTLD #self
@@ -1999,13 +1872,11 @@ function CTLD:_RefreshLoadCratesMenu(Group, Unit) end
 ---(Internal) Function to refresh radio beacons
 ---
 ------
----@param self CTLD 
 function CTLD:_RefreshRadioBeacons() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param _group NOTYPE 
 ---@param _unit NOTYPE 
 function CTLD:_RemoveCratesNearby(_group, _unit) end
@@ -2013,7 +1884,6 @@ function CTLD:_RemoveCratesNearby(_group, _unit) end
 ---(Internal) Function to repair nearby vehicles / FOBs
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Engineering boolean If true, this is an engineering role
@@ -2022,7 +1892,6 @@ function CTLD:_RepairCrates(Group, Unit, Engineering) end
 ---(Internal) Function to repair an object.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 ---@param Crates table Table of #CTLD_CARGO objects near the unit.
@@ -2034,7 +1903,6 @@ function CTLD:_RepairObjectFromCrates(Group, Unit, Crates, Build, Number, Engine
 ---(Internal) Function to message a group.
 ---
 ------
----@param self CTLD 
 ---@param Text string The text to display.
 ---@param Time number Number of seconds to display the message.
 ---@param Clearscreen boolean Clear screen or not.
@@ -2044,7 +1912,6 @@ function CTLD:_SendMessage(Text, Time, Clearscreen, Group) end
 ---(Internal) List if a Herc unit is flying *in parameters*.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_ShowFlightParams(Group, Unit) end
@@ -2052,7 +1919,6 @@ function CTLD:_ShowFlightParams(Group, Unit) end
 ---(Internal) List if a unit is hovering *in parameters*.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_ShowHoverParams(Group, Unit) end
@@ -2060,7 +1926,6 @@ function CTLD:_ShowHoverParams(Group, Unit) end
 ---(Internal) Function to unload crates from heli.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_UnloadCrates(Group, Unit) end
@@ -2068,7 +1933,6 @@ function CTLD:_UnloadCrates(Group, Unit) end
 ---(Internal) Function to unload a single crate
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The calling group.
 ---@param Unit UNIT The calling unit.
 ---@param setIndex string The name of the crate to unload
@@ -2078,7 +1942,6 @@ function CTLD:_UnloadSingleCrateSet(Group, Unit, setIndex) end
 ---(Internal) Function to unload a single Troop group by ID.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP The calling group.
 ---@param Unit UNIT The calling unit.
 ---@param chunkID number the Cargo ID
@@ -2088,7 +1951,6 @@ function CTLD:_UnloadSingleTroopByID(Group, Unit, chunkID) end
 ---(Internal) Function to unload troops from heli.
 ---
 ------
----@param self CTLD 
 ---@param Group GROUP 
 ---@param Unit UNIT 
 function CTLD:_UnloadTroops(Group, Unit) end
@@ -2096,21 +1958,18 @@ function CTLD:_UnloadTroops(Group, Unit) end
 ---(Internal) Function to calculate and set Unit internal cargo mass
 ---
 ------
----@param self CTLD 
 ---@param Unit UNIT 
 function CTLD:_UpdateUnitCargoMass(Unit) end
 
 ---Triggers the FSM event "Load" after a delay.
 ---
 ------
----@param self CTLD 
 ---@param delay number Delay in seconds.
 function CTLD:__Load(delay) end
 
 ---Triggers the FSM event "Save" after a delay.
 ---
 ------
----@param self CTLD 
 ---@param delay number Delay in seconds.
 function CTLD:__Save(delay) end
 
@@ -2118,14 +1977,12 @@ function CTLD:__Save(delay) end
 ---Starts the CTLD. Initializes parameters and starts event handlers.
 ---
 ------
----@param self CTLD 
 ---@param delay number Delay in seconds.
 function CTLD:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self CTLD 
 ---@param delay number Delay in seconds.
 function CTLD:__Status(delay) end
 
@@ -2133,14 +1990,12 @@ function CTLD:__Status(delay) end
 ---Stops the CTLD and all its event handlers.
 ---
 ------
----@param self CTLD 
 ---@param delay number Delay in seconds.
 function CTLD:__Stop(delay) end
 
 ---(Internal) FSM Function onafterCratesBuild.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2155,7 +2010,6 @@ function CTLD:onafterCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---Loads dropped units from file.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2168,7 +2022,6 @@ function CTLD:onafterLoad(From, Event, To, path, filename) end
 ---Player data is saved to file.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2180,7 +2033,6 @@ function CTLD:onafterSave(From, Event, To, path, filename) end
 ---(Internal) FSM Function onafterStart.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2191,7 +2043,6 @@ function CTLD:onafterStart(From, Event, To) end
 ---(Internal) FSM Function onafterStatus.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2202,7 +2053,6 @@ function CTLD:onafterStatus(From, Event, To) end
 ---(Internal) FSM Function onafterStop.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2213,7 +2063,6 @@ function CTLD:onafterStop(From, Event, To) end
 ---(Internal) FSM Function onafterTroopsDeployed.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2228,7 +2077,6 @@ function CTLD:onafterTroopsDeployed(From, Event, To, Group, Unit, Troops, Type) 
 ---(Internal) FSM Function onbeforeCratesBuild.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2242,7 +2090,6 @@ function CTLD:onbeforeCratesBuild(From, Event, To, Group, Unit, Vehicle) end
 ---(Internal) FSM Function onbeforeCratesDropped.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2256,7 +2103,6 @@ function CTLD:onbeforeCratesDropped(From, Event, To, Group, Unit, Cargotable) en
 ---(Internal) FSM Function onbeforeCratesPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State .
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2271,7 +2117,6 @@ function CTLD:onbeforeCratesPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---Checks if io and lfs and the file are available.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2284,7 +2129,6 @@ function CTLD:onbeforeLoad(From, Event, To, path, filename) end
 ---Checks if io and lfs are available.
 ---
 ------
----@param self CTLD 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2296,7 +2140,6 @@ function CTLD:onbeforeSave(From, Event, To, path, filename) end
 ---(Internal) FSM Function onbeforeStatus.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2307,7 +2150,6 @@ function CTLD:onbeforeStatus(From, Event, To) end
 ---(Internal) FSM Function onbeforeTroopsDeployed.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2321,7 +2163,6 @@ function CTLD:onbeforeTroopsDeployed(From, Event, To, Group, Unit, Troops) end
 ---(Internal) FSM Function onbeforeTroopsExtracted.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2336,7 +2177,6 @@ function CTLD:onbeforeTroopsExtracted(From, Event, To, Group, Unit, Troops, Grou
 ---(Internal) FSM Function onbeforeTroopsPickedUp.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2350,7 +2190,6 @@ function CTLD:onbeforeTroopsPickedUp(From, Event, To, Group, Unit, Cargo) end
 ---(Internal) FSM Function onbeforeTroopsRTB.
 ---
 ------
----@param self CTLD 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -2495,7 +2334,6 @@ CTLD_CARGO = {}
 ---Add mark
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Mark NOTYPE 
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:AddMark(Mark) end
@@ -2503,7 +2341,6 @@ function CTLD_CARGO:AddMark(Mark) end
 ---Add Stock.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Number number to add, none if nil.
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:AddStock(Number) end
@@ -2511,7 +2348,6 @@ function CTLD_CARGO:AddStock(Number) end
 ---Add specific unit types to this CARGO (restrict what types can pick this up).
 ---
 ------
----@param self CTLD_CARGO 
 ---@param UnitTypes string Unit type name, can also be a #list<#string> table of unit type names.
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:AddUnitTypeName(UnitTypes) end
@@ -2519,35 +2355,30 @@ function CTLD_CARGO:AddUnitTypeName(UnitTypes) end
 ---Query directly loadable.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return boolean #loadable
 function CTLD_CARGO:CanLoadDirectly() end
 
 ---Query number of crates or troopsize.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #Crates or size of troops.
 function CTLD_CARGO:GetCratesNeeded() end
 
 ---Query ID.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #ID
 function CTLD_CARGO:GetID() end
 
 ---Query Location.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return ZONE #location or `nil` if not set
 function CTLD_CARGO:GetLocation() end
 
 ---Get mark
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Mark NOTYPE 
 ---@return string #Mark
 function CTLD_CARGO:GetMark(Mark) end
@@ -2555,14 +2386,12 @@ function CTLD_CARGO:GetMark(Mark) end
 ---Query Mass.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #Mass in kg
 function CTLD_CARGO:GetMass() end
 
 ---Query Name.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return string #Name
 function CTLD_CARGO:GetName() end
 
@@ -2570,35 +2399,30 @@ function CTLD_CARGO:GetName() end
 ---crates needed x mass per crate
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #mass
 function CTLD_CARGO:GetNetMass() end
 
 ---Query type.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return POSITIONABLE #Positionable
 function CTLD_CARGO:GetPositionable() end
 
 ---Get relative Stock.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #Stock Percentage like 75, or -1 if unlimited.
 function CTLD_CARGO:GetRelativeStock() end
 
 ---Get Resource Map information table
 ---
 ------
----@param self CTLD_CARGO 
 ---@return table #ResourceMap
 function CTLD_CARGO:GetStaticResourceMap() end
 
 ---Get the specific static type and shape from this CARGO if set.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return string #Category
 ---@return string #TypeName
 ---@return string #ShapeName
@@ -2607,69 +2431,59 @@ function CTLD_CARGO:GetStaticTypeAndShape() end
 ---Get Stock.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #Stock or -1 if unlimited.
 function CTLD_CARGO:GetStock() end
 
 ---Get Stock0.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return number #Stock0 or -1 if unlimited.
 function CTLD_CARGO:GetStock0() end
 
 ---Query Subcategory
 ---
 ------
----@param self CTLD_CARGO 
 ---@return string #SubCategory
 function CTLD_CARGO:GetSubCat() end
 
 ---Query Templates.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return table #Templates
 function CTLD_CARGO:GetTemplates() end
 
 ---Query type.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return CTLD_CARGO.Enum #Type
 function CTLD_CARGO:GetType() end
 
 ---Query has moved.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return boolean #Has moved
 function CTLD_CARGO:HasMoved() end
 
 ---Query crate type for REPAIR
 ---
 ------
----@param self CTLD_CARGO 
 function CTLD_CARGO:IsRepair() end
 
 ---Query crate type for STATIC
 ---
 ------
----@param self CTLD_CARGO 
 ---@return boolean #
 function CTLD_CARGO:IsStatic() end
 
 ---Query if cargo has been loaded.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param loaded boolean 
 function CTLD_CARGO:Isloaded(loaded) end
 
 ---Function to create new CTLD_CARGO object.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param ID number ID of this #CTLD_CARGO
 ---@param Name string Name for menu.
 ---@param Templates table Table of #POSITIONABLE objects.
@@ -2690,7 +2504,6 @@ function CTLD_CARGO:New(ID, Name, Templates, Sorte, HasBeenMoved, LoadDirectly, 
 ---Remove Stock.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Number number to reduce, none if nil.
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:RemoveStock(Number) end
@@ -2698,14 +2511,12 @@ function CTLD_CARGO:RemoveStock(Number) end
 ---Set HasMoved.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param moved boolean 
 function CTLD_CARGO:SetHasMoved(moved) end
 
 ---Add Resource Map information table
 ---
 ------
----@param self CTLD_CARGO 
 ---@param ResourceMap table 
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:SetStaticResourceMap(ResourceMap) end
@@ -2713,7 +2524,6 @@ function CTLD_CARGO:SetStaticResourceMap(ResourceMap) end
 ---Add specific static type and shape to this CARGO.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param TypeName string 
 ---@param ShapeName string 
 ---@param Category NOTYPE 
@@ -2723,7 +2533,6 @@ function CTLD_CARGO:SetStaticTypeAndShape(TypeName, ShapeName, Category) end
 ---Set Stock.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Number number to set, nil means unlimited.
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:SetStock(Number) end
@@ -2731,14 +2540,12 @@ function CTLD_CARGO:SetStock(Number) end
 ---Set WasDropped.
 ---
 ------
----@param self CTLD_CARGO 
 ---@param dropped boolean 
 function CTLD_CARGO:SetWasDropped(dropped) end
 
 ---Check if a specific unit can carry this CARGO (restrict what types can pick this up).
 ---
 ------
----@param self CTLD_CARGO 
 ---@param Unit UNIT 
 ---@return boolean #Outcome
 function CTLD_CARGO:UnitCanCarry(Unit) end
@@ -2746,14 +2553,12 @@ function CTLD_CARGO:UnitCanCarry(Unit) end
 ---Query was dropped.
 ---
 ------
----@param self CTLD_CARGO 
 ---@return boolean #Has been dropped.
 function CTLD_CARGO:WasDropped() end
 
 ---Wipe mark
 ---
 ------
----@param self CTLD_CARGO 
 ---@return CTLD_CARGO #self
 function CTLD_CARGO:WipeMark() end
 
@@ -2781,6 +2586,7 @@ CTLD_CARGO.Enum = {}
 ---@field State string 
 ---@field Unit UNIT 
 ---@field Version string 
+---@field private currwpt COORDINATE 
 ---@field private lid string 
 ---@field private marktimer number 
 CTLD_ENGINEERING = {}
@@ -2789,35 +2595,30 @@ CTLD_ENGINEERING = {}
 ---Stop group.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Arrive() end
 
 ---(Internal) Set build status.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Build() end
 
 ---(Internal) Set done status.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Done() end
 
 ---(Internal) Get the status
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return string #State
 function CTLD_ENGINEERING:GetStatus() end
 
 ---(Internal) Check the negative status
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param State string 
 ---@return boolean #Outcome
 function CTLD_ENGINEERING:IsNotStatus(State) end
@@ -2825,7 +2626,6 @@ function CTLD_ENGINEERING:IsNotStatus(State) end
 ---(Internal) Check the status
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param State string 
 ---@return boolean #Outcome
 function CTLD_ENGINEERING:IsStatus(State) end
@@ -2833,14 +2633,12 @@ function CTLD_ENGINEERING:IsStatus(State) end
 ---(Internal) Move towards crates in reach.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Move() end
 
 ---Create a new instance.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param Name string 
 ---@param GroupName string Name of Engineering #GROUP object
 ---@param HeliGroup GROUP HeliGroup
@@ -2851,7 +2649,6 @@ function CTLD_ENGINEERING:New(Name, GroupName, HeliGroup, HeliUnit) end
 ---(Internal) Search for crates in reach.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param crates table Table of found crate Ops.CTLD#CTLD_CARGO objects.
 ---@param number number Number of crates found.
 ---@return CTLD_ENGINEERING #self
@@ -2860,7 +2657,6 @@ function CTLD_ENGINEERING:Search(crates, number) end
 ---(Internal) Set the status
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param State string 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:SetStatus(State) end
@@ -2868,21 +2664,18 @@ function CTLD_ENGINEERING:SetStatus(State) end
 ---(Internal) Set start status.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Start() end
 
 ---(Internal) Set stop status.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@return CTLD_ENGINEERING #self
 function CTLD_ENGINEERING:Stop() end
 
 ---(Internal) Return distance in meters between two coordinates.
 ---
 ------
----@param self CTLD_ENGINEERING 
 ---@param _point1 COORDINATE Coordinate one
 ---@param _point2 COORDINATE Coordinate two
 ---@return number #Distance in meters or -1
@@ -2904,7 +2697,6 @@ function CTLD_ENGINEERING:_GetDistance(_point1, _point2) end
 ---@field private coalition NOTYPE 
 ---@field private coalitiontxt NOTYPE 
 ---@field private infantrytemplate string 
----@field private j number 
 ---@field private lid string 
 ---@field private verbose boolean 
 CTLD_HERCULES = {}
@@ -2912,7 +2704,6 @@ CTLD_HERCULES = {}
 ---[Internal] Function to calc initiator heading
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_initiator GROUP 
 ---@return number #north corrected heading
 function CTLD_HERCULES:Calculate_Cargo_Drop_initiator_Heading(Cargo_Drop_initiator) end
@@ -2920,7 +2711,6 @@ function CTLD_HERCULES:Calculate_Cargo_Drop_initiator_Heading(Cargo_Drop_initiat
 ---[Internal] Function to calc north correction
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param point POINT_Vec3 Position Vec3
 ---@return number #north correction
 function CTLD_HERCULES:Calculate_Cargo_Drop_initiator_NorthCorrection(point) end
@@ -2928,7 +2718,6 @@ function CTLD_HERCULES:Calculate_Cargo_Drop_initiator_NorthCorrection(point) end
 ---[Internal] Function to calculate object height
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param group GROUP The group for which to calculate the height
 ---@return number #height over ground
 function CTLD_HERCULES:Calculate_Object_Height_AGL(group) end
@@ -2936,7 +2725,6 @@ function CTLD_HERCULES:Calculate_Object_Height_AGL(group) end
 ---[Internal] Function to initialize dropped cargo
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Initiator GROUP 
 ---@param Cargo_Contents table Table 'weapon' from event data
 ---@param Cargo_Type_name string Name of this cargo
@@ -2949,7 +2737,6 @@ function CTLD_HERCULES:Cargo_Initialize(Initiator, Cargo_Contents, Cargo_Type_na
 ---[Internal] Function to spawn cargo by type at position
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Type_name string 
 ---@param Cargo_Drop_Position COORDINATE 
 ---@param _name NOTYPE 
@@ -2960,7 +2747,6 @@ function CTLD_HERCULES:Cargo_SpawnDroppedAsCargo(Cargo_Type_name, Cargo_Drop_Pos
 ---[Internal] Function to spawn a group
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_initiator GROUP 
 ---@param Cargo_Drop_Position COORDINATE 
 ---@param Cargo_Type_name string 
@@ -2972,7 +2758,6 @@ function CTLD_HERCULES:Cargo_SpawnGroup(Cargo_Drop_initiator, Cargo_Drop_Positio
 ---[Internal] Spawn cargo objects
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_initiator GROUP 
 ---@param Cargo_Drop_Direction number 
 ---@param Cargo_Content_position COORDINATE 
@@ -2991,7 +2776,6 @@ function CTLD_HERCULES:Cargo_SpawnObjects(Cargo_Drop_initiator, Cargo_Drop_Direc
 ---[Internal] Function to spawn static cargo
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_initiator GROUP 
 ---@param Cargo_Drop_Position COORDINATE 
 ---@param Cargo_Type_name string 
@@ -3004,7 +2788,6 @@ function CTLD_HERCULES:Cargo_SpawnStatic(Cargo_Drop_initiator, Cargo_Drop_Positi
 ---[Internal] Function to track cargo objects
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param cargo CTLD_HERCULES.CargoObject 
 ---@param initiator GROUP 
 ---@return number #height over ground
@@ -3013,14 +2796,12 @@ function CTLD_HERCULES:Cargo_Track(cargo, initiator) end
 ---[Internal] Function to check availability of templates
 ---
 ------
----@param self CTLD_HERCULES 
 ---@return CTLD_HERCULES #self 
 function CTLD_HERCULES:CheckTemplates() end
 
 ---[Internal] Function to check surface type
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param group GROUP The group for which to calculate the height
 ---@param object NOTYPE 
 ---@return number #height over ground
@@ -3066,7 +2847,6 @@ function CTLD_HERCULES:Check_SurfaceType(group, object) end
 ---Use either this method to integrate the Hercules **or** the one from the "normal" CTLD. Never both!
 ---```
 ------
----@param self CTLD_HERCULES 
 ---@param Coalition string Coalition side, "red", "blue" or "neutral"
 ---@param Alias string Name of this instance
 ---@param CtldObject CTLD CTLD instance to link into
@@ -3076,7 +2856,6 @@ function CTLD_HERCULES:New(Coalition, Alias, CtldObject) end
 ---[Internal] Function to change cargotype per group (Wrench)
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param key number Carrier key id
 ---@param cargoType string Type of cargo
 ---@param cargoNum number Number of cargo objects
@@ -3086,7 +2865,6 @@ function CTLD_HERCULES:SetType(key, cargoType, cargoNum) end
 ---[Internal] Function to spawn a soldier group of 10 units
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_initiator GROUP 
 ---@param Cargo_Drop_Position COORDINATE 
 ---@param Cargo_Type_name string 
@@ -3099,7 +2877,6 @@ function CTLD_HERCULES:Soldier_SpawnGroup(Cargo_Drop_initiator, Cargo_Drop_Posit
 ---[Internal] Function to capture BIRTH event
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param event EVENTDATA The event data
 ---@return CTLD_HERCULES #self
 function CTLD_HERCULES:_HandleBirth(event) end
@@ -3107,7 +2884,6 @@ function CTLD_HERCULES:_HandleBirth(event) end
 ---[Internal] Function to capture SHOT event
 ---
 ------
----@param self CTLD_HERCULES 
 ---@param Cargo_Drop_Event EVENTDATA The event data
 ---@return CTLD_HERCULES #self
 function CTLD_HERCULES:_HandleShot(Cargo_Drop_Event) end

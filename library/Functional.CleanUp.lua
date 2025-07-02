@@ -82,7 +82,6 @@ CLEANUP_AIRBASE = {}
 ---Adds an airbase to the airbase validation list.
 ---
 ------
----@param self CLEANUP_AIRBASE 
 ---@param AirbaseName string 
 ---@return CLEANUP_AIRBASE #
 function CLEANUP_AIRBASE:AddAirbase(AirbaseName) end
@@ -100,7 +99,6 @@ function CLEANUP_AIRBASE:AddAirbase(AirbaseName) end
 ---CleanUpKutaisi = CLEANUP_AIRBASE:New( AIRBASE.Caucasus.Kutaisi )
 ---```
 ------
----@param self CLEANUP_AIRBASE 
 ---@param AirbaseNames list Is a table of airbase names where the debris should be cleaned. Also a single string can be passed with one airbase name.
 ---@return CLEANUP_AIRBASE #
 function CLEANUP_AIRBASE:New(AirbaseNames) end
@@ -108,7 +106,6 @@ function CLEANUP_AIRBASE:New(AirbaseNames) end
 ---Removes an airbase from the airbase validation list.
 ---
 ------
----@param self CLEANUP_AIRBASE 
 ---@param AirbaseName string 
 ---@return CLEANUP_AIRBASE #
 function CLEANUP_AIRBASE:RemoveAirbase(AirbaseName) end
@@ -122,7 +119,6 @@ function CLEANUP_AIRBASE:RemoveAirbase(AirbaseName) end
 ---when an enemy unit is near. That is also an option...
 ---
 ------
----@param self CLEANUP_AIRBASE 
 ---@param CleanMissiles string (Default=true) If true, missiles fired are immediately destroyed. If false missiles are not controlled.
 ---@return CLEANUP_AIRBASE #
 function CLEANUP_AIRBASE:SetCleanMissiles(CleanMissiles) end

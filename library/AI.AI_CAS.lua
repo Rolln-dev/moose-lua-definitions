@@ -134,25 +134,21 @@ AI_CAS_ZONE = {}
 ---Synchronous Event Trigger for Event Abort.
 ---
 ------
----@param self AI_CAS_ZONE 
 function AI_CAS_ZONE:Abort() end
 
 ---Synchronous Event Trigger for Event Accomplish.
 ---
 ------
----@param self AI_CAS_ZONE 
 function AI_CAS_ZONE:Accomplish() end
 
 ---Synchronous Event Trigger for Event Destroy.
 ---
 ------
----@param self AI_CAS_ZONE 
 function AI_CAS_ZONE:Destroy() end
 
 ---Synchronous Event Trigger for Event Engage.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
 ---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
 ---@param EngageWeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
@@ -163,20 +159,17 @@ function AI_CAS_ZONE:Engage(EngageSpeed, EngageAltitude, EngageWeaponExpend, Eng
 
 ---
 ------
----@param EngageGroup NOTYPE 
 ---@param Fsm NOTYPE 
 function AI_CAS_ZONE.EngageRoute(EngageGroup, Fsm) end
 
 ---Synchronous Event Trigger for Event Fired.
 ---
 ------
----@param self AI_CAS_ZONE 
 function AI_CAS_ZONE:Fired() end
 
 ---Creates a new AI_CAS_ZONE object
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
@@ -190,7 +183,6 @@ function AI_CAS_ZONE:New(PatrolZone, PatrolFloorAltitude, PatrolCeilingAltitude,
 ---OnAfter Transition Handler for Event Abort.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -200,7 +192,6 @@ function AI_CAS_ZONE:OnAfterAbort(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Accomplish.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -210,7 +201,6 @@ function AI_CAS_ZONE:OnAfterAccomplish(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Destroy.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -220,7 +210,6 @@ function AI_CAS_ZONE:OnAfterDestroy(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Engage.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -230,7 +219,6 @@ function AI_CAS_ZONE:OnAfterEngage(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Fired.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -240,7 +228,6 @@ function AI_CAS_ZONE:OnAfterFired(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Abort.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -251,7 +238,6 @@ function AI_CAS_ZONE:OnBeforeAbort(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Accomplish.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -262,7 +248,6 @@ function AI_CAS_ZONE:OnBeforeAccomplish(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Destroy.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -273,7 +258,6 @@ function AI_CAS_ZONE:OnBeforeDestroy(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Engage.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -284,7 +268,6 @@ function AI_CAS_ZONE:OnBeforeEngage(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Fired.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -295,7 +278,6 @@ function AI_CAS_ZONE:OnBeforeFired(Controllable, From, Event, To) end
 ---OnEnter Transition Handler for State Engaging.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -305,14 +287,12 @@ function AI_CAS_ZONE:OnEnterEngaging(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_CAS_ZONE:OnEventDead(EventData) end
 
 ---OnLeave Transition Handler for State Engaging.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -324,7 +304,6 @@ function AI_CAS_ZONE:OnLeaveEngaging(Controllable, From, Event, To) end
 ---Note that if the EngageZone is changed, the AI needs to re-detect targets.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param EngageZone ZONE The zone where the AI is performing CAS.
 ---@return AI_CAS_ZONE #self
 function AI_CAS_ZONE:SetEngageZone(EngageZone) end
@@ -332,28 +311,24 @@ function AI_CAS_ZONE:SetEngageZone(EngageZone) end
 ---Asynchronous Event Trigger for Event Abort.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_CAS_ZONE:__Abort(Delay) end
 
 ---Asynchronous Event Trigger for Event Accomplish.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.  
 function AI_CAS_ZONE:__Accomplish(Delay) end
 
 ---Asynchronous Event Trigger for Event Destroy.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_CAS_ZONE:__Destroy(Delay) end
 
 ---Asynchronous Event Trigger for Event Engage.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.
 ---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
 ---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
@@ -365,14 +340,12 @@ function AI_CAS_ZONE:__Engage(Delay, EngageSpeed, EngageAltitude, EngageWeaponEx
 ---Asynchronous Event Trigger for Event Fired.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_CAS_ZONE:__Fired(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -383,7 +356,6 @@ function AI_CAS_ZONE:onafterAbort(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -394,7 +366,6 @@ function AI_CAS_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -406,7 +377,6 @@ function AI_CAS_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) en
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -422,7 +392,6 @@ function AI_CAS_ZONE:onafterEngage(Controllable, From, Event, To, EngageSpeed, E
 ---onafter State Transition for Event Start.
 ---
 ------
----@param self AI_CAS_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -433,7 +402,6 @@ function AI_CAS_ZONE:onafterStart(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -444,7 +412,6 @@ function AI_CAS_ZONE:onafterTarget(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

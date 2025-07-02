@@ -45,7 +45,6 @@ MARKEROPS_BASE = {}
 ---Function to instantiate a new #MARKEROPS_BASE object.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param Tagname string Name to identify us from the event text.
 ---@param Keywords table Table of keywords  recognized from the event text.
 ---@param Casesensitive? boolean (Optional) Switch case sensitive identification of Tagname. Defaults to true.
@@ -56,7 +55,6 @@ function MARKEROPS_BASE:New(Tagname, Keywords, Casesensitive) end
 ---Triggered when a Marker is added to the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state.
 ---@param Event string The Event called.
 ---@param To string The To state.
@@ -73,7 +71,6 @@ function MARKEROPS_BASE:OnAfterMarkAdded(From, Event, To, Text, Keywords, Coord,
 ---Triggered when a Marker is changed on the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state.
 ---@param Event string The Event called.
 ---@param To string The To state.
@@ -90,7 +87,6 @@ function MARKEROPS_BASE:OnAfterMarkChanged(From, Event, To, Text, Keywords, Coor
 ---Triggered when a Marker is deleted from the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
@@ -99,7 +95,6 @@ function MARKEROPS_BASE:OnAfterMarkDeleted(From, Event, To) end
 ---(internal) Handle events.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param Event EVENTDATA 
 function MARKEROPS_BASE:OnEventMark(Event) end
 
@@ -112,7 +107,6 @@ function MARKEROPS_BASE.Stop() end
 ---(internal) Match keywords table.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param Eventtext string Text added to the marker.
 ---@return table #
 function MARKEROPS_BASE:_MatchKeywords(Eventtext) end
@@ -120,7 +114,6 @@ function MARKEROPS_BASE:_MatchKeywords(Eventtext) end
 ---(internal) Match tag.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param Eventtext string Text added to the marker.
 ---@return boolean #
 function MARKEROPS_BASE:_MatchTag(Eventtext) end
@@ -129,7 +122,6 @@ function MARKEROPS_BASE:_MatchTag(Eventtext) end
 ---Triggered when a Marker is added to the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
@@ -145,7 +137,6 @@ function MARKEROPS_BASE:onbeforeMarkAdded(From, Event, To, Text, Keywords, Marke
 ---Triggered when a Marker is changed on the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
@@ -161,7 +152,6 @@ function MARKEROPS_BASE:onbeforeMarkChanged(From, Event, To, Text, Keywords, Mar
 ---Triggered when a Marker is removed from the F10 map.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state
@@ -172,7 +162,6 @@ function MARKEROPS_BASE:onbeforeMarkDeleted(From, Event, To) end
 ---Unsubscribe events.
 ---
 ------
----@param self MARKEROPS_BASE 
 ---@param From string The From state
 ---@param Event string The Event called
 ---@param To string The To state

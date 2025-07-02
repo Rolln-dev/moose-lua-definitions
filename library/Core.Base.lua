@@ -191,7 +191,6 @@ BASE = {}
 ---Clear the state of an object.
 ---
 ------
----@param self BASE 
 ---@param Object NOTYPE The object that holds the Value set by the Key.
 ---@param StateName NOTYPE The key that is should be cleared.
 function BASE:ClearState(Object, StateName) end
@@ -199,7 +198,6 @@ function BASE:ClearState(Object, StateName) end
 ---Creation of a Birth Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 ---@param IniUnitName string The initiating unit name.
@@ -210,7 +208,6 @@ function BASE:CreateEventBirth(EventTime, Initiator, IniUnitName, place, subplac
 ---Creation of a Crash Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 ---@param IniObjectCategory NOTYPE 
@@ -219,7 +216,6 @@ function BASE:CreateEventCrash(EventTime, Initiator, IniObjectCategory) end
 ---Creation of a Dead Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 ---@param IniObjectCategory NOTYPE 
@@ -228,42 +224,36 @@ function BASE:CreateEventDead(EventTime, Initiator, IniObjectCategory) end
 ---Creation of a S_EVENT_DYNAMIC_CARGO_LOADED event.
 ---
 ------
----@param self BASE 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function BASE:CreateEventDynamicCargoLoaded(DynamicCargo) end
 
 ---Creation of a S_EVENT_DYNAMIC_CARGO_REMOVED event.
 ---
 ------
----@param self BASE 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function BASE:CreateEventDynamicCargoRemoved(DynamicCargo) end
 
 ---Creation of a S_EVENT_DYNAMIC_CARGO_UNLOADED event.
 ---
 ------
----@param self BASE 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function BASE:CreateEventDynamicCargoUnloaded(DynamicCargo) end
 
 ---Creation of a S_EVENT_NEW_DYNAMIC_CARGO event.
 ---
 ------
----@param self BASE 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function BASE:CreateEventNewDynamicCargo(DynamicCargo) end
 
 ---Creation of a `S_EVENT_PLAYER_ENTER_AIRCRAFT` event.
 ---
 ------
----@param self BASE 
 ---@param PlayerUnit UNIT The aircraft unit the player entered.
 function BASE:CreateEventPlayerEnterAircraft(PlayerUnit) end
 
 ---Creation of a Remove Unit Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 function BASE:CreateEventRemoveUnit(EventTime, Initiator) end
@@ -271,7 +261,6 @@ function BASE:CreateEventRemoveUnit(EventTime, Initiator) end
 ---Creation of a Takeoff Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 function BASE:CreateEventTakeoff(EventTime, Initiator) end
@@ -279,7 +268,6 @@ function BASE:CreateEventTakeoff(EventTime, Initiator) end
 ---Creation of a Crash Event.
 ---
 ------
----@param self BASE 
 ---@param EventTime Time The time stamp of the event.
 ---@param Initiator Object The initiating object of the event.
 function BASE:CreateEventUnitLost(EventTime, Initiator) end
@@ -288,21 +276,18 @@ function BASE:CreateEventUnitLost(EventTime, Initiator) end
 ---Can be anywhere within the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:E(Arguments) end
 
 ---Returns the event dispatcher
 ---
 ------
----@param self BASE 
 ---@return EVENT #
 function BASE:EventDispatcher() end
 
 ---Remove all subscribed events
 ---
 ------
----@param self BASE 
 ---@return BASE #
 function BASE:EventRemoveAll() end
 
@@ -310,7 +295,6 @@ function BASE:EventRemoveAll() end
 ---Must be at the beginning of the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:F(Arguments) end
 
@@ -318,7 +302,6 @@ function BASE:F(Arguments) end
 ---Must be at the beginning of the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:F2(Arguments) end
 
@@ -326,21 +309,18 @@ function BASE:F2(Arguments) end
 ---Must be at the beginning of the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:F3(Arguments) end
 
 ---Get the ClassID of the class instance.
 ---
 ------
----@param self BASE 
 ---@return string #The ClassID of the class instance.
 function BASE:GetClassID() end
 
 ---Get the ClassName of the class instance.
 ---
 ------
----@param self BASE 
 ---@return string #The ClassName of the class instance.
 function BASE:GetClassName() end
 
@@ -348,7 +328,6 @@ function BASE:GetClassName() end
 ---The ClassName + ClassID is formatted as '%s#%09d'.
 ---
 ------
----@param self BASE 
 ---@return string #The ClassName + ClassID of the class instance.
 function BASE:GetClassNameAndID() end
 
@@ -357,7 +336,6 @@ function BASE:GetClassNameAndID() end
 ---reflecting the order of the classes subscribed to the Event to be processed.
 ---
 ------
----@param self BASE 
 ---@return number #The @{Core.Event} processing Priority.
 function BASE:GetEventPriority() end
 
@@ -367,7 +345,6 @@ function BASE:GetEventPriority() end
 ---    self:GetParent(self):ParentMethod()
 ---
 ------
----@param self BASE 
 ---@param Child BASE This is the Child class from which the Parent class needs to be retrieved.
 ---@param FromClass? BASE (Optional) The class from which to get the parent.
 ---@return BASE #
@@ -376,32 +353,28 @@ function BASE:GetParent(Child, FromClass) end
 ---Get all of the properties of an object in a table.
 ---
 ------
----@param self BASE 
 ---@return table #of values, indexed by keys.
 function BASE:GetProperties() end
 
 ---Get one property of an object by the key.
 ---
 ------
----@param self BASE 
 ---@param Key NOTYPE The key that is used as a reference of the value. Note that the key can be a #string, but it can also be any other type!
----@return  #Value The value that is stored. Note that the value can be a #string, but it can also be any other type! Nil if not found.         
+---@return NOTYPE #Value The value that is stored. Note that the value can be a #string, but it can also be any other type! Nil if not found.         
 function BASE:GetProperty(Key) end
 
 ---Get a Value given a Key from the Object.
 ---Note that if the Object is destroyed, set to nil, or garbage collected, then the Values and Keys will also be gone.
 ---
 ------
----@param self BASE 
 ---@param Object NOTYPE The object that holds the Value set by the Key.
 ---@param Key NOTYPE The key that is used to retrieve the value. Note that the key can be a #string, but it can also be any other type!
----@return  #The Value retrieved or nil if the Key was not found and thus the Value could not be retrieved.
+---@return NOTYPE #The Value retrieved or nil if the Key was not found and thus the Value could not be retrieved.
 function BASE:GetState(Object, Key) end
 
 ---Subscribe to a DCS Event.
 ---
 ------
----@param self BASE 
 ---@param EventID EVENTS Event ID.
 ---@param EventFunction? function (optional) The function to be called when the event occurs for the unit.
 ---@return BASE #
@@ -411,14 +384,12 @@ function BASE:HandleEvent(EventID, EventFunction) end
 ---Can be anywhere within the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:I(Arguments) end
 
 ---This is the worker method to inherit from a parent class.
 ---
 ------
----@param self BASE 
 ---@param Child NOTYPE is the Child class that inherits.
 ---@param Parent BASE is the Parent class that the Child inherits from.
 ---@return BASE #Child
@@ -436,7 +407,6 @@ function BASE:Inherit(Child, Parent) end
 ---   * ZONE:New( 'some zone' ):IsInstanceOf( 'GROUP' ) will return false
 ---
 ------
----@param self BASE 
 ---@param ClassName NOTYPE is the name of the class or the class itself to run the check against
 ---@return boolean #
 function BASE:IsInstanceOf(ClassName) end
@@ -444,7 +414,6 @@ function BASE:IsInstanceOf(ClassName) end
 ---Enquires if tracing is on (for the class).
 ---
 ------
----@param self BASE 
 ---@return boolean #
 function BASE:IsTrace() end
 
@@ -458,7 +427,6 @@ function BASE:IsTrace() end
 ---    end
 ---
 ------
----@param self BASE 
 ---@return BASE #
 function BASE:New() end
 
@@ -467,7 +435,6 @@ function BASE:New() end
 ---initiator : The unit that triggered the event.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEvent(EventData) end
 
@@ -475,7 +442,6 @@ function BASE:OnEvent(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventBDA(EventData) end
 
@@ -485,7 +451,6 @@ function BASE:OnEventBDA(EventData) end
 ---place: The airbase that was captured, can be a FARP or Airbase. When calling place:getCoalition() the faction will already be the new owning faction.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventBaseCaptured(EventData) end
 
@@ -494,7 +459,6 @@ function BASE:OnEventBaseCaptured(EventData) end
 ---initiator : The unit that was spawned
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventBirth(EventData) end
 
@@ -503,7 +467,6 @@ function BASE:OnEventBirth(EventData) end
 ---initiator : The unit that has crashed
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventCrash(EventData) end
 
@@ -512,7 +475,6 @@ function BASE:OnEventCrash(EventData) end
 ---initiator : The unit that is dead.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDead(EventData) end
 
@@ -522,7 +484,6 @@ function BASE:OnEventDead(EventData) end
 ---* initiator: The unit that had the failure.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDetailedFailure(EventData) end
 
@@ -530,7 +491,6 @@ function BASE:OnEventDetailedFailure(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDiscardChairAfterEjection(EventData) end
 
@@ -538,7 +498,6 @@ function BASE:OnEventDiscardChairAfterEjection(EventData) end
 ---*** NOTE *** this is a workarounf for DCS not creating these events as of Aug 2024.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDynamicCargoLoaded(EventData) end
 
@@ -546,7 +505,6 @@ function BASE:OnEventDynamicCargoLoaded(EventData) end
 ---*** NOTE *** this is a workarounf for DCS not creating these events as of Aug 2024.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDynamicCargoRemoved(EventData) end
 
@@ -554,7 +512,6 @@ function BASE:OnEventDynamicCargoRemoved(EventData) end
 ---*** NOTE *** this is a workarounf for DCS not creating these events as of Aug 2024.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventDynamicCargoUnloaded(EventData) end
 
@@ -563,7 +520,6 @@ function BASE:OnEventDynamicCargoUnloaded(EventData) end
 ---initiator : The unit that has ejected
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventEjection(EventData) end
 
@@ -572,7 +528,6 @@ function BASE:OnEventEjection(EventData) end
 ---initiator : The unit that is stopping its engines.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventEngineShutdown(EventData) end
 
@@ -581,7 +536,6 @@ function BASE:OnEventEngineShutdown(EventData) end
 ---initiator : The unit that is starting its engines.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventEngineStartup(EventData) end
 
@@ -592,7 +546,6 @@ function BASE:OnEventEngineStartup(EventData) end
 ---target: The Object that was hit.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventHit(EventData) end
 
@@ -601,7 +554,6 @@ function BASE:OnEventHit(EventData) end
 ---initiator : The unit that had the failure
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventHumanFailure(EventData) end
 
@@ -614,7 +566,6 @@ function BASE:OnEventHumanFailure(EventData) end
 ---* weapon: Weapon Object
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventKill(EventData) end
 
@@ -624,7 +575,6 @@ function BASE:OnEventKill(EventData) end
 ---place: Object that the unit landed on. Can be an Airbase Object, FARP, or Ships
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventLand(EventData) end
 
@@ -637,7 +587,6 @@ function BASE:OnEventLand(EventData) end
 ---* subplace: is always 0 for unknown reasons.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventLandingAfterEjection(EventData) end
 
@@ -645,7 +594,6 @@ function BASE:OnEventLandingAfterEjection(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventLandingQualityMark(EventData) end
 
@@ -654,7 +602,6 @@ function BASE:OnEventLandingQualityMark(EventData) end
 ---MarkID: ID of the mark.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventMarkAdded(EventData) end
 
@@ -663,7 +610,6 @@ function BASE:OnEventMarkAdded(EventData) end
 ---MarkID: ID of the mark.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventMarkChange(EventData) end
 
@@ -672,7 +618,6 @@ function BASE:OnEventMarkChange(EventData) end
 ---MarkID: ID of the mark.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventMarkRemoved(EventData) end
 
@@ -680,7 +625,6 @@ function BASE:OnEventMarkRemoved(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventMissionEnd(EventData) end
 
@@ -688,7 +632,6 @@ function BASE:OnEventMissionEnd(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventMissionStart(EventData) end
 
@@ -696,7 +639,6 @@ function BASE:OnEventMissionStart(EventData) end
 ---*** NOTE *** this is a workarounf for DCS not creating these events as of Aug 2024.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventNewDynamicCargo(EventData) end
 
@@ -705,7 +647,6 @@ function BASE:OnEventNewDynamicCargo(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventParatrooperLanding(EventData) end
 
@@ -715,7 +656,6 @@ function BASE:OnEventParatrooperLanding(EventData) end
 ---initiator : The unit that the pilot has died in.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventPilotDead(EventData) end
 
@@ -725,7 +665,6 @@ function BASE:OnEventPilotDead(EventData) end
 ---initiator : The unit that is being taken control of.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventPlayerEnterAircraft(EventData) end
 
@@ -735,7 +674,6 @@ function BASE:OnEventPlayerEnterAircraft(EventData) end
 ---initiator : The unit that is being taken control of.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventPlayerEnterUnit(EventData) end
 
@@ -744,7 +682,6 @@ function BASE:OnEventPlayerEnterUnit(EventData) end
 ---initiator : The unit that the player left.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventPlayerLeaveUnit(EventData) end
 
@@ -753,7 +690,6 @@ function BASE:OnEventPlayerLeaveUnit(EventData) end
 ---initiator : The unit that is receiving fuel.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventRefueling(EventData) end
 
@@ -762,7 +698,6 @@ function BASE:OnEventRefueling(EventData) end
 ---initiator : The unit that was receiving fuel.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventRefuelingStop(EventData) end
 
@@ -771,7 +706,6 @@ function BASE:OnEventRefuelingStop(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventScore(EventData) end
 
@@ -781,7 +715,6 @@ function BASE:OnEventScore(EventData) end
 ---initiator : The unit that was doing the shooting.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventShootingEnd(EventData) end
 
@@ -792,7 +725,6 @@ function BASE:OnEventShootingEnd(EventData) end
 ---target: The unit that is being targeted.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventShootingStart(EventData) end
 
@@ -801,7 +733,6 @@ function BASE:OnEventShootingStart(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventShot(EventData) end
 
@@ -811,7 +742,6 @@ function BASE:OnEventShot(EventData) end
 ---place: Object from where the AI took-off from. Can be an Airbase Object, FARP, or Ships
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventTakeoff(EventData) end
 
@@ -819,7 +749,6 @@ function BASE:OnEventTakeoff(EventData) end
 ---Have a look at the class Core.Event#EVENT as these are just the prototypes.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventTriggerZone(EventData) end
 
@@ -829,7 +758,6 @@ function BASE:OnEventTriggerZone(EventData) end
 ---* initiator: The unit that is was destroyed.
 ---
 ------
----@param self BASE 
 ---@param EventData EVENTDATA The EventData structure.
 function BASE:OnEventUnitLost(EventData) end
 
@@ -837,7 +765,6 @@ function BASE:OnEventUnitLost(EventData) end
 ---Note that the schedule will only take place if the scheduler is *started*. Even for a single schedule event, the scheduler needs to be started also.
 ---
 ------
----@param self BASE 
 ---@param Start number Specifies the amount of seconds that will be waited before the scheduling is started, and the event function is called.
 ---@param SchedulerFunction function The event function to be called when a timer event occurs. The event function needs to accept the parameters specified in SchedulerArguments.
 ---@param ... NOTYPE Optional arguments that can be given as part of scheduler. The arguments need to be given as a table { param1, param 2, ... }.
@@ -848,7 +775,6 @@ function BASE:ScheduleOnce(Start, SchedulerFunction, ...) end
 ---Note that the schedule will only take place if the scheduler is *started*. Even for a single schedule event, the scheduler needs to be started also.
 ---
 ------
----@param self BASE 
 ---@param Start number Specifies the amount of seconds that will be waited before the scheduling is started, and the event function is called.
 ---@param Repeat number Specifies the interval in seconds when the scheduler will call the event function.
 ---@param RandomizeFactor number Specifies a randomization factor between 0 and 1 to randomize the Repeat.
@@ -861,7 +787,6 @@ function BASE:ScheduleRepeat(Start, Repeat, RandomizeFactor, Stop, SchedulerFunc
 ---Stops the Schedule.
 ---
 ------
----@param self BASE 
 ---@param SchedulerID? string (Optional) Scheduler ID to be stopped. If nil, all pending schedules are stopped.
 function BASE:ScheduleStop(SchedulerID) end
 
@@ -870,7 +795,6 @@ function BASE:ScheduleStop(SchedulerID) end
 ---reflecting the order of the classes subscribed to the Event to be processed.
 ---
 ------
----@param self BASE 
 ---@param EventPriority number The @{Core.Event} processing Priority.
 ---@return BASE #self
 function BASE:SetEventPriority(EventPriority) end
@@ -878,7 +802,6 @@ function BASE:SetEventPriority(EventPriority) end
 ---Set one property of an object.
 ---
 ------
----@param self BASE 
 ---@param Key NOTYPE The key that is used as a reference of the value. Note that the key can be a #string, but it can also be any other type!
 ---@param Value NOTYPE The value that is stored. Note that the value can be a #string, but it can also be any other type!
 function BASE:SetProperty(Key, Value) end
@@ -887,18 +810,16 @@ function BASE:SetProperty(Key, Value) end
 ---Note that if the Object is destroyed, set to nil, or garbage collected, then the Values and Keys will also be gone.
 ---
 ------
----@param self BASE 
 ---@param Object NOTYPE The object that will hold the Value set by the Key.
 ---@param Key NOTYPE The key that is used as a reference of the value. Note that the key can be a #string, but it can also be any other type!
 ---@param Value NOTYPE The value to is stored in the object.
----@return  #The Value set. 
+---@return NOTYPE #The Value set. 
 function BASE:SetState(Object, Key, Value) end
 
 ---Trace a function logic level 1.
 ---Can be anywhere within the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:T(Arguments) end
 
@@ -906,7 +827,6 @@ function BASE:T(Arguments) end
 ---Can be anywhere within the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:T2(Arguments) end
 
@@ -914,28 +834,24 @@ function BASE:T2(Arguments) end
 ---Can be anywhere within the function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 function BASE:T3(Arguments) end
 
 ---Trace all methods in MOOSE
 ---
 ------
----@param self BASE 
 ---@param TraceAll boolean true = trace all methods in MOOSE.
 function BASE:TraceAll(TraceAll) end
 
 ---Set tracing for a class
 ---
 ------
----@param self BASE 
 ---@param Class string Class name.
 function BASE:TraceClass(Class) end
 
 ---Set tracing for a specific method of  class
 ---
 ------
----@param self BASE 
 ---@param Class string Class name.
 ---@param Method string Method.
 function BASE:TraceClassMethod(Class, Method) end
@@ -943,7 +859,6 @@ function BASE:TraceClassMethod(Class, Method) end
 ---Set trace level
 ---
 ------
----@param self BASE 
 ---@param Level number 
 function BASE:TraceLevel(Level) end
 
@@ -957,7 +872,6 @@ function BASE:TraceLevel(Level) end
 ---BASE:TraceOff()
 ---```
 ------
----@param self BASE 
 function BASE:TraceOff() end
 
 ---Set trace on.
@@ -970,7 +884,6 @@ function BASE:TraceOff() end
 ---BASE:TraceOn()
 ---```
 ------
----@param self BASE 
 function BASE:TraceOn() end
 
 ---Set trace on or off
@@ -991,14 +904,12 @@ function BASE:TraceOn() end
 ---  BASE:TraceOnOff( false )
 ---```
 ------
----@param self BASE 
 ---@param TraceOnOff boolean Switch the tracing on or off.
 function BASE:TraceOnOff(TraceOnOff) end
 
 ---UnSubscribe to a DCS event.
 ---
 ------
----@param self BASE 
 ---@param EventID EVENTS Event ID.
 ---@return BASE #
 function BASE:UnHandleEvent(EventID) end
@@ -1007,7 +918,6 @@ function BASE:UnHandleEvent(EventID) end
 ---This function is private.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 ---@param DebugInfoCurrentParam NOTYPE 
 ---@param DebugInfoFromParam NOTYPE 
@@ -1016,7 +926,6 @@ function BASE:_F(Arguments, DebugInfoCurrentParam, DebugInfoFromParam) end
 ---(Internal) Serialize arguments
 ---
 ------
----@param self BASE 
 ---@param Arguments table 
 ---@return string #Text
 function BASE:_Serialize(Arguments) end
@@ -1024,7 +933,6 @@ function BASE:_Serialize(Arguments) end
 ---Trace a function logic.
 ---
 ------
----@param self BASE 
 ---@param Arguments NOTYPE A #table or any field.
 ---@param DebugInfoCurrentParam NOTYPE 
 ---@param DebugInfoFromParam NOTYPE 
@@ -1034,7 +942,6 @@ function BASE:_T(Arguments, DebugInfoCurrentParam, DebugInfoFromParam) end
 ---This function captures all events generated for the class.
 ---
 ------
----@param self BASE 
 ---@param event Event 
 ---@private
 function BASE:onEvent(event) end

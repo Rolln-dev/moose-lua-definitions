@@ -372,7 +372,6 @@ ATIS = {}
 ---Note that this can be runway specific.
 ---
 ------
----@param self ATIS 
 ---@param frequency number ILS frequency in MHz.
 ---@param runway? string (Optional) Runway for which the given ILS frequency applies. Default all (*nil*).
 ---@return ATIS #self
@@ -382,7 +381,6 @@ function ATIS:AddILS(frequency, runway) end
 ---Note that this can be runway specific.
 ---
 ------
----@param self ATIS 
 ---@param frequency number NDB frequency in MHz.
 ---@param runway? string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
 ---@return ATIS #self
@@ -392,7 +390,6 @@ function ATIS:AddNDBinner(frequency, runway) end
 ---Note that this can be runway specific.
 ---
 ------
----@param self ATIS 
 ---@param frequency number NDB frequency in MHz.
 ---@param runway? string (Optional) Runway for which the given NDB frequency applies. Default all (*nil*).
 ---@return ATIS #self
@@ -402,7 +399,6 @@ function ATIS:AddNDBouter(frequency, runway) end
 ---Note that this can be runway specific.
 ---
 ------
----@param self ATIS 
 ---@param channel number PRMG channel.
 ---@param runway? string (Optional) Runway for which the given PRMG channel applies. Default all (*nil*).
 ---@return ATIS #self
@@ -411,19 +407,16 @@ function ATIS:AddPRMG(channel, runway) end
 ---Triggers the FSM event "Broadcast".
 ---
 ------
----@param self ATIS 
 function ATIS:Broadcast() end
 
 ---Triggers the FSM event "CheckQueue".
 ---
 ------
----@param self ATIS 
 function ATIS:CheckQueue() end
 
 ---Get active runway runway.
 ---
 ------
----@param self ATIS 
 ---@param Takeoff boolean If `true`, get runway for takeoff. Default is for landing.
 ---@return string #Active runway, e.g. "31" for 310 deg.
 ---@return boolean #Use Left=true, Right=false, or nil.
@@ -432,14 +425,12 @@ function ATIS:GetActiveRunway(Takeoff) end
 ---Get the coalition of the associated airbase.
 ---
 ------
----@param self ATIS 
 ---@return number #Coalition of the associated airbase.
 function ATIS:GetCoalition() end
 
 ---Get runway from user supplied magnetic heading.
 ---
 ------
----@param self ATIS 
 ---@param windfrom number Wind direction (from) in degrees.
 ---@return string #Runway magnetic heading divided by ten (and rounded). Eg, "13" for 130°.
 function ATIS:GetMagneticRunway(windfrom) end
@@ -447,7 +438,6 @@ function ATIS:GetMagneticRunway(windfrom) end
 ---Get weather of this mission from env.mission.weather variable.
 ---
 ------
----@param self ATIS 
 ---@return table #Clouds table which has entries "thickness", "density", "base", "iprecptns".
 ---@return number #Visibility distance in meters.
 ---@return number #Ground turbulence in m/s.
@@ -459,7 +449,6 @@ function ATIS:GetMissionWeather() end
 ---Get nav aid data.
 ---
 ------
----@param self ATIS 
 ---@param navpoints table Nav points data table.
 ---@param runway string (Active) runway, *e.g.* "31".
 ---@param left boolean If *true*, left runway, if *false, right, else does not matter.
@@ -469,7 +458,6 @@ function ATIS:GetNavPoint(navpoints, runway, left) end
 ---Get info if left or right runway is active.
 ---
 ------
----@param self ATIS 
 ---@param runway string Runway heading, *e.g.* "31L".
 ---@return boolean #If *true*, left runway is active. If *false*, right runway. If *nil*, neither applies.
 function ATIS:GetRunwayLR(runway) end
@@ -477,7 +465,6 @@ function ATIS:GetRunwayLR(runway) end
 ---Get runway heading without left or right info.
 ---
 ------
----@param self ATIS 
 ---@param runway string Runway heading, *e.g.* "31L".
 ---@return string #Runway heading without left or right, *e.g.* "31".
 function ATIS:GetRunwayWithoutLR(runway) end
@@ -486,21 +473,18 @@ function ATIS:GetRunwayWithoutLR(runway) end
 ---Else nil.
 ---
 ------
----@param self ATIS 
 ---@return string #SRSText
 function ATIS:GetSRSText() end
 
 ---Place marks with runway data on the F10 map.
 ---
 ------
----@param self ATIS 
 ---@param markall boolean If true, mark all runways of the map. By default only the current ATIS runways are marked.
 function ATIS:MarkRunways(markall) end
 
 ---Create a new ATIS class object for a specific airbase.
 ---
 ------
----@param self ATIS 
 ---@param AirbaseName string Name of the airbase.
 ---@param Frequency number Radio frequency in MHz. Default 143.00 MHz. When using **SRS** this can be passed as a table of multiple frequencies.
 ---@param Modulation number Radio modulation: 0=AM, 1=FM. Default 0=AM. See `radio.modulation.AM` and `radio.modulation.FM` enumerators. When using **SRS** this can be passed as a table of multiple modulations.
@@ -510,7 +494,6 @@ function ATIS:New(AirbaseName, Frequency, Modulation) end
 ---On after "Report" event user function.
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -520,14 +503,12 @@ function ATIS:OnAfterReport(From, Event, To, Text) end
 ---Base captured
 ---
 ------
----@param self ATIS 
 ---@param EventData EVENTDATA Event data.
 function ATIS:OnEventBaseCaptured(EventData) end
 
 ---Triggers the FSM event "Report".
 ---
 ------
----@param self ATIS 
 ---@param Text string Report text.
 function ATIS:Report(Text) end
 
@@ -535,7 +516,6 @@ function ATIS:Report(Text) end
 ---Default is to report both QNH and QFE.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:ReportQNHOnly() end
 
@@ -543,7 +523,6 @@ function ATIS:ReportQNHOnly() end
 ---Default is to report all these times.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:ReportZuluTimeOnly() end
 
@@ -552,7 +531,6 @@ function ATIS:ReportZuluTimeOnly() end
 ---For example, use this if there are two runways with the same directions.
 ---
 ------
----@param self ATIS 
 ---@param runway string Active runway, *e.g.* "31L".
 ---@return ATIS #self
 function ATIS:SetActiveRunway(runway) end
@@ -560,7 +538,6 @@ function ATIS:SetActiveRunway(runway) end
 ---Set the active runway for landing.
 ---
 ------
----@param self ATIS 
 ---@param runway string : Name of the runway, e.g. "31" or "02L" or "90R". If not given, the runway is determined from the wind direction.
 ---@param preferleft boolean : If true, perfer the left runway. If false, prefer the right runway. If nil (default), do not care about left or right.
 ---@return ATIS #self
@@ -569,7 +546,6 @@ function ATIS:SetActiveRunwayLanding(runway, preferleft) end
 ---Set the active runway for take-off.
 ---
 ------
----@param self ATIS 
 ---@param runway string : Name of the runway, e.g. "31" or "02L" or "90R". If not given, the runway is determined from the wind direction.
 ---@param preferleft boolean : If true, perfer the left runway. If false, prefer the right runway. If nil (default), do not care about left or right.
 ---@return ATIS #self
@@ -578,7 +554,6 @@ function ATIS:SetActiveRunwayTakeoff(runway, preferleft) end
 ---Additionally report free text, only working with SRS(!)
 ---
 ------
----@param self ATIS 
 ---@param text string The text to report at the end of the ATIS message, e.g. runway closure, warnings, etc.
 ---@return ATIS #self
 function ATIS:SetAdditionalInformation(text) end
@@ -586,7 +561,6 @@ function ATIS:SetAdditionalInformation(text) end
 ---Report altimeter QNH.
 ---
 ------
----@param self ATIS 
 ---@param switch boolean If true or nil, report altimeter QHN. If false, report QFF.
 ---@return ATIS #self
 function ATIS:SetAltimeterQNH(switch) end
@@ -594,21 +568,18 @@ function ATIS:SetAltimeterQNH(switch) end
 ---Give information on airfield elevation
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetElevation() end
 
 ---Set unit system to imperial units.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetImperialUnits() end
 
 ---Set locale for localized text-to-sound output via SRS, defaults to "en".
 ---
 ------
----@param self ATIS 
 ---@param locale string Locale for localized text-to-sound output via SRS, defaults to "en".
 ---@return ATIS #self
 function ATIS:SetLocale(locale) end
@@ -636,7 +607,6 @@ function ATIS:SetLocale(locale) end
 ---Or you make your life simple and just include the sign so you don't have to bother about East/West.
 ---
 ------
----@param self ATIS 
 ---@param magvar number Magnetic variation in degrees. Positive for easterly and negative for westerly variation. Default is magnatic declinaton of the used map, c.f. @{Utilities.Utils#UTILS.GetMagneticDeclination}.
 ---@return ATIS #self
 function ATIS:SetMagneticDeclination(magvar) end
@@ -644,7 +614,6 @@ function ATIS:SetMagneticDeclination(magvar) end
 ---Use F10 map mark points.
 ---
 ------
----@param self ATIS 
 ---@param switch boolean If *true* or *nil*, marks are placed on F10 map. If *false* this feature is set to off (default).
 ---@return ATIS #self
 function ATIS:SetMapMarks(switch) end
@@ -652,7 +621,6 @@ function ATIS:SetMapMarks(switch) end
 ---Set unit system to metric units.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetMetricUnits() end
 
@@ -660,14 +628,12 @@ function ATIS:SetMetricUnits() end
 ---Default is inHg for imperial and hPa (=mBar) for metric units.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetPressureMillimetersMercury() end
 
 ---Set the time interval between radio queue updates.
 ---
 ------
----@param self ATIS 
 ---@param TimeInterval number Interval in seconds. Default 5 sec.
 ---@return ATIS #self
 function ATIS:SetQueueUpdateTime(TimeInterval) end
@@ -675,7 +641,6 @@ function ATIS:SetQueueUpdateTime(TimeInterval) end
 ---Set RSBN channel.
 ---
 ------
----@param self ATIS 
 ---@param channel number RSBN channel.
 ---@return ATIS #self
 function ATIS:SetRSBN(channel) end
@@ -684,7 +649,6 @@ function ATIS:SetRSBN(channel) end
 ---Note that this only applies if no relay unit is used.
 ---
 ------
----@param self ATIS 
 ---@param power number Radio power in Watts. Default 100 W.
 ---@return ATIS #self
 function ATIS:SetRadioPower(power) end
@@ -693,7 +657,6 @@ function ATIS:SetRadioPower(power) end
 ---Best is to place the unit on a parking spot of the airbase and set it to *uncontrolled* in the mission editor.
 ---
 ------
----@param self ATIS 
 ---@param unitname string Name of the unit.
 ---@return ATIS #self
 function ATIS:SetRadioRelayUnitName(unitname) end
@@ -703,7 +666,6 @@ function ATIS:SetRadioRelayUnitName(unitname) end
 ---Note that the dew point is only an artificial information as DCS does not have an atmospheric model that includes humidity (yet).
 ---
 ------
----@param self ATIS 
 ---@param Humidity number Relative Humidity, i.e. a number between 0 and 100 %. Default is 50 %.
 ---@return ATIS #self
 function ATIS:SetRelativeHumidity(Humidity) end
@@ -712,14 +674,12 @@ function ATIS:SetRelativeHumidity(Humidity) end
 ---Default is magnetic.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetReportWindTrue() end
 
 ---Additionally report altimeter QNH/QFE in hPa, even if not set to metric.
 ---
 ------
----@param self ATIS 
 ---@param switch boolean If true or nil, report mBar/hPa in addition.
 ---@return ATIS #self
 function ATIS:SetReportmBar(switch) end
@@ -727,7 +687,6 @@ function ATIS:SetReportmBar(switch) end
 ---Explicitly set correction of magnetic to true heading for runways.
 ---
 ------
----@param self ATIS 
 ---@param correction number Correction of magnetic to true heading for runways in degrees.
 ---@return ATIS #self
 function ATIS:SetRunwayCorrectionMagnetic2True(correction) end
@@ -735,7 +694,6 @@ function ATIS:SetRunwayCorrectionMagnetic2True(correction) end
 ---Set magnetic runway headings as depicted on the runway, *e.g.* "13" for 130° or "25L" for the left runway with magnetic heading 250°.
 ---
 ------
----@param self ATIS 
 ---@param headings table Magnetic headings. Inverse (-180°) headings are added automatically. You only need to specify one heading per runway direction. "L"eft and "R" right can also be appended.
 ---@return ATIS #self
 function ATIS:SetRunwayHeadingsMagnetic(headings) end
@@ -743,7 +701,6 @@ function ATIS:SetRunwayHeadingsMagnetic(headings) end
 ---Give information on runway length.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetRunwayLength() end
 
@@ -751,7 +708,6 @@ function ATIS:SetRunwayLength() end
 ---No sound files necessary.`SetSRS()` will try to use as many attributes configured with Sound.SRS#MSRS.LoadConfigFile() as possible.
 ---
 ------
----@param self ATIS 
 ---@param PathToSRS string Path to SRS directory (only necessary if SRS exe backend is used).
 ---@param Gender string Gender: "male" or "female" (default).
 ---@param Culture string Culture, e.g. "en-GB" (default).
@@ -764,7 +720,6 @@ function ATIS:SetSRS(PathToSRS, Gender, Culture, Voice, Port, GoogleKey) end
 ---Set an alternative provider to the one set in your MSRS configuration file.
 ---
 ------
----@param self ATIS 
 ---@param Provider string The provider to use. Known providers are: `MSRS.Provider.WINDOWS` and `MSRS.Provider.GOOGLE`
 ---@return ATIS #self
 function ATIS:SetSRSProvider(Provider) end
@@ -773,7 +728,6 @@ function ATIS:SetSRSProvider(Provider) end
 ---The parameter file has to be located on your local disk (**not** inside the miz file).
 ---
 ------
----@param self ATIS 
 ---@param csvfile string Full path to the csv file on your local disk.
 ---@return ATIS #self
 function ATIS:SetSoundfilesInfo(csvfile) end
@@ -781,7 +735,6 @@ function ATIS:SetSoundfilesInfo(csvfile) end
 ---Set sound files folder within miz file (not your local hard drive!).
 ---
 ------
----@param self ATIS 
 ---@param pathMain string Path to folder containing main sound files. Default "ATIS Soundfiles/". Mind the slash "/" at the end!
 ---@param pathAirports string Path folder containing the airport names sound files. Default is `"ATIS Soundfiles/<Map Name>"`, *e.g.* `"ATIS Soundfiles/Caucasus/"`.
 ---@param pathNato string Path folder containing the NATO alphabet sound files. Default is "ATIS Soundfiles/NATO Alphabet/".
@@ -791,7 +744,6 @@ function ATIS:SetSoundfilesPath(pathMain, pathAirports, pathNato) end
 ---Set duration how long subtitles are displayed.
 ---
 ------
----@param self ATIS 
 ---@param duration number Duration in seconds. Default 10 seconds.
 ---@return ATIS #self
 function ATIS:SetSubtitleDuration(duration) end
@@ -799,7 +751,6 @@ function ATIS:SetSubtitleDuration(duration) end
 ---Set TACAN channel.
 ---
 ------
----@param self ATIS 
 ---@param channel number TACAN channel.
 ---@return ATIS #self
 function ATIS:SetTACAN(channel) end
@@ -807,14 +758,12 @@ function ATIS:SetTACAN(channel) end
 ---Set temperature to be given in degrees Fahrenheit.
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:SetTemperatureFahrenheit() end
 
 ---Set tower frequencies.
 ---
 ------
----@param self ATIS 
 ---@param freqs table Table of frequencies in MHz. A single frequency can be given as a plain number (*i.e.* must not be table).
 ---@return ATIS #self
 function ATIS:SetTowerFrequencies(freqs) end
@@ -822,7 +771,6 @@ function ATIS:SetTowerFrequencies(freqs) end
 ---For SRS - Switch to only transmit if there are players on the server.
 ---
 ------
----@param self ATIS 
 ---@param Switch boolean If true, only send SRS if there are alive Players.
 ---@return ATIS #self
 function ATIS:SetTransmitOnlyWithPlayers(Switch) end
@@ -830,7 +778,6 @@ function ATIS:SetTransmitOnlyWithPlayers(Switch) end
 ---Set VOR station.
 ---
 ------
----@param self ATIS 
 ---@param frequency number VOR frequency.
 ---@return ATIS #self
 function ATIS:SetVOR(frequency) end
@@ -845,7 +792,6 @@ function ATIS:SetVOR(frequency) end
 ---   * The Channel +2 (should be 0)
 ---
 ------
----@param self ATIS 
 ---@param delta number Time difference in hours.
 ---@return ATIS #self
 function ATIS:SetZuluTimeDifference(delta) end
@@ -853,33 +799,28 @@ function ATIS:SetZuluTimeDifference(delta) end
 ---Play all audio files.
 ---
 ------
----@param self ATIS 
 function ATIS:SoundCheck() end
 
 ---Triggers the FSM event "Start".
 ---Starts the ATIS.
 ---
 ------
----@param self ATIS 
 function ATIS:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self ATIS 
 function ATIS:Status() end
 
 ---Triggers the FSM event "Stop".
 ---Stops the ATIS.
 ---
 ------
----@param self ATIS 
 function ATIS:Stop() end
 
 ---Transmission via RADIOQUEUE.
 ---
 ------
----@param self ATIS 
 ---@param sound ATIS.Soundfile ATIS sound object.
 ---@param interval number Interval in seconds after the last transmission finished.
 ---@param subtitle string Subtitle of the transmission.
@@ -889,7 +830,6 @@ function ATIS:Transmission(sound, interval, subtitle, path) end
 ---Update F10 map marker.
 ---
 ------
----@param self ATIS 
 ---@param information string Information tag text.
 ---@param runact string Active runway text.
 ---@param wind string Wind text.
@@ -901,7 +841,6 @@ function ATIS:UpdateMarker(information, runact, wind, altimeter, temperature) en
 ---Get thousands of a number.
 ---
 ------
----@param self ATIS 
 ---@param n number Number, *e.g.* 4359.
 ---@return string #Thousands of n, *e.g.* "4" for 4359.
 ---@return string #Hundreds of n, *e.g.* "4" for 4359 because its rounded.
@@ -910,28 +849,24 @@ function ATIS:_GetThousandsAndHundreds(n) end
 ---[Internal] Init localization
 ---
 ------
----@param self ATIS 
 ---@return ATIS #self
 function ATIS:_InitLocalization() end
 
 ---Triggers the FSM event "Broadcast" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 function ATIS:__Broadcast(delay) end
 
 ---Triggers the FSM event "CheckQueue" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 function ATIS:__CheckQueue(delay) end
 
 ---Triggers the FSM event "Report" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 ---@param Text string Report text.
 function ATIS:__Report(delay, Text) end
@@ -939,28 +874,24 @@ function ATIS:__Report(delay, Text) end
 ---Triggers the FSM event "Start" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 function ATIS:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 function ATIS:__Status(delay) end
 
 ---Triggers the FSM event "Stop" after a delay.
 ---
 ------
----@param self ATIS 
 ---@param delay number Delay in seconds.
 function ATIS:__Stop(delay) end
 
 ---Broadcast ATIS radio message.
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -971,7 +902,6 @@ function ATIS:onafterBroadcast(From, Event, To) end
 ---If so, start broadcasting the message again.
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -982,7 +912,6 @@ function ATIS:onafterCheckQueue(From, Event, To) end
 ---Information delimitor is a semicolon ";" and a line break "\n".
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -993,7 +922,6 @@ function ATIS:onafterReport(From, Event, To, Text) end
 ---Start ATIS FSM.
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1003,7 +931,6 @@ function ATIS:onafterStart(From, Event, To) end
 ---Update status.
 ---
 ------
----@param self ATIS 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

@@ -879,6 +879,7 @@
 ---AI_A2G_DISPATCHER class.
 ---@class AI_A2G_DISPATCHER : DETECTION_MANAGER
 ---@field DefenderDefault table 
+---@field DefenderPatrolIndex number 
 ---@field DefenderSpawns table 
 ---@field DefenderSquadrons table 
 ---@field DefenderTasks table 
@@ -898,7 +899,6 @@ AI_A2G_DISPATCHER = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param Squadron NOTYPE 
 ---@param Defender NOTYPE 
 ---@param Size NOTYPE 
@@ -907,7 +907,6 @@ function AI_A2G_DISPATCHER:AddDefenderToSquadron(Squadron, Defender, Size) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DefenseCoordinateName NOTYPE 
 ---@param DefenseCoordinate NOTYPE 
 function AI_A2G_DISPATCHER:AddDefenseCoordinate(DefenseCoordinateName, DefenseCoordinate) end
@@ -915,7 +914,6 @@ function AI_A2G_DISPATCHER:AddDefenseCoordinate(DefenseCoordinateName, DefenseCo
 ---Add resources to a Squadron
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Squadron string The squadron name.
 ---@param Amount number Number of resources to add.
 function AI_A2G_DISPATCHER:AddToSquadron(Squadron, Amount) end
@@ -923,7 +921,6 @@ function AI_A2G_DISPATCHER:AddToSquadron(Squadron, Amount) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param DefenseTaskType NOTYPE 
 ---@return table #DefenderSquadron
@@ -932,7 +929,6 @@ function AI_A2G_DISPATCHER:CanDefend(SquadronName, DefenseTaskType) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param DefenseTaskType NOTYPE 
 ---@return table #DefenderSquadron
@@ -941,21 +937,18 @@ function AI_A2G_DISPATCHER:CanPatrol(SquadronName, DefenseTaskType) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:ClearDefenderTask(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:ClearDefenderTaskTarget(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param AttackerDetection NOTYPE 
 ---@param DefenderCount NOTYPE 
 ---@param DefenderTaskType NOTYPE 
@@ -964,7 +957,6 @@ function AI_A2G_DISPATCHER:CountDefenders(AttackerDetection, DefenderCount, Defe
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param AttackerDetection NOTYPE 
 ---@param AttackerCount NOTYPE 
 function AI_A2G_DISPATCHER:CountDefendersEngaged(AttackerDetection, AttackerCount) end
@@ -972,7 +964,6 @@ function AI_A2G_DISPATCHER:CountDefendersEngaged(AttackerDetection, AttackerCoun
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName NOTYPE 
 ---@param DefenseTaskType NOTYPE 
 function AI_A2G_DISPATCHER:CountPatrolAirborne(SquadronName, DefenseTaskType) end
@@ -980,19 +971,16 @@ function AI_A2G_DISPATCHER:CountPatrolAirborne(SquadronName, DefenseTaskType) en
 ---Defend Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 function AI_A2G_DISPATCHER:Defend() end
 
 ---Engage Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 function AI_A2G_DISPATCHER:Engage() end
 
 ---Evaluates an BAI task.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return SET_UNIT #The set of units of the targets to be engaged.
 ---@return nil #If there are no targets to be set.
@@ -1001,7 +989,6 @@ function AI_A2G_DISPATCHER:Evaluate_BAI(DetectedItem) end
 ---Creates an CAS task.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return SET_UNIT #The set of units of the targets to be engaged.
 ---@return nil #If there are no targets to be set.
@@ -1010,7 +997,6 @@ function AI_A2G_DISPATCHER:Evaluate_CAS(DetectedItem) end
 ---Creates an SEAD task when the targets have radars.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return SET_UNIT #The set of units of the targets to be engaged.
 ---@return nil #If there are no targets to be set.
@@ -1033,7 +1019,6 @@ function AI_A2G_DISPATCHER:Evaluate_SEAD(DetectedItem) end
 ---  end
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_A2G_DISPATCHER:GetDefaultLanding() end
 
@@ -1054,14 +1039,12 @@ function AI_A2G_DISPATCHER:GetDefaultLanding() end
 ---  end
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_A2G_DISPATCHER:GetDefaultTakeoff() end
 
 ---Calculates which defender friendlies are nearby the area, to help protect the area.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 ---@return table #A list of the defender friendlies nearby, sorted by distance.
 function AI_A2G_DISPATCHER:GetDefenderFriendliesNearBy(DetectedItem) end
@@ -1069,41 +1052,35 @@ function AI_A2G_DISPATCHER:GetDefenderFriendliesNearBy(DetectedItem) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:GetDefenderTask(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:GetDefenderTaskFsm(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:GetDefenderTaskSquadronName(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:GetDefenderTaskTarget(Defender) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 function AI_A2G_DISPATCHER:GetDefenderTasks() end
 
 ---Calculates which friendlies are nearby the area.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem NOTYPE The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_A2G_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
@@ -1111,7 +1088,6 @@ function AI_A2G_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:GetPatrolDelay(SquadronName) end
@@ -1119,7 +1095,6 @@ function AI_A2G_DISPATCHER:GetPatrolDelay(SquadronName) end
 ---Calculates which HUMAN friendlies are nearby the area.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem NOTYPE The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_A2G_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
@@ -1127,7 +1102,6 @@ function AI_A2G_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
 ---Get an item from the Squadron table.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName NOTYPE 
 ---@return table #
 function AI_A2G_DISPATCHER:GetSquadron(SquadronName) end
@@ -1135,7 +1109,6 @@ function AI_A2G_DISPATCHER:GetSquadron(SquadronName) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:GetSquadronFromDefender(Defender) end
 
@@ -1156,7 +1129,6 @@ function AI_A2G_DISPATCHER:GetSquadronFromDefender(Defender) end
 ---  end
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_A2G_DISPATCHER:GetSquadronLanding(SquadronName) end
@@ -1179,7 +1151,6 @@ function AI_A2G_DISPATCHER:GetSquadronLanding(SquadronName) end
 ---  local SquadronOverhead = A2GDispatcher:GetSquadronOverhead( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_A2G_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance A2G missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_A2G_DISPATCHER #
@@ -1202,7 +1173,6 @@ function AI_A2G_DISPATCHER:GetSquadronOverhead(SquadronName) end
 ---  end
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_A2G_DISPATCHER:GetSquadronTakeoff(SquadronName) end
@@ -1210,7 +1180,6 @@ function AI_A2G_DISPATCHER:GetSquadronTakeoff(SquadronName) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenseCoordinate NOTYPE 
 ---@param DetectedItem NOTYPE 
 function AI_A2G_DISPATCHER:HasDefenseLine(DefenseCoordinate, DetectedItem) end
@@ -1226,7 +1195,6 @@ function AI_A2G_DISPATCHER:HasDefenseLine(DefenseCoordinate, DetectedItem) end
 ---       local IsVisible = A2GDispatcher:IsSquadronVisible( "Mineralnye" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return boolean #true if visible.
 function AI_A2G_DISPATCHER:IsSquadronVisible(SquadronName) end
@@ -1234,14 +1202,12 @@ function AI_A2G_DISPATCHER:IsSquadronVisible(SquadronName) end
 ---Determine the distance as the keys of reference of the detected items.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 function AI_A2G_DISPATCHER:Keys(DetectedItem) end
 
 ---Locks the DefenseItem from being defended.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItemIndex string The index of the detected item.
 function AI_A2G_DISPATCHER:Lock(DetectedItemIndex) end
 
@@ -1269,7 +1235,6 @@ function AI_A2G_DISPATCHER:Lock(DetectedItemIndex) end
 ---  A2GDispatcher = AI_A2G_DISPATCHER:New( Detection )  
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Detection DETECTION_BASE The DETECTION object that will detects targets using the the Early Warning Radar network.
 ---@return AI_A2G_DISPATCHER #self
 function AI_A2G_DISPATCHER:New(Detection) end
@@ -1277,7 +1242,6 @@ function AI_A2G_DISPATCHER:New(Detection) end
 ---OnAfter Transition Handler for Event Assign.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -1289,7 +1253,6 @@ function AI_A2G_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, Player
 ---Defend Handler OnAfter for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1298,7 +1261,6 @@ function AI_A2G_DISPATCHER:OnAfterDefend(From, Event, To) end
 ---Engage Handler OnAfter for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1307,7 +1269,6 @@ function AI_A2G_DISPATCHER:OnAfterEngage(From, Event, To) end
 ---Patrol Handler OnAfter for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1316,7 +1277,6 @@ function AI_A2G_DISPATCHER:OnAfterPatrol(From, Event, To) end
 ---Defend Handler OnBefore for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1326,7 +1286,6 @@ function AI_A2G_DISPATCHER:OnBeforeDefend(From, Event, To) end
 ---Engage Handler OnBefore for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1336,7 +1295,6 @@ function AI_A2G_DISPATCHER:OnBeforeEngage(From, Event, To) end
 ---Patrol Handler OnBefore for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1346,48 +1304,41 @@ function AI_A2G_DISPATCHER:OnBeforePatrol(From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_A2G_DISPATCHER:OnEventBaseCaptured(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_A2G_DISPATCHER:OnEventCrashOrDead(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_A2G_DISPATCHER:OnEventEngineShutdown(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_A2G_DISPATCHER:OnEventLand(EventData) end
 
 ---Assigns A2G AI Tasks in relation to the detected items.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 function AI_A2G_DISPATCHER:Order(DetectedItem) end
 
 ---Patrol Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 function AI_A2G_DISPATCHER:Patrol() end
 
 ---Assigns A2G AI Tasks in relation to the detected items.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
 ---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
 function AI_A2G_DISPATCHER:ProcessDetected(Detection) end
@@ -1395,7 +1346,6 @@ function AI_A2G_DISPATCHER:ProcessDetected(Detection) end
 ---Get a resource count from a specific squadron
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Squadron string Name of the squadron.
 ---@return number #Number of airframes available or nil if the squadron does not exist
 function AI_A2G_DISPATCHER:QuerySquadron(Squadron) end
@@ -1403,7 +1353,6 @@ function AI_A2G_DISPATCHER:QuerySquadron(Squadron) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Squadron NOTYPE 
 ---@param Defender NOTYPE 
 function AI_A2G_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
@@ -1411,7 +1360,6 @@ function AI_A2G_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
 ---Remove resources from a Squadron
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Squadron string The squadron name.
 ---@param Amount number Number of resources to remove.
 function AI_A2G_DISPATCHER:RemoveFromSquadron(Squadron, Amount) end
@@ -1419,7 +1367,6 @@ function AI_A2G_DISPATCHER:RemoveFromSquadron(Squadron, Amount) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
 function AI_A2G_DISPATCHER:ResourceActivate(DefenderSquadron, DefendersNeeded) end
@@ -1427,7 +1374,6 @@ function AI_A2G_DISPATCHER:ResourceActivate(DefenderSquadron, DefendersNeeded) e
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
 ---@param Defense NOTYPE 
@@ -1439,14 +1385,12 @@ function AI_A2G_DISPATCHER:ResourceEngage(DefenderSquadron, DefendersNeeded, Def
 
 ---
 ------
----@param self NOTYPE 
 ---@param DefenderSquadron NOTYPE 
 function AI_A2G_DISPATCHER:ResourcePark(DefenderSquadron) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
 ---@param Patrol NOTYPE 
@@ -1458,7 +1402,6 @@ function AI_A2G_DISPATCHER:ResourcePatrol(DefenderSquadron, DefendersNeeded, Pat
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Patrol NOTYPE 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
@@ -1471,13 +1414,11 @@ function AI_A2G_DISPATCHER:ResourceQueue(Patrol, DefenderSquadron, DefendersNeed
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 function AI_A2G_DISPATCHER:ResourceTakeoff() end
 
 ---Schedules a new Patrol for the given SquadronName.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 function AI_A2G_DISPATCHER:SchedulerPatrol(SquadronName) end
 
@@ -1507,7 +1448,6 @@ function AI_A2G_DISPATCHER:SchedulerPatrol(SquadronName) end
 ---  A2GDispatcher:SetBorderZone( { BorderZone1, BorderZone2 } )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param BorderZone ZONE_BASE An object derived from ZONE_BASE, or a list of objects derived from ZONE_BASE.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetBorderZone(BorderZone) end
@@ -1527,7 +1467,6 @@ function AI_A2G_DISPATCHER:SetBorderZone(BorderZone) end
 ---  A2GDispatcher:SetDefaultDamageThreshold( 0.90 ) -- Go RTB when the aircraft is 90% damaged.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DamageThreshold number A decimal number between 0 and 1, that expresses the % of damage when the aircraft will go RTB.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
@@ -1547,7 +1486,6 @@ function AI_A2G_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
 ---  A2GDispatcher:SetDefaultEngageLimit( 2 ) -- Maximum 2 engagements with the enemy per squadron.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param EngageLimit number The maximum engages that can be done at the same time per squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultEngageLimit(EngageLimit) end
@@ -1567,7 +1505,6 @@ function AI_A2G_DISPATCHER:SetDefaultEngageLimit(EngageLimit) end
 ---  A2GDispatcher:SetDefaultFuelThreshold( 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
@@ -1587,7 +1524,6 @@ function AI_A2G_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
 ---  A2GDispatcher:SetDefaultGrouping( 2 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Grouping number The level of grouping that will be applied for the Patrol.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultGrouping(Grouping) end
@@ -1612,7 +1548,6 @@ function AI_A2G_DISPATCHER:SetDefaultGrouping(Grouping) end
 ---  A2GDispatcher:SetDefaultLanding( AI_A2G_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultLanding(Landing) end
@@ -1631,7 +1566,6 @@ function AI_A2G_DISPATCHER:SetDefaultLanding(Landing) end
 ---  A2GDispatcher:SetDefaultLandingAtEngineShutdown()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 
@@ -1649,7 +1583,6 @@ function AI_A2G_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 ---  A2GDispatcher:SetDefaultLandingAtRunway()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultLandingAtRunway() end
 
@@ -1667,7 +1600,6 @@ function AI_A2G_DISPATCHER:SetDefaultLandingAtRunway() end
 ---  A2GDispatcher:SetDefaultLandingNearAirbase()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultLandingNearAirbase() end
 
@@ -1689,7 +1621,6 @@ function AI_A2G_DISPATCHER:SetDefaultLandingNearAirbase() end
 ---  A2GDispatcher:SetDefaultOverhead( 1.5 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_A2G_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance A2G missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultOverhead(Overhead) end
@@ -1709,7 +1640,6 @@ function AI_A2G_DISPATCHER:SetDefaultOverhead(Overhead) end
 ---  A2GDispatcher:SetDefaultPatrolLimit( 2 ) -- Maximum 2 Patrol per squadron.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param PatrolLimit number The maximum amount of Patrol that can be airborne at the same time for the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultPatrolLimit(PatrolLimit) end
@@ -1729,7 +1659,6 @@ function AI_A2G_DISPATCHER:SetDefaultPatrolLimit(PatrolLimit) end
 ---  A2GDispatcher:SetDefaultPatrolTimeInterval( 300, 1200 ) -- Between 300 and 1200 seconds.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param PatrolMinSeconds number The minimum amount of seconds for the random time interval.
 ---@param PatrolMaxSeconds number The maximum amount of seconds for the random time interval.
 ---@return AI_A2G_DISPATCHER #
@@ -1758,7 +1687,6 @@ function AI_A2G_DISPATCHER:SetDefaultPatrolTimeInterval(PatrolMinSeconds, Patrol
 ---  A2GDispatcher:SetDefaultTakeoff( AI_A2G_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoff(Takeoff) end
@@ -1777,7 +1705,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoff(Takeoff) end
 ---  A2GDispatcher:SetDefaultTakeoffFromParkingCold()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 
@@ -1795,7 +1722,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 ---  A2GDispatcher:SetDefaultTakeoffFromParkingHot()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 
@@ -1813,7 +1739,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 ---  A2GDispatcher:SetDefaultTakeoffFromRunway()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoffFromRunway() end
 
@@ -1831,7 +1756,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoffFromRunway() end
 ---  A2GDispatcher:SetDefaultTakeoffInAir()
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoffInAir() end
 
@@ -1849,7 +1773,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoffInAir() end
 ---  A2GDispatcher:SetDefaultTakeoffInAirAltitude( 2000 )  -- This makes planes start at 2000 meters above the ground.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param TakeoffAltitude number The altitude in meters above ground level (AGL).
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
@@ -1871,7 +1794,6 @@ function AI_A2G_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
 ---  A2GDispatcher:SetDefaultTanker( "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefaultTanker(TankerName) end
@@ -1879,7 +1801,6 @@ function AI_A2G_DISPATCHER:SetDefaultTanker(TankerName) end
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName NOTYPE 
 ---@param Defender NOTYPE 
 ---@param Type NOTYPE 
@@ -1891,7 +1812,6 @@ function AI_A2G_DISPATCHER:SetDefenderTask(SquadronName, Defender, Type, Fsm, Ta
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param AIGroup GROUP 
 ---@param Defender NOTYPE 
 ---@param AttackerDetection NOTYPE 
@@ -1900,14 +1820,12 @@ function AI_A2G_DISPATCHER:SetDefenderTaskTarget(AIGroup, Defender, AttackerDete
 ---Sets the method of the tactical approach of the defenses.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenseApproach number Use the structure AI_A2G_DISPATCHER.DefenseApproach to set the defense approach. The default defense approach is AI_A2G_DISPATCHER.DefenseApproach.Random.
 function AI_A2G_DISPATCHER:SetDefenseApproach(DefenseApproach) end
 
 ---Sets maximum zones to be engaged at one time by defenders.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenseLimit number The maximum amount of detected items to be engaged at the same time.
 function AI_A2G_DISPATCHER:SetDefenseLimit(DefenseLimit) end
 
@@ -1938,7 +1856,6 @@ function AI_A2G_DISPATCHER:SetDefenseLimit(DefenseLimit) end
 ---  A2GDispatcher:SetDefendRadius() -- 200000 is the default value.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DefenseRadius number (Optional, Default = 20000) The defense radius to engage detected targets from the nearest capable and available squadron airbase.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDefenseRadius(DefenseRadius) end
@@ -1946,19 +1863,16 @@ function AI_A2G_DISPATCHER:SetDefenseRadius(DefenseRadius) end
 
 ---
 ------
----@param self NOTYPE 
 function AI_A2G_DISPATCHER:SetDefenseReactivityHigh() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_A2G_DISPATCHER:SetDefenseReactivityLow() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_A2G_DISPATCHER:SetDefenseReactivityMedium() end
 
 ---Define the radius to disengage any target when the distance to the home base is larger than the specified meters.
@@ -1975,7 +1889,6 @@ function AI_A2G_DISPATCHER:SetDefenseReactivityMedium() end
 ---  A2GDispatcher:SetDisengageRadius() -- 300000 is the default value.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DisengageRadius number (Optional, Default = 300000) The radius to disengage a target when too far from the home base.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetDisengageRadius(DisengageRadius) end
@@ -1983,14 +1896,12 @@ function AI_A2G_DISPATCHER:SetDisengageRadius(DisengageRadius) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param InterceptDelay NOTYPE 
 function AI_A2G_DISPATCHER:SetIntercept(InterceptDelay) end
 
 ---Set flashing player messages on or off
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param onoff boolean Set messages on (true) or off (false)
 function AI_A2G_DISPATCHER:SetSendMessages(onoff) end
 
@@ -2021,7 +1932,6 @@ function AI_A2G_DISPATCHER:SetSendMessages(onoff) end
 ---  A2GDispatcher = AI_A2G_DISPATCHER:New( Detection )  
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string A string (text) that defines the squadron identifier or the key of the Squadron.  It can be any name, for example `"104th Squadron"` or `"SQ SQUADRON1"`, whatever.  As long as you remember that this name becomes the identifier of your squadron you have defined.  You need to use this name in other methods too! 
 ---@param AirbaseName string The airbase name where you want to have the squadron located.  You need to specify here EXACTLY the name of the airbase as you see it in the mission editor.  Examples are `"Batumi"` or `"Tbilisi-Lochini"`.  EXACTLY the airbase name, between quotes `""`. To ease the airbase naming when using the LDT editor and IntelliSense, the @{Wrapper.Airbase#AIRBASE} class contains enumerations of the airbases of each map.        * Caucasus: @{Wrapper.Airbase#AIRBASE.Caucaus}    * Nevada or NTTR: @{Wrapper.Airbase#AIRBASE.Nevada}    * Normandy: @{Wrapper.Airbase#AIRBASE.Normandy} 
 ---@param TemplatePrefixes string A string or an array of strings specifying the **prefix names of the templates** (not going to explain what is templates here again).  Examples are `{ "104th", "105th" }` or `"104th"` or `"Template 1"` or `"BLUE PLANES"`.  Just remember that your template (groups late activated) need to start with the prefix you have specified in your code. If you have only one prefix name for a squadron, you don't need to use the `{ }`, otherwise you need to use the brackets. 
@@ -2043,7 +1953,6 @@ function AI_A2G_DISPATCHER:SetSquadron(SquadronName, AirbaseName, TemplatePrefix
 ---       A2GDispatcher:SetSquadronBai( "Maykop", 900, 1200, 6000, 10000 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the BAI task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the BAI task can be executed.
@@ -2066,7 +1975,6 @@ function AI_A2G_DISPATCHER:SetSquadronBai(SquadronName, EngageMinSpeed, EngageMa
 ---       A2GDispatcher:SetSquadronBai( "Maykop", 900, 1200, 30, 100, "RADIO" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the BAI task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the BAI task can be executed.
@@ -2089,7 +1997,6 @@ function AI_A2G_DISPATCHER:SetSquadronBai2(SquadronName, EngageMinSpeed, EngageM
 ---       A2GDispatcher:SetSquadronBaiEngageLimit( "Mineralnye", 2 ) -- Engage maximum 2 groups with the enemy for BAI defense.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageLimit number The maximum amount of groups to engage with the enemy for this squadron.
 ---@return AI_A2G_DISPATCHER #
@@ -2108,7 +2015,6 @@ function AI_A2G_DISPATCHER:SetSquadronBaiEngageLimit(SquadronName, EngageLimit) 
 ---       A2GDispatcher:SetSquadronBaiPatrol( "Mineralnye", PatrolZoneEast, 4000, 10000, 500, 600, 800, 900 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param FloorAltitude number (optional, default = 1000m ) The minimum altitude at which the cap can be executed.
@@ -2134,7 +2040,6 @@ function AI_A2G_DISPATCHER:SetSquadronBaiPatrol(SquadronName, Zone, FloorAltitud
 ---       A2GDispatcher:SetSquadronBaiPatrol2( "Mineralnye", PatrolZoneEast, 500, 600, 4000, 10000, "BARO", 800, 900, 2000, 3000, "RADIO", )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param PatrolMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the cap can be executed.
@@ -2164,7 +2069,6 @@ function AI_A2G_DISPATCHER:SetSquadronBaiPatrol2(SquadronName, Zone, PatrolMinSp
 ---       A2GDispatcher:SetSquadronBaiPatrolInterval( "Mineralnye", 2, 30, 60, 1 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
 ---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
@@ -2187,7 +2091,6 @@ function AI_A2G_DISPATCHER:SetSquadronBaiPatrolInterval(SquadronName, PatrolLimi
 ---       A2GDispatcher:SetSquadronCas( "Maykop", 900, 1200, 6000, 10000 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the CAS task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the CAS task can be executed.
@@ -2210,7 +2113,6 @@ function AI_A2G_DISPATCHER:SetSquadronCas(SquadronName, EngageMinSpeed, EngageMa
 ---       A2GDispatcher:SetSquadronCas( "Maykop", 900, 1200, 30, 100, "RADIO" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the CAS task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the CAS task can be executed.
@@ -2233,7 +2135,6 @@ function AI_A2G_DISPATCHER:SetSquadronCas2(SquadronName, EngageMinSpeed, EngageM
 ---       A2GDispatcher:SetSquadronCasEngageLimit( "Mineralnye", 2 ) -- Engage maximum 2 groups with the enemy for CAS defense.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageLimit number The maximum amount of groups to engage with the enemy for this squadron.
 ---@return AI_A2G_DISPATCHER #
@@ -2252,7 +2153,6 @@ function AI_A2G_DISPATCHER:SetSquadronCasEngageLimit(SquadronName, EngageLimit) 
 ---       A2GDispatcher:SetSquadronCasPatrol( "Mineralnye", PatrolZoneEast, 4000, 10000, 500, 600, 800, 900 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param FloorAltitude number (optional, default = 1000m ) The minimum altitude at which the cap can be executed.
@@ -2278,7 +2178,6 @@ function AI_A2G_DISPATCHER:SetSquadronCasPatrol(SquadronName, Zone, FloorAltitud
 ---       A2GDispatcher:SetSquadronCasPatrol2( "Mineralnye", PatrolZoneEast, 500, 600, 4000, 10000, "BARO", 800, 900, 2000, 3000, "RADIO", )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param PatrolMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the cap can be executed.
@@ -2308,7 +2207,6 @@ function AI_A2G_DISPATCHER:SetSquadronCasPatrol2(SquadronName, Zone, PatrolMinSp
 ---       A2GDispatcher:SetSquadronCasPatrolInterval( "Mineralnye", 2, 30, 60, 1 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
 ---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
@@ -2334,7 +2232,6 @@ function AI_A2G_DISPATCHER:SetSquadronCasPatrolInterval(SquadronName, PatrolLimi
 ---       A2GDispatcher:SetSquadronEngageLimit( "Mineralnye", 2, "SEAD" ) -- Engage maximum 2 groups with the enemy for SEAD defense.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageLimit number The maximum amount of groups to engage with the enemy for this squadron.
 ---@param DefenseTaskType string Should contain "SEAD", "CAS" or "BAI".
@@ -2357,7 +2254,6 @@ function AI_A2G_DISPATCHER:SetSquadronEngageLimit(SquadronName, EngageLimit, Def
 ---  A2GDispatcher:SetSquadronEngageProbability( "SquadronName", 0.5 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param EngageProbability number The probability when the squadron will consider to engage the detected target. 
 ---@return AI_A2G_DISPATCHER #
@@ -2378,7 +2274,6 @@ function AI_A2G_DISPATCHER:SetSquadronEngageProbability(SquadronName, EngageProb
 ---  A2GDispatcher:SetSquadronRefuelThreshold( "SquadronName", 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_A2G_DISPATCHER #
@@ -2399,7 +2294,6 @@ function AI_A2G_DISPATCHER:SetSquadronFuelThreshold(SquadronName, FuelThreshold)
 ---  A2GDispatcher:SetSquadronGrouping( "SquadronName", 2 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Grouping number The level of grouping that will be applied for a Patrol from the Squadron.
 ---@return AI_A2G_DISPATCHER #
@@ -2425,7 +2319,6 @@ function AI_A2G_DISPATCHER:SetSquadronGrouping(SquadronName, Grouping) end
 ---  A2GDispatcher:SetSquadronLanding( "SquadronName", AI_A2G_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_A2G_DISPATCHER #
@@ -2445,7 +2338,6 @@ function AI_A2G_DISPATCHER:SetSquadronLanding(SquadronName, Landing) end
 ---  A2GDispatcher:SetSquadronLandingAtEngineShutdown( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
@@ -2464,7 +2356,6 @@ function AI_A2G_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
 ---  A2GDispatcher:SetSquadronLandingAtRunway( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
@@ -2483,7 +2374,6 @@ function AI_A2G_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
 ---  A2GDispatcher:SetSquadronLandingNearAirbase( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
@@ -2506,7 +2396,6 @@ function AI_A2G_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
 ---  A2GDispatcher:SetSquadronOverhead( "SquadronName", 1.5 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_A2G_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance A2G missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_A2G_DISPATCHER #
@@ -2530,7 +2419,6 @@ function AI_A2G_DISPATCHER:SetSquadronOverhead(SquadronName, Overhead) end
 ---       A2GDispatcher:SetSquadronPatrolInterval( "Mineralnye", 2, 30, 60, 1, "SEAD" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Note that each Patrol is a group, and can consist of 1 to 4 aircraft. The default is 1 Patrol group.
 ---@param LowInterval? number (optional) The minimum time boundary in seconds when a new Patrol will be spawned. The default is 180 seconds.
@@ -2543,7 +2431,6 @@ function AI_A2G_DISPATCHER:SetSquadronPatrolInterval(SquadronName, PatrolLimit, 
 ---Set the frequency of communication and the mode of communication for voice overs.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param RadioFrequency number The frequency of communication.
 ---@param RadioModulation number The modulation of communication.
@@ -2564,7 +2451,6 @@ function AI_A2G_DISPATCHER:SetSquadronRadioFrequency(SquadronName, RadioFrequenc
 ---       A2GDispatcher:SetSquadronSead( "Maykop", 900, 1200, 6000, 10000 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the SEAD task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the SEAD task can be executed.
@@ -2587,7 +2473,6 @@ function AI_A2G_DISPATCHER:SetSquadronSead(SquadronName, EngageMinSpeed, EngageM
 ---       A2GDispatcher:SetSquadronSead( "Maykop", 900, 1200, 30, 100, "RADIO" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the SEAD task can be executed.
 ---@param EngageMaxSpeed number (optional, default = 75% of max speed) The maximum speed at which the SEAD task can be executed.
@@ -2610,7 +2495,6 @@ function AI_A2G_DISPATCHER:SetSquadronSead2(SquadronName, EngageMinSpeed, Engage
 ---       A2GDispatcher:SetSquadronSeadEngageLimit( "Mineralnye", 2 ) -- Engage maximum 2 groups with the enemy for SEAD defense.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageLimit number The maximum amount of groups to engage with the enemy for this squadron.
 ---@return AI_A2G_DISPATCHER #
@@ -2629,7 +2513,6 @@ function AI_A2G_DISPATCHER:SetSquadronSeadEngageLimit(SquadronName, EngageLimit)
 ---       A2GDispatcher:SetSquadronSeadPatrol( "Mineralnye", PatrolZoneEast, 4000, 10000, 500, 600, 800, 900 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param FloorAltitude number (optional, default = 1000m ) The minimum altitude at which the cap can be executed.
@@ -2655,7 +2538,6 @@ function AI_A2G_DISPATCHER:SetSquadronSeadPatrol(SquadronName, Zone, FloorAltitu
 ---       A2GDispatcher:SetSquadronSeadPatrol2( "Mineralnye", PatrolZoneEast, 500, 600, 4000, 10000, "BARO", 800, 900, 2000, 3000, "RADIO", )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the Patrol will be executed.
 ---@param PatrolMinSpeed number (optional, default = 50% of max speed) The minimum speed at which the cap can be executed.
@@ -2685,7 +2567,6 @@ function AI_A2G_DISPATCHER:SetSquadronSeadPatrol2(SquadronName, Zone, PatrolMinS
 ---       A2GDispatcher:SetSquadronSeadPatrolInterval( "Mineralnye", 2, 30, 60, 1 )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Each Patrol group can consist of 1 to 4 aircraft. The default is 1 Patrol group.
 ---@param LowInterval? number (optional) The minimum time in seconds between new Patrols being spawned. The default is 180 seconds.
@@ -2717,7 +2598,6 @@ function AI_A2G_DISPATCHER:SetSquadronSeadPatrolInterval(SquadronName, PatrolLim
 ---  A2GDispatcher:SetSquadronTakeoff( "SquadronName", AI_A2G_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_A2G_DISPATCHER #
@@ -2737,7 +2617,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoff(SquadronName, Takeoff) end
 ---  A2GDispatcher:SetSquadronTakeoffFromParkingCold( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
@@ -2756,7 +2635,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
 ---  A2GDispatcher:SetSquadronTakeoffFromParkingHot( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
@@ -2775,7 +2653,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
 ---  A2GDispatcher:SetSquadronTakeoffFromRunway( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
@@ -2794,7 +2671,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
 ---  A2GDispatcher:SetSquadronTakeoffInAir( "SquadronName" )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude? number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
 ---@return AI_A2G_DISPATCHER #
@@ -2814,7 +2690,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffInAir(SquadronName, TakeoffAltitude
 ---  A2GDispatcher:SetSquadronTakeoffInAirAltitude( "SquadronName", 2000 ) -- This makes aircraft start at 2000 meters above ground level (AGL).
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude number The altitude in meters above ground level (AGL).
 ---@return AI_A2G_DISPATCHER #
@@ -2823,7 +2698,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffInAirAltitude(SquadronName, Takeoff
 
 ---
 ------
----@param self NOTYPE 
 ---@param SquadronName NOTYPE 
 ---@param TakeoffInterval NOTYPE 
 function AI_A2G_DISPATCHER:SetSquadronTakeoffInterval(SquadronName, TakeoffInterval) end
@@ -2845,7 +2719,6 @@ function AI_A2G_DISPATCHER:SetSquadronTakeoffInterval(SquadronName, TakeoffInter
 ---  A2GDispatcher:SetSquadronTanker( "SquadronName", "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_A2G_DISPATCHER #
@@ -2871,7 +2744,6 @@ function AI_A2G_DISPATCHER:SetSquadronTanker(SquadronName, TankerName) end
 ---  A2GDispatcher:SetTacticalDisplay( true )
 ---```
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param TacticalDisplay boolean Provide a value of **true** to display every 30 seconds a tactical overview.
 ---@return AI_A2G_DISPATCHER #
 function AI_A2G_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
@@ -2879,42 +2751,36 @@ function AI_A2G_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
 ---Shows the tactical display.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Detection NOTYPE 
 function AI_A2G_DISPATCHER:ShowTacticalDisplay(Detection) end
 
 ---Unlocks the DefenseItem from being defended.
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param DetectedItemIndex string The index of the detected item.
 function AI_A2G_DISPATCHER:Unlock(DetectedItemIndex) end
 
 ---Defend Asynchronous Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Delay number 
 function AI_A2G_DISPATCHER:__Defend(Delay) end
 
 ---Engage Asynchronous Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Delay number 
 function AI_A2G_DISPATCHER:__Engage(Delay) end
 
 ---Patrol Asynchronous Trigger for AI_A2G_DISPATCHER
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param Delay number 
 function AI_A2G_DISPATCHER:__Patrol(Delay) end
 
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -2930,7 +2796,6 @@ function AI_A2G_DISPATCHER:onafterDefend(From, Event, To, DetectedItem, Defender
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -2942,7 +2807,6 @@ function AI_A2G_DISPATCHER:onafterEngage(From, Event, To, AttackerDetection, Def
 
 ---
 ------
----@param self AI_A2G_DISPATCHER 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -2954,7 +2818,6 @@ function AI_A2G_DISPATCHER:onafterPatrol(From, Event, To, SquadronName, DefenseT
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

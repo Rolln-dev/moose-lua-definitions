@@ -180,7 +180,6 @@ STRATEGO = {}
 ---[USER] Add budget points.
 ---
 ------
----@param self STRATEGO 
 ---@param Number number of points to add.
 ---@return STRATEGO #self
 function STRATEGO:AddBudget(Number) end
@@ -189,7 +188,6 @@ function STRATEGO:AddBudget(Number) end
 ---Island hopping or to connect isolated networks. Use **after** STRATEGO has been started!
 ---
 ------
----@param self STRATEGO 
 ---@param Startpoint string Starting Point, e.g. AIRBASE.Syria.Hatay
 ---@param Endpoint string End Point, e.g. AIRBASE.Syria.H4
 ---@param Color? table (Optional) RGB color table {r, g, b}, e.g. {1,0,0} for red. Defaults to violet.
@@ -201,14 +199,12 @@ function STRATEGO:AddRoutesManually(Startpoint, Endpoint, Color, Linetype, Draw)
 ---[INTERNAL] Analyse airbase setups
 ---
 ------
----@param self STRATEGO 
 ---@return STRATEGO #self
 function STRATEGO:AnalyseBases() end
 
 ---[INTERNAL] Analyse POI setups
 ---
 ------
----@param self STRATEGO 
 ---@param Set NOTYPE 
 ---@param Weight NOTYPE 
 ---@param Key NOTYPE 
@@ -218,7 +214,6 @@ function STRATEGO:AnalysePOIs(Set, Weight, Key) end
 ---[INTERNAL] Analyse routes
 ---
 ------
----@param self STRATEGO 
 ---@param tgtrwys NOTYPE 
 ---@param factor NOTYPE 
 ---@param color NOTYPE 
@@ -229,7 +224,6 @@ function STRATEGO:AnalyseRoutes(tgtrwys, factor, color, linetype) end
 ---[INTERNAL] Analyse non-connected points.
 ---
 ------
----@param self STRATEGO 
 ---@param Color table RGB color to be used.
 ---@return STRATEGO #self
 function STRATEGO:AnalyseUnconnected(Color) end
@@ -237,21 +231,18 @@ function STRATEGO:AnalyseUnconnected(Color) end
 ---[USER] Find **one** affordable consolidation target.
 ---
 ------
----@param self STRATEGO 
 ---@return table #Target Table with #STRATEGO.Target data or nil if none found.
 function STRATEGO:FindAffordableConsolidationTarget() end
 
 ---[USER] Find **one** affordable strategic target.
 ---
 ------
----@param self STRATEGO 
 ---@return table #Target Table with #STRATEGO.Target data or nil if none found.
 function STRATEGO:FindAffordableStrategicTarget() end
 
 ---[USER] Get the next best consolidation target node with a lower BaseWeight.
 ---
 ------
----@param self STRATEGO 
 ---@param Startpoint string Name of start point.
 ---@param BaseWeight number Base weight of the node, i.e. the number of runways of an airbase or the weight of ports or POIs.
 ---@return number #ShortestDist Shortest distance found.
@@ -263,7 +254,6 @@ function STRATEGO:FindClosestConsolidationTarget(Startpoint, BaseWeight) end
 ---[USER] Get the next best strategic target node with same or higher Consolidated Weight.
 ---
 ------
----@param self STRATEGO 
 ---@param Startpoint string Name of start point.
 ---@param Weight number Consolidated Weight of the node, i.e. the calculated weight of the node based on number of runways, connections and a weight factor.
 ---@return number #ShortestDist Shortest distance found.
@@ -275,14 +265,12 @@ function STRATEGO:FindClosestStrategicTarget(Startpoint, Weight) end
 ---[USER] Get the next best consolidation target nodes in the network.
 ---
 ------
----@param self STRATEGO 
 ---@return table #of #STRATEGO.Target data points
 function STRATEGO:FindConsolidationTargets() end
 
 ---[USER] Get neighbor nodes of a named node.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string The name to search the neighbors for.
 ---@param Enemies? boolean (optional) If true, find only enemy neighbors.
 ---@param Friends? boolean (optional) If true, find only friendly or neutral neighbors.
@@ -294,7 +282,6 @@ function STRATEGO:FindNeighborNodes(Name, Enemies, Friends) end
 ---[USER] Find a route between two nodes.
 ---
 ------
----@param self STRATEGO 
 ---@param Start string The name of the start node.
 ---@param End string The name of the end node.
 ---@param Hops number Max iterations to find a route.
@@ -310,21 +297,18 @@ function STRATEGO:FindRoute(Start, End, Hops, Draw, Color, LineType, NoOptimize)
 ---[USER] Get the next best strategic target nodes in the network.
 ---
 ------
----@param self STRATEGO 
 ---@return table #of #STRATEGO.Target data points
 function STRATEGO:FindStrategicTargets() end
 
 ---[USER] Get budget points.
 ---
 ------
----@param self STRATEGO 
 ---@return number #budget
 function STRATEGO:GetBudget() end
 
 ---[USER] Get a list of the nodes with the highest weight.
 ---
 ------
----@param self STRATEGO 
 ---@param Coalition? number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
 ---@return table #Table of nodes.
 ---@return number #Weight The consolidated weight associated with the nodes.
@@ -335,7 +319,6 @@ function STRATEGO:GetHighestWeightNodes(Coalition) end
 ---[INTERNAL] Get an OpsZone from a Zone object.
 ---
 ------
----@param self STRATEGO 
 ---@param Zone ZONE 
 ---@param Coalition number 
 ---@return OPSZONE #OpsZone
@@ -344,7 +327,6 @@ function STRATEGO:GetNewOpsZone(Zone, Coalition) end
 ---[USER] Get a list of the nodes a weight less than the given parameter.
 ---
 ------
----@param self STRATEGO 
 ---@param Weight number Weight - nodes need to have less than this weight.
 ---@param Coalition? number (Optional) Find for this coalition only. E.g. coalition.side.BLUE.
 ---@return table #Table of nodes.
@@ -354,7 +336,6 @@ function STRATEGO:GetNextHighestWeightNodes(Weight, Coalition) end
 ---[USER] Get the base weight of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string The name to look for.
 ---@return number #Weight The base weight or 0 if not found.
 function STRATEGO:GetNodeBaseWeight(Name) end
@@ -362,7 +343,6 @@ function STRATEGO:GetNodeBaseWeight(Name) end
 ---[USER] Get the COALITION of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return number #Coalition The coalition.
@@ -371,7 +351,6 @@ function STRATEGO:GetNodeCoalition(The, Name) end
 ---[USER] Get the COORDINATE of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return COORDINATE #Coordinate The Coordinate of the node or nil if not found.
@@ -380,7 +359,6 @@ function STRATEGO:GetNodeCoordinate(The, Name) end
 ---[USER] Get the OPSZONE of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return OPSZONE #OpsZone The OpsZone of the node or nil if not found.
@@ -389,7 +367,6 @@ function STRATEGO:GetNodeOpsZone(The, Name) end
 ---[USER] Get the TYPE of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return string #Type Type of the node, e.g. STRATEGO.Type.AIRBASE or nil if not found.
@@ -398,7 +375,6 @@ function STRATEGO:GetNodeType(The, Name) end
 ---[USER] Get the aggregated weight of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string The name to look for.
 ---@return number #Weight The weight or 0 if not found.
 function STRATEGO:GetNodeWeight(Name) end
@@ -406,7 +382,6 @@ function STRATEGO:GetNodeWeight(Name) end
 ---[USER] Get the ZONE of a node by its name.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return ZONE #Zone The Zone of the node or nil if not found.
@@ -415,7 +390,6 @@ function STRATEGO:GetNodeZone(The, Name) end
 ---[USER] Get available connecting nodes from one start node
 ---
 ------
----@param self STRATEGO 
 ---@param StartPoint string The starting name
 ---@return boolean #found
 ---@return table #Nodes 
@@ -424,7 +398,6 @@ function STRATEGO:GetRoutesFromNode(StartPoint) end
 ---[INTERNAL] Get nice route text
 ---
 ------
----@param self STRATEGO 
 ---@param StartPoint NOTYPE 
 ---@param EndPoint NOTYPE 
 ---@return STRATEGO #self
@@ -433,7 +406,6 @@ function STRATEGO:GetToFrom(StartPoint, EndPoint) end
 ---[USER] Check if the TYPE of a node is AIRBASE.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return boolean #Outcome
@@ -442,7 +414,6 @@ function STRATEGO:IsAirbase(The, Name) end
 ---[USER] Check if the TYPE of a node is FARP.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return boolean #Outcome
@@ -451,7 +422,6 @@ function STRATEGO:IsFARP(The, Name) end
 ---[USER] Check if the TYPE of a node is POI.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return boolean #Outcome
@@ -460,7 +430,6 @@ function STRATEGO:IsPOI(The, Name) end
 ---[USER] Check if the TYPE of a node is PORT.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return boolean #Outcome
@@ -469,7 +438,6 @@ function STRATEGO:IsPort(The, Name) end
 ---[USER] Check if the TYPE of a node is SHIP.
 ---
 ------
----@param self STRATEGO 
 ---@param The string name to look for.
 ---@param Name NOTYPE 
 ---@return boolean #Outcome
@@ -478,7 +446,6 @@ function STRATEGO:IsShip(The, Name) end
 ---[USER] Create a new STRATEGO object and start it up.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string Name of the Adviser.
 ---@param Coalition number Coalition, e.g. coalition.side.BLUE.
 ---@param MaxDist number Maximum distance of a single route in kilometers, defaults to 150.
@@ -489,7 +456,6 @@ function STRATEGO:New(Name, Coalition, MaxDist) end
 ---A node changed coalition.
 ---
 ------
----@param self STRATEGO 
 ---@param From string State.
 ---@param Event string Trigger.
 ---@param To string State.
@@ -502,7 +468,6 @@ function STRATEGO:OnAfterNodeEvent(From, Event, To, OpsZone, Coalition) end
 ---the underlying OpsZone).
 ---
 ------
----@param self STRATEGO 
 ---@param CaptureUnits number Number of units needed, defaults to three.
 ---@param CaptureThreatlevel number Threat level needed, can be 0..10, defaults to one.
 ---@param CaptureCategories table Table of object categories which can capture a node, defaults to `{Object.Category.UNIT}`.
@@ -512,7 +477,6 @@ function STRATEGO:SetCaptureOptions(CaptureUnits, CaptureThreatlevel, CaptureCat
 ---[USER] Set debugging.
 ---
 ------
----@param self STRATEGO 
 ---@param Debug boolean If true, switch on debugging.
 ---@param DrawZones boolean If true, draw the OpsZones on the F10 map.
 ---@param MarkZones boolean if true, mark the OpsZones on the F10 map (with further information).
@@ -522,7 +486,6 @@ function STRATEGO:SetDebug(Debug, DrawZones, MarkZones) end
 ---how many points it is cheaper to decide for a neutral vs an enemy node when taking decisions.
 ---
 ------
----@param self STRATEGO 
 ---@param NeutralBenefit number Pointsm defaults to 100.
 ---@return STRATEGO #self
 function STRATEGO:SetNeutralBenefit(NeutralBenefit) end
@@ -530,7 +493,6 @@ function STRATEGO:SetNeutralBenefit(NeutralBenefit) end
 ---[USER] Set the base weight of a single node found by its name manually.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string The name to look for.
 ---@param Weight number The weight to be set.
 ---@return boolean #success
@@ -539,7 +501,6 @@ function STRATEGO:SetNodeBaseWeight(Name, Weight) end
 ---[USER] Set the aggregated weight of a single node found by its name manually.
 ---
 ------
----@param self STRATEGO 
 ---@param Name string The name to look for.
 ---@param Weight number The weight to be set.
 ---@return boolean #success
@@ -548,7 +509,6 @@ function STRATEGO:SetNodeWeight(Name, Weight) end
 ---[USER] Restrict Stratego to analyse this zone only.
 ---
 ------
----@param self STRATEGO 
 ---@param Zone ZONE The Zone to restrict Stratego to, can be any kind of ZONE Object.
 ---@return STRATEGO #self
 function STRATEGO:SetStrategoZone(Zone) end
@@ -556,7 +516,6 @@ function STRATEGO:SetStrategoZone(Zone) end
 ---[USER] Set up usage of budget and set an initial budget in points.
 ---
 ------
----@param self STRATEGO 
 ---@param Usebudget boolean If true, use budget for advisory calculations.
 ---@param StartBudget number Initial budget to be used, defaults to 500.
 function STRATEGO:SetUsingBudget(Usebudget, StartBudget) end
@@ -564,7 +523,6 @@ function STRATEGO:SetUsingBudget(Usebudget, StartBudget) end
 ---[USER] Set weights for nodes and routes to determine their importance.
 ---
 ------
----@param self STRATEGO 
 ---@param MaxRunways number Set the maximum number of runways the big (equals strategic) airbases on the map have. Defaults to 3. The weight of an airbase node hence equals the number of runways.
 ---@param PortWeight number Set what weight a port node has. Defaults to 3.
 ---@param POIWeight number Set what weight a POI node has. Defaults to 1.
@@ -576,20 +534,17 @@ function STRATEGO:SetWeights(MaxRunways, PortWeight, POIWeight, RouteFactor) end
 ---Starts the STRATEGO. Initializes parameters and starts event handlers.
 ---
 ------
----@param self STRATEGO 
 function STRATEGO:Start() end
 
 ---Triggers the FSM event "Stop".
 ---Stops the STRATEGO and all its event handlers.
 ---
 ------
----@param self STRATEGO 
 function STRATEGO:Stop() end
 
 ---[USER] Subtract budget points.
 ---
 ------
----@param self STRATEGO 
 ---@param Number number of points to subtract.
 ---@return STRATEGO #self
 function STRATEGO:SubtractBudget(Number) end
@@ -597,14 +552,12 @@ function STRATEGO:SubtractBudget(Number) end
 ---[INTERNAL] Update node coalitions
 ---
 ------
----@param self STRATEGO 
 ---@return STRATEGO #self
 function STRATEGO:UpdateNodeCoalitions() end
 
 ---[INTERNAL] Internal helper function to check for islands, aka Floodtest
 ---
 ------
----@param self STRATEGO 
 ---@param Start string Name of the start node
 ---@param ABTable? table (Optional) #table of node names to check.
 ---@return STRATEGO #self
@@ -613,7 +566,6 @@ function STRATEGO:_FloodFill(Start, ABTable) end
 ---[INTERNAL] Internal helper function to check for islands, aka Floodtest
 ---
 ------
----@param self STRATEGO 
 ---@param next string Name of the start node
 ---@param filled table #table of visited nodes
 ---@param unfilled table #table if unvisited nodes
@@ -623,7 +575,6 @@ function STRATEGO:_FloodNext(next, filled, unfilled) end
 ---[INTERNAL] Internal helper function to check for islands, aka Floodtest
 ---
 ------
----@param self STRATEGO 
 ---@param connect boolen If true, connect the two resulting islands at the shortest distance if necessary
 ---@param draw boolen If true, draw outer vertices of found node networks
 ---@return boolean #Connected If true, all nodes are in one network
@@ -634,7 +585,6 @@ function STRATEGO:_FloodTest(connect, draw) end
 ---[INTERNAL] Route Finding - Find the next hop towards an end node from a start node
 ---
 ------
----@param self STRATEGO 
 ---@param Start string The name of the start node.
 ---@param End string The name of the end node.
 ---@param InRoute table Table of node names making up the route so far.
@@ -645,7 +595,6 @@ function STRATEGO:_GetNextClosest(Start, End, InRoute) end
 ---Starts the STRATEGO. Initializes parameters and starts event handlers.
 ---
 ------
----@param self STRATEGO 
 ---@param delay number Delay in seconds.
 function STRATEGO:__Start(delay) end
 
@@ -653,14 +602,12 @@ function STRATEGO:__Start(delay) end
 ---Stops the STRATEGO and all its event handlers.
 ---
 ------
----@param self STRATEGO 
 ---@param delay number Delay in seconds.
 function STRATEGO:__Stop(delay) end
 
 ---[INTERNAL] FSM function for initial setup and getting ready.
 ---
 ------
----@param self STRATEGO 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -671,7 +618,6 @@ function STRATEGO:onafterStart(From, Event, To) end
 ---[INTERNAL] Update knot association
 ---
 ------
----@param self STRATEGO 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

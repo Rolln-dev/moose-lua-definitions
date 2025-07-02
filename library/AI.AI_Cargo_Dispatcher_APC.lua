@@ -151,7 +151,6 @@ AI_CARGO_DISPATCHER_APC = {}
 ---AI cargo
 ---
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param APC GROUP The APC carrier.
 ---@param CargoSet SET_CARGO Cargo set.
 ---@return AI_CARGO_DISPATCHER_APC #AI cargo APC object.
@@ -174,7 +173,6 @@ function AI_CARGO_DISPATCHER_APC:AICargo(APC, CargoSet) end
 ---     AICargoDispatcherAPC:Start()
 ---```
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param APCSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of vehicles, trucks, APCs that will transport the cargo.
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
 ---@param PickupZoneSet? SET_ZONE (optional) The set of pickup zones, which are used to where the cargo can be picked up by the APCs. If nil, then cargo can be picked up everywhere. 
@@ -198,7 +196,6 @@ function AI_CARGO_DISPATCHER_APC:New(APCSet, CargoSet, PickupZoneSet, DeployZone
 ---AICargoDispatcher:SetCombatRadius( 0 )
 ---```
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param CombatRadius number Provide the combat radius to defend the carrier by unboarding the cargo when enemies are nearby.  When the combat radius is 0 (default), no defense will happen of the carrier.  When the combat radius is not provided, no defense will happen!
 ---@return AI_CARGO_DISPATCHER_APC #
 function AI_CARGO_DISPATCHER_APC:SetCombatRadius(CombatRadius) end
@@ -206,7 +203,6 @@ function AI_CARGO_DISPATCHER_APC:SetCombatRadius(CombatRadius) end
 ---Set whether the carrier will *not* use roads to *deploy* the cargo.
 ---
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param Offroad boolean If true, carrier will not use roads.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_DISPATCHER_APC #self
@@ -215,7 +211,6 @@ function AI_CARGO_DISPATCHER_APC:SetDeployOffRoad(Offroad, Formation) end
 ---Set whether the carrier will *not* use roads to *pickup* and *deploy* the cargo.
 ---
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param Offroad boolean If true, carrier will not use roads.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_DISPATCHER_APC #self
@@ -224,7 +219,6 @@ function AI_CARGO_DISPATCHER_APC:SetOffRoad(Offroad, Formation) end
 ---Set whether the carrier will *not* use roads to *pickup* the cargo.
 ---
 ------
----@param self AI_CARGO_DISPATCHER_APC 
 ---@param Offroad boolean If true, carrier will not use roads.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_DISPATCHER_APC #self

@@ -94,24 +94,21 @@ SET_AIRBASE = {}
 ---Add an AIRBASE object to SET_AIRBASE.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param airbase AIRBASE Airbase that should be added to the set.
----@return  #self
+---@return NOTYPE #self
 function SET_AIRBASE:AddAirbase(airbase) end
 
 ---Add AIRBASEs to SET_AIRBASE.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param AddAirbaseNames string A single name or an array of AIRBASE names.
----@return  #self
+---@return NOTYPE #self
 function SET_AIRBASE:AddAirbasesByName(AddAirbaseNames) end
 
 ---Handles the Database to check on an event (birth) that the Object was added in the Database.
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Event EVENTDATA Event data.
 ---@return string #The name of the AIRBASE.
 ---@return AIRBASE #The AIRBASE object.
@@ -121,7 +118,6 @@ function SET_AIRBASE:AddInDatabase(Event) end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Categories string Can take the following values: "airdrome", "helipad", "ship".
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:FilterCategories(Categories) end
@@ -130,7 +126,6 @@ function SET_AIRBASE:FilterCategories(Categories) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:FilterCoalitions(Coalitions) end
@@ -138,14 +133,12 @@ function SET_AIRBASE:FilterCoalitions(Coalitions) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_AIRBASE 
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:FilterStart() end
 
 ---Builds a set of airbase objects in zones.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:FilterZones(Zones) end
@@ -153,7 +146,6 @@ function SET_AIRBASE:FilterZones(Zones) end
 ---Finds a Airbase based on the Airbase Name.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param AirbaseName string 
 ---@return AIRBASE #The found Airbase.
 function SET_AIRBASE:FindAirbase(AirbaseName) end
@@ -161,7 +153,6 @@ function SET_AIRBASE:FindAirbase(AirbaseName) end
 ---Finds an Airbase in range of a coordinate.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Coordinate COORDINATE 
 ---@param Range number 
 ---@return AIRBASE #The found Airbase.
@@ -171,7 +162,6 @@ function SET_AIRBASE:FindAirbaseInRange(Coordinate, Range) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Event EVENTDATA Event data.
 ---@return string #The name of the AIRBASE.
 ---@return AIRBASE #The AIRBASE object.
@@ -180,7 +170,6 @@ function SET_AIRBASE:FindInDatabase(Event) end
 ---Iterate the SET_AIRBASE while identifying the nearest Wrapper.Airbase#AIRBASE from a Core.Point#COORDINATE.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param Coordinate COORDINATE A @{Core.Point#COORDINATE} object from where to evaluate the closest @{Wrapper.Airbase#AIRBASE}.
 ---@return AIRBASE #The closest @{Wrapper.Airbase#AIRBASE}.
 function SET_AIRBASE:FindNearestAirbaseFromPointVec2(Coordinate) end
@@ -188,7 +177,6 @@ function SET_AIRBASE:FindNearestAirbaseFromPointVec2(Coordinate) end
 ---Iterate the SET_AIRBASE and call an iterator function for each AIRBASE, providing the AIRBASE and optional parameters.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param IteratorFunction function The function that will be called when there is an alive AIRBASE in the SET_AIRBASE. The function needs to accept a AIRBASE parameter.
 ---@param ... NOTYPE 
 ---@return SET_AIRBASE #self
@@ -197,14 +185,12 @@ function SET_AIRBASE:ForEachAirbase(IteratorFunction, ...) end
 ---Finds a random Airbase in the set.
 ---
 ------
----@param self SET_AIRBASE 
 ---@return AIRBASE #The found Airbase.
 function SET_AIRBASE:GetRandomAirbase() end
 
 
 ---
 ------
----@param self SET_AIRBASE 
 ---@param MAirbase AIRBASE 
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:IsIncludeObject(MAirbase) end
@@ -219,30 +205,26 @@ function SET_AIRBASE:IsIncludeObject(MAirbase) end
 ---DatabaseSet = SET_AIRBASE:New()
 ---```
 ------
----@param self SET_AIRBASE 
 ---@return SET_AIRBASE #self
 function SET_AIRBASE:New() end
 
 ---Base capturing event.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param EventData EVENT 
 function SET_AIRBASE:OnEventBaseCaptured(EventData) end
 
 ---Dead event.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param EventData EVENT 
 function SET_AIRBASE:OnEventDead(EventData) end
 
 ---Remove AIRBASEs from SET_AIRBASE.
 ---
 ------
----@param self SET_AIRBASE 
 ---@param RemoveAirbaseNames AIRBASE A single name or an array of AIRBASE names.
----@return  #self
+---@return NOTYPE #self
 function SET_AIRBASE:RemoveAirbasesByName(RemoveAirbaseNames) end
 
 
@@ -272,7 +254,6 @@ SET_BASE = {}
 ---Adds a Core.Base#BASE object in the Core.Set#SET_BASE, using a given ObjectName as the index.
 ---
 ------
----@param self SET_BASE 
 ---@param ObjectName string The name of the object.
 ---@param Object BASE The object itself.
 ---@return BASE #The added BASE Object.
@@ -281,7 +262,6 @@ function SET_BASE:Add(ObjectName, Object) end
 ---Adds a Core.Base#BASE object in the Core.Set#SET_BASE, using the Object Name as the index.
 ---
 ------
----@param self SET_BASE 
 ---@param Object OBJECT 
 ---@return BASE #The added BASE Object.
 function SET_BASE:AddObject(Object) end
@@ -289,7 +269,6 @@ function SET_BASE:AddObject(Object) end
 ---Add a SET to this set.
 ---
 ------
----@param self SET_BASE 
 ---@param SetToAdd SET_BASE Set to add.
 ---@return SET_BASE #self
 function SET_BASE:AddSet(SetToAdd) end
@@ -297,7 +276,6 @@ function SET_BASE:AddSet(SetToAdd) end
 ---Clear the Objects in the Set.
 ---
 ------
----@param self SET_BASE 
 ---@param TriggerEvent boolean If `true`, an event remove is triggered for each group that is removed from the set.
 ---@return SET_BASE #self
 function SET_BASE:Clear(TriggerEvent) end
@@ -305,7 +283,6 @@ function SET_BASE:Clear(TriggerEvent) end
 ---Compare two sets.
 ---
 ------
----@param self SET_BASE 
 ---@param SetA SET_BASE First set.
 ---@param SetB SET_BASE Set to be merged into first set.
 ---@return SET_BASE #The set of objects that are included in SetA and SetB.
@@ -314,7 +291,6 @@ function SET_BASE:CompareSets(SetA, SetB) end
 ---Retrieves the amount of objects in the Core.Set#SET_BASE and derived classes.
 ---
 ------
----@param self SET_BASE 
 ---@return number #Count
 function SET_BASE:Count() end
 
@@ -322,28 +298,24 @@ function SET_BASE:Count() end
 ---You still need to apply :FilterOnce()
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:FilterClear() end
 
 ---Starts the filtering of the Crash events for the collection.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:FilterCrashes() end
 
 ---Starts the filtering of the Dead events for the collection.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:FilterDeads() end
 
 ---[Internal] Add a functional filter
 ---
 ------
----@param self SET_BASE 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a CONTROLLABLE object as first argument.
 ---@param ... NOTYPE Condition function arguments, if any.
 ---@return boolean #If true, at least one condition is true
@@ -352,14 +324,12 @@ function SET_BASE:FilterFunction(ConditionFunction, ...) end
 ---Filters for the defined collection.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:FilterOnce() end
 
 ---Stops the filtering for the defined collection.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:FilterStop() end
 
@@ -372,7 +342,6 @@ function SET_BASE:FilterStop() end
 ---         myset:FindNearestObjectFromPointVec2( ZONE:New("Test Zone"):GetCoordinate() )
 ---```
 ------
----@param self SET_BASE 
 ---@param Coordinate COORDINATE A @{Core.Point#COORDINATE} object (but **not** a simple DCS#Vec2!) from where to evaluate the closest object in the set.
 ---@return BASE #The closest object.
 function SET_BASE:FindNearestObjectFromPointVec2(Coordinate) end
@@ -381,7 +350,6 @@ function SET_BASE:FindNearestObjectFromPointVec2(Coordinate) end
 ---(for debugging reasons).
 ---
 ------
----@param self SET_BASE 
 ---@param MasterObject? BASE (Optional) The master object as a reference.
 ---@return string #A string with the names of the objects.
 function SET_BASE:Flush(MasterObject) end
@@ -389,7 +357,6 @@ function SET_BASE:Flush(MasterObject) end
 ---Iterate the SET_BASE and derived classes and call an iterator function for the given SET_BASE, providing the Object for each element within the set and optional parameters.
 ---
 ------
----@param self SET_BASE 
 ---@param IteratorFunction function The function that will be called.
 ---@param arg table Arguments of the IteratorFunction.
 ---@param Set? SET_BASE (Optional) The set to use. Default self:GetSet().
@@ -401,7 +368,6 @@ function SET_BASE:ForEach(IteratorFunction, arg, Set, Function, FunctionArgument
 ---Iterate the SET_BASE and derived classes and call an iterator function for the given SET_BASE, providing the Object for each element within the set and optional parameters.
 ---
 ------
----@param self SET_BASE 
 ---@param IteratorFunction function The function that will be called.
 ---@param arg NOTYPE 
 ---@param Set NOTYPE 
@@ -413,7 +379,6 @@ function SET_BASE:ForSome(IteratorFunction, arg, Set, Function, FunctionArgument
 ---Gets a Core.Base#BASE object from the Core.Set#SET_BASE and derived classes, based on the Object Name.
 ---
 ------
----@param self SET_BASE 
 ---@param ObjectName string 
 ---@return BASE #
 function SET_BASE:Get(ObjectName) end
@@ -421,28 +386,24 @@ function SET_BASE:Get(ObjectName) end
 ---Gets the first object from the Core.Set#SET_BASE and derived classes.
 ---
 ------
----@param self SET_BASE 
 ---@return BASE #
 function SET_BASE:GetFirst() end
 
 ---Gets the last object from the Core.Set#SET_BASE and derived classes.
 ---
 ------
----@param self SET_BASE 
 ---@return BASE #
 function SET_BASE:GetLast() end
 
 ---Gets a string with all the object names.
 ---
 ------
----@param self SET_BASE 
 ---@return string #A string with the names of the objects.
 function SET_BASE:GetObjectNames() end
 
 ---Gets a random object from the Core.Set#SET_BASE and derived classes.
 ---
 ------
----@param self SET_BASE 
 ---@return BASE #or nil if none found or the SET is empty!
 function SET_BASE:GetRandom() end
 
@@ -450,21 +411,18 @@ function SET_BASE:GetRandom() end
 ---A bit slower than #SET_BASE.GetRandom() but tries to ensure you get an object back if the SET is not empty.
 ---
 ------
----@param self SET_BASE 
 ---@return BASE #or nil if  the SET is empty!
 function SET_BASE:GetRandomSurely() end
 
 ---Gets the Set.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:GetSet() end
 
 ---Get the *complement* of two sets.
 ---
 ------
----@param self SET_BASE 
 ---@param SetB SET_BASE Set other set, called *B*.
 ---@return SET_BASE #The set of objects that are in set *B* but **not** in this set *A*.
 function SET_BASE:GetSetComplement(SetB) end
@@ -472,7 +430,6 @@ function SET_BASE:GetSetComplement(SetB) end
 ---Get the *intersection* of this set, called *A*, and another set.
 ---
 ------
----@param self SET_BASE 
 ---@param SetB SET_BASE Set other set, called *B*.
 ---@return SET_BASE #A set of objects that is included in set *A* **and** in set *B*.
 function SET_BASE:GetSetIntersection(SetB) end
@@ -480,21 +437,18 @@ function SET_BASE:GetSetIntersection(SetB) end
 ---Gets a list of the Names of the Objects in the Set.
 ---
 ------
----@param self SET_BASE 
 ---@return table #Table of names.
 function SET_BASE:GetSetNames() end
 
 ---Returns a table of the Objects in the Set.
 ---
 ------
----@param self SET_BASE 
 ---@return table #Table of objects.
 function SET_BASE:GetSetObjects() end
 
 ---Get the *union* of two sets.
 ---
 ------
----@param self SET_BASE 
 ---@param SetB SET_BASE Set *B*.
 ---@return SET_BASE #The union set, i.e. contains objects that are in set *A* **or** in set *B*.
 function SET_BASE:GetSetUnion(SetB) end
@@ -502,21 +456,18 @@ function SET_BASE:GetSetUnion(SetB) end
 ---Get the SET iterator **"limit"**.
 ---
 ------
----@param self SET_BASE 
 ---@return number #Defines how many objects are evaluated of the set as part of the Some iterators.
 function SET_BASE:GetSomeIteratorLimit() end
 
 ---Get max threat level of all objects in the SET.
 ---
 ------
----@param self SET_BASE 
 ---@return number #Max threat level found.
 function SET_BASE:GetThreatLevelMax() end
 
 ---Decides whether an object is in the SET
 ---
 ------
----@param self SET_BASE 
 ---@param Object table 
 ---@return boolean #`true` if object is in set and `false` otherwise.
 function SET_BASE:IsInSet(Object) end
@@ -524,7 +475,6 @@ function SET_BASE:IsInSet(Object) end
 ---Decides whether to include the Object.
 ---
 ------
----@param self SET_BASE 
 ---@param Object table 
 ---@return SET_BASE #self
 function SET_BASE:IsIncludeObject(Object) end
@@ -532,7 +482,6 @@ function SET_BASE:IsIncludeObject(Object) end
 ---Decides whether an object is **not** in the SET
 ---
 ------
----@param self SET_BASE 
 ---@param Object table 
 ---@return SET_BASE #self
 function SET_BASE:IsNotInSet(Object) end
@@ -547,7 +496,6 @@ function SET_BASE:IsNotInSet(Object) end
 ---DBObject = SET_BASE:New()
 ---```
 ------
----@param self SET_BASE 
 ---@param Database NOTYPE 
 ---@return SET_BASE #
 function SET_BASE:New(Database) end
@@ -555,7 +503,6 @@ function SET_BASE:New(Database) end
 ---Added Handler OnAfter for SET_BASE
 ---
 ------
----@param self SET_BASE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -566,7 +513,6 @@ function SET_BASE:OnAfterAdded(From, Event, To, ObjectName, Object) end
 ---Removed Handler OnAfter for SET_BASE
 ---
 ------
----@param self SET_BASE 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -577,7 +523,6 @@ function SET_BASE:OnAfterRemoved(From, Event, To, ObjectName, Object) end
 ---Removes a Core.Base#BASE object from the Core.Set#SET_BASE and derived classes, based on the Object Name.
 ---
 ------
----@param self SET_BASE 
 ---@param ObjectName string 
 ---@param NoTriggerEvent? boolean (Optional) When `true`, the :Remove() method will not trigger a **Removed** event.
 function SET_BASE:Remove(ObjectName, NoTriggerEvent) end
@@ -585,7 +530,6 @@ function SET_BASE:Remove(ObjectName, NoTriggerEvent) end
 ---Copies the Filter criteria from a given Set (for rebuilding a new Set based on an existing Set).
 ---
 ------
----@param self SET_BASE 
 ---@param BaseSet SET_BASE 
 ---@return SET_BASE #
 function SET_BASE:SetDatabase(BaseSet) end
@@ -593,7 +537,6 @@ function SET_BASE:SetDatabase(BaseSet) end
 ---Define the SET iterator **"limit"**.
 ---
 ------
----@param self SET_BASE 
 ---@param Limit number Defines how many objects are evaluated of the set as part of the Some iterators. The default is 1.
 ---@return SET_BASE #self
 function SET_BASE:SetSomeIteratorLimit(Limit) end
@@ -601,14 +544,12 @@ function SET_BASE:SetSomeIteratorLimit(Limit) end
 ---Sort the set by name.
 ---
 ------
----@param self SET_BASE 
 ---@return BASE #The added BASE Object.
 function SET_BASE:SortByName() end
 
 ---[Internal] Check if the condition functions returns true.
 ---
 ------
----@param self SET_BASE 
 ---@param Object CONTROLLABLE The object to filter for
 ---@return boolean #If true, if **all** conditions are true
 function SET_BASE:_EvalFilterFunctions(Object) end
@@ -616,28 +557,24 @@ function SET_BASE:_EvalFilterFunctions(Object) end
 ---Handles the OnBirth event for the Set.
 ---
 ------
----@param self SET_BASE 
 ---@param Event EVENTDATA 
 function SET_BASE:_EventOnBirth(Event) end
 
 ---Handles the OnDead or OnCrash event for alive units set.
 ---
 ------
----@param self SET_BASE 
 ---@param Event EVENTDATA 
 function SET_BASE:_EventOnDeadOrCrash(Event) end
 
 ---Starts the filtering for the defined collection.
 ---
 ------
----@param self SET_BASE 
 ---@return SET_BASE #self
 function SET_BASE:_FilterStart() end
 
 ---Finds an Core.Base#BASE object based on the object Name.
 ---
 ------
----@param self SET_BASE 
 ---@param ObjectName string 
 ---@return BASE #The Object found.
 function SET_BASE:_Find(ObjectName) end
@@ -696,7 +633,6 @@ SET_CARGO = {}
 ---(R2.1) Add CARGO to SET_CARGO.
 ---
 ------
----@param self SET_CARGO 
 ---@param Cargo CARGO A single cargo.
 ---@return SET_CARGO #self
 function SET_CARGO:AddCargo(Cargo) end
@@ -704,7 +640,6 @@ function SET_CARGO:AddCargo(Cargo) end
 ---(R2.1) Add CARGOs to SET_CARGO.
 ---
 ------
----@param self SET_CARGO 
 ---@param AddCargoNames string A single name or an array of CARGO names.
 ---@return SET_CARGO #self
 function SET_CARGO:AddCargosByName(AddCargoNames) end
@@ -713,7 +648,6 @@ function SET_CARGO:AddCargosByName(AddCargoNames) end
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_CARGO 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CARGO
 ---@return table #The CARGO
@@ -723,7 +657,6 @@ function SET_CARGO:AddInDatabase(Event) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_CARGO 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_CARGO #self
 function SET_CARGO:FilterCoalitions(Coalitions) end
@@ -732,7 +665,6 @@ function SET_CARGO:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_CARGO 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_CARGO #self
 function SET_CARGO:FilterCountries(Countries) end
@@ -741,7 +673,6 @@ function SET_CARGO:FilterCountries(Countries) end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all cargos that **contain** the string.
 ---
 ------
----@param self SET_CARGO 
 ---@param Prefixes string The string pattern(s) that need to be in the cargo name. Can also be passed as a `#table` of strings.
 ---@return SET_CARGO #self
 function SET_CARGO:FilterPrefixes(Prefixes) end
@@ -749,14 +680,12 @@ function SET_CARGO:FilterPrefixes(Prefixes) end
 ---(R2.1) Starts the filtering.
 ---
 ------
----@param self SET_CARGO 
 ---@return SET_CARGO #self
 function SET_CARGO:FilterStart() end
 
 ---Stops the filtering for the defined collection.
 ---
 ------
----@param self SET_CARGO 
 ---@return SET_CARGO #self
 function SET_CARGO:FilterStop() end
 
@@ -764,7 +693,6 @@ function SET_CARGO:FilterStop() end
 ---Possible current types are those types known within DCS world.
 ---
 ------
----@param self SET_CARGO 
 ---@param Types string Can take those type strings known within DCS world.
 ---@return SET_CARGO #self
 function SET_CARGO:FilterTypes(Types) end
@@ -772,7 +700,6 @@ function SET_CARGO:FilterTypes(Types) end
 ---(R2.1) Finds a Cargo based on the Cargo Name.
 ---
 ------
----@param self SET_CARGO 
 ---@param CargoName string 
 ---@return CARGO #The found Cargo.
 function SET_CARGO:FindCargo(CargoName) end
@@ -781,7 +708,6 @@ function SET_CARGO:FindCargo(CargoName) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_CARGO 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CARGO
 ---@return table #The CARGO
@@ -790,7 +716,6 @@ function SET_CARGO:FindInDatabase(Event) end
 ---(R2.1) Iterate the SET_CARGO while identifying the nearest Cargo.Cargo#CARGO from a Core.Point#COORDINATE.
 ---
 ------
----@param self SET_CARGO 
 ---@param Coordinate COORDINATE A @{Core.Point#COORDINATE} object from where to evaluate the closest @{Cargo.Cargo#CARGO}.
 ---@return CARGO #The closest @{Cargo.Cargo#CARGO}.
 function SET_CARGO:FindNearestCargoFromPointVec2(Coordinate) end
@@ -798,49 +723,42 @@ function SET_CARGO:FindNearestCargoFromPointVec2(Coordinate) end
 ---Iterate the SET_CARGO while identifying the first Cargo.Cargo#CARGO that is Deployed.
 ---
 ------
----@param self SET_CARGO 
 ---@return CARGO #The first @{Cargo.Cargo#CARGO}.
 function SET_CARGO:FirstCargoDeployed() end
 
 ---Iterate the SET_CARGO while identifying the first Cargo.Cargo#CARGO that is Loaded.
 ---
 ------
----@param self SET_CARGO 
 ---@return CARGO #The first @{Cargo.Cargo#CARGO}.
 function SET_CARGO:FirstCargoLoaded() end
 
 ---Iterate the SET_CARGO while identifying the first Cargo.Cargo#CARGO that is UnLoaded.
 ---
 ------
----@param self SET_CARGO 
 ---@return CARGO #The first @{Cargo.Cargo#CARGO}.
 function SET_CARGO:FirstCargoUnLoaded() end
 
 ---Iterate the SET_CARGO while identifying the first Cargo.Cargo#CARGO that is UnLoaded and not Deployed.
 ---
 ------
----@param self SET_CARGO 
 ---@return CARGO #The first @{Cargo.Cargo#CARGO}.
 function SET_CARGO:FirstCargoUnLoadedAndNotDeployed() end
 
 
 ---
 ------
----@param self SET_CARGO 
 ---@param State NOTYPE 
 function SET_CARGO:FirstCargoWithState(State) end
 
 
 ---
 ------
----@param self SET_CARGO 
 ---@param State NOTYPE 
 function SET_CARGO:FirstCargoWithStateAndNotDeployed(State) end
 
 ---(R2.1) Iterate the SET_CARGO and call an iterator function for each CARGO, providing the CARGO and optional parameters.
 ---
 ------
----@param self SET_CARGO 
 ---@param IteratorFunction function The function that will be called when there is an alive CARGO in the SET_CARGO. The function needs to accept a CARGO parameter.
 ---@param ... NOTYPE 
 ---@return SET_CARGO #self
@@ -849,7 +767,6 @@ function SET_CARGO:ForEachCargo(IteratorFunction, ...) end
 ---(R2.1)
 ---
 ------
----@param self SET_CARGO 
 ---@param MCargo AI_CARGO 
 ---@return SET_CARGO #self
 function SET_CARGO:IsIncludeObject(MCargo) end
@@ -864,28 +781,24 @@ function SET_CARGO:IsIncludeObject(MCargo) end
 ---DatabaseSet = SET_CARGO:New()
 ---```
 ------
----@param self SET_CARGO 
 ---@return SET_CARGO #
 function SET_CARGO:New() end
 
 ---(R2.1) Handles the OnDead or OnCrash event for alive units set.
 ---
 ------
----@param self SET_CARGO 
 ---@param EventData EVENTDATA 
 function SET_CARGO:OnEventDeleteCargo(EventData) end
 
 ---(R2.1) Handles the OnEventNewCargo event for the Set.
 ---
 ------
----@param self SET_CARGO 
 ---@param EventData EVENTDATA 
 function SET_CARGO:OnEventNewCargo(EventData) end
 
 ---(R2.1) Remove CARGOs from SET_CARGO.
 ---
 ------
----@param self SET_CARGO 
 ---@param RemoveCargoNames CARGO A single name or an array of CARGO names.
 ---@return SET_CARGO #self
 function SET_CARGO:RemoveCargosByName(RemoveCargoNames) end
@@ -947,16 +860,14 @@ SET_CLIENT = {}
 ---Add CLIENT(s) to SET_CLIENT.
 ---
 ------
----@param self SET_CLIENT 
 ---@param AddClientNames string A single name or an array of CLIENT names.
----@return  #self
+---@return NOTYPE #self
 function SET_CLIENT:AddClientsByName(AddClientNames) end
 
 ---Handles the Database to check on an event (birth) that the Object was added in the Database.
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_CLIENT 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CLIENT
 ---@return table #The CLIENT
@@ -965,7 +876,6 @@ function SET_CLIENT:AddInDatabase(Event) end
 ---Iterate the SET_CLIENT and count alive units.
 ---
 ------
----@param self SET_CLIENT 
 ---@return number #count
 function SET_CLIENT:CountAlive() end
 
@@ -990,7 +900,6 @@ function SET_CLIENT:CountAlive() end
 ---ClientSet = SET_CLIENT:New():FilterActive( false ):FilterCoalition( "blue" ):FilterOnce()
 ---```
 ------
----@param self SET_CLIENT 
 ---@param Active? boolean (Optional) Include only active clients to the set. Include inactive clients if you provide false.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterActive(Active) end
@@ -998,14 +907,12 @@ function SET_CLIENT:FilterActive(Active) end
 ---Builds a set of units which exist and are alive.
 ---
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterAlive() end
 
 ---Builds a set of clients of certain callsigns.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Callsigns string Can be a single string e.g. "Ford", or a table of strings e.g. {"Uzi","Enfield","Chevy"}. Refers to the callsigns as they can be set in the mission editor.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterCallsigns(Callsigns) end
@@ -1014,7 +921,6 @@ function SET_CLIENT:FilterCallsigns(Callsigns) end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship".
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterCategories(Categories) end
@@ -1023,7 +929,6 @@ function SET_CLIENT:FilterCategories(Categories) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterCoalitions(Coalitions) end
@@ -1032,7 +937,6 @@ function SET_CLIENT:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterCountries(Countries) end
@@ -1055,7 +959,6 @@ function SET_CLIENT:FilterCountries(Countries) end
 ---         BASE:I(groundset:Flush())
 ---```
 ------
----@param self SET_CLIENT 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a CLIENT object as first argument.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return SET_CLIENT #self
@@ -1064,7 +967,6 @@ function SET_CLIENT:FilterFunction(ConditionFunction, ...) end
 ---Builds a set of clients which belong to groups with certain **group names**.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Prefixes string The (partial) group names to look for. Can be anywhere in the group name. Can be a single string or a table of strings.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterGroupPrefixes(Prefixes) end
@@ -1072,7 +974,6 @@ function SET_CLIENT:FilterGroupPrefixes(Prefixes) end
 ---Builds a set of clients of certain playernames.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Playernames string Can be a single string e.g. "Apple", or a table of strings e.g. {"Walter","Hermann","Gonzo"}. Useful if you have e.g. a common squadron prefix.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterPlayernames(Playernames) end
@@ -1082,7 +983,6 @@ function SET_CLIENT:FilterPlayernames(Playernames) end
 ---Pattern matching applies.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the unit/pilot name. Can also be passed as a `#table` of strings.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterPrefixes(Prefixes) end
@@ -1090,14 +990,12 @@ function SET_CLIENT:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterStart() end
 
 ---Stops the filtering.
 ---
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterStop() end
 
@@ -1105,7 +1003,6 @@ function SET_CLIENT:FilterStop() end
 ---Possible current types are those types known within DCS world.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Types string Can take those type strings known within DCS world.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterTypes(Types) end
@@ -1113,7 +1010,6 @@ function SET_CLIENT:FilterTypes(Types) end
 ---Set filter timer interval for FilterZones if using active filtering with FilterStart().
 ---
 ------
----@param self SET_CLIENT 
 ---@param Seconds number Seconds between check intervals, defaults to 30. **Caution** - do not be too agressive with timing! Groups are usually not moving fast enough to warrant a check of below 10 seconds.
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterZoneTimer(Seconds) end
@@ -1121,7 +1017,6 @@ function SET_CLIENT:FilterZoneTimer(Seconds) end
 ---Builds a set of clients in zones.
 ---
 ------
----@param self SET_CLIENT 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_CLIENT #self
 function SET_CLIENT:FilterZones(Zones) end
@@ -1129,7 +1024,6 @@ function SET_CLIENT:FilterZones(Zones) end
 ---Finds a Client based on the Client Name.
 ---
 ------
----@param self SET_CLIENT 
 ---@param ClientName string 
 ---@return CLIENT #The found Client.
 function SET_CLIENT:FindClient(ClientName) end
@@ -1138,7 +1032,6 @@ function SET_CLIENT:FindClient(ClientName) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_CLIENT 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CLIENT
 ---@return table #The CLIENT
@@ -1147,7 +1040,6 @@ function SET_CLIENT:FindInDatabase(Event) end
 ---Iterate the SET_CLIENT and call an iterator function for each **alive** CLIENT, providing the CLIENT and optional parameters.
 ---
 ------
----@param self SET_CLIENT 
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_CLIENT. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
 ---@return SET_CLIENT #self
@@ -1156,7 +1048,6 @@ function SET_CLIENT:ForEachClient(IteratorFunction, ...) end
 ---Iterate the SET_CLIENT and call an iterator function for each **alive** CLIENT presence completely in a Core.Zone, providing the CLIENT and optional parameters to the called function.
 ---
 ------
----@param self SET_CLIENT 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_CLIENT. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
@@ -1166,7 +1057,6 @@ function SET_CLIENT:ForEachClientInZone(ZoneObject, IteratorFunction, ...) end
 ---Iterate the SET_CLIENT and call an iterator function for each **alive** CLIENT presence not in a Core.Zone, providing the CLIENT and optional parameters to the called function.
 ---
 ------
----@param self SET_CLIENT 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_CLIENT. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
@@ -1176,7 +1066,6 @@ function SET_CLIENT:ForEachClientNotInZone(ZoneObject, IteratorFunction, ...) en
 ---Gets the alive set.
 ---
 ------
----@param self SET_CLIENT 
 ---@return table #Table of SET objects
 function SET_CLIENT:GetAliveSet() end
 
@@ -1184,14 +1073,12 @@ function SET_CLIENT:GetAliveSet() end
 ---Needs active filtering with `FilterStart()`
 ---
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:HandleCASlots() end
 
 
 ---
 ------
----@param self SET_CLIENT 
 ---@param MClient CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:IsIncludeObject(MClient) end
@@ -1206,29 +1093,25 @@ function SET_CLIENT:IsIncludeObject(MClient) end
 ---DBObject = SET_CLIENT:New()
 ---```
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #
 function SET_CLIENT:New() end
 
 ---Remove CLIENT(s) from SET_CLIENT.
 ---
 ------
----@param self SET_CLIENT 
 ---@param RemoveClientNames CLIENT A single object or an array of CLIENT objects.
----@return  #self
+---@return NOTYPE #self
 function SET_CLIENT:RemoveClientsByName(RemoveClientNames) end
 
 ---[Internal] Private function for use of continous zone filter
 ---
 ------
----@param self SET_CLIENT 
 ---@return SET_CLIENT #self
 function SET_CLIENT:_ContinousZoneFilter() end
 
 ---Handle CA slots addition
 ---
 ------
----@param self SET_CLIENT 
 ---@param Event EVENTDATA 
 ---@return SET_CLIENT #self
 function SET_CLIENT:_EventPlayerEnterUnit(Event) end
@@ -1236,7 +1119,6 @@ function SET_CLIENT:_EventPlayerEnterUnit(Event) end
 ---Handle CA slots removal
 ---
 ------
----@param self SET_CLIENT 
 ---@param Event EVENTDATA 
 ---@return SET_CLIENT #self
 function SET_CLIENT:_EventPlayerLeaveUnit(Event) end
@@ -1313,7 +1195,6 @@ SET_DYNAMICCARGO = {}
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterCoalitions(Coalitions) end
@@ -1322,7 +1203,6 @@ function SET_DYNAMICCARGO:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterCountries(Countries) end
@@ -1330,14 +1210,12 @@ function SET_DYNAMICCARGO:FilterCountries(Countries) end
 ---This filter is N/A for SET_DYNAMICCARGO
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterCrashes() end
 
 ---Builds a set of DYNAMICCARGOs that are owned at the moment by this player name.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param PlayerName string 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterCurrentOwner(PlayerName) end
@@ -1345,7 +1223,6 @@ function SET_DYNAMICCARGO:FilterCurrentOwner(PlayerName) end
 ---This filter is N/A for SET_DYNAMICCARGO
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterDeads() end
 
@@ -1367,7 +1244,6 @@ function SET_DYNAMICCARGO:FilterDeads() end
 ---         BASE:I(cargoset:Flush())
 ---```
 ------
----@param self SET_DYNAMICCARGO 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a DYNAMICCARGO object as first argument.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return SET_DYNAMICCARGO #self
@@ -1377,7 +1253,6 @@ function SET_DYNAMICCARGO:FilterFunction(ConditionFunction, ...) end
 ---is on board of a Chinook).
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterIsLoaded() end
 
@@ -1385,7 +1260,6 @@ function SET_DYNAMICCARGO:FilterIsLoaded() end
 ---new and never loaded into a Chinook).
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterIsNew() end
 
@@ -1393,7 +1267,6 @@ function SET_DYNAMICCARGO:FilterIsNew() end
 ---was on board of a Chinook previously and is now unloaded).
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterIsUnloaded() end
 
@@ -1401,7 +1274,6 @@ function SET_DYNAMICCARGO:FilterIsUnloaded() end
 ---**Attention!** LUA Regex applies!
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Patterns string The string pattern(s) that need to be contained in the dynamic cargo name. Can also be passed as a `#table` of strings.
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterNamePattern(Patterns) end
@@ -1410,7 +1282,6 @@ function SET_DYNAMICCARGO:FilterNamePattern(Patterns) end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all names that **contain** the string. LUA Regex applies.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Prefixes string The string pattern(s) that need to be contained in the dynamic cargo name. Can also be passed as a `#table` of strings.
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterPrefixes(Prefixes) end
@@ -1418,21 +1289,18 @@ function SET_DYNAMICCARGO:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterStart() end
 
 ---Stops the filtering.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterStop() end
 
 ---Builds a set of dynamic cargo of defined dynamic cargo type names.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Types string Can take those type name strings known within DCS world.
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterTypes(Types) end
@@ -1440,7 +1308,6 @@ function SET_DYNAMICCARGO:FilterTypes(Types) end
 ---Set filter timer interval for FilterZones if using active filtering with FilterStart().
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Seconds number Seconds between check intervals, defaults to 30. **Caution** - do not be too agressive with timing! Objects are usually not moving fast enough to warrant a check of below 10 seconds.
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterZoneTimer(Seconds) end
@@ -1448,7 +1315,6 @@ function SET_DYNAMICCARGO:FilterZoneTimer(Seconds) end
 ---Builds a set of dynamic cargo in zones.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:FilterZones(Zones) end
@@ -1457,7 +1323,6 @@ function SET_DYNAMICCARGO:FilterZones(Zones) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_DYNAMICCARGO event or vise versa!
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Event EVENTDATA 
 ---@return string #The name of the DYNAMICCARGO
 ---@return DYNAMICCARGO #The DYNAMICCARGO object
@@ -1466,28 +1331,24 @@ function SET_DYNAMICCARGO:FindInDatabase(Event) end
 ---Returns a list of current owners (Wrapper.Client#CLIENT objects) indexed by playername from the SET.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return list #Ownerlist
 function SET_DYNAMICCARGO:GetOwnerClientObjects() end
 
 ---Returns a list of current owners (playernames) indexed by playername from the SET.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return list #Ownerlist
 function SET_DYNAMICCARGO:GetOwnerNames() end
 
 ---Returns a list of Wrapper.Storage#STORAGE objects from the SET indexed by cargo name.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return list #Storagelist
 function SET_DYNAMICCARGO:GetStorageObjects() end
 
 
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param DCargo DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:IsIncludeObject(DCargo) end
@@ -1502,28 +1363,24 @@ function SET_DYNAMICCARGO:IsIncludeObject(DCargo) end
 ---DBObject = SET_DYNAMICCARGO:New()
 ---```
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #
 function SET_DYNAMICCARGO:New() end
 
 ---[Internal] Private function for use of continous zone filter
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@return SET_DYNAMICCARGO #self
 function SET_DYNAMICCARGO:_ContinousZoneFilter() end
 
 ---Handles the events for the Set.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Event EVENTDATA 
 function SET_DYNAMICCARGO:_EventHandlerDCAdd(Event) end
 
 ---Handles the remove event for dynamic cargo set.
 ---
 ------
----@param self SET_DYNAMICCARGO 
 ---@param Event EVENTDATA 
 function SET_DYNAMICCARGO:_EventHandlerDCRemove(Event) end
 
@@ -1648,7 +1505,6 @@ SET_GROUP = {}
 ---Activate late activated groups.
 ---
 ------
----@param self SET_GROUP 
 ---@param Delay number Delay in seconds.
 ---@return SET_GROUP #self
 function SET_GROUP:Activate(Delay) end
@@ -1657,7 +1513,6 @@ function SET_GROUP:Activate(Delay) end
 ---Note that for each unit in the group that is set, a default cargo bay limit is initialized.
 ---
 ------
----@param self SET_GROUP 
 ---@param group GROUP The group which should be added to the set.
 ---@param DontSetCargoBayLimit boolean If true, do not attempt to auto-add the cargo bay limit per unit in this group.
 ---@return SET_GROUP #self
@@ -1666,7 +1521,6 @@ function SET_GROUP:AddGroup(group, DontSetCargoBayLimit) end
 ---Add GROUP(s) to SET_GROUP.
 ---
 ------
----@param self SET_GROUP 
 ---@param AddGroupNames string A single name or an array of GROUP names.
 ---@return SET_GROUP #self
 function SET_GROUP:AddGroupsByName(AddGroupNames) end
@@ -1675,7 +1529,6 @@ function SET_GROUP:AddGroupsByName(AddGroupNames) end
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_GROUP 
 ---@param Event EVENTDATA 
 ---@return string #The name of the GROUP
 ---@return table #The GROUP
@@ -1698,7 +1551,6 @@ function SET_GROUP:AddInDatabase(Event) end
 ---end
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #true if all the @{Wrapper.Group#GROUP} are completely in the @{Core.Zone#ZONE}, false otherwise
 function SET_GROUP:AllCompletelyInZone(Zone) end
@@ -1720,7 +1572,6 @@ function SET_GROUP:AllCompletelyInZone(Zone) end
 ---end
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #true if at least one of the @{Wrapper.Group#GROUP} is completely inside the @{Core.Zone#ZONE}, false otherwise.
 function SET_GROUP:AnyCompletelyInZone(Zone) end
@@ -1742,7 +1593,6 @@ function SET_GROUP:AnyCompletelyInZone(Zone) end
 ---end
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #true if at least one of the @{Wrapper.Group#GROUP} is partly or completely inside the @{Core.Zone#ZONE}, false otherwise.
 function SET_GROUP:AnyInZone(Zone) end
@@ -1765,7 +1615,6 @@ function SET_GROUP:AnyInZone(Zone) end
 ---end
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #true if at least one of the @{Wrapper.Group#GROUP} is partly or completely inside the @{Core.Zone#ZONE}, false otherwise.
 function SET_GROUP:AnyPartlyInZone(Zone) end
@@ -1773,7 +1622,6 @@ function SET_GROUP:AnyPartlyInZone(Zone) end
 ---Iterate the SET_GROUP and count how many GROUPs and UNITs are alive.
 ---
 ------
----@param self SET_GROUP 
 ---@return number #The number of GROUPs alive.
 ---@return number #The number of UNITs alive.
 function SET_GROUP:CountAlive() end
@@ -1793,7 +1641,6 @@ function SET_GROUP:CountAlive() end
 ---MESSAGE:New("There are " .. MySetGroup:CountInZone(MyZone) .. " GROUPs in the Zone !", 10):ToAll()
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return number #the number of GROUPs completely in the Zone
 function SET_GROUP:CountInZone(Zone) end
@@ -1811,7 +1658,6 @@ function SET_GROUP:CountInZone(Zone) end
 ---MESSAGE:New("There are " .. MySetGroup:CountUnitInZone(MyZone) .. " UNITs in the Zone !", 10):ToAll()
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return number #the number of GROUPs completely in the Zone
 function SET_GROUP:CountUnitInZone(Zone) end
@@ -1837,7 +1683,6 @@ function SET_GROUP:CountUnitInZone(Zone) end
 ---GroupSet = SET_GROUP:New():FilterActive( false ):FilterCoalition( "blue" ):FilterOnce()
 ---```
 ------
----@param self SET_GROUP 
 ---@param Active? boolean (Optional) Include only active groups to the set. Include inactive groups if you provide false.
 ---@return SET_GROUP #self
 function SET_GROUP:FilterActive(Active) end
@@ -1845,7 +1690,6 @@ function SET_GROUP:FilterActive(Active) end
 ---Build a set of groups that are alive.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterAlive() end
 
@@ -1853,7 +1697,6 @@ function SET_GROUP:FilterAlive() end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_GROUP 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship".
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_GROUP #self
@@ -1862,35 +1705,30 @@ function SET_GROUP:FilterCategories(Categories, Clear) end
 ---Builds a set of groups out of airplane category.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCategoryAirplane() end
 
 ---Builds a set of groups out of ground category.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCategoryGround() end
 
 ---Builds a set of groups out of helicopter category.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCategoryHelicopter() end
 
 ---Builds a set of groups out of ship category.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCategoryShip() end
 
 ---Builds a set of groups out of structure category.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCategoryStructure() end
 
@@ -1898,7 +1736,6 @@ function SET_GROUP:FilterCategoryStructure() end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_GROUP 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_GROUP #self
@@ -1908,7 +1745,6 @@ function SET_GROUP:FilterCoalitions(Coalitions, Clear) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_GROUP 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_GROUP #self
 function SET_GROUP:FilterCountries(Countries) end
@@ -1931,7 +1767,6 @@ function SET_GROUP:FilterCountries(Countries) end
 ---         BASE:I(groundset:Flush())
 ---```
 ------
----@param self SET_GROUP 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a GROUP object as first argument.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return SET_GROUP #self
@@ -1940,7 +1775,6 @@ function SET_GROUP:FilterFunction(ConditionFunction, ...) end
 ---Filter the set once
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterOnce() end
 
@@ -1948,7 +1782,6 @@ function SET_GROUP:FilterOnce() end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all groups that **contain** the string.
 ---
 ------
----@param self SET_GROUP 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the group name. Can also be passed as a `#table` of strings.
 ---@return SET_GROUP #self
 function SET_GROUP:FilterPrefixes(Prefixes) end
@@ -1956,21 +1789,18 @@ function SET_GROUP:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterStart() end
 
 ---Stops the filtering.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:FilterStop() end
 
 ---Set filter timer interval for FilterZones if using active filtering with FilterStart().
 ---
 ------
----@param self SET_GROUP 
 ---@param Seconds number Seconds between check intervals, defaults to 30. **Caution** - do not be too agressive with timing! Groups are usually not moving fast enough to warrant a check of below 10 seconds.
 ---@return SET_GROUP #self
 function SET_GROUP:FilterZoneTimer(Seconds) end
@@ -1978,7 +1808,6 @@ function SET_GROUP:FilterZoneTimer(Seconds) end
 ---Builds a set of groups in zones.
 ---
 ------
----@param self SET_GROUP 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_GROUP #self
@@ -1987,7 +1816,6 @@ function SET_GROUP:FilterZones(Zones, Clear) end
 ---Finds a Group based on the Group Name.
 ---
 ------
----@param self SET_GROUP 
 ---@param GroupName string 
 ---@return GROUP #The found Group.
 function SET_GROUP:FindGroup(GroupName) end
@@ -1996,7 +1824,6 @@ function SET_GROUP:FindGroup(GroupName) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_GROUP 
 ---@param Event EVENTDATA 
 ---@return string #The name of the GROUP
 ---@return table #The GROUP
@@ -2005,7 +1832,6 @@ function SET_GROUP:FindInDatabase(Event) end
 ---Iterate the SET_GROUP while identifying the nearest object from a Core.Point#COORDINATE.
 ---
 ------
----@param self SET_GROUP 
 ---@param Coordinate COORDINATE A @{Core.Point#COORDINATE} object from where to evaluate the closest object in the set.
 ---@return GROUP #The closest group.
 function SET_GROUP:FindNearestGroupFromPointVec2(Coordinate) end
@@ -2013,7 +1839,6 @@ function SET_GROUP:FindNearestGroupFromPointVec2(Coordinate) end
 ---Iterate the SET_GROUP and call an iterator function for each GROUP object, providing the GROUP and optional parameters.
 ---
 ------
----@param self SET_GROUP 
 ---@param IteratorFunction function The function that will be called for all GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
 ---@return SET_GROUP #self
@@ -2022,7 +1847,6 @@ function SET_GROUP:ForEachGroup(IteratorFunction, ...) end
 ---Iterate the SET_GROUP and call an iterator function for each **alive** GROUP object, providing the GROUP and optional parameters.
 ---
 ------
----@param self SET_GROUP 
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
 ---@return SET_GROUP #self
@@ -2031,7 +1855,6 @@ function SET_GROUP:ForEachGroupAlive(IteratorFunction, ...) end
 ---Iterate the SET_GROUP and call an iterator function for each alive GROUP that has any unit in the Core.Zone, providing the GROUP and optional parameters to the called function.
 ---
 ------
----@param self SET_GROUP 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
@@ -2041,7 +1864,6 @@ function SET_GROUP:ForEachGroupAnyInZone(ZoneObject, IteratorFunction, ...) end
 ---Iterate the SET_GROUP and call an iterator function for each **alive** GROUP presence completely in a Core.Zone, providing the GROUP and optional parameters to the called function.
 ---
 ------
----@param self SET_GROUP 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
@@ -2051,7 +1873,6 @@ function SET_GROUP:ForEachGroupCompletelyInZone(ZoneObject, IteratorFunction, ..
 ---Iterate the SET_GROUP and call an iterator function for each **alive** GROUP presence not in a Core.Zone, providing the GROUP and optional parameters to the called function.
 ---
 ------
----@param self SET_GROUP 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
@@ -2061,7 +1882,6 @@ function SET_GROUP:ForEachGroupNotInZone(ZoneObject, IteratorFunction, ...) end
 ---Iterate the SET_GROUP and call an iterator function for each **alive** GROUP presence partly in a Core.Zone, providing the GROUP and optional parameters to the called function.
 ---
 ------
----@param self SET_GROUP 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
@@ -2071,7 +1891,6 @@ function SET_GROUP:ForEachGroupPartlyInZone(ZoneObject, IteratorFunction, ...) e
 ---Iterate the SET_GROUP and call an iterator function for some GROUP objects, providing the GROUP and optional parameters.
 ---
 ------
----@param self SET_GROUP 
 ---@param IteratorFunction function The function that will be called for some GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
 ---@return SET_GROUP #self
@@ -2080,7 +1899,6 @@ function SET_GROUP:ForSomeGroup(IteratorFunction, ...) end
 ---Iterate the SET_GROUP and call an iterator function for some **alive** GROUP objects, providing the GROUP and optional parameters.
 ---
 ------
----@param self SET_GROUP 
 ---@param IteratorFunction function The function that will be called when there is an alive GROUP in the SET_GROUP. The function needs to accept a GROUP parameter.
 ---@param ... NOTYPE 
 ---@return SET_GROUP #self
@@ -2089,7 +1907,6 @@ function SET_GROUP:ForSomeGroupAlive(IteratorFunction, ...) end
 ---Get a *new* set that only contains alive groups.
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #Set of alive groups.
 function SET_GROUP:GetAliveSet() end
 
@@ -2097,7 +1914,6 @@ function SET_GROUP:GetAliveSet() end
 ---Optionally, only groups of given coalitions are considered in the search.
 ---
 ------
----@param self SET_GROUP 
 ---@param Coordinate COORDINATE Reference Coordinate from which the closest group is determined.
 ---@param Coalitions? table (Optional) Table of coalition #number entries to filter for.
 ---@return GROUP #The closest group (if any).
@@ -2107,14 +1923,12 @@ function SET_GROUP:GetClosestGroup(Coordinate, Coalitions) end
 ---Returns a report of of unit types.
 ---
 ------
----@param self SET_GROUP 
 ---@return REPORT #A report of the unit types found. The key is the UnitTypeName and the value is the amount of unit types found.
 function SET_GROUP:GetUnitTypeNames() end
 
 
 ---
 ------
----@param self SET_GROUP 
 ---@param MGroup GROUP The group that is checked for inclusion.
 ---@return SET_GROUP #self
 function SET_GROUP:IsIncludeObject(MGroup) end
@@ -2129,7 +1943,6 @@ function SET_GROUP:IsIncludeObject(MGroup) end
 ---DBObject = SET_GROUP:New()
 ---```
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #
 function SET_GROUP:New() end
 
@@ -2152,7 +1965,6 @@ function SET_GROUP:New() end
 ---end
 ---```
 ------
----@param self SET_GROUP 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #true if no @{Wrapper.Group#GROUP} is inside the @{Core.Zone#ZONE} in any way, false otherwise.
 function SET_GROUP:NoneInZone(Zone) end
@@ -2160,7 +1972,6 @@ function SET_GROUP:NoneInZone(Zone) end
 ---Remove GROUP(s) from SET_GROUP.
 ---
 ------
----@param self SET_GROUP 
 ---@param RemoveGroupNames GROUP A single name or an array of GROUP names.
 ---@return SET_GROUP #self
 function SET_GROUP:RemoveGroupsByName(RemoveGroupNames) end
@@ -2177,13 +1988,11 @@ function SET_GROUP:RemoveGroupsByName(RemoveGroupNames) end
 ---MySetGroup:SetCargoBayWeightLimit()
 ---```
 ------
----@param self SET_GROUP 
 function SET_GROUP:SetCargoBayWeightLimit() end
 
 ---[Internal] Private function for use of continous zone filter
 ---
 ------
----@param self SET_GROUP 
 ---@return SET_GROUP #self
 function SET_GROUP:_ContinousZoneFilter() end
 
@@ -2191,7 +2000,6 @@ function SET_GROUP:_ContinousZoneFilter() end
 ---Note: The GROUP object in the SET_GROUP collection will only be removed if the last unit is destroyed of the GROUP.
 ---
 ------
----@param self SET_GROUP 
 ---@param Event EVENTDATA 
 function SET_GROUP:_EventOnDeadOrCrash(Event) end
 
@@ -2277,7 +2085,6 @@ SET_OPSGROUP = {}
 ---Activate late activated groups in the set.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Delay number Delay in seconds.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:Activate(Delay) end
@@ -2285,7 +2092,6 @@ function SET_OPSGROUP:Activate(Delay) end
 ---Adds a Core.Base#BASE object in the Core.Set#SET_BASE, using a given ObjectName as the index.
 ---
 ------
----@param self SET_BASE 
 ---@param ObjectName string The name of the object.
 ---@param Object BASE The object itself.
 ---@return BASE #The added BASE Object.
@@ -2295,7 +2101,6 @@ function SET_OPSGROUP:Add(ObjectName, Object) end
 ---**NOTE** that an OPSGROUP is automatically created from the GROUP if it does not exist already.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param group GROUP The GROUP which should be added to the set. Can also be given as an #OPSGROUP object.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:AddGroup(group) end
@@ -2303,7 +2108,6 @@ function SET_OPSGROUP:AddGroup(group) end
 ---Add GROUP(s) or OPSGROUP(s) to the set.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param AddGroupNames string A single name or an array of GROUP names.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:AddGroupsByName(AddGroupNames) end
@@ -2312,7 +2116,6 @@ function SET_OPSGROUP:AddGroupsByName(AddGroupNames) end
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Event EVENTDATA Event data.
 ---@return string #The name of the GROUP.
 ---@return GROUP #The GROUP object.
@@ -2321,7 +2124,6 @@ function SET_OPSGROUP:AddInDatabase(Event) end
 ---Adds a Core.Base#BASE object in the Core.Set#SET_BASE, using the Object Name as the index.
 ---
 ------
----@param self SET_BASE 
 ---@param Object OPSGROUP Ops group
 ---@return BASE #The added BASE Object.
 function SET_OPSGROUP:AddObject(Object) end
@@ -2347,7 +2149,6 @@ function SET_OPSGROUP:AddObject(Object) end
 ---GroupSet = SET_OPSGROUP:New():FilterActive( false ):FilterCoalition( "blue" ):FilterOnce()
 ---```
 ------
----@param self SET_OPSGROUP 
 ---@param Active? boolean (optional) Include only active groups to the set. Include inactive groups if you provide false.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterActive(Active) end
@@ -2362,7 +2163,6 @@ function SET_OPSGROUP:FilterActive(Active) end
 ---* "ship" for naval groups
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship" or combinations as a table, for example `{"plane", "helicopter"}`.
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_OPSGROUP #self
@@ -2371,35 +2171,30 @@ function SET_OPSGROUP:FilterCategories(Categories, Clear) end
 ---Builds a set of groups out of aicraft category (planes and helicopters).
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterCategoryAircraft() end
 
 ---Builds a set of groups out of airplane category.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterCategoryAirplane() end
 
 ---Builds a set of groups out of ground category.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterCategoryGround() end
 
 ---Builds a set of groups out of helicopter category.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterCategoryHelicopter() end
 
 ---Builds a set of groups out of ship category.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterCategoryShip() end
 
@@ -2407,7 +2202,6 @@ function SET_OPSGROUP:FilterCategoryShip() end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral" or combinations as a table, for example `{"red", "neutral"}`.
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_OPSGROUP #self
@@ -2416,7 +2210,6 @@ function SET_OPSGROUP:FilterCoalitions(Coalitions, Clear) end
 ---Builds a set of groups of defined countries.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_OPSGROUP #self
@@ -2426,7 +2219,6 @@ function SET_OPSGROUP:FilterCountries(Countries, Clear) end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all groups that **contain** the string.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the group name. Can also be passed as a `#table` of strings.
 ---@param Clear boolean If `true`, clear any previously defined filters.
 ---@return SET_OPSGROUP #self
@@ -2435,14 +2227,12 @@ function SET_OPSGROUP:FilterPrefixes(Prefixes, Clear) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:FilterStart() end
 
 ---Finds a ARMYGROUP based on the group name.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param GroupName string Name of the group.
 ---@return ARMYGROUP #The found ARMYGROUP or `#nil` if the group is not in the set.
 function SET_OPSGROUP:FindArmyGroup(GroupName) end
@@ -2450,7 +2240,6 @@ function SET_OPSGROUP:FindArmyGroup(GroupName) end
 ---Finds a FLIGHTGROUP based on the group name.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param GroupName string Name of the group.
 ---@return FLIGHTGROUP #The found FLIGHTGROUP or `#nil` if the group is not in the set.
 function SET_OPSGROUP:FindFlightGroup(GroupName) end
@@ -2458,7 +2247,6 @@ function SET_OPSGROUP:FindFlightGroup(GroupName) end
 ---Finds an OPSGROUP based on the group name.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param GroupName string Name of the group.
 ---@return OPSGROUP #The found OPSGROUP (FLIGHTGROUP, ARMYGROUP or NAVYGROUP) or `#nil` if the group is not in the set.
 function SET_OPSGROUP:FindGroup(GroupName) end
@@ -2467,7 +2255,6 @@ function SET_OPSGROUP:FindGroup(GroupName) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Event EVENTDATA Event data table.
 ---@return string #The name of the GROUP.
 ---@return GROUP #The GROUP object.
@@ -2476,7 +2263,6 @@ function SET_OPSGROUP:FindInDatabase(Event) end
 ---Finds a NAVYGROUP based on the group name.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param GroupName string Name of the group.
 ---@return NAVYGROUP #The found NAVYGROUP or `#nil` if the group is not in the set.
 function SET_OPSGROUP:FindNavyGroup(GroupName) end
@@ -2484,7 +2270,6 @@ function SET_OPSGROUP:FindNavyGroup(GroupName) end
 ---Iterate the set and call an iterator function for each OPSGROUP object.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param IteratorFunction function The function that will be called for all OPSGROUPs in the set. **NOTE** that the function must have the OPSGROUP as first parameter!
 ---@param ...? NOTYPE (Optional) arguments passed to the `IteratorFunction`.
 ---@return SET_OPSGROUP #self
@@ -2493,14 +2278,12 @@ function SET_OPSGROUP:ForEachGroup(IteratorFunction, ...) end
 ---Gets a **new** set that only contains alive groups.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:GetAliveSet() end
 
 ---Check include object.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param MGroup GROUP The group that is checked for inclusion.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:IsIncludeObject(MGroup) end
@@ -2508,14 +2291,12 @@ function SET_OPSGROUP:IsIncludeObject(MGroup) end
 ---Creates a new SET_OPSGROUP object, building a set of groups belonging to a coalitions, categories, countries, types or with defined prefix names.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:New() end
 
 ---Remove GROUP(s) or OPSGROUP(s) from the set.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param RemoveGroupNames GROUP A single name or an array of GROUP names.
 ---@return SET_OPSGROUP #self
 function SET_OPSGROUP:RemoveGroupsByName(RemoveGroupNames) end
@@ -2523,7 +2304,6 @@ function SET_OPSGROUP:RemoveGroupsByName(RemoveGroupNames) end
 ---Handles the OnBirth event for the Set.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Event EVENTDATA Event data.
 function SET_OPSGROUP:_EventOnBirth(Event) end
 
@@ -2531,7 +2311,6 @@ function SET_OPSGROUP:_EventOnBirth(Event) end
 ---Note: The GROUP object in the SET_OPSGROUP collection will only be removed if the last unit is destroyed of the GROUP.
 ---
 ------
----@param self SET_OPSGROUP 
 ---@param Event EVENTDATA 
 function SET_OPSGROUP:_EventOnDeadOrCrash(Event) end
 
@@ -2577,7 +2356,6 @@ SET_OPSZONE = {}
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -2586,7 +2364,6 @@ function SET_OPSZONE:AddInDatabase(Event) end
 ---Add an OPSZONE to set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Zone OPSZONE The OPSZONE object.
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:AddZone(Zone) end
@@ -2595,7 +2372,6 @@ function SET_OPSZONE:AddZone(Zone) end
 ---You still need to apply `FilterOnce()` to have an effect on the set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterClear() end
 
@@ -2603,7 +2379,6 @@ function SET_OPSZONE:FilterClear() end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral" or combinations as a table, for example `{"red", "neutral"}`.
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterCoalitions(Coalitions) end
@@ -2611,7 +2386,6 @@ function SET_OPSZONE:FilterCoalitions(Coalitions) end
 ---Filters for the defined collection.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterOnce() end
 
@@ -2619,7 +2393,6 @@ function SET_OPSZONE:FilterOnce() end
 ---**ATTENTION!** Bad naming convention as this **does not** filter only **prefixes** but all zones that **contain** the string.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the zone name. Can also be passed as a `#table` of strings.
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterPrefixes(Prefixes) end
@@ -2627,14 +2400,12 @@ function SET_OPSZONE:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterStart() end
 
 ---Stops the filtering for the defined collection.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:FilterStop() end
 
@@ -2642,7 +2413,6 @@ function SET_OPSZONE:FilterStop() end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -2651,7 +2421,6 @@ function SET_OPSZONE:FindInDatabase(Event) end
 ---Finds a Zone based on its name.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param ZoneName string 
 ---@return OPSZONE #The found Zone.
 function SET_OPSZONE:FindZone(ZoneName) end
@@ -2659,7 +2428,6 @@ function SET_OPSZONE:FindZone(ZoneName) end
 ---Iterate the SET_OPSZONE and call an iterator function for each ZONE, providing the ZONE and optional parameters.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param IteratorFunction function The function that will be called when there is an alive ZONE in the SET_OPSZONE. The function needs to accept a AIRBASE parameter.
 ---@param ... NOTYPE 
 ---@return SET_OPSZONE #self
@@ -2669,7 +2437,6 @@ function SET_OPSZONE:ForEachZone(IteratorFunction, ...) end
 ---Only started zones are considered.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Coordinate COORDINATE The reference coordinate from which the closest zone is determined.
 ---@param Coalitions table Only consider the given coalition(s), *e.g.* `{coaliton.side.RED}` to find the closest red zone.
 ---@return OPSZONE #The closest OPSZONE (if any).
@@ -2679,7 +2446,6 @@ function SET_OPSZONE:GetClosestZone(Coordinate, Coalitions) end
 ---Get a random zone from the set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return OPSZONE #The random Zone.
 function SET_OPSZONE:GetRandomZone() end
 
@@ -2688,7 +2454,6 @@ function SET_OPSZONE:GetRandomZone() end
 ---If zones overlap, the first zone that validates the test is returned.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param Coordinate COORDINATE The coordinate to be searched.
 ---@return ZONE_BASE #The zone that validates the coordinate location.
 ---@return nil #No zone has been found.
@@ -2697,7 +2462,6 @@ function SET_OPSZONE:IsCoordinateInZone(Coordinate) end
 ---Private function that checks if an object is contained in the set or filtered.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param MZone OPSZONE The OPSZONE object.
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:IsIncludeObject(MZone) end
@@ -2705,28 +2469,24 @@ function SET_OPSZONE:IsIncludeObject(MZone) end
 ---Creates a new SET_OPSZONE object, building a set of zones.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:New() end
 
 ---Handles the OnDead or OnCrash event for alive units set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param EventData EVENTDATA 
 function SET_OPSZONE:OnEventDeleteZoneGoal(EventData) end
 
 ---Handles the OnEventNewZone event for the Set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param EventData EVENTDATA 
 function SET_OPSZONE:OnEventNewZoneGoal(EventData) end
 
 ---Remove ZONEs from SET_OPSZONE.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param RemoveZoneNames table A single name or an array of OPSZONE names.
 ---@return SET_OPSZONE # self
 function SET_OPSZONE:RemoveZonesByName(RemoveZoneNames) end
@@ -2734,7 +2494,6 @@ function SET_OPSZONE:RemoveZonesByName(RemoveZoneNames) end
 ---Set a zone probability.
 ---
 ------
----@param self SET_OPSZONE 
 ---@param ZoneName string The name of the zone.
 ---@param Probability number The probability in percent.
 function SET_OPSZONE:SetZoneProbability(ZoneName, Probability) end
@@ -2742,7 +2501,6 @@ function SET_OPSZONE:SetZoneProbability(ZoneName, Probability) end
 ---Start all opszones of the set.
 ---
 ------
----@param self SET_OPSZONE 
 ---@return SET_OPSZONE #self
 function SET_OPSZONE:Start() end
 
@@ -2790,16 +2548,14 @@ SET_PLAYER = {}
 ---Add CLIENT(s) to SET_PLAYER.
 ---
 ------
----@param self SET_PLAYER 
 ---@param AddClientNames string A single name or an array of CLIENT names.
----@return  #self
+---@return NOTYPE #self
 function SET_PLAYER:AddClientsByName(AddClientNames) end
 
 ---Handles the Database to check on an event (birth) that the Object was added in the Database.
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_PLAYER 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CLIENT
 ---@return table #The CLIENT
@@ -2809,7 +2565,6 @@ function SET_PLAYER:AddInDatabase(Event) end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship".
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterCategories(Categories) end
@@ -2818,7 +2573,6 @@ function SET_PLAYER:FilterCategories(Categories) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterCoalitions(Coalitions) end
@@ -2827,7 +2581,6 @@ function SET_PLAYER:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterCountries(Countries) end
@@ -2836,7 +2589,6 @@ function SET_PLAYER:FilterCountries(Countries) end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all player clients that **contain** the string.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the unit/pilot name. Can also be passed as a `#table` of strings.
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterPrefixes(Prefixes) end
@@ -2844,7 +2596,6 @@ function SET_PLAYER:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_PLAYER 
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterStart() end
 
@@ -2852,7 +2603,6 @@ function SET_PLAYER:FilterStart() end
 ---Possible current types are those types known within DCS world.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Types string Can take those type strings known within DCS world.
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterTypes(Types) end
@@ -2860,7 +2610,6 @@ function SET_PLAYER:FilterTypes(Types) end
 ---Builds a set of players in zones.
 ---
 ------
----@param self SET_PLAYER 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_PLAYER #self
 function SET_PLAYER:FilterZones(Zones) end
@@ -2868,7 +2617,6 @@ function SET_PLAYER:FilterZones(Zones) end
 ---Finds a Client based on the Player Name.
 ---
 ------
----@param self SET_PLAYER 
 ---@param PlayerName string 
 ---@return CLIENT #The found Client.
 function SET_PLAYER:FindClient(PlayerName) end
@@ -2877,7 +2625,6 @@ function SET_PLAYER:FindClient(PlayerName) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_PLAYER 
 ---@param Event EVENTDATA 
 ---@return string #The name of the CLIENT
 ---@return table #The CLIENT
@@ -2886,7 +2633,6 @@ function SET_PLAYER:FindInDatabase(Event) end
 ---Iterate the SET_PLAYER and call an iterator function for each **alive** CLIENT, providing the CLIENT and optional parameters.
 ---
 ------
----@param self SET_PLAYER 
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_PLAYER. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
 ---@return SET_PLAYER #self
@@ -2895,7 +2641,6 @@ function SET_PLAYER:ForEachPlayer(IteratorFunction, ...) end
 ---Iterate the SET_PLAYER and call an iterator function for each **alive** CLIENT presence completely in a Core.Zone, providing the CLIENT and optional parameters to the called function.
 ---
 ------
----@param self SET_PLAYER 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_PLAYER. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
@@ -2905,7 +2650,6 @@ function SET_PLAYER:ForEachPlayerInZone(ZoneObject, IteratorFunction, ...) end
 ---Iterate the SET_PLAYER and call an iterator function for each **alive** CLIENT presence not in a Core.Zone, providing the CLIENT and optional parameters to the called function.
 ---
 ------
----@param self SET_PLAYER 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive CLIENT in the SET_PLAYER. The function needs to accept a CLIENT parameter.
 ---@param ... NOTYPE 
@@ -2915,7 +2659,6 @@ function SET_PLAYER:ForEachPlayerNotInZone(ZoneObject, IteratorFunction, ...) en
 
 ---
 ------
----@param self SET_PLAYER 
 ---@param MClient CLIENT 
 ---@return SET_PLAYER #self
 function SET_PLAYER:IsIncludeObject(MClient) end
@@ -2930,16 +2673,14 @@ function SET_PLAYER:IsIncludeObject(MClient) end
 ---DBObject = SET_PLAYER:New()
 ---```
 ------
----@param self SET_PLAYER 
 ---@return SET_PLAYER #
 function SET_PLAYER:New() end
 
 ---Remove CLIENT(s) from SET_PLAYER.
 ---
 ------
----@param self SET_PLAYER 
 ---@param RemoveClientNames CLIENT A single name or an array of CLIENT names.
----@return  #self
+---@return NOTYPE #self
 function SET_PLAYER:RemoveClientsByName(RemoveClientNames) end
 
 
@@ -2981,7 +2722,6 @@ SET_SCENERY = {}
 ---Add SCENERY(s) to SET_SCENERY.
 ---
 ------
----@param self SET_SCENERY 
 ---@param AddScenery SCENERY A single SCENERY object.
 ---@return SET_SCENERY #self
 function SET_SCENERY:AddScenery(AddScenery) end
@@ -2989,7 +2729,6 @@ function SET_SCENERY:AddScenery(AddScenery) end
 ---Add SCENERY(s) to SET_SCENERY.
 ---
 ------
----@param self SET_SCENERY 
 ---@param AddSceneryNames string A single name or an array of SCENERY zone names.
 ---@return SET_SCENERY #self
 function SET_SCENERY:AddSceneryByName(AddSceneryNames) end
@@ -2997,14 +2736,12 @@ function SET_SCENERY:AddSceneryByName(AddSceneryNames) end
 ---Iterate the SET_SCENERY and count how many SCENERYSs are alive.
 ---
 ------
----@param self SET_SCENERY 
 ---@return number #The number of SCENERYSs alive.
 function SET_SCENERY:CountAlive() end
 
 ---Filters for the defined collection.
 ---
 ------
----@param self SET_SCENERY 
 ---@return SET_SCENERY #self
 function SET_SCENERY:FilterOnce() end
 
@@ -3012,7 +2749,6 @@ function SET_SCENERY:FilterOnce() end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all scenery that **contain** the string.
 ---
 ------
----@param self SET_SCENERY 
 ---@param Prefixes string The string pattern(s) that need to be contained in the scenery name. Can also be passed as a `#table` of strings.
 ---@return SET_SCENERY #self
 function SET_SCENERY:FilterPrefixes(Prefixes) end
@@ -3020,7 +2756,6 @@ function SET_SCENERY:FilterPrefixes(Prefixes) end
 ---Builds a set of SCENERYs that **contain** an exact match of the "ROLE" property.
 ---
 ------
----@param self SET_SCENERY 
 ---@param Role string The string pattern(s) that needs to exactly match the scenery "ROLE" property from the ME quad-zone properties. Can also be passed as a `#table` of strings.
 ---@return SET_SCENERY #self
 function SET_SCENERY:FilterRoles(Role) end
@@ -3028,7 +2763,6 @@ function SET_SCENERY:FilterRoles(Role) end
 ---Builds a set of scenery objects in zones.
 ---
 ------
----@param self SET_SCENERY 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_SCENERY #self
 function SET_SCENERY:FilterZones(Zones) end
@@ -3036,7 +2770,6 @@ function SET_SCENERY:FilterZones(Zones) end
 ---Finds a Scenery in the SET, based on the Scenery Name.
 ---
 ------
----@param self SET_SCENERY 
 ---@param SceneryName string 
 ---@return SCENERY #The found Scenery.
 function SET_SCENERY:FindScenery(SceneryName) end
@@ -3044,7 +2777,6 @@ function SET_SCENERY:FindScenery(SceneryName) end
 ---Iterate the SET_SCENERY and call an iterator function for each **alive** SCENERY, providing the SCENERY and optional parameters.
 ---
 ------
----@param self SET_SCENERY 
 ---@param IteratorFunction function The function that will be called when there is an alive SCENERY in the SET_SCENERY. The function needs to accept a SCENERY parameter.
 ---@param ... NOTYPE 
 ---@return SET_SCENERY #self
@@ -3053,7 +2785,6 @@ function SET_SCENERY:ForEachScenery(IteratorFunction, ...) end
 ---Get a table of alive objects.
 ---
 ------
----@param self SET_SCENERY 
 ---@return table #Table of alive objects
 ---@return SET_SCENERY #SET of alive objects
 function SET_SCENERY:GetAliveSet() end
@@ -3061,21 +2792,18 @@ function SET_SCENERY:GetAliveSet() end
 ---Get the center coordinate of the SET_SCENERY.
 ---
 ------
----@param self SET_SCENERY 
 ---@return COORDINATE #The center coordinate of all the objects in the set.
 function SET_SCENERY:GetCoordinate() end
 
 ---Count overall current lifepoints of the SET objects.
 ---
 ------
----@param self SET_SCENERY 
 ---@return number #LifePoints
 function SET_SCENERY:GetLife() end
 
 ---Count overall initial (Life0) lifepoints of the SET objects.
 ---
 ------
----@param self SET_SCENERY 
 ---@return number #LIfe0Points
 function SET_SCENERY:GetLife0() end
 
@@ -3086,14 +2814,12 @@ function SET_SCENERY:GetLife0() end
 ---Thus we will get a smooth percentage decrease, if you use this e.g. as success criteria for a bombing task.
 ---
 ------
----@param self SET_SCENERY 
 ---@return number #LifePoints
 function SET_SCENERY:GetRelativeLife() end
 
 ---[Internal] Determine if an object is to be included in the SET
 ---
 ------
----@param self SET_SCENERY 
 ---@param MScenery SCENERY 
 ---@return SET_SCENERY #self
 function SET_SCENERY:IsIncludeObject(MScenery) end
@@ -3110,7 +2836,6 @@ function SET_SCENERY:IsIncludeObject(MScenery) end
 ---   mysceneryset = SET_SCENERY:New(ZoneSet)
 ---```
 ------
----@param self SET_SCENERY 
 ---@param ZoneSet SET_ZONE SET_ZONE of ZONE objects as created by right-clicks on the map in the mission editor, choosing "assign as...". Rename the zones for grouping purposes, e.g. all sections of a bridge as "Bridge-1" to "Bridge-3".
 ---@return SET_SCENERY #
 function SET_SCENERY:New(ZoneSet) end
@@ -3119,7 +2844,6 @@ function SET_SCENERY:New(ZoneSet) end
 ---Scenery is **not** auto-registered in the Moose database, there are too many objects on each map. Hence we need to find them first. For this we scan the zone.
 ---
 ------
----@param self SET_SCENERY 
 ---@param Zone ZONE The zone to be scanned. Can be a ZONE_RADIUS (round) or a ZONE_POLYGON (e.g. Quad-Point)
 ---@return SET_SCENERY #
 function SET_SCENERY:NewFromZone(Zone) end
@@ -3127,9 +2851,8 @@ function SET_SCENERY:NewFromZone(Zone) end
 ---Remove SCENERY(s) from SET_SCENERY.
 ---
 ------
----@param self SET_SCENERY 
 ---@param RemoveSceneryNames SCENERY A single name or an array of SCENERY zone names.
----@return  #self
+---@return NOTYPE #self
 function SET_SCENERY:RemoveSceneryByName(RemoveSceneryNames) end
 
 
@@ -3195,7 +2918,6 @@ SET_STATIC = {}
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_STATIC 
 ---@param Event EVENTDATA 
 ---@return string #The name of the STATIC
 ---@return table #The STATIC
@@ -3204,7 +2926,6 @@ function SET_STATIC:AddInDatabase(Event) end
 ---Add STATIC(s) to SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@param AddStatic STATIC A single STATIC.
 ---@return SET_STATIC #self
 function SET_STATIC:AddStatic(AddStatic) end
@@ -3212,7 +2933,6 @@ function SET_STATIC:AddStatic(AddStatic) end
 ---Add STATIC(s) to SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@param AddStaticNames string A single name or an array of STATIC names.
 ---@return SET_STATIC #self
 function SET_STATIC:AddStaticsByName(AddStaticNames) end
@@ -3220,14 +2940,12 @@ function SET_STATIC:AddStaticsByName(AddStaticNames) end
 ---Calculate the maximum A2G threat level of the SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@return number #The maximum threatlevel
 function SET_STATIC:CalculateThreatLevelA2G() end
 
 ---Iterate the SET_STATIC and count how many STATICSs are alive.
 ---
 ------
----@param self SET_STATIC 
 ---@return number #The number of UNITs alive.
 function SET_STATIC:CountAlive() end
 
@@ -3235,7 +2953,6 @@ function SET_STATIC:CountAlive() end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_STATIC 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship".
 ---@return SET_STATIC #self
 function SET_STATIC:FilterCategories(Categories) end
@@ -3244,7 +2961,6 @@ function SET_STATIC:FilterCategories(Categories) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_STATIC 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_STATIC #self
 function SET_STATIC:FilterCoalitions(Coalitions) end
@@ -3253,7 +2969,6 @@ function SET_STATIC:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_STATIC 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_STATIC #self
 function SET_STATIC:FilterCountries(Countries) end
@@ -3276,7 +2991,6 @@ function SET_STATIC:FilterCountries(Countries) end
 ---         BASE:I(groundset:Flush())
 ---```
 ------
----@param self SET_STATIC 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a STATIC object as first argument.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return SET_STATIC #self
@@ -3286,7 +3000,6 @@ function SET_STATIC:FilterFunction(ConditionFunction, ...) end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all statics that **contain** the string.
 ---
 ------
----@param self SET_STATIC 
 ---@param Prefixes string The string pattern(s) that need to be contained in the static name. Can also be passed as a `#table` of strings.
 ---@return SET_STATIC #self
 function SET_STATIC:FilterPrefixes(Prefixes) end
@@ -3294,7 +3007,6 @@ function SET_STATIC:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_STATIC 
 ---@return SET_STATIC #self
 function SET_STATIC:FilterStart() end
 
@@ -3302,7 +3014,6 @@ function SET_STATIC:FilterStart() end
 ---Possible current types are those types known within DCS world.
 ---
 ------
----@param self SET_STATIC 
 ---@param Types string Can take those type strings known within DCS world.
 ---@return SET_STATIC #self
 function SET_STATIC:FilterTypes(Types) end
@@ -3310,7 +3021,6 @@ function SET_STATIC:FilterTypes(Types) end
 ---Builds a set of statics in zones.
 ---
 ------
----@param self SET_STATIC 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_STATIC #self
 function SET_STATIC:FilterZones(Zones) end
@@ -3319,7 +3029,6 @@ function SET_STATIC:FilterZones(Zones) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_STATIC 
 ---@param Event EVENTDATA 
 ---@return string #The name of the STATIC
 ---@return table #The STATIC
@@ -3328,7 +3037,6 @@ function SET_STATIC:FindInDatabase(Event) end
 ---Finds a Static based on the Static Name.
 ---
 ------
----@param self SET_STATIC 
 ---@param StaticName string 
 ---@return STATIC #The found Static.
 function SET_STATIC:FindStatic(StaticName) end
@@ -3336,7 +3044,6 @@ function SET_STATIC:FindStatic(StaticName) end
 ---Iterate the SET_STATIC and call an iterator function for each **alive** STATIC, providing the STATIC and optional parameters.
 ---
 ------
----@param self SET_STATIC 
 ---@param IteratorFunction function The function that will be called when there is an alive STATIC in the SET_STATIC. The function needs to accept a STATIC parameter.
 ---@param ... NOTYPE 
 ---@return SET_STATIC #self
@@ -3345,7 +3052,6 @@ function SET_STATIC:ForEachStatic(IteratorFunction, ...) end
 ---Iterate the SET_STATIC and call an iterator function for each **alive** STATIC presence completely in a Core.Zone, providing the STATIC and optional parameters to the called function.
 ---
 ------
----@param self SET_STATIC 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive STATIC in the SET_STATIC. The function needs to accept a STATIC parameter.
 ---@param ... NOTYPE 
@@ -3355,7 +3061,6 @@ function SET_STATIC:ForEachStaticCompletelyInZone(ZoneObject, IteratorFunction, 
 ---Check if minimal one element of the SET_STATIC is in the Zone.
 ---
 ------
----@param self SET_STATIC 
 ---@param IteratorFunction function The function that will be called when there is an alive STATIC in the SET_STATIC. The function needs to accept a STATIC parameter.
 ---@param ... NOTYPE 
 ---@return SET_STATIC #self
@@ -3364,7 +3069,6 @@ function SET_STATIC:ForEachStaticInZone(IteratorFunction, ...) end
 ---Iterate the SET_STATIC and call an iterator function for each **alive** STATIC presence not in a Core.Zone, providing the STATIC and optional parameters to the called function.
 ---
 ------
----@param self SET_STATIC 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive STATIC in the SET_STATIC. The function needs to accept a STATIC parameter.
 ---@param ... NOTYPE 
@@ -3375,7 +3079,6 @@ function SET_STATIC:ForEachStaticNotInZone(ZoneObject, IteratorFunction, ...) en
 ---Optionally, only statics of given coalitions are considered in the search.
 ---
 ------
----@param self SET_STATIC 
 ---@param Coordinate COORDINATE Reference Coordinate from which the closest static is determined.
 ---@param Coalitions NOTYPE 
 ---@return STATIC #The closest static (if any).
@@ -3385,42 +3088,36 @@ function SET_STATIC:GetClosestStatic(Coordinate, Coalitions) end
 ---Get the center coordinate of the SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@return COORDINATE #The center coordinate of all the units in the set, including heading in degrees and speed in mps in case of moving units.
 function SET_STATIC:GetCoordinate() end
 
 ---Get the first unit from the set.
 ---
 ------
----@param self SET_STATIC 
 ---@return STATIC #The STATIC object.
 function SET_STATIC:GetFirst() end
 
 ---Get the average heading of the SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@return number #Heading Heading in degrees and speed in mps in case of moving units.
 function SET_STATIC:GetHeading() end
 
 ---Returns map of unit types.
 ---
 ------
----@param self SET_STATIC 
 ---@return map #A map of the unit types found. The key is the StaticTypeName and the value is the amount of unit types found.
 function SET_STATIC:GetStaticTypes() end
 
 ---Returns a comma separated string of the unit types with a count in the  Core.Set.
 ---
 ------
----@param self SET_STATIC 
 ---@return string #The unit types string
 function SET_STATIC:GetStaticTypesText() end
 
 ---Retrieve the type names of the Wrapper.Statics in the SET, delimited by an optional delimiter.
 ---
 ------
----@param self SET_STATIC 
 ---@param Delimiter? string (Optional) The delimiter, which is default a comma.
 ---@return string #The types of the @{Wrapper.Static}s delimited.
 function SET_STATIC:GetTypeNames(Delimiter) end
@@ -3428,14 +3125,12 @@ function SET_STATIC:GetTypeNames(Delimiter) end
 ---Get the maximum velocity of the SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@return number #The speed in mps in case of moving units.
 function SET_STATIC:GetVelocity() end
 
 
 ---
 ------
----@param self SET_STATIC 
 ---@param MStatic STATIC 
 ---@return SET_STATIC #self
 function SET_STATIC:IsIncludeObject(MStatic) end
@@ -3443,7 +3138,6 @@ function SET_STATIC:IsIncludeObject(MStatic) end
 ---Check if no element of the SET_STATIC is in the Zone.
 ---
 ------
----@param self SET_STATIC 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #
 function SET_STATIC:IsNotInZone(Zone) end
@@ -3451,7 +3145,6 @@ function SET_STATIC:IsNotInZone(Zone) end
 ---Check if minimal one element of the SET_STATIC is in the Zone.
 ---
 ------
----@param self SET_STATIC 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #
 function SET_STATIC:IsPartiallyInZone(Zone) end
@@ -3466,16 +3159,14 @@ function SET_STATIC:IsPartiallyInZone(Zone) end
 ---DBObject = SET_STATIC:New()
 ---```
 ------
----@param self SET_STATIC 
 ---@return SET_STATIC #
 function SET_STATIC:New() end
 
 ---Remove STATIC(s) from SET_STATIC.
 ---
 ------
----@param self SET_STATIC 
 ---@param RemoveStaticNames STATIC A single name or an array of STATIC names.
----@return  #self
+---@return NOTYPE #self
 function SET_STATIC:RemoveStaticsByName(RemoveStaticNames) end
 
 
@@ -3588,7 +3279,6 @@ SET_UNIT = {}
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_UNIT 
 ---@param Event EVENTDATA 
 ---@return string #The name of the UNIT
 ---@return table #The UNIT
@@ -3597,7 +3287,6 @@ function SET_UNIT:AddInDatabase(Event) end
 ---Add UNIT(s) to SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@param Unit UNIT A single UNIT.
 ---@return SET_UNIT #self
 function SET_UNIT:AddUnit(Unit) end
@@ -3605,7 +3294,6 @@ function SET_UNIT:AddUnit(Unit) end
 ---Add UNIT(s) to SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@param AddUnitNames string A single name or an array of UNIT names.
 ---@return SET_UNIT #self
 function SET_UNIT:AddUnitsByName(AddUnitNames) end
@@ -3613,14 +3301,12 @@ function SET_UNIT:AddUnitsByName(AddUnitNames) end
 ---Calculate the maximum A2G threat level of the SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #The maximum threat level
 function SET_UNIT:CalculateThreatLevelA2G() end
 
 ---Count Alive Units
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:CountAlive() end
 
@@ -3645,7 +3331,6 @@ function SET_UNIT:CountAlive() end
 ---UnitSet = SET_UNIT:New():FilterActive( false ):FilterCoalition( "blue" ):FilterOnce()
 ---```
 ------
----@param self SET_UNIT 
 ---@param Active? boolean (Optional) Include only active units to the set. Include inactive units if you provide false.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterActive(Active) end
@@ -3653,7 +3338,6 @@ function SET_UNIT:FilterActive(Active) end
 ---Builds a set of units which exist and are alive.
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:FilterAlive() end
 
@@ -3661,7 +3345,6 @@ function SET_UNIT:FilterAlive() end
 ---Possible current categories are plane, helicopter, ground, ship.
 ---
 ------
----@param self SET_UNIT 
 ---@param Categories string Can take the following values: "plane", "helicopter", "ground", "ship".
 ---@return SET_UNIT #self
 function SET_UNIT:FilterCategories(Categories) end
@@ -3670,7 +3353,6 @@ function SET_UNIT:FilterCategories(Categories) end
 ---Possible current coalitions are red, blue and neutral.
 ---
 ------
----@param self SET_UNIT 
 ---@param Coalitions string Can take the following values: "red", "blue", "neutral".
 ---@return SET_UNIT #self
 function SET_UNIT:FilterCoalitions(Coalitions) end
@@ -3679,7 +3361,6 @@ function SET_UNIT:FilterCoalitions(Coalitions) end
 ---Possible current countries are those known within DCS world.
 ---
 ------
----@param self SET_UNIT 
 ---@param Countries string Can take those country strings known within DCS world.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterCountries(Countries) end
@@ -3702,7 +3383,6 @@ function SET_UNIT:FilterCountries(Countries) end
 ---         BASE:I(groundset:Flush())
 ---```
 ------
----@param self SET_UNIT 
 ---@param ConditionFunction function If this function returns `true`, the object is added to the SET. The function needs to take a UNIT object as first argument.
 ---@param ... NOTYPE Condition function arguments if any.
 ---@return SET_UNIT #self
@@ -3711,7 +3391,6 @@ function SET_UNIT:FilterFunction(ConditionFunction, ...) end
 ---Builds a set of units which belong to groups with certain **group names**.
 ---
 ------
----@param self SET_UNIT 
 ---@param Prefixes string The (partial) group names to look for. Can be a single string or a table of strings.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterGroupPrefixes(Prefixes) end
@@ -3720,7 +3399,6 @@ function SET_UNIT:FilterGroupPrefixes(Prefixes) end
 ---All the units having a radar of a given type will be included within the set.
 ---
 ------
----@param self SET_UNIT 
 ---@param RadarTypes table The radar types.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterHasRadar(RadarTypes) end
@@ -3728,7 +3406,6 @@ function SET_UNIT:FilterHasRadar(RadarTypes) end
 ---Builds a set of SEADable units.
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:FilterHasSEAD() end
 
@@ -3736,7 +3413,6 @@ function SET_UNIT:FilterHasSEAD() end
 ---**Attention!** Bad naming convention as this **does not** filter only **prefixes** but all units that **contain** the string.
 ---
 ------
----@param self SET_UNIT 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the unit name. Can also be passed as a `#table` of strings.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterPrefixes(Prefixes) end
@@ -3744,14 +3420,12 @@ function SET_UNIT:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:FilterStart() end
 
 ---Stops the filtering.
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:FilterStop() end
 
@@ -3759,7 +3433,6 @@ function SET_UNIT:FilterStop() end
 ---Possible current types are those types known within DCS world.
 ---
 ------
----@param self SET_UNIT 
 ---@param Types string Can take those type strings known within DCS world.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterTypes(Types) end
@@ -3767,7 +3440,6 @@ function SET_UNIT:FilterTypes(Types) end
 ---Set filter timer interval for FilterZones if using active filtering with FilterStart().
 ---
 ------
----@param self SET_UNIT 
 ---@param Seconds number Seconds between check intervals, defaults to 30. **Caution** - do not be too agressive with timing! Groups are usually not moving fast enough to warrant a check of below 10 seconds.
 ---@return SET_UNIT #self
 function SET_UNIT:FilterZoneTimer(Seconds) end
@@ -3775,7 +3447,6 @@ function SET_UNIT:FilterZoneTimer(Seconds) end
 ---Builds a set of units in zones.
 ---
 ------
----@param self SET_UNIT 
 ---@param Zones table Table of Core.Zone#ZONE Zone objects, or a Core.Set#SET_ZONE
 ---@return SET_UNIT #self
 function SET_UNIT:FilterZones(Zones) end
@@ -3784,7 +3455,6 @@ function SET_UNIT:FilterZones(Zones) end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_UNIT 
 ---@param Event EVENTDATA 
 ---@return string #The name of the UNIT
 ---@return table #The UNIT
@@ -3793,7 +3463,6 @@ function SET_UNIT:FindInDatabase(Event) end
 ---Finds a Unit based on the Unit Name.
 ---
 ------
----@param self SET_UNIT 
 ---@param UnitName string 
 ---@return UNIT #The found Unit.
 function SET_UNIT:FindUnit(UnitName) end
@@ -3801,7 +3470,6 @@ function SET_UNIT:FindUnit(UnitName) end
 ---Iterate the SET_UNIT and call an iterator function for each **alive** UNIT, providing the UNIT and optional parameters.
 ---
 ------
----@param self SET_UNIT 
 ---@param IteratorFunction function The function that will be called when there is an alive UNIT in the SET_UNIT. The function needs to accept a UNIT parameter.
 ---@param ... NOTYPE 
 ---@return SET_UNIT #self
@@ -3810,7 +3478,6 @@ function SET_UNIT:ForEachUnit(IteratorFunction, ...) end
 ---Iterate the SET_UNIT and call an iterator function for each **alive** UNIT presence completely in a Core.Zone, providing the UNIT and optional parameters to the called function.
 ---
 ------
----@param self SET_UNIT 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive UNIT in the SET_UNIT. The function needs to accept a UNIT parameter.
 ---@param ... NOTYPE 
@@ -3820,7 +3487,6 @@ function SET_UNIT:ForEachUnitCompletelyInZone(ZoneObject, IteratorFunction, ...)
 ---Iterate the SET_UNIT and call an iterator function for each **alive** UNIT presence not in a Core.Zone, providing the UNIT and optional parameters to the called function.
 ---
 ------
----@param self SET_UNIT 
 ---@param ZoneObject ZONE The Zone to be tested for.
 ---@param IteratorFunction function The function that will be called when there is an alive UNIT in the SET_UNIT. The function needs to accept a UNIT parameter.
 ---@param ... NOTYPE 
@@ -3842,7 +3508,6 @@ function SET_UNIT:ForEachUnitNotInZone(ZoneObject, IteratorFunction, ...) end
 ---    )
 ---```
 ------
----@param self SET_UNIT 
 ---@param FromThreatLevel number The TreatLevel to start the evaluation **From** (this must be a value between 0 and 10).
 ---@param ToThreatLevel number The TreatLevel to stop the evaluation **To** (this must be a value between 0 and 10).
 ---@param IteratorFunction function The function that will be called when there is an alive UNIT in the SET_UNIT. The function needs to accept a UNIT parameter.
@@ -3853,7 +3518,6 @@ function SET_UNIT:ForEachUnitPerThreatLevel(FromThreatLevel, ToThreatLevel, Iter
 ---Gets the alive set.
 ---
 ------
----@param self SET_UNIT 
 ---@return table #Table of SET objects
 ---@return SET_UNIT #AliveSet 
 function SET_UNIT:GetAliveSet() end
@@ -3861,28 +3525,24 @@ function SET_UNIT:GetAliveSet() end
 ---Get the center coordinate of the SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@return COORDINATE #The center coordinate of all the units in the set, including heading in degrees and speed in mps in case of moving units.
 function SET_UNIT:GetCoordinate() end
 
 ---Get the first unit from the set.
 ---
 ------
----@param self SET_UNIT 
 ---@return UNIT #The UNIT object.
 function SET_UNIT:GetFirst() end
 
 ---Get the average heading of the SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #Heading Heading in degrees and speed in mps in case of moving units.
 function SET_UNIT:GetHeading() end
 
 ---Get the SET of the SET_UNIT **sorted per Threat Level**.
 ---
 ------
----@param self SET_UNIT 
 ---@param FromThreatLevel number The TreatLevel to start the evaluation **From** (this must be a value between 0 and 10).
 ---@param ToThreatLevel number The TreatLevel to stop the evaluation **To** (this must be a value between 0 and 10).
 ---@return SET_UNIT #self
@@ -3891,7 +3551,6 @@ function SET_UNIT:GetSetPerThreatLevel(FromThreatLevel, ToThreatLevel) end
 ---Retrieve the type names of the Wrapper.Units in the SET, delimited by an optional delimiter.
 ---
 ------
----@param self SET_UNIT 
 ---@param Delimiter? string (Optional) The delimiter, which is default a comma.
 ---@return string #The types of the @{Wrapper.Unit}s delimited.
 function SET_UNIT:GetTypeNames(Delimiter) end
@@ -3899,42 +3558,36 @@ function SET_UNIT:GetTypeNames(Delimiter) end
 ---Returns map of unit threat levels.
 ---
 ------
----@param self SET_UNIT 
 ---@return table #
 function SET_UNIT:GetUnitThreatLevels() end
 
 ---Returns map of unit types.
 ---
 ------
----@param self SET_UNIT 
 ---@return map #A map of the unit types found. The key is the UnitTypeName and the value is the amount of unit types found.
 function SET_UNIT:GetUnitTypes() end
 
 ---Returns a comma separated string of the unit types with a count in the  Core.Set.
 ---
 ------
----@param self SET_UNIT 
 ---@return string #The unit types string
 function SET_UNIT:GetUnitTypesText() end
 
 ---Get the maximum velocity of the SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #The speed in mps in case of moving units.
 function SET_UNIT:GetVelocity() end
 
 ---Returns if the Core.Set has air targets.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #The amount of air targets in the Set.
 function SET_UNIT:HasAirUnits() end
 
 ---Returns if the Core.Set has friendly ground units.
 ---
 ------
----@param self SET_UNIT 
 ---@param FriendlyCoalition NOTYPE 
 ---@return number #The amount of ground targets in the Set.
 function SET_UNIT:HasFriendlyUnits(FriendlyCoalition) end
@@ -3942,14 +3595,12 @@ function SET_UNIT:HasFriendlyUnits(FriendlyCoalition) end
 ---Returns if the Core.Set has ground targets.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #The amount of ground targets in the Set.
 function SET_UNIT:HasGroundUnits() end
 
 ---Returns if the Core.Set has targets having a radar (of a given type).
 ---
 ------
----@param self SET_UNIT 
 ---@param RadarType Unit.RadarType 
 ---@return number #The amount of radars in the Set with the given type
 function SET_UNIT:HasRadar(RadarType) end
@@ -3957,14 +3608,12 @@ function SET_UNIT:HasRadar(RadarType) end
 ---Returns if the Core.Set has targets that can be SEADed.
 ---
 ------
----@param self SET_UNIT 
 ---@return number #The amount of SEADable units in the Set
 function SET_UNIT:HasSEAD() end
 
 
 ---
 ------
----@param self SET_UNIT 
 ---@param MUnit UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:IsIncludeObject(MUnit) end
@@ -3972,7 +3621,6 @@ function SET_UNIT:IsIncludeObject(MUnit) end
 ---Check if no element of the SET_UNIT is in the Zone.
 ---
 ------
----@param self SET_UNIT 
 ---@param Zone ZONE The Zone to be tested for.
 ---@return boolean #
 function SET_UNIT:IsNotInZone(Zone) end
@@ -3980,7 +3628,6 @@ function SET_UNIT:IsNotInZone(Zone) end
 ---Check if minimal one element of the SET_UNIT is in the Zone.
 ---
 ------
----@param self SET_UNIT 
 ---@param ZoneTest ZONE The Zone to be tested for.
 ---@return boolean #
 function SET_UNIT:IsPartiallyInZone(ZoneTest) end
@@ -3995,14 +3642,12 @@ function SET_UNIT:IsPartiallyInZone(ZoneTest) end
 ---DBObject = SET_UNIT:New()
 ---```
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #
 function SET_UNIT:New() end
 
 ---Remove UNIT(s) from SET_UNIT.
 ---
 ------
----@param self SET_UNIT 
 ---@param RemoveUnitNames table A single name or an array of UNIT names.
 ---@return SET_UNIT #self
 function SET_UNIT:RemoveUnitsByName(RemoveUnitNames) end
@@ -4018,13 +3663,11 @@ function SET_UNIT:RemoveUnitsByName(RemoveUnitNames) end
 ---MySetUnit:SetCargoBayWeightLimit()
 ---```
 ------
----@param self SET_UNIT 
 function SET_UNIT:SetCargoBayWeightLimit() end
 
 ---[Internal] Private function for use of continous zone filter
 ---
 ------
----@param self SET_UNIT 
 ---@return SET_UNIT #self
 function SET_UNIT:_ContinousZoneFilter() end
 
@@ -4072,7 +3715,6 @@ SET_ZONE = {}
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_ZONE 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -4081,23 +3723,20 @@ function SET_ZONE:AddInDatabase(Event) end
 ---Add ZONEs to SET_ZONE.
 ---
 ------
----@param self SET_ZONE 
 ---@param Zone ZONE_BASE A ZONE_BASE object.
----@return  #self
+---@return NOTYPE #self
 function SET_ZONE:AddZone(Zone) end
 
 ---Add ZONEs by a search name to SET_ZONE.
 ---
 ------
----@param self SET_ZONE 
 ---@param AddZoneNames string A single name or an array of ZONE_BASE names.
----@return  #self
+---@return NOTYPE #self
 function SET_ZONE:AddZonesByName(AddZoneNames) end
 
 ---Draw all zones in the set on the F10 map.
 ---
 ------
----@param self SET_ZONE 
 ---@param Coalition number Coalition: All=-1, Neutral=0, Red=1, Blue=2. Default -1=All.
 ---@param Color table RGB color table {r, g, b}, e.g. {1,0,0} for red.
 ---@param Alpha number Transparency [0,1]. Default 1.
@@ -4112,7 +3751,6 @@ function SET_ZONE:DrawZone(Coalition, Color, Alpha, FillColor, FillAlpha, LineTy
 ---**ATTENTION!** Bad naming convention as this **does not** filter only **prefixes** but all zones that **contain** the string.
 ---
 ------
----@param self SET_ZONE 
 ---@param Prefixes string The string pattern(s) that need to be contained in the zone name. Can also be passed as a `#table` of strings.
 ---@return SET_ZONE #self
 function SET_ZONE:FilterPrefixes(Prefixes) end
@@ -4120,14 +3758,12 @@ function SET_ZONE:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_ZONE 
 ---@return SET_ZONE #self
 function SET_ZONE:FilterStart() end
 
 ---Stops the filtering for the defined collection.
 ---
 ------
----@param self SET_ZONE 
 ---@return SET_ZONE #self
 function SET_ZONE:FilterStop() end
 
@@ -4135,7 +3771,6 @@ function SET_ZONE:FilterStop() end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_ZONE 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -4144,7 +3779,6 @@ function SET_ZONE:FindInDatabase(Event) end
 ---Finds a Zone based on the Zone Name.
 ---
 ------
----@param self SET_ZONE 
 ---@param ZoneName string 
 ---@return ZONE_BASE #The found Zone.
 function SET_ZONE:FindZone(ZoneName) end
@@ -4152,7 +3786,6 @@ function SET_ZONE:FindZone(ZoneName) end
 ---Iterate the SET_ZONE and call an iterator function for each ZONE, providing the ZONE and optional parameters.
 ---
 ------
----@param self SET_ZONE 
 ---@param IteratorFunction function The function that will be called when there is an alive ZONE in the SET_ZONE. The function needs to accept a AIRBASE parameter.
 ---@param ... NOTYPE 
 ---@return SET_ZONE #self
@@ -4161,14 +3794,12 @@ function SET_ZONE:ForEachZone(IteratorFunction, ...) end
 ---Get the average aggregated coordinate of this set of zones.
 ---
 ------
----@param self SET_ZONE 
 ---@return COORDINATE #
 function SET_ZONE:GetAverageCoordinate() end
 
 ---Get the closest zone to a given coordinate.
 ---
 ------
----@param self SET_ZONE 
 ---@param Coordinate COORDINATE The reference coordinate from which the closest zone is determined.
 ---@return ZONE_BASE #The closest zone (if any).
 ---@return number #Distance to ref coordinate in meters.
@@ -4177,7 +3808,6 @@ function SET_ZONE:GetClosestZone(Coordinate) end
 ---Get a random zone from the set.
 ---
 ------
----@param self SET_ZONE 
 ---@param margin number Number of tries to find a zone
 ---@return ZONE_BASE #The random Zone.
 ---@return nil #if no zone in the collection.
@@ -4188,7 +3818,6 @@ function SET_ZONE:GetRandomZone(margin) end
 ---If zones overlap, the first zone that validates the test is returned.
 ---
 ------
----@param self SET_ZONE 
 ---@param Coordinate COORDINATE The coordinate to be searched.
 ---@return ZONE_BASE #The zone (if any) that validates the coordinate location.
 function SET_ZONE:IsCoordinateInZone(Coordinate) end
@@ -4196,7 +3825,6 @@ function SET_ZONE:IsCoordinateInZone(Coordinate) end
 ---Private function.
 ---
 ------
----@param self SET_ZONE 
 ---@param MZone ZONE_BASE 
 ---@return SET_ZONE #self
 function SET_ZONE:IsIncludeObject(MZone) end
@@ -4211,7 +3839,6 @@ function SET_ZONE:IsIncludeObject(MZone) end
 ---DatabaseSet = SET_ZONE:New()
 ---```
 ------
----@param self SET_ZONE 
 ---@return SET_ZONE #self
 function SET_ZONE:New() end
 
@@ -4219,7 +3846,6 @@ function SET_ZONE:New() end
 ---An observed object has entered the zone.
 ---
 ------
----@param self SET_ZONE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -4231,7 +3857,6 @@ function SET_ZONE:OnAfterEnteredZone(From, Event, To, Controllable, Zone) end
 ---An observed object has left the zone.
 ---
 ------
----@param self SET_ZONE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -4242,29 +3867,25 @@ function SET_ZONE:OnAfterLeftZone(From, Event, To, Controllable, Zone) end
 ---Handles the OnDead or OnCrash event for alive units set.
 ---
 ------
----@param self SET_ZONE 
 ---@param EventData EVENTDATA 
 function SET_ZONE:OnEventDeleteZone(EventData) end
 
 ---Handles the OnEventNewZone event for the Set.
 ---
 ------
----@param self SET_ZONE 
 ---@param EventData EVENTDATA 
 function SET_ZONE:OnEventNewZone(EventData) end
 
 ---Remove ZONEs from SET_ZONE.
 ---
 ------
----@param self SET_ZONE 
 ---@param RemoveZoneNames ZONE_BASE A single name or an array of ZONE_BASE names.
----@return  #self
+---@return NOTYPE #self
 function SET_ZONE:RemoveZonesByName(RemoveZoneNames) end
 
 ---Set the check time for SET_ZONE:Trigger()
 ---
 ------
----@param self SET_ZONE 
 ---@param seconds number Check every seconds for objects entering or leaving the zone. Defaults to 5 secs.
 ---@return SET_ZONE #self
 function SET_ZONE:SetCheckTime(seconds) end
@@ -4272,7 +3893,6 @@ function SET_ZONE:SetCheckTime(seconds) end
 ---Set a zone probability.
 ---
 ------
----@param self SET_ZONE 
 ---@param ZoneName string The name of the zone.
 ---@param ZoneProbability NOTYPE 
 function SET_ZONE:SetZoneProbability(ZoneName, ZoneProbability) end
@@ -4311,7 +3931,6 @@ function SET_ZONE:SetZoneProbability(ZoneName, ZoneProbability) end
 ---         zoneset:__TriggerStop(3600)
 ---```
 ------
----@param self SET_ZONE 
 ---@param Objects CONTROLLABLE Object or Objects to watch, can be of type UNIT, GROUP, CLIENT, or SET\_UNIT, SET\_GROUP, SET\_CLIENT
 ---@return SET_ZONE #self
 function SET_ZONE:Trigger(Objects) end
@@ -4320,13 +3939,11 @@ function SET_ZONE:Trigger(Objects) end
 ---Stops the SET_ZONE Trigger.
 ---
 ------
----@param self SET_ZONE 
 function SET_ZONE:TriggerStop() end
 
 ---(Internal) Check the assigned objects for being in/out of the zone
 ---
 ------
----@param self SET_ZONE 
 ---@param fromstart boolean If true, do the init of the objects
 ---@return SET_ZONE #self
 function SET_ZONE:_TriggerCheck(fromstart) end
@@ -4334,14 +3951,12 @@ function SET_ZONE:_TriggerCheck(fromstart) end
 ---Triggers the FSM event "TriggerStop" after a delay.
 ---
 ------
----@param self SET_ZONE 
 ---@param delay number Delay in seconds.
 function SET_ZONE:__TriggerStop(delay) end
 
 ---(Internal) Check the assigned objects for being in/out of the zone
 ---
 ------
----@param self SET_ZONE 
 ---@param From string 
 ---@param Event string 
 ---@param to string 
@@ -4392,7 +4007,6 @@ SET_ZONE_GOAL = {}
 ---This is required, because sometimes the _DATABASE birth event gets called later than the SET_BASE birth event!
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -4401,16 +4015,14 @@ function SET_ZONE_GOAL:AddInDatabase(Event) end
 ---Add ZONEs to SET_ZONE_GOAL.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param Zone ZONE_BASE A ZONE_BASE object.
----@return  #self
+---@return NOTYPE #self
 function SET_ZONE_GOAL:AddZone(Zone) end
 
 ---Builds a set of ZONE_GOALs that contain the given string in their name.
 ---**ATTENTION!** Bad naming convention as this **does not** filter only **prefixes** but all zones that **contain** the string.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param Prefixes string The string pattern(s) that needs to be contained in the zone name. Can also be passed as a `#table` of strings.
 ---@return SET_ZONE_GOAL #self
 function SET_ZONE_GOAL:FilterPrefixes(Prefixes) end
@@ -4418,14 +4030,12 @@ function SET_ZONE_GOAL:FilterPrefixes(Prefixes) end
 ---Starts the filtering.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@return SET_ZONE_GOAL #self
 function SET_ZONE_GOAL:FilterStart() end
 
 ---Stops the filtering for the defined collection.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@return SET_ZONE_GOAL #self
 function SET_ZONE_GOAL:FilterStop() end
 
@@ -4433,7 +4043,6 @@ function SET_ZONE_GOAL:FilterStop() end
 ---This is required, because sometimes the _DATABASE event gets called later than the SET_BASE event or vise versa!
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param Event EVENTDATA 
 ---@return string #The name of the AIRBASE
 ---@return table #The AIRBASE
@@ -4442,7 +4051,6 @@ function SET_ZONE_GOAL:FindInDatabase(Event) end
 ---Finds a Zone based on the Zone Name.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param ZoneName string 
 ---@return ZONE_BASE #The found Zone.
 function SET_ZONE_GOAL:FindZone(ZoneName) end
@@ -4450,7 +4058,6 @@ function SET_ZONE_GOAL:FindZone(ZoneName) end
 ---Iterate the SET_ZONE_GOAL and call an iterator function for each ZONE, providing the ZONE and optional parameters.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param IteratorFunction function The function that will be called when there is an alive ZONE in the SET_ZONE_GOAL. The function needs to accept a AIRBASE parameter.
 ---@param ... NOTYPE 
 ---@return SET_ZONE_GOAL #self
@@ -4459,7 +4066,6 @@ function SET_ZONE_GOAL:ForEachZone(IteratorFunction, ...) end
 ---Get a random zone from the set.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@return ZONE_BASE #The random Zone.
 ---@return nil #if no zone in the collection.
 function SET_ZONE_GOAL:GetRandomZone() end
@@ -4469,7 +4075,6 @@ function SET_ZONE_GOAL:GetRandomZone() end
 ---If zones overlap, the first zone that validates the test is returned.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param Coordinate COORDINATE The coordinate to be searched.
 ---@return ZONE_BASE #The zone that validates the coordinate location.
 ---@return nil #No zone has been found.
@@ -4478,7 +4083,6 @@ function SET_ZONE_GOAL:IsCoordinateInZone(Coordinate) end
 
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param MZone ZONE_BASE 
 ---@return SET_ZONE_GOAL #self
 function SET_ZONE_GOAL:IsIncludeObject(MZone) end
@@ -4493,36 +4097,31 @@ function SET_ZONE_GOAL:IsIncludeObject(MZone) end
 ---DatabaseSet = SET_ZONE_GOAL:New()
 ---```
 ------
----@param self SET_ZONE_GOAL 
 ---@return SET_ZONE_GOAL #self
 function SET_ZONE_GOAL:New() end
 
 ---Handles the OnDead or OnCrash event for alive units set.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param EventData EVENTDATA 
 function SET_ZONE_GOAL:OnEventDeleteZoneGoal(EventData) end
 
 ---Handles the OnEventNewZone event for the Set.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param EventData EVENTDATA 
 function SET_ZONE_GOAL:OnEventNewZoneGoal(EventData) end
 
 ---Remove ZONEs from SET_ZONE_GOAL.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param RemoveZoneNames ZONE_BASE A single name or an array of ZONE_BASE names.
----@return  #self
+---@return NOTYPE #self
 function SET_ZONE_GOAL:RemoveZonesByName(RemoveZoneNames) end
 
 ---Set a zone probability.
 ---
 ------
----@param self SET_ZONE_GOAL 
 ---@param ZoneName string The name of the zone.
 ---@param ZoneProbability NOTYPE 
 function SET_ZONE_GOAL:SetZoneProbability(ZoneName, ZoneProbability) end

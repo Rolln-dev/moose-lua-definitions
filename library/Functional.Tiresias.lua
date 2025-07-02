@@ -85,7 +85,6 @@ TIRESIAS = {}
 ---Can be done multiple times. Does **not** work work for GROUP objects spawned into the SET after start, i.e. the groups need to exist in the game already.
 ---
 ------
----@param self TIRESIAS 
 ---@param Set SET_GROUP to add to the exception list.
 ---@return TIRESIAS #self
 function TIRESIAS:AddExceptionSet(Set) end
@@ -93,14 +92,12 @@ function TIRESIAS:AddExceptionSet(Set) end
 ---[USER] Create a new Tiresias object and start it up.
 ---
 ------
----@param self TIRESIAS 
 ---@return TIRESIAS #self 
 function TIRESIAS:New() end
 
 ---[USER] Set AAA Ranges - AAA equals non-SAM systems which qualify as AAA in DCS world.
 ---
 ------
----@param self TIRESIAS 
 ---@param FiringRange number The engagement range that AAA units will be set to. Can be 0 to 100 (percent). Defaults to 60.
 ---@param SwitchAAA boolean Decide if these system will have their AI switched off, too. Defaults to true.
 ---@return TIRESIAS #self 
@@ -109,7 +106,6 @@ function TIRESIAS:SetAAARanges(FiringRange, SwitchAAA) end
 ---[USER] Set activation radius for Helos and Planes in Nautical Miles.
 ---
 ------
----@param self TIRESIAS 
 ---@param HeloMiles number Radius around a Helicopter in which AI ground units will be activated. Defaults to 10NM.
 ---@param PlaneMiles number Radius around an Airplane in which AI ground units will be activated. Defaults to 25NM.
 ---@return TIRESIAS #self 
@@ -119,20 +115,17 @@ function TIRESIAS:SetActivationRanges(HeloMiles, PlaneMiles) end
 ---Starts TIRESIAS and all its event handlers. Note - `:New()` already starts the instance.
 ---
 ------
----@param self TIRESIAS 
 function TIRESIAS:Start() end
 
 ---Triggers the FSM event "Stop".
 ---Stops TIRESIAS and all its event handlers.
 ---
 ------
----@param self TIRESIAS 
 function TIRESIAS:Stop() end
 
 ---[INTERNAL] Event handler function
 ---
 ------
----@param self TIRESIAS 
 ---@param EventData EVENTDATA 
 ---@return TIRESIAS #self
 function TIRESIAS:_EventHandler(EventData) end
@@ -140,42 +133,36 @@ function TIRESIAS:_EventHandler(EventData) end
 ---[INTERNAL] Filter Function
 ---
 ------
----@param Group GROUP 
 ---@return boolean #isin
 function TIRESIAS._FilterAAA(Group) end
 
 ---[INTERNAL] Filter Function
 ---
 ------
----@param Group GROUP 
 ---@return boolean #isin
 function TIRESIAS._FilterNotAAA(Group) end
 
 ---[INTERNAL] Filter Function
 ---
 ------
----@param Group GROUP 
 ---@return boolean #isin
 function TIRESIAS._FilterNotSAM(Group) end
 
 ---[INTERNAL] Filter Function
 ---
 ------
----@param Group GROUP 
 ---@return boolean #isin
 function TIRESIAS._FilterSAM(Group) end
 
 ---[INTERNAL] Init Groups
 ---
 ------
----@param self TIRESIAS 
 ---@return TIRESIAS #self
 function TIRESIAS:_InitGroups() end
 
 ---[INTERNAL] Switch Groups Behaviour
 ---
 ------
----@param self TIRESIAS 
 ---@param group GROUP 
 ---@param radius number Radius in NM
 ---@return TIRESIAS #self
@@ -185,7 +172,6 @@ function TIRESIAS:_SwitchOnGroups(group, radius) end
 ---Starts TIRESIAS and all its event handlers. Note - `:New()` already starts the instance.
 ---
 ------
----@param self TIRESIAS 
 ---@param delay number Delay in seconds.  
 function TIRESIAS:__Start(delay) end
 
@@ -193,14 +179,12 @@ function TIRESIAS:__Start(delay) end
 ---Stops TIRESIAS and all its event handlers.
 ---
 ------
----@param self TIRESIAS 
 ---@param delay number Delay in seconds.
 function TIRESIAS:__Stop(delay) end
 
 ---[INTERNAL] FSM Function
 ---
 ------
----@param self TIRESIAS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -211,7 +195,6 @@ function TIRESIAS:onafterStart(From, Event, To) end
 ---[INTERNAL] FSM Function
 ---
 ------
----@param self TIRESIAS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -222,7 +205,6 @@ function TIRESIAS:onafterStatus(From, Event, To) end
 ---[INTERNAL] FSM Function
 ---
 ------
----@param self TIRESIAS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -233,7 +215,6 @@ function TIRESIAS:onafterStop(From, Event, To) end
 ---[INTERNAL] FSM Function
 ---
 ------
----@param self TIRESIAS 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

@@ -34,14 +34,12 @@ USERFLAG = {}
 ---  local BlueVictoryValue = BlueVictory:Get() -- Get the UserFlag VictoryBlue value.
 ---```
 ------
----@param self USERFLAG 
 ---@return number #Number The number value to be checked if it is the same as the userflag.
 function USERFLAG:Get() end
 
 ---Get the userflag name.
 ---
 ------
----@param self USERFLAG 
 ---@return string #Name of the user flag.
 function USERFLAG:GetName() end
 
@@ -57,7 +55,6 @@ function USERFLAG:GetName() end
 ---  end
 ---```
 ------
----@param self USERFLAG 
 ---@param Number number The number value to be checked if it is the same as the userflag.
 ---@return boolean #true if the Number is the value of the userflag.
 function USERFLAG:Is(Number) end
@@ -65,7 +62,6 @@ function USERFLAG:Is(Number) end
 ---USERFLAG Constructor.
 ---
 ------
----@param self USERFLAG 
 ---@param UserFlagName string The name of the userflag, which is a free text string.
 ---@return USERFLAG #
 function USERFLAG:New(UserFlagName) end
@@ -80,7 +76,6 @@ function USERFLAG:New(UserFlagName) end
 ---  BlueVictory:Set( 100 ) -- Set the UserFlag VictoryBlue to 100.
 ---```
 ------
----@param self USERFLAG 
 ---@param Number number The number value to set the flag to.
 ---@param Delay number Delay in seconds, before the flag is set.
 ---@return USERFLAG #The userflag instance.

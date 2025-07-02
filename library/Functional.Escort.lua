@@ -171,7 +171,6 @@ ESCORT = {}
 ---JoinsUp and Follows a CLIENT.
 ---
 ------
----@param self ESCORT 
 ---@param EscortGroup GROUP 
 ---@param EscortClient CLIENT 
 ---@param Distance Distance 
@@ -182,7 +181,6 @@ function ESCORT:JoinUpAndFollow(EscortGroup, EscortClient, Distance) end
 ---Note that this method needs to be preceded with the method MenuReportTargets.
 ---
 ------
----@param self ESCORT 
 ---@return ESCORT #
 function ESCORT:MenuAssistedAttack() end
 
@@ -190,7 +188,6 @@ function ESCORT:MenuAssistedAttack() end
 ---All rules of engagement will appear under the menu **Evasion**.
 ---
 ------
----@param self ESCORT 
 ---@param MenuTextFormat NOTYPE 
 ---@return ESCORT #
 function ESCORT:MenuEvasion(MenuTextFormat) end
@@ -200,7 +197,6 @@ function ESCORT:MenuEvasion(MenuTextFormat) end
 ---The flare will be fired from the first unit in the group.
 ---
 ------
----@param self ESCORT 
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. If no text is given, the default text will be displayed.
 ---@return ESCORT #
 function ESCORT:MenuFlare(MenuTextFormat) end
@@ -209,7 +205,6 @@ function ESCORT:MenuFlare(MenuTextFormat) end
 ---This menu will appear under **Navigation**.
 ---
 ------
----@param self ESCORT 
 ---@param Distance Distance The distance in meters that the escort needs to follow the client.
 ---@return ESCORT #
 function ESCORT:MenuFollowAt(Distance) end
@@ -218,7 +213,6 @@ function ESCORT:MenuFollowAt(Distance) end
 ---This menu will appear under **Hold position**.
 ---
 ------
----@param self ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Seconds Time Optional parameter that lets the escort orbit at the current position for a specified time. (not implemented yet). The default value is 0 seconds, meaning, that the escort will orbit forever until a sequent command is given.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -229,7 +223,6 @@ function ESCORT:MenuHoldAtEscortPosition(Height, Seconds, MenuTextFormat) end
 ---This menu will appear under **Navigation**.
 ---
 ------
----@param self ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Seconds Time Optional parameter that lets the escort orbit at the current position for a specified time. (not implemented yet). The default value is 0 seconds, meaning, that the escort will orbit forever until a sequent command is given.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain one or two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -240,7 +233,6 @@ function ESCORT:MenuHoldAtLeaderPosition(Height, Seconds, MenuTextFormat) end
 ---All rules of engagement will appear under the menu **ROE**.
 ---
 ------
----@param self ESCORT 
 ---@param MenuTextFormat NOTYPE 
 ---@return ESCORT #
 function ESCORT:MenuROE(MenuTextFormat) end
@@ -250,7 +242,6 @@ function ESCORT:MenuROE(MenuTextFormat) end
 ---Note that if a report targets menu is not specified, no targets will be detected by the escort, and the attack and assisted attack menus will not be displayed.
 ---
 ------
----@param self ESCORT 
 ---@param Seconds Time Optional parameter that lets the escort report their current detected targets after specified time interval in seconds. The default time is 30 seconds.
 ---@return ESCORT #
 function ESCORT:MenuReportTargets(Seconds) end
@@ -259,7 +250,6 @@ function ESCORT:MenuReportTargets(Seconds) end
 ---All rules of engagement will appear under the menu **Resume mission from**.
 ---
 ------
----@param self ESCORT 
 ---@return ESCORT #
 function ESCORT:MenuResumeMission() end
 
@@ -267,7 +257,6 @@ function ESCORT:MenuResumeMission() end
 ---This menu will appear under **Scan targets**.
 ---
 ------
----@param self ESCORT 
 ---@param Height Distance Optional parameter that sets the height in meters to let the escort orbit at the current location. The default value is 30 meters.
 ---@param Seconds Time Optional parameter that lets the escort orbit at the current position for a specified time. (not implemented yet). The default value is 0 seconds, meaning, that the escort will orbit forever until a sequent command is given.
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. The text string is formatted, and should contain one or two %d tokens in the string. The first for the Height, the second for the Time (if given). If no text is given, the default text will be displayed.
@@ -280,7 +269,6 @@ function ESCORT:MenuScanForTargets(Height, Seconds, MenuTextFormat) end
 ---The smoke will be fired from the first unit in the group.
 ---
 ------
----@param self ESCORT 
 ---@param MenuTextFormat string Optional parameter that shows the menu option text. If no text is given, the default text will be displayed.
 ---@return ESCORT #
 function ESCORT:MenuSmoke(MenuTextFormat) end
@@ -288,7 +276,6 @@ function ESCORT:MenuSmoke(MenuTextFormat) end
 ---Defines the default menus
 ---
 ------
----@param self ESCORT 
 ---@return ESCORT #
 function ESCORT:Menus() end
 
@@ -308,7 +295,6 @@ function ESCORT:Menus() end
 ---EscortPlanes = ESCORT:New( EscortClient, EscortGroup, "Desert", "Welcome to the mission. You are escorted by a plane with code name 'Desert', which can be instructed through the F10 radio menu." )
 ---```
 ------
----@param self ESCORT 
 ---@param EscortClient CLIENT The client escorted by the EscortGroup.
 ---@param EscortGroup GROUP The group AI escorting the EscortClient.
 ---@param EscortName string Name of the escort.
@@ -319,7 +305,6 @@ function ESCORT:New(EscortClient, EscortGroup, EscortName, EscortBriefing) end
 ---Registers the waypoints
 ---
 ------
----@param self ESCORT 
 ---@return table #
 function ESCORT:RegisterRoute() end
 
@@ -327,7 +312,6 @@ function ESCORT:RegisterRoute() end
 ---Detection methods are based on the derived classes from DETECTION_BASE.
 ---
 ------
----@param self ESCORT 
 ---@param Detection DETECTION_BASE 
 function ESCORT:SetDetection(Detection) end
 
@@ -335,14 +319,12 @@ function ESCORT:SetDetection(Detection) end
 ---This allows to visualize where the escort is flying to.
 ---
 ------
----@param self ESCORT 
 ---@param SmokeDirection boolean If true, then the direction vector will be smoked.
 function ESCORT:TestSmokeDirectionVector(SmokeDirection) end
 
 
 ---
 ------
----@param self ESCORT 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@param EscortGroupAttack NOTYPE 
 function ESCORT:_AssistTarget(DetectedItem, EscortGroupAttack) end
@@ -350,14 +332,12 @@ function ESCORT:_AssistTarget(DetectedItem, EscortGroupAttack) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DetectedItem NOTYPE 
 function ESCORT:_AttackTarget(DetectedItem) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
 function ESCORT:_Flare(Color, Message) end
@@ -365,13 +345,11 @@ function ESCORT:_Flare(Color, Message) end
 
 ---
 ------
----@param self NOTYPE 
 function ESCORT:_FollowScheduler() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param OrbitGroup NOTYPE 
 ---@param OrbitHeight NOTYPE 
 ---@param OrbitSeconds NOTYPE 
@@ -380,14 +358,12 @@ function ESCORT:_HoldPosition(OrbitGroup, OrbitHeight, OrbitSeconds) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Distance NOTYPE 
 function ESCORT:_JoinUpAndFollow(Distance) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROEFunction NOTYPE 
 ---@param EscortROEMessage NOTYPE 
 function ESCORT:_ROE(EscortROEFunction, EscortROEMessage) end
@@ -395,7 +371,6 @@ function ESCORT:_ROE(EscortROEFunction, EscortROEMessage) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EscortROTFunction NOTYPE 
 ---@param EscortROTMessage NOTYPE 
 function ESCORT:_ROT(EscortROTFunction, EscortROTMessage) end
@@ -403,33 +378,28 @@ function ESCORT:_ROT(EscortROTFunction, EscortROTMessage) end
 
 ---
 ------
----@param self NOTYPE 
 function ESCORT:_ReportNearbyTargetsNow() end
 
 ---Report Targets Scheduler.
 ---
 ------
----@param self ESCORT 
 function ESCORT:_ReportTargetsScheduler() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param WayPoint NOTYPE 
 function ESCORT:_ResumeMission(WayPoint) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ScanDuration NOTYPE 
 function ESCORT:_ScanTargets(ScanDuration) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Color NOTYPE 
 ---@param Message NOTYPE 
 function ESCORT:_Smoke(Color, Message) end
@@ -437,7 +407,6 @@ function ESCORT:_Smoke(Color, Message) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportTargets NOTYPE 
 function ESCORT:_SwitchReportNearbyTargets(ReportTargets) end
 

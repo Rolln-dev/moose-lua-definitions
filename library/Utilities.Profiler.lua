@@ -102,27 +102,23 @@ PROFILER = {}
 ---Start profiler.
 ---
 ------
----@param Delay number Delay in seconds before profiler is stated. Default is immediately.
 ---@param Duration number Duration in (game) seconds before the profiler is stopped. Default is when mission ends.
 function PROFILER.Start(Delay, Duration) end
 
 ---Stop profiler.
 ---
 ------
----@param Delay number Delay before stop in seconds.
 function PROFILER.Stop(Delay) end
 
 ---Write text to log file.
 ---
 ------
----@param f function The file.
 ---@param txt string The text.
 function PROFILER._flog(f, txt) end
 
 ---Get data.
 ---
 ------
----@param func function Function.
 ---@return string #Function name.
 ---@return string #Source file name.
 ---@return string #Line number.
@@ -133,7 +129,6 @@ function PROFILER.getData(func) end
 ---Write info to output file.
 ---
 ------
----@param ext string Extension.
 ---@return string #File name.
 ---@private
 function PROFILER.getfilename(ext) end
@@ -141,14 +136,12 @@ function PROFILER.getfilename(ext) end
 ---Debug hook.
 ---
 ------
----@param event table Event.
 ---@private
 function PROFILER.hook(event) end
 
 ---Print csv file.
 ---
 ------
----@param data table Data table.
 ---@param runTimeGame number Game run time in seconds.
 ---@private
 function PROFILER.printCSV(data, runTimeGame) end
@@ -156,7 +149,6 @@ function PROFILER.printCSV(data, runTimeGame) end
 ---Write info to output file.
 ---
 ------
----@param runTimeGame number Game time in seconds.
 ---@param runTimeOS number OS time in seconds.
 ---@private
 function PROFILER.showInfo(runTimeGame, runTimeOS) end
@@ -164,7 +156,6 @@ function PROFILER.showInfo(runTimeGame, runTimeOS) end
 ---Show table.
 ---
 ------
----@param data table Data table.
 ---@param f function The file.
 ---@param runTimeGame number Game run time in seconds.
 ---@private

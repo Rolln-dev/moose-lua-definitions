@@ -29,7 +29,6 @@ AI_A2G_BAI = {}
 ---Evaluate the attack and create an AttackUnitTask list.
 ---
 ------
----@param self AI_A2G_BAI 
 ---@param AttackSetUnit SET_UNIT The set of units to attack.
 ---@param DefenderGroup GROUP The group of defenders.
 ---@param EngageAltitude number The altitude to engage the targets.
@@ -39,7 +38,6 @@ function AI_A2G_BAI:CreateAttackUnitTasks(AttackSetUnit, DefenderGroup, EngageAl
 ---Creates a new AI_A2G_BAI object
 ---
 ------
----@param self AI_A2G_BAI 
 ---@param AIGroup GROUP 
 ---@param EngageMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h when engaging a target.
 ---@param EngageMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h when engaging a target.
@@ -57,7 +55,6 @@ function AI_A2G_BAI:New(AIGroup, EngageMinSpeed, EngageMaxSpeed, EngageFloorAlti
 ---Creates a new AI_A2G_BAI object
 ---
 ------
----@param self AI_A2G_BAI 
 ---@param AIGroup GROUP 
 ---@param EngageMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h when engaging a target.
 ---@param EngageMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h when engaging a target.

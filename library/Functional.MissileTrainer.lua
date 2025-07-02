@@ -119,7 +119,6 @@ MISSILETRAINER = {}
 ---Sets by default the display of hit alerts ON or OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param AlertsHitsOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitAlertsHitsOnOff(AlertsHitsOnOff) end
@@ -127,7 +126,6 @@ function MISSILETRAINER:InitAlertsHitsOnOff(AlertsHitsOnOff) end
 ---Sets by default the display of launch alerts ON or OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param AlertsLaunchesOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitAlertsLaunchesOnOff(AlertsLaunchesOnOff) end
@@ -135,7 +133,6 @@ function MISSILETRAINER:InitAlertsLaunchesOnOff(AlertsLaunchesOnOff) end
 ---Sets by default the display of alerts to be shown to all players or only to you.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param AlertsToAll boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitAlertsToAll(AlertsToAll) end
@@ -143,7 +140,6 @@ function MISSILETRAINER:InitAlertsToAll(AlertsToAll) end
 ---Sets by default the display of bearing information of missiles ON of OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param DetailsBearingOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitBearingOnOff(DetailsBearingOnOff) end
@@ -151,7 +147,6 @@ function MISSILETRAINER:InitBearingOnOff(DetailsBearingOnOff) end
 ---Enables / Disables the menus.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param MenusOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitMenusOnOff(MenusOnOff) end
@@ -159,7 +154,6 @@ function MISSILETRAINER:InitMenusOnOff(MenusOnOff) end
 ---Sets by default the display of any message to be ON or OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param MessagesOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitMessagesOnOff(MessagesOnOff) end
@@ -167,7 +161,6 @@ function MISSILETRAINER:InitMessagesOnOff(MessagesOnOff) end
 ---Sets by default the display of range information of missiles ON of OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param DetailsRangeOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitRangeOnOff(DetailsRangeOnOff) end
@@ -176,7 +169,6 @@ function MISSILETRAINER:InitRangeOnOff(DetailsRangeOnOff) end
 ---The default frequency is a 3 second interval, so the Tracking Frequency parameter specifies the increase or decrease from the default 3 seconds or the last frequency update.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param TrackingFrequency number Provide a negative or positive value in seconds to incraese or decrease the display frequency.
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitTrackingFrequency(TrackingFrequency) end
@@ -184,7 +176,6 @@ function MISSILETRAINER:InitTrackingFrequency(TrackingFrequency) end
 ---Sets by default the display of missile tracking report to be ON or OFF.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param TrackingOnOff boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitTrackingOnOff(TrackingOnOff) end
@@ -192,7 +183,6 @@ function MISSILETRAINER:InitTrackingOnOff(TrackingOnOff) end
 ---Sets by default the missile tracking report for all players or only for those missiles targeted to you.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param TrackingToAll boolean true or false
 ---@return MISSILETRAINER #self
 function MISSILETRAINER:InitTrackingToAll(TrackingToAll) end
@@ -201,7 +191,6 @@ function MISSILETRAINER:InitTrackingToAll(TrackingToAll) end
 ---When a missile is fired a SCHEDULER is set off that follows the missile. When near a certain a client player, the missile will be destroyed.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param Distance number The distance in meters when a tracked missile needs to be destroyed when close to a player.
 ---@param Briefing? string (Optional) Will show a text to the players when starting their mission. Can be used for briefing purposes.
 ---@return MISSILETRAINER #
@@ -211,7 +200,6 @@ function MISSILETRAINER:New(Distance, Briefing) end
 ---In this case, take evasive actions based on the skill level set within the ME.
 ---
 ------
----@param self MISSILETRAINER 
 ---@param EventData EVENTDATA 
 ---@param EVentData NOTYPE 
 function MISSILETRAINER:OnEventShot(EventData, EVentData) end
@@ -219,7 +207,6 @@ function MISSILETRAINER:OnEventShot(EventData, EVentData) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Client NOTYPE 
 ---@param TrainerWeapon NOTYPE 
 function MISSILETRAINER:_AddBearing(Client, TrainerWeapon) end
@@ -227,7 +214,6 @@ function MISSILETRAINER:_AddBearing(Client, TrainerWeapon) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Client NOTYPE 
 ---@param TrainerWeapon NOTYPE 
 function MISSILETRAINER:_AddRange(Client, TrainerWeapon) end
@@ -235,20 +221,17 @@ function MISSILETRAINER:_AddRange(Client, TrainerWeapon) end
 
 ---
 ------
----@param Client NOTYPE 
 ---@param self NOTYPE 
 function MISSILETRAINER._Alive(Client, self) end
 
 
 ---
 ------
----@param MenuParameters NOTYPE 
 function MISSILETRAINER._MenuMessages(MenuParameters) end
 
 
 ---
 ------
----@param self NOTYPE 
 function MISSILETRAINER:_TrackMissiles() end
 
 

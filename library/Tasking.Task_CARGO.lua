@@ -481,7 +481,7 @@ FSM_PROCESS = {}
 ---===
 ---@class TASK_CARGO 
 ---@field CargoItemCount table 
----@field CargoLimit number 
+---@field CargoLimit NOTYPE 
 ---@field DeployZones table 
 ---@field SetCargo NOTYPE 
 ---@field SmokeColor NOTYPE 
@@ -491,7 +491,6 @@ TASK_CARGO = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param DeployZone NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:AddDeployZone(DeployZone, TaskUnit) end
@@ -499,7 +498,6 @@ function TASK_CARGO:AddDeployZone(DeployZone, TaskUnit) end
 ---This function is called from the Tasking.CommandCenter#COMMANDCENTER to determine the method of automatic task selection.
 ---
 ------
----@param self TASK_CARGO 
 ---@param AutoAssignMethod number The method to be applied to the task.
 ---@param TaskGroup GROUP The player group.
 function TASK_CARGO:GetAutoAssignPriority(AutoAssignMethod, TaskGroup) end
@@ -507,44 +505,37 @@ function TASK_CARGO:GetAutoAssignPriority(AutoAssignMethod, TaskGroup) end
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:GetCargoSet() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:GetDeployZones() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:GetGoalTotal() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:GetPlannedMenuText() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:GetSmokeColor() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:GetTargetZone(TaskUnit) end
 
 ---Instantiates a new TASK_CARGO.
 ---
 ------
----@param self TASK_CARGO 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -591,7 +582,6 @@ function TASK_CARGO:New(Mission, SetGroup, TaskName, SetCargo, TaskType, TaskBri
 --- end
 ---```
 ------
----@param self TASK_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -603,7 +593,6 @@ function TASK_CARGO:OnAfterCargoDeployed(From, Event, To, TaskUnit, Cargo, Deplo
 ---CargoPickedUp Handler OnAfter for TASK_CARGO
 ---
 ------
----@param self TASK_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -614,7 +603,6 @@ function TASK_CARGO:OnAfterCargoPickedUp(From, Event, To, TaskUnit, Cargo) end
 ---CargoDeployed Handler OnBefore for TASK_CARGO
 ---
 ------
----@param self TASK_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -627,7 +615,6 @@ function TASK_CARGO:OnBeforeCargoDeployed(From, Event, To, TaskUnit, Cargo, Depl
 ---CargoPickedUp Handler OnBefore for TASK_CARGO
 ---
 ------
----@param self TASK_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -639,7 +626,6 @@ function TASK_CARGO:OnBeforeCargoPickedUp(From, Event, To, TaskUnit, Cargo) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DeployZone NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:RemoveDeployZone(DeployZone, TaskUnit) end
@@ -647,14 +633,12 @@ function TASK_CARGO:RemoveDeployZone(DeployZone, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function TASK_CARGO:ReportOrder(ReportGroup) end
 
 ---Set a limit on the amount of cargo items that can be loaded into the Carriers.
 ---
 ------
----@param self TASK_CARGO 
 ---@param CargoLimit NOTYPE Specifies a number of cargo items that can be loaded in the helicopter.
 ---@return TASK_CARGO #
 function TASK_CARGO:SetCargoLimit(CargoLimit) end
@@ -662,7 +646,6 @@ function TASK_CARGO:SetCargoLimit(CargoLimit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Cargo NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:SetCargoPickup(Cargo, TaskUnit) end
@@ -670,7 +653,6 @@ function TASK_CARGO:SetCargoPickup(Cargo, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DeployZone NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:SetDeployZone(DeployZone, TaskUnit) end
@@ -678,7 +660,6 @@ function TASK_CARGO:SetDeployZone(DeployZone, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DeployZones NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_CARGO:SetDeployZones(DeployZones, TaskUnit) end
@@ -686,13 +667,11 @@ function TASK_CARGO:SetDeployZones(DeployZones, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:SetGoalTotal() end
 
 ---Set a penalty when the task goals have failed..
 ---
 ------
----@param self TASK_CARGO 
 ---@param Text string The text to display to the player, when the task goals has failed.
 ---@param Penalty number The penalty in points.
 ---@param TaskUnit UNIT 
@@ -702,7 +681,6 @@ function TASK_CARGO:SetScoreOnFail(Text, Penalty, TaskUnit) end
 ---Set a score when progress is made.
 ---
 ------
----@param self TASK_CARGO 
 ---@param Text string The text to display to the player, when there is progress on the task goals.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -712,7 +690,6 @@ function TASK_CARGO:SetScoreOnProgress(Text, Score, TaskUnit) end
 ---Set a score when success is achieved.
 ---
 ------
----@param self TASK_CARGO 
 ---@param Text string The text to display to the player, when the task goals have been achieved.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -722,14 +699,12 @@ function TASK_CARGO:SetScoreOnSuccess(Text, Score, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param SmokeColor NOTYPE 
 function TASK_CARGO:SetSmokeColor(SmokeColor) end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_CARGO:UpdateTaskInfo() end
 
 

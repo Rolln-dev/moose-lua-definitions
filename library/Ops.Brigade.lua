@@ -45,7 +45,6 @@ BRIGADE = {}
 ---Add asset group(s) to platoon.
 ---
 ------
----@param self BRIGADE 
 ---@param Platoon PLATOON The platoon object.
 ---@param Nassets number Number of asset groups to add.
 ---@return BRIGADE #self
@@ -54,7 +53,6 @@ function BRIGADE:AddAssetToPlatoon(Platoon, Nassets) end
 ---Add a platoon to the brigade.
 ---
 ------
----@param self BRIGADE 
 ---@param Platoon PLATOON The platoon object.
 ---@return BRIGADE #self
 function BRIGADE:AddPlatoon(Platoon) end
@@ -62,7 +60,6 @@ function BRIGADE:AddPlatoon(Platoon) end
 ---Add a rearming zone.
 ---
 ------
----@param self BRIGADE 
 ---@param RearmingZone ZONE Rearming zone.
 ---@return BRIGADE.SupplyZone #The rearming zone data.
 function BRIGADE:AddRearmingZone(RearmingZone) end
@@ -70,7 +67,6 @@ function BRIGADE:AddRearmingZone(RearmingZone) end
 ---Add a refuelling zone.
 ---
 ------
----@param self BRIGADE 
 ---@param RefuellingZone ZONE Refuelling zone.
 ---@return BRIGADE.SupplyZone #The refuelling zone data.
 function BRIGADE:AddRefuellingZone(RefuellingZone) end
@@ -78,7 +74,6 @@ function BRIGADE:AddRefuellingZone(RefuellingZone) end
 ---Add a retreat zone.
 ---
 ------
----@param self BRIGADE 
 ---@param RetreatZone ZONE Retreat zone.
 ---@return BRIGADE #self
 function BRIGADE:AddRetreatZone(RetreatZone) end
@@ -86,7 +81,6 @@ function BRIGADE:AddRetreatZone(RetreatZone) end
 ---Triggers the FSM event "ArmyOnMission".
 ---
 ------
----@param self BRIGADE 
 ---@param ArmyGroup ARMYGROUP The ARMYGROUP on mission.
 ---@param Mission AUFTRAG The mission.
 function BRIGADE:ArmyOnMission(ArmyGroup, Mission) end
@@ -94,7 +88,6 @@ function BRIGADE:ArmyOnMission(ArmyGroup, Mission) end
 ---Get platoon by name.
 ---
 ------
----@param self BRIGADE 
 ---@param PlatoonName string Name of the platoon.
 ---@return PLATOON #The Platoon object.
 function BRIGADE:GetPlatoon(PlatoonName) end
@@ -102,7 +95,6 @@ function BRIGADE:GetPlatoon(PlatoonName) end
 ---Get platoon of an asset.
 ---
 ------
----@param self BRIGADE 
 ---@param Asset WAREHOUSE.Assetitem The platoon asset.
 ---@return PLATOON #The platoon object.
 function BRIGADE:GetPlatoonOfAsset(Asset) end
@@ -110,7 +102,6 @@ function BRIGADE:GetPlatoonOfAsset(Asset) end
 ---Get retreat zones.
 ---
 ------
----@param self BRIGADE 
 ---@return SET_ZONE #Set of retreat zones.
 function BRIGADE:GetRetreatZones() end
 
@@ -151,7 +142,6 @@ function BRIGADE:GetRetreatZones() end
 ---The assets loaded back into the mission will be considered for AUFTRAG type missions from CHIEF and BRIGADE.
 ---```
 ------
----@param self BRIGADE 
 ---@param Templatename string e.g."1 PzDv LogRg I\_AID-976" - that's the alias (name) of an platoon spawned as `"platoon - alias"_AID-"asset-ID"`
 ---@param Position COORDINATE where to spawn the platoon
 ---@return BRIGADE #self
@@ -160,7 +150,6 @@ function BRIGADE:LoadBackAssetInPosition(Templatename, Position) end
 ---Create a new BRIGADE class object.
 ---
 ------
----@param self BRIGADE 
 ---@param WarehouseName string Name of the warehouse STATIC or UNIT object representing the warehouse.
 ---@param BrigadeName string Name of the brigade.
 ---@return BRIGADE #self
@@ -169,7 +158,6 @@ function BRIGADE:New(WarehouseName, BrigadeName) end
 ---On after "ArmyOnMission" event.
 ---
 ------
----@param self BRIGADE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -180,14 +168,12 @@ function BRIGADE:OnAfterArmyOnMission(From, Event, To, ArmyGroup, Mission) end
 ---Remove asset from platoon.
 ---
 ------
----@param self BRIGADE 
 ---@param Asset WAREHOUSE.Assetitem The platoon asset.
 function BRIGADE:RemoveAssetFromPlatoon(Asset) end
 
 ---Define a set of retreat zones.
 ---
 ------
----@param self BRIGADE 
 ---@param RetreatZoneSet SET_ZONE Set of retreat zones.
 ---@return BRIGADE #self
 function BRIGADE:SetRetreatZones(RetreatZoneSet) end
@@ -196,13 +182,11 @@ function BRIGADE:SetRetreatZones(RetreatZoneSet) end
 ---Starts the BRIGADE. Initializes parameters and starts event handlers.
 ---
 ------
----@param self BRIGADE 
 function BRIGADE:Start() end
 
 ---Triggers the FSM event "ArmyOnMission" after a delay.
 ---
 ------
----@param self BRIGADE 
 ---@param delay number Delay in seconds.
 ---@param ArmyGroup ARMYGROUP The ARMYGROUP on mission.
 ---@param Mission AUFTRAG The mission.
@@ -212,7 +196,6 @@ function BRIGADE:__ArmyOnMission(delay, ArmyGroup, Mission) end
 ---Starts the BRIGADE. Initializes parameters and starts event handlers.
 ---
 ------
----@param self BRIGADE 
 ---@param delay number Delay in seconds.
 function BRIGADE:__Start(delay) end
 
@@ -220,14 +203,12 @@ function BRIGADE:__Start(delay) end
 ---Stops the BRIGADE and all its event handlers.
 ---
 ------
----@param self BRIGADE 
 ---@param delay number Delay in seconds.
 function BRIGADE:__Stop(delay) end
 
 ---On after "ArmyOnMission".
 ---
 ------
----@param self BRIGADE 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -239,7 +220,6 @@ function BRIGADE:onafterArmyOnMission(From, Event, To, ArmyGroup, Mission) end
 ---Start BRIGADE FSM.
 ---
 ------
----@param self BRIGADE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -249,7 +229,6 @@ function BRIGADE:onafterStart(From, Event, To) end
 ---Update status.
 ---
 ------
----@param self BRIGADE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

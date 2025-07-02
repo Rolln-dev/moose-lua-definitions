@@ -90,7 +90,6 @@ SHORAD = {}
 ---Add a SET_ZONE of zones for Shoot&Scoot
 ---
 ------
----@param self SHORAD 
 ---@param ZoneSet SET_ZONE Set of zones to be used. Units will move around to the next (random) zone between 100m and 3000m away.
 ---@param Number number Number of closest zones to be considered, defaults to 3.
 ---@param Random boolean If true, use a random coordinate inside the next zone to scoot to.
@@ -101,7 +100,6 @@ function SHORAD:AddScootZones(ZoneSet, Number, Random, Formation) end
 ---Main function - work on the EventData
 ---
 ------
----@param self SHORAD 
 ---@param EventData EVENTDATA The event details table data set
 ---@return SHORAD #self 
 function SHORAD:HandleEventShot(EventData) end
@@ -109,7 +107,6 @@ function SHORAD:HandleEventShot(EventData) end
 ---Instantiates a new SHORAD object
 ---
 ------
----@param self SHORAD 
 ---@param Name string Name of this SHORAD
 ---@param ShoradPrefix string Filter for the Shorad #SET_GROUP
 ---@param Samset SET_GROUP The #SET_GROUP of SAM sites to defend
@@ -123,7 +120,6 @@ function SHORAD:New(Name, ShoradPrefix, Samset, Radius, ActiveTimer, Coalition, 
 ---Set the number of seconds a SHORAD site will stay active
 ---
 ------
----@param self SHORAD 
 ---@param seconds number Number of seconds systems stay active
 ---@return SHORAD #self 
 function SHORAD:SetActiveTimer(seconds) end
@@ -131,7 +127,6 @@ function SHORAD:SetActiveTimer(seconds) end
 ---Set defense probability limits
 ---
 ------
----@param self SHORAD 
 ---@param low number Minimum detection limit, integer 1-100
 ---@param high number Maximum detection limit integer 1-100
 ---@return SHORAD #self 
@@ -140,7 +135,6 @@ function SHORAD:SetDefenseLimits(low, high) end
 ---Set the number of meters for the SHORAD defense zone
 ---
 ------
----@param self SHORAD 
 ---@param meters number Radius of the defense search zone in meters. #SHORADs in this range around a targeted group will go active 
 ---@return SHORAD #self 
 function SHORAD:SetDefenseRadius(meters) end
@@ -148,7 +142,6 @@ function SHORAD:SetDefenseRadius(meters) end
 ---Set using Emission on/off instead of changing alarm state
 ---
 ------
----@param self SHORAD 
 ---@param switch boolean Decide if we are changing alarm state or AI state
 ---@return SHORAD #self 
 function SHORAD:SetUsingEmOnOff(switch) end
@@ -156,7 +149,6 @@ function SHORAD:SetUsingEmOnOff(switch) end
 ---Switch defense for AGMs
 ---
 ------
----@param self SHORAD 
 ---@param onoff boolean 
 ---@return SHORAD #self 
 function SHORAD:SwitchAGMDefense(onoff) end
@@ -164,7 +156,6 @@ function SHORAD:SwitchAGMDefense(onoff) end
 ---Switch debug state on
 ---
 ------
----@param self SHORAD 
 ---@param debug boolean Switch debug on (true) or off (false)
 ---@param onoff NOTYPE 
 ---@return SHORAD #self 
@@ -173,21 +164,18 @@ function SHORAD:SwitchDebug(debug, onoff) end
 ---Switch debug state off
 ---
 ------
----@param self SHORAD 
 ---@return SHORAD #self 
 function SHORAD:SwitchDebugOff() end
 
 ---Switch debug state on
 ---
 ------
----@param self SHORAD 
 ---@return SHORAD #self 
 function SHORAD:SwitchDebugOn() end
 
 ---Switch defense for HARMs
 ---
 ------
----@param self SHORAD 
 ---@param onoff boolean 
 ---@return SHORAD #self 
 function SHORAD:SwitchHARMDefense(onoff) end
@@ -195,7 +183,6 @@ function SHORAD:SwitchHARMDefense(onoff) end
 ---Check the coalition of the attacker
 ---
 ------
----@param self SHORAD 
 ---@param Coalition string name
 ---@return boolean #Returns false for a match
 function SHORAD:_CheckCoalition(Coalition) end
@@ -203,7 +190,6 @@ function SHORAD:_CheckCoalition(Coalition) end
 ---Check if a HARM was fired
 ---
 ------
----@param self SHORAD 
 ---@param WeaponName string 
 ---@return boolean #Returns true for a match
 function SHORAD:_CheckHarms(WeaponName) end
@@ -211,7 +197,6 @@ function SHORAD:_CheckHarms(WeaponName) end
 ---Check if an AGM was fired
 ---
 ------
----@param self SHORAD 
 ---@param WeaponName string 
 ---@return boolean #Returns true for a match
 function SHORAD:_CheckMavs(WeaponName) end
@@ -219,7 +204,6 @@ function SHORAD:_CheckMavs(WeaponName) end
 ---Check if the missile is aimed at a SAM site
 ---
 ------
----@param self SHORAD 
 ---@param TargetGroupName string Name of the target group
 ---@return boolean #Returns true for a match, else false
 function SHORAD:_CheckShotAtSams(TargetGroupName) end
@@ -227,7 +211,6 @@ function SHORAD:_CheckShotAtSams(TargetGroupName) end
 ---Check if the missile is aimed at a SHORAD
 ---
 ------
----@param self SHORAD 
 ---@param TargetGroupName string Name of the target group
 ---@return boolean #Returns true for a match, else false
 function SHORAD:_CheckShotAtShorad(TargetGroupName) end
@@ -235,21 +218,18 @@ function SHORAD:_CheckShotAtShorad(TargetGroupName) end
 ---Initially set all groups to alarm state GREEN
 ---
 ------
----@param self SHORAD 
 ---@return SHORAD #self
 function SHORAD:_InitState() end
 
 ---Calculate if the missile shot is detected
 ---
 ------
----@param self SHORAD 
 ---@return boolean #Returns true for a detection, else false
 function SHORAD:_ShotIsDetected() end
 
 ---(Internal) Calculate hit zone of an AGM-88
 ---
 ------
----@param self SHORAD 
 ---@param SEADWeapon table DCS.Weapon object
 ---@param pos0 COORDINATE Position of the plane when it fired
 ---@param height number Height when the missile was fired
@@ -264,7 +244,6 @@ function SHORAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, Fro
 ---(Internal) Shoot and Scoot
 ---
 ------
----@param self SHORAD 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -289,7 +268,6 @@ function SHORAD:onafterShootAndScoot(From, Event, To, Shorad) end
 ---mymantis:Start()
 ---```
 ------
----@param self SHORAD 
 ---@param TargetGroup string Name of the target group used to build the #ZONE
 ---@param Radius number Radius of the #ZONE
 ---@param ActiveTimer number Number of seconds to stay active

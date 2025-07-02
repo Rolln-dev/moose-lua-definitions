@@ -49,7 +49,6 @@ SCHEDULEDISPATCHER = {}
 ---Nothing of this code should be modified without testing it thoroughly.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 ---@param ScheduleFunction function Scheduler function.
 ---@param ScheduleArguments table Table of arguments passed to the ScheduleFunction.
@@ -65,28 +64,24 @@ function SCHEDULEDISPATCHER:AddSchedule(Scheduler, ScheduleFunction, ScheduleArg
 ---Clear all schedules by stopping all dispatchers.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 function SCHEDULEDISPATCHER:Clear(Scheduler) end
 
 ---Create a new schedule dispatcher object.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@return SCHEDULEDISPATCHER #self
 function SCHEDULEDISPATCHER:New() end
 
 ---No tracing info.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 function SCHEDULEDISPATCHER:NoTrace(Scheduler) end
 
 ---Remove schedule.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 ---@param CallID table Call ID.
 function SCHEDULEDISPATCHER:RemoveSchedule(Scheduler, CallID) end
@@ -94,14 +89,12 @@ function SCHEDULEDISPATCHER:RemoveSchedule(Scheduler, CallID) end
 ---Show tracing info.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 function SCHEDULEDISPATCHER:ShowTrace(Scheduler) end
 
 ---Start dispatcher.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 ---@param CallID? table (Optional) Call ID.
 ---@param Info? string (Optional) Debug info.
@@ -110,7 +103,6 @@ function SCHEDULEDISPATCHER:Start(Scheduler, CallID, Info) end
 ---Stop dispatcher.
 ---
 ------
----@param self SCHEDULEDISPATCHER 
 ---@param Scheduler SCHEDULER Scheduler object.
 ---@param CallID? string (Optional) Scheduler Call ID. If nil, all pending schedules are stopped recursively.
 function SCHEDULEDISPATCHER:Stop(Scheduler, CallID) end

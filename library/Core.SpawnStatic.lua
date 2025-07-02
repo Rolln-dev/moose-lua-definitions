@@ -107,17 +107,13 @@
 ---@field SpawnFunctionHook NOTYPE 
 ---@field SpawnIndex number Running number increased with each new Spawn.
 ---@field SpawnTemplatePrefix string Name of the template group.
----@field TemplateStaticUnit table 
----@field private heliport_callsign_id NOTYPE 
----@field private heliport_frequency NOTYPE 
----@field private heliport_modulation NOTYPE 
+---@field TemplateStaticUnit NOTYPE 
 SPAWNSTATIC = {}
 
 ---(User/Cargo) Add to resource table for STATIC object that should be spawned containing storage objects.
 ---Inits the object table if necessary and sets it to be cargo for helicopters.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Type string Type of cargo. Known types are: STORAGE.Type.WEAPONS, STORAGE.Type.LIQUIDS, STORAGE.Type.AIRCRAFT. Liquids are fuel.
 ---@param Name string Name of the cargo type. Liquids can be STORAGE.LiquidName.JETFUEL, STORAGE.LiquidName.GASOLINE, STORAGE.LiquidName.MW50 and STORAGE.LiquidName.DIESEL. The currently available weapon items are available in the `ENUMS.Storage.weapons`, e.g. `ENUMS.Storage.weapons.bombs.Mk_82Y`. Aircraft go by their typename.
 ---@param Amount number of tons (liquids) or number (everything else) to add.
@@ -128,7 +124,6 @@ function SPAWNSTATIC:AddCargoResource(Type, Name, Amount, CombinedWeight) end
 ---Initialize as cargo.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param IsCargo boolean If true, this static can act as cargo.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitCargo(IsCargo) end
@@ -136,7 +131,6 @@ function SPAWNSTATIC:InitCargo(IsCargo) end
 ---Initialize cargo mass.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Mass number Mass of the cargo in kg.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitCargoMass(Mass) end
@@ -144,7 +138,6 @@ function SPAWNSTATIC:InitCargoMass(Mass) end
 ---Initialize heading of the spawned static.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Coordinate COORDINATE Position where the static is spawned.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitCoordinate(Coordinate) end
@@ -153,7 +146,6 @@ function SPAWNSTATIC:InitCoordinate(Coordinate) end
 ---This determines the category.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param CountryID string The country ID, e.g. country.id.USA.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitCountry(CountryID) end
@@ -161,7 +153,6 @@ function SPAWNSTATIC:InitCountry(CountryID) end
 ---Initialize as dead.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param IsDead boolean If true, this static is dead.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitDead(IsDead) end
@@ -169,7 +160,6 @@ function SPAWNSTATIC:InitDead(IsDead) end
 ---Initialize parameters for spawning FARPs.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param CallsignID number Callsign ID. Default 1 (="London").
 ---@param Frequency number Frequency in MHz. Default 127.5 MHz.
 ---@param Modulation number Modulation 0=AM, 1=FM.
@@ -179,7 +169,6 @@ function SPAWNSTATIC:InitFARP(CallsignID, Frequency, Modulation) end
 ---Initialize heading of the spawned static.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Heading number The heading in degrees.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitHeading(Heading) end
@@ -187,7 +176,6 @@ function SPAWNSTATIC:InitHeading(Heading) end
 ---Init link to a unit.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Unit UNIT The unit to which the static is linked.
 ---@param OffsetX number Offset in X.
 ---@param OffsetY number Offset in Y.
@@ -198,7 +186,6 @@ function SPAWNSTATIC:InitLinkToUnit(Unit, OffsetX, OffsetY, OffsetAngle) end
 ---Initialize livery of the spawned static.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param LiveryName string Name of the livery to use.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitLivery(LiveryName) end
@@ -207,7 +194,6 @@ function SPAWNSTATIC:InitLivery(LiveryName) end
 ---This will be appended by "#0001", "#0002" etc.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param NamePrefix string Name prefix of statics spawned. Will append #0001, etc to the name.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitNamePrefix(NamePrefix) end
@@ -216,7 +202,6 @@ function SPAWNSTATIC:InitNamePrefix(NamePrefix) end
 ---Required by some but not all statics.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param StaticShape string Shape of the static, e.g. "carrier_tech_USA".
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitShape(StaticShape) end
@@ -224,7 +209,6 @@ function SPAWNSTATIC:InitShape(StaticShape) end
 ---Initialize type of the spawned static.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param StaticType string Type of the static, e.g. "FA-18C_hornet".
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:InitType(StaticType) end
@@ -232,7 +216,6 @@ function SPAWNSTATIC:InitType(StaticType) end
 ---Creates the main object to spawn a Wrapper.Static defined in the mission editor (ME).
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param SpawnTemplateName string Name of the static object in the ME. Each new static will have the name starting with this prefix.
 ---@param SpawnCountryID? country.id (Optional) The ID of the country.
 ---@return SPAWNSTATIC #self
@@ -241,7 +224,6 @@ function SPAWNSTATIC:NewFromStatic(SpawnTemplateName, SpawnCountryID) end
 ---Creates the main object to spawn a Wrapper.Static given a template table.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param SpawnTemplate table Template used for spawning.
 ---@param CountryID country.id The ID of the country. Default `country.id.USA`.
 ---@return SPAWNSTATIC #self
@@ -251,7 +233,6 @@ function SPAWNSTATIC:NewFromTemplate(SpawnTemplate, CountryID) end
 ---NOTE that you have to init many other parameters as spawn coordinate etc.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param StaticType string Type of the static.
 ---@param StaticCategory string Category of the static, e.g. "Planes".
 ---@param CountryID country.id The ID of the country. Default `country.id.USA`.
@@ -263,7 +244,6 @@ function SPAWNSTATIC:NewFromType(StaticType, StaticCategory, CountryID) end
 ---The first parameter of the SpawnFunction is the Wrapper.Static#STATIC that was spawned.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param SpawnCallBackFunction function The function to be called when a group spawns.
 ---@param SpawnFunctionArguments NOTYPE A random amount of arguments to be provided to the function when the group spawns.
 ---@param ... NOTYPE 
@@ -275,14 +255,12 @@ function SPAWNSTATIC:OnSpawnStatic(SpawnCallBackFunction, SpawnFunctionArguments
 ---Handy if you spawn from cargo statics which have resources already set.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@return SPAWNSTATIC #self 
 function SPAWNSTATIC:ResetCargoResources() end
 
 ---Spawn a new STATIC object.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Heading? number (Optional) The heading of the static, which is a number in degrees from 0 to 360. Default is the heading of the template.
 ---@param NewName? string (Optional) The name of the new static.
 ---@return STATIC #The static spawned.
@@ -291,7 +269,6 @@ function SPAWNSTATIC:Spawn(Heading, NewName) end
 ---Creates a new Wrapper.Static from a COORDINATE.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Coordinate COORDINATE The 3D coordinate where to spawn the static.
 ---@param Heading? number (Optional) Heading The heading of the static in degrees. Default is 0 degrees.
 ---@param NewName? string (Optional) The name of the new static.
@@ -301,7 +278,6 @@ function SPAWNSTATIC:SpawnFromCoordinate(Coordinate, Heading, NewName) end
 ---Creates a new Wrapper.Static from a COORDINATE.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param PointVec2 COORDINATE The 2D coordinate where to spawn the static.
 ---@param Heading number The heading of the static, which is a number in degrees from 0 to 360.
 ---@param NewName? string (Optional) The name of the new static.
@@ -311,7 +287,6 @@ function SPAWNSTATIC:SpawnFromPointVec2(PointVec2, Heading, NewName) end
 ---Creates a new Wrapper.Static from a Core.Zone.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Zone ZONE_BASE The Zone where to spawn the static.
 ---@param Heading? number (Optional)The heading of the static in degrees. Default is the heading of the template.
 ---@param NewName? string (Optional) The name of the new static.
@@ -322,7 +297,6 @@ function SPAWNSTATIC:SpawnFromZone(Zone, Heading, NewName) end
 ---NOTE that you have to init many other parameters as the resources.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param CombinedWeight number The weight this cargo object should have (some have fixed weights!), defaults to 1kg.
 ---@return SPAWNSTATIC #self
 function SPAWNSTATIC:_InitResourceTable(CombinedWeight) end
@@ -331,7 +305,6 @@ function SPAWNSTATIC:_InitResourceTable(CombinedWeight) end
 ---Additionally, the country ID needs to be specified, which also determines the coalition of the spawned static.
 ---
 ------
----@param self SPAWNSTATIC 
 ---@param Template SPAWNSTATIC.TemplateData Spawn unit template.
 ---@param CountryID number The country ID.
 ---@return STATIC #The static spawned.

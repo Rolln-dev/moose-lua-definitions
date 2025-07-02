@@ -348,7 +348,6 @@ RAT = {}
 ---This setting effects all RAT objects and groups!
 ---
 ------
----@param self RAT 
 ---@param n number Number of aircraft that are allowed to land simultaniously. Default is 2.
 ---@return RAT #RAT self object.
 function RAT:ATC_Clearance(n) end
@@ -357,7 +356,6 @@ function RAT:ATC_Clearance(n) end
 ---This setting effects all RAT objects and groups!
 ---
 ------
----@param self RAT 
 ---@param time number Delay time when the next aircraft will get landing clearance event if the previous one did not land yet. Default is 240 sec.
 ---@return RAT #RAT self object.
 function RAT:ATC_Delay(time) end
@@ -366,7 +364,6 @@ function RAT:ATC_Delay(time) end
 ---Default is on. This setting effects all RAT objects and groups!
 ---
 ------
----@param self RAT 
 ---@param switch boolean Enable (true) or disable (false) messages from ATC.
 ---@return RAT #RAT self object.
 function RAT:ATC_Messages(switch) end
@@ -374,7 +371,6 @@ function RAT:ATC_Messages(switch) end
 ---Define how aircraft that are spawned in uncontrolled state are activate.
 ---
 ------
----@param self RAT 
 ---@param maxactivated number Maximal numnber of activated aircraft. Absolute maximum will be the number of spawned groups. Default is 1.
 ---@param delay number Time delay in seconds before (first) aircraft is activated. Default is 1 second.
 ---@param delta number Time difference in seconds before next aircraft is activated. Default is 1 second.
@@ -385,14 +381,12 @@ function RAT:ActivateUncontrolled(maxactivated, delay, delta, frand) end
 ---Add all friendly airports to the list of possible departures.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:AddFriendlyAirportsToDepartures() end
 
 ---Add all friendly airports to the list of possible destinations
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:AddFriendlyAirportsToDestinations() end
 
@@ -401,7 +395,6 @@ function RAT:AddFriendlyAirportsToDestinations() end
 ---Note that all parameters like cruise speed, climb rate, range etc are still taken from the template group which likely leads to strange behaviour.
 ---
 ------
----@param self RAT 
 ---@param actype string Type of aircraft which is spawned independent of the template group. Use with care and expect problems!
 ---@return RAT #RAT self object.
 function RAT:ChangeAircraft(actype) end
@@ -410,7 +403,6 @@ function RAT:ChangeAircraft(actype) end
 ---If so they will be removed immediately.
 ---
 ------
----@param self RAT 
 ---@param switch boolean If true, check is performed. If false, this check is omitted.
 ---@param radius number Distance in meters until a unit is considered to have spawned accidentally on the runway. Default is 75 m.
 ---@param distance NOTYPE 
@@ -421,7 +413,6 @@ function RAT:CheckOnRunway(switch, radius, distance) end
 ---If yes, they will be removed immediately.
 ---
 ------
----@param self RAT 
 ---@param switch boolean If true, check is performed. If false, this check is omitted.
 ---@param radius number Radius in meters until which a unit is considered to be on top of each other. Default is 2 m.
 ---@return RAT #RAT self object.
@@ -431,14 +422,12 @@ function RAT:CheckOnTop(switch, radius) end
 ---Sets tigger value to 1.
 ---
 ------
----@param self RAT 
 ---@param name string Name of flight to be cleared for landing.
 function RAT:ClearForLanding(name) end
 
 ---Aircraft will commute between their departure and destination airports or zones.
 ---
 ------
----@param self RAT 
 ---@param starshape boolean If true, keep homebase, i.e. travel A-->B-->A-->C-->A-->D... instead of A-->B-->A-->B-->A...
 ---@return RAT #RAT self object.
 function RAT:Commute(starshape) end
@@ -447,7 +436,6 @@ function RAT:Commute(starshape) end
 ---This means they are respawned at their destination and get a new random destination.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:ContinueJourney() end
 
@@ -455,7 +443,6 @@ function RAT:ContinueJourney() end
 ---More output in dcs.log file and onscreen messages to all.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:Debugmode() end
 
@@ -463,14 +450,12 @@ function RAT:Debugmode() end
 ---Aircraft will not land but rather be despawned when they reach a random point in the zone.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:DestinationZone() end
 
 ---Enable ATC, which manages the landing queue for RAT aircraft if they arrive simultaniously at the same airport.
 ---
 ------
----@param self RAT 
 ---@param switch boolean Enable ATC (true) or Disable ATC (false). No argument means ATC enabled.
 ---@return RAT #RAT self object.
 function RAT:EnableATC(switch) end
@@ -478,7 +463,6 @@ function RAT:EnableATC(switch) end
 ---Airports, FARPs and ships explicitly excluded as departures and destinations.
 ---
 ------
----@param self RAT 
 ---@param ports string Name or table of names of excluded airports.
 ---@return RAT #RAT self object.
 function RAT:ExcludedAirports(ports) end
@@ -486,7 +470,6 @@ function RAT:ExcludedAirports(ports) end
 ---Get status of group.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group.
 ---@return string #status Status of group.
 function RAT:GetStatus(group) end
@@ -494,14 +477,12 @@ function RAT:GetStatus(group) end
 ---Aircraft are immortal.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:Immortal() end
 
 ---Aircraft are invisible.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:Invisible() end
 
@@ -509,7 +490,6 @@ function RAT:Invisible() end
 ---If more than one livery is specified in a table, the actually used one is chosen randomly from the selection.
 ---
 ------
----@param self RAT 
 ---@param skins table Name of livery or table of names of liveries.
 ---@return RAT #RAT self object.
 function RAT:Livery(skins) end
@@ -518,7 +498,6 @@ function RAT:Livery(skins) end
 ---Default is the name of the template group.
 ---
 ------
----@param self RAT 
 ---@param name string Submenu name.
 ---@return RAT #RAT self object.
 function RAT:MenuName(name) end
@@ -532,7 +511,6 @@ function RAT:MenuName(name) end
 ---yak1:RAT("RAT_YAK") will create a RAT object called "yak1". The template group in the mission editor must have the name "RAT_YAK".
 ---```
 ------
----@param self RAT 
 ---@param groupname string Name of the group as defined in the mission editor. This group is serving as a template for all spawned units.
 ---@param alias? string (Optional) Alias of the group. This is and optional parameter but must(!) be used if the same template group is used for more than one RAT object.
 ---@return RAT #Object of RAT class or nil if the group does not exist in the mission editor.
@@ -541,7 +519,6 @@ function RAT:New(groupname, alias) end
 ---Aircraft will not get respawned when they finished their route.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:NoRespawn() end
 
@@ -549,7 +526,6 @@ function RAT:NoRespawn() end
 ---Default is off.
 ---
 ------
----@param self RAT 
 ---@param switch boolean true=yes, false=no.
 ---@return RAT #RAT self object.
 function RAT:PlaceMarkers(switch) end
@@ -557,7 +533,6 @@ function RAT:PlaceMarkers(switch) end
 ---Set radio frequency.
 ---
 ------
----@param self RAT 
 ---@param frequency number Radio frequency.
 ---@return RAT #RAT self object.
 function RAT:RadioFrequency(frequency) end
@@ -566,7 +541,6 @@ function RAT:RadioFrequency(frequency) end
 ---This is the default setting.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RadioMenuOFF() end
 
@@ -574,7 +548,6 @@ function RAT:RadioMenuOFF() end
 ---Default is off.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RadioMenuON() end
 
@@ -582,7 +555,6 @@ function RAT:RadioMenuON() end
 ---Default is AM.
 ---
 ------
----@param self RAT 
 ---@param modulation string Either "FM" or "AM". If no value is given, modulation is set to AM.
 ---@return RAT #RAT self object.
 function RAT:RadioModulation(modulation) end
@@ -591,7 +563,6 @@ function RAT:RadioModulation(modulation) end
 ---Overrules the ME setting.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RadioOFF() end
 
@@ -599,14 +570,12 @@ function RAT:RadioOFF() end
 ---Overrules the ME setting.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RadioON() end
 
 ---Aircraft will not be respawned after they crashed or get shot down.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RespawnAfterCrashOFF() end
 
@@ -614,14 +583,12 @@ function RAT:RespawnAfterCrashOFF() end
 ---This is the default behavior.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RespawnAfterCrashON() end
 
 ---Make aircraft respawn the moment they land rather than at engine shut down.
 ---
 ------
----@param self RAT 
 ---@param delay? number (Optional) Delay in seconds until respawn happens after landing. Default is 1 second. Minimum is 1 second.
 ---@return RAT #RAT self object.
 function RAT:RespawnAfterLanding(delay) end
@@ -631,7 +598,6 @@ function RAT:RespawnAfterLanding(delay) end
 ---Therefore, this option is not to be used with the "commute" or "continue journey" options.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RespawnAfterTakeoff() end
 
@@ -639,7 +605,6 @@ function RAT:RespawnAfterTakeoff() end
 ---Note that this is also the default behavior.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RespawnInAirAllowed() end
 
@@ -647,14 +612,12 @@ function RAT:RespawnInAirAllowed() end
 ---This has only impact if aircraft are supposed to be spawned on the ground (and not in a zone).
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:RespawnInAirNotAllowed() end
 
 ---Aircraft will fly to a random point within a zone and then return to its departure airport or zone.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:ReturnZone() end
 
@@ -662,7 +625,6 @@ function RAT:ReturnZone() end
 ---Default is "High".
 ---
 ------
----@param self RAT 
 ---@param skill string Skill, options are "Average", "Good", "High", "Excellent" and "Random". Parameter is case insensitive.
 ---@return RAT #RAT self object.
 function RAT:SetAISkill(skill) end
@@ -671,7 +633,6 @@ function RAT:SetAISkill(skill) end
 ---This automatically sets the climb angle.
 ---
 ------
----@param self RAT 
 ---@param rate number Climb rate in ft/min. Default is 1500 ft/min. Minimum is 100 ft/min. Maximum is 15,000 ft/min.
 ---@return RAT #RAT self object.
 function RAT:SetClimbRate(rate) end
@@ -685,7 +646,6 @@ function RAT:SetClimbRate(rate) end
 ---yak:SetCoalition("neutral") will spawn aircraft randomly on all neutral airports.
 ---```
 ------
----@param self RAT 
 ---@param friendly string "same"=own coalition+neutral (default), "sameonly"=own coalition only, "neutral"=all neutral airports. Default is "same", so aircraft will use airports of the coalition their spawn template has plus all neutral airports.
 ---@return RAT #RAT self object.
 function RAT:SetCoalition(friendly) end
@@ -702,7 +662,6 @@ function RAT:SetCoalition(friendly) end
 ---You can set the country explicitly via the RAT:SetCountry() function if necessary.
 ---
 ------
----@param self RAT 
 ---@param color string Color of coalition, i.e. "red" or blue" or "neutral".
 ---@return RAT #RAT self object.
 function RAT:SetCoalitionAircraft(color) end
@@ -713,7 +672,6 @@ function RAT:SetCoalitionAircraft(color) end
 ---This overrules the coalition settings. So if you want your group to be of a specific coalition, you have to set a country that is part of that coalition.
 ---
 ------
----@param self RAT 
 ---@param id country.id DCS country enumerator ID. For example country.id.USA or country.id.RUSSIA.
 ---@return RAT #RAT self object.
 function RAT:SetCountry(id) end
@@ -722,7 +680,6 @@ function RAT:SetCountry(id) end
 ---This is still be checked for consitancy with selected route and prone to radomization.
 ---
 ------
----@param self RAT 
 ---@param alt number Cruising altitude ASL in meters.
 ---@return RAT #RAT self object.
 function RAT:SetCruiseAltitude(alt) end
@@ -737,7 +694,6 @@ function RAT:SetCruiseAltitude(alt) end
 ---RAT:SetDeparture("Sochi-Adler") will spawn RAT objects at Sochi-Adler airport.
 ---```
 ------
----@param self RAT 
 ---@param departurenames string Name or table of names of departure airports or zones.
 ---@return RAT #RAT self object.
 function RAT:SetDeparture(departurenames) end
@@ -745,7 +701,6 @@ function RAT:SetDeparture(departurenames) end
 ---Include all airports which lie in a zone as possible destinations.
 ---
 ------
----@param self RAT 
 ---@param zone ZONE Zone in which the departure airports lie. Has to be a MOOSE zone.
 ---@return RAT #RAT self object.
 function RAT:SetDeparturesFromZone(zone) end
@@ -754,7 +709,6 @@ function RAT:SetDeparturesFromZone(zone) end
 ---Default is 3.6 degrees, which corresponds to 3000 ft descent after one mile of travel.
 ---
 ------
----@param self RAT 
 ---@param angle number Angle of descent in degrees. Minimum is 0.5 deg. Maximum 50 deg.
 ---@return RAT #RAT self object.
 function RAT:SetDescentAngle(angle) end
@@ -763,7 +717,6 @@ function RAT:SetDescentAngle(angle) end
 ---They will probably go the the nearest airbase and try to land.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetDespawnAirOFF() end
 
@@ -776,7 +729,6 @@ function RAT:SetDespawnAirOFF() end
 ---RAT:SetDestination("Krymsk") makes all aircraft of this RAT object fly to Krymsk airport.
 ---```
 ------
----@param self RAT 
 ---@param destinationnames string Name of the destination airport or #table of destination airports.
 ---@return RAT #RAT self object.
 function RAT:SetDestination(destinationnames) end
@@ -784,7 +736,6 @@ function RAT:SetDestination(destinationnames) end
 ---Include all airports which lie in a zone as possible destinations.
 ---
 ------
----@param self RAT 
 ---@param zone ZONE Zone in which the destination airports lie. Has to be a MOOSE zone.
 ---@return RAT #RAT self object.
 function RAT:SetDestinationsFromZone(zone) end
@@ -792,7 +743,6 @@ function RAT:SetDestinationsFromZone(zone) end
 ---Turn EPLRS datalink on/off.
 ---
 ------
----@param self RAT 
 ---@param switch boolean If true (or nil), turn EPLRS on.
 ---@return RAT #RAT self object.
 function RAT:SetEPLRS(switch) end
@@ -801,7 +751,6 @@ function RAT:SetEPLRS(switch) end
 ---Setting this value will overrule all other logic. Aircraft will try to fly at this height regardless.
 ---
 ------
----@param self RAT 
 ---@param FL number Fight Level in hundrets of feet. E.g. FL200 = 20000 ft ASL.
 ---@return RAT #RAT self object.
 function RAT:SetFL(FL) end
@@ -811,7 +760,6 @@ function RAT:SetFL(FL) end
 ---Default is FL200 for planes and FL005 for helicopters.
 ---
 ------
----@param self RAT 
 ---@param FL number Flight level in hundrets of feet. E.g. FL200 = 20000 ft ASL.
 ---@return RAT #RAT self object.
 function RAT:SetFLcruise(FL) end
@@ -820,7 +768,6 @@ function RAT:SetFLcruise(FL) end
 ---Setting this value will overrule all other logic. Aircraft will try to fly at less than this FL regardless.
 ---
 ------
----@param self RAT 
 ---@param FL number Maximum Fight Level in hundrets of feet.
 ---@return RAT #RAT self object.
 function RAT:SetFLmax(FL) end
@@ -829,7 +776,6 @@ function RAT:SetFLmax(FL) end
 ---Setting this value will overrule all other logic. Aircraft will try to fly at higher than this FL regardless.
 ---
 ------
----@param self RAT 
 ---@param FL number Maximum Fight Level in hundrets of feet.
 ---@return RAT #RAT self object.
 function RAT:SetFLmin(FL) end
@@ -837,7 +783,6 @@ function RAT:SetFLmin(FL) end
 ---Set max cruising altitude above sea level.
 ---
 ------
----@param self RAT 
 ---@param alt number Altitude ASL in meters.
 ---@return RAT #RAT self object.
 function RAT:SetMaxCruiseAltitude(alt) end
@@ -845,7 +790,6 @@ function RAT:SetMaxCruiseAltitude(alt) end
 ---Set the maximum cruise speed of the aircraft.
 ---
 ------
----@param self RAT 
 ---@param speed number Speed in km/h.
 ---@return RAT #RAT self object.
 function RAT:SetMaxCruiseSpeed(speed) end
@@ -854,7 +798,6 @@ function RAT:SetMaxCruiseSpeed(speed) end
 ---Default is 5000 km but aircarft range is also taken into account automatically.
 ---
 ------
----@param self RAT 
 ---@param dist number Distance in km.
 ---@return RAT #RAT self object.
 function RAT:SetMaxDistance(dist) end
@@ -862,7 +805,6 @@ function RAT:SetMaxDistance(dist) end
 ---Number of tries to respawn an aircraft in case it has accidentally been spawned on runway.
 ---
 ------
----@param self RAT 
 ---@param n number Number of retries. Default is 3.
 ---@return RAT #RAT self object.
 function RAT:SetMaxRespawnTriedWhenSpawnedOnRunway(n) end
@@ -870,7 +812,6 @@ function RAT:SetMaxRespawnTriedWhenSpawnedOnRunway(n) end
 ---Set min cruising altitude above sea level.
 ---
 ------
----@param self RAT 
 ---@param alt number Altitude ASL in meters.
 ---@return RAT #RAT self object.
 function RAT:SetMinCruiseAltitude(alt) end
@@ -880,7 +821,6 @@ function RAT:SetMinCruiseAltitude(alt) end
 ---Minimum distance should not be smaller than maybe ~100 meters to ensure that departure and destination are different.
 ---
 ------
----@param self RAT 
 ---@param dist number Distance in km.
 ---@return RAT #RAT self object.
 function RAT:SetMinDistance(dist) end
@@ -889,7 +829,6 @@ function RAT:SetMinDistance(dist) end
 ---Same as setting "TAIL #" in the mission editor. Note that if you dont use this function, the values defined in the template group of the ME are taken.
 ---
 ------
----@param self RAT 
 ---@param tailnumprefix string String of the tail number prefix. If flight consists of more than one aircraft, two digits are appended automatically, i.e. <tailnumprefix>001, <tailnumprefix>002, ...
 ---@param zero? number (Optional) Starting value of the automatically appended numbering of aircraft within a flight. Default is 0.
 ---@return RAT #RAT self object.
@@ -899,7 +838,6 @@ function RAT:SetOnboardNum(tailnumprefix, zero) end
 ---Parking spot is considered to be occupied if any obstacle is found with the radius.
 ---
 ------
----@param self RAT 
 ---@param radius number Radius in meters. Default 50 m.
 ---@return RAT #RAT self object.
 function RAT:SetParkingScanRadius(radius) end
@@ -908,14 +846,12 @@ function RAT:SetParkingScanRadius(radius) end
 ---This is also the default setting.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetParkingScanSceneryOFF() end
 
 ---Enables scanning for scenery objects around parking spots which might block the spot.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetParkingScanSceneryON() end
 
@@ -923,14 +859,12 @@ function RAT:SetParkingScanSceneryON() end
 ---This is the default.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetParkingSpotSafeOFF() end
 
 ---A parking spot is not free until a possible aircraft has left and taken off.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetParkingSpotSafeON() end
 
@@ -938,7 +872,6 @@ function RAT:SetParkingSpotSafeON() end
 ---Default is weapon hold. This is a peaceful class.
 ---
 ------
----@param self RAT 
 ---@param roe string "hold" = weapon hold, "return" = return fire, "free" = weapons free.
 ---@return RAT #RAT self object.
 function RAT:SetROE(roe) end
@@ -947,7 +880,6 @@ function RAT:SetROE(roe) end
 ---Default is no reaction, i.e. aircraft will simply ignore all enemies.
 ---
 ------
----@param self RAT 
 ---@param rot string "noreaction" = no reaction to threats, "passive" = passive defence, "evade" = evade enemy attacks.
 ---@return RAT #RAT self object.
 function RAT:SetROT(rot) end
@@ -955,7 +887,6 @@ function RAT:SetROT(rot) end
 ---Sets the delay between despawning and respawning aircraft.
 ---
 ------
----@param self RAT 
 ---@param delay number Delay in seconds until respawn happens. Default is 1 second. Minimum is 1 second.
 ---@return RAT #RAT self object.
 function RAT:SetRespawnDelay(delay) end
@@ -963,7 +894,6 @@ function RAT:SetRespawnDelay(delay) end
 ---Set the delay before first group is spawned.
 ---
 ------
----@param self RAT 
 ---@param delay number Delay in seconds. Default is 5 seconds. Minimum delay is 0.5 seconds.
 ---@return RAT #RAT self object.
 function RAT:SetSpawnDelay(delay) end
@@ -971,7 +901,6 @@ function RAT:SetSpawnDelay(delay) end
 ---Set the interval between spawnings of the template group.
 ---
 ------
----@param self RAT 
 ---@param interval number Interval in seconds. Default is 5 seconds. Minimum is 0.5 seconds.
 ---@return RAT #RAT self object.
 function RAT:SetSpawnInterval(interval) end
@@ -980,7 +909,6 @@ function RAT:SetSpawnInterval(interval) end
 ---When this limit is reached, no more RAT groups are spawned.
 ---
 ------
----@param self RAT 
 ---@param Nmax number Max number of groups. Default `nil`=unlimited.
 ---@return RAT #RAT self object.
 function RAT:SetSpawnLimit(Nmax) end
@@ -996,7 +924,6 @@ function RAT:SetSpawnLimit(Nmax) end
 ---RAT:Takeoff("hot") will spawn RAT objects at airports with engines started.
 ---```
 ------
----@param self RAT 
 ---@param type string Type can be "takeoff-cold" or "cold", "takeoff-hot" or "hot", "takeoff-runway" or "runway", "air".
 ---@return RAT #RAT self object.
 function RAT:SetTakeoff(type) end
@@ -1005,7 +932,6 @@ function RAT:SetTakeoff(type) end
 ---Aircraft will spawn in the air.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetTakeoffAir() end
 
@@ -1013,7 +939,6 @@ function RAT:SetTakeoffAir() end
 ---Aircraft will spawn at a parking spot with engines off.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetTakeoffCold() end
 
@@ -1021,7 +946,6 @@ function RAT:SetTakeoffCold() end
 ---Aircraft will spawn at a parking spot with 50:50 change of engines on or off.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetTakeoffColdOrHot() end
 
@@ -1029,7 +953,6 @@ function RAT:SetTakeoffColdOrHot() end
 ---Aircraft will spawn at a parking spot with engines on.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetTakeoffHot() end
 
@@ -1037,7 +960,6 @@ function RAT:SetTakeoffHot() end
 ---Aircraft will spawn directly on the runway.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:SetTakeoffRunway() end
 
@@ -1055,7 +977,6 @@ function RAT:SetTakeoffRunway() end
 ---c17:Spawn(5)
 ---```
 ------
----@param self RAT 
 ---@param termtype AIRBASE.TerminalType Type of terminal. Use enumerator AIRBASE.TerminalType.XXX.
 ---@return RAT #RAT self object. 
 function RAT:SetTerminalType(termtype) end
@@ -1070,7 +991,6 @@ function RAT:SetTerminalType(termtype) end
 ---yak:Spawn(5) will spawn five aircraft. By default aircraft will spawn at neutral and red airports if the template group is part of the red coalition.
 ---```
 ------
----@param self RAT 
 ---@param naircraft? number (Optional) Number of aircraft to spawn. Default is one aircraft.
 ---@return boolean #True if spawning was successful or nil if nothing was spawned.
 function RAT:Spawn(naircraft) end
@@ -1078,7 +998,6 @@ function RAT:Spawn(naircraft) end
 ---Report status of RAT groups.
 ---
 ------
----@param self RAT 
 ---@param message? boolean (Optional) Send message with report to all if true.
 ---@param forID? number (Optional) Send message only for this ID.
 function RAT:Status(message, forID) end
@@ -1086,7 +1005,6 @@ function RAT:Status(message, forID) end
 ---Aircraft report status update messages along the route.
 ---
 ------
----@param self RAT 
 ---@param switch boolean Swtich reports on (true) or off (false). No argument is on.
 ---@return RAT #RAT self object.
 function RAT:StatusReports(switch) end
@@ -1094,14 +1012,12 @@ function RAT:StatusReports(switch) end
 ---Stop RAT spawning by unhandling events, stoping schedulers etc.
 ---
 ------
----@param self RAT 
 ---@param delay number Delay before stop in seconds.
 function RAT:Stop(delay) end
 
 ---Set the time after which inactive groups will be destroyed.
 ---
 ------
----@param self RAT 
 ---@param time number Time in seconds. Default is 600 seconds = 10 minutes. Minimum is 60 seconds.
 ---@return RAT #RAT self object.
 function RAT:TimeDestroyInactive(time) end
@@ -1110,14 +1026,12 @@ function RAT:TimeDestroyInactive(time) end
 ---Aircraft will only sit at their parking spots. They can be activated randomly by the RAT:ActivateUncontrolled() function.
 ---
 ------
----@param self RAT 
 ---@return RAT #RAT self object.
 function RAT:Uncontrolled() end
 
 ---Adds andd initializes a new flight after it was spawned.
 ---
 ------
----@param self RAT 
 ---@param name string Group name of the flight.
 ---@param dest string Name of the destination airport.
 function RAT:_ATCAddFlight(name, dest) end
@@ -1130,27 +1044,23 @@ function RAT._ATCCheck() end
 ---Giving landing clearance for aircraft by setting user flag.
 ---
 ------
----@param airportname string Name of destination airport.
 ---@param flightname string Group name of flight, which gets landing clearence.
 function RAT._ATCClearForLanding(airportname, flightname) end
 
 ---Deletes a flight from ATC lists after it landed.
 ---
 ------
----@param t table Table.
 ---@param entry string Flight name which shall be deleted.
 function RAT._ATCDelFlight(t, entry) end
 
 ---Takes care of organisational stuff after a plane has landed.
 ---
 ------
----@param name string Group name of flight.
 function RAT._ATCFlightLanded(name) end
 
 ---Initializes the ATC arrays and starts schedulers.
 ---
 ------
----@param airports_map table List of all airports of the map.
 function RAT._ATCInit(airports_map) end
 
 
@@ -1161,7 +1071,6 @@ function RAT._ATCQueue() end
 ---Registers a flight once it is near its holding point at the final destination.
 ---
 ------
----@param self RAT 
 ---@param name string Group name of the flight.
 ---@param time number Time the fight first registered.
 function RAT:_ATCRegisterFlight(name, time) end
@@ -1174,20 +1083,17 @@ function RAT._ATCStatus() end
 ---Randomly activates an uncontrolled aircraft.
 ---
 ------
----@param self RAT 
 function RAT:_ActivateUncontrolled() end
 
 ---Add names of all friendly airports to possible departure or destination airports if they are not already in the list.
 ---
 ------
----@param self RAT 
 ---@param ports table List of departure or destination airports/zones that will be added.
 function RAT:_AddFriendlyAirports(ports) end
 
 ---Test if an airport exists on the current map.
 ---
 ------
----@param self RAT 
 ---@param name string 
 ---@return boolean #True if airport exsits, false otherwise.
 function RAT:_AirportExists(name) end
@@ -1195,7 +1101,6 @@ function RAT:_AirportExists(name) end
 ---Anticipated group name from alias and spawn index.
 ---
 ------
----@param self RAT 
 ---@param index number Spawnindex of group if given or self.SpawnIndex+1 by default.
 ---@return string #Name the group will get after it is spawned.
 function RAT:_AnticipatedGroupName(index) end
@@ -1203,13 +1108,11 @@ function RAT:_AnticipatedGroupName(index) end
 ---Function checks consistency of user input and automatically adjusts parameters if necessary.
 ---
 ------
----@param self RAT 
 function RAT:_CheckConsistency() end
 
 ---Find aircraft that have accidentally been spawned on top of each other.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Units of this group will be checked.
 ---@param distmin number Allowed distance in meters between units. Units with a distance smaller than this number are considered to be on top of each other.
 ---@return boolean #True if group was destroyed because it was on top of another unit. False if otherwise.
@@ -1218,7 +1121,6 @@ function RAT:_CheckOnTop(group, distmin) end
 ---Set RAT group to be (im-)mortal.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group to be set (im-)mortal.
 ---@param switch boolean True enables immortality, false disables it.
 function RAT:_CommandImmortal(group, switch) end
@@ -1226,7 +1128,6 @@ function RAT:_CommandImmortal(group, switch) end
 ---Set RAT group to (in-)visible for other AI forces.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group to be set (in)visible.
 ---@param switch boolean If true, the group is invisible. If false the group will be visible.
 function RAT:_CommandInvisible(group, switch) end
@@ -1234,7 +1135,6 @@ function RAT:_CommandInvisible(group, switch) end
 ---Determine the heading from point a to point b.
 ---
 ------
----@param self RAT 
 ---@param a COORDINATE Point from.
 ---@param b COORDINATE Point to.
 ---@return number #Heading/angle in degrees.
@@ -1244,7 +1144,6 @@ function RAT:_Course(a, b) end
 ---Default is off.
 ---
 ------
----@param self RAT 
 ---@param switch boolean Turn debug on=true or off=false. No argument means on.
 ---@return RAT #RAT self object.
 function RAT:_Debug(switch) end
@@ -1252,14 +1151,12 @@ function RAT:_Debug(switch) end
 ---Delete all markers on F10 map.
 ---
 ------
----@param self RAT 
 function RAT:_DeleteMarkers() end
 
 ---Despawn group.
 ---The `FLIGHTGROUP` is despawned and stopped. The ratcraft is removed from the self.ratcraft table. Menues are removed.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group to be despawned.
 ---@param delay number Delay in seconds before the despawn happens. Default is immidiately.
 function RAT:_Despawn(group, delay) end
@@ -1267,7 +1164,6 @@ function RAT:_Despawn(group, delay) end
 ---Check if airport is excluded from possible departures and destinations.
 ---
 ------
----@param self RAT 
 ---@param port string Name of airport, FARP or ship to check.
 ---@return boolean #true if airport is excluded and false otherwise.
 function RAT:_Excluded(port) end
@@ -1275,28 +1171,24 @@ function RAT:_Excluded(port) end
 ---Find airports within a zone.
 ---
 ------
----@param self RAT 
 ---@param zone ZONE 
----@return  ##list Table with airport names that lie within the zone.
+---@return NOTYPE ##list Table with airport names that lie within the zone.
 function RAT:_GetAirportsInZone(zone) end
 
 ---Get all "friendly" airports of the current map.
 ---Fills the self.airports{} table.
 ---
 ------
----@param self RAT 
 function RAT:_GetAirportsOfCoalition() end
 
 ---Get all airports of the current map.
 ---
 ------
----@param self RAT 
 function RAT:_GetAirportsOfMap() end
 
 ---Get departure airbase of a given ratcraft.
 ---
 ------
----@param self RAT 
 ---@param ratcraft RAT.RatCraft Ratcraft object.
 ---@return AIRBASE #Destination airbase or nil.
 function RAT:_GetDepartureAirbase(ratcraft) end
@@ -1304,7 +1196,6 @@ function RAT:_GetDepartureAirbase(ratcraft) end
 ---Get destination airbase of a given ratcraft.
 ---
 ------
----@param self RAT 
 ---@param ratcraft RAT.RatCraft Ratcraft object.
 ---@return AIRBASE #Destination airbase or nil.
 function RAT:_GetDestinationAirbase(ratcraft) end
@@ -1312,7 +1203,6 @@ function RAT:_GetDestinationAirbase(ratcraft) end
 ---Get (relative) life of first unit of a group.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group of unit.
 ---@return number #Life of unit in percent.
 function RAT:_GetLife(group) end
@@ -1320,7 +1210,6 @@ function RAT:_GetLife(group) end
 ---Get aircraft dimensions length, width, height.
 ---
 ------
----@param self RAT 
 ---@param unit UNIT The unit which is we want the size of.
 ---@return number #Size, i.e. max(length,width) of unit.
 function RAT:_GetObjectSize(unit) end
@@ -1328,7 +1217,6 @@ function RAT:_GetObjectSize(unit) end
 ---Get ratcraft from group.
 ---
 ------
----@param self RAT 
 ---@param group Group The group object.
 ---@return RAT.RatCraft #The ratcraft object.
 function RAT:_GetRatcraftFromGroup(group) end
@@ -1336,7 +1224,6 @@ function RAT:_GetRatcraftFromGroup(group) end
 ---Determine the heading for an aircraft to be entered in the route template.
 ---
 ------
----@param self RAT 
 ---@param course number The course between two points in degrees.
 ---@return number #heading Heading in rad.
 function RAT:_Heading(course) end
@@ -1344,14 +1231,12 @@ function RAT:_Heading(course) end
 ---Initialize basic parameters of the aircraft based on its (template) group in the mission editor.
 ---
 ------
----@param self RAT 
 ---@param DCSgroup Group Group of the aircraft in the mission editor.
 function RAT:_InitAircraft(DCSgroup) end
 
 ---Check if a given airbase has a FLIGHTCONTROL.
 ---
 ------
----@param self RAT 
 ---@param airbase AIRBASE The airbase.
 ---@return boolean #`true` if the airbase has a FLIGHTCONTROL.
 function RAT:_IsFlightControlAirbase(airbase) end
@@ -1360,7 +1245,6 @@ function RAT:_IsFlightControlAirbase(airbase) end
 ---belongs to the right coalition.
 ---
 ------
----@param self RAT 
 ---@param port string Name of airport, FARP or ship to check.
 ---@return boolean #true if airport is friendly and false otherwise.
 function RAT:_IsFriendly(port) end
@@ -1368,7 +1252,6 @@ function RAT:_IsFriendly(port) end
 ---Calculate minimum distance between departure and destination for given minimum flight level and climb/decent rates.
 ---
 ------
----@param self RAT 
 ---@param alpha number Angle of climb [rad].
 ---@param beta number Angle of descent [rad].
 ---@param ha number Height difference between departure and cruise altiude.
@@ -1383,7 +1266,6 @@ function RAT:_MinDistance(alpha, beta, ha, hb) end
 ---This allows to spawn at airports and also land at other airports, i.e. circumventing the DCS "landing bug".
 ---
 ------
----@param self RAT 
 ---@param waypoints table The waypoints of the AI flight plan.
 ---@param livery? string (Optional) Livery of the aircraft. All members of a flight will get the same livery.
 ---@param spawnplace? COORDINATE (Optional) Place where spawning should happen. If not present, first waypoint is taken.
@@ -1397,7 +1279,6 @@ function RAT:_ModifySpawnTemplate(waypoints, livery, spawnplace, departure, take
 ---Check if a name/string is in a list or not.
 ---
 ------
----@param self RAT 
 ---@param liste table List of names to be checked.
 ---@param name string Name to be checked for.
 function RAT:_NameInList(liste, name) end
@@ -1405,63 +1286,54 @@ function RAT:_NameInList(liste, name) end
 ---Function is executed when a unit is spawned.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnBirth(EventData) end
 
 ---Function is executed when a unit crashes.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnCrash(EventData) end
 
 ---Function is executed when a unit is dead.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnDead(EventData) end
 
 ---Function is executed when a unit is dead or crashes.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnDeadOrCrash(EventData) end
 
 ---Function is executed when a unit shuts down its engines.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnEngineShutdown(EventData) end
 
 ---Function is executed when a unit starts its engines.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnEngineStartup(EventData) end
 
 ---Function is executed when a unit is hit.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnHit(EventData) end
 
 ---Function is executed when a unit lands.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnLand(EventData) end
 
 ---Function is executed when a unit takes off.
 ---
 ------
----@param self RAT 
 ---@param EventData EVENTDATA 
 function RAT:_OnTakeoff(EventData) end
 
@@ -1470,7 +1342,6 @@ function RAT:_OnTakeoff(EventData) end
 ---If takeoff style is set to "air", we use zones around the airports or the zones specified by user input.
 ---
 ------
----@param self RAT 
 ---@param takeoff number Takeoff type.
 ---@return AIRBASE #Departure airport if spawning at airport.
 ---@return ZONE #Departure zone if spawning in air.
@@ -1479,7 +1350,6 @@ function RAT:_PickDeparture(takeoff) end
 ---Pick destination airport or zone depending on departure position.
 ---
 ------
----@param self RAT 
 ---@param departure AIRBASE Departure airport or zone.
 ---@param q COORDINATE Coordinate of the departure point.
 ---@param minrange number Minimum range to q in meters.
@@ -1493,7 +1363,6 @@ function RAT:_PickDestination(departure, q, minrange, maxrange, random, landing)
 ---Note we assume a very specific number and type of waypoints here.
 ---
 ------
----@param self RAT 
 ---@param waypoints table Table with waypoints.
 ---@param waypointdescriptions table Table with waypoint descriptions
 ---@param index number Spawn index of group.
@@ -1508,7 +1377,6 @@ function RAT:_PlaceMarkers(waypoints, waypointdescriptions, index) end
 ---_Randomize(100, 0.1) returns a value between 90 and 110, i.e. a plus/minus ten percent variation.
 ---```
 ------
----@param self RAT 
 ---@param value number The value which should be randomized
 ---@param fac number Randomization factor.
 ---@param lower? number (Optional) Lower limit of the returned value.
@@ -1519,7 +1387,6 @@ function RAT:_Randomize(value, fac, lower, upper) end
 ---Remove ratcraft from self.ratcraft table.
 ---
 ------
----@param self RAT 
 ---@param ratcraft RAT.RatCraft The ratcraft to be removed.
 ---@return RAT #self
 function RAT:_RemoveRatcraft(ratcraft) end
@@ -1527,7 +1394,6 @@ function RAT:_RemoveRatcraft(ratcraft) end
 ---Despawn the original group and re-spawn a new one.
 ---
 ------
----@param self RAT 
 ---@param group GROUP The group that should be respawned.
 ---@param lastpos COORDINATE Last known position of the group.
 ---@param delay number Delay before despawn in seconds.
@@ -1536,7 +1402,6 @@ function RAT:_Respawn(group, lastpos, delay) end
 ---Provide information about the assigned flightplan.
 ---
 ------
----@param self RAT 
 ---@param waypoints table Waypoints of the flight plan.
 ---@param comment string Some comment to identify the provided information.
 ---@param waypointdescriptions table Waypoint descriptions.
@@ -1546,13 +1411,11 @@ function RAT:_Routeinfo(waypoints, comment, waypointdescriptions) end
 ---Create a table with the valid coalitions for departure and destination airports.
 ---
 ------
----@param self RAT 
 function RAT:_SetCoalitionTable() end
 
 ---Set a marker visible for all on the F10 map.
 ---
 ------
----@param self RAT 
 ---@param text string Info text displayed at maker.
 ---@param wp table Position of marker coming in as waypoint, i.e. has x, y and alt components.
 ---@param index number Spawn index of group.
@@ -1561,7 +1424,6 @@ function RAT:_SetMarker(text, wp, index) end
 ---Set ROE for a group.
 ---
 ------
----@param self RAT 
 ---@param flightgroup FLIGHTGROUP Group for which the ROE is set.
 ---@param roe string ROE of group.
 function RAT:_SetROE(flightgroup, roe) end
@@ -1569,7 +1431,6 @@ function RAT:_SetROE(flightgroup, roe) end
 ---Set ROT for a group.
 ---
 ------
----@param self RAT 
 ---@param flightgroup FLIGHTGROUP Group for which the ROT is set.
 ---@param rot string ROT of group.
 function RAT:_SetROT(flightgroup, rot) end
@@ -1578,7 +1439,6 @@ function RAT:_SetROT(flightgroup, rot) end
 ---Due to DCS landing bug, this has to be done before the unit is spawned.
 ---
 ------
----@param self RAT 
 ---@param takeoff number Takeoff type. Could also be air start.
 ---@param landing number Landing type. Could also be a destination in air.
 ---@param _departure? AIRBASE (Optional) Departure airbase.
@@ -1594,7 +1454,6 @@ function RAT:_SetRoute(takeoff, landing, _departure, _destination, _waypoint) en
 ---Set status of group.
 ---
 ------
----@param self RAT 
 ---@param group GROUP Group.
 ---@param status string Status of group.
 function RAT:_SetStatus(group, status) end
@@ -1606,7 +1465,6 @@ function RAT:_SetStatus(group, status) end
 ---Initializes the ratcraft array and group menu.
 ---
 ------
----@param self RAT 
 ---@param _departure? string (Optional) Name of departure airbase.
 ---@param _destination? string (Optional) Name of destination airbase.
 ---@param _takeoff number Takeoff type id.
@@ -1622,7 +1480,6 @@ function RAT:_SpawnWithRoute(_departure, _destination, _takeoff, _landing, _live
 ---Create a waypoint that can be used with the Route command.
 ---
 ------
----@param self RAT 
 ---@param index number Running index of waypoints. Starts with 1 which is normally departure/spawn waypoint.
 ---@param description string Descrition of Waypoint.
 ---@param Type number Type of waypoint.
@@ -1636,7 +1493,6 @@ function RAT:_Waypoint(index, description, Type, Coord, Speed, Altitude, Airport
 ---Test if a zone exists.
 ---
 ------
----@param self RAT 
 ---@param name string 
 ---@return boolean #True if zone exsits, false otherwise.
 function RAT:_ZoneExists(name) end
@@ -1840,7 +1696,6 @@ RATMANAGER = {}
 ---Parameter min specifies the limit how many RAT groups are at least alive.
 ---
 ------
----@param self RATMANAGER 
 ---@param ratobject RAT RAT object to be managed.
 ---@param min number Minimum number of groups for this RAT object. Default is 1.
 ---@return RATMANAGER #RATMANAGER self object.
@@ -1849,7 +1704,6 @@ function RATMANAGER:Add(ratobject, min) end
 ---Creates a new RATMANAGER object.
 ---
 ------
----@param self RATMANAGER 
 ---@param ntot number Total number of RAT flights.
 ---@return RATMANAGER #RATMANAGER object
 function RATMANAGER:New(ntot) end
@@ -1858,7 +1712,6 @@ function RATMANAGER:New(ntot) end
 ---Default is 60 seconds.
 ---
 ------
----@param self RATMANAGER 
 ---@param dt number Time interval in seconds.
 ---@return RATMANAGER #RATMANAGER self object.
 function RATMANAGER:SetTcheck(dt) end
@@ -1866,7 +1719,6 @@ function RATMANAGER:SetTcheck(dt) end
 ---Sets the time interval between spawning of groups.
 ---
 ------
----@param self RATMANAGER 
 ---@param dt number Time interval in seconds. Default is 1 second.
 ---@return RATMANAGER #RATMANAGER self object.
 function RATMANAGER:SetTspawn(dt) end
@@ -1874,7 +1726,6 @@ function RATMANAGER:SetTspawn(dt) end
 ---Starts the RAT manager and spawns the initial random number RAT groups for each RAT object.
 ---
 ------
----@param self RATMANAGER 
 ---@param delay number Time delay in seconds after which the RAT manager is started. Default is 5 seconds.
 ---@return RATMANAGER #RATMANAGER self object.
 function RATMANAGER:Start(delay) end
@@ -1882,7 +1733,6 @@ function RATMANAGER:Start(delay) end
 ---Stops the RAT manager.
 ---
 ------
----@param self RATMANAGER 
 ---@param delay number Delay in seconds before the manager is stopped. Default is 1 second.
 ---@return RATMANAGER #RATMANAGER self object.
 function RATMANAGER:Stop(delay) end
@@ -1890,20 +1740,17 @@ function RATMANAGER:Stop(delay) end
 ---Counts the number of alive RAT objects.
 ---
 ------
----@param self RATMANAGER 
 function RATMANAGER:_Count() end
 
 ---Manager function.
 ---Calculating the number of current groups and respawning new groups if necessary.
 ---
 ------
----@param self RATMANAGER 
 function RATMANAGER:_Manage() end
 
 ---Rolls the dice for the number of necessary spawns.
 ---
 ------
----@param self RATMANAGER 
 ---@param nrat number Number of RAT objects.
 ---@param ntot number Total number of RAT flights.
 ---@param min table Minimum number of groups for each RAT object.
@@ -1913,7 +1760,6 @@ function RATMANAGER:_RollDice(nrat, ntot, min, alive) end
 ---Instantly starts the RAT manager and spawns the initial random number RAT groups for each RAT object.
 ---
 ------
----@param self RATMANAGER 
 ---@param RATMANAGER RATMANAGER self object.
 ---@param i number Index.
 function RATMANAGER:_Spawn(RATMANAGER, i) end

@@ -296,7 +296,6 @@
 ---@field SpawnHiddenOnPlanner boolean 
 ---@field SpawnHookScheduler NOTYPE 
 ---@field SpawnIndex number 
----@field SpawnInitAirbase NOTYPE 
 ---@field SpawnInitCallSign boolean 
 ---@field SpawnInitCallSignName NOTYPE 
 ---@field SpawnInitCategory NOTYPE 
@@ -310,15 +309,15 @@
 ---@field SpawnInitHeadingMin NOTYPE 
 ---@field SpawnInitKeepUnitNames boolean 
 ---@field SpawnInitLimit boolean 
----@field SpawnInitLivery NOTYPE 
+---@field SpawnInitModex NOTYPE 
+---@field SpawnInitModexPostfix NOTYPE 
+---@field SpawnInitModexPrefix NOTYPE 
 ---@field SpawnInitModu NOTYPE 
 ---@field SpawnInitPosition NOTYPE 
----@field SpawnInitSADL NOTYPE 
----@field SpawnInitSkill string 
 ---@field SpawnInitTerminalType NOTYPE 
 ---@field SpawnIsScheduled boolean 
----@field SpawnMaxGroups NOTYPE 
----@field SpawnMaxUnitsAlive NOTYPE 
+---@field SpawnMaxGroups number 
+---@field SpawnMaxUnitsAlive number 
 ---@field SpawnRandomCallsign boolean 
 ---@field SpawnRandomize boolean 
 ---@field SpawnRandomizeRoute boolean 
@@ -342,13 +341,14 @@
 ---@field UnControlled boolean 
 ---@field UnitsAbsolutePositions NOTYPE 
 ---@field UnitsRelativePositions NOTYPE 
----@field private uncontrolled NOTYPE 
+---@field private communication NOTYPE 
+---@field private livery_id NOTYPE 
+---@field private skill NOTYPE 
 SPAWN = {}
 
 ---Get the Coordinate of the Group that is Late Activated as the template for the SPAWN object.
 ---
 ------
----@param self SPAWN 
 ---@return COORDINATE #The Coordinate
 function SPAWN:GetCoordinate() end
 
@@ -367,7 +367,6 @@ function SPAWN:GetCoordinate() end
 ---  end
 ---```
 ------
----@param self SPAWN 
 ---@return number #The @{Wrapper.Group} object found, the new Index where the group was found.
 ---@return nil #When no group is found, #nil is returned.
 function SPAWN:GetFirstAliveGroup() end
@@ -377,7 +376,6 @@ function SPAWN:GetFirstAliveGroup() end
 ---If no index is given, it will return the first group in the list.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number The index of the group to return.
 ---@return GROUP #self
 function SPAWN:GetGroupFromIndex(SpawnIndex) end
@@ -396,7 +394,6 @@ function SPAWN:GetGroupFromIndex(SpawnIndex) end
 ---  end
 ---```
 ------
----@param self SPAWN 
 ---@return number #The last alive @{Wrapper.Group} object found, the last Index where the last alive @{Wrapper.Group} object was found.
 ---@return nil #When no alive @{Wrapper.Group} object is found, #nil is returned.
 function SPAWN:GetLastAliveGroup() end
@@ -416,7 +413,6 @@ function SPAWN:GetLastAliveGroup() end
 ---  end
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnIndexStart number A Index holding the start position to search from. This method can also be used to find the first alive @{Wrapper.Group} object from the given Index.
 ---@return number #The next alive @{Wrapper.Group} object found, the next Index where the next alive @{Wrapper.Group} object was found.
 ---@return nil #When no alive @{Wrapper.Group} object is found from the start Index position, #nil is returned.
@@ -425,28 +421,24 @@ function SPAWN:GetNextAliveGroup(SpawnIndexStart) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param SpawnGroup NOTYPE 
 function SPAWN:GetSpawnIndexFromGroup(SpawnGroup) end
 
 ---Turns the AI Off for the Wrapper.Group when spawning.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitAIOff() end
 
 ---Turns the AI On for the Wrapper.Group when spawning.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitAIOn() end
 
 ---Turns the AI On or Off for the Wrapper.Group when spawning.
 ---
 ------
----@param self SPAWN 
 ---@param AIOnOff boolean A value of true sets the AI On, a value of false sets the AI Off.
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitAIOnOff(AIOnOff) end
@@ -455,7 +447,6 @@ function SPAWN:InitAIOnOff(AIOnOff) end
 ---Only for aircraft, of course.
 ---
 ------
----@param self SPAWN 
 ---@param AirbaseName string Name of the airbase.
 ---@param Takeoff? number (Optional) Takeoff type. Can be SPAWN.Takeoff.Hot (default), SPAWN.Takeoff.Cold or SPAWN.Takeoff.Runway.
 ---@param TerminalType? number (Optional) The terminal type.
@@ -477,7 +468,6 @@ function SPAWN:InitAirbase(AirbaseName, Takeoff, TerminalType) end
 ---                         :InitArray( 90, 10, 100, 50 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnAngle number The angle in degrees how the groups and each unit of the group will be positioned.
 ---@param SpawnWidth number The amount of Groups that will be positioned on the X axis.
 ---@param SpawnDeltaX number The space between each Group on the X-axis.
@@ -489,7 +479,6 @@ function SPAWN:InitArray(SpawnAngle, SpawnWidth, SpawnDeltaX, SpawnDeltaY) end
 ---Use for a group with one unit only!
 ---
 ------
----@param self SPAWN 
 ---@param ID number ID of the callsign enumerator, e.g. CALLSIGN.Tanker.Texaco - - resulting in e.g. Texaco-2-1
 ---@param Name string Name of this callsign as it cannot be determined from the ID because of the dependency on the task type of the plane, and the plane type. E.g. "Texaco"
 ---@param Minor number Minor number, i.e. the unit number within the group, e.g 2 - resulting in e.g. Texaco-2-1
@@ -500,7 +489,6 @@ function SPAWN:InitCallSign(ID, Name, Minor, Major) end
 ---Sets category ID of the group.
 ---
 ------
----@param self SPAWN 
 ---@param Category number Category id.
 ---@return SPAWN #self
 function SPAWN:InitCategory(Category) end
@@ -517,7 +505,6 @@ function SPAWN:InitCategory(Category) end
 ---  Spawn_Helicopter:InitCleanUp( 20 )  -- CleanUp the spawning of the helicopters every 20 seconds when they become inactive.
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnCleanUpInterval string The interval to check for inactive groups within seconds.
 ---@return SPAWN #self
 function SPAWN:InitCleanUp(SpawnCleanUpInterval) end
@@ -526,7 +513,6 @@ function SPAWN:InitCleanUp(SpawnCleanUpInterval) end
 ---Note that it might be necessary to also set the country explicitly!
 ---
 ------
----@param self SPAWN 
 ---@param Coalition coalition.side Coalition of the group as number of enumerator:    * @{DCS#coalition.side.NEUTRAL}   * @{DCS#coalition.side.RED}   * @{DCS#coalition.side.BLUE}  
 ---@return SPAWN #self
 function SPAWN:InitCoalition(Coalition) end
@@ -535,7 +521,6 @@ function SPAWN:InitCoalition(Coalition) end
 ---Note that the country determines the coalition of the group depending on which country is defined to be on which side for each specific mission!
 ---
 ------
----@param self SPAWN 
 ---@param Country number Country id as number or enumerator:    * @{DCS#country.id.RUSSIA}   * @{DCS#country.id.USA} 
 ---@return SPAWN #self
 function SPAWN:InitCountry(Country) end
@@ -543,7 +528,6 @@ function SPAWN:InitCountry(Country) end
 ---Turns the Delay Off for the Wrapper.Group when spawning.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitDelayOff() end
 
@@ -552,14 +536,12 @@ function SPAWN:InitDelayOff() end
 ---after the number of seconds given in SpawnScheduled as arguments, and not immediately.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitDelayOn() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param DelayOnOff NOTYPE 
 function SPAWN:InitDelayOnOff(DelayOnOff) end
 
@@ -588,7 +570,6 @@ function SPAWN:InitDelayOnOff(DelayOnOff) end
 ---  mySpawner:InitHeading(0):InitGroupHeading(-60)
 ---```
 ------
----@param self SPAWN 
 ---@param HeadingMin number The minimum or fixed heading in degrees.
 ---@param HeadingMax? number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading for the group will be HeadingMin.
 ---@param unitVar? number (optional) Individual units within the group will have their heading randomized by +/- unitVar degrees.  Default is zero.
@@ -598,7 +579,6 @@ function SPAWN:InitGroupHeading(HeadingMin, HeadingMax, unitVar) end
 ---When spawning a new group, make the grouping of the units according the InitGrouping setting.
 ---
 ------
----@param self SPAWN 
 ---@param Grouping number Indicates the maximum amount of units in the group.
 ---@return SPAWN #
 function SPAWN:InitGrouping(Grouping) end
@@ -620,7 +600,6 @@ function SPAWN:InitGrouping(Grouping) end
 ---  Spawn:InitHeading( 100, 150 )
 ---```
 ------
----@param self SPAWN 
 ---@param HeadingMin number The minimum or fixed heading in degrees.
 ---@param HeadingMax? number (optional) The maximum heading in degrees. This there is no maximum heading, then the heading will be fixed for all units using minimum heading.
 ---@return SPAWN #self
@@ -629,14 +608,12 @@ function SPAWN:InitHeading(HeadingMin, HeadingMax) end
 ---Hide the group on MFDs (visible to game master slots!).
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitHiddenOnMFD() end
 
 ---Hide the group on the map view (visible to game master slots!).
 ---
 ------
----@param self SPAWN 
 ---@param OnOff boolean Defaults to true
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitHiddenOnMap(OnOff) end
@@ -644,7 +621,6 @@ function SPAWN:InitHiddenOnMap(OnOff) end
 ---Hide the group on planner (visible to game master slots!).
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #The SPAWN object
 function SPAWN:InitHiddenOnPlanner() end
 
@@ -654,7 +630,6 @@ function SPAWN:InitHiddenOnPlanner() end
 ---IMPORTANT! This method MUST be the first used after :New !!!
 ---
 ------
----@param self SPAWN 
 ---@param KeepUnitNames? boolean (optional) If true, the unit names are kept, false or not provided create new unit names.
 ---@return SPAWN #self
 function SPAWN:InitKeepUnitNames(KeepUnitNames) end
@@ -662,7 +637,6 @@ function SPAWN:InitKeepUnitNames(KeepUnitNames) end
 ---Flags that the spawned groups must be spawned late activated.
 ---
 ------
----@param self SPAWN 
 ---@param LateActivated? boolean (optional) If true, the spawned groups are late activated.
 ---@return SPAWN #self
 function SPAWN:InitLateActivated(LateActivated) end
@@ -685,7 +659,6 @@ function SPAWN:InitLateActivated(LateActivated) end
 ---  Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):InitLimit( 2, 24 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnMaxUnitsAlive number The maximum amount of units that can be alive at runtime.
 ---@param SpawnMaxGroups number The maximum amount of groups that can be spawned. When the limit is reached, then no more actual spawns will happen of the group. This parameter is useful to define a maximum amount of airplanes, ground troops, helicopters, ships etc within a supply area. This parameter accepts the value 0, which defines that there are no maximum group limits, but there are limits on the maximum of units that can be alive at the same time.
 ---@return SPAWN #self
@@ -694,7 +667,6 @@ function SPAWN:InitLimit(SpawnMaxUnitsAlive, SpawnMaxGroups) end
 ---Sets livery of the group.
 ---
 ------
----@param self SPAWN 
 ---@param Livery string Livery name. Note that this is not necessarily the same name as displayed in the mission editor.
 ---@return SPAWN #self
 function SPAWN:InitLivery(Livery) end
@@ -703,7 +675,6 @@ function SPAWN:InitLivery(Livery) end
 ---If more units are in the group, the number is increased by one with every unit.
 ---
 ------
----@param self SPAWN 
 ---@param modex number Modex of the first unit.
 ---@param prefix? string (optional) String to prefix to modex, e.g. for French AdA Modex, eg. -L-102 then "-L-" would be the prefix.
 ---@param postfix? string (optional) String to postfix to modex, example tbd.
@@ -713,7 +684,6 @@ function SPAWN:InitModex(modex, prefix, postfix) end
 ---This method sets a spawn position for the group that is different from the location of the template.
 ---
 ------
----@param self SPAWN 
 ---@param Coordinate COORDINATE The position to spawn from
 ---@return SPAWN #self
 function SPAWN:InitPositionCoordinate(Coordinate) end
@@ -721,7 +691,6 @@ function SPAWN:InitPositionCoordinate(Coordinate) end
 ---This method sets a spawn position for the group that is different from the location of the template.
 ---
 ------
----@param self SPAWN 
 ---@param Vec2 Vec2 The position to spawn from
 ---@return SPAWN #self
 function SPAWN:InitPositionVec2(Vec2) end
@@ -730,7 +699,6 @@ function SPAWN:InitPositionVec2(Vec2) end
 ---Same as checking/unchecking the COMM box in the mission editor.
 ---
 ------
----@param self SPAWN 
 ---@param switch number If true (or nil), enables the radio communication. If false, disables the radio for the spawned group.
 ---@return SPAWN #self
 function SPAWN:InitRadioCommsOnOff(switch) end
@@ -738,7 +706,6 @@ function SPAWN:InitRadioCommsOnOff(switch) end
 ---Sets the radio frequency of the group.
 ---
 ------
----@param self SPAWN 
 ---@param frequency number The frequency in MHz.
 ---@return SPAWN #self
 function SPAWN:InitRadioFrequency(frequency) end
@@ -747,7 +714,6 @@ function SPAWN:InitRadioFrequency(frequency) end
 ---Default is AM.
 ---
 ------
----@param self SPAWN 
 ---@param modulation string Either "FM" or "AM". If no value is given, modulation is set to AM.
 ---@return SPAWN #self
 function SPAWN:InitRadioModulation(modulation) end
@@ -755,14 +721,12 @@ function SPAWN:InitRadioModulation(modulation) end
 ---[AIR/Fighter only!] This method randomizes the callsign for a new group.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #self
 function SPAWN:InitRandomizeCallsign() end
 
 ---Randomizes the position of Wrapper.Groups that are spawned within a **radius band**, given an Outer and Inner radius, from the point that the spawn happens.
 ---
 ------
----@param self SPAWN 
 ---@param RandomizePosition boolean If true, SPAWN will perform the randomization of the @{Wrapper.Group}s position between a given outer and inner radius.
 ---@param OuterRadius? Distance (optional) The outer radius in meters where the new group will be spawned.
 ---@param InnerRadius? Distance (optional) The inner radius in meters where the new group will NOT be spawned.
@@ -784,7 +748,6 @@ function SPAWN:InitRandomizePosition(RandomizePosition, OuterRadius, InnerRadius
 ---  Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):InitRandomizeRoute( 2, 2, 2000 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnStartPoint number is the waypoint where the randomization begins. Note that the StartPoint = 0 equaling the point where the group is spawned.
 ---@param SpawnEndPoint number is the waypoint where the randomization ends counting backwards. This parameter is useful to avoid randomization to end at a waypoint earlier than the last waypoint on the route.
 ---@param SpawnRadius number is the radius in meters in which the randomization of the new waypoints, with the original waypoint of the original template located in the middle ...
@@ -816,7 +779,6 @@ function SPAWN:InitRandomizeRoute(SpawnStartPoint, SpawnEndPoint, SpawnRadius, S
 ---  Spawn_US_Platoon_Right = SPAWN:New( 'US Tank Platoon Right' ):InitLimit( 12, 150 ):SpawnScheduled( 200, 0.4 ):InitRandomizeTemplate( Spawn_US_Platoon ):InitRandomizeRoute( 3, 3, 2000 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefixTable list A table with the names of the groups defined within the mission editor, from which one will be chosen when a new group will be spawned.
 ---@return SPAWN #
 function SPAWN:InitRandomizeTemplate(SpawnTemplatePrefixTable) end
@@ -844,7 +806,6 @@ function SPAWN:InitRandomizeTemplate(SpawnTemplatePrefixTable) end
 ---  Spawn_US_Platoon_Right = SPAWN:New( 'US Tank Platoon Right' ):InitLimit( 12, 150 ):SpawnScheduled( 200, 0.4 ):InitRandomizeTemplatePrefixes( "US Tank Platoon Templates" ):InitRandomizeRoute( 3, 3, 2000 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefixes string A string or a list of string that contains the prefixes of the groups that are possible unit representatives of the group to be spawned.
 ---@param RandomizePositionInZone boolean If nil or true, also the position inside the selected random zone will be randomized. Set to false to use the center of the zone. 
 ---@return SPAWN #
@@ -876,7 +837,6 @@ function SPAWN:InitRandomizeTemplatePrefixes(SpawnTemplatePrefixes, RandomizePos
 ---  Spawn_US_Platoon_Right = SPAWN:New( 'US Tank Platoon Right' ):InitLimit( 12, 150 ):SpawnScheduled( 200, 0.4 ):InitRandomizeTemplateSet( Spawn_US_PlatoonSet ):InitRandomizeRoute( 3, 3, 2000 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplateSet SET_GROUP A SET_GROUP object set, that contains the groups that are possible unit representatives of the group to be spawned.
 ---@param RandomizePositionInZone boolean If nil or true, also the position inside the selected random zone will be randomized. Set to false to use the center of the zone.
 ---@return SPAWN #
@@ -894,7 +854,6 @@ function SPAWN:InitRandomizeTemplateSet(SpawnTemplateSet, RandomizePositionInZon
 ---  Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):InitRandomizeUnits( true, 500, 50 )
 ---```
 ------
----@param self SPAWN 
 ---@param RandomizeUnits boolean If true, SPAWN will perform the randomization of the @{Wrapper.Unit#UNIT}s position within the group between a given outer and inner radius.
 ---@param OuterRadius? Distance (optional) The outer radius in meters where the new group will be spawned.
 ---@param InnerRadius? Distance (optional) The inner radius in meters where the new group will NOT be spawned.
@@ -918,7 +877,6 @@ function SPAWN:InitRandomizeUnits(RandomizeUnits, OuterRadius, InnerRadius) end
 ---                          :SpawnScheduled( 5, .5 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnZoneTable table A table with @{Core.Zone} objects. If this table is given, then each spawn will be executed within the given list of @{Core.Zone}s objects.
 ---@param RandomizePositionInZone boolean If nil or true, also the position inside the selected random zone will be randomized. Set to false to use the center of the zone.
 ---@return SPAWN #self
@@ -944,7 +902,6 @@ function SPAWN:InitRandomizeZones(SpawnZoneTable, RandomizePositionInZone) end
 ---                      :InitRepeatOnEngineShutDown()
 ---```
 ------
----@param self SPAWN 
 ---@return SPAWN #self
 function SPAWN:InitRepeat() end
 
@@ -964,7 +921,6 @@ function SPAWN:InitRepeat() end
 ---                      :Spawn()
 ---```
 ------
----@param self SPAWN 
 ---@return SPAWN #self
 function SPAWN:InitRepeatOnEngineShutDown() end
 
@@ -983,7 +939,6 @@ function SPAWN:InitRepeatOnEngineShutDown() end
 ---                      :Spawn()
 ---```
 ------
----@param self SPAWN 
 ---@param WaitingTime number Wait this many seconds before despawning the alive group after landing. Defaults to 3 .
 ---@return SPAWN #self
 function SPAWN:InitRepeatOnLanding(WaitingTime) end
@@ -991,7 +946,6 @@ function SPAWN:InitRepeatOnLanding(WaitingTime) end
 ---[Airplane - A10-C II only] Set the SADL TN starting number of the Group; each unit of the spawned group will have a consecutive SADL set.
 ---
 ------
----@param self SPAWN 
 ---@param Octal number The octal number (digits 1..7, max 4 digits, i.e. 1..7777) to set the SADL to. Every SADL needs to be unique!
 ---@return SPAWN #self
 function SPAWN:InitSADL(Octal) end
@@ -999,7 +953,6 @@ function SPAWN:InitSADL(Octal) end
 ---[Airplane - F15/16/18/AWACS/B1B/Tanker only] Set the STN Link16 starting number of the Group; each unit of the spawned group will have a consecutive STN set.
 ---
 ------
----@param self SPAWN 
 ---@param Octal number The octal number (digits 1..7, max 5 digits, i.e. 1..77777) to set the STN to. Every STN needs to be unique!
 ---@return SPAWN #self
 function SPAWN:InitSTN(Octal) end
@@ -1016,7 +969,6 @@ function SPAWN:InitSTN(Octal) end
 ---  Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):InitSetUnitAbsolutePositions(Positions)
 ---```
 ------
----@param self SPAWN 
 ---@param Positions table Table of positions, needs to one entry per unit in the group(!). The table contains one table each for each unit, with x,y, and optionally z  absolute positions, and optionally an individual heading.
 ---@return SPAWN #
 function SPAWN:InitSetUnitAbsolutePositions(Positions) end
@@ -1033,7 +985,6 @@ function SPAWN:InitSetUnitAbsolutePositions(Positions) end
 ---  Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):InitSetUnitRelativePositions(Positions)
 ---```
 ------
----@param self SPAWN 
 ---@param Positions table Table of positions, needs to one entry per unit in the group(!). The table contains one table each for each unit, with x,y, and optionally z  relative positions, and optionally an individual heading.
 ---@return SPAWN #
 function SPAWN:InitSetUnitRelativePositions(Positions) end
@@ -1041,7 +992,6 @@ function SPAWN:InitSetUnitRelativePositions(Positions) end
 ---Sets skill of the group.
 ---
 ------
----@param self SPAWN 
 ---@param Skill string Skill, possible values "Average", "Good", "High", "Excellent" or "Random".
 ---@return SPAWN #self
 function SPAWN:InitSkill(Skill) end
@@ -1050,7 +1000,6 @@ function SPAWN:InitSkill(Skill) end
 ---Useful when spawning in-air only.
 ---
 ------
----@param self SPAWN 
 ---@param Knots number The speed in knots to use.
 ---@return SPAWN #self
 function SPAWN:InitSpeedKnots(Knots) end
@@ -1059,7 +1008,6 @@ function SPAWN:InitSpeedKnots(Knots) end
 ---Useful when spawning in-air only.
 ---
 ------
----@param self SPAWN 
 ---@param KPH number The speed in KPH to use.
 ---@return SPAWN #self
 function SPAWN:InitSpeedKph(KPH) end
@@ -1068,7 +1016,6 @@ function SPAWN:InitSpeedKph(KPH) end
 ---Useful when spawning in-air only.
 ---
 ------
----@param self SPAWN 
 ---@param MPS number The speed in MPS to use.
 ---@return SPAWN #self
 function SPAWN:InitSpeedMps(MPS) end
@@ -1079,7 +1026,6 @@ function SPAWN:InitSpeedMps(MPS) end
 ---ReSpawn the plane in Controlled mode, and the plane will move...
 ---
 ------
----@param self SPAWN 
 ---@param UnControlled boolean true if UnControlled, false if Controlled.
 ---@return SPAWN #self
 function SPAWN:InitUnControlled(UnControlled) end
@@ -1094,7 +1040,6 @@ function SPAWN:InitUnControlled(UnControlled) end
 ---Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefix string is the name of the Group in the ME that defines the Template.  Each new group will have the name starting with SpawnTemplatePrefix.
 ---@return SPAWN #
 function SPAWN:New(SpawnTemplatePrefix) end
@@ -1205,7 +1150,6 @@ function SPAWN:New(SpawnTemplatePrefix) end
 ---mustang:Spawn()
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplate table is the Template of the Group. This must be a valid Group Template structure - see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_func_addGroup)!
 ---@param SpawnTemplatePrefix string [Mandatory] is the name of the template and the prefix of the GROUP on spawn. The name in the template **will** be overwritten!
 ---@param SpawnAliasPrefix string [Optional] is the prefix that will be given to the GROUP on spawn.
@@ -1223,7 +1167,6 @@ function SPAWN:NewFromTemplate(SpawnTemplate, SpawnTemplatePrefix, SpawnAliasPre
 ---Spawn_BE_KA50 = SPAWN:NewWithAlias( 'BE KA-50@RAMP-Ground Defense', 'Helicopter Attacking a City' )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefix string is the name of the Group in the ME that defines the Template.
 ---@param SpawnAliasPrefix string is the name that will be given to the Group at runtime.
 ---@return SPAWN #self
@@ -1248,7 +1191,6 @@ function SPAWN:NewWithAlias(SpawnTemplatePrefix, SpawnAliasPrefix) end
 ---                            :SpawnScheduled( 300, 0.3 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnCallBackFunction function The function to be called when a group spawns.
 ---@param SpawnFunctionArguments NOTYPE A random amount of arguments to be provided to the function when the group spawns.
 ---@param ... NOTYPE 
@@ -1258,7 +1200,6 @@ function SPAWN:OnSpawnGroup(SpawnCallBackFunction, SpawnFunctionArguments, ...) 
 ---Will park a group at an Wrapper.Airbase.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
 ---@param TerminalType? AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
 ---@param Parkingdata? table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
@@ -1303,7 +1244,6 @@ function SPAWN:ParkAircraft(SpawnAirbase, TerminalType, Parkingdata, SpawnIndex)
 ---  Spawn_Plane:ParkAtAirbase( AIRBASE:FindByName( AIRBASE.Caucasus.Krymsk ), AIRBASE.TerminalType.OpenBig )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
 ---@param TerminalType? AIRBASE.TerminalType (optional) The terminal type the aircraft should be spawned at. See @{Wrapper.Airbase#AIRBASE.TerminalType}.
 ---@param Parkingdata? table (optional) Table holding the coordinates and terminal ids for all units of the group. Spawning will be forced to happen at exactily these spots!
@@ -1314,7 +1254,6 @@ function SPAWN:ParkAtAirbase(SpawnAirbase, TerminalType, Parkingdata) end
 ---Note: This method uses the global _DATABASE object (an instance of Core.Database#DATABASE), which contains ALL initial and new spawned objects in MOOSE.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex string The index of the group to be spawned.
 ---@return GROUP #The group that was spawned. You can use this group for further actions.
 function SPAWN:ReSpawn(SpawnIndex) end
@@ -1324,7 +1263,6 @@ function SPAWN:ReSpawn(SpawnIndex) end
 ---This will actually enable a respawn of groups from the specific index.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex string The index of the group from where the spawning will start again. The default value would be 0, which means a complete reset of the spawnindex.
 ---@return SPAWN #self
 function SPAWN:SetSpawnIndex(SpawnIndex) end
@@ -1333,7 +1271,6 @@ function SPAWN:SetSpawnIndex(SpawnIndex) end
 ---Note: This method uses the global _DATABASE object (an instance of Core.Database#DATABASE), which contains ALL initial and new spawned objects in MOOSE.
 ---
 ------
----@param self SPAWN 
 ---@return GROUP #The group that was spawned. You can use this group for further actions.
 function SPAWN:Spawn() end
 
@@ -1381,7 +1318,6 @@ function SPAWN:Spawn() end
 ---  Spawn_Plane:SpawnAtAirbase( AIRBASE:FindByName( AIRBASE.Caucasus.Krymsk ), SPAWN.Takeoff.Cold, nil, AIRBASE.TerminalType.OpenBig )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnAirbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
 ---@param Takeoff? SPAWN.Takeoff (optional) The location and takeoff method. Default is Hot.
 ---@param TakeoffAltitude? number (optional) The altitude above the ground.
@@ -1394,7 +1330,6 @@ function SPAWN:SpawnAtAirbase(SpawnAirbase, Takeoff, TakeoffAltitude, TerminalTy
 ---Spawn a group on an Wrapper.Airbase at a specific parking spot.
 ---
 ------
----@param self SPAWN 
 ---@param Airbase AIRBASE The @{Wrapper.Airbase} where to spawn the group.
 ---@param Spots table Table of parking spot IDs. Note that these in general are different from the numbering in the mission editor!
 ---@param Takeoff? SPAWN.Takeoff (Optional) Takeoff type, i.e. either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is Hot.
@@ -1407,7 +1342,6 @@ function SPAWN:SpawnAtParkingSpot(Airbase, Spots, Takeoff) end
 ---You can use the returned group to further define the route to be followed.
 ---
 ------
----@param self SPAWN 
 ---@param Coordinate Coordinate The Coordinate coordinates where to spawn the group.
 ---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
@@ -1432,7 +1366,6 @@ function SPAWN:SpawnFromCoordinate(Coordinate, SpawnIndex) end
 ---  SpawnAirplanes:SpawnFromPointVec2( SpawnPointVec2, 2000, 4000 )
 ---```
 ------
----@param self SPAWN 
 ---@param PointVec2 COORDINATE The coordinates where to spawn the group.
 ---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
 ---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
@@ -1456,7 +1389,6 @@ function SPAWN:SpawnFromPointVec2(PointVec2, MinHeight, MaxHeight, SpawnIndex) e
 ---  SpawnAirplanes:SpawnFromPointVec3( SpawnPointVec3 )
 ---```
 ------
----@param self SPAWN 
 ---@param PointVec3 COORDINATE The COORDINATE coordinates where to spawn the group.
 ---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
@@ -1480,7 +1412,6 @@ function SPAWN:SpawnFromPointVec3(PointVec3, SpawnIndex) end
 ---  SpawnAirplanes:SpawnFromStatic( SpawnStatic, 2000, 4000 )
 ---```
 ------
----@param self SPAWN 
 ---@param HostStatic STATIC The static dropping or unloading the group.
 ---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
 ---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
@@ -1507,7 +1438,6 @@ function SPAWN:SpawnFromStatic(HostStatic, MinHeight, MaxHeight, SpawnIndex) end
 ---  SpawnAirplanes:SpawnFromUnit( SpawnStatic, 2000, 4000 )
 ---```
 ------
----@param self SPAWN 
 ---@param HostUnit UNIT The air or ground unit dropping or unloading the group.
 ---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
 ---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
@@ -1535,7 +1465,6 @@ function SPAWN:SpawnFromUnit(HostUnit, MinHeight, MaxHeight, SpawnIndex) end
 ---  SpawnAirplanes:SpawnFromVec2( SpawnVec2, 2000, 4000 )
 ---```
 ------
----@param self SPAWN 
 ---@param Vec2 Vec2 The Vec2 coordinates where to spawn the group.
 ---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
 ---@param MaxHeight? number (optional) The maximum height to spawn an airborne group into the zone.
@@ -1549,7 +1478,6 @@ function SPAWN:SpawnFromVec2(Vec2, MinHeight, MaxHeight, SpawnIndex) end
 ---You can use the returned group to further define the route to be followed.
 ---
 ------
----@param self SPAWN 
 ---@param Vec3 Vec3 The Vec3 coordinates where to spawn the group.
 ---@param SpawnIndex? number (optional) The index which group to spawn within the given zone.
 ---@return GROUP #that was spawned or #nil if nothing was spawned.
@@ -1558,7 +1486,6 @@ function SPAWN:SpawnFromVec3(Vec3, SpawnIndex) end
 ---Will return the SpawnGroupName either with with a specific count number or without any count.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number Is the number of the Group that is to be spawned.
 ---@return string #SpawnGroupName
 function SPAWN:SpawnGroupName(SpawnIndex) end
@@ -1591,7 +1518,6 @@ function SPAWN:SpawnGroupName(SpawnIndex) end
 ---  SpawnAirplanes:SpawnInZone( SpawnZone, nil, 2000, 4000 )
 ---```
 ------
----@param self SPAWN 
 ---@param Zone ZONE The zone where the group is to be spawned.
 ---@param RandomizeGroup? boolean (optional) Randomization of the @{Wrapper.Group} position in the zone.
 ---@param MinHeight? number (optional) The minimum height to spawn an airborne group into the zone.
@@ -1604,14 +1530,12 @@ function SPAWN:SpawnInZone(Zone, RandomizeGroup, MinHeight, MaxHeight, SpawnInde
 ---Note: This method is only required to be called when the schedule was stopped.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #
 function SPAWN:SpawnScheduleStart() end
 
 ---Will stop the scheduled spawning scheduler.
 ---
 ------
----@param self SPAWN 
 ---@return SPAWN #
 function SPAWN:SpawnScheduleStop() end
 
@@ -1633,7 +1557,6 @@ function SPAWN:SpawnScheduleStop() end
 ---Spawn_BE_KA50 = SPAWN:New( 'BE KA-50@RAMP-Ground Defense' ):SpawnScheduled( 600, 0.5 )
 ---```
 ------
----@param self SPAWN 
 ---@param SpawnTime number The time interval defined in seconds between each new spawn of new groups.
 ---@param SpawnTimeVariation number The variation to be applied on the defined time interval between each new spawn. The variation is a number between 0 and 1, representing the % of variation to be applied on the time interval.
 ---@param WithDelay boolean Do not spawn the **first** group immediately, but delay the spawn as per the calculation below. Effectively the same as @{#InitDelayOn}().
@@ -1644,7 +1567,6 @@ function SPAWN:SpawnScheduled(SpawnTime, SpawnTimeVariation, WithDelay) end
 ---Note: This method uses the global _DATABASE object (an instance of Core.Database#DATABASE), which contains ALL initial and new spawned objects in MOOSE.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex string The index of the group to be spawned.
 ---@param NoBirth NOTYPE 
 ---@return GROUP #The group that was spawned. You can use this group for further actions.
@@ -1664,42 +1586,36 @@ function SPAWN:SpawnWithIndex(SpawnIndex, NoBirth) end
 ---         spawn:StopRepeat()
 ---```
 ------
----@param self SPAWN 
 ---@return SPAWN #self
 function SPAWN:StopRepeat() end
 
 
 ---
 ------
----@param self SPAWN 
 ---@return number #count
 function SPAWN:_CountAliveUnits() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param SpawnPrefix NOTYPE 
 function SPAWN:_GetGroupCategoryID(SpawnPrefix) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param SpawnPrefix NOTYPE 
 function SPAWN:_GetGroupCoalitionID(SpawnPrefix) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param SpawnPrefix NOTYPE 
 function SPAWN:_GetGroupCountryID(SpawnPrefix) end
 
 
 ---
 ------
----@param self NOTYPE 
 function SPAWN:_GetLastIndex() end
 
 ---Return the prefix of a SpawnUnit.
@@ -1707,7 +1623,6 @@ function SPAWN:_GetLastIndex() end
 ---It will return nil of no prefix was found.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnGroup GROUP The GROUP object.
 ---@return string #The prefix or #nil if nothing was found.
 function SPAWN:_GetPrefixFromGroup(SpawnGroup) end
@@ -1716,7 +1631,6 @@ function SPAWN:_GetPrefixFromGroup(SpawnGroup) end
 ---The method will search for a `#`-mark, and will return the text before the `#`-mark. It will return nil of no prefix was found.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnGroupName string The name of the spawned group.
 ---@return string #The prefix or #nil if nothing was found.
 function SPAWN:_GetPrefixFromGroupName(SpawnGroupName) end
@@ -1725,7 +1639,6 @@ function SPAWN:_GetPrefixFromGroupName(SpawnGroupName) end
 ---This method is complicated, as it is used at several spaces.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number Spawn index.
 ---@return number #self.SpawnIndex
 function SPAWN:_GetSpawnIndex(SpawnIndex) end
@@ -1734,29 +1647,25 @@ function SPAWN:_GetSpawnIndex(SpawnIndex) end
 ---Note: This method uses the global _DATABASE object (an instance of Core.Database#DATABASE), which contains ALL initial and new spawned objects in MOOSE.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefix string 
----@return  #@SPAWN self
+---@return NOTYPE #@SPAWN self
 function SPAWN:_GetTemplate(SpawnTemplatePrefix) end
 
 ---Initalize the SpawnGroups collection.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex NOTYPE 
 function SPAWN:_InitializeSpawnGroups(SpawnIndex) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function SPAWN:_OnBirth(EventData) end
 
 
 ---
 ------
----@param self SPAWN 
 ---@param EventData EVENTDATA 
 function SPAWN:_OnDeadOrCrash(EventData) end
 
@@ -1765,7 +1674,6 @@ function SPAWN:_OnDeadOrCrash(EventData) end
 ---But only when the Unit was registered to have landed.
 ---
 ------
----@param self SPAWN 
 ---@param EventData EVENTDATA 
 function SPAWN:_OnEngineShutDown(EventData) end
 
@@ -1774,7 +1682,6 @@ function SPAWN:_OnEngineShutDown(EventData) end
 ---This is needed to ensure that Re-SPAWNing is only done for landed AIR Groups.
 ---
 ------
----@param self SPAWN 
 ---@param EventData EVENTDATA 
 function SPAWN:_OnLand(EventData) end
 
@@ -1783,14 +1690,12 @@ function SPAWN:_OnLand(EventData) end
 ---This is needed to ensure that Re-SPAWNing only is done for landed AIR Groups.
 ---
 ------
----@param self SPAWN 
 ---@param EventData EVENTDATA 
 function SPAWN:_OnTakeOff(EventData) end
 
 ---Prepares the new Group Template.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnTemplatePrefix string 
 ---@param SpawnIndex number 
 ---@return SPAWN #self
@@ -1799,7 +1704,6 @@ function SPAWN:_Prepare(SpawnTemplatePrefix, SpawnIndex) end
 ---Private method randomizing the routes.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number The index of the group to be spawned.
 ---@return SPAWN #
 function SPAWN:_RandomizeRoute(SpawnIndex) end
@@ -1807,7 +1711,6 @@ function SPAWN:_RandomizeRoute(SpawnIndex) end
 ---Private method that randomizes the template of the group.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number 
 ---@return SPAWN #self
 function SPAWN:_RandomizeTemplate(SpawnIndex) end
@@ -1815,7 +1718,6 @@ function SPAWN:_RandomizeTemplate(SpawnIndex) end
 ---Private method that randomizes the Core.Zones where the Group will be spawned.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number 
 ---@param RandomizePositionInZone boolean If nil or true, also the position inside the selected random zone will be randomized. Set to false to use the center of the zone.
 ---@return SPAWN #self
@@ -1825,13 +1727,11 @@ function SPAWN:_RandomizeZones(SpawnIndex, RandomizePositionInZone) end
 ---It is the internal worker method SPAWNing new Groups on the defined time intervals.
 ---
 ------
----@param self SPAWN 
 function SPAWN:_Scheduler() end
 
 ---Private method that sets the DCS#Vec2 where the Group will be spawned.
 ---
 ------
----@param self SPAWN 
 ---@param SpawnIndex number 
 ---@return SPAWN #self
 function SPAWN:_SetInitialPosition(SpawnIndex) end
@@ -1839,14 +1739,12 @@ function SPAWN:_SetInitialPosition(SpawnIndex) end
 ---Schedules the CleanUp of Groups
 ---
 ------
----@param self SPAWN 
 ---@return boolean #True = Continue Scheduler
 function SPAWN:_SpawnCleanUpScheduler() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param SpawnIndex NOTYPE 
 ---@param SpawnRootX NOTYPE 
 ---@param SpawnRootY NOTYPE 

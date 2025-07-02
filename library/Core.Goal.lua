@@ -68,20 +68,17 @@ GOAL = {}
 ---Achieved Trigger for GOAL
 ---
 ------
----@param self GOAL 
 function GOAL:Achieved() end
 
 ---Add a new contribution by a player.
 ---
 ------
----@param self GOAL 
 ---@param PlayerName string The name of the player.
 function GOAL:AddPlayerContribution(PlayerName) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param PlayerName NOTYPE 
 function GOAL:GetPlayerContribution(PlayerName) end
 
@@ -89,36 +86,31 @@ function GOAL:GetPlayerContribution(PlayerName) end
 ---The result is a list of players, sorted by the name of the players.
 ---
 ------
----@param self GOAL 
----@return  ##list The list of players, indexed by the player name.
+---@return NOTYPE ##list The list of players, indexed by the player name.
 function GOAL:GetPlayerContributions() end
 
 ---Gets the total contributions that happened to achieve the goal.
 ---The result is a number.
 ---
 ------
----@param self GOAL 
 ---@return number #The total number of contributions. 0 is returned if there were no contributions (yet).
 function GOAL:GetTotalContributions() end
 
 ---Validates if the goal is achieved.
 ---
 ------
----@param self GOAL 
 ---@return boolean #true if the goal is achieved.
 function GOAL:IsAchieved() end
 
 ---GOAL Constructor.
 ---
 ------
----@param self GOAL 
 ---@return GOAL #
 function GOAL:New() end
 
 ---Achieved Handler OnAfter for GOAL
 ---
 ------
----@param self GOAL 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -127,7 +119,6 @@ function GOAL:OnAfterAchieved(From, Event, To) end
 ---Achieved Handler OnBefore for GOAL
 ---
 ------
----@param self GOAL 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -137,7 +128,6 @@ function GOAL:OnBeforeAchieved(From, Event, To) end
 ---Achieved State Handler OnEnter for GOAL
 ---
 ------
----@param self GOAL 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -146,7 +136,6 @@ function GOAL:OnEnterAchieved(From, Event, To) end
 ---Achieved State Handler OnLeave for GOAL
 ---
 ------
----@param self GOAL 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -156,7 +145,6 @@ function GOAL:OnLeaveAchieved(From, Event, To) end
 ---Achieved Asynchronous Trigger for GOAL
 ---
 ------
----@param self GOAL 
 ---@param Delay number 
 function GOAL:__Achieved(Delay) end
 

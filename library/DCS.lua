@@ -178,7 +178,6 @@ Airbase = {}
 ---default setting assigned in the editor.
 ---
 ------
----@param self NOTYPE 
 ---@param setting boolean `true` : enables autoCapture behavior, `false` : disables autoCapture behavior
 ---@private
 function Airbase:autoCapture(setting) end
@@ -186,7 +185,6 @@ function Airbase:autoCapture(setting) end
 ---Returns the current autoCapture setting for the passed base.
 ---
 ------
----@param self NOTYPE 
 ---@return boolean #`true` if autoCapture behavior is enabled and `false` otherwise.
 ---@private
 function Airbase:autoCaptureIsOn() end
@@ -195,7 +193,6 @@ function Airbase:autoCaptureIsOn() end
 ---If no airbase found the function will return nil.
 ---
 ------
----@param name string 
 ---@return Airbase #
 ---@private
 function Airbase.getByName(name) end
@@ -203,7 +200,6 @@ function Airbase.getByName(name) end
 ---Returns the airbase's callsign - the localized string.
 ---
 ------
----@param self NOTYPE 
 ---@return string #
 ---@private
 function Airbase:getCallsign() end
@@ -211,7 +207,6 @@ function Airbase:getCallsign() end
 ---Returns descriptor of the airbase.
 ---
 ------
----@param self NOTYPE 
 ---@return Airbase.Desc #
 ---@private
 function Airbase:getDesc() end
@@ -220,7 +215,6 @@ function Airbase:getDesc() end
 ---If no descriptor is found the function will return nil.
 ---
 ------
----@param typeName TypeName Airbase type name.
 ---@return Airbase.Desc #
 ---@private
 function Airbase.getDescByName(typeName) end
@@ -228,7 +222,6 @@ function Airbase.getDescByName(typeName) end
 ---Returns identifier of the airbase.
 ---
 ------
----@param self NOTYPE 
 ---@return Airbase.ID #
 ---@private
 function Airbase:getID() end
@@ -238,7 +231,6 @@ function Airbase:getID() end
 ---It can be used to broadly categorize object types. The table can be broken down as: {mainCategory, subCat1, subCat2, index}
 ---
 ------
----@param self NOTYPE 
 ---@return table #wsType of every object that exists in DCS.
 ---@private
 function Airbase:getResourceMap() end
@@ -247,7 +239,6 @@ function Airbase:getResourceMap() end
 ---Works only for ships.
 ---
 ------
----@param self NOTYPE 
 ---@return Unit #
 ---@private
 function Airbase:getUnit() end
@@ -256,7 +247,6 @@ function Airbase:getUnit() end
 ---Can then be used to call the warehouse class functions to modify the contents of the warehouse.
 ---
 ------
----@param self NOTYPE 
 ---@return Warehouse #The DCS warehouse object of this airbase.
 ---@private
 function Airbase:getWarehouse() end
@@ -266,7 +256,6 @@ function Airbase:getWarehouse() end
 ---otherwise the base can revert back to a different coalition depending on the situation and built in game capture rules.
 ---
 ------
----@param self NOTYPE 
 ---@param coa number The new owner coalition: 0=neutra, 1=red, 2=blue.
 ---@private
 function Airbase:setCoalition(coa) end
@@ -298,7 +287,6 @@ CoalitionObject = {}
 ---Returns coalition of the object.
 ---
 ------
----@param self CoalitionObject 
 ---@return coalition.side #
 ---@private
 function CoalitionObject:getCoalition() end
@@ -306,7 +294,6 @@ function CoalitionObject:getCoalition() end
 ---Returns object country.
 ---
 ------
----@param self CoalitionObject 
 ---@return country.id #
 ---@private
 function CoalitionObject:getCountry() end
@@ -327,7 +314,6 @@ Controller = {}
 ---If one or more detection method is specified the function will return targets which were detected by at least one of these methods. If no detection methods are specified the function will return targets which were detected by any method.
 ---
 ------
----@param self NOTYPE 
 ---@param detection Controller.Detection Controller.Detection detection1, Controller.Detection detection2, ... Controller.Detection detectionN 
 ---@return list #array of DetectedTarget
 ---@private
@@ -336,7 +322,6 @@ function Controller:getDetectedTargets(detection) end
 ---Returns true if the controller has a task.
 ---
 ------
----@param self NOTYPE 
 ---@return boolean #
 ---@private
 function Controller:hasTask() end
@@ -345,7 +330,6 @@ function Controller:hasTask() end
 ---If one or more detection method is specified the function will return true if the target is detected by at least one of these methods. If no detection methods are specified the function will return true if the target is detected by any method.
 ---
 ------
----@param self NOTYPE 
 ---@param target Object Target to check
 ---@param detection Controller.Detection Controller.Detection detection1, Controller.Detection detection2, ... Controller.Detection detectionN 
 ---@return boolean #detected True if the target is detected. 
@@ -361,7 +345,6 @@ function Controller:isTargetDetected(target, detection) end
 ---Know a target.
 ---
 ------
----@param self NOTYPE 
 ---@param object Object The target.
 ---@param type boolean Target type is known.
 ---@param distance boolean Distance to target is known.
@@ -372,7 +355,6 @@ function Controller:knowTarget(object, type, distance) end
 ---If no more tasks in the queue the function works like function Controller.resetTask() function. Does nothing if the queue is empty.
 ---
 ------
----@param self NOTYPE 
 ---@private
 function Controller:popTask() end
 
@@ -380,7 +362,6 @@ function Controller:popTask() end
 ---Further call of function Controller.setTask() function will stop current task, clear the queue and set the new task active. If the task queue is empty the function will work like function Controller.setTask() function.
 ---
 ------
----@param self NOTYPE 
 ---@param task Task 
 ---@private
 function Controller:pushTask(task) end
@@ -388,7 +369,6 @@ function Controller:pushTask(task) end
 ---Resets current task of the controller.
 ---
 ------
----@param self NOTYPE 
 ---@private
 function Controller:resetTask() end
 
@@ -396,7 +376,6 @@ function Controller:resetTask() end
 ---Note: Now it works only for ground / naval groups!
 ---
 ------
----@param self NOTYPE 
 ---@param value boolean Enable / Disable.
 ---@private
 function Controller:setOnOff(value) end
@@ -409,7 +388,6 @@ function Controller:setOnOff(value) end
 ---OptionValue = AI.Option.Air.val[optionName] or AI.Option.Ground.val[optionName] or AI.Option.Naval.val[optionName]
 ---
 ------
----@param self NOTYPE 
 ---@param optionId OptionId Option identifier. 
 ---@param optionValue OptionValue Value of the option.
 ---@private
@@ -419,7 +397,6 @@ function Controller:setOption(optionId, optionValue) end
 ---Task is a table that contains task identifier and task parameters.
 ---
 ------
----@param self NOTYPE 
 ---@param task Task 
 ---@private
 function Controller:setTask(task) end
@@ -497,14 +474,12 @@ Group = {}
 ---Destroys the group and all of its units.
 ---
 ------
----@param self Group 
 ---@private
 function Group:destroy() end
 
 ---GROUND - Switch on/off radar emissions
 ---
 ------
----@param self Group 
 ---@param switch boolean 
 ---@private
 function Group:enableEmission(switch) end
@@ -512,7 +487,6 @@ function Group:enableEmission(switch) end
 ---Returns group by the name assigned to the group in Mission Editor.
 ---
 ------
----@param name string 
 ---@return Group #
 ---@private
 function Group.getByName(name) end
@@ -520,7 +494,6 @@ function Group.getByName(name) end
 ---Returns category of the group.
 ---
 ------
----@param self Group 
 ---@return Group.Category #
 ---@private
 function Group:getCategory() end
@@ -528,7 +501,6 @@ function Group:getCategory() end
 ---Returns the coalition of the group.
 ---
 ------
----@param self Group 
 ---@return coalition.side #
 ---@private
 function Group:getCoalition() end
@@ -536,7 +508,6 @@ function Group:getCoalition() end
 ---Returns controller of the group.
 ---
 ------
----@param self Group 
 ---@return Controller #
 ---@private
 function Group:getController() end
@@ -544,7 +515,6 @@ function Group:getController() end
 ---Returns the group identifier.
 ---
 ------
----@param self Group 
 ---@return ID #
 ---@private
 function Group:getID() end
@@ -553,7 +523,6 @@ function Group:getID() end
 ---If some of the units will be destroyed, initial size of the group will not be changed; Initial size limits the unitNumber parameter for Group.getUnit() function.
 ---
 ------
----@param self Group 
 ---@return number #
 ---@private
 function Group:getInitialSize() end
@@ -562,7 +531,6 @@ function Group:getInitialSize() end
 ---This is the same name assigned to the group in Mission Editor.
 ---
 ------
----@param self Group 
 ---@return string #
 ---@private
 function Group:getName() end
@@ -571,7 +539,6 @@ function Group:getName() end
 ---If some of the units will be destroyed, As units are destroyed the size of the group will be changed.
 ---
 ------
----@param self Group 
 ---@return number #
 ---@private
 function Group:getSize() end
@@ -580,7 +547,6 @@ function Group:getSize() end
 ---If the unit is not exists the function will return nil.
 ---
 ------
----@param self Group 
 ---@param unitNumber number 
 ---@return Unit #
 ---@private
@@ -590,7 +556,6 @@ function Group:getUnit(unitNumber) end
 ---Destroyed units will not be enlisted at all.
 ---
 ------
----@param self Group 
 ---@return list #array of Units
 ---@private
 function Group:getUnits() end
@@ -598,7 +563,6 @@ function Group:getUnits() end
 ---returns true if the group exist or false otherwise.
 ---
 ------
----@param self Group 
 ---@return boolean #
 ---@private
 function Group:isExist() end
@@ -618,7 +582,6 @@ Object = {}
 
 ---
 ------
----@param self Object 
 ---@private
 function Object:destroy() end
 
@@ -627,7 +590,6 @@ function Object:destroy() end
 ---As of DCS 2.9.2 when this function is called on an Object, Unit, Weapon, or Airbase a 2nd value will be returned which details the object sub-category value.
 ---
 ------
----@param self Object 
 ---@return Object.Category #The object category (1=UNIT, 2=WEAPON, 3=STATIC, 4=BASE, 5=SCENERY, 6=Cargo)
 ---@return number #The subcategory of the passed object, e.g. Unit.Category if a unit object was passed.
 ---@private
@@ -636,7 +598,6 @@ function Object:getCategory() end
 ---Returns object descriptor.
 ---
 ------
----@param self Object 
 ---@return Object.Desc #
 ---@private
 function Object:getDesc() end
@@ -645,7 +606,6 @@ function Object:getDesc() end
 ---This is the name that is assigned to the object in the Mission Editor.
 ---
 ------
----@param self Object 
 ---@return string #
 ---@private
 function Object:getName() end
@@ -653,7 +613,6 @@ function Object:getName() end
 ---Returns object coordinates for current time.
 ---
 ------
----@param self Object 
 ---@return Vec3 #3D position vector with x,y,z components.
 ---@private
 function Object:getPoint() end
@@ -661,7 +620,6 @@ function Object:getPoint() end
 ---Returns object position for current time.
 ---
 ------
----@param self Object 
 ---@return Position3 #
 ---@private
 function Object:getPosition() end
@@ -669,7 +627,6 @@ function Object:getPosition() end
 ---Returns type name of the Object.
 ---
 ------
----@param self Object 
 ---@return string #
 ---@private
 function Object:getTypeName() end
@@ -677,7 +634,6 @@ function Object:getTypeName() end
 ---Returns the unit's velocity vector.
 ---
 ------
----@param self Object 
 ---@return Vec3 #3D velocity vector.
 ---@private
 function Object:getVelocity() end
@@ -685,7 +641,6 @@ function Object:getVelocity() end
 ---Returns true if the object belongs to the category.
 ---
 ------
----@param self Object 
 ---@param attributeName AttributeName Attribute name to check.
 ---@return boolean #
 ---@private
@@ -694,7 +649,6 @@ function Object:hasAttribute(attributeName) end
 ---Returns true if the unit is in air.
 ---
 ------
----@param self Object 
 ---@return boolean #
 ---@private
 function Object:inAir() end
@@ -702,7 +656,6 @@ function Object:inAir() end
 
 ---
 ------
----@param self Object 
 ---@return boolean #
 ---@private
 function Object:isActive() end
@@ -710,7 +663,6 @@ function Object:isActive() end
 
 ---
 ------
----@param self Object 
 ---@return boolean #
 ---@private
 function Object:isExist() end
@@ -741,7 +693,6 @@ Spot = {}
 ---Can be seen with night vision goggles.
 ---
 ------
----@param Source Object Source position of the IR ray.
 ---@param LocalRef Vec3 An optional 3D offset for the source.
 ---@param Vec3 Vec3 Target coordinate where the ray is pointing at.
 ---@return Spot #
@@ -751,7 +702,6 @@ function Spot.createInfraRed(Source, LocalRef, Vec3) end
 ---Creates a laser ray emanating from the given object to a point in 3d space.
 ---
 ------
----@param Source Object The source object of the laser.
 ---@param LocalRef Vec3 An optional 3D offset for the source.
 ---@param Vec3 Vec3 Target coordinate where the ray is pointing at.
 ---@param LaserCode number Any 4 digit number between 1111 and 1788.
@@ -762,14 +712,12 @@ function Spot.createLaser(Source, LocalRef, Vec3, LaserCode) end
 ---Destroys the spot.
 ---
 ------
----@param self Spot 
 ---@private
 function Spot:destroy() end
 
 ---Gets the category of the spot (laser or IR).
 ---
 ------
----@param self Spot 
 ---@return string #Category.
 ---@private
 function Spot:getCategory() end
@@ -777,7 +725,6 @@ function Spot:getCategory() end
 ---Returns the number that is used to define the laser code for which laser designation can track.
 ---
 ------
----@param self Spot 
 ---@return number #Code The laser code used.
 ---@private
 function Spot:getCode() end
@@ -786,7 +733,6 @@ function Spot:getCode() end
 ---Coordinates are dependent on the position of the maps origin.
 ---
 ------
----@param self Spot 
 ---@return Vec3 #Point in 3D, where the beam is pointing at.
 ---@private
 function Spot:getPoint() end
@@ -794,7 +740,6 @@ function Spot:getPoint() end
 ---Sets the number that is used to define the laser code for which laser designation can track.
 ---
 ------
----@param self Spot 
 ---@param Code number The laser code. Default value is 1688.
 ---@private
 function Spot:setCode(Code) end
@@ -802,7 +747,6 @@ function Spot:setCode(Code) end
 ---Sets the destination point from which the source of the spot is drawn toward.
 ---
 ------
----@param self Spot 
 ---@param Vec3 Vec3 Point in 3D, where the beam is pointing at.
 ---@private
 function Spot:setPoint(Vec3) end
@@ -822,7 +766,6 @@ StaticObject = {}
 ---Returns the static object.
 ---
 ------
----@param name string Name of the static object.
 ---@return StaticObject #
 ---@private
 function StaticObject.getByName(name) end
@@ -880,7 +823,6 @@ Unit = {}
 ---GROUND - Switch on/off radar emissions
 ---
 ------
----@param self Unit 
 ---@param switch boolean 
 ---@private
 function Unit:enableEmission(switch) end
@@ -888,7 +830,6 @@ function Unit:enableEmission(switch) end
 ---Returns the unit ammunition.
 ---
 ------
----@param self Unit 
 ---@return Unit.Ammo #
 ---@private
 function Unit:getAmmo() end
@@ -897,7 +838,6 @@ function Unit:getAmmo() end
 ---If there is unit with such name or the unit is destroyed the function will return nil. The function provides access to non-activated units too.
 ---
 ------
----@param name string 
 ---@return Unit #
 ---@private
 function Unit.getByName(name) end
@@ -905,7 +845,6 @@ function Unit.getByName(name) end
 ---Returns the unit's callsign - the localized string.
 ---
 ------
----@param self Unit 
 ---@return string #
 ---@private
 function Unit:getCallsign() end
@@ -913,7 +852,6 @@ function Unit:getCallsign() end
 ---Returns controller of the unit if it exist and nil otherwise
 ---
 ------
----@param self Unit 
 ---@return Controller #
 ---@private
 function Unit:getController() end
@@ -922,7 +860,6 @@ function Unit:getController() end
 ---Descriptor type depends on unit category.
 ---
 ------
----@param self Unit 
 ---@return Unit.Desc #
 ---@private
 function Unit:getDesc() end
@@ -931,7 +868,6 @@ function Unit:getDesc() end
 ---Only returns a value if run on airplanes or helicopters. Returns nil if run on ground or ship units.
 ---
 ------
----@param self Unit 
 ---@return number #Number of soldiers that embark.
 ---@private
 function Unit:getDescentCapacity() end
@@ -940,7 +876,6 @@ function Unit:getDescentCapacity() end
 ---If there are additional fuel tanks the value may be greater than 1.0.
 ---
 ------
----@param self Unit 
 ---@return number #
 ---@private
 function Unit:getFuel() end
@@ -948,7 +883,6 @@ function Unit:getFuel() end
 ---Returns the unit's group if it exist and nil otherwise
 ---
 ------
----@param self Unit 
 ---@return Group #
 ---@private
 function Unit:getGroup() end
@@ -956,7 +890,6 @@ function Unit:getGroup() end
 ---returns the unit's unique identifier.
 ---
 ------
----@param self Unit 
 ---@return Unit.ID #
 ---@private
 function Unit:getID() end
@@ -965,7 +898,6 @@ function Unit:getID() end
 ---Dead units has health <= 1.0
 ---
 ------
----@param self Unit 
 ---@return number #
 ---@private
 function Unit:getLife() end
@@ -973,7 +905,6 @@ function Unit:getLife() end
 ---returns the unit's initial health.
 ---
 ------
----@param self Unit 
 ---@return number #
 ---@private
 function Unit:getLife0() end
@@ -982,7 +913,6 @@ function Unit:getLife0() end
 ---The number is the same number the unit has in ME. It may not be changed during the mission. If any unit in the group is destroyed, the numbers of another units will not be changed.
 ---
 ------
----@param self Unit 
 ---@return number #
 ---@private
 function Unit:getNumber() end
@@ -990,7 +920,6 @@ function Unit:getNumber() end
 ---Returns name of the player that control the unit or nil if the unit is controlled by A.I.
 ---
 ------
----@param self Unit 
 ---@return string #
 ---@private
 function Unit:getPlayerName() end
@@ -1000,7 +929,6 @@ function Unit:getPlayerName() end
 ---Second value is the object of the radar's interest. Not nil only if at least one radar of the unit is tracking a target.
 ---
 ------
----@param self Unit 
 ---@return Object #
 ---@private
 function Unit:getRadar() end
@@ -1008,7 +936,6 @@ function Unit:getRadar() end
 ---Returns the unit sensors.
 ---
 ------
----@param self Unit 
 ---@return Unit.Sensors #
 ---@private
 function Unit:getSensors() end
@@ -1028,7 +955,6 @@ function Unit:getSensors() end
 ---If sensor type is not specified the function returns true if the unit has at least one sensor of any type.
 ---```
 ------
----@param self Unit 
 ---@param sensorType Unit.SensorType (= nil) Sensor type.
 ---@param ... NOTYPE Additional parameters.
 ---@return boolean #
@@ -1038,7 +964,6 @@ function Unit:hasSensors(sensorType, ...) end
 ---Returns if the unit is activated.
 ---
 ------
----@param self Unit 
 ---@return boolean #
 ---@private
 function Unit:isActive() end
@@ -1193,7 +1118,6 @@ Warehouse = {}
 ---A wsType table can also be used, however the last digit with wsTypes has been known to change. {4, 4, 7, 322}
 ---
 ------
----@param self NOTYPE 
 ---@param itemName string Name of the item.
 ---@param count number Number of items to add.
 ---@private
@@ -1202,7 +1126,6 @@ function Warehouse:addItem(itemName, count) end
 ---Adds the passed amount of a liquid fuel into the warehouse inventory.
 ---
 ------
----@param self NOTYPE 
 ---@param liquidType number Type of liquid to add: 0=jetfuel, 1=aviation gasoline, 2=MW50, 3=Diesel.
 ---@param count number Amount of liquid to add.
 ---@private
@@ -1211,7 +1134,6 @@ function Warehouse:addLiquid(liquidType, count) end
 ---Get a warehouse by passing its name.
 ---
 ------
----@param Name string Name of the warehouse.
 ---@return Warehouse #The warehouse object.
 ---@private
 function Warehouse.getByName(Name) end
@@ -1221,7 +1143,6 @@ function Warehouse.getByName(Name) end
 ---Aircraft and weapons are indexed by strings. Liquids are indexed by number.
 ---
 ------
----@param self NOTYPE 
 ---@param itemName string Name of the item.
 ---@return table #Itemized list of everything currently in a warehouse
 ---@private
@@ -1230,7 +1151,6 @@ function Warehouse:getInventory(itemName) end
 ---Returns the number of the passed type of item currently in a warehouse object.
 ---
 ------
----@param self NOTYPE 
 ---@param itemName string Name of the item.
 ---@private
 function Warehouse:getItemCount(itemName) end
@@ -1238,7 +1158,6 @@ function Warehouse:getItemCount(itemName) end
 ---Returns the amount of the passed liquid type within a given warehouse.
 ---
 ------
----@param self NOTYPE 
 ---@param liquidType number Type of liquid to add: 0=jetfuel, 1=aviation gasoline, 2=MW50, 3=Diesel.
 ---@return number #Amount of liquid.
 ---@private
@@ -1247,7 +1166,6 @@ function Warehouse:getLiquidAmount(liquidType) end
 ---Returns the airbase object associated with the warehouse object.
 ---
 ------
----@param self NOTYPE 
 ---@return Airbase #The airbase object owning this warehouse.
 ---@private
 function Warehouse:getOwner() end
@@ -1255,7 +1173,6 @@ function Warehouse:getOwner() end
 ---Removes the amount of the passed item from the warehouse.
 ---
 ------
----@param self NOTYPE 
 ---@param itemName string Name of the item.
 ---@param count number Number of items to be removed.
 ---@private
@@ -1264,7 +1181,6 @@ function Warehouse:removeItem(itemName, count) end
 ---Sets the passed amount of a given item to the warehouse.
 ---
 ------
----@param self NOTYPE 
 ---@param itemName string Name of the item.
 ---@param count number Number of items to add.
 ---@private
@@ -1273,7 +1189,6 @@ function Warehouse:setItem(itemName, count) end
 ---Removes the set amount of liquid from the inventory in a warehouse.
 ---
 ------
----@param self NOTYPE 
 ---@param liquidType number Type of liquid to add: 0=jetfuel, 1=aviation gasoline, 2=MW50, 3=Diesel.
 ---@param count number Amount of liquid.
 ---@private
@@ -1300,7 +1215,6 @@ Weapon = {}
 ---Descriptor type depends on weapon category.
 ---
 ------
----@param self Weapon 
 ---@return Weapon.Desc #
 ---@private
 function Weapon:getDesc() end
@@ -1308,7 +1222,6 @@ function Weapon:getDesc() end
 ---Returns the unit that launched the weapon.
 ---
 ------
----@param self Weapon 
 ---@return Unit #
 ---@private
 function Weapon:getLauncher() end
@@ -1317,7 +1230,6 @@ function Weapon:getLauncher() end
 ---Unguided weapons and guided weapon that is targeted at the point on the ground will return nil.
 ---
 ------
----@param self Weapon 
 ---@return Object #
 ---@private
 function Weapon:getTarget() end
@@ -1365,7 +1277,6 @@ coalition = {}
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_func_addGroup)
 ---
 ------
----@param countryId number Id of the country.
 ---@param groupCategory number Group category. Set -1 for spawning FARPS.
 ---@param groupData table Group data table.
 ---@return Group #The spawned Group object.
@@ -1376,7 +1287,6 @@ function coalition.addGroup(countryId, groupCategory, groupData) end
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_func_addStaticObject)
 ---
 ------
----@param countryId number Id of the country.
 ---@param groupData table Group data table.
 ---@return Static #The spawned static object.
 ---@private
@@ -1385,7 +1295,6 @@ function coalition.addStaticObject(countryId, groupData) end
 ---Get country coalition.
 ---
 ------
----@param countryId number Country ID.
 ---@return number #coalitionId Coalition ID.
 ---@private
 function coalition.getCountryCoalition(countryId) end
@@ -1416,7 +1325,6 @@ env = {}
 ---Message box is optional.
 ---
 ------
----@param message string message string to add to log.
 ---@param showMessageBox boolean If the parameter is true Message Box will appear. Optional.
 ---@private
 function env.error(message, showMessageBox) end
@@ -1425,7 +1333,6 @@ function env.error(message, showMessageBox) end
 ---Message box is optional.
 ---
 ------
----@param message string message string to add to log.
 ---@param showMessageBox boolean If the parameter is true Message Box will appear. Optional.
 ---@private
 function env.info(message, showMessageBox) end
@@ -1433,7 +1340,6 @@ function env.info(message, showMessageBox) end
 ---Enables/disables appearance of message box each time lua error occurs.
 ---
 ------
----@param on boolean if true message box appearance is enabled.
 ---@private
 function env.setErrorMessageBoxEnabled(on) end
 
@@ -1441,7 +1347,6 @@ function env.setErrorMessageBoxEnabled(on) end
 ---Message box is optional.
 ---
 ------
----@param message string message string to add to log.
 ---@param showMessageBox boolean If the parameter is true Message Box will appear. Optional.
 ---@private
 function env.warning(message, showMessageBox) end
@@ -1456,7 +1361,6 @@ land = {}
 ---Returns the distance from sea level (y-axis) of a given vec2 point.
 ---
 ------
----@param point Vec2 Point on the ground. 
 ---@return number #Height in meters.
 ---@private
 function land.getHeight(point) end
@@ -1467,7 +1371,6 @@ function land.getHeight(point) end
 ---When checked over water at altitude, for example the reservoir of the Inguri Dam, the first value is the corresponding altitude the water level is at.
 ---
 ------
----@param point Vec2 Position where to check.
 ---@return number #Height in meters.
 ---@return number #Depth in meters.
 ---@private
@@ -1476,7 +1379,6 @@ function land.getSurfaceHeightWithSeabed(point) end
 ---Returns surface type at the given point.
 ---
 ------
----@param point Vec2 Point on the land. 
 ---@return number #Enumerator value from `land.SurfaceType` (LAND=1, SHALLOW_WATER=2, WATER=3, ROAD=4, RUNWAY=5)
 ---@private
 function land.getSurfaceType(point) end
@@ -1520,7 +1422,6 @@ function timer.getTime0() end
 ---Removes the function from schedule.
 ---
 ------
----@param functionId NOTYPE Function identifier to remove from schedule 
 ---@private
 function timer.removeFunction(functionId) end
 
@@ -1536,17 +1437,15 @@ function timer.removeFunction(functionId) end
 --- Must return model time of next call or nil. Note that the DCS scheduler calls the function in protected mode and any Lua errors in the called function will be trapped and not reported. If the function triggers a Lua error then it will be terminated and not scheduled to run again.
 ---
 ------
----@param functionToCall FunctionToCall Lua-function to call. Must have prototype of FunctionToCall. 
 ---@param functionArgument NOTYPE Function argument of any type to pass to functionToCall.
 ---@param time Time Model time of the function call.
----@return  #functionId
+---@return NOTYPE #functionId
 ---@private
 function timer.scheduleFunction(functionToCall, functionArgument, time) end
 
 ---Re-schedules function to call at another model time.
 ---
 ------
----@param functionId NOTYPE Lua-function to call. Must have prototype of FunctionToCall. 
 ---@param time Time Model time of the function call. 
 ---@private
 function timer.setFunctionTime(functionId, time) end
@@ -1569,14 +1468,12 @@ world = {}
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_func_addEventHandler).
 ---
 ------
----@param handler table Event handler table.
 ---@private
 function world.addEventHandler(handler) end
 
 ---Returns a table of DCS airbase objects.
 ---
 ------
----@param coalitionId number The coalition side number ID. Default is all airbases are returned.
 ---@return table #Table of DCS airbase objects.
 ---@private
 function world.getAirbases(coalitionId) end
@@ -1601,7 +1498,6 @@ function world.getPlayer() end
 ---Removes the specified event handler from handling events.
 ---
 ------
----@param handler table Event handler table.
 ---@private
 function world.removeEventHandler(handler) end
 
@@ -1609,7 +1505,6 @@ function world.removeEventHandler(handler) end
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_func_searchObjects).
 ---
 ------
----@param objectcategory Object.Category Category (can be a table) of objects to search.
 ---@param volume word.VolumeType Shape of the search area/volume.
 ---@param ObjectSeachHandler NOTYPE handler A function that handles the search.
 ---@param any table Additional data.
@@ -1663,7 +1558,6 @@ function world.weather.getFogVisibilityDistance() end
 ---Time must be increasing. Previous animation is always discarded despite the data being correct.
 ---
 ------
----@param animation world.FogAnimation List of fog animations
 ---@private
 function world.weather.setFogAnimation(animation) end
 
@@ -1671,7 +1565,6 @@ function world.weather.setFogAnimation(animation) end
 ---Any current fog animation is discarded.
 ---
 ------
----@param thickness number Fog thickness in meters. Set to zero to disable fog.
 ---@private
 function world.weather.setFogThickness(thickness) end
 
@@ -1679,7 +1572,6 @@ function world.weather.setFogThickness(thickness) end
 ---Any current fog animation is discarded. Set zero to disable the fog.
 ---
 ------
----@param visibility number Max fog visibility in meters. Set to zero to disable fog.
 ---@private
 function world.weather.setFogVisibilityDistance(visibility) end
 

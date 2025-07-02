@@ -23,7 +23,6 @@ TRIANGLE = {}
 ---Checks if a point is contained within the triangle.
 ---
 ------
----@param pt table The point to check
 ---@param points? table (optional) The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@param self NOTYPE 
 ---@return bool #True if the point is contained, false otherwise
@@ -32,13 +31,11 @@ function TRIANGLE.ContainsPoint(pt, points, self) end
 
 ---
 ------
----@param self NOTYPE 
 function TRIANGLE:Draw() end
 
 ---Returns a random Vec2 within the triangle.
 ---
 ------
----@param points table The points of the triangle, or 3 other points if you're just using the TRIANGLE class without an object of it
 ---@param self NOTYPE 
 ---@return table #The random Vec2
 function TRIANGLE.GetRandomVec2(points, self) end
@@ -47,7 +44,6 @@ function TRIANGLE.GetRandomVec2(points, self) end
 ---The points need to be given as Vec2s
 ---
 ------
----@param p1 table The first point of the triangle
 ---@param p2 table The second point of the triangle
 ---@param p3 table The third point of the triangle
 ---@param self NOTYPE 
@@ -57,7 +53,6 @@ function TRIANGLE.New(p1, p2, p3, self) end
 
 ---
 ------
----@param self NOTYPE 
 function TRIANGLE:RemoveDraw() end
 
 

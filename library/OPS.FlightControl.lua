@@ -261,7 +261,6 @@ FLIGHTCONTROL = {}
 ---This is a zone where the aircraft...
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param ArrivalZone ZONE Zone where planes arrive.
 ---@param Heading number Heading in degrees.
 ---@param Length number Length in nautical miles. Default 15 NM.
@@ -274,7 +273,6 @@ function FLIGHTCONTROL:AddHoldingPattern(ArrivalZone, Heading, Length, Flightlev
 ---Count flights in a given status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Status string Return only flights in this status.
 ---@param GroupStatus string Count only flights in this FSM status, e.g. `OPSGROUP.GroupStatus.TAXIING`.
 ---@param AI boolean If `true` only AI flights are counted. If `false`, only flights with clients are counted. If `nil` (default), all flights are counted.
@@ -284,7 +282,6 @@ function FLIGHTCONTROL:CountFlights(Status, GroupStatus, AI) end
 ---Count number of parking spots.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param SpotStatus? string (Optional) Status of spot.
 ---@return number #Number of parking spots.
 function FLIGHTCONTROL:CountParking(SpotStatus) end
@@ -292,28 +289,24 @@ function FLIGHTCONTROL:CountParking(SpotStatus) end
 ---Get the active runway based on current wind direction.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return AIRBASE.Runway #Active runway.
 function FLIGHTCONTROL:GetActiveRunway() end
 
 ---Get the active runway for landing.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return AIRBASE.Runway #Active runway.
 function FLIGHTCONTROL:GetActiveRunwayLanding() end
 
 ---Get the active runway for takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return AIRBASE.Runway #Active runway.
 function FLIGHTCONTROL:GetActiveRunwayTakeoff() end
 
 ---Get the name of the active runway.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Takeoff boolean If true, return takeoff runway name. Default is landing.
 ---@return string #Runway text, e.g. "31L" or "09".
 function FLIGHTCONTROL:GetActiveRunwayText(Takeoff) end
@@ -321,7 +314,6 @@ function FLIGHTCONTROL:GetActiveRunwayText(Takeoff) end
 ---Get closest parking spot.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Coordinate COORDINATE Reference coordinate.
 ---@param TerminalType? number (Optional) Check only this terminal type.
 ---@param Status? boolean (Optional) Only consider spots that have this status.
@@ -331,28 +323,24 @@ function FLIGHTCONTROL:GetClosestParkingSpot(Coordinate, TerminalType, Status) e
 ---Get coalition of the airbase.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return number #Coalition ID.
 function FLIGHTCONTROL:GetCoalition() end
 
 ---Get coordinate of the airbase.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return COORDINATE #Coordinate of the airbase.
 function FLIGHTCONTROL:GetCoordinate() end
 
 ---Get country of the airbase.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return number #Country ID.
 function FLIGHTCONTROL:GetCountry() end
 
 ---Get flight status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@return string #Flight status
 function FLIGHTCONTROL:GetFlightStatus(flight) end
@@ -360,7 +348,6 @@ function FLIGHTCONTROL:GetFlightStatus(flight) end
 ---Get flights.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Status string Return only flights in this flightcontrol status, e.g. `FLIGHTCONTROL.Status.XXX`.
 ---@param GroupStatus string Return only flights in this FSM status, e.g. `OPSGROUP.GroupStatus.TAXIING`.
 ---@param AI boolean If `true` only AI flights are returned. If `false`, only flights with clients are returned. If `nil` (default), all flights are returned.
@@ -370,7 +357,6 @@ function FLIGHTCONTROL:GetFlights(Status, GroupStatus, AI) end
 ---Get parking spot by its Terminal ID.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param TerminalID number 
 ---@return FLIGHTCONTROL.ParkingSpot #Parking spot data table.
 function FLIGHTCONTROL:GetParkingSpotByID(TerminalID) end
@@ -378,14 +364,12 @@ function FLIGHTCONTROL:GetParkingSpotByID(TerminalID) end
 ---Check if runway is operational.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return number #Time in seconds until the runway is repaired. Will return 0 if runway is repaired.
 function FLIGHTCONTROL:GetRunwayRepairtime() end
 
 ---Check if FC has control over this flight.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@return boolean #
 function FLIGHTCONTROL:IsControlling(flight) end
@@ -393,7 +377,6 @@ function FLIGHTCONTROL:IsControlling(flight) end
 ---Check if coordinate is on runway.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Coordinate COORDINATE 
 ---@return boolean #If `true`, coordinate is on a runway.
 function FLIGHTCONTROL:IsCoordinateRunway(Coordinate) end
@@ -401,7 +384,6 @@ function FLIGHTCONTROL:IsCoordinateRunway(Coordinate) end
 ---Is flight in queue of this flightcontrol.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Flight FLIGHTGROUP Flight group.
 ---@return boolean #If `true`, flight is in queue.
 function FLIGHTCONTROL:IsFlight(Flight) end
@@ -409,7 +391,6 @@ function FLIGHTCONTROL:IsFlight(Flight) end
 ---Check if parking spot is free.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot Parking spot data.
 ---@return boolean #If true, parking spot is free.
 function FLIGHTCONTROL:IsParkingFree(spot) end
@@ -417,7 +398,6 @@ function FLIGHTCONTROL:IsParkingFree(spot) end
 ---Check if a parking spot is reserved by a flight group.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot Parking spot to check.
 ---@return string #Name of element or nil.
 function FLIGHTCONTROL:IsParkingOccupied(spot) end
@@ -425,7 +405,6 @@ function FLIGHTCONTROL:IsParkingOccupied(spot) end
 ---Check if a parking spot is reserved by a flight group.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot Parking spot to check.
 ---@return string #Name of element or *nil*.
 function FLIGHTCONTROL:IsParkingReserved(spot) end
@@ -433,21 +412,18 @@ function FLIGHTCONTROL:IsParkingReserved(spot) end
 ---Check if runway is destroyed.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return boolean #If `true`, runway is destroyed.
 function FLIGHTCONTROL:IsRunwayDestroyed() end
 
 ---Check if runway is operational.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return boolean #If `true`, runway is operational.
 function FLIGHTCONTROL:IsRunwayOperational() end
 
 ---Create a new FLIGHTCONTROL class object for an associated airbase.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param AirbaseName string Name of the airbase.
 ---@param Frequency number Radio frequency in MHz. Default 143.00 MHz. Can also be given as a `#table` of multiple frequencies.
 ---@param Modulation number Radio modulation: 0=AM (default), 1=FM. See `radio.modulation.AM` and `radio.modulation.FM` enumerators. Can also be given as a `#table` of multiple modulations.
@@ -460,7 +436,6 @@ function FLIGHTCONTROL:New(AirbaseName, Frequency, Modulation, PathToSRS, Port, 
 ---On after "PlayerSpeeding" event.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -470,7 +445,6 @@ function FLIGHTCONTROL:OnAfterPlayerSpeeding(From, Event, To, Player) end
 ---On after "RunwayDestroyed" event.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -479,7 +453,6 @@ function FLIGHTCONTROL:OnAfterRunwayDestroyed(From, Event, To) end
 ---On after "RunwayRepaired" event.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -488,63 +461,54 @@ function FLIGHTCONTROL:OnAfterRunwayRepaired(From, Event, To) end
 ---Event handler for event birth.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventBirth(EventData) end
 
 ---Event handling function.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA Event data.
 function FLIGHTCONTROL:OnEventCrashOrDead(EventData) end
 
 ---Event handler for event engine shutdown.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventEngineShutdown(EventData) end
 
 ---Event handler for event engine startup.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventEngineStartup(EventData) end
 
 ---Event handler for event kill.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventKill(EventData) end
 
 ---Event handler for event land.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventLand(EventData) end
 
 ---Event handler for event takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param EventData EVENTDATA 
 function FLIGHTCONTROL:OnEventTakeoff(EventData) end
 
 ---Triggers the FSM event "PlayerSpeeding".
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Player FLIGHTGROUP.PlayerData data.
 function FLIGHTCONTROL:PlayerSpeeding(Player) end
 
 ---Remove a holding pattern.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param HoldingPattern FLIGHTCONTROL.HoldingPattern Holding pattern to be removed.
 ---@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:RemoveHoldingPattern(HoldingPattern, self) end
@@ -552,7 +516,6 @@ function FLIGHTCONTROL:RemoveHoldingPattern(HoldingPattern, self) end
 ---Remove parking guard.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot FLIGHTCONTROL.ParkingSpot 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:RemoveParkingGuard(spot, delay) end
@@ -560,19 +523,16 @@ function FLIGHTCONTROL:RemoveParkingGuard(spot, delay) end
 ---Triggers the FSM event "RunwayDestroyed".
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:RunwayDestroyed() end
 
 ---Triggers the FSM event "RunwayRepaired".
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:RunwayRepaired() end
 
 ---Set ATIS.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Atis ATIS ATIS.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetATIS(Atis) end
@@ -581,7 +541,6 @@ function FLIGHTCONTROL:SetATIS(Atis) end
 ---See Wrapper.Group#GROUP.GetCustomCallSign() on how to set customized callsigns.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param ShortCallsign boolean If true, only call out the major flight number. Default = `true`.
 ---@param Keepnumber boolean If true, keep the **customized callsign** in the #GROUP name for players as-is, no amendments or numbers. Default = `true`.
 ---@param CallsignTranslations? table (optional) Table to translate between DCS standard callsigns and bespoke ones. Does not apply if using customized callsigns from playername or group name.
@@ -591,7 +550,6 @@ function FLIGHTCONTROL:SetCallSignOptions(ShortCallsign, Keepnumber, CallsignTra
 ---Set flight status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@param status string New status.
 function FLIGHTCONTROL:SetFlightStatus(flight, status) end
@@ -599,7 +557,6 @@ function FLIGHTCONTROL:SetFlightStatus(flight, status) end
 ---Set the tower frequency.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Frequency number Frequency in MHz. Default 305 MHz.
 ---@param Modulation number Modulation `radio.modulation.AM`=0, `radio.modulation.FM`=1. Default `radio.modulation.AM`.
 ---@return FLIGHTCONTROL #self
@@ -608,7 +565,6 @@ function FLIGHTCONTROL:SetFrequency(Frequency, Modulation) end
 ---Set time interval between landing clearance of groups.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param dt number Time interval in seconds. Default 180 sec (3 min).
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetLandingInterval(dt) end
@@ -623,7 +579,6 @@ function FLIGHTCONTROL:SetLandingInterval(dt) end
 ---in cases where simultaneous takeoffs and landings are unproblematic. Note that only because there are multiple runways, it does not mean the AI uses them.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Nlanding number Max number of aircraft landing simultaneously. Default 2.
 ---@param Ntakeoff number Allowed number of aircraft taking off for groups to get landing clearance. Default 0. 
 ---@return FLIGHTCONTROL #self
@@ -642,7 +597,6 @@ function FLIGHTCONTROL:SetLimitLanding(Nlanding, Ntakeoff) end
 ---NOTE that human players are *not* restricted as they should behave better (hopefully) than the AI.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Ntaxi number Max number of groups allowed to taxi. Default 2.
 ---@param IncludeInbound boolean If `true`, the above
 ---@param Nlanding number Max number of landing flights. Default 0.
@@ -652,7 +606,6 @@ function FLIGHTCONTROL:SetLimitTaxi(Ntaxi, IncludeInbound, Nlanding) end
 ---Set to mark the holding patterns on the F10 map.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Switch boolean If `true` (or `nil`), mark holding patterns.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetMarkHoldingPattern(Switch) end
@@ -660,7 +613,6 @@ function FLIGHTCONTROL:SetMarkHoldingPattern(Switch) end
 ---Set parking spot to FREE and update F10 marker.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot The parking spot data table.
 function FLIGHTCONTROL:SetParkingFree(spot) end
 
@@ -668,7 +620,6 @@ function FLIGHTCONTROL:SetParkingFree(spot) end
 ---This group is used to block (AI) aircraft from taxiing until they get clearance. It should contain of only one unit, *e.g.* a simple soldier.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param TemplateGroupName string Name of the template group.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetParkingGuard(TemplateGroupName) end
@@ -677,7 +628,6 @@ function FLIGHTCONTROL:SetParkingGuard(TemplateGroupName) end
 ---This static is used to block (AI) aircraft from taxiing until they get clearance.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param TemplateStaticName string Name of the template static.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetParkingGuardStatic(TemplateStaticName) end
@@ -685,7 +635,6 @@ function FLIGHTCONTROL:SetParkingGuardStatic(TemplateStaticName) end
 ---Set parking spot to OCCUPIED and update F10 marker.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot The parking spot data table.
 ---@param unitname string Name of the unit occupying the spot. Default "unknown".
 function FLIGHTCONTROL:SetParkingOccupied(spot, unitname) end
@@ -693,7 +642,6 @@ function FLIGHTCONTROL:SetParkingOccupied(spot, unitname) end
 ---Set parking spot to RESERVED and update F10 marker.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot The parking spot data table.
 ---@param unitname string Name of the unit occupying the spot. Default "unknown". 
 function FLIGHTCONTROL:SetParkingReserved(spot, unitname) end
@@ -702,7 +650,6 @@ function FLIGHTCONTROL:SetParkingReserved(spot, unitname) end
 ---This can be used to reduce TTS messages on heavy missions.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Switch boolean If `true` or `nil` no transmission if there are no players. Use `false` enable TTS with no players.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetRadioOnlyIfPlayers(Switch) end
@@ -712,7 +659,6 @@ function FLIGHTCONTROL:SetRadioOnlyIfPlayers(Switch) end
 ---You need to input the value. On the DCS forum it was stated that this is currently one hour. Hence this is the default value.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param RepairTime number Time in seconds until the runway is repaired. Default 3600sec (one hour).
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetRunwayRepairtime(RepairTime) end
@@ -720,7 +666,6 @@ function FLIGHTCONTROL:SetRunwayRepairtime(RepairTime) end
 ---Set SRS options for pilot voice.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Gender string Gender: "male" (default) or "female".
 ---@param Culture string Culture, e.g. "en-US" (default).
 ---@param Voice string Specific voice. Overrides `Gender` and `Culture`.
@@ -732,7 +677,6 @@ function FLIGHTCONTROL:SetSRSPilot(Gender, Culture, Voice, Volume, Label) end
 ---Set the SRS server port.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Port number Port to be used. Defaults to 5002.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetSRSPort(Port) end
@@ -740,7 +684,6 @@ function FLIGHTCONTROL:SetSRSPort(Port) end
 ---Set SRS options for tower voice.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Gender string Gender: "male" or "female" (default).
 ---@param Culture string Culture, e.g. "en-GB" (default).
 ---@param Voice string Specific voice. Overrides `Gender` and `Culture`. See [Google Voices](https://cloud.google.com/text-to-speech/docs/voices).
@@ -752,7 +695,6 @@ function FLIGHTCONTROL:SetSRSTower(Gender, Culture, Voice, Volume, Label) end
 ---Set speed limit for taxiing.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param SpeedLimit number Speed limit in knots. If `nil`, no speed limit.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetSpeedLimitTaxi(SpeedLimit) end
@@ -760,7 +702,6 @@ function FLIGHTCONTROL:SetSpeedLimitTaxi(SpeedLimit) end
 ---Set whether to only transmit TTS messages if there are players on the server.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Switch boolean If `true`, only send TTS messages if there are alive Players. If `false` or `nil`, transmission are done also if no players are on the server.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetTransmitOnlyWithPlayers(Switch) end
@@ -768,7 +709,6 @@ function FLIGHTCONTROL:SetTransmitOnlyWithPlayers(Switch) end
 ---Set verbosity level.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param VerbosityLevel number Level of output (higher=more). Default 0.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SetVerbosity(VerbosityLevel) end
@@ -776,46 +716,39 @@ function FLIGHTCONTROL:SetVerbosity(VerbosityLevel) end
 ---Add parking guard in front of a parking aircraft.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param unit UNIT The aircraft.
 function FLIGHTCONTROL:SpawnParkingGuard(unit) end
 
 ---Triggers the FSM event "Start".
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:Start() end
 
 ---Triggers the FSM event "StatusUpdate".
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:StatusUpdate() end
 
 ---Triggers the FSM event "Stop".
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:Stop() end
 
 ---Set subtitles to appear on SRS TTS messages.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SwitchSubtitlesOff() end
 
 ---Set subtitles to appear on SRS TTS messages.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:SwitchSubtitlesOn() end
 
 ---Text message to group.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Text string The text to transmit.
 ---@param Flight FLIGHTGROUP The flight.
 ---@param Duration number Duration in seconds. Default 5.
@@ -826,7 +759,6 @@ function FLIGHTCONTROL:TextMessageToFlight(Text, Flight, Duration, Clear, Delay)
 ---Radio transmission.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Text string The text to transmit.
 ---@param Flight FLIGHTGROUP The flight.
 ---@param Delay number Delay in seconds before the text is transmitted. Default 0 sec.
@@ -835,7 +767,6 @@ function FLIGHTCONTROL:TransmissionPilot(Text, Flight, Delay) end
 ---Radio transmission from tower.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Text string The text to transmit.
 ---@param Flight FLIGHTGROUP The flight.
 ---@param Delay number Delay in seconds before the text is transmitted. Default 0 sec.
@@ -844,21 +775,18 @@ function FLIGHTCONTROL:TransmissionTower(Text, Flight, Delay) end
 ---Update parking markers.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot The parking spot data table.
 function FLIGHTCONTROL:UpdateParkingMarker(spot) end
 
 ---Add a holding pattern.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTCONTROL.HoldingPattern #Holding pattern table.
 function FLIGHTCONTROL:_AddHoldingPatternBackup() end
 
 ---Check if a flight can get clearance for taxi/takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight..
 ---@return boolean #If true, flight can.
 function FLIGHTCONTROL:_CheckFlightLanding(flight) end
@@ -866,7 +794,6 @@ function FLIGHTCONTROL:_CheckFlightLanding(flight) end
 ---Check if a flight can get clearance for taxi/takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight..
 ---@return boolean #If true, flight can.
 function FLIGHTCONTROL:_CheckFlightTakeoff(flight) end
@@ -874,33 +801,28 @@ function FLIGHTCONTROL:_CheckFlightTakeoff(flight) end
 ---Check status of all registered flights and do some sanity checks.
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:_CheckFlights() end
 
 ---Check holding pattern markers.
 ---Draw if they should exists and remove if they should not.
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:_CheckMarkHoldingPatterns() end
 
 ---Check status of all registered flights and do some sanity checks.
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:_CheckParking() end
 
 ---Check takeoff and landing queues.
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:_CheckQueues() end
 
 ---Clean text.
 ---Remove control sequences.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Text string The text.
 ---@param Cleaned string text.
 function FLIGHTCONTROL:_CleanText(Text, Cleaned) end
@@ -908,7 +830,6 @@ function FLIGHTCONTROL:_CleanText(Text, Cleaned) end
 ---Count flights in holding pattern.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Pattern FLIGHTCONTROL.HoldingPattern The pattern.
 ---@return FLIGHTCONTROL.HoldingStack #Holding point.
 function FLIGHTCONTROL:_CountFlightsInPattern(Pattern) end
@@ -916,7 +837,6 @@ function FLIGHTCONTROL:_CountFlightsInPattern(Pattern) end
 ---Create a new flight group.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param group GROUP Aircraft group.
 ---@return FLIGHTGROUP #Flight group.
 function FLIGHTCONTROL:_CreateFlightGroup(group) end
@@ -924,7 +844,6 @@ function FLIGHTCONTROL:_CreateFlightGroup(group) end
 ---Create player menu.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@param mainmenu MENU_GROUP ATC root menu table.
 function FLIGHTCONTROL:_CreatePlayerMenu(flight, mainmenu) end
@@ -932,7 +851,6 @@ function FLIGHTCONTROL:_CreatePlayerMenu(flight, mainmenu) end
 ---AI flight on final.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@return FLIGHTCONTROL #self
 function FLIGHTCONTROL:_FlightOnFinal(flight) end
@@ -940,7 +858,6 @@ function FLIGHTCONTROL:_FlightOnFinal(flight) end
 ---Get callsign name of a given flight.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@return string #Callsign or "Ghostrider 1-1".
 function FLIGHTCONTROL:_GetCallsignName(flight) end
@@ -948,7 +865,6 @@ function FLIGHTCONTROL:_GetCallsignName(flight) end
 ---Get element of flight from its unit name.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param unitname string Name of the unit.
 ---@return OPSGROUP.Element #Element of the flight or nil.
 ---@return number #Element index or nil.
@@ -958,7 +874,6 @@ function FLIGHTCONTROL:_GetFlightElement(unitname) end
 ---Get flight from group.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param group GROUP Group that will be removed from queue.
 ---@param queue table The queue from which the group will be removed.
 ---@return FLIGHTGROUP #Flight group or nil.
@@ -968,7 +883,6 @@ function FLIGHTCONTROL:_GetFlightFromGroup(group, queue) end
 ---Get free parking spots.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param terminal number Terminal type or nil.
 ---@return number #Number of free spots. Total if terminal=nil or of the requested terminal type.
 ---@return table #Table of free parking spots of data type #FLIGHCONTROL.ParkingSpot.
@@ -977,7 +891,6 @@ function FLIGHTCONTROL:_GetFreeParkingSpots(terminal) end
 ---Get holding stack.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@return FLIGHTCONTROL.HoldingStack #Holding point.
 function FLIGHTCONTROL:_GetHoldingStack(flight) end
@@ -985,21 +898,18 @@ function FLIGHTCONTROL:_GetHoldingStack(flight) end
 ---Get next flight waiting for landing clearance.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTGROUP #Marshal flight next in line and ready to enter the pattern. Or nil if no flight is ready.
 function FLIGHTCONTROL:_GetNextFightHolding() end
 
 ---Get next flight waiting for taxi and takeoff clearance.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTGROUP #Marshal flight next in line and ready to enter the pattern. Or nil if no flight is ready.
 function FLIGHTCONTROL:_GetNextFightParking() end
 
 ---Get next flight in line, either waiting for landing or waiting for takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@return FLIGHTGROUP #Flight next in line and ready to enter the pattern. Or nil if no flight is ready.
 ---@return boolean #If true, flight is holding and waiting for landing, if false, flight is parking and waiting for takeoff.
 ---@return table #Parking data for holding flights or nil.
@@ -1008,7 +918,6 @@ function FLIGHTCONTROL:_GetNextFlight() end
 ---Get parking spot this player was initially spawned on.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param UnitName string Name of the player unit.
 ---@return FLIGHTCONTROL.ParkingSpot #Player spot or nil.
 function FLIGHTCONTROL:_GetPlayerSpot(UnitName) end
@@ -1017,7 +926,6 @@ function FLIGHTCONTROL:_GetPlayerSpot(UnitName) end
 ---If the unit does not belong to a player, nil is returned.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param unitName string Name of the player unit.
 ---@return UNIT #Unit of player or nil.
 ---@return string #Name of the player or nil.
@@ -1027,7 +935,6 @@ function FLIGHTCONTROL:_GetPlayerUnitAndName(unitName) end
 ---Numbers are spaced out, e.g. "Heading 180" becomes "Heading 1 8 0 ".
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param text string Original text.
 ---@return string #Spoken text.
 function FLIGHTCONTROL:_GetTextForSpeech(text) end
@@ -1035,7 +942,6 @@ function FLIGHTCONTROL:_GetTextForSpeech(text) end
 ---Check if a group is in a queue.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param queue table The queue to check.
 ---@param group GROUP The group to be checked.
 ---@return boolean #If true, group is in the queue. False otherwise.
@@ -1044,13 +950,11 @@ function FLIGHTCONTROL:_InQueue(queue, group) end
 ---Init parking spots.
 ---
 ------
----@param self FLIGHTCONTROL 
 function FLIGHTCONTROL:_InitParkingSpots() end
 
 ---Check if a flight is on a runway
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP 
 ---@param Runway AIRBASE.Runway or nil.
 function FLIGHTCONTROL:_IsFlightOnRunway(flight, Runway) end
@@ -1059,7 +963,6 @@ function FLIGHTCONTROL:_IsFlightOnRunway(flight, Runway) end
 ---Flight is added to the landing queue.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param flight FLIGHTGROUP Flight group.
 ---@param parking table Free parking spots table.
 function FLIGHTCONTROL:_LandAI(flight, parking) end
@@ -1067,161 +970,138 @@ function FLIGHTCONTROL:_LandAI(flight, parking) end
 ---Draw marks of holding pattern (if they do not exist.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Pattern FLIGHTCONTROL.HoldingPattern Holding pattern table.
 function FLIGHTCONTROL:_MarkHoldingPattern(Pattern) end
 
 ---Player aborts holding.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerAbortHolding(groupname) end
 
 ---Player aborts inbound.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerAbortInbound(groupname) end
 
 ---Player aborts landing.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerAbortLanding(groupname) end
 
 ---Player wants to abort takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerAbortTakeoff(groupname) end
 
 ---Player aborts taxi.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerAbortTaxi(groupname) end
 
 ---Player arrived at parking position.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerArrived(groupname) end
 
 ---Player cancels parking spot reservation.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerCancelParking(groupname) end
 
 ---Player confirms landing.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerConfirmLanding(groupname) end
 
 ---Player confirm status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerConfirmStatus(groupname) end
 
 ---Player calls holding.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerHolding(groupname) end
 
 ---Player info about ATIS.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerInfoATIS(groupname) end
 
 ---Player info about airbase.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerInfoAirbase(groupname) end
 
 ---Player info about traffic.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerInfoTraffic(groupname) end
 
 ---Player menu not implemented.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerNotImplemented(groupname) end
 
 ---Player radio check.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRadioCheck(groupname) end
 
 ---Player request direct approach.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRequestDirectLanding(groupname) end
 
 ---Player calls inbound.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRequestInbound(groupname) end
 
 ---Player reserves a parking spot.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRequestParking(groupname) end
 
 ---Player requests takeoff.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRequestTakeoff(groupname) end
 
 ---Player requests taxi.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerRequestTaxi(groupname) end
 
 ---Player vector to inbound
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param groupname string Name of the flight group.
 function FLIGHTCONTROL:_PlayerVectorInbound(groupname) end
 
 ---Print queue.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param queue table Queue to print.
 ---@param name string Queue name.
 ---@return string #Queue text.
@@ -1230,14 +1110,12 @@ function FLIGHTCONTROL:_PrintQueue(queue, name) end
 ---Remove flight from all queues.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Flight FLIGHTGROUP The flight to be removed.
 function FLIGHTCONTROL:_RemoveFlight(Flight) end
 
 ---Set SRS options for a given MSRS object.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param msrs MSRS Moose SRS object.
 ---@param Gender string Gender: "male" or "female" (default).
 ---@param Culture string Culture, e.g. "en-GB" (default).
@@ -1252,21 +1130,18 @@ function FLIGHTCONTROL:_SetSRSOptions(msrs, Gender, Culture, Voice, Volume, Labe
 ---[INTERNAL] Add parking guard in front of a parking aircraft - delayed for MP.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param unit UNIT The aircraft.
 function FLIGHTCONTROL:_SpawnParkingGuard(unit) end
 
 ---Removem markers of holding pattern (if they exist).
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param Pattern FLIGHTCONTROL.HoldingPattern Holding pattern table.
 function FLIGHTCONTROL:_UnMarkHoldingPattern(Pattern) end
 
 ---Set parking spot to FREE and update F10 marker.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param spot AIRBASE.ParkingSpot The parking spot data table.
 ---@param status string New status.
 ---@param unitname string Name of the unit.
@@ -1275,7 +1150,6 @@ function FLIGHTCONTROL:_UpdateSpotStatus(spot, status, unitname) end
 ---Triggers the FSM event "PlayerSpeeding" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 ---@param Player FLIGHTGROUP.PlayerData data.
 function FLIGHTCONTROL:__PlayerSpeeding(delay, Player) end
@@ -1283,42 +1157,36 @@ function FLIGHTCONTROL:__PlayerSpeeding(delay, Player) end
 ---Triggers the FSM event "RunwayDestroyed" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:__RunwayDestroyed(delay) end
 
 ---Triggers the FSM event "RunwayRepaired" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:__RunwayRepaired(delay) end
 
 ---Triggers the FSM event "Start" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:__Start(delay) end
 
 ---Triggers the FSM event "StatusUpdate" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:__StatusUpdate(delay) end
 
 ---Triggers the FSM event "Stop" after a delay.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param delay number Delay in seconds.
 function FLIGHTCONTROL:__Stop(delay) end
 
 ---On after "RunwayDestroyed" event.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1328,7 +1196,6 @@ function FLIGHTCONTROL:onafterRunwayDestroyed(From, Event, To) end
 ---On after "RunwayRepaired" event.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1339,28 +1206,24 @@ function FLIGHTCONTROL:onafterRunwayRepaired(From, Event, To) end
 ---Handle events.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@private
 function FLIGHTCONTROL:onafterStart() end
 
 ---Update status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@private
 function FLIGHTCONTROL:onafterStatusUpdate() end
 
 ---Stop FLIGHTCONTROL FSM.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@private
 function FLIGHTCONTROL:onafterStop() end
 
 ---On Before Update status.
 ---
 ------
----@param self FLIGHTCONTROL 
 ---@private
 function FLIGHTCONTROL:onbeforeStatusUpdate() end
 

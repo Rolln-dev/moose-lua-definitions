@@ -36,14 +36,12 @@ ZONE_GOAL_COALITION = {}
 ---Get the owning coalition of the zone.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@return number #Coalition.
 function ZONE_GOAL_COALITION:GetCoalition() end
 
 ---Get the owning coalition name of the zone.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@return string #Coalition name.
 function ZONE_GOAL_COALITION:GetCoalitionName() end
 
@@ -51,14 +49,12 @@ function ZONE_GOAL_COALITION:GetCoalitionName() end
 ---the one owning the zone before the current one.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@return number #Coalition.
 function ZONE_GOAL_COALITION:GetPreviousCoalition() end
 
 ---ZONE_GOAL_COALITION Constructor.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@param Zone ZONE A @{Core.Zone} object with the goal to be achieved.
 ---@param Coalition number The initial coalition owning the zone. Default coalition.side.NEUTRAL.
 ---@param UnitCategories table Table of unit categories. See [DCS Class Unit](https://wiki.hoggitworld.com/view/DCS_Class_Unit). Default {Unit.Category.GROUND_UNIT}.
@@ -68,7 +64,6 @@ function ZONE_GOAL_COALITION:New(Zone, Coalition, UnitCategories) end
 ---Set the owning coalition of the zone.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@param Coalition number The coalition ID, e.g. *coalition.side.RED*.
 ---@return ZONE_GOAL_COALITION #
 function ZONE_GOAL_COALITION:SetCoalition(Coalition) end
@@ -76,7 +71,6 @@ function ZONE_GOAL_COALITION:SetCoalition(Coalition) end
 ---Set the owning coalition of the zone.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@param ObjectCategories table Table of unit categories. See [DCS Class Object](https://wiki.hoggitworld.com/view/DCS_Class_Object). Default {Object.Category.UNIT, Object.Category.STATIC}, i.e. all UNITS and STATICS.
 ---@return ZONE_GOAL_COALITION #
 function ZONE_GOAL_COALITION:SetObjectCategories(ObjectCategories) end
@@ -84,7 +78,6 @@ function ZONE_GOAL_COALITION:SetObjectCategories(ObjectCategories) end
 ---Set the owning coalition of the zone.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@param UnitCategories table Table of unit categories. See [DCS Class Unit](https://wiki.hoggitworld.com/view/DCS_Class_Unit). Default {Unit.Category.GROUND_UNIT}.
 ---@return ZONE_GOAL_COALITION #
 function ZONE_GOAL_COALITION:SetUnitCategories(UnitCategories) end
@@ -92,7 +85,6 @@ function ZONE_GOAL_COALITION:SetUnitCategories(UnitCategories) end
 ---Check status Coalition ownership.
 ---
 ------
----@param self ZONE_GOAL_COALITION 
 ---@return ZONE_GOAL_COALITION #
 function ZONE_GOAL_COALITION:StatusZone() end
 

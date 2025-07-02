@@ -328,7 +328,6 @@
 ---       
 ---     ZoneCaptureCoalition:Start( 5, 30 )
 ---@class ZONE_CAPTURE_COALITION 
----@field HitTimeLast NOTYPE 
 ---@field HitsOn NOTYPE 
 ---@field MarkBlue NOTYPE 
 ---@field MarkOn boolean 
@@ -340,32 +339,27 @@ ZONE_CAPTURE_COALITION = {}
 ---Attack Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Attack() end
 
 ---Capture Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Capture() end
 
 ---Empty Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Empty() end
 
 ---Guard Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Guard() end
 
 ---Check if zone is "Attacked", i.e.
 ---another coalition entered the zone.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@return boolean #self:IsSomeInZoneOfCoalition( self.Coalition )
 function ZONE_CAPTURE_COALITION:IsAttacked() end
 
@@ -373,14 +367,12 @@ function ZONE_CAPTURE_COALITION:IsAttacked() end
 ---another coalition took control over the zone and is the only one present.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@return boolean #self:IsAllInZoneOfOtherCoalition( self.Coalition )
 function ZONE_CAPTURE_COALITION:IsCaptured() end
 
 ---Check if zone is "Empty".
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@return boolean #self:IsNoneInZone()
 function ZONE_CAPTURE_COALITION:IsEmpty() end
 
@@ -388,14 +380,12 @@ function ZONE_CAPTURE_COALITION:IsEmpty() end
 ---only one (the defending) coalition is present inside the zone.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@return boolean #self:IsAllInZoneOfCoalition( self.Coalition )
 function ZONE_CAPTURE_COALITION:IsGuarded() end
 
 ---Update Mark on F10 map.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Mark() end
 
 ---ZONE_CAPTURE_COALITION Constructor.
@@ -411,7 +401,6 @@ function ZONE_CAPTURE_COALITION:Mark() end
 --- ZoneCaptureCoalition:__Guard( 1 ) -- Start the Guarding of the AttackZone.
 ---```
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Zone ZONE A @{Core.Zone} object with the goal to be achieved. Alternatively, can be handed as the name of late activated group describing a @{Core.Zone#ZONE_POLYGON} with its waypoints.
 ---@param Coalition number The initial coalition owning the zone.
 ---@param UnitCategories table Table of unit categories. See [DCS Class Unit](https://wiki.hoggitworld.com/view/DCS_Class_Unit). Default {Unit.Category.GROUND_UNIT}.
@@ -422,7 +411,6 @@ function ZONE_CAPTURE_COALITION:New(Zone, Coalition, UnitCategories, ObjectCateg
 ---Attack Handler OnAfter for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -431,7 +419,6 @@ function ZONE_CAPTURE_COALITION:OnAfterAttack(From, Event, To) end
 ---Capture Handler OnAfter for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -440,7 +427,6 @@ function ZONE_CAPTURE_COALITION:OnAfterCapture(From, Event, To) end
 ---Empty Handler OnAfter for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -449,7 +435,6 @@ function ZONE_CAPTURE_COALITION:OnAfterEmpty(From, Event, To) end
 ---Guard Handler OnAfter for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -458,7 +443,6 @@ function ZONE_CAPTURE_COALITION:OnAfterGuard(From, Event, To) end
 ---Attack Handler OnBefore for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -468,7 +452,6 @@ function ZONE_CAPTURE_COALITION:OnBeforeAttack(From, Event, To) end
 ---Capture Handler OnBefore for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -478,7 +461,6 @@ function ZONE_CAPTURE_COALITION:OnBeforeCapture(From, Event, To) end
 ---Empty Handler OnBefore for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -488,7 +470,6 @@ function ZONE_CAPTURE_COALITION:OnBeforeEmpty(From, Event, To) end
 ---Guard Handler OnBefore for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -498,14 +479,12 @@ function ZONE_CAPTURE_COALITION:OnBeforeGuard(From, Event, To) end
 ---Monitor hit events.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param EventData EVENTDATA The event data.
 function ZONE_CAPTURE_COALITION:OnEventHit(EventData) end
 
 ---Set whether marks on the F10 map are shown, which display the current zone status.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Switch boolean If *true* or *nil*, marks are shown. If *false*, marks are not displayed.
 ---@return ZONE_CAPTURE_COALITION #self
 function ZONE_CAPTURE_COALITION:SetMarkZone(Switch) end
@@ -513,7 +492,6 @@ function ZONE_CAPTURE_COALITION:SetMarkZone(Switch) end
 ---Set whether hit events of defending units are monitored and trigger "Attack" events.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Switch boolean If *true*, hit events are monitored. If *false* or *nil*, hit events are not monitored.
 ---@param TimeAttackOver? number (Optional) Time in seconds after an attack is over after the last hit and the zone state goes to "Guarded". Default is 300 sec = 5 min.
 ---@return ZONE_CAPTURE_COALITION #self
@@ -542,7 +520,6 @@ function ZONE_CAPTURE_COALITION:SetMonitorHits(Switch, TimeAttackOver) end
 ---ZoneCaptureCoalition:Start( 0, 30 )
 ---```
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param StartInterval? number (optional) Specifies the start time interval in seconds when the zone state will be checked for the first time.
 ---@param RepeatInterval? number (optional) Specifies the repeat time interval in seconds when the zone state will be checked repeatedly.
 ---@return ZONE_CAPTURE_COALITION #self
@@ -551,7 +528,6 @@ function ZONE_CAPTURE_COALITION:Start(StartInterval, RepeatInterval) end
 ---Check status Coalition ownership.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:StatusZone() end
 
 ---Stops the zone capturing monitoring process.
@@ -575,69 +551,59 @@ function ZONE_CAPTURE_COALITION:StatusZone() end
 ---ZoneCaptureCoalition:Stop()
 ---```
 ------
----@param self ZONE_CAPTURE_COALITION 
 function ZONE_CAPTURE_COALITION:Stop() end
 
 ---Attack Asynchronous Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Delay number 
 function ZONE_CAPTURE_COALITION:__Attack(Delay) end
 
 ---Capture Asynchronous Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Delay number 
 function ZONE_CAPTURE_COALITION:__Capture(Delay) end
 
 ---Empty Asynchronous Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Delay number 
 function ZONE_CAPTURE_COALITION:__Empty(Delay) end
 
 ---Guard Asynchronous Trigger for ZONE_CAPTURE_COALITION
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@param Delay number 
 function ZONE_CAPTURE_COALITION:__Guard(Delay) end
 
 ---On after "Guard" event.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@private
 function ZONE_CAPTURE_COALITION:onafterGuard() end
 
 ---On enter "Attacked" state.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION    
 ---@private
 function ZONE_CAPTURE_COALITION:onenterAttacked() end
 
 ---On enter "Captured" state.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION  
 ---@private
 function ZONE_CAPTURE_COALITION:onenterCaptured() end
 
 ---On enter "Empty" state.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION    
 ---@private
 function ZONE_CAPTURE_COALITION:onenterEmpty() end
 
 ---On enter "Guarded" state.
 ---
 ------
----@param self ZONE_CAPTURE_COALITION 
 ---@private
 function ZONE_CAPTURE_COALITION:onenterGuarded() end
 

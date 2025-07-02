@@ -132,7 +132,6 @@ MISSION = {}
 ---If the Unit is part of a Task in the Mission, true is returned.
 ---
 ------
----@param self MISSION 
 ---@param PlayerUnit UNIT The CLIENT or UNIT of the Player joining the Mission.
 ---@return MISSION #
 function MISSION:AbortUnit(PlayerUnit) end
@@ -140,7 +139,6 @@ function MISSION:AbortUnit(PlayerUnit) end
 ---Adds the groups for which TASKS are given in the mission
 ---
 ------
----@param self MISSION 
 ---@param GroupSet SET_GROUP 
 ---@return SET_GROUP #
 function MISSION:AddGroups(GroupSet) end
@@ -148,14 +146,12 @@ function MISSION:AddGroups(GroupSet) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param PlayerName NOTYPE 
 function MISSION:AddPlayerName(PlayerName) end
 
 ---Add a scoring to the mission.
 ---
 ------
----@param self MISSION 
 ---@param Scoring NOTYPE 
 ---@return MISSION #self
 function MISSION:AddScoring(Scoring) end
@@ -165,7 +161,6 @@ function MISSION:AddScoring(Scoring) end
 ---Each Task can be set a certain Goals. The Mission will not be completed until all Goals are reached.
 ---
 ------
----@param self MISSION 
 ---@param Task TASK is the @{Tasking.Task} object.
 ---@return TASK #The task added.
 function MISSION:AddTask(Task) end
@@ -173,7 +168,6 @@ function MISSION:AddTask(Task) end
 ---Clear the Wrapper.Group assignment from the Tasking.Mission.
 ---
 ------
----@param self MISSION 
 ---@param MissionGroup GROUP 
 ---@return MISSION #
 function MISSION:ClearGroupAssignment(MissionGroup) end
@@ -181,7 +175,6 @@ function MISSION:ClearGroupAssignment(MissionGroup) end
 ---Synchronous Event Trigger for Event Complete.
 ---
 ------
----@param self MISSION 
 function MISSION:Complete() end
 
 ---Handles a crash of a PlayerUnit from the Mission.
@@ -190,7 +183,6 @@ function MISSION:Complete() end
 ---If the Unit is part of a Task in the Mission, true is returned.
 ---
 ------
----@param self MISSION 
 ---@param PlayerUnit UNIT The CLIENT or UNIT of the Player crashing.
 ---@return MISSION #
 function MISSION:CrashUnit(PlayerUnit) end
@@ -198,20 +190,17 @@ function MISSION:CrashUnit(PlayerUnit) end
 ---Synchronous Event Trigger for Event Fail.
 ---
 ------
----@param self MISSION 
 function MISSION:Fail() end
 
 ---Gets the COMMANDCENTER.
 ---
 ------
----@param self MISSION 
 ---@return COMMANDCENTER #
 function MISSION:GetCommandCenter() end
 
 ---Get the relevant tasks of a TaskGroup.
 ---
 ------
----@param TaskGroup GROUP 
 ---@param self NOTYPE 
 ---@return list #
 function MISSION.GetGroupTasks(TaskGroup, self) end
@@ -219,7 +208,6 @@ function MISSION.GetGroupTasks(TaskGroup, self) end
 ---Gets the groups for which TASKS are given in the mission
 ---
 ------
----@param self MISSION 
 ---@param GroupSet SET_GROUP 
 ---@return SET_GROUP #
 function MISSION:GetGroups(GroupSet) end
@@ -227,7 +215,6 @@ function MISSION:GetGroups(GroupSet) end
 ---Gets the mission menu for the TaskGroup.
 ---
 ------
----@param self MISSION 
 ---@param TaskGroup GROUP Task group.
 ---@return MENU_COALITION #self
 function MISSION:GetMenu(TaskGroup) end
@@ -235,14 +222,12 @@ function MISSION:GetMenu(TaskGroup) end
 ---Gets the mission name.
 ---
 ------
----@param self MISSION 
 ---@return MISSION #self
 function MISSION:GetName() end
 
 ---Return the next Tasking.Task ID to be completed within the Tasking.Mission.
 ---
 ------
----@param self MISSION 
 ---@param Task TASK is the @{Tasking.Task} object.
 ---@return TASK #The task added.
 function MISSION:GetNextTaskID(Task) end
@@ -250,14 +235,12 @@ function MISSION:GetNextTaskID(Task) end
 
 ---
 ------
----@param self NOTYPE 
 function MISSION:GetPlayerNames() end
 
 ---Gets the root mission menu for the TaskGroup.
 ---Obsolete?! Originally no reference to TaskGroup parameter!
 ---
 ------
----@param self MISSION 
 ---@param TaskGroup GROUP Task group.
 ---@return MENU_COALITION #self
 function MISSION:GetRootMenu(TaskGroup) end
@@ -265,14 +248,12 @@ function MISSION:GetRootMenu(TaskGroup) end
 ---Get the scoring object of a mission.
 ---
 ------
----@param self MISSION 
 ---@return SCORING #Scoring
 function MISSION:GetScoring() end
 
 ---Gets the short mission text.
 ---
 ------
----@param self MISSION 
 ---@return MISSION #self
 function MISSION:GetShortText() end
 
@@ -280,7 +261,6 @@ function MISSION:GetShortText() end
 ---This function is useful in GoalFunctions.
 ---
 ------
----@param TaskName string The Name of the @{Tasking.Task} within the @{Tasking.Mission}.
 ---@param self NOTYPE 
 ---@return TASK #The Task
 ---@return nil #Returns nil if no task was found.
@@ -289,7 +269,6 @@ function MISSION.GetTask(TaskName, self) end
 
 ---
 ------
----@param self NOTYPE 
 function MISSION:GetTaskTypes() end
 
 ---Get all the TASKs from the Mission.
@@ -304,27 +283,23 @@ function MISSION:GetTaskTypes() end
 ---env.info( "Task 2 Completion = " .. Tasks[2]:GetGoalPercentage() .. "%" )
 ---```
 ------
----@param self NOTYPE 
----@return  #{TASK,...} Structure of TASKS with the @{Tasking.Task#TASK} number as the key.
+---@return NOTYPE #{TASK,...} Structure of TASKS with the @{Tasking.Task#TASK} number as the key.
 function MISSION:GetTasks() end
 
 
 ---
 ------
----@param self NOTYPE 
 function MISSION:GetTasksRemaining() end
 
 ---Gets the mission text.
 ---
 ------
----@param self MISSION 
 ---@return MISSION #self
 function MISSION:GetText() end
 
 ---Validates if the Mission has a Group
 ---
 ------
----@param self NOTYPE 
 ---@param TaskGroup NOTYPE 
 ---@return boolean #true if the Mission has a Group.
 function MISSION:HasGroup(TaskGroup) end
@@ -332,28 +307,24 @@ function MISSION:HasGroup(TaskGroup) end
 ---Is the Tasking.Mission **COMPLETED**.
 ---
 ------
----@param self MISSION 
 ---@return boolean #
 function MISSION:IsCOMPLETED() end
 
 ---Is the Tasking.Mission **ENGAGED**.
 ---
 ------
----@param self MISSION 
 ---@return boolean #
 function MISSION:IsENGAGED() end
 
 ---Is the Tasking.Mission **FAILED**.
 ---
 ------
----@param self MISSION 
 ---@return boolean #
 function MISSION:IsFAILED() end
 
 ---Returns if the Tasking.Mission is assigned to the Group.
 ---
 ------
----@param self MISSION 
 ---@param MissionGroup GROUP 
 ---@return boolean #
 function MISSION:IsGroupAssigned(MissionGroup) end
@@ -361,14 +332,12 @@ function MISSION:IsGroupAssigned(MissionGroup) end
 ---Is the Tasking.Mission **HOLD**.
 ---
 ------
----@param self MISSION 
 ---@return boolean #
 function MISSION:IsHOLD() end
 
 ---Is the Tasking.Mission **IDLE**.
 ---
 ------
----@param self MISSION 
 ---@return boolean #
 function MISSION:IsIDLE() end
 
@@ -378,7 +347,6 @@ function MISSION:IsIDLE() end
 ---If the Unit is part of a Task in the Mission, true is returned.
 ---
 ------
----@param self MISSION 
 ---@param PlayerUnit UNIT The CLIENT or UNIT of the Player joining the Mission.
 ---@param PlayerGroup GROUP The GROUP of the player joining the Mission.
 ---@return boolean #true if Unit is part of a Task in the Mission.
@@ -387,7 +355,6 @@ function MISSION:JoinUnit(PlayerUnit, PlayerGroup) end
 ---Mark all the target locations on the Map.
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup GROUP 
 ---@return string #
 function MISSION:MarkTargetLocations(ReportGroup) end
@@ -395,35 +362,30 @@ function MISSION:MarkTargetLocations(ReportGroup) end
 ---Mark all the targets of the Mission on the Map.
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup GROUP 
 function MISSION:MenuMarkTargetLocations(ReportGroup) end
 
 ---Reports the briefing.
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup GROUP The group to which the report needs to be sent.
 function MISSION:MenuReportBriefing(ReportGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function MISSION:MenuReportPlayersPerTask(ReportGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function MISSION:MenuReportPlayersProgress(ReportGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 ---@param TaskStatus NOTYPE 
 function MISSION:MenuReportTasksPerStatus(ReportGroup, TaskStatus) end
@@ -431,21 +393,18 @@ function MISSION:MenuReportTasksPerStatus(ReportGroup, TaskStatus) end
 ---Report the task summary.
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup GROUP 
 function MISSION:MenuReportTasksSummary(ReportGroup) end
 
 ---MissionGoals Trigger for MISSION
 ---
 ------
----@param self MISSION 
 function MISSION:MissionGoals() end
 
 ---This is the main MISSION declaration method.
 ---Each Mission is like the master or a Mission orchestration between, Clients, Tasks, Stages etc.
 ---
 ------
----@param self MISSION 
 ---@param CommandCenter COMMANDCENTER 
 ---@param MissionName string Name of the mission. This name will be used to reference the status of each mission by the players.
 ---@param MissionPriority string String indicating the "priority" of the Mission. e.g. "Primary", "Secondary". It is free format and up to the Mission designer to choose. There are no rules behind this field.
@@ -457,7 +416,6 @@ function MISSION:New(CommandCenter, MissionName, MissionPriority, MissionBriefin
 ---OnAfter Transition Handler for Event Complete.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -466,7 +424,6 @@ function MISSION:OnAfterComplete(From, Event, To) end
 ---OnAfter Transition Handler for Event Fail.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -475,7 +432,6 @@ function MISSION:OnAfterFail(From, Event, To) end
 ---MissionGoals Handler OnAfter for MISSION
 ---
 ------
----@param self MISSION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -484,7 +440,6 @@ function MISSION:OnAfterMissionGoals(From, Event, To) end
 ---OnAfter Transition Handler for Event Start.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -493,7 +448,6 @@ function MISSION:OnAfterStart(From, Event, To) end
 ---OnAfter Transition Handler for Event Stop.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -502,7 +456,6 @@ function MISSION:OnAfterStop(From, Event, To) end
 ---OnBefore Transition Handler for Event Complete.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -512,7 +465,6 @@ function MISSION:OnBeforeComplete(From, Event, To) end
 ---OnBefore Transition Handler for Event Fail.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -522,7 +474,6 @@ function MISSION:OnBeforeFail(From, Event, To) end
 ---MissionGoals Handler OnBefore for MISSION
 ---
 ------
----@param self MISSION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -532,7 +483,6 @@ function MISSION:OnBeforeMissionGoals(From, Event, To) end
 ---OnBefore Transition Handler for Event Start.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -542,7 +492,6 @@ function MISSION:OnBeforeStart(From, Event, To) end
 ---OnBefore Transition Handler for Event Stop.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -552,7 +501,6 @@ function MISSION:OnBeforeStop(From, Event, To) end
 ---OnEnter Transition Handler for State COMPLETED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -561,7 +509,6 @@ function MISSION:OnEnterCOMPLETED(From, Event, To) end
 ---OnEnter Transition Handler for State ENGAGED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -570,7 +517,6 @@ function MISSION:OnEnterENGAGED(From, Event, To) end
 ---OnEnter Transition Handler for State FAILED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -579,7 +525,6 @@ function MISSION:OnEnterFAILED(From, Event, To) end
 ---OnEnter Transition Handler for State IDLE.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -588,7 +533,6 @@ function MISSION:OnEnterIDLE(From, Event, To) end
 ---OnLeave Transition Handler for State COMPLETED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -598,7 +542,6 @@ function MISSION:OnLeaveCOMPLETED(From, Event, To) end
 ---OnLeave Transition Handler for State ENGAGED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -608,7 +551,6 @@ function MISSION:OnLeaveENGAGED(From, Event, To) end
 ---OnLeave Transition Handler for State FAILED.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -618,7 +560,6 @@ function MISSION:OnLeaveFAILED(From, Event, To) end
 ---OnLeave Transition Handler for State IDLE.
 ---
 ------
----@param self MISSION 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -628,7 +569,6 @@ function MISSION:OnLeaveIDLE(From, Event, To) end
 ---Removes the Planned Task menu.
 ---
 ------
----@param self MISSION 
 ---@param MenuTime number 
 function MISSION:RemoveMenu(MenuTime) end
 
@@ -637,7 +577,6 @@ function MISSION:RemoveMenu(MenuTime) end
 ---Each Task can be set a certain Goals. The Mission will not be completed until all Goals are reached.
 ---
 ------
----@param self MISSION 
 ---@param Task TASK is the @{Tasking.Task} object.
 ---@return nil #The cleaned Task reference.
 function MISSION:RemoveTask(Task) end
@@ -645,7 +584,6 @@ function MISSION:RemoveTask(Task) end
 ---Removes a Task menu.
 ---
 ------
----@param self MISSION 
 ---@param Task TASK 
 ---@return MISSION #self
 function MISSION:RemoveTaskMenu(Task) end
@@ -653,14 +591,12 @@ function MISSION:RemoveTaskMenu(Task) end
 ---Create a briefing report of the Mission.
 ---
 ------
----@param self MISSION 
 ---@return string #
 function MISSION:ReportBriefing() end
 
 ---Create a detailed report of the Mission, listing all the details of the Task.
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup NOTYPE 
 ---@return string #
 function MISSION:ReportDetails(ReportGroup) end
@@ -668,7 +604,6 @@ function MISSION:ReportDetails(ReportGroup) end
 ---Create a overview report of the Mission (multiple lines).
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup NOTYPE 
 ---@param TaskStatus NOTYPE 
 ---@return string #
@@ -683,7 +618,6 @@ function MISSION:ReportOverview(ReportGroup, TaskStatus) end
 ---     - ..
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup NOTYPE 
 ---@return string #
 function MISSION:ReportPlayersPerTask(ReportGroup) end
@@ -697,7 +631,6 @@ function MISSION:ReportPlayersPerTask(ReportGroup) end
 ---     - ..
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup NOTYPE 
 ---@return string #
 function MISSION:ReportPlayersProgress(ReportGroup) end
@@ -705,7 +638,6 @@ function MISSION:ReportPlayersProgress(ReportGroup) end
 ---Create a summary report of the Mission (one line).
 ---
 ------
----@param self MISSION 
 ---@param ReportGroup GROUP 
 ---@return string #
 function MISSION:ReportSummary(ReportGroup) end
@@ -713,7 +645,6 @@ function MISSION:ReportSummary(ReportGroup) end
 ---Set Wrapper.Group assigned to the Tasking.Mission.
 ---
 ------
----@param self MISSION 
 ---@param MissionGroup GROUP 
 ---@return MISSION #
 function MISSION:SetGroupAssigned(MissionGroup) end
@@ -721,61 +652,52 @@ function MISSION:SetGroupAssigned(MissionGroup) end
 ---Sets the Planned Task menu.
 ---
 ------
----@param self MISSION 
 ---@param MenuTime number 
 function MISSION:SetMenu(MenuTime) end
 
 ---Synchronous Event Trigger for Event Start.
 ---
 ------
----@param self MISSION 
 function MISSION:Start() end
 
 ---Synchronous Event Trigger for Event Stop.
 ---
 ------
----@param self MISSION 
 function MISSION:Stop() end
 
 ---Asynchronous Event Trigger for Event Complete.
 ---
 ------
----@param self MISSION 
 ---@param Delay number The delay in seconds.
 function MISSION:__Complete(Delay) end
 
 ---Asynchronous Event Trigger for Event Fail.
 ---
 ------
----@param self MISSION 
 ---@param Delay number The delay in seconds.
 function MISSION:__Fail(Delay) end
 
 ---MissionGoals Asynchronous Trigger for MISSION
 ---
 ------
----@param self MISSION 
 ---@param Delay number 
 function MISSION:__MissionGoals(Delay) end
 
 ---Asynchronous Event Trigger for Event Start.
 ---
 ------
----@param self MISSION 
 ---@param Delay number The delay in seconds.
 function MISSION:__Start(Delay) end
 
 ---Asynchronous Event Trigger for Event Stop.
 ---
 ------
----@param self MISSION 
 ---@param Delay number The delay in seconds.
 function MISSION:__Stop(Delay) end
 
 ---FSM function for a MISSION
 ---
 ------
----@param self MISSION 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

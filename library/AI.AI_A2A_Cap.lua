@@ -105,7 +105,6 @@ AI_A2A_CAP = {}
 ---Evaluate the attack and create an AttackUnitTask list.
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param AttackSetUnit SET_UNIT The set of units to attack.
 ---@param DefenderGroup GROUP The group of defenders.
 ---@param EngageAltitude number The altitude to engage the targets.
@@ -115,7 +114,6 @@ function AI_A2A_CAP:CreateAttackUnitTasks(AttackSetUnit, DefenderGroup, EngageAl
 ---Creates a new AI_A2A_CAP object
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param AICap GROUP 
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
@@ -131,7 +129,6 @@ function AI_A2A_CAP:New(AICap, PatrolZone, PatrolFloorAltitude, PatrolCeilingAlt
 ---Creates a new AI_A2A_CAP object
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param AICap GROUP 
 ---@param EngageMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h when engaging a target.
 ---@param EngageMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h when engaging a target.
@@ -150,7 +147,6 @@ function AI_A2A_CAP:New2(AICap, EngageMinSpeed, EngageMaxSpeed, EngageFloorAltit
 ---Set the Engage Range when the AI will engage with airborne enemies.
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param EngageRange number The Engage Range.
 ---@return AI_A2A_CAP #self
 function AI_A2A_CAP:SetEngageRange(EngageRange) end
@@ -158,7 +154,6 @@ function AI_A2A_CAP:SetEngageRange(EngageRange) end
 ---Set the Engage Zone which defines where the AI will engage bogies.
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param EngageZone ZONE The zone where the AI is performing CAP.
 ---@return AI_A2A_CAP #self
 function AI_A2A_CAP:SetEngageZone(EngageZone) end
@@ -166,7 +161,6 @@ function AI_A2A_CAP:SetEngageZone(EngageZone) end
 ---onafter State Transition for Event Patrol.
 ---
 ------
----@param self AI_A2A_CAP 
 ---@param AICap GROUP The AI Group managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.

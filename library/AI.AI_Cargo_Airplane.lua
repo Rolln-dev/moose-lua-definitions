@@ -56,7 +56,6 @@ AI_CARGO_AIRPLANE = {}
 ---Deploy Trigger for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Coordinate COORDINATE Coordinate where to deploy stuff.
 ---@param Speed number Speed in km/h for travelling to the deploy base.
 ---@param Height number Height in meters to move to the home coordinate.
@@ -66,7 +65,6 @@ function AI_CARGO_AIRPLANE:Deploy(Coordinate, Speed, Height, DeployZone) end
 ---Find a free Carrier within a range.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airbase AIRBASE 
 ---@param Radius number 
 ---@param Coordinate NOTYPE 
@@ -76,7 +74,6 @@ function AI_CARGO_AIRPLANE:FindCarrier(Airbase, Radius, Coordinate) end
 ---Creates a new AI_CARGO_AIRPLANE object.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Plane used for transportation of cargo.
 ---@param CargoSet SET_CARGO Cargo set to be transported.
 ---@return AI_CARGO_AIRPLANE #
@@ -85,7 +82,6 @@ function AI_CARGO_AIRPLANE:New(Airplane, CargoSet) end
 ---Deploy Handler OnAfter for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -99,7 +95,6 @@ function AI_CARGO_AIRPLANE:OnAfterDeploy(Airplane, From, Event, To, Coordinate, 
 ---On after Deployed event.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -111,7 +106,6 @@ function AI_CARGO_AIRPLANE:OnAfterDeployed(Airplane, From, Event, To, DeployZone
 ---triggered when the cargo is inside the carrier.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo plane.
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -121,7 +115,6 @@ function AI_CARGO_AIRPLANE:OnAfterLoaded(Airplane, From, Event, To) end
 ---Pickup Handler OnAfter for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -135,7 +128,6 @@ function AI_CARGO_AIRPLANE:OnAfterPickup(Airplane, From, Event, To, Coordinate, 
 ---Deploy Handler OnBefore for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo plane.
 ---@param From string 
 ---@param Event string 
@@ -148,7 +140,6 @@ function AI_CARGO_AIRPLANE:OnBeforeDeploy(Airplane, From, Event, To, Airbase, Sp
 ---Pickup Handler OnBefore for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -161,7 +152,6 @@ function AI_CARGO_AIRPLANE:OnBeforePickup(Airplane, From, Event, To, Airbase, Sp
 ---Pickup Trigger for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Coordinate COORDINATE The coordinate where to pickup stuff.
 ---@param Speed number Speed in km/h for travelling to pickup base.
 ---@param Height number Height in meters to move to the pickup coordinate.
@@ -171,7 +161,6 @@ function AI_CARGO_AIRPLANE:Pickup(Coordinate, Speed, Height, PickupZone) end
 ---Route the airplane from one airport or it's current position to another airbase.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Airplane group to be routed.
 ---@param Airbase AIRBASE Destination airbase.
 ---@param Speed number Speed in km/h. Default is 80% of max possible speed the group can do.
@@ -183,7 +172,6 @@ function AI_CARGO_AIRPLANE:Route(Airplane, Airbase, Speed, Height, Uncontrolled)
 ---Also initializes events for carrier and defines the coalition.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Transport plane.
 ---@return AI_CARGO_AIRPLANE #self
 function AI_CARGO_AIRPLANE:SetCarrier(Airplane) end
@@ -191,7 +179,6 @@ function AI_CARGO_AIRPLANE:SetCarrier(Airplane) end
 ---Deploy Asynchronous Trigger for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Delay number Delay in seconds.
 ---@param Coordinate COORDINATE Coordinate where to deploy stuff.
 ---@param Speed number Speed in km/h for travelling to the deploy base.
@@ -202,7 +189,6 @@ function AI_CARGO_AIRPLANE:__Deploy(Delay, Coordinate, Speed, Height, DeployZone
 ---Pickup Asynchronous Trigger for AI_CARGO_AIRPLANE
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Delay number Delay in seconds.
 ---@param Coordinate COORDINATE The coordinate where to pickup stuff.
 ---@param Speed number Speed in km/h for travelling to pickup base.
@@ -214,7 +200,6 @@ function AI_CARGO_AIRPLANE:__Pickup(Delay, Coordinate, Speed, Height, PickupZone
 ---Routes plane to the airbase where the troops are deployed.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -230,7 +215,6 @@ function AI_CARGO_AIRPLANE:onafterDeploy(Airplane, From, Event, To, Coordinate, 
 ---Aircraft will be routed to their home base.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP The cargo plane.
 ---@param From NOTYPE From state.
 ---@param Event NOTYPE Event.
@@ -246,7 +230,6 @@ function AI_CARGO_AIRPLANE:onafterHome(Airplane, From, Event, To, Coordinate, Sp
 ---Called on engine shutdown and initiates the pickup mission or unloading event.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -258,7 +241,6 @@ function AI_CARGO_AIRPLANE:onafterLanded(Airplane, From, Event, To) end
 ---Routes transport to pickup airbase.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From string From state.
 ---@param Event string Event.
@@ -274,7 +256,6 @@ function AI_CARGO_AIRPLANE:onafterPickup(Airplane, From, Event, To, Coordinate, 
 ---Cargo is beeing unloaded, i.e. the unboarding process is started.
 ---
 ------
----@param self AI_CARGO_AIRPLANE 
 ---@param Airplane GROUP Cargo transport plane.
 ---@param From string From state.
 ---@param Event string Event.

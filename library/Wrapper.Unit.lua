@@ -93,7 +93,6 @@ UNIT = {}
 ---GROUND - Switch on/off radar emissions of a unit.
 ---
 ------
----@param self UNIT 
 ---@param switch boolean If true, emission is enabled. If false, emission is disabled. 
 ---@return UNIT #self
 function UNIT:EnableEmission(switch) end
@@ -101,7 +100,6 @@ function UNIT:EnableEmission(switch) end
 ---Triggers an explosion at the coordinates of the unit.
 ---
 ------
----@param self UNIT 
 ---@param power number Power of the explosion in kg TNT. Default 100 kg TNT.
 ---@param delay? number (Optional) Delay of explosion in seconds.
 ---@return UNIT #self
@@ -110,7 +108,6 @@ function UNIT:Explode(power, delay) end
 ---Finds a UNIT from the _DATABASE using a DCSUnit object.
 ---
 ------
----@param self UNIT 
 ---@param DCSUnit Unit An existing DCS Unit object reference.
 ---@return UNIT #self
 function UNIT:Find(DCSUnit) end
@@ -131,7 +128,6 @@ function UNIT:Find(DCSUnit) end
 ---         -- will return the all units found ending in "-1-1" to "-9-9", but not e.g. "-10-1" or "-1-10"
 ---```
 ------
----@param self UNIT 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return table #Units Table of matching #UNIT objects found
 function UNIT:FindAllByMatching(Pattern) end
@@ -152,7 +148,6 @@ function UNIT:FindAllByMatching(Pattern) end
 ---         -- will return the first group found ending in "-1-1" to "-9-9", but not e.g. "-10-1"
 ---```
 ------
----@param self UNIT 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return UNIT #The UNIT.
 function UNIT:FindByMatching(Pattern) end
@@ -160,7 +155,6 @@ function UNIT:FindByMatching(Pattern) end
 ---Find a UNIT in the _DATABASE using the name of an existing DCS Unit.
 ---
 ------
----@param self UNIT 
 ---@param UnitName string The Unit Name.
 ---@return UNIT #self
 function UNIT:FindByName(UnitName) end
@@ -168,14 +162,12 @@ function UNIT:FindByName(UnitName) end
 ---Get number of AP shells from a tank.
 ---
 ------
----@param self UNIT 
 ---@return number #Number of AP shells 
 function UNIT:GetAPShells() end
 
 ---Returns the unit altitude above sea level in meters.
 ---
 ------
----@param self UNIT 
 ---@param FromGround boolean Measure from the ground or from sea level (ASL). Provide **true** for measuring from the ground (AGL). **false** or **nil** if you measure from sea level. 
 ---@return number #The height of the group or nil if is not existing or alive.  
 function UNIT:GetAltitude(FromGround) end
@@ -183,14 +175,12 @@ function UNIT:GetAltitude(FromGround) end
 ---Returns the Unit's ammunition.
 ---
 ------
----@param self UNIT 
 ---@return Unit.Ammo #Table with ammuntion of the unit (or nil). This can be a complex table! 
 function UNIT:GetAmmo() end
 
 ---Get the number of ammunition and in particular the number of shells, rockets, bombs and missiles a unit currently has.
 ---
 ------
----@param self UNIT 
 ---@return number #Total amount of ammo the unit has left. This is the sum of shells, rockets, bombs and missiles.
 ---@return number #Number of shells left. Shells include MG ammunition, AP and HE shells, and artillery shells where applicable.
 ---@return number #Number of rockets left.
@@ -204,35 +194,30 @@ function UNIT:GetAmmunition() end
 ---Get number of artillery shells from an artillery unit.
 ---
 ------
----@param self UNIT 
 ---@return number #Number of artillery shells
 function UNIT:GetArtiShells() end
 
 ---Returns the Unit's callsign - the localized string.
 ---
 ------
----@param self UNIT 
 ---@return string #The Callsign of the Unit.
 function UNIT:GetCallsign() end
 
 ---Returns the category name of the #UNIT.
 ---
 ------
----@param self UNIT 
 ---@return string #Category name = Helicopter, Airplane, Ground Unit, Ship
 function UNIT:GetCategoryName() end
 
 ---Get the CLIENT of the unit
 ---
 ------
----@param self UNIT 
 ---@return CLIENT # 
 function UNIT:GetClient() end
 
 ---Returns the DCS Unit.
 ---
 ------
----@param self UNIT 
 ---@return Unit #The DCS Group.
 function UNIT:GetDCSObject() end
 
@@ -240,7 +225,6 @@ function UNIT:GetDCSObject() end
 ---1-life.
 ---
 ------
----@param self UNIT 
 ---@return number #The Unit's relative health value, i.e. a number in [0,1] or 1 if unit does not exist any more.
 function UNIT:GetDamageRelative() end
 
@@ -249,7 +233,6 @@ function UNIT:GetDamageRelative() end
 ---Animation arguments can be figured out by opening the respective 3d model in the modelviewer.
 ---
 ------
----@param self UNIT 
 ---@param AnimationArgument number Number corresponding to the animated part of the unit.
 ---@return number #Value of the animation argument [-1, 1]. If draw argument value is invalid for the unit in question a value of 0 will be returned.
 function UNIT:GetDrawArgumentValue(AnimationArgument) end
@@ -258,21 +241,18 @@ function UNIT:GetDrawArgumentValue(AnimationArgument) end
 ---If there are additional fuel tanks the value may be greater than 1.0.
 ---
 ------
----@param self UNIT 
 ---@return number #The relative amount of fuel (from 0.0 to 1.0) or *nil* if the DCS Unit is not existing or alive. 
 function UNIT:GetFuel() end
 
 ---Returns the unit's group if it exists and nil otherwise.
 ---
 ------
----@param self UNIT 
 ---@return GROUP #The Group of the Unit or `nil` if the unit does not exist.  
 function UNIT:GetGroup() end
 
 ---Get number of HE shells from a tank.
 ---
 ------
----@param self UNIT 
 ---@return number #Number of HE shells
 function UNIT:GetHEShells() end
 
@@ -280,21 +260,18 @@ function UNIT:GetHEShells() end
 ---Dead units has health <= 1.0.
 ---
 ------
----@param self UNIT 
 ---@return number #The Unit's health value or -1 if unit does not exist any more.
 function UNIT:GetLife() end
 
 ---Returns the Unit's initial health.
 ---
 ------
----@param self UNIT 
 ---@return number #The Unit's initial health value or 0 if unit does not exist any more.  
 function UNIT:GetLife0() end
 
 ---Returns the unit's relative health.
 ---
 ------
----@param self UNIT 
 ---@return number #The Unit's relative health value, i.e. a number in [0,1] or -1 if unit does not exist any more.
 function UNIT:GetLifeRelative() end
 
@@ -302,7 +279,6 @@ function UNIT:GetLifeRelative() end
 ---Currently airplanes only!
 ---
 ------
----@param self UNIT 
 ---@return string #NatoReportingName or "Bogey" if unknown.
 function UNIT:GetNatoReportingName() end
 
@@ -312,7 +288,6 @@ function UNIT:GetNatoReportingName() end
 ---If any unit in the group is destroyed, the numbers of another units will not be changed.
 ---
 ------
----@param self UNIT 
 ---@return number #The Unit number. 
 ---@return nil #The DCS Unit is not existing or alive.  
 function UNIT:GetNumber() end
@@ -320,7 +295,6 @@ function UNIT:GetNumber() end
 ---Returns name of the player that control the unit or nil if the unit is controlled by A.I.
 ---
 ------
----@param self UNIT 
 ---@return string #Player Name
 ---@return nil #The DCS Unit is not existing or alive.  
 function UNIT:GetPlayerName() end
@@ -331,7 +305,6 @@ function UNIT:GetPlayerName() end
 ---The spawn sequence number and unit number are contained within the name after the '#' sign.
 ---
 ------
----@param self UNIT 
 ---@return string #The name of the DCS Unit.
 ---@return nil #The DCS Unit is not existing or alive.  
 function UNIT:GetPrefix() end
@@ -342,7 +315,6 @@ function UNIT:GetPrefix() end
 --- * Second value is the object of the radar's interest. Not nil only if at least one radar of the unit is tracking a target.
 ---
 ------
----@param self UNIT 
 ---@return boolean # Indicates if at least one of the unit's radar(s) is on.
 ---@return Object #The object of the radar's interest. Not nil only if at least one radar of the unit is tracking a target.
 function UNIT:GetRadar() end
@@ -351,14 +323,12 @@ function UNIT:GetRadar() end
 ---For ground units it will return a range of 10,000 km as they have no real range.
 ---
 ------
----@param self UNIT 
 ---@return number #Range in meters.
 function UNIT:GetRange() end
 
 ---Get Link16 STN or SADL TN and other datalink info from Unit, if any.
 ---
 ------
----@param self UNIT 
 ---@return string #STN STN or TN Octal as string, or nil if not set/capable.
 ---@return string #VCL Voice Callsign Label or nil if not set/capable.
 ---@return string #VCN Voice Callsign Number or nil if not set/capable.
@@ -368,35 +338,30 @@ function UNIT:GetSTN() end
 ---Returns the unit sensors.
 ---
 ------
----@param self UNIT 
 ---@return Unit.Sensors #Table of sensors.  
 function UNIT:GetSensors() end
 
 ---Get skill from Unit.
 ---
 ------
----@param self UNIT 
 ---@return string #Skill String of skill name.
 function UNIT:GetSkill() end
 
 ---Returns the unit's max speed in km/h derived from the DCS descriptors.
 ---
 ------
----@param self UNIT 
 ---@return number #Speed in km/h. 
 function UNIT:GetSpeedMax() end
 
 ---Get the unit table from a unit's template.
 ---
 ------
----@param self UNIT 
 ---@return table #Table of the unit template (deep copy) or #nil.
 function UNIT:GetTemplate() end
 
 ---Get the fuel of the unit from its template.
 ---
 ------
----@param self UNIT 
 ---@return number #Fuel of unit in kg.
 function UNIT:GetTemplateFuel() end
 
@@ -409,7 +374,6 @@ function UNIT:GetTemplateFuel() end
 ---   * gun
 ---
 ------
----@param self UNIT 
 ---@return table #Payload table (deep copy) or #nil.
 function UNIT:GetTemplatePayload() end
 
@@ -417,7 +381,6 @@ function UNIT:GetTemplatePayload() end
 ---This can be a complex table depending on the weapons the unit is carrying.
 ---
 ------
----@param self UNIT 
 ---@return table #Table of pylons (deepcopy) or #nil.
 function UNIT:GetTemplatePylons() end
 
@@ -473,7 +436,6 @@ function UNIT:GetTemplatePylons() end
 ---  * Threat level  10: Unit is AAA.
 ---
 ------
----@param self UNIT 
 ---@return number #Number between 0 (low threat level) and 10 (high threat level).
 ---@return string #Some text.
 function UNIT:GetThreatLevel() end
@@ -488,21 +450,18 @@ function UNIT:GetThreatLevel() end
 ---* Unit.Category.STRUCTURE
 ---
 ------
----@param self UNIT 
 ---@return number #Unit category from `getDesc().category`.
 function UNIT:GetUnitCategory() end
 
 ---Returns a list of one Wrapper.Unit.
 ---
 ------
----@param self UNIT 
 ---@return list #A list of one @{Wrapper.Unit}.
 function UNIT:GetUnits() end
 
 ---Subscribe to a DCS Event.
 ---
 ------
----@param self UNIT 
 ---@param EventID EVENTS Event ID.
 ---@param EventFunction? function (Optional) The function to be called when the event occurs for the unit.
 ---@return UNIT #self
@@ -511,35 +470,30 @@ function UNIT:HandleEvent(EventID, EventFunction) end
 ---Checks if a tank still has AP shells.
 ---
 ------
----@param self UNIT 
 ---@return boolean #HasAPShells  
 function UNIT:HasAPShells() end
 
 ---Checks if an artillery unit still has artillery shells.
 ---
 ------
----@param self UNIT 
 ---@return boolean #HasArtiShells  
 function UNIT:HasArtiShells() end
 
 ---Checks if a tank still has HE shells.
 ---
 ------
----@param self UNIT 
 ---@return boolean #HasHEShells  
 function UNIT:HasHEShells() end
 
 ---Returns if the unit is SEADable.
 ---
 ------
----@param self UNIT 
 ---@return boolean #returns true if the unit is SEADable. 
 function UNIT:HasSEAD() end
 
 ---Returns if the unit has sensors of a certain type.
 ---
 ------
----@param self UNIT 
 ---@param ... NOTYPE 
 ---@return boolean #returns true if the unit has specified types of sensors. This function is more preferable than Unit.getSensors() if you don't want to get information about all the unit's sensors, and just want to check if the unit has specified types of sensors. 
 function UNIT:HasSensors(...) end
@@ -547,7 +501,6 @@ function UNIT:HasSensors(...) end
 ---Returns true if the UNIT is in the air.
 ---
 ------
----@param self UNIT 
 ---@param NoHeloCheck boolean If true, no additonal checks for helos are performed.
 ---@return boolean #Return true if in the air or #nil if the UNIT is not existing or alive.   
 function UNIT:InAir(NoHeloCheck) end
@@ -556,14 +509,12 @@ function UNIT:InAir(NoHeloCheck) end
 ---has no radar or optical tracker but the AAA = true or the "Mobile AAA" = true attribute.
 ---
 ------
----@param self UNIT 
 ---@return boolean #IsAAA True if AAA, else false
 function UNIT:IsAAA() end
 
 ---Returns if the unit is activated.
 ---
 ------
----@param self UNIT 
 ---@return boolean #`true` if Unit is activated. `nil` The DCS Unit is not existing or alive.  
 function UNIT:IsActive() end
 
@@ -573,7 +524,6 @@ function UNIT:IsActive() end
 ---If the Unit is alive but not active, `false`` is returned.
 ---
 ------
----@param self UNIT 
 ---@return boolean #Returns `true` if Unit is alive and active, `false` if it exists but is not active and `nil` if the object does not exist or DCS `isExist` function returns false.
 function UNIT:IsAlive() end
 
@@ -587,7 +537,6 @@ function UNIT:IsAlive() end
 ---This list needs to be extended, if DCS adds other units capable of supplying ammo.
 ---
 ------
----@param self UNIT 
 ---@return boolean #If `true`, unit can supply ammo.
 function UNIT:IsAmmoSupply() end
 
@@ -595,21 +544,18 @@ function UNIT:IsAmmoSupply() end
 
 ---
 ------
----@param self UNIT 
 ---@return boolean #If true, unit is a player or client aircraft  
 function UNIT:IsClient() end
 
 ---Returns if the Unit is dead.
 ---
 ------
----@param self UNIT  
 ---@return boolean #`true` if Unit is dead, else false or nil if the unit does not exist
 function UNIT:IsDead() end
 
 ---Returns if a unit is detecting the TargetUnit.
 ---
 ------
----@param self UNIT 
 ---@param TargetUnit UNIT 
 ---@return boolean #true If the TargetUnit is detected by the unit, otherwise false.
 function UNIT:IsDetected(TargetUnit) end
@@ -617,7 +563,6 @@ function UNIT:IsDetected(TargetUnit) end
 ---[GROUND] Determine if a UNIT is a EWR unit
 ---
 ------
----@param self UNIT 
 ---@return boolean #IsEWR True if EWR, else false
 function UNIT:IsEWR() end
 
@@ -626,14 +571,12 @@ function UNIT:IsEWR() end
 ---If the unit object exists, the value of the DCS API function [isExist](https://wiki.hoggitworld.com/view/DCS_func_isExist) is returned.
 ---
 ------
----@param self UNIT 
 ---@return boolean #Returns `true` if unit exists in the mission.
 function UNIT:IsExist() end
 
 ---Returns if the unit is a friendly unit.
 ---
 ------
----@param self UNIT 
 ---@param FriendlyCoalition NOTYPE 
 ---@return boolean #IsFriendly evaluation result.
 function UNIT:IsFriendly(FriendlyCoalition) end
@@ -649,14 +592,12 @@ function UNIT:IsFriendly(FriendlyCoalition) end
 ---This list needs to be extended, if DCS adds other units capable of supplying fuel.
 ---
 ------
----@param self UNIT 
 ---@return boolean #If `true`, unit can supply fuel.
 function UNIT:IsFuelSupply() end
 
 ---Returns if a unit has Line of Sight (LOS) with the TargetUnit.
 ---
 ------
----@param self UNIT 
 ---@param TargetUnit UNIT 
 ---@return boolean #true If the TargetUnit has LOS with the unit, otherwise false.
 function UNIT:IsLOS(TargetUnit) end
@@ -665,7 +606,6 @@ function UNIT:IsLOS(TargetUnit) end
 ---Information is retrieved from the group template.
 ---
 ------
----@param self UNIT 
 ---@return boolean #If true, unit is associated with a client or player slot.
 function UNIT:IsPlayer() end
 
@@ -673,7 +613,6 @@ function UNIT:IsPlayer() end
 ---Also retrieves the refuelling system (boom or probe) if applicable.
 ---
 ------
----@param self UNIT 
 ---@return boolean #If true, unit is refuelable (checks for the attribute "Refuelable").
 ---@return number #Refueling system (if any): 0=boom, 1=probe.
 function UNIT:IsRefuelable() end
@@ -682,7 +621,6 @@ function UNIT:IsRefuelable() end
 ---has radar or optical tracker and is no mobile AAA.
 ---
 ------
----@param self UNIT 
 ---@return boolean #IsSAM True if SAM, else false
 function UNIT:IsSAM() end
 
@@ -690,7 +628,6 @@ function UNIT:IsSAM() end
 ---If the unit is a ship, this method will return true, otherwise false.
 ---
 ------
----@param self UNIT 
 ---@return boolean #Ship category evaluation result.
 function UNIT:IsShip() end
 
@@ -698,7 +635,6 @@ function UNIT:IsShip() end
 ---Also retrieves the refuelling system (boom or probe) if applicable.
 ---
 ------
----@param self UNIT 
 ---@return boolean #If true, unit is a tanker (checks for the attribute "Tankers").
 ---@return number #Refueling system (if any): 0=boom, 1=probe.
 function UNIT:IsTanker() end
@@ -707,7 +643,6 @@ function UNIT:IsTanker() end
 ---Applies only to a Unit Controller. Cannot be used at the group level.
 ---
 ------
----@param self UNIT 
 ---@param TargetUnit UNIT The unit to be known.
 ---@param TypeKnown boolean The target type is known. If *false*, the type is not known.
 ---@param DistanceKnown boolean The distance to the target is known. If *false*, distance is unknown.
@@ -716,17 +651,15 @@ function UNIT:KnowUnit(TargetUnit, TypeKnown, DistanceKnown) end
 ---Return the name of the UNIT.
 ---
 ------
----@param self UNIT 
 ---@return string #The UNIT name.
 function UNIT:Name() end
 
 ---Returns true if there is an **other** DCS Unit within a radius of the current 2D point of the DCS Unit.
 ---
 ------
----@param self UNIT 
 ---@param AwaitUnit UNIT The other UNIT wrapper object.
 ---@param Radius NOTYPE The radius in meters with the DCS Unit in the centre.
----@return  #true If the other DCS Unit is within the radius of the 2D point of the DCS Unit. 
+---@return NOTYPE #true If the other DCS Unit is within the radius of the 2D point of the DCS Unit. 
 ---@return nil #The DCS Unit is not existing or alive.  
 function UNIT:OtherUnitInRadius(AwaitUnit, Radius) end
 
@@ -739,7 +672,6 @@ function UNIT:OtherUnitInRadius(AwaitUnit, Radius) end
 --- * Then it will respawn the re-modelled group.
 ---
 ------
----@param self UNIT 
 ---@param Coordinate COORDINATE The position where to Spawn the new Unit at.
 ---@param Heading number The heading of the unit respawn.
 function UNIT:ReSpawnAt(Coordinate, Heading) end
@@ -747,7 +679,6 @@ function UNIT:ReSpawnAt(Coordinate, Heading) end
 ---Create a new UNIT from DCSUnit.
 ---
 ------
----@param self UNIT 
 ---@param UnitName string The name of the DCS unit.
 ---@return UNIT #self
 function UNIT:Register(UnitName) end
@@ -755,28 +686,24 @@ function UNIT:Register(UnitName) end
 ---Reset the subscriptions.
 ---
 ------
----@param self UNIT 
 ---@return UNIT #
 function UNIT:ResetEvents() end
 
 ---Turns the AI Off for the UNIT.
 ---
 ------
----@param self UNIT 
 ---@return UNIT #The UNIT.
 function UNIT:SetAIOff() end
 
 ---Turns the AI On for the UNIT.
 ---
 ------
----@param self UNIT 
 ---@return UNIT #The UNIT.
 function UNIT:SetAIOn() end
 
 ---Turns the AI On or Off for the UNIT.
 ---
 ------
----@param self UNIT 
 ---@param AIOnOff boolean The value true turns the AI On, the value false turns the AI Off.
 ---@return UNIT #The UNIT.
 function UNIT:SetAIOnOff(AIOnOff) end
@@ -784,7 +711,6 @@ function UNIT:SetAIOnOff(AIOnOff) end
 ---Sets the Unit's Internal Cargo Mass, in kg
 ---
 ------
----@param self UNIT 
 ---@param mass number to set cargo to
 ---@return UNIT #self
 function UNIT:SetUnitInternalCargo(mass) end
@@ -792,7 +718,6 @@ function UNIT:SetUnitInternalCargo(mass) end
 ---UnSubscribe to a DCS event.
 ---
 ------
----@param self UNIT 
 ---@param EventID EVENTS Event ID.
 ---@return UNIT #self
 function UNIT:UnHandleEvent(EventID) end

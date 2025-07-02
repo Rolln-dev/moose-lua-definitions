@@ -114,7 +114,6 @@ AMMOTRUCK = {}
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param dataset table table of #AMMOTRUCK.data entries
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckArrivedTrucks(dataset) end
@@ -122,7 +121,6 @@ function AMMOTRUCK:CheckArrivedTrucks(dataset) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param dataset table table of #AMMOTRUCK.data entries
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckDrivingTrucks(dataset) end
@@ -130,7 +128,6 @@ function AMMOTRUCK:CheckDrivingTrucks(dataset) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param dataset table table of #AMMOTRUCK.data entries
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckReturningTrucks(dataset) end
@@ -138,21 +135,18 @@ function AMMOTRUCK:CheckReturningTrucks(dataset) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckTargetsAlive() end
 
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckTrucksAlive() end
 
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param dataset table table of #AMMOTRUCK.data entries
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckUnloadingTrucks(dataset) end
@@ -160,7 +154,6 @@ function AMMOTRUCK:CheckUnloadingTrucks(dataset) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param dataset table table of #AMMOTRUCK.data entries
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:CheckWaitingTargets(dataset) end
@@ -168,7 +161,6 @@ function AMMOTRUCK:CheckWaitingTargets(dataset) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param name string Artillery group name to find
 ---@return AMMOTRUCK.data #Data
 function AMMOTRUCK:FindTarget(name) end
@@ -176,7 +168,6 @@ function AMMOTRUCK:FindTarget(name) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param name string Truck group name to find
 ---@return AMMOTRUCK.data #Data
 function AMMOTRUCK:FindTruck(name) end
@@ -184,7 +175,6 @@ function AMMOTRUCK:FindTruck(name) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param Group GROUP 
 ---@return AMMOTRUCK #self 
 function AMMOTRUCK:GetAmmoStatus(Group) end
@@ -203,7 +193,6 @@ function AMMOTRUCK:GetAmmoStatus(Group) end
 ---           local ammotruck = AMMOTRUCK:New(truckset,ariset,coalition.side.BLUE,"Logistics",ZONE:FindByName("HomeZone")
 ---```
 ------
----@param self AMMOTRUCK 
 ---@param Truckset SET_GROUP Set of truck groups
 ---@param Targetset SET_GROUP Set of artillery groups
 ---@param Coalition number Coalition
@@ -215,7 +204,6 @@ function AMMOTRUCK:New(Truckset, Targetset, Coalition, Alias, Homezone) end
 ---On after "RouteTruck" event.
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -225,7 +213,6 @@ function AMMOTRUCK:OnAfterRouteTruck(From, Event, To, Truck) end
 ---On after "TruckHome" event.
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -235,7 +222,6 @@ function AMMOTRUCK:OnAfterTruckHome(From, Event, To, Truck) end
 ---On after "TruckReturning" event.
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -245,7 +231,6 @@ function AMMOTRUCK:OnAfterTruckReturning(From, Event, To, Truck) end
 ---On after "TruckUnloading" event.
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -256,21 +241,18 @@ function AMMOTRUCK:OnAfterTruckUnloading(From, Event, To, Truck) end
 ---Stops the AMMOTRUCK and all its event handlers.
 ---
 ------
----@param self AMMOTRUCK 
 function AMMOTRUCK:Stop() end
 
 ---Triggers the FSM event "Stop" after a delay.
 ---Stops the AMMOTRUCK and all its event handlers.
 ---
 ------
----@param self AMMOTRUCK 
 ---@param delay number Delay in seconds.
 function AMMOTRUCK:__Stop(delay) end
 
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -281,7 +263,6 @@ function AMMOTRUCK:onafterMonitor(From, Event, To) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -294,7 +275,6 @@ function AMMOTRUCK:onafterRouteTruck(From, Event, To, Truckdata, Aridata) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -305,7 +285,6 @@ function AMMOTRUCK:onafterStart(From, Event, To) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -316,7 +295,6 @@ function AMMOTRUCK:onafterStop(From, Event, To) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -328,7 +306,6 @@ function AMMOTRUCK:onafterTruckReturning(From, Event, To, Truck) end
 
 ---
 ------
----@param self AMMOTRUCK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

@@ -49,14 +49,12 @@ TASK_MANAGER = {}
 ---Manages the tasks for the Core.Set#SET_GROUP.
 ---
 ------
----@param self TASK_MANAGER 
 ---@return TASK_MANAGER #self
 function TASK_MANAGER:ManageTasks() end
 
 ---TASK\_MANAGER constructor.
 ---
 ------
----@param self TASK_MANAGER 
 ---@param SetGroup SET_GROUP The set of group objects containing players for which tasks are managed.
 ---@return TASK_MANAGER #self
 function TASK_MANAGER:New(SetGroup) end
@@ -64,7 +62,6 @@ function TASK_MANAGER:New(SetGroup) end
 ---Aborted Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -74,7 +71,6 @@ function TASK_MANAGER:OnAfterAborted(From, Event, To, Task) end
 ---Cancelled Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -84,7 +80,6 @@ function TASK_MANAGER:OnAfterCancelled(From, Event, To, Task) end
 ---Failed Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -94,7 +89,6 @@ function TASK_MANAGER:OnAfterFailed(From, Event, To, Task) end
 ---StartTasks Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -103,7 +97,6 @@ function TASK_MANAGER:OnAfterStartTasks(From, Event, To) end
 ---StopTasks Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -112,7 +105,6 @@ function TASK_MANAGER:OnAfterStopTasks(From, Event, To) end
 ---Success Handler OnAfter for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -122,7 +114,6 @@ function TASK_MANAGER:OnAfterSuccess(From, Event, To, Task) end
 ---StartTasks Handler OnBefore for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -132,7 +123,6 @@ function TASK_MANAGER:OnBeforeStartTasks(From, Event, To) end
 ---StopTasks Handler OnBefore for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -142,7 +132,6 @@ function TASK_MANAGER:OnBeforeStopTasks(From, Event, To) end
 ---Set the refresh time interval in seconds when a new task management action needs to be done.
 ---
 ------
----@param self TASK_MANAGER 
 ---@param RefreshTimeInterval number The refresh time interval in seconds when a new task management action needs to be done.
 ---@return TASK_MANAGER #self
 function TASK_MANAGER:SetRefreshTimeInterval(RefreshTimeInterval) end
@@ -150,33 +139,28 @@ function TASK_MANAGER:SetRefreshTimeInterval(RefreshTimeInterval) end
 ---StartTasks Trigger for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 function TASK_MANAGER:StartTasks() end
 
 ---StopTasks Trigger for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 function TASK_MANAGER:StopTasks() end
 
 ---StartTasks Asynchronous Trigger for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param Delay number 
 function TASK_MANAGER:__StartTasks(Delay) end
 
 ---StopTasks Asynchronous Trigger for TASK_MANAGER
 ---
 ------
----@param self TASK_MANAGER 
 ---@param Delay number 
 function TASK_MANAGER:__StopTasks(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -186,7 +170,6 @@ function TASK_MANAGER:onafterManage(From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

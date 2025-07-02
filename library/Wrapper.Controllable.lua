@@ -176,16 +176,16 @@
 ---@class CONTROLLABLE : POSITIONABLE
 ---@field ControllableName string The name of the controllable.
 ---@field DCSControllable Controllable The DCS controllable class.
----@field IRMarkerGroup boolean 
+---@field IRMarkerUnit boolean 
 ---@field TaskScheduler NOTYPE 
 ---@field WayPoints NOTYPE 
 ---@field private spot NOTYPE 
+---@field private timer NOTYPE 
 CONTROLLABLE = {}
 
 ---Clear all tasks from the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #
 function CONTROLLABLE:ClearTasks() end
 
@@ -193,7 +193,6 @@ function CONTROLLABLE:ClearTasks() end
 ---The controllable should be an aircraft carrier! Also needs Link4 to work.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param UnitID? number (Optional) The DCS UNIT ID of the unit the ACLS system is attached to. Defaults to the UNIT itself.
 ---@param Name? string (Optional) Name of the ACLS Beacon
 ---@param Delay? number (Optional) Delay in seconds before the ICLS is activated.
@@ -206,7 +205,6 @@ function CONTROLLABLE:CommandActivateACLS(UnitID, Name, Delay) end
 ---Note that a controllable can only have one beacon activated at a time with the execption of ICLS.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Type BEACON.Type Beacon type (VOR, DME, TACAN, RSBN, ILS etc).
 ---@param System BEACON.System Beacon system (VOR, DME, TACAN, RSBN, ILS etc).
 ---@param Frequency number Frequency in Hz the beacon is running on. Use @{#UTILS.TACANToFrequency} to generate a frequency for TACAN beacons.
@@ -224,7 +222,6 @@ function CONTROLLABLE:CommandActivateBeacon(Type, System, Frequency, UnitID, Cha
 ---The controllable should be an aircraft carrier!
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Channel number ICLS channel.
 ---@param UnitID number The DCS UNIT ID of the unit the ICLS system is attached to. Useful if more units are in one group.
 ---@param Callsign string Morse code identification callsign.
@@ -236,7 +233,6 @@ function CONTROLLABLE:CommandActivateICLS(Channel, UnitID, Callsign, Delay) end
 ---The controllable should be an aircraft carrier!
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Frequency number Link4 Frequency in MHz, e.g. 336 (defaults to 336 MHz)
 ---@param UnitID? number (Optional) The DCS UNIT ID of the unit the LINK4 system is attached to. Defaults to the UNIT itself.
 ---@param Callsign? string (Optional) Morse code identification callsign.
@@ -248,7 +244,6 @@ function CONTROLLABLE:CommandActivateLink4(Frequency, UnitID, Callsign, Delay) e
 ---The controllable should be an aircraft carrier!
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay in seconds before the ICLS is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateACLS(Delay) end
@@ -256,7 +251,6 @@ function CONTROLLABLE:CommandDeactivateACLS(Delay) end
 ---Deactivate the active beacon of the CONTROLLABLE.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay in seconds before the beacon is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateBeacon(Delay) end
@@ -264,7 +258,6 @@ function CONTROLLABLE:CommandDeactivateBeacon(Delay) end
 ---Deactivate the ICLS of the CONTROLLABLE.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay in seconds before the ICLS is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateICLS(Delay) end
@@ -272,7 +265,6 @@ function CONTROLLABLE:CommandDeactivateICLS(Delay) end
 ---Deactivate the active Link4 of the CONTROLLABLE.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay in seconds before the Link4 is deactivated.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandDeactivateLink4(Delay) end
@@ -280,7 +272,6 @@ function CONTROLLABLE:CommandDeactivateLink4(Delay) end
 ---Do Script command
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DoScript string 
 ---@return DCSCommand #
 function CONTROLLABLE:CommandDoScript(DoScript) end
@@ -289,7 +280,6 @@ function CONTROLLABLE:CommandDoScript(DoScript) end
 ---See [DCS command EPLRS](https://wiki.hoggitworld.com/view/DCS_command_eplrs)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param SwitchOnOff boolean If true (or nil) switch EPLRS on. If false switch off.
 ---@param Delay? number (Optional) Delay in seconds before the callsign is set. Default is immediately.
 ---@return CONTROLLABLE #self
@@ -299,7 +289,6 @@ function CONTROLLABLE:CommandEPLRS(SwitchOnOff, Delay) end
 ---See [DCS command setCallsign](https://wiki.hoggitworld.com/view/DCS_command_setCallsign)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param CallName CALLSIGN Number corresponding the the callsign identifier you wish this group to be called.
 ---@param CallNumber number The number value the group will be referred to as. Only valid numbers are 1-9. For example Uzi **5**-1. Default 1.
 ---@param Delay? number (Optional) Delay in seconds before the callsign is set. Default is immediately.
@@ -310,7 +299,6 @@ function CONTROLLABLE:CommandSetCallsign(CallName, CallNumber, Delay) end
 ---See [DCS command SetFrequency](https://wiki.hoggitworld.com/view/DCS_command_setFrequency)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Frequency number Radio frequency in MHz.
 ---@param Modulation number Radio modulation. Default `radio.modulation.AM`.
 ---@param Power? number (Optional) Power of the Radio in Watts. Defaults to 10.
@@ -322,7 +310,6 @@ function CONTROLLABLE:CommandSetFrequency(Frequency, Modulation, Power, Delay) e
 ---See [DCS command SetFrequencyForUnit](https://wiki.hoggitworld.com/view/DCS_command_setFrequencyForUnit)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Frequency number Radio frequency in MHz.
 ---@param Modulation number Radio modulation. Default `radio.modulation.AM`.
 ---@param Power? number (Optional) Power of the Radio in Watts. Defaults to 10.
@@ -335,7 +322,6 @@ function CONTROLLABLE:CommandSetFrequencyForUnit(Frequency, Modulation, Power, U
 ---See [DCS command Unlimited Fuel](https://wiki.hoggitworld.com/view/DCS_command_setUnlimitedFuel).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param OnOff boolean Set unlimited fuel on = true or off = false.
 ---@param Delay? number (Optional) Set the option only after x seconds.
 ---@return CONTROLLABLE #self
@@ -345,7 +331,6 @@ function CONTROLLABLE:CommandSetUnlimitedFuel(OnOff, Delay) end
 ---See [DCS command smoke on off](https://wiki.hoggitworld.com/view/DCS_command_smoke_on_off)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSmokeOFF(Delay) end
@@ -354,7 +339,6 @@ function CONTROLLABLE:CommandSmokeOFF(Delay) end
 ---See [DCS command smoke on off](https://wiki.hoggitworld.com/view/DCS_command_smoke_on_off)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:CommandSmokeON(Delay) end
@@ -363,7 +347,6 @@ function CONTROLLABLE:CommandSmokeON(Delay) end
 ---See [DCS command smoke on off](https://wiki.hoggitworld.com/view/DCS_command_smoke_on_off)
 ---
 ------
----@param self CONTROLLABLE 
 ---@param OnOff boolean Set to true for on and false for off. Defaults to true.
 ---@param Delay? number (Optional) Delay the command by this many seconds.
 ---@return CONTROLLABLE #self
@@ -379,7 +362,6 @@ function CONTROLLABLE:CommandSmokeOnOff(OnOff, Delay) end
 ---  * GRP-310
 ---
 ------
----@param self CONTROLLABLE 
 ---@param StopRoute boolean true if the ground unit needs to stop, false if it needs to continue to move.
 ---@return Task #
 function CONTROLLABLE:CommandStopRoute(StopRoute) end
@@ -404,7 +386,6 @@ function CONTROLLABLE:CommandStopRoute(StopRoute) end
 ---  )
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param FromWayPoint number 
 ---@param ToWayPoint number 
 ---@return Task #
@@ -413,7 +394,6 @@ function CONTROLLABLE:CommandSwitchWayPoint(FromWayPoint, ToWayPoint) end
 ---Return the route of a controllable by using the Core.Database#DATABASE class.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Begin number The route point from where the copy will start. The base route point is 0.
 ---@param End number The route point where the copy will end. The End point is the last point - the End point. The last point has base 0.
 ---@param Randomize boolean Randomization of the route, when true.
@@ -423,14 +403,12 @@ function CONTROLLABLE:CopyRoute(Begin, End, Randomize, Radius) end
 ---[GROUND] Disable the IR marker.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self 
 function CONTROLLABLE:DisableIRMarker() end
 
 ---[GROUND] Disable the IR markers for a whole group.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self 
 function CONTROLLABLE:DisableIRMarkerForGroup() end
 
@@ -439,14 +417,12 @@ function CONTROLLABLE:DisableIRMarkerForGroup() end
 ---[hoggit](https://wiki.hoggitworld.com/view/DCS_task_awacs).
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskAWACS() end
 
 ---(AIR) Enroute anti-ship task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Ships"}`.
 ---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
@@ -455,7 +431,6 @@ function CONTROLLABLE:EnRouteTaskAntiShip(TargetTypes, Priority) end
 ---(AIR) Enroute CAP task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Air"}`.
 ---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
@@ -466,7 +441,6 @@ function CONTROLLABLE:EnRouteTaskCAP(TargetTypes, Priority) end
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_ewr).
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskEWR() end
 
@@ -476,7 +450,6 @@ function CONTROLLABLE:EnRouteTaskEWR() end
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_engageGroup).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param AttackGroup CONTROLLABLE The Controllable to be attacked.
 ---@param Priority number All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first.
 ---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
@@ -491,7 +464,6 @@ function CONTROLLABLE:EnRouteTaskEngageGroup(AttackGroup, Priority, WeaponType, 
 ---(AIR) Engaging targets of defined types.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Distance Distance Maximal distance from the target to a route leg. If the target is on a greater distance it will be ignored.
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage.
 ---@param Priority number All enroute tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
@@ -501,7 +473,6 @@ function CONTROLLABLE:EnRouteTaskEngageTargets(Distance, TargetTypes, Priority) 
 ---(AIR) Engaging a targets of defined types at circle-shaped zone.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the zone.
 ---@param Radius Distance Radius of the zone.
 ---@param TargetTypes? AttributeNameArray (Optional) Array of target categories allowed to engage. Default {"Air"}.
@@ -513,7 +484,6 @@ function CONTROLLABLE:EnRouteTaskEngageTargetsInZone(Vec2, Radius, TargetTypes, 
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_engageUnit).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param EngageUnit UNIT The UNIT.
 ---@param Priority? number (optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first.
 ---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
@@ -532,7 +502,6 @@ function CONTROLLABLE:EnRouteTaskEngageUnit(EngageUnit, Priority, GroupAttack, W
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_fac).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Frequency number Frequency in MHz. Default 133 MHz.
 ---@param Modulation number Radio modulation. Default `radio.modulation.AM`.
 ---@param CallsignID number CallsignID, e.g. `CALLSIGN.JTAC.Anvil` for ground or `CALLSIGN.Aircraft.Ford` for air.
@@ -547,7 +516,6 @@ function CONTROLLABLE:EnRouteTaskFAC(Frequency, Modulation, CallsignID, Callsign
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_fac_engageGroup).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param AttackGroup CONTROLLABLE Target CONTROLLABLE.
 ---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default is 0.
 ---@param WeaponType? number (Optional) Bitmask of weapon types those allowed to use. Default is "Auto".
@@ -563,7 +531,6 @@ function CONTROLLABLE:EnRouteTaskFAC_EngageGroup(AttackGroup, Priority, WeaponTy
 ---(AIR) Enroute SEAD task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TargetTypes AttributeNameArray Array of target categories allowed to engage. Default `{"Air Defence"}`.
 ---@param Priority? number (Optional) All en-route tasks have the priority parameter. This is a number (less value - higher priority) that determines actions related to what task will be performed first. Default 0.
 ---@return Task #The DCS task structure.
@@ -574,14 +541,12 @@ function CONTROLLABLE:EnRouteTaskSEAD(TargetTypes, Priority) end
 ---See [hoggit](https://wiki.hoggitworld.com/view/DCS_task_tanker).
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:EnRouteTaskTanker() end
 
 ---[GROUND] Enable the IR marker.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Runtime number (Optionally) Run this IR Marker for the given number of seconds, then stop. Else run until you call `myobject:DisableIRMarker()`.
 ---@return CONTROLLABLE #self 
 function CONTROLLABLE:EnableIRMarker(Runtime) end
@@ -589,7 +554,6 @@ function CONTROLLABLE:EnableIRMarker(Runtime) end
 ---[GROUND] Enable the IR markers for a whole group.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Runtime number Runtime of the marker in seconds
 ---@return CONTROLLABLE #self 
 function CONTROLLABLE:EnableIRMarkerForGroup(Runtime) end
@@ -599,7 +563,6 @@ function CONTROLLABLE:EnableIRMarkerForGroup(Runtime) end
 ---If no detection method is given, the detection will use all the available methods by default.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
 ---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
 ---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
@@ -614,7 +577,6 @@ function CONTROLLABLE:GetDetectedGroupSet(DetectVisual, DetectOptical, DetectRad
 ---If no detection method is given, the detection will use all the available methods by default.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DetectVisual? boolean (optional)
 ---@param DetectOptical? boolean (optional)
 ---@param DetectRadar? boolean (optional)
@@ -630,7 +592,6 @@ function CONTROLLABLE:GetDetectedTargets(DetectVisual, DetectOptical, DetectRada
 ---If **at least one** detection method is specified, only the methods set to *true* will be used.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
 ---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
 ---@param DetectRadar? boolean (Optional) If *false*, do not include targets detected by radar.
@@ -644,7 +605,6 @@ function CONTROLLABLE:GetDetectedUnitSet(DetectVisual, DetectOptical, DetectRada
 ---This method returns nil to ensure polymorphic behavior! This method needs to be overridden by GROUP or UNIT.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return nil #The CONTROLLABLE is not existing or alive.
 function CONTROLLABLE:GetFuel() end
 
@@ -652,7 +612,6 @@ function CONTROLLABLE:GetFuel() end
 ---This method returns nil to ensure polymorphic behavior! This method needs to be overridden by GROUP or UNIT.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return nil #The CONTROLLABLE is not existing or alive.
 function CONTROLLABLE:GetFuelAve() end
 
@@ -660,7 +619,6 @@ function CONTROLLABLE:GetFuelAve() end
 ---This method returns nil to ensure polymorphic behavior! This method needs to be overridden by GROUP or UNIT.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return nil #The CONTROLLABLE is not existing or alive.
 function CONTROLLABLE:GetFuelMin() end
 
@@ -668,7 +626,6 @@ function CONTROLLABLE:GetFuelMin() end
 ---Dead controllables have health <= 1.0.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return number #The controllable health value (unit or group average).
 ---@return nil #The controllable is not existing or alive.
 function CONTROLLABLE:GetLife() end
@@ -676,35 +633,30 @@ function CONTROLLABLE:GetLife() end
 ---Returns the initial health.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return number #The controllable health value (unit or group average) or `nil` if the controllable does not exist.
 function CONTROLLABLE:GetLife0() end
 
 ---Return the mission template of the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return table #The MissionTemplate TODO: Rework the method how to retrieve a template ...
 function CONTROLLABLE:GetTaskMission() end
 
 ---Return the mission route of the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return table #The mission route defined by points.
 function CONTROLLABLE:GetTaskRoute() end
 
 ---Get the current WayPoints set with the WayPoint functions( Note that the WayPoints can be nil, although there ARE waypoints).
 ---
 ------
----@param self CONTROLLABLE 
 ---@return table #WayPoints If WayPoints is given, then return the WayPoints structure.
 function CONTROLLABLE:GetWayPoints() end
 
 ---[GROUND] Check if an IR Spot exists.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #outcome
 function CONTROLLABLE:HasIRMarker() end
 
@@ -712,14 +664,12 @@ function CONTROLLABLE:HasIRMarker() end
 ---Returns false if no task is on the queue. true if there is a task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:HasTask() end
 
 ---Returns if the Controllable contains AirPlanes.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #true if Controllable contains AirPlanes.
 function CONTROLLABLE:IsAirPlane() end
 
@@ -729,7 +679,6 @@ function CONTROLLABLE:IsAirPlane() end
 ---If **at least one** detection method is specified, only the methods set to *true* will be used.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Group GROUP The group that is supposed to be detected.
 ---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
 ---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
@@ -743,14 +692,12 @@ function CONTROLLABLE:IsGroupDetected(Group, DetectVisual, DetectOptical, Detect
 ---Returns if the Controllable contains Helicopters.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #true if Controllable contains Helicopters.
 function CONTROLLABLE:IsHelicopter() end
 
 ---Returns if the unit is a submarine.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #Submarines attributes result.
 function CONTROLLABLE:IsSubmarine() end
 
@@ -762,7 +709,6 @@ function CONTROLLABLE:IsSubmarine() end
 ---If **at least one** detection method is specified, only the methods set to *true* will be used.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSObject Object The DCS object that is checked.
 ---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
 ---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
@@ -786,7 +732,6 @@ function CONTROLLABLE:IsTargetDetected(DCSObject, DetectVisual, DetectOptical, D
 ---If **at least one** detection method is specified, only the methods set to *true* will be used.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Unit UNIT The unit that is supposed to be detected.
 ---@param DetectVisual? boolean (Optional) If *false*, do not include visually detected targets.
 ---@param DetectOptical? boolean (Optional) If *false*, do not include optically detected targets.
@@ -806,7 +751,6 @@ function CONTROLLABLE:IsUnitDetected(Unit, DetectVisual, DetectOptical, DetectRa
 ---Create a new CONTROLLABLE from a DCSControllable
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ControllableName string The DCS Controllable name
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:New(ControllableName) end
@@ -814,7 +758,6 @@ function CONTROLLABLE:New(ControllableName) end
 ---[GROUND] Create and enable a new IR Marker for the given controllable UNIT or GROUP.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param EnableImmediately boolean (Optionally) If true start up the IR Marker immediately. Else you need to call `myobject:EnableIRMarker()` later on.
 ---@param Runtime number (Optionally) Run this IR Marker for the given number of seconds, then stop. Use in conjunction with EnableImmediately. Defaults to 60 seconds.
 ---@return CONTROLLABLE #self
@@ -829,7 +772,6 @@ function CONTROLLABLE:NewIRMarker(EnableImmediately, Runtime) end
 ---Range can be one of MAX_RANGE = 0, NEZ_RANGE = 1, HALF_WAY_RMAX_NEZ = 2, TARGET_THREAT_EST = 3, RANDOM_RANGE = 4. Defaults to 3. See: https://wiki.hoggitworld.com/view/DCS_option_missileAttack
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param range number Defines the range
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionAAAttackRange(range) end
@@ -838,7 +780,6 @@ function CONTROLLABLE:OptionAAAttackRange(range) end
 ---The AI kind of cheats in this regard.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionAlarmStateAuto() end
 
@@ -846,28 +787,24 @@ function CONTROLLABLE:OptionAlarmStateAuto() end
 ---Sensors are stowed if possible.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionAlarmStateGreen() end
 
 ---Alarm state to Red: Group is combat ready and actively searching for targets.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionAlarmStateRed() end
 
 ---Allow to Jettison of weapons upon threat.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionAllowJettisonWeaponsOnThreat() end
 
 ---Defines how long a GROUND unit/group will move to avoid an ongoing attack.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Seconds number Any positive number: AI will disperse, but only for the specified time before continuing their route. 0: AI will not disperse.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionDisperseOnAttack(Seconds) end
@@ -875,7 +812,6 @@ function CONTROLLABLE:OptionDisperseOnAttack(Seconds) end
 ---[Air] Defines the usage of Electronic Counter Measures by airborne forces.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ECMvalue number Can be - 0=Never on, 1=if locked by radar, 2=if detected by radar, 3=always on, defaults to 1
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionECM(ECMvalue) end
@@ -884,7 +820,6 @@ function CONTROLLABLE:OptionECM(ECMvalue) end
 ---AI will leave their ECM on all the time.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionECM_AlwaysOn() end
 
@@ -892,7 +827,6 @@ function CONTROLLABLE:OptionECM_AlwaysOn() end
 ---If the AI is being detected by a radar they will enable their ECM.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionECM_DetectedLockByRadar() end
 
@@ -900,7 +834,6 @@ function CONTROLLABLE:OptionECM_DetectedLockByRadar() end
 ---Disables the ability for AI to use their ECM.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionECM_Never() end
 
@@ -908,14 +841,12 @@ function CONTROLLABLE:OptionECM_Never() end
 ---If the AI is actively being locked by an enemy radar they will enable their ECM jammer.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionECM_OnlyLockByRadar() end
 
 ---Defines the range at which a GROUND unit/group is allowed to use its weapons automatically.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param EngageRange number Engage range limit in percent (a number between 0 and 100). Default 100.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionEngageRange(EngageRange) end
@@ -924,7 +855,6 @@ function CONTROLLABLE:OptionEngageRange(EngageRange) end
 ---Units are allowed to shut radar off and displace.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Seconds number Can be - nil, 0 or false = switch off this option, any positive number = number of seconds the escape sequency runs.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionEvasionOfARM(Seconds) end
@@ -932,7 +862,6 @@ function CONTROLLABLE:OptionEvasionOfARM(Seconds) end
 ---[Ground] Option that defines the vehicle spacing when in an on road and off road formation.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param meters number Can be zero to 100 meters. Defaults to 50 meters.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionFormationInterval(meters) end
@@ -940,14 +869,12 @@ function CONTROLLABLE:OptionFormationInterval(meters) end
 ---Keep weapons upon threat.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionKeepWeaponsOnThreat() end
 
 ---Prohibit Afterburner.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Prohibit boolean If true or nil, prohibit. If false, do not prohibit.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionProhibitAfterburner(Prohibit) end
@@ -955,7 +882,6 @@ function CONTROLLABLE:OptionProhibitAfterburner(Prohibit) end
 ---Set option for Rules of Engagement (ROE).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ROEvalue number ROE value. See ENUMS.ROE.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROE(ROEvalue) end
@@ -963,28 +889,24 @@ function CONTROLLABLE:OptionROE(ROEvalue) end
 ---Weapons Hold: AI will hold fire under all circumstances.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROEHoldFire() end
 
 ---Can the CONTROLLABLE hold their weapons?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROEHoldFirePossible() end
 
 ---Open Fire (Only Designated): AI will engage only targets specified in its taskings.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROEOpenFire() end
 
 ---Can the CONTROLLABLE attack designated targets?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROEOpenFirePossible() end
 
@@ -992,7 +914,6 @@ function CONTROLLABLE:OptionROEOpenFirePossible() end
 ---**Only for AIR units!**
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROEOpenFireWeaponFree() end
 
@@ -1000,42 +921,36 @@ function CONTROLLABLE:OptionROEOpenFireWeaponFree() end
 ---Only for AIR!
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROEOpenFireWeaponFreePossible() end
 
 ---Return Fire: AI will only engage threats that shoot first.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROEReturnFire() end
 
 ---Can the CONTROLLABLE attack returning on enemy fire?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROEReturnFirePossible() end
 
 ---Weapon free.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROEWeaponFree() end
 
 ---Can the CONTROLLABLE attack targets of opportunity?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROEWeaponFreePossible() end
 
 ---Set Reation On Threat behaviour.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ROTvalue number ROT value. See ENUMS.ROT.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROT(ROTvalue) end
@@ -1043,63 +958,54 @@ function CONTROLLABLE:OptionROT(ROTvalue) end
 ---Evade on fire.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROTEvadeFire() end
 
 ---Can the CONTROLLABLE evade on enemy fire?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROTEvadeFirePossible() end
 
 ---No evasion on enemy threats.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROTNoReaction() end
 
 ---Can the CONTROLLABLE ignore enemy fire?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROTNoReactionPossible() end
 
 ---Evasion passive defense.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROTPassiveDefense() end
 
 ---Can the CONTROLLABLE evade using passive defenses?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROTPassiveDefensePossible() end
 
 ---Evade on fire using vertical manoeuvres.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionROTVertical() end
 
 ---Can the CONTROLLABLE evade on fire using vertical manoeuvres?
 ---
 ------
----@param self CONTROLLABLE 
 ---@return boolean #
 function CONTROLLABLE:OptionROTVerticalPossible() end
 
 ---Set RTB on ammo.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param WeaponsFlag boolean Weapons.flag enumerator.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionRTBAmmo(WeaponsFlag) end
@@ -1107,7 +1013,6 @@ function CONTROLLABLE:OptionRTBAmmo(WeaponsFlag) end
 ---Set RTB on bingo fuel.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param RTB boolean true if RTB on bingo fuel (default), false if no RTB on bingo fuel. Warning! When you switch this option off, the airborne group will continue to fly until all fuel has been consumed, and will crash.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:OptionRTBBingoFuel(RTB) end
@@ -1115,14 +1020,12 @@ function CONTROLLABLE:OptionRTBBingoFuel(RTB) end
 ---Sets Controllable Option for Restriction of Afterburner.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param RestrictBurner boolean If true, restrict burner. If false or nil, allow (unrestrict) burner.
 function CONTROLLABLE:OptionRestrictBurner(RestrictBurner) end
 
 ---[Air] Make an airplane or helicopter patrol between two points in a racetrack - resulting in a much tighter track around the start and end points.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Point1 COORDINATE Start point.
 ---@param Point2 COORDINATE End point.
 ---@param Altitude? number (Optional) Altitude in meters. Defaults to the altitude of the coordinate.
@@ -1136,7 +1039,6 @@ function CONTROLLABLE:PatrolRaceTrack(Point1, Point2, Altitude, Speed, Formation
 ---(GROUND) Patrol iteratively using the waypoints of the (parent) group.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #
 function CONTROLLABLE:PatrolRoute() end
 
@@ -1144,7 +1046,6 @@ function CONTROLLABLE:PatrolRoute() end
 ---A random waypoint will be picked and the group will move towards that point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Speed number Speed in km/h.
 ---@param Formation string The formation the group uses.
 ---@param ToWaypoint COORDINATE The waypoint where the group should move to.
@@ -1155,7 +1056,6 @@ function CONTROLLABLE:PatrolRouteRandom(Speed, Formation, ToWaypoint) end
 ---A random waypoint will be picked and the group will move towards that point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ZoneList table Table of zones.
 ---@param Speed number Speed in km/h the group moves at.
 ---@param Formation? string (Optional) Formation the group should use.
@@ -1167,14 +1067,12 @@ function CONTROLLABLE:PatrolZones(ZoneList, Speed, Formation, DelayMin, DelayMax
 ---Popping current Task from the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:PopCurrentTask() end
 
 ---Pushing Task on the queue from the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSTask NOTYPE 
 ---@param WaitTime NOTYPE 
 ---@return CONTROLLABLE #self
@@ -1183,7 +1081,6 @@ function CONTROLLABLE:PushTask(DCSTask, WaitTime) end
 ---(GROUND) Relocate controllable to a random point within a given radius; use e.g.for evasive actions; Note that not all ground controllables can actually drive, also the alarm state of the controllable might stop it from moving.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param speed number Speed of the controllable, default 20
 ---@param radius number Radius of the relocation zone, default 500
 ---@param onroad boolean If true, route on road (less problems with AI way finding), default true
@@ -1196,7 +1093,6 @@ function CONTROLLABLE:RelocateGroundRandomInRadius(speed, radius, onroad, shortc
 ---Make the controllable to follow a given route.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Route table A table of Route Points.
 ---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
 ---@return CONTROLLABLE #The CONTROLLABLE.
@@ -1205,7 +1101,6 @@ function CONTROLLABLE:Route(Route, DelaySeconds) end
 ---Make the AIR Controllable fly towards a specific point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param AltType COORDINATE.RoutePointAltType The altitude type.
 ---@param Type COORDINATE.RoutePointType The route point type.
@@ -1218,7 +1113,6 @@ function CONTROLLABLE:RouteAirTo(ToCoordinate, AltType, Type, Action, Speed, Del
 ---Make the TRAIN Controllable to drive towards a specific point using railroads.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
 ---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
@@ -1230,7 +1124,6 @@ function CONTROLLABLE:RouteGroundOnRailRoads(ToCoordinate, Speed, DelaySeconds, 
 ---Make the GROUND Controllable to drive towards a specific point using (mostly) roads.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
 ---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
@@ -1243,7 +1136,6 @@ function CONTROLLABLE:RouteGroundOnRoad(ToCoordinate, Speed, DelaySeconds, OffRo
 ---Make the GROUND Controllable to drive towards a specific point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param Speed? number (optional) Speed in km/h. The default speed is 20 km/h.
 ---@param Formation? string (optional) The route point Formation, which is a text string that specifies exactly the Text in the Type of the route point, like "Vee", "Echelon Right".
@@ -1256,7 +1148,6 @@ function CONTROLLABLE:RouteGroundTo(ToCoordinate, Speed, Formation, DelaySeconds
 ---Make the controllable to push follow a given route.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Route table A table of Route Points.
 ---@param DelaySeconds? number (Optional) Wait for the specified seconds before executing the Route. Default is one second.
 ---@return CONTROLLABLE #The CONTROLLABLE.
@@ -1265,21 +1156,18 @@ function CONTROLLABLE:RoutePush(Route, DelaySeconds) end
 ---Resumes the movement of the vehicle on the route.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #
 function CONTROLLABLE:RouteResume() end
 
 ---Stops the movement of the vehicle on the route.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #
 function CONTROLLABLE:RouteStop() end
 
 ---(AIR + GROUND) Make the Controllable move to fly to a given point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Point Vec3 The destination point in Vec3 format.
 ---@param Speed number The speed [m/s] to travel.
 ---@return CONTROLLABLE #self
@@ -1288,7 +1176,6 @@ function CONTROLLABLE:RouteToVec2(Point, Speed) end
 ---(AIR + GROUND) Make the Controllable move to a given point.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Point Vec3 The destination point in Vec3 format.
 ---@param Speed number The speed [m/s] to travel.
 ---@return CONTROLLABLE #self
@@ -1297,7 +1184,6 @@ function CONTROLLABLE:RouteToVec3(Point, Speed) end
 ---[AIR] Sets the controlled aircraft group to fly at the specified altitude in meters.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Altitude number Altitude in meters.
 ---@param Keep? boolean (Optional) When set to true, will maintain the altitude on passing waypoints. If not present or false, the controlled group will return to the altitude as defined by their route.
 ---@param AltType? string (Optional) Specifies the altitude type used. If nil, the altitude type of the current waypoint will be used. Accepted values are "BARO" and "RADIO".
@@ -1307,7 +1193,6 @@ function CONTROLLABLE:SetAltitude(Altitude, Keep, AltType) end
 ---Executes a command action for the CONTROLLABLE.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSCommand Command The command to be executed.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetCommand(DCSCommand) end
@@ -1315,7 +1200,6 @@ function CONTROLLABLE:SetCommand(DCSCommand) end
 ---Set option.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param OptionID number ID/Type of the option.
 ---@param OptionValue number Value of the option
 ---@return CONTROLLABLE #self
@@ -1324,7 +1208,6 @@ function CONTROLLABLE:SetOption(OptionID, OptionValue) end
 ---[AIR] Set how the AI uses the onboard radar.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Option number Options are: `NEVER = 0, FOR_ATTACK_ONLY = 1,FOR_SEARCH_IF_REQUIRED = 2, FOR_CONTINUOUS_SEARCH = 3`
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadarUsing(Option) end
@@ -1332,21 +1215,18 @@ function CONTROLLABLE:SetOptionRadarUsing(Option) end
 ---[AIR] Set how the AI uses the onboard radar, here: for attack only.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadarUsingForAttackOnly() end
 
 ---[AIR] Set how the AI uses the onboard radar, here: always on.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadarUsingForContinousSearch() end
 
 ---[AIR] Set how the AI uses the onboard radar, here: when required for searching.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadarUsingForSearchIfRequired() end
 
@@ -1354,14 +1234,12 @@ function CONTROLLABLE:SetOptionRadarUsingForSearchIfRequired() end
 ---Here: never.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadarUsingNever() end
 
 ---[AIR] Set the AI to report contact for certain types of objects.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Objects table Table of attribute names for which AI reports contact. Defaults to {"Air"}. See [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_attributes)
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadioContact(Objects) end
@@ -1369,7 +1247,6 @@ function CONTROLLABLE:SetOptionRadioContact(Objects) end
 ---[AIR] Set the AI to report engaging certain types of objects.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Objects table Table of attribute names for which AI reports contact. Defaults to {"Air"}, see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_attributes)
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadioEngage(Objects) end
@@ -1377,7 +1254,6 @@ function CONTROLLABLE:SetOptionRadioEngage(Objects) end
 ---[AIR] Set the AI to report killing certain types of objects.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Objects table Table of attribute names for which AI reports contact. Defaults to {"Air"}, see [Hoggit Wiki](https://wiki.hoggitworld.com/view/DCS_enum_attributes)
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadioKill(Objects) end
@@ -1385,7 +1261,6 @@ function CONTROLLABLE:SetOptionRadioKill(Objects) end
 ---[AIR] Set the AI to not report anything over the radio - radio silence
 ---
 ------
----@param self CONTROLLABLE 
 ---@param OnOff boolean If true or nil, radio is set to silence, if false radio silence is lifted.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionRadioSilence(OnOff) end
@@ -1393,7 +1268,6 @@ function CONTROLLABLE:SetOptionRadioSilence(OnOff) end
 ---[AIR] Set if the AI is reporting passing of waypoints
 ---
 ------
----@param self CONTROLLABLE 
 ---@param OnOff boolean If true or nil, AI will report passing waypoints, if false, it will not.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:SetOptionWaypointPassReport(OnOff) end
@@ -1401,7 +1275,6 @@ function CONTROLLABLE:SetOptionWaypointPassReport(OnOff) end
 ---Sets the controlled group to go at the specified speed in meters per second.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Speed number Speed in meters per second
 ---@param Keep? boolean (Optional) When set to true, will maintain the speed on passing waypoints. If not present or false, the controlled group will return to the speed as defined by their route.
 ---@return CONTROLLABLE #self
@@ -1410,7 +1283,6 @@ function CONTROLLABLE:SetSpeed(Speed, Keep) end
 ---Clearing the Task Queue and Setting the Task on the queue from the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSTask Task DCS Task array.
 ---@param WaitTime number Time in seconds, before the task is set.
 ---@return CONTROLLABLE #self
@@ -1419,7 +1291,6 @@ function CONTROLLABLE:SetTask(DCSTask, WaitTime) end
 ---Set a Task at a Waypoint using a Route list.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Waypoint table The Waypoint!
 ---@param Task Task The Task structure to be executed!
 ---@return Task #
@@ -1428,7 +1299,6 @@ function CONTROLLABLE:SetTaskWaypoint(Waypoint, Task) end
 ---Give an uncontrolled air controllable the start command.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param delay? number (Optional) Delay before start command in seconds.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:StartUncontrolled(delay) end
@@ -1450,14 +1320,12 @@ function CONTROLLABLE:StartUncontrolled(delay) end
 ---       plane:SetTask(aerotask)
 ---```
 ------
----@param self CONTROLLABLE 
 ---@return Task #
 function CONTROLLABLE:TaskAerobatics() end
 
 ---Add an aerobatics entry of type "AILERON_ROLL" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1474,7 +1342,6 @@ function CONTROLLABLE:TaskAerobaticsAileronRoll(TaskAerobatics, Repeats, InitAlt
 ---Add an aerobatics entry of type "BARREL_ROLL" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1490,7 +1357,6 @@ function CONTROLLABLE:TaskAerobaticsBarrelRoll(TaskAerobatics, Repeats, InitAlti
 ---Add an aerobatics entry of type "CANDLE" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1503,7 +1369,6 @@ function CONTROLLABLE:TaskAerobaticsCandle(TaskAerobatics, Repeats, InitAltitude
 ---Add an aerobatics entry of type "CLIMB" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1518,7 +1383,6 @@ function CONTROLLABLE:TaskAerobaticsClimb(TaskAerobatics, Repeats, InitAltitude,
 ---Add an aerobatics entry of type "DIVE" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 5000.
@@ -1533,7 +1397,6 @@ function CONTROLLABLE:TaskAerobaticsDive(TaskAerobatics, Repeats, InitAltitude, 
 ---Add an aerobatics entry of type "EDGE_FLIGHT" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1548,7 +1411,6 @@ function CONTROLLABLE:TaskAerobaticsEdgeFlight(TaskAerobatics, Repeats, InitAlti
 ---Add an aerobatics entry of type "FORCED_TURN" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1565,7 +1427,6 @@ function CONTROLLABLE:TaskAerobaticsForcedTurn(TaskAerobatics, Repeats, InitAlti
 ---Add an aerobatics entry of type "HAMMERHEAD" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1579,7 +1440,6 @@ function CONTROLLABLE:TaskAerobaticsHammerhead(TaskAerobatics, Repeats, InitAlti
 ---Add an aerobatics entry of type "HORIZONTAL_EIGHT" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1594,7 +1454,6 @@ function CONTROLLABLE:TaskAerobaticsHorizontalEight(TaskAerobatics, Repeats, Ini
 ---Add an aerobatics entry of type "IMMELMAN" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1607,7 +1466,6 @@ function CONTROLLABLE:TaskAerobaticsImmelmann(TaskAerobatics, Repeats, InitAltit
 ---Add an aerobatics entry of type "LOOP" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1620,7 +1478,6 @@ function CONTROLLABLE:TaskAerobaticsLoop(TaskAerobatics, Repeats, InitAltitude, 
 ---Add an aerobatics entry of type "MILITARY_TURN" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1633,7 +1490,6 @@ function CONTROLLABLE:TaskAerobaticsMilitaryTurn(TaskAerobatics, Repeats, InitAl
 ---Add an aerobatics entry of type "SKEWED_LOOP" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1648,7 +1504,6 @@ function CONTROLLABLE:TaskAerobaticsSkewedLoop(TaskAerobatics, Repeats, InitAlti
 ---Add an aerobatics entry of type "SPIRAL" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1666,7 +1521,6 @@ function CONTROLLABLE:TaskAerobaticsSpiral(TaskAerobatics, Repeats, InitAltitude
 ---Add an aerobatics entry of type "SPLIT_S" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1680,7 +1534,6 @@ function CONTROLLABLE:TaskAerobaticsSplitS(TaskAerobatics, Repeats, InitAltitude
 ---Add an aerobatics entry of type "STRAIGHT_FLIGHT" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1694,7 +1547,6 @@ function CONTROLLABLE:TaskAerobaticsStraightFlight(TaskAerobatics, Repeats, Init
 ---Add an aerobatics entry of type "TURN" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1711,7 +1563,6 @@ function CONTROLLABLE:TaskAerobaticsTurn(TaskAerobatics, Repeats, InitAltitude, 
 ---Add an aerobatics entry of type "WINGOVER_FLIGHT" to the Aerobatics Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskAerobatics Task The Aerobatics Task
 ---@param Repeats? number (Optional) The number of repeats, defaults to 1.
 ---@param InitAltitude? number (Optional) Starting altitude in meters, defaults to 0.
@@ -1725,7 +1576,6 @@ function CONTROLLABLE:TaskAerobaticsWingoverFlight(TaskAerobatics, Repeats, Init
 ---(AIR + GROUND) Attack a Controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param AttackGroup GROUP The Group to be attacked.
 ---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. If parameter is not defined that means no limits on weapon usage.
 ---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
@@ -1740,7 +1590,6 @@ function CONTROLLABLE:TaskAttackGroup(AttackGroup, WeaponType, WeaponExpend, Att
 ---(AIR) Attacking the map object (building, structure, etc).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
 ---@param GroupAttack? boolean (Optional) If true, all units in the group will attack the Unit when found.
 ---@param WeaponExpend? AI.Task.WeaponExpend (Optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
@@ -1754,7 +1603,6 @@ function CONTROLLABLE:TaskAttackMapObject(Vec2, GroupAttack, WeaponExpend, Attac
 ---(AIR + GROUND) Attack the Unit.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param AttackUnit UNIT The UNIT to be attacked
 ---@param GroupAttack? boolean (Optional) If true, all units in the group will attack the Unit when found. Default false.
 ---@param WeaponExpend? AI.Task.WeaponExpend (Optional) Determines how many weapons will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
@@ -1768,7 +1616,6 @@ function CONTROLLABLE:TaskAttackUnit(AttackUnit, GroupAttack, WeaponExpend, Atta
 ---(AIR) Delivering weapon at the point on the ground.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
 ---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
 ---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit / controllable will choose expend on its own discretion.
@@ -1793,7 +1640,6 @@ function CONTROLLABLE:TaskBombing(Vec2, GroupAttack, WeaponExpend, AttackQty, Di
 ---* Pinpoint Strike
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Airbase AIRBASE Airbase to attack.
 ---@param WeaponType? number (optional) Bitmask of weapon types those allowed to use. See [DCS enum weapon flag](https://wiki.hoggitworld.com/view/DCS_enum_weapon_flag). Default 2147485694 = AnyBomb (GuidedBomb + AnyUnguidedBomb).
 ---@param WeaponExpend AI.Task.WeaponExpend Enum AI.Task.WeaponExpend that defines how much munitions the AI will expend per attack run. Default "ALL".
@@ -1806,7 +1652,6 @@ function CONTROLLABLE:TaskBombingRunway(Airbase, WeaponType, WeaponExpend, Attac
 ---(AIR) Delivering weapon via CarpetBombing (all bombers in formation release at same time) at the point on the ground.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver weapon at.
 ---@param GroupAttack? boolean (optional) If true, all units in the group will attack the Unit when found.
 ---@param WeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack. If parameter is not defined the unit will choose expend on its own discretion.
@@ -1821,7 +1666,6 @@ function CONTROLLABLE:TaskCarpetBombing(Vec2, GroupAttack, WeaponExpend, AttackQ
 ---Return a Combo Task taking an array of Tasks.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSTasks TaskArray Array of DCSTasking.Task#Task
 ---@return Task #
 function CONTROLLABLE:TaskCombo(DCSTasks) end
@@ -1829,7 +1673,6 @@ function CONTROLLABLE:TaskCombo(DCSTasks) end
 ---Return a condition section for a controlled task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param time Time DCS mission time.
 ---@param userFlag string Name of the user flag.
 ---@param userFlagValue boolean User flag value *true* or *false*. Could also be numeric, i.e. either 0=*false* or 1=*true*. Other numeric values don't work!
@@ -1841,7 +1684,6 @@ function CONTROLLABLE:TaskCondition(time, userFlag, userFlagValue, condition, du
 ---Return a Controlled Task taking a Task and a TaskCondition.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSTask Task 
 ---@param DCSStopCondition DCSStopCondition 
 ---@return Task #
@@ -1851,7 +1693,6 @@ function CONTROLLABLE:TaskControlled(DCSTask, DCSStopCondition) end
 ---Used in conjunction with the EmbarkToTransport task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Coordinate COORDINATE Coordinates where AI is expecting to be picked up.
 ---@param GroupSetToDisembark NOTYPE 
 ---@return Task #Embark to transport task.
@@ -1860,7 +1701,6 @@ function CONTROLLABLE:TaskDisembarking(Coordinate, GroupSetToDisembark) end
 ---Set EPLRS data link on/off.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param SwitchOnOff boolean If true (or nil) switch EPLRS on. If false switch off.
 ---@param idx number Task index. Default 1.
 ---@return table #Task wrapped action.
@@ -1872,7 +1712,6 @@ function CONTROLLABLE:TaskEPLRS(SwitchOnOff, idx) end
 ---The controllable has to be an infantry group!
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Coordinate COORDINATE Coordinates where AI is expecting to be picked up.
 ---@param Radius number Radius in meters. Default 200 m.
 ---@param UnitType string The unit type name of the carrier, e.g. "UH-1H". Must not be specified.
@@ -1882,7 +1721,6 @@ function CONTROLLABLE:TaskEmbarkToTransport(Coordinate, Radius, UnitType) end
 ---(AIR HELICOPTER) Move the controllable to a Vec2 Point, wait for a defined duration and embark infantry groups.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Coordinate COORDINATE The point where to pickup the troops.
 ---@param GroupSetForEmbarking SET_GROUP Set of groups to embark.
 ---@param Duration? number (Optional) The maximum duration in seconds to wait until all groups have embarked.
@@ -1893,7 +1731,6 @@ function CONTROLLABLE:TaskEmbarking(Coordinate, GroupSetForEmbarking, Duration, 
 ---Return an Empty Task.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #
 function CONTROLLABLE:TaskEmptyTask() end
 
@@ -1902,7 +1739,6 @@ function CONTROLLABLE:TaskEmptyTask() end
 ---The unit / controllable will also protect that controllable from threats of specified types.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param FollowControllable CONTROLLABLE The controllable to be escorted.
 ---@param Vec3 Vec3 Position of the unit / lead unit of the controllable relative lead unit of another controllable in frame reference oriented by course of lead unit of another controllable. If another controllable is on land the unit / controllable will orbit around.
 ---@param LastWaypointIndex number Detach waypoint of another controllable. Once reached the unit / controllable Escort task is finished.
@@ -1917,7 +1753,6 @@ function CONTROLLABLE:TaskEscort(FollowControllable, Vec3, LastWaypointIndex, En
 ---It's important to note that depending on the type of unit that is being assigned the task (AIR or GROUND), you must choose the correct type of callsign enumerator. For airborne controllables use CALLSIGN.Aircraft and for ground based use CALLSIGN.JTAC enumerators.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param AttackGroup GROUP Target GROUP object.
 ---@param WeaponType number Bitmask of weapon types, which are allowed to use.
 ---@param Designation? AI.Task.Designation (Optional) Designation type.
@@ -1932,7 +1767,6 @@ function CONTROLLABLE:TaskFAC_AttackGroup(AttackGroup, WeaponType, Designation, 
 ---(GROUND) Fire at a VEC2 point until ammunition is finished.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 The point to fire at.
 ---@param Radius Distance The radius of the zone to deploy the fire at.
 ---@param AmmoCount? number (optional) Quantity of ammunition to expand (omit to fire until ammunition is depleted).
@@ -1947,7 +1781,6 @@ function CONTROLLABLE:TaskFireAtPoint(Vec2, Radius, AmmoCount, WeaponType, Altit
 ---If another controllable is on land the unit / controllable will orbit around.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param FollowControllable CONTROLLABLE The controllable to be followed.
 ---@param Vec3 Vec3 Position of the unit / lead unit of the controllable relative lead unit of another controllable in frame reference oriented by course of lead unit of another controllable. If another controllable is on land the unit / controllable will orbit around.
 ---@param LastWaypointIndex number Detach waypoint of another controllable. Once reached the unit / controllable Follow task is finished.
@@ -1959,7 +1792,6 @@ function CONTROLLABLE:TaskFollow(FollowControllable, Vec3, LastWaypointIndex) en
 ---Used to support CarpetBombing Task
 ---
 ------
----@param self CONTROLLABLE 
 ---@param FollowControllable CONTROLLABLE The controllable to be followed.
 ---@param Vec3 Vec3 Position of the unit / lead unit of the controllable relative lead unit of another controllable in frame reference oriented by course of lead unit of another controllable. If another controllable is on land the unit / controllable will orbit around.
 ---@param LastWaypointIndex number Detach waypoint of another controllable. Once reached the unit / controllable Follow task is finished.
@@ -2015,7 +1847,6 @@ function CONTROLLABLE:TaskFollowBigFormation(FollowControllable, Vec3, LastWaypo
 ---   RouteToZone( GroundGroup, ZoneList[1] )
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param FunctionString string The function name embedded as a string that will be called.
 ---@param ... NOTYPE The variable arguments passed to the function when called! These arguments can be of any type!
 ---@return CONTROLLABLE #
@@ -2026,7 +1857,6 @@ function CONTROLLABLE:TaskFunction(FunctionString, ...) end
 ---The unit / controllable will also protect that controllable from threats of specified types.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param FollowControllable CONTROLLABLE The controllable to be escorted.
 ---@param LastWaypointIndex? number (optional) Detach waypoint of another controllable. Once reached the unit / controllable Escort task is finished.
 ---@param OrbitDistance? number (optional) Maximum distance helo will orbit around the ground unit in meters. Defaults to 2000 meters.
@@ -2037,18 +1867,16 @@ function CONTROLLABLE:TaskGroundEscort(FollowControllable, LastWaypointIndex, Or
 ---Make a task for a TRAIN Controllable to drive towards a specific point using railroad.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
 ---@param WaypointFunction? function (Optional) Function called when passing a waypoint. First parameters of the function are the @{#CONTROLLABLE} object, the number of the waypoint and the total number of waypoints.
 ---@param WaypointFunctionArguments? table (Optional) List of parameters passed to the *WaypointFunction*.
----@return  #Task
+---@return NOTYPE #Task
 function CONTROLLABLE:TaskGroundOnRailRoads(ToCoordinate, Speed, WaypointFunction, WaypointFunctionArguments) end
 
 ---Make a task for a GROUND Controllable to drive towards a specific point using (mostly) roads.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param ToCoordinate COORDINATE A Coordinate to drive to.
 ---@param Speed? number (Optional) Speed in km/h. The default speed is 20 km/h.
 ---@param OffRoadFormation? string (Optional) The formation at initial and final waypoint. Default is "Off Road".
@@ -2063,14 +1891,12 @@ function CONTROLLABLE:TaskGroundOnRoad(ToCoordinate, Speed, OffRoadFormation, Sh
 ---(GROUND) Hold ground controllable from moving.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskHold() end
 
 ---(AIR) Hold position at the current position of the first unit of the controllable.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Duration number The maximum duration in seconds to hold the position.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:TaskHoldPosition(Duration) end
@@ -2079,7 +1905,6 @@ function CONTROLLABLE:TaskHoldPosition(Duration) end
 ---For helicopters only.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 The point where to land.
 ---@param Duration number The duration in seconds to stay on the ground.
 ---@param CombatLanding? boolean (optional) If true, set the Combat Landing option.
@@ -2090,7 +1915,6 @@ function CONTROLLABLE:TaskLandAtVec2(Vec2, Duration, CombatLanding, DirectionAft
 ---(AIR) Land the controllable at a @{Core.Zone#ZONE_RADIUS).
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Zone ZONE The zone where to land.
 ---@param Duration number The duration in seconds to stay on the ground.
 ---@param RandomPoint? boolean (optional) If true,land at a random point inside of the zone. 
@@ -2102,7 +1926,6 @@ function CONTROLLABLE:TaskLandAtZone(Zone, Duration, RandomPoint, CombatLanding,
 ---(AIR + GROUND) Return a mission task from a mission template.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param TaskMission table A table containing the mission task.
 ---@return Task #
 function CONTROLLABLE:TaskMission(TaskMission) end
@@ -2111,7 +1934,6 @@ function CONTROLLABLE:TaskMission(TaskMission) end
 ---Optionally, a race track pattern can be specified.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Coord COORDINATE Coordinate at which the CONTROLLABLE orbits. Can also be given as a `DCS#Vec3` or `DCS#Vec2` object.
 ---@param Altitude number Altitude in meters of the orbit pattern. Default y component of Coord.
 ---@param Speed number Speed [m/s] flying the orbit pattern. Default 128 m/s = 250 knots.
@@ -2122,7 +1944,6 @@ function CONTROLLABLE:TaskOrbit(Coord, Altitude, Speed, CoordRaceTrack) end
 ---(AIR) Orbit at the current position of the first unit of the controllable at a specified altitude.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Altitude number The altitude [m] to hold the position.
 ---@param Speed number The speed [m/s] flying when holding the position.
 ---@param Coordinate? COORDINATE (Optional) The coordinate where to orbit. If the coordinate is not given, then the current position of the controllable is used.
@@ -2132,7 +1953,6 @@ function CONTROLLABLE:TaskOrbitCircle(Altitude, Speed, Coordinate) end
 ---(AIR) Orbit at a specified position at a specified altitude during a specified duration with a specified speed.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Point Vec2 The point to hold the position.
 ---@param Altitude number The altitude AGL in meters to hold the position.
 ---@param Speed number The speed [m/s] flying when holding the position.
@@ -2142,7 +1962,6 @@ function CONTROLLABLE:TaskOrbitCircleAtVec2(Point, Altitude, Speed) end
 ---(AIR) Act as Recovery Tanker for a naval/carrier group.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param CarrierGroup GROUP 
 ---@param Speed number Speed in meters per second
 ---@param Altitude number Altitude the tanker orbits at in meters
@@ -2154,14 +1973,12 @@ function CONTROLLABLE:TaskRecoveryTanker(CarrierGroup, Speed, Altitude, LastWptN
 ---No parameters.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Task #The DCS task structure.
 function CONTROLLABLE:TaskRefueling() end
 
 ---Return a "Misson" task to follow a given route defined by Points.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Points table A table of route points.
 ---@return Task #DCS mission task. Has entries `.id="Mission"`, `params`, were params has entries `airborne` and `route`, which is a table of `points`.
 function CONTROLLABLE:TaskRoute(Points) end
@@ -2171,7 +1988,6 @@ function CONTROLLABLE:TaskRoute(Points) end
 ---A given formation can be given.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 The Vec2 where to route to.
 ---@param Speed number The speed in m/s. Default is 5.555 m/s = 20 km/h.
 ---@param Formation FORMATION The formation string.
@@ -2183,7 +1999,6 @@ function CONTROLLABLE:TaskRouteToVec2(Vec2, Speed, Formation) end
 ---A given formation can be given.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param Zone ZONE The zone where to route to.
 ---@param Randomize boolean Defines whether to target point gets randomized within the Zone.
 ---@param Speed number The speed in m/s. Default is 5.555 m/s = 20 km/h.
@@ -2203,7 +2018,6 @@ function CONTROLLABLE:TaskRouteToZone(Zone, Randomize, Speed, Formation) end
 ---attacker:SetTask(task,2)
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param Vec2 Vec2 2D-coordinates of the point to deliver strafing at.
 ---@param AttackQty? number (optional) This parameter limits maximal quantity of attack. The aircraft/controllable will not make more attack than allowed even if the target controllable not destroyed and the aircraft/controllable still have ammo. If not defined the aircraft/controllable will attack target until it will be destroyed or until the aircraft/controllable will run out of ammo.
 ---@param Length? number (optional) Length of the strafing area.
@@ -2217,7 +2031,6 @@ function CONTROLLABLE:TaskStrafing(Vec2, AttackQty, Length, WeaponType, WeaponEx
 ---Return a WrappedAction Task taking a Command.
 ---
 ------
----@param self CONTROLLABLE 
 ---@param DCSCommand Command 
 ---@param Index NOTYPE 
 ---@return Task #
@@ -2237,7 +2050,6 @@ function CONTROLLABLE:TaskWrappedAction(DCSCommand, Index) end
 ---mygroup:WayPointExecute()
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param WayPoint number The WayPoint from where to execute the mission.
 ---@param WaitTime number The amount seconds to wait before initiating the mission.
 ---@return CONTROLLABLE #self
@@ -2255,7 +2067,6 @@ function CONTROLLABLE:WayPointExecute(WayPoint, WaitTime) end
 ---mygroup:WayPointExecute()
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param WayPoint number The waypoint number. Note that the start waypoint on the route is WayPoint 1!
 ---@param WayPointIndex number When defining multiple WayPoint functions for one WayPoint, use WayPointIndex to set the sequence of actions.
 ---@param WayPointFunction function The waypoint function to be called when the controllable moves over the waypoint. The waypoint function takes variable parameters.
@@ -2278,7 +2089,6 @@ function CONTROLLABLE:WayPointFunction(WayPoint, WayPointIndex, WayPointFunction
 ---mygroup:WayPointExecute()
 ---```
 ------
----@param self CONTROLLABLE 
 ---@param WayPoints table If WayPoints is given, then use the route.
 ---@return CONTROLLABLE #self
 function CONTROLLABLE:WayPointInitialize(WayPoints) end
@@ -2286,27 +2096,23 @@ function CONTROLLABLE:WayPointInitialize(WayPoints) end
 ---Get the controller for the CONTROLLABLE.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return Controller #
 function CONTROLLABLE:_GetController() end
 
 ---[Internal] This method is called by the scheduler after enabling the IR marker.
 ---
 ------
----@param self CONTROLLABLE 
 ---@return CONTROLLABLE #self 
 function CONTROLLABLE:_MarkerBlink() end
 
 
 ---
 ------
----@param spot NOTYPE 
 function CONTROLLABLE._StopSpot(spot) end
 
 ---Task function when controllable passes a waypoint.
 ---
 ------
----@param controllable CONTROLLABLE The controllable object.
 ---@param n number Current waypoint number passed.
 ---@param N number Total number of waypoints.
 ---@param waypointfunction function Function called when a waypoint is passed.

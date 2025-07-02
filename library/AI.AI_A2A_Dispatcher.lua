@@ -861,7 +861,6 @@ AI_A2A_DISPATCHER = {}
 ---Resource count will get smaller.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Squadron AI_A2A_DISPATCHER.Squadron The squadron.
 ---@param Defender GROUP The defender group.
 ---@param Size number Size of the group.
@@ -870,7 +869,6 @@ function AI_A2A_DISPATCHER:AddDefenderToSquadron(Squadron, Defender, Size) end
 ---Add resources to a Squadron
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Squadron string The squadron name.
 ---@param Amount number Number of resources to add.
 function AI_A2A_DISPATCHER:AddToSquadron(Squadron, Amount) end
@@ -878,13 +876,11 @@ function AI_A2A_DISPATCHER:AddToSquadron(Squadron, Amount) end
 ---CAP Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 function AI_A2A_DISPATCHER:CAP() end
 
 ---Check if squadron can do CAP.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return AI_A2A_DISPATCHER.Squadron #DefenderSquadron
 function AI_A2A_DISPATCHER:CanCAP(SquadronName) end
@@ -892,7 +888,6 @@ function AI_A2A_DISPATCHER:CanCAP(SquadronName) end
 ---Check if squadron can do GCI.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return table #DefenderSquadron
 function AI_A2A_DISPATCHER:CanGCI(SquadronName) end
@@ -900,21 +895,18 @@ function AI_A2A_DISPATCHER:CanGCI(SquadronName) end
 
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 function AI_A2A_DISPATCHER:ClearDefenderTask(Defender) end
 
 
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 function AI_A2A_DISPATCHER:ClearDefenderTaskTarget(Defender) end
 
 ---Count number of airborne CAP flights.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string Name of the squadron.
 ---@return number #Number of defender CAP groups.
 function AI_A2A_DISPATCHER:CountCapAirborne(SquadronName) end
@@ -922,7 +914,6 @@ function AI_A2A_DISPATCHER:CountCapAirborne(SquadronName) end
 ---Count number of engaging defender groups.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detection object.
 ---@return number #Number of defender groups engaging.
 function AI_A2A_DISPATCHER:CountDefendersEngaged(AttackerDetection) end
@@ -930,7 +921,6 @@ function AI_A2A_DISPATCHER:CountDefendersEngaged(AttackerDetection) end
 ---Count defenders to be engaged if number of attackers larger than number of defenders.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param DefenderCount number Number of defenders.
 ---@return table #Table of friendly groups.
@@ -939,7 +929,6 @@ function AI_A2A_DISPATCHER:CountDefendersToBeEngaged(AttackerDetection, Defender
 ---ENGAGE Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param Defenders table Defenders table.
 function AI_A2A_DISPATCHER:ENGAGE(AttackerDetection, Defenders) end
@@ -947,7 +936,6 @@ function AI_A2A_DISPATCHER:ENGAGE(AttackerDetection, Defenders) end
 ---Creates an ENGAGE task when there are human friendlies airborne near the targets.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return SET_UNIT #TargetSetUnit: The target set of units or nil.
 function AI_A2A_DISPATCHER:EvaluateENGAGE(DetectedItem) end
@@ -955,7 +943,6 @@ function AI_A2A_DISPATCHER:EvaluateENGAGE(DetectedItem) end
 ---Creates an GCI task when there are targets for it.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return SET_UNIT #TargetSetUnit: The target set of units or nil if there are no targets to be set.
 ---@return table #Table of friendly groups.
@@ -964,7 +951,6 @@ function AI_A2A_DISPATCHER:EvaluateGCI(DetectedItem) end
 ---Creates an SWEEP task when there are targets for it.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 function AI_A2A_DISPATCHER:EvaluateSWEEP(DetectedItem) end
@@ -972,7 +958,6 @@ function AI_A2A_DISPATCHER:EvaluateSWEEP(DetectedItem) end
 ---GCI Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param DefendersMissing number Number of missing defenders.
 ---@param DefenderFriendlies table Friendly defenders.
@@ -981,7 +966,6 @@ function AI_A2A_DISPATCHER:GCI(AttackerDetection, DefendersMissing, DefenderFrie
 ---Calculates which AI friendlies are nearby the area
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return table #A list of the friendlies nearby.
 function AI_A2A_DISPATCHER:GetAIFriendliesNearBy(DetectedItem) end
@@ -989,7 +973,6 @@ function AI_A2A_DISPATCHER:GetAIFriendliesNearBy(DetectedItem) end
 
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:GetCAPDelay(SquadronName) end
@@ -1011,7 +994,6 @@ function AI_A2A_DISPATCHER:GetCAPDelay(SquadronName) end
 ---  end
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_A2A_DISPATCHER:GetDefaultLanding() end
 
@@ -1032,14 +1014,12 @@ function AI_A2A_DISPATCHER:GetDefaultLanding() end
 ---  end
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_A2A_DISPATCHER:GetDefaultTakeoff() end
 
 ---Get defender task.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 ---@return table #Defender task.
 function AI_A2A_DISPATCHER:GetDefenderTask(Defender) end
@@ -1047,7 +1027,6 @@ function AI_A2A_DISPATCHER:GetDefenderTask(Defender) end
 ---Get defender task FSM.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 ---@return FSM #The FSM.
 function AI_A2A_DISPATCHER:GetDefenderTaskFsm(Defender) end
@@ -1055,7 +1034,6 @@ function AI_A2A_DISPATCHER:GetDefenderTaskFsm(Defender) end
 
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 ---@return string #Squadron name of the defender task.
 function AI_A2A_DISPATCHER:GetDefenderTaskSquadronName(Defender) end
@@ -1063,22 +1041,19 @@ function AI_A2A_DISPATCHER:GetDefenderTaskSquadronName(Defender) end
 ---Get target of defender.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
----@return  #Target
+---@return NOTYPE #Target
 function AI_A2A_DISPATCHER:GetDefenderTaskTarget(Defender) end
 
 ---Return the defender tasks table.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return table #Defender tasks as table.
 function AI_A2A_DISPATCHER:GetDefenderTasks() end
 
 ---Calculates which friendlies are nearby the area.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_A2A_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
@@ -1086,7 +1061,6 @@ function AI_A2A_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
 ---Calculates which HUMAN friendlies are nearby the area.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_A2A_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
@@ -1094,7 +1068,6 @@ function AI_A2A_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
 ---Get an item from the Squadron table.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string Name of the squadron.
 ---@return AI_A2A_DISPATCHER.Squadron #Defender squadron table.
 function AI_A2A_DISPATCHER:GetSquadron(SquadronName) end
@@ -1102,7 +1075,6 @@ function AI_A2A_DISPATCHER:GetSquadron(SquadronName) end
 ---Get squadron from defender.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 ---@return AI_A2A_DISPATCHER.Squadron #Squadron The squadron.
 function AI_A2A_DISPATCHER:GetSquadronFromDefender(Defender) end
@@ -1124,7 +1096,6 @@ function AI_A2A_DISPATCHER:GetSquadronFromDefender(Defender) end
 ---  end
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_A2A_DISPATCHER:GetSquadronLanding(SquadronName) end
@@ -1146,7 +1117,6 @@ function AI_A2A_DISPATCHER:GetSquadronLanding(SquadronName) end
 ---  end
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_A2A_DISPATCHER:GetSquadronTakeoff(SquadronName) end
@@ -1162,7 +1132,6 @@ function AI_A2A_DISPATCHER:GetSquadronTakeoff(SquadronName) end
 ---  local IsVisible = A2ADispatcher:IsSquadronVisible( "Mineralnye" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return boolean #true if visible.
 function AI_A2A_DISPATCHER:IsSquadronVisible(SquadronName) end
@@ -1191,7 +1160,6 @@ function AI_A2A_DISPATCHER:IsSquadronVisible(SquadronName) end
 ---    A2ADispatcher = AI_A2A_DISPATCHER:New( Detection )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Detection DETECTION_BASE The DETECTION object that will detects targets using the the Early Warning Radar network.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:New(Detection) end
@@ -1199,7 +1167,6 @@ function AI_A2A_DISPATCHER:New(Detection) end
 ---OnAfter Transition Handler for Event Assign.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -1211,7 +1178,6 @@ function AI_A2A_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, Player
 ---CAP Handler OnAfter for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1220,7 +1186,6 @@ function AI_A2A_DISPATCHER:OnAfterCAP(From, Event, To) end
 ---ENGAGE Handler OnAfter for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1231,7 +1196,6 @@ function AI_A2A_DISPATCHER:OnAfterENGAGE(From, Event, To, AttackerDetection, Def
 ---GCI Handler OnAfter for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1243,7 +1207,6 @@ function AI_A2A_DISPATCHER:OnAfterGCI(From, Event, To, AttackerDetection, Defend
 ---CAP Handler OnBefore for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1253,7 +1216,6 @@ function AI_A2A_DISPATCHER:OnBeforeCAP(From, Event, To) end
 ---ENGAGE Handler OnBefore for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1265,7 +1227,6 @@ function AI_A2A_DISPATCHER:OnBeforeENGAGE(From, Event, To, AttackerDetection, De
 ---GCI Handler OnBefore for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1275,49 +1236,42 @@ function AI_A2A_DISPATCHER:OnBeforeGCI(From, Event, To) end
 ---Event base captured.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param EventData EVENTDATA 
 function AI_A2A_DISPATCHER:OnEventBaseCaptured(EventData) end
 
 ---Event dead or crash.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param EventData EVENTDATA 
 function AI_A2A_DISPATCHER:OnEventCrashOrDead(EventData) end
 
 ---Event engine shutdown.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param EventData EVENTDATA 
 function AI_A2A_DISPATCHER:OnEventEngineShutdown(EventData) end
 
 ---Event land.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param EventData EVENTDATA 
 function AI_A2A_DISPATCHER:OnEventLand(EventData) end
 
 ---Assigns A2G AI Tasks in relation to the detected items.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 function AI_A2A_DISPATCHER:Order(DetectedItem) end
 
 ---Park defender.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DefenderSquadron AI_A2A_DISPATCHER.Squadron The squadron.
 function AI_A2A_DISPATCHER:ParkDefender(DefenderSquadron) end
 
 ---Assigns A2A AI Tasks in relation to the detected items.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
 ---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
 function AI_A2A_DISPATCHER:ProcessDetected(Detection) end
@@ -1325,7 +1279,6 @@ function AI_A2A_DISPATCHER:ProcessDetected(Detection) end
 ---Get a resource count from a specific squadron
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Squadron string Name of the squadron.
 ---@return number #Number of airframes available or nil if the squadron does not exist
 function AI_A2A_DISPATCHER:QuerySquadron(Squadron) end
@@ -1334,7 +1287,6 @@ function AI_A2A_DISPATCHER:QuerySquadron(Squadron) end
 ---Resource count will increase.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Squadron AI_A2A_DISPATCHER.Squadron The squadron.
 ---@param Defender GROUP The defender group.
 function AI_A2A_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
@@ -1342,7 +1294,6 @@ function AI_A2A_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
 ---Remove resources from a Squadron
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Squadron string The squadron name.
 ---@param Amount number Number of resources to remove.
 function AI_A2A_DISPATCHER:RemoveFromSquadron(Squadron, Amount) end
@@ -1350,7 +1301,6 @@ function AI_A2A_DISPATCHER:RemoveFromSquadron(Squadron, Amount) end
 ---Activate resource.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DefenderSquadron AI_A2A_DISPATCHER.Squadron The defender squadron.
 ---@param DefendersNeeded number Number of defenders needed. Default 4.
 ---@return GROUP #The defender group.
@@ -1360,7 +1310,6 @@ function AI_A2A_DISPATCHER:ResourceActivate(DefenderSquadron, DefendersNeeded) e
 ---Schedules a new CAP for the given SquadronName.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 function AI_A2A_DISPATCHER:SchedulerCAP(SquadronName) end
 
@@ -1390,7 +1339,6 @@ function AI_A2A_DISPATCHER:SchedulerCAP(SquadronName) end
 ---  A2ADispatcher:SetBorderZone( { BorderZone1, BorderZone2 } )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param BorderZone ZONE_BASE An object derived from ZONE_BASE, or a list of objects derived from ZONE_BASE.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetBorderZone(BorderZone) end
@@ -1410,7 +1358,6 @@ function AI_A2A_DISPATCHER:SetBorderZone(BorderZone) end
 ---  A2ADispatcher:SetDefaultCapLimit( 2 ) -- Maximum 2 CAP per squadron.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param CapLimit number The maximum amount of CAP that can be airborne at the same time for the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultCapLimit(CapLimit) end
@@ -1418,7 +1365,6 @@ function AI_A2A_DISPATCHER:SetDefaultCapLimit(CapLimit) end
 ---Set race track pattern as default when any squadron is performing CAP.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param LeglengthMin number Min length of the race track leg in meters. Default 10,000 m.
 ---@param LeglengthMax number Max length of the race track leg in meters. Default 15,000 m.
 ---@param HeadingMin number Min heading of the race track in degrees. Default 0 deg, i.e. counter clockwise from South to North.
@@ -1444,7 +1390,6 @@ function AI_A2A_DISPATCHER:SetDefaultCapRacetrack(LeglengthMin, LeglengthMax, He
 ---  A2ADispatcher:SetDefaultCapTimeInterval( 300, 1200 ) -- Between 300 and 1200 seconds.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param CapMinSeconds number The minimum amount of seconds for the random time interval.
 ---@param CapMaxSeconds number The maximum amount of seconds for the random time interval.
 ---@return AI_A2A_DISPATCHER #self
@@ -1465,7 +1410,6 @@ function AI_A2A_DISPATCHER:SetDefaultCapTimeInterval(CapMinSeconds, CapMaxSecond
 ---  A2ADispatcher:SetDefaultDamageThreshold( 0.90 ) -- Go RTB when the airplane 90% damaged.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DamageThreshold number A decimal number between 0 and 1, that expresses the % of the damage threshold before going RTB.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
@@ -1485,7 +1429,6 @@ function AI_A2A_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
 ---  A2ADispatcher:SetDefaultFuelThreshold( 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
@@ -1505,7 +1448,6 @@ function AI_A2A_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
 ---  A2ADispatcher:SetDefaultGrouping( 2 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Grouping number The level of grouping that will be applied of the CAP or GCI defenders.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultGrouping(Grouping) end
@@ -1530,7 +1472,6 @@ function AI_A2A_DISPATCHER:SetDefaultGrouping(Grouping) end
 ---  A2ADispatcher:SetDefaultLanding( AI_A2A_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultLanding(Landing) end
@@ -1549,7 +1490,6 @@ function AI_A2A_DISPATCHER:SetDefaultLanding(Landing) end
 ---  A2ADispatcher:SetDefaultLandingAtEngineShutdown()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 
@@ -1567,7 +1507,6 @@ function AI_A2A_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 ---  A2ADispatcher:SetDefaultLandingAtRunway()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultLandingAtRunway() end
 
@@ -1585,7 +1524,6 @@ function AI_A2A_DISPATCHER:SetDefaultLandingAtRunway() end
 ---  A2ADispatcher:SetDefaultLandingNearAirbase()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultLandingNearAirbase() end
 
@@ -1607,7 +1545,6 @@ function AI_A2A_DISPATCHER:SetDefaultLandingNearAirbase() end
 ---  A2ADispatcher:SetDefaultOverhead( 1.5 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units.
 ---@return AI_A2A_DISPATCHER #The default overhead is 1, so equal balance. The @{#AI_A2A_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance A2A missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:    * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group multiplied by the Overhead and rounded up to the smallest integer.  The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below. 
 function AI_A2A_DISPATCHER:SetDefaultOverhead(Overhead) end
@@ -1635,7 +1572,6 @@ function AI_A2A_DISPATCHER:SetDefaultOverhead(Overhead) end
 ---  A2ADispatcher:SetDefaultTakeoff( AI_A2A_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoff(Takeoff) end
@@ -1654,7 +1590,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoff(Takeoff) end
 ---  A2ADispatcher:SetDefaultTakeoffFromParkingCold()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 
@@ -1672,7 +1607,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 ---  A2ADispatcher:SetDefaultTakeoffFromParkingHot()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 
@@ -1690,7 +1624,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 ---  A2ADispatcher:SetDefaultTakeoffFromRunway()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoffFromRunway() end
 
@@ -1708,7 +1641,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoffFromRunway() end
 ---  A2ADispatcher:SetDefaultTakeoffInAir()
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoffInAir() end
 
@@ -1726,7 +1658,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoffInAir() end
 ---  A2ADispatcher:SetDefaultTakeoffInAirAltitude( 2000 )  -- This makes planes start at 2000 meters above the ground.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param TakeoffAltitude number The altitude in meters above the ground.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
@@ -1748,7 +1679,6 @@ function AI_A2A_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
 ---  A2ADispatcher:SetDefaultTanker( "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetDefaultTanker(TankerName) end
@@ -1756,7 +1686,6 @@ function AI_A2A_DISPATCHER:SetDefaultTanker(TankerName) end
 ---Set defender task.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string Name of the squadron.
 ---@param Defender GROUP The defender group.
 ---@param Type table Type of the defender task
@@ -1768,7 +1697,6 @@ function AI_A2A_DISPATCHER:SetDefenderTask(SquadronName, Defender, Type, Fsm, Ta
 ---Set defender task target.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Defender GROUP The defender group.
 ---@param AttackerDetection DETECTION_BASE.DetectedItem The detection object.
 ---@return AI_A2A_DISPATCHER #self
@@ -1788,7 +1716,6 @@ function AI_A2A_DISPATCHER:SetDefenderTaskTarget(Defender, AttackerDetection) en
 ---  A2ADispatcher:SetDisengageRadius() -- 300000 is the default value.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param DisengageRadius number (Optional, Default = 300000) The radius in meters to disengage a target when too far from the home base.
 ---@return AI_A2A_DISPATCHER #
 function AI_A2A_DISPATCHER:SetDisengageRadius(DisengageRadius) end
@@ -1821,7 +1748,6 @@ function AI_A2A_DISPATCHER:SetDisengageRadius(DisengageRadius) end
 ---  A2ADispatcher:SetEngageRadius() -- 100000 is the default value.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param EngageRadius number (Optional, Default = 100000) The radius to report friendlies near the target.
 ---@return AI_A2A_DISPATCHER #
 function AI_A2A_DISPATCHER:SetEngageRadius(EngageRadius) end
@@ -1854,7 +1780,6 @@ function AI_A2A_DISPATCHER:SetEngageRadius(EngageRadius) end
 ---  A2ADispatcher:SetGciRadius() -- 200000 is the default value.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param GciRadius number (Optional, Default = 200000) The radius to ground control intercept detected targets from the nearest airbase.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetGciRadius(GciRadius) end
@@ -1862,7 +1787,6 @@ function AI_A2A_DISPATCHER:SetGciRadius(GciRadius) end
 ---Set intercept.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param InterceptDelay number Delay in seconds before intercept.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetIntercept(InterceptDelay) end
@@ -1870,7 +1794,6 @@ function AI_A2A_DISPATCHER:SetIntercept(InterceptDelay) end
 ---Set flashing player messages on or off
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param onoff boolean Set messages on (true) or off (false)
 function AI_A2A_DISPATCHER:SetSendMessages(onoff) end
 
@@ -1901,7 +1824,6 @@ function AI_A2A_DISPATCHER:SetSendMessages(onoff) end
 ---  A2ADispatcher = AI_A2A_DISPATCHER:New( Detection )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string A string (text) that defines the squadron identifier or the key of the Squadron. It can be any name, for example `"104th Squadron"` or `"SQ SQUADRON1"`, whatever. As long as you remember that this name becomes the identifier of your squadron you have defined. You need to use this name in other methods too! 
 ---@param AirbaseName string The airbase name where you want to have the squadron located. You need to specify here EXACTLY the name of the airbase as you see it in the mission editor. Examples are `"Batumi"` or `"Tbilisi-Lochini"`. EXACTLY the airbase name, between quotes `""`. To ease the airbase naming when using the LDT editor and IntelliSense, the @{Wrapper.Airbase#AIRBASE} class contains enumerations of the airbases of each map.     * Caucasus: @{Wrapper.Airbase#AIRBASE.Caucaus}    * Nevada or NTTR: @{Wrapper.Airbase#AIRBASE.Nevada}    * Normandy: @{Wrapper.Airbase#AIRBASE.Normandy} 
 ---@param TemplatePrefixes string A string or an array of strings specifying the **prefix names of the templates** (not going to explain what is templates here again). Examples are `{ "104th", "105th" }` or `"104th"` or `"Template 1"` or `"BLUE PLANES"`. Just remember that your template (groups late activated) need to start with the prefix you have specified in your code. If you have only one prefix name for a squadron, you don't need to use the `{ }`, otherwise you need to use the brackets. 
@@ -1930,7 +1852,6 @@ function AI_A2A_DISPATCHER:SetSquadron(SquadronName, AirbaseName, TemplatePrefix
 ---  A2ADispatcher:SetSquadronCapInterval( "Sochi", 2, 30, 120, 1 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param Zone ZONE_BASE The @{Core.Zone} object derived from @{Core.Zone#ZONE_BASE} that defines the zone wherein the CAP will be executed.
 ---@param PatrolFloorAltitude number The minimum altitude at which the cap can be executed.
@@ -1970,7 +1891,6 @@ function AI_A2A_DISPATCHER:SetSquadronCap(SquadronName, Zone, PatrolFloorAltitud
 ---  A2ADispatcher:SetSquadronCapInterval( "Maykop", 2, 30, 120, 1 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number The minimum speed at which the engage can be executed.
 ---@param EngageMaxSpeed number The maximum speed at which the engage can be executed.
@@ -2007,7 +1927,6 @@ function AI_A2A_DISPATCHER:SetSquadronCap2(SquadronName, EngageMinSpeed, EngageM
 ---  A2ADispatcher:SetSquadronCapInterval( "Sochi", 2, 30, 120, 1 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param CapLimit? number (optional) The maximum amount of CAP groups to be spawned. Note that a CAP is a group, so can consist out of 1 to 4 airplanes. The default is 1 CAP group.
 ---@param LowInterval? number (optional) The minimum time boundary in seconds when a new CAP will be spawned. The default is 180 seconds.
@@ -2019,7 +1938,6 @@ function AI_A2A_DISPATCHER:SetSquadronCapInterval(SquadronName, CapLimit, LowInt
 ---Set race track pattern when squadron is performing CAP.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string Name of the squadron.
 ---@param LeglengthMin number Min length of the race track leg in meters. Default 10,000 m.
 ---@param LeglengthMax number Max length of the race track leg in meters. Default 15,000 m.
@@ -2046,7 +1964,6 @@ function AI_A2A_DISPATCHER:SetSquadronCapRacetrack(SquadronName, LeglengthMin, L
 ---  A2ADispatcher:SetSquadronFuelThreshold( "SquadronName", 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_A2A_DISPATCHER #self
@@ -2065,7 +1982,6 @@ function AI_A2A_DISPATCHER:SetSquadronFuelThreshold(SquadronName, FuelThreshold)
 ---  A2ADispatcher:SetSquadronGci( "Maykop", 900, 1200 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number The minimum speed [km/h] at which the GCI can be executed.
 ---@param EngageMaxSpeed number The maximum speed [km/h] at which the GCI can be executed.
@@ -2085,7 +2001,6 @@ function AI_A2A_DISPATCHER:SetSquadronGci(SquadronName, EngageMinSpeed, EngageMa
 ---  A2ADispatcher:SetSquadronGci2( "Maykop", 900, 1200, 100, 300, "RADIO" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageMinSpeed number The minimum speed [km/h] at which the GCI can be executed.
 ---@param EngageMaxSpeed number The maximum speed [km/h] at which the GCI can be executed.
@@ -2110,7 +2025,6 @@ function AI_A2A_DISPATCHER:SetSquadronGci2(SquadronName, EngageMinSpeed, EngageM
 ---  A2ADispatcher:SetSquadronGrouping( "SquadronName", 2 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Grouping number The level of grouping that will be applied of the CAP or GCI defenders.
 ---@return AI_A2A_DISPATCHER #self
@@ -2136,7 +2050,6 @@ function AI_A2A_DISPATCHER:SetSquadronGrouping(SquadronName, Grouping) end
 ---  A2ADispatcher:SetSquadronLanding( "SquadronName", AI_A2A_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_A2A_DISPATCHER #self
@@ -2156,7 +2069,6 @@ function AI_A2A_DISPATCHER:SetSquadronLanding(SquadronName, Landing) end
 ---  A2ADispatcher:SetSquadronLandingAtEngineShutdown( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
@@ -2175,7 +2087,6 @@ function AI_A2A_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
 ---  A2ADispatcher:SetSquadronLandingAtRunway( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
@@ -2194,7 +2105,6 @@ function AI_A2A_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
 ---  A2ADispatcher:SetSquadronLandingNearAirbase( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
@@ -2216,7 +2126,6 @@ function AI_A2A_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
 ---  A2ADispatcher:SetSquadronLanguage( "SquadronName", "RU" ) -- This squadron speaks Russian.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Language string A string defining the language to be embedded within the miz file.
 ---@return AI_A2A_DISPATCHER #
@@ -2240,7 +2149,6 @@ function AI_A2A_DISPATCHER:SetSquadronLanguage(SquadronName, Language) end
 ---  A2ADispatcher:SetSquadronOverhead( "SquadronName", 1.5 )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units.
 ---@return AI_A2A_DISPATCHER #self The default overhead is 1, so equal balance. The @{#AI_A2A_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance A2A missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:    * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group multiplied by the Overhead and rounded up to the smallest integer.  The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below. 
@@ -2249,7 +2157,6 @@ function AI_A2A_DISPATCHER:SetSquadronOverhead(SquadronName, Overhead) end
 ---Set the frequency of communication and the mode of communication for voice overs.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param RadioFrequency number The frequency of communication.
 ---@param RadioModulation number The modulation of communication.
@@ -2279,7 +2186,6 @@ function AI_A2A_DISPATCHER:SetSquadronRadioFrequency(SquadronName, RadioFrequenc
 ---  A2ADispatcher:SetSquadronTakeoff( "SquadronName", AI_A2A_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_A2A_DISPATCHER #self
@@ -2299,7 +2205,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoff(SquadronName, Takeoff) end
 ---  A2ADispatcher:SetSquadronTakeoffFromParkingCold( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
@@ -2318,7 +2223,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
 ---  A2ADispatcher:SetSquadronTakeoffFromParkingHot( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
@@ -2337,7 +2241,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
 ---  A2ADispatcher:SetSquadronTakeoffFromRunway( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
@@ -2356,7 +2259,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
 ---  A2ADispatcher:SetSquadronTakeoffInAir( "SquadronName" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude? number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
 ---@return AI_A2A_DISPATCHER #self
@@ -2376,7 +2278,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffInAir(SquadronName, TakeoffAltitude
 ---  A2ADispatcher:SetSquadronTakeoffInAirAltitude( "SquadronName", 2000 ) -- This makes planes start at 2000 meters above the ground.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude number The altitude in meters above the ground.
 ---@return AI_A2A_DISPATCHER #self
@@ -2399,7 +2300,6 @@ function AI_A2A_DISPATCHER:SetSquadronTakeoffInAirAltitude(SquadronName, Takeoff
 ---  A2ADispatcher:SetSquadronTanker( "SquadronName", "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_A2A_DISPATCHER #
@@ -2418,7 +2318,6 @@ function AI_A2A_DISPATCHER:SetSquadronTanker(SquadronName, TankerName) end
 ---  A2ADispatcher:SetSquadronVisible( "Mineralnye" )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetSquadronVisible(SquadronName) end
@@ -2443,7 +2342,6 @@ function AI_A2A_DISPATCHER:SetSquadronVisible(SquadronName) end
 ---  A2ADispatcher:SetTacticalDisplay( true )
 ---```
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param TacticalDisplay boolean Provide a value of **true** to display every 30 seconds a tactical overview.
 ---@return AI_A2A_DISPATCHER #self
 function AI_A2A_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
@@ -2451,21 +2349,18 @@ function AI_A2A_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
 ---Shows the tactical display.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
 function AI_A2A_DISPATCHER:ShowTacticalDisplay(Detection) end
 
 ---CAP Asynchronous Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Delay number 
 function AI_A2A_DISPATCHER:__CAP(Delay) end
 
 ---ENGAGE Asynchronous Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Delay number 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param Defenders table Defenders table.
@@ -2474,7 +2369,6 @@ function AI_A2A_DISPATCHER:__ENGAGE(Delay, AttackerDetection, Defenders) end
 ---GCI Asynchronous Trigger for AI_A2A_DISPATCHER
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param Delay number 
 ---@param AttackerDetection DETECTION_BASE.DetectedItem Detected item.
 ---@param DefendersMissing number Number of missing defenders.
@@ -2484,7 +2378,6 @@ function AI_A2A_DISPATCHER:__GCI(Delay, AttackerDetection, DefendersMissing, Def
 ---On after "CAP" event.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2495,7 +2388,6 @@ function AI_A2A_DISPATCHER:onafterCAP(From, Event, To, SquadronName) end
 ---On after "ENGAGE" event.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2507,7 +2399,6 @@ function AI_A2A_DISPATCHER:onafterENGAGE(From, Event, To, AttackerDetection, Def
 ---On after "GCI" event.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -2520,7 +2411,6 @@ function AI_A2A_DISPATCHER:onafterGCI(From, Event, To, AttackerDetection, Defend
 ---On after "Start" event.
 ---
 ------
----@param self AI_A2A_DISPATCHER 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -2822,7 +2712,6 @@ AI_A2A_GCICAP = {}
 ---  A2ADispatcher = AI_A2A_GCICAP:New( { "DF CCCP" }, { "SQ CCCP" }, { "CAP Zone" }, 2 )
 ---```
 ------
----@param self AI_A2A_GCICAP 
 ---@param EWRPrefixes string A list of prefixes that of groups that setup the Early Warning Radar network.
 ---@param TemplatePrefixes string A list of template prefixes.
 ---@param CapPrefixes string A list of CAP zone prefixes (polygon zones).
@@ -2850,7 +2739,6 @@ function AI_A2A_GCICAP:New(EWRPrefixes, TemplatePrefixes, CapPrefixes, CapLimit,
 ---  A2ADispatcher = AI_A2A_GCICAP:NewWithBorder( { "DF CCCP" }, { "SQ CCCP" }, "Border", { "CAP Zone" }, 2 )
 ---```
 ------
----@param self AI_A2A_GCICAP 
 ---@param EWRPrefixes string A list of prefixes that of groups that setup the Early Warning Radar network.
 ---@param TemplatePrefixes string A list of template prefixes.
 ---@param BorderPrefix string A Border Zone Prefix.

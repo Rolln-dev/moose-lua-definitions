@@ -42,6 +42,7 @@
 ---Models the behaviour of cargo crates, which can be slingloaded and boarded on helicopters.
 ---@deprecated
 ---@class CARGO_CRATE : CARGO_REPRESENTABLE
+---@field CargoCarrier NOTYPE 
 ---@field CargoObject STATIC 
 ---@field NoDestroy boolean 
 CARGO_CRATE = {}
@@ -49,25 +50,21 @@ CARGO_CRATE = {}
 ---Check if the cargo can be Boarded.
 ---
 ------
----@param self CARGO_CRATE 
 function CARGO_CRATE:CanBoard() end
 
 ---Check if the cargo can be sling loaded.
 ---
 ------
----@param self CARGO_CRATE 
 function CARGO_CRATE:CanSlingload() end
 
 ---Check if the cargo can be Unboarded.
 ---
 ------
----@param self CARGO_CRATE 
 function CARGO_CRATE:CanUnboard() end
 
 ---Get the current Coordinate of the CargoGroup.
 ---
 ------
----@param self CARGO_CRATE 
 ---@return COORDINATE #The current Coordinate of the first Cargo of the CargoGroup.
 ---@return nil #There is no valid Cargo in the CargoGroup.
 function CARGO_CRATE:GetCoordinate() end
@@ -75,14 +72,12 @@ function CARGO_CRATE:GetCoordinate() end
 ---Get the transportation method of the Cargo.
 ---
 ------
----@param self CARGO_CRATE 
 ---@return string #The transportation method of the Cargo.
 function CARGO_CRATE:GetTransportationMethod() end
 
 ---Check if the CargoGroup is alive.
 ---
 ------
----@param self CARGO_CRATE 
 ---@return boolean #true if the CargoGroup is alive.
 ---@return boolean #false if the CargoGroup is dead.
 function CARGO_CRATE:IsAlive() end
@@ -90,7 +85,6 @@ function CARGO_CRATE:IsAlive() end
 ---Check if Cargo Crate is in the radius for the Cargo to be Boarded or Loaded.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param Coordinate Coordinate 
 ---@return boolean #true if the Cargo Crate is within the loading radius.
 function CARGO_CRATE:IsInLoadRadius(Coordinate) end
@@ -98,7 +92,6 @@ function CARGO_CRATE:IsInLoadRadius(Coordinate) end
 ---Check if Cargo Crate is in the radius for the Cargo to be reported.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param Coordinate COORDINATE 
 ---@return boolean #true if the Cargo Crate is within the report radius.
 function CARGO_CRATE:IsInReportRadius(Coordinate) end
@@ -107,7 +100,6 @@ function CARGO_CRATE:IsInReportRadius(Coordinate) end
 ---The Cargo is near to the Carrier within NearRadius.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param CargoCarrier GROUP 
 ---@param NearRadius number 
 ---@return boolean #The Cargo is near to the Carrier.
@@ -117,7 +109,6 @@ function CARGO_CRATE:IsNear(CargoCarrier, NearRadius) end
 ---CARGO_CRATE Constructor.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param CargoStatic STATIC 
 ---@param Type string 
 ---@param Name string 
@@ -129,34 +120,29 @@ function CARGO_CRATE:New(CargoStatic, Type, Name, LoadRadius, NearRadius) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function CARGO_CRATE:OnEventCargoDead(EventData) end
 
 ---Respawn the CargoGroup.
 ---
 ------
----@param self CARGO_CRATE 
 function CARGO_CRATE:Respawn() end
 
 ---Route Cargo to Coordinate and randomize locations.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param Coordinate COORDINATE 
 function CARGO_CRATE:RouteTo(Coordinate) end
 
 ---Respawn the CargoGroup.
 ---
 ------
----@param self CARGO_CRATE 
 ---@private
 function CARGO_CRATE:onafterReset() end
 
 ---Loaded State.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -167,7 +153,6 @@ function CARGO_CRATE:onenterLoaded(Event, From, To, CargoCarrier) end
 ---Enter UnLoaded State.
 ---
 ------
----@param self CARGO_CRATE 
 ---@param Event string 
 ---@param From string 
 ---@param To string 

@@ -73,19 +73,16 @@ AI_AIR = {}
 
 ---
 ------
----@param self NOTYPE 
 function AI_AIR:ClearTargetDistance() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_AIR:GetDispatcher() end
 
 ---Creates a new AI_AIR process.
 ---
 ------
----@param self AI_AIR 
 ---@param AIGroup GROUP The group object to receive the A2G Process.
 ---@return AI_AIR #
 function AI_AIR:New(AIGroup) end
@@ -93,7 +90,6 @@ function AI_AIR:New(AIGroup) end
 ---OnAfter Transition Handler for Event RTB.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -103,7 +99,6 @@ function AI_AIR:OnAfterRTB(Controllable, From, Event, To) end
 ---Refuel Handler OnAfter for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string 
 ---@param Event string 
@@ -113,7 +108,6 @@ function AI_AIR:OnAfterRefuel(Controllable, From, Event, To) end
 ---Start Handler OnAfter for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -122,7 +116,6 @@ function AI_AIR:OnAfterStart(From, Event, To) end
 ---OnAfter Transition Handler for Event Status.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -132,7 +125,6 @@ function AI_AIR:OnAfterStatus(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Stop.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -142,7 +134,6 @@ function AI_AIR:OnAfterStop(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event RTB.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -153,7 +144,6 @@ function AI_AIR:OnBeforeRTB(Controllable, From, Event, To) end
 ---Refuel Handler OnBefore for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string 
 ---@param Event string 
@@ -164,7 +154,6 @@ function AI_AIR:OnBeforeRefuel(Controllable, From, Event, To) end
 ---Start Handler OnBefore for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -174,7 +163,6 @@ function AI_AIR:OnBeforeStart(From, Event, To) end
 ---OnBefore Transition Handler for Event Status.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -185,7 +173,6 @@ function AI_AIR:OnBeforeStatus(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Stop.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -196,21 +183,18 @@ function AI_AIR:OnBeforeStop(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR:OnCrash(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR:OnEjection(EventData) end
 
 ---OnEnter Transition Handler for State Returning.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -220,7 +204,6 @@ function AI_AIR:OnEnterReturning(Controllable, From, Event, To) end
 ---OnEnter Transition Handler for State Stopped.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -230,7 +213,6 @@ function AI_AIR:OnEnterStopped(Controllable, From, Event, To) end
 ---OnLeave Transition Handler for State Returning.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -241,7 +223,6 @@ function AI_AIR:OnLeaveReturning(Controllable, From, Event, To) end
 ---OnLeave Transition Handler for State Stopped.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -252,47 +233,40 @@ function AI_AIR:OnLeaveStopped(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR:OnPilotDead(EventData) end
 
 ---Synchronous Event Trigger for Event RTB.
 ---
 ------
----@param self AI_AIR 
 function AI_AIR:RTB() end
 
 
 ---
 ------
----@param AIGroup NOTYPE 
 ---@param Fsm NOTYPE 
 function AI_AIR.RTBHold(AIGroup, Fsm) end
 
 
 ---
 ------
----@param AIGroup NOTYPE 
 ---@param Fsm NOTYPE 
 function AI_AIR.RTBRoute(AIGroup, Fsm) end
 
 ---Refuel Trigger for AI_AIR
 ---
 ------
----@param self AI_AIR 
 function AI_AIR:Refuel() end
 
 
 ---
 ------
----@param AIGroup NOTYPE 
 ---@param Fsm NOTYPE 
 function AI_AIR.Resume(AIGroup, Fsm) end
 
 ---Sets the floor and ceiling altitude of the patrol.
 ---
 ------
----@param self AI_AIR 
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
 ---@return AI_AIR #self
@@ -306,7 +280,6 @@ function AI_AIR:SetAltitude(PatrolFloorAltitude, PatrolCeilingAltitude) end
 ---So, in a group of 4 airplanes, 2 lost and 2 with damage 0.2, the damage threshold will be 0.25.
 ---
 ------
----@param self AI_AIR 
 ---@param PatrolDamageThreshold number The threshold in percentage (between 0 and 1) when the AI is considered to be damaged.
 ---@return AI_AIR #self
 function AI_AIR:SetDamageThreshold(PatrolDamageThreshold) end
@@ -314,7 +287,6 @@ function AI_AIR:SetDamageThreshold(PatrolDamageThreshold) end
 ---Sets the disengage range, that when engaging a target beyond the specified range, the engagement will be cancelled and the plane will RTB.
 ---
 ------
----@param self AI_AIR 
 ---@param DisengageRadius number The disengage range.
 ---@return AI_AIR #self
 function AI_AIR:SetDisengageRadius(DisengageRadius) end
@@ -322,7 +294,6 @@ function AI_AIR:SetDisengageRadius(DisengageRadius) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Dispatcher NOTYPE 
 function AI_AIR:SetDispatcher(Dispatcher) end
 
@@ -332,7 +303,6 @@ function AI_AIR:SetDispatcher(Dispatcher) end
 ---Once the time is finished, the old AI will return to the base.
 ---
 ------
----@param self AI_AIR 
 ---@param FuelThresholdPercentage number The threshold in percentage (between 0 and 1) when the AIControllable is considered to get out of fuel.
 ---@param OutOfFuelOrbitTime number The amount of seconds the out of fuel AIControllable will orbit before returning to the base.
 ---@return AI_AIR #self
@@ -341,7 +311,6 @@ function AI_AIR:SetFuelThreshold(FuelThresholdPercentage, OutOfFuelOrbitTime) en
 ---Sets the home airbase.
 ---
 ------
----@param self AI_AIR 
 ---@param HomeAirbase AIRBASE 
 ---@return AI_AIR #self
 function AI_AIR:SetHomeAirbase(HomeAirbase) end
@@ -349,7 +318,6 @@ function AI_AIR:SetHomeAirbase(HomeAirbase) end
 ---Sets (modifies) the minimum and maximum RTB speed of the patrol.
 ---
 ------
----@param self AI_AIR 
 ---@param RTBMinSpeed Speed The minimum speed of the @{Wrapper.Controllable} in km/h.
 ---@param RTBMaxSpeed Speed The maximum speed of the @{Wrapper.Controllable} in km/h.
 ---@return AI_AIR #self
@@ -361,7 +329,6 @@ function AI_AIR:SetRTBSpeed(RTBMinSpeed, RTBMaxSpeed) end
 ---A random value in this bracket is then applied in the waypoint routing generation.
 ---
 ------
----@param self AI_AIR 
 ---@param MinFactor number Lower bracket factor. Defaults to 0.5.
 ---@param MaxFactor number Upper bracket factor. Defaults to 0.6.
 ---@return AI_AIR #self
@@ -370,7 +337,6 @@ function AI_AIR:SetRTBSpeedFactors(MinFactor, MaxFactor) end
 ---Sets (modifies) the minimum and maximum speed of the patrol.
 ---
 ------
----@param self AI_AIR 
 ---@param PatrolMinSpeed Speed The minimum speed of the @{Wrapper.Controllable} in km/h.
 ---@param PatrolMaxSpeed Speed The maximum speed of the @{Wrapper.Controllable} in km/h.
 ---@return AI_AIR #self
@@ -379,14 +345,12 @@ function AI_AIR:SetSpeed(PatrolMinSpeed, PatrolMaxSpeed) end
 ---Set the status checking off.
 ---
 ------
----@param self AI_AIR 
 ---@return AI_AIR #self
 function AI_AIR:SetStatusOff() end
 
 ---Sets to refuel at the given tanker.
 ---
 ------
----@param self AI_AIR 
 ---@param TankerName GROUP The group name of the tanker as defined within the Mission Editor or spawned.
 ---@return AI_AIR #self
 function AI_AIR:SetTanker(TankerName) end
@@ -394,74 +358,63 @@ function AI_AIR:SetTanker(TankerName) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Coordinate NOTYPE 
 function AI_AIR:SetTargetDistance(Coordinate) end
 
 ---Start Trigger for AI_AIR
 ---
 ------
----@param self AI_AIR 
 function AI_AIR:Start() end
 
 ---Synchronous Event Trigger for Event Status.
 ---
 ------
----@param self AI_AIR 
 function AI_AIR:Status() end
 
 ---Synchronous Event Trigger for Event Stop.
 ---
 ------
----@param self AI_AIR 
 function AI_AIR:Stop() end
 
 ---Asynchronous Event Trigger for Event RTB.
 ---
 ------
----@param self AI_AIR 
 ---@param Delay number The delay in seconds.
 function AI_AIR:__RTB(Delay) end
 
 ---Refuel Asynchronous Trigger for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param Delay number 
 function AI_AIR:__Refuel(Delay) end
 
 ---Start Asynchronous Trigger for AI_AIR
 ---
 ------
----@param self AI_AIR 
 ---@param Delay number 
 function AI_AIR:__Start(Delay) end
 
 ---Asynchronous Event Trigger for Event Status.
 ---
 ------
----@param self AI_AIR 
 ---@param Delay number The delay in seconds.
 function AI_AIR:__Status(Delay) end
 
 ---Asynchronous Event Trigger for Event Stop.
 ---
 ------
----@param self AI_AIR 
 ---@param Delay number The delay in seconds.
 function AI_AIR:__Stop(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_AIR:onafterDead() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param AIGroup NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -473,7 +426,6 @@ function AI_AIR:onafterHold(AIGroup, From, Event, To, HoldTime) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param AIGroup NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -484,7 +436,6 @@ function AI_AIR:onafterHome(AIGroup, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param AIGroup NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -495,7 +446,6 @@ function AI_AIR:onafterRTB(AIGroup, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param AIGroup NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -506,7 +456,6 @@ function AI_AIR:onafterRefuel(AIGroup, From, Event, To) end
 ---Coordinates the approriate returning action.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -518,7 +467,6 @@ function AI_AIR:onafterReturn(Controllable, From, Event, To) end
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_AIR 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -530,14 +478,12 @@ function AI_AIR:onafterStart(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_AIR:onafterStatus() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_AIR:onbeforeStatus() end
 

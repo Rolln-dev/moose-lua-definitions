@@ -37,14 +37,12 @@ FLOTILLA = {}
 ---Get fleet of this flotilla.
 ---
 ------
----@param self FLOTILLA 
 ---@return FLEET #The fleet.
 function FLOTILLA:GetFleet() end
 
 ---Create a new FLOTILLA object and start the FSM.
 ---
 ------
----@param self FLOTILLA 
 ---@param TemplateGroupName string Name of the template group.
 ---@param Ngroups number Number of asset groups of this flotilla. Default 3.
 ---@param FlotillaName string Name of the flotilla. Must be **unique**!
@@ -54,7 +52,6 @@ function FLOTILLA:New(TemplateGroupName, Ngroups, FlotillaName) end
 ---Set fleet of this flotilla.
 ---
 ------
----@param self FLOTILLA 
 ---@param Fleet FLEET The fleet.
 ---@return FLOTILLA #self
 function FLOTILLA:SetFleet(Fleet) end
@@ -63,7 +60,6 @@ function FLOTILLA:SetFleet(Fleet) end
 ---Starts the FLIGHTGROUP FSM and event handlers.
 ---
 ------
----@param self FLOTILLA 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -73,7 +69,6 @@ function FLOTILLA:onafterStart(From, Event, To) end
 ---On after "Status" event.
 ---
 ------
----@param self FLOTILLA 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

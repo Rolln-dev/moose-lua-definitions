@@ -172,7 +172,6 @@ GROUP = {}
 ---Activates a late activated GROUP.
 ---
 ------
----@param self GROUP 
 ---@param delay number Delay in seconds, before the group is activated.
 ---@return GROUP #self
 function GROUP:Activate(delay) end
@@ -181,21 +180,18 @@ function GROUP:Activate(delay) end
 ---If all units of this group are on the ground, this function will return true, otherwise false.
 ---
 ------
----@param self GROUP 
 ---@return boolean #All units on the ground result.
 function GROUP:AllOnGround() end
 
 ---Calculate the maxium A2G threat level of the Group.
 ---
 ------
----@param self GROUP 
 ---@return number #Number between 0 and 10.
 function GROUP:CalculateThreatLevelA2G() end
 
 ---Switch on/off immortal flag for the group.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true, Immortal is enabled. If false, Immortal is disabled.
 ---@return GROUP #self
 function GROUP:CommandSetImmortal(switch) end
@@ -203,7 +199,6 @@ function GROUP:CommandSetImmortal(switch) end
 ---Switch on/off invisible flag for the group.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true, Invisible is enabled. If false, Invisible is disabled.
 ---@return GROUP #self
 function GROUP:CommandSetInvisible(switch) end
@@ -211,7 +206,6 @@ function GROUP:CommandSetInvisible(switch) end
 ---Return the route of a group by using the global _DATABASE object (an instance of Core.Database#DATABASE).
 ---
 ------
----@param self GROUP 
 ---@param Begin number The route point from where the copy will start. The base route point is 0.
 ---@param End number The route point where the copy will end. The End point is the last point - the End point. The last point has base 0.
 ---@param Randomize boolean Randomization of the route, when true.
@@ -221,14 +215,12 @@ function GROUP:CopyRoute(Begin, End, Randomize, Radius) end
 ---Count number of alive units in the group.
 ---
 ------
----@param self GROUP 
 ---@return number #Number of alive units. If DCS group is nil, 0 is returned.
 function GROUP:CountAliveUnits() end
 
 ---Returns the number of UNITs that are in the Core.Zone
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return number #The number of UNITs that are in the @{Core.Zone}
 function GROUP:CountInZone(Zone) end
@@ -236,7 +228,6 @@ function GROUP:CountInZone(Zone) end
 ---Deactivates an activated GROUP.
 ---
 ------
----@param self GROUP 
 ---@param delay number Delay in seconds, before the group is activated.
 ---@return GROUP #self
 function GROUP:Deactivate(delay) end
@@ -255,7 +246,6 @@ function GROUP:Deactivate(delay) end
 ---Helicopter:Destroy( true )
 ---```
 ------
----@param self GROUP 
 ---@param GenerateEvent boolean If true, a crash [AIR] or dead [GROUND] event for each unit is generated. If false, if no event is triggered. If nil, a RemoveUnit event is triggered.
 ---@param delay number Delay in seconds before despawning the group.
 function GROUP:Destroy(GenerateEvent, delay) end
@@ -263,7 +253,6 @@ function GROUP:Destroy(GenerateEvent, delay) end
 ---GROUND - Switch on/off radar emissions for the group.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true, emission is enabled. If false, emission is disabled.
 ---@return GROUP #self
 function GROUP:EnableEmission(switch) end
@@ -271,7 +260,6 @@ function GROUP:EnableEmission(switch) end
 ---Find the GROUP wrapper class instance using the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@param DCSGroup Group The DCS Group.
 ---@return GROUP #The GROUP.
 function GROUP:Find(DCSGroup) end
@@ -292,7 +280,6 @@ function GROUP:Find(DCSGroup) end
 ---         -- will return the all groups found ending in "-1-1" to "-9-9", but not e.g. "-10-1" or "-1-10"
 ---```
 ------
----@param self GROUP 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return table #Groups Table of matching #GROUP objects found
 function GROUP:FindAllByMatching(Pattern) end
@@ -313,7 +300,6 @@ function GROUP:FindAllByMatching(Pattern) end
 ---         -- will return the first group found ending in "-1-1" to "-9-9", but not e.g. "-10-1"
 ---```
 ------
----@param self GROUP 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return GROUP #The GROUP.
 function GROUP:FindByMatching(Pattern) end
@@ -321,7 +307,6 @@ function GROUP:FindByMatching(Pattern) end
 ---Find a GROUP using the DCS Group Name.
 ---
 ------
----@param self GROUP 
 ---@param GroupName string The DCS Group Name.
 ---@return GROUP #The GROUP.
 function GROUP:FindByName(GroupName) end
@@ -329,7 +314,6 @@ function GROUP:FindByName(GroupName) end
 ---Returns the average group altitude in meters.
 ---
 ------
----@param self GROUP 
 ---@param FromGround boolean Measure from the ground or from sea level (ASL). Provide **true** for measuring from the ground (AGL). **false** or **nil** if you measure from sea level.
 ---@return number #The altitude of the group or nil if is not existing or alive.
 function GROUP:GetAltitude(FromGround) end
@@ -337,7 +321,6 @@ function GROUP:GetAltitude(FromGround) end
 ---Get the number of shells, rockets, bombs and missiles the whole group currently has.
 ---
 ------
----@param self GROUP 
 ---@return number #Total amount of ammo the group has left. This is the sum of shells, rockets, bombs and missiles of all units.
 ---@return number #Number of shells left.
 ---@return number #Number of rockets left.
@@ -350,28 +333,24 @@ function GROUP:GetAmmunition() end
 ---Note that for a heterogenious self, the attribute is determined from the attribute of the first unit!
 ---
 ------
----@param self GROUP 
 ---@return string #Generalized attribute of the self.
 function GROUP:GetAttribute() end
 
 ---Returns a COORDINATE object indicating the average position of the GROUP within the mission.
 ---
 ------
----@param self GROUP 
 ---@return COORDINATE #The COORDINATE of the GROUP.
 function GROUP:GetAverageCoordinate() end
 
 ---Returns the average Vec3 vector of the Units in the GROUP.
 ---
 ------
----@param self GROUP 
 ---@return Vec3 #Current Vec3 of the GROUP  or nil if cannot be found.
 function GROUP:GetAverageVec3() end
 
 ---Gets the CallSign of the first DCS Unit of the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return string #The CallSign of the first DCS Unit of the DCS Group.
 function GROUP:GetCallsign() end
 
@@ -385,35 +364,30 @@ function GROUP:GetCallsign() end
 ---* Group.Category.TRAIN
 ---
 ------
----@param self GROUP 
 ---@return Group.Category #The category ID.
 function GROUP:GetCategory() end
 
 ---Returns the category name of the #GROUP.
 ---
 ------
----@param self GROUP 
 ---@return string #Category name = Helicopter, Airplane, Ground Unit, Ship, Train.
 function GROUP:GetCategoryName() end
 
 ---Returns the coalition of the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return coalition.side #The coalition side of the DCS Group.
 function GROUP:GetCoalition() end
 
 ---Returns a COORDINATE object indicating the point of the first UNIT of the GROUP within the mission.
 ---
 ------
----@param self GROUP 
 ---@return COORDINATE #The COORDINATE of the GROUP.
 function GROUP:GetCoordinate() end
 
 ---Returns the country of the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return country.id #The country identifier or nil if the DCS Group is not existing or alive.
 function GROUP:GetCountry() end
 
@@ -449,7 +423,6 @@ function GROUP:GetCountry() end
 ---           local callsign = mygroup:GetCustomCallSign(true,false,nil,function(groupname,playername) return string.match(playername,"([%a]+)$") end)
 ---```
 ------
----@param self GROUP 
 ---@param ShortCallsign boolean Return a shortened customized callsign, i.e. "Ghostrider 9" and not "Ghostrider 9 1"
 ---@param Keepnumber boolean (Player only) Return customized callsign, incl optional numbers at the end, e.g. "Aerial 1-1#Ghostrider 109" results in "Ghostrider 109", if you want to e.g. use historical US Navy Callsigns
 ---@param CallsignTranslations? table (Optional) Table to translate between DCS standard callsigns and bespoke ones. Overrides personal/parsed callsigns if set callsigns from playername or group name.
@@ -461,7 +434,6 @@ function GROUP:GetCustomCallSign(ShortCallsign, Keepnumber, CallsignTranslations
 ---Returns the DCS descriptor table of the nth unit of the group.
 ---
 ------
----@param self GROUP 
 ---@param n? number (Optional) The number of the unit for which the dscriptor is returned.
 ---@return Object.Desc #The descriptor of the first unit of the group or #nil if the group does not exist any more.
 function GROUP:GetDCSDesc(n) end
@@ -469,7 +441,6 @@ function GROUP:GetDCSDesc(n) end
 ---Returns the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return Group #The DCS Group.
 function GROUP:GetDCSObject() end
 
@@ -477,7 +448,6 @@ function GROUP:GetDCSObject() end
 ---If the underlying DCS Unit does not exist, the method will return try to find the next unit. Returns nil if no units are found.
 ---
 ------
----@param self GROUP 
 ---@param UnitNumber number The number of the DCS Unit to be returned.
 ---@return Unit #The DCS Unit.
 function GROUP:GetDCSUnit(UnitNumber) end
@@ -485,7 +455,6 @@ function GROUP:GetDCSUnit(UnitNumber) end
 ---Returns the DCS Units of the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return table #The DCS Units.
 function GROUP:GetDCSUnits() end
 
@@ -493,14 +462,12 @@ function GROUP:GetDCSUnits() end
 ---Might be nil!
 ---
 ------
----@param self GROUP 
 ---@return UNIT #First unit or nil if it does not exist.
 function GROUP:GetFirstUnit() end
 
 ---Get the first unit of the group which is alive.
 ---
 ------
----@param self GROUP 
 ---@return UNIT #First unit alive.
 function GROUP:GetFirstUnitAlive() end
 
@@ -508,7 +475,6 @@ function GROUP:GetFirstUnitAlive() end
 ---If there are additional fuel tanks the value may be greater than 1.0.
 ---
 ------
----@param self GROUP 
 ---@return number #The relative amount of fuel (from 0.0 to 1.0).
 ---@return nil #The GROUP is not existing or alive.
 function GROUP:GetFuel() end
@@ -519,7 +485,6 @@ function GROUP:GetFuel() end
 --- greater than 1.0.
 ---
 ------
----@param self GROUP 
 ---@return number #The relative amount of fuel (from 0.0 to 1.0).
 ---@return nil #The GROUP is not existing or alive.
 function GROUP:GetFuelAvg() end
@@ -528,7 +493,6 @@ function GROUP:GetFuelAvg() end
 ---amount of fuel in the group.
 ---
 ------
----@param self GROUP 
 ---@return number #The fuel state of the unit with the least amount of fuel.
 ---@return UNIT #reference to #Unit object for further processing.
 function GROUP:GetFuelMin() end
@@ -537,7 +501,6 @@ function GROUP:GetFuelMin() end
 ---Can (as of Nov 2023) be obtained from F-18, F-16, F-15E (not the user flyable one) and A-10C-II groups.
 ---
 ------
----@param self GROUP 
 ---@return table #Table of data entries, indexed by unit name, each entry is a table containing STN, VCL (voice call label), VCN (voice call number), and Lead (#boolean, if true it's the flight lead)
 ---@return string #Report Formatted report of all data
 function GROUP:GetGroupSTN() end
@@ -545,14 +508,12 @@ function GROUP:GetGroupSTN() end
 ---Returns the mean heading of every UNIT in the GROUP in degrees
 ---
 ------
----@param self GROUP 
 ---@return number #Mean heading of the GROUP in degrees or #nil The first UNIT is not existing or alive.
 function GROUP:GetHeading() end
 
 ---Returns the average group height in meters.
 ---
 ------
----@param self GROUP 
 ---@param FromGround boolean Measure from the ground or from sea level (ASL). Provide **true** for measuring from the ground (AGL). **false** or **nil** if you measure from sea level.
 ---@return number #The height of the group or nil if is not existing or alive.
 function GROUP:GetHeight(FromGround) end
@@ -560,7 +521,6 @@ function GROUP:GetHeight(FromGround) end
 ---Get the unit in the group with the highest threat level, which is still alive.
 ---
 ------
----@param self GROUP 
 ---@return UNIT #The most dangerous unit in the group.
 ---@return number #Threat level of the unit.
 function GROUP:GetHighestThreat() end
@@ -569,7 +529,6 @@ function GROUP:GetHighestThreat() end
 ---If some of the DCS Units of the DCS Group are destroyed, the initial size of the DCS Group is unchanged.
 ---
 ------
----@param self GROUP 
 ---@return number #The DCS Group initial size.
 function GROUP:GetInitialSize() end
 
@@ -578,7 +537,6 @@ function GROUP:GetInitialSize() end
 ---Each unit within the group gets evaluated, and the maximum height (= the unit which is the highest elevated) is returned.
 ---
 ------
----@param self GROUP 
 ---@return number #Maximum height found.
 function GROUP:GetMaxHeight() end
 
@@ -586,7 +544,6 @@ function GROUP:GetMaxHeight() end
 ---Each unit within the group gets evaluated, and the maximum velocity (= the unit which is going the fastest) is returned.
 ---
 ------
----@param self GROUP 
 ---@return number #Maximum velocity found.
 function GROUP:GetMaxVelocity() end
 
@@ -594,7 +551,6 @@ function GROUP:GetMaxVelocity() end
 ---Each unit within the group gets evaluated, and the minimum height (= the unit which is the lowest elevated) is returned.
 ---
 ------
----@param self GROUP 
 ---@return number #Minimum height found.
 function GROUP:GetMinHeight() end
 
@@ -602,28 +558,24 @@ function GROUP:GetMinHeight() end
 ---"Flanker") of a GROUP (note - first unit the group). "Bogey" if not found. Currently airplanes only!
 ---
 ------
----@param self GROUP 
 ---@return string #NatoReportingName or "Bogey" if unknown.
 function GROUP:GetNatoReportingName() end
 
 ---Get the active player count in the group.
 ---
 ------
----@param self GROUP 
 ---@return number #The amount of players.
 function GROUP:GetPlayerCount() end
 
 ---Gets the player name of the group.
 ---
 ------
----@param self GROUP 
 ---@return string #The player name of the group.
 function GROUP:GetPlayerName() end
 
 ---Get player names
 ---
 ------
----@param self GROUP 
 ---@return table #The group has players, an array of player names is returned.
 ---@return nil #The group has no players
 function GROUP:GetPlayerNames() end
@@ -631,14 +583,12 @@ function GROUP:GetPlayerNames() end
 ---Returns a list of Wrapper.Unit objects of the Wrapper.Group that are occupied by a player.
 ---
 ------
----@param self GROUP 
 ---@return list #The list of player occupied @{Wrapper.Unit} objects of the @{Wrapper.Group}.
 function GROUP:GetPlayerUnits() end
 
 ---Returns a COORDINATE object indicating the point in 2D of the first UNIT of the GROUP within the mission.
 ---
 ------
----@param self GROUP 
 ---@return COORDINATE #The 3D point vector of the first DCS Unit of the GROUP.
 ---@return nil #The first UNIT is not existing or alive.
 function GROUP:GetPointVec2() end
@@ -646,7 +596,6 @@ function GROUP:GetPointVec2() end
 ---Returns the DCS#Position3 position vectors indicating the point and direction vectors in 3D of the POSITIONABLE within the mission.
 ---
 ------
----@param self POSITIONABLE 
 ---@return Position #The 3D position vectors of the POSITIONABLE or #nil if the groups not existing or alive.
 function GROUP:GetPositionVec3() end
 
@@ -659,7 +608,6 @@ function GROUP:GetPositionVec3() end
 ----- If Radius is ignored, returns the DCS#Vec3 of first UNIT of the GROUP
 ---```
 ------
----@param self GROUP 
 ---@param Radius number Radius in meters.
 ---@return Vec3 #The random 3D point vector around the first UNIT of the GROUP or #nil The GROUP is invalid or empty.
 function GROUP:GetRandomVec3(Radius) end
@@ -668,7 +616,6 @@ function GROUP:GetRandomVec3(Radius) end
 ---If the group is heterogenious and consists of different units, the smallest range of all units is returned.
 ---
 ------
----@param self GROUP 
 ---@return number #Range in meters.
 function GROUP:GetRange() end
 
@@ -676,7 +623,6 @@ function GROUP:GetRange() end
 ---If some of the DCS Units of the DCS Group are destroyed the size of the DCS Group is changed.
 ---
 ------
----@param self GROUP 
 ---@return number #The DCS Group size.
 function GROUP:GetSize() end
 
@@ -684,7 +630,6 @@ function GROUP:GetSize() end
 ---Effectively gets the skill from Unit 1 as the group holds no skill value.
 ---
 ------
----@param self GROUP 
 ---@return string #Skill String of skill name.
 function GROUP:GetSkill() end
 
@@ -692,49 +637,42 @@ function GROUP:GetSkill() end
 ---If the group is heterogenious and consists of different units, the max speed of the slowest unit is returned.
 ---
 ------
----@param self GROUP 
 ---@return number #Speed in km/h.
 function GROUP:GetSpeedMax() end
 
 ---Return the mission template of the group.
 ---
 ------
----@param self GROUP 
 ---@return table #The MissionTemplate
 function GROUP:GetTaskMission() end
 
 ---Return the mission route of the group.
 ---
 ------
----@param self GROUP 
 ---@return table #The mission route defined by points.
 function GROUP:GetTaskRoute() end
 
 ---Returns the group template from the global _DATABASE object (an instance of Core.Database#DATABASE).
 ---
 ------
----@param self GROUP 
 ---@return table #Template table.
 function GROUP:GetTemplate() end
 
 ---Returns the group template route.points[] (the waypoints) from the global _DATABASE object (an instance of Core.Database#DATABASE).
 ---
 ------
----@param self GROUP 
 ---@return table #
 function GROUP:GetTemplateRoutePoints() end
 
 ---Get threat level of the group.
 ---
 ------
----@param self GROUP 
 ---@return number #Max threat level (a number between 0 and 10).
 function GROUP:GetThreatLevel() end
 
 ---Gets the type name of the group.
 ---
 ------
----@param self GROUP 
 ---@return string #The type name of the group.
 function GROUP:GetTypeName() end
 
@@ -743,7 +681,6 @@ function GROUP:GetTypeName() end
 ---If no underlying DCS Units exist, the method will return nil.
 ---
 ------
----@param self GROUP 
 ---@param UnitNumber number The number of the UNIT wrapper class to be returned.
 ---@return UNIT #The UNIT object or nil
 function GROUP:GetUnit(UnitNumber) end
@@ -751,35 +688,30 @@ function GROUP:GetUnit(UnitNumber) end
 ---Returns a list of Wrapper.Unit objects of the Wrapper.Group.
 ---
 ------
----@param self GROUP 
 ---@return table #of Wrapper.Unit#UNIT objects, indexed by number.
 function GROUP:GetUnits() end
 
 ---Returns the current point (Vec2 vector) of the first DCS Unit in the DCS Group.
 ---
 ------
----@param self GROUP 
 ---@return Vec2 #Current Vec2 point of the first DCS Unit of the DCS Group.
 function GROUP:GetVec2() end
 
 ---Returns the current Vec3 vector of the first Unit in the GROUP.
 ---
 ------
----@param self GROUP 
 ---@return Vec3 #Current Vec3 of the first Unit of the GROUP or nil if cannot be found.
 function GROUP:GetVec3() end
 
 ---Returns the average velocity Vec3 vector.
 ---
 ------
----@param self GROUP 
 ---@return Vec3 #The velocity Vec3 vector or `#nil` if the GROUP is not existing or alive.
 function GROUP:GetVelocityVec3() end
 
 ---Subscribe to a DCS Event.
 ---
 ------
----@param self GROUP 
 ---@param Event EVENTS 
 ---@param EventFunction? function (optional) The function to be called when the event occurs for the GROUP.
 ---@param ... NOTYPE 
@@ -790,7 +722,6 @@ function GROUP:HandleEvent(Event, EventFunction, ...) end
 ---See [hoggit documentation](https://wiki.hoggitworld.com/view/DCS_func_hasAttribute).
 ---
 ------
----@param self GROUP 
 ---@param attribute string The name of the attribute the group is supposed to have. Valid attributes can be found in the "db_attributes.lua" file which is located at in "C:\Program Files\Eagle Dynamics\DCS World\Scripts\Database".
 ---@param all boolean If true, all units of the group must have the attribute in order to return true. Default is only one unit of a heterogenious group needs to have the attribute.
 ---@return boolean #Group has this attribute.
@@ -799,14 +730,12 @@ function GROUP:HasAttribute(attribute, all) end
 ---Returns true if the first unit of the GROUP is in the air.
 ---
 ------
----@param self GROUP 
 ---@return boolean #true if in the first unit of the group is in the air or #nil if the GROUP is not existing or not alive.
 function GROUP:InAir() end
 
 ---Set respawn coordinate.
 ---
 ------
----@param self GROUP 
 ---@param coordinate COORDINATE Coordinate where the group should be respawned.
 ---@return GROUP #self
 function GROUP:InitCoordinate(coordinate) end
@@ -814,7 +743,6 @@ function GROUP:InitCoordinate(coordinate) end
 ---Set the heading for the units in degrees within the respawned group.
 ---
 ------
----@param self GROUP 
 ---@param Heading number The heading in meters.
 ---@return GROUP #self
 function GROUP:InitHeading(Heading) end
@@ -823,7 +751,6 @@ function GROUP:InitHeading(Heading) end
 ---(This is applicable for air units).
 ---
 ------
----@param self GROUP 
 ---@param Height number The height in meters.
 ---@return GROUP #self
 function GROUP:InitHeight(Height) end
@@ -832,7 +759,6 @@ function GROUP:InitHeight(Height) end
 ---If more units are in the group, the number is increased with every unit.
 ---
 ------
----@param self GROUP 
 ---@param modex string Tail number of the first unit.
 ---@return GROUP #self
 function GROUP:InitModex(modex) end
@@ -841,7 +767,6 @@ function GROUP:InitModex(modex) end
 ---Same as checking/unchecking the COMM box in the mission editor.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true (or nil), enables the radio comms. If false, disables the radio for the spawned group.
 ---@return GROUP #self
 function GROUP:InitRadioCommsOnOff(switch) end
@@ -849,7 +774,6 @@ function GROUP:InitRadioCommsOnOff(switch) end
 ---Sets the radio frequency of the group when it is respawned.
 ---
 ------
----@param self GROUP 
 ---@param frequency number The frequency in MHz.
 ---@return GROUP #self
 function GROUP:InitRadioFrequency(frequency) end
@@ -858,7 +782,6 @@ function GROUP:InitRadioFrequency(frequency) end
 ---Default is AM.
 ---
 ------
----@param self GROUP 
 ---@param modulation string Either "FM" or "AM". If no value is given, modulation is set to AM.
 ---@return GROUP #self
 function GROUP:InitRadioModulation(modulation) end
@@ -868,7 +791,6 @@ function GROUP:InitRadioModulation(modulation) end
 ---Thus, a band is created around the respawn location where the units will be placed at random positions.
 ---
 ------
----@param self GROUP 
 ---@param OuterRadius boolean Outer band in meters from the center.
 ---@param InnerRadius boolean Inner band in meters from the center.
 ---@return GROUP #self
@@ -879,7 +801,6 @@ function GROUP:InitRandomizePositionRadius(OuterRadius, InnerRadius) end
 ---NOTE: InitRandomizePositionZone will not ensure, that every unit is placed within the zone!
 ---
 ------
----@param self GROUP 
 ---@param PositionZone boolean true will randomize the positions within the Zone.
 ---@return GROUP #self
 function GROUP:InitRandomizePositionZone(PositionZone) end
@@ -887,7 +808,6 @@ function GROUP:InitRandomizePositionZone(PositionZone) end
 ---Set the respawn Core.Zone for the respawned group.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE The zone in meters.
 ---@return GROUP #self
 function GROUP:InitZone(Zone) end
@@ -896,14 +816,12 @@ function GROUP:InitZone(Zone) end
 ---has no radar or optical tracker but the AAA = true or the "Mobile AAA" = true attribute.
 ---
 ------
----@param self GROUP 
 ---@return boolean #IsAAA True if AAA, else false
 function GROUP:IsAAA() end
 
 ---Returns if the group is activated.
 ---
 ------
----@param self GROUP 
 ---@return boolean #`true` if group is activated or `#nil` The group is not existing or alive.
 function GROUP:IsActive() end
 
@@ -911,21 +829,18 @@ function GROUP:IsActive() end
 ---If the group is a helicopter or a plane, then this method will return true, otherwise false.
 ---
 ------
----@param self GROUP 
 ---@return boolean #Air category evaluation result.
 function GROUP:IsAir() end
 
 ---Returns if the DCS Group contains AirPlanes.
 ---
 ------
----@param self GROUP 
 ---@return boolean #true if DCS Group contains AirPlanes.
 function GROUP:IsAirPlane() end
 
 ---Checks whether any unit (or optionally) all units of a group is(are) airbore or not.
 ---
 ------
----@param self GROUP 
 ---@param AllUnits? boolean (Optional) If true, check whether all units of the group are airborne.
 ---@return boolean #True if at least one (optionally all) unit(s) is(are) airborne or false otherwise. Nil if no unit exists or is alive.
 function GROUP:IsAirborne(AllUnits) end
@@ -940,14 +855,12 @@ function GROUP:IsAirborne(AllUnits) end
 ---If the first Wrapper.Unit of the group is inactive, it will return false.
 ---
 ------
----@param self GROUP 
 ---@return boolean #`true` if the group is alive *and* active, `false` if the group is alive but inactive or `#nil` if the group does not exist anymore.
 function GROUP:IsAlive() end
 
 ---Returns true if any units of the group are within a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns true if any unit of the Group is within the @{Core.Zone#ZONE_BASE}
 function GROUP:IsAnyInZone(Zone) end
@@ -955,7 +868,6 @@ function GROUP:IsAnyInZone(Zone) end
 ---Returns true if all units of the group are within a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns true if the Group is completely within the @{Core.Zone#ZONE_BASE}
 function GROUP:IsCompletelyInZone(Zone) end
@@ -963,21 +875,18 @@ function GROUP:IsCompletelyInZone(Zone) end
 ---Returns if the DCS Group contains Ground troops.
 ---
 ------
----@param self GROUP 
 ---@return boolean #true if DCS Group contains Ground troops.
 function GROUP:IsGround() end
 
 ---Returns if the DCS Group contains Helicopters.
 ---
 ------
----@param self GROUP 
 ---@return boolean #true if DCS Group contains Helicopters.
 function GROUP:IsHelicopter() end
 
 ---Check if any unit of a group is inside a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns `true` if *at least one unit* is inside the zone or `false` if *no* unit is inside.
 function GROUP:IsInZone(Zone) end
@@ -985,7 +894,6 @@ function GROUP:IsInZone(Zone) end
 ---Returns true if none of the group units of the group are within a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns true if the Group is not within the @{Core.Zone#ZONE_BASE}
 function GROUP:IsNotInZone(Zone) end
@@ -993,7 +901,6 @@ function GROUP:IsNotInZone(Zone) end
 ---Returns true if some but NOT ALL units of the group are within a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns true if the Group is partially within the @{Core.Zone#ZONE_BASE}
 function GROUP:IsPartlyInZone(Zone) end
@@ -1001,7 +908,6 @@ function GROUP:IsPartlyInZone(Zone) end
 ---Returns true if part or all units of the group are within a Core.Zone.
 ---
 ------
----@param self GROUP 
 ---@param Zone ZONE_BASE The zone to test.
 ---@return boolean #Returns true if the Group is partially or completely within the @{Core.Zone#ZONE_BASE}.
 function GROUP:IsPartlyOrCompletelyInZone(Zone) end
@@ -1010,7 +916,6 @@ function GROUP:IsPartlyOrCompletelyInZone(Zone) end
 ---Information is retrieved from the group template.
 ---
 ------
----@param self GROUP 
 ---@return boolean #If true, group is associated with a client or player slot.
 function GROUP:IsPlayer() end
 
@@ -1018,14 +923,12 @@ function GROUP:IsPlayer() end
 ---has radar or optical tracker and is no mobile AAA.
 ---
 ------
----@param self GROUP 
 ---@return boolean #IsSAM True if SAM, else false
 function GROUP:IsSAM() end
 
 ---Returns if the DCS Group contains Ships.
 ---
 ------
----@param self GROUP 
 ---@return boolean #true if DCS Group contains Ships.
 function GROUP:IsShip() end
 
@@ -1034,7 +937,6 @@ function GROUP:IsShip() end
 ---It is merely added to the Core.Database.
 ---
 ------
----@param self GROUP 
 ---@param GroupTemplate table The GroupTemplate Structure exactly as defined within the mission editor.
 ---@param CoalitionSide coalition.side The coalition.side of the group.
 ---@param CategoryID Group.Category The Group.Category of the group.
@@ -1045,14 +947,12 @@ function GROUP:NewTemplate(GroupTemplate, CoalitionSide, CategoryID, CountryID) 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReSpawnFunction NOTYPE 
 function GROUP:OnReSpawn(ReSpawnFunction) end
 
 ---Create a new GROUP from an existing Group in the Mission.
 ---
 ------
----@param self GROUP 
 ---@param GroupName string The Group name
 ---@return GROUP #self
 function GROUP:Register(GroupName) end
@@ -1060,7 +960,6 @@ function GROUP:Register(GroupName) end
 ---Reset the subscriptions.
 ---
 ------
----@param self GROUP 
 ---@return GROUP #
 function GROUP:ResetEvents() end
 
@@ -1080,7 +979,6 @@ function GROUP:ResetEvents() end
 ---  - The current alive group will always be destroyed and respawned using the template definition.
 ---
 ------
----@param self GROUP 
 ---@param Template? table (optional) The template of the Group retrieved with GROUP:GetTemplate(). If the template is not provided, the template will be retrieved of the group itself.
 ---@param Reset boolean Reset positions if TRUE.
 ---@return GROUP #self
@@ -1091,7 +989,6 @@ function GROUP:Respawn(Template, Reset) end
 ---So each unit of the group is respawned at exactly the same parking spot as it currently occupies.
 ---
 ------
----@param self GROUP 
 ---@param SpawnTemplate? table (Optional) The spawn template for the group. If no template is given it is exacted from the group.
 ---@param Takeoff? SPAWN.Takeoff (Optional) Takeoff type. Sould be either SPAWN.Takeoff.Cold or SPAWN.Takeoff.Hot. Default is SPAWN.Takeoff.Hot.
 ---@param Uncontrolled? boolean (Optional) If true, spawn in uncontrolled state.
@@ -1108,7 +1005,6 @@ function GROUP:RespawnAtCurrentAirbase(SpawnTemplate, Takeoff, Uncontrolled) end
 ---  * When there is no Wrapper.Airbase object specified and the group route is not pinned to any airbase, it will return to the nearest airbase.
 ---
 ------
----@param self GROUP 
 ---@param RTBAirbase? AIRBASE (optional) The @{Wrapper.Airbase} to return to. If blank, the controllable will return to the nearest friendly airbase.
 ---@param Speed? number (optional) The Speed, if no Speed is given, 80% of maximum Speed of the group is selected.
 ---@return GROUP #self
@@ -1117,21 +1013,18 @@ function GROUP:RouteRTB(RTBAirbase, Speed) end
 ---Turns the AI Off for the GROUP.
 ---
 ------
----@param self GROUP 
 ---@return GROUP #The GROUP.
 function GROUP:SetAIOff() end
 
 ---Turns the AI On for the GROUP.
 ---
 ------
----@param self GROUP 
 ---@return GROUP #The GROUP.
 function GROUP:SetAIOn() end
 
 ---Turns the AI On or Off for the GROUP.
 ---
 ------
----@param self GROUP 
 ---@param AIOnOff boolean The value true turns the AI On, the value false turns the AI Off.
 ---@return GROUP #The GROUP.
 function GROUP:SetAIOnOff(AIOnOff) end
@@ -1139,7 +1032,6 @@ function GROUP:SetAIOnOff(AIOnOff) end
 ---Set a GROUP to act as recovery tanker
 ---
 ------
----@param self GROUP 
 ---@param CarrierGroup GROUP 
 ---@param Speed number Speed in knots.
 ---@param ToKIAS boolean If true, adjust speed to altitude (KIAS).
@@ -1152,7 +1044,6 @@ function GROUP:SetAsRecoveryTanker(CarrierGroup, Speed, ToKIAS, Altitude, Delay,
 ---Switch on/off immortal flag for the group.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true, Immortal is enabled. If false, Immortal is disabled.
 ---@return GROUP #self
 function GROUP:SetCommandImmortal(switch) end
@@ -1160,7 +1051,6 @@ function GROUP:SetCommandImmortal(switch) end
 ---Switch on/off invisible flag for the group.
 ---
 ------
----@param self GROUP 
 ---@param switch boolean If true, Invisible is enabled. If false, Invisible is disabled.
 ---@return GROUP #self
 function GROUP:SetCommandInvisible(switch) end
@@ -1168,7 +1058,6 @@ function GROUP:SetCommandInvisible(switch) end
 ---Sets the CoalitionID of the group in a Template.
 ---
 ------
----@param self GROUP 
 ---@param CoalitionID coalition.side The coalition ID.
 ---@param Template NOTYPE 
 ---@return table #
@@ -1177,7 +1066,6 @@ function GROUP:SetTemplateCoalition(CoalitionID, Template) end
 ---Sets the controlled status in a Template.
 ---
 ------
----@param self GROUP 
 ---@param Controlled boolean true is controlled, false is uncontrolled.
 ---@param Template NOTYPE 
 ---@return table #
@@ -1186,7 +1074,6 @@ function GROUP:SetTemplateControlled(Controlled, Template) end
 ---Sets the CountryID of the group in a Template.
 ---
 ------
----@param self GROUP 
 ---@param CountryID country.id The country ID.
 ---@param Template NOTYPE 
 ---@return table #
@@ -1209,7 +1096,6 @@ function GROUP:SetTemplateCountry(CountryID, Template) end
 ---  - The new group will have all of its original units and health restored.
 ---
 ------
----@param self GROUP 
 ---@param Coordinate COORDINATE Where to respawn the group. Can be handed as a @{Core.Zone#ZONE_BASE} object.
 ---@return GROUP #self
 function GROUP:Teleport(Coordinate) end
@@ -1217,7 +1103,6 @@ function GROUP:Teleport(Coordinate) end
 ---UnSubscribe to a DCS event.
 ---
 ------
----@param self GROUP 
 ---@param Event EVENTS 
 ---@return GROUP #
 function GROUP:UnHandleEvent(Event) end

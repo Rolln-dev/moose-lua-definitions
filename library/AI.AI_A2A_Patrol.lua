@@ -137,7 +137,6 @@ AI_A2A_PATROL = {}
 ---PatrolArea = AI_A2A_PATROL:New( PatrolZone, 3000, 6000, 600, 900 )
 ---```
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The patrol group object.
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
@@ -151,7 +150,6 @@ function AI_A2A_PATROL:New(AIPatrol, PatrolZone, PatrolFloorAltitude, PatrolCeil
 ---OnAfter Transition Handler for Event Patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -161,7 +159,6 @@ function AI_A2A_PATROL:OnAfterPatrol(AIPatrol, From, Event, To) end
 ---OnAfter Transition Handler for Event Route.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -171,7 +168,6 @@ function AI_A2A_PATROL:OnAfterRoute(AIPatrol, From, Event, To) end
 ---OnBefore Transition Handler for Event Patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -182,7 +178,6 @@ function AI_A2A_PATROL:OnBeforePatrol(AIPatrol, From, Event, To) end
 ---OnBefore Transition Handler for Event Route.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -193,7 +188,6 @@ function AI_A2A_PATROL:OnBeforeRoute(AIPatrol, From, Event, To) end
 ---OnEnter Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -203,7 +197,6 @@ function AI_A2A_PATROL:OnEnterPatrolling(AIPatrol, From, Event, To) end
 ---OnLeave Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -214,27 +207,23 @@ function AI_A2A_PATROL:OnLeavePatrolling(AIPatrol, From, Event, To) end
 ---Synchronous Event Trigger for Event Patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 function AI_A2A_PATROL:Patrol() end
 
 ---This static method is called from the route path within the last task at the last waypoint of the AIPatrol.
 ---Note that this method is required, as triggers the next route when patrolling for the AIPatrol.
 ---
 ------
----@param AIPatrol GROUP The AI group.
 ---@param Fsm AI_A2A_PATROL The FSM.
 function AI_A2A_PATROL.PatrolRoute(AIPatrol, Fsm) end
 
 ---Synchronous Event Trigger for Event Route.
 ---
 ------
----@param self AI_A2A_PATROL 
 function AI_A2A_PATROL:Route() end
 
 ---Sets the floor and ceiling altitude of the patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
 ---@return AI_A2A_PATROL #self
@@ -243,7 +232,6 @@ function AI_A2A_PATROL:SetAltitude(PatrolFloorAltitude, PatrolCeilingAltitude) e
 ---Sets (modifies) the minimum and maximum speed of the patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param PatrolMinSpeed Speed The minimum speed of the @{Wrapper.Group} in km/h.
 ---@param PatrolMaxSpeed Speed The maximum speed of the @{Wrapper.Group} in km/h.
 ---@return AI_A2A_PATROL #self
@@ -252,21 +240,18 @@ function AI_A2A_PATROL:SetSpeed(PatrolMinSpeed, PatrolMaxSpeed) end
 ---Asynchronous Event Trigger for Event Patrol.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param Delay number The delay in seconds.
 function AI_A2A_PATROL:__Patrol(Delay) end
 
 ---Asynchronous Event Trigger for Event Route.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param Delay number The delay in seconds.
 function AI_A2A_PATROL:__Route(Delay) end
 
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -278,7 +263,6 @@ function AI_A2A_PATROL:onafterPatrol(AIPatrol, From, Event, To) end
 ---Defines a new patrol route using the AI.AI_Patrol#AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_A2A_PATROL 
 ---@param AIPatrol GROUP The Group managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.

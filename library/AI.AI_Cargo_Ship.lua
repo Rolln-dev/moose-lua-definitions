@@ -68,7 +68,6 @@ AI_CARGO_SHIP = {}
 ---FInd a free Carrier within a radius
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param Coordinate COORDINATE 
 ---@param Radius number 
 ---@return GROUP #NewCarrier
@@ -77,7 +76,6 @@ function AI_CARGO_SHIP:FindCarrier(Coordinate, Radius) end
 ---Follow Infantry to the Carrier
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param Me AI_CARGO_SHIP 
 ---@param ShipUnit UNIT 
 ---@param Cargo CARGO_GROUP 
@@ -88,7 +86,6 @@ function AI_CARGO_SHIP:FollowToCarrier(Me, ShipUnit, Cargo, CargoGroup) end
 ---Creates a new AI_CARGO_SHIP object.
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param Ship GROUP  The carrier Ship group
 ---@param CargoSet SET_CARGO  The set of cargo to be transported
 ---@param CombatRadius number  Provide the combat radius to defend the carrier by unboarding the cargo when enemies are nearby. When CombatRadius is 0, no defense will occur.
@@ -99,7 +96,6 @@ function AI_CARGO_SHIP:New(Ship, CargoSet, CombatRadius, ShippingLane) end
 ---Set the Carrier
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param CargoCarrier GROUP 
 ---@return AI_CARGO_SHIP #
 function AI_CARGO_SHIP:SetCarrier(CargoCarrier) end
@@ -107,14 +103,12 @@ function AI_CARGO_SHIP:SetCarrier(CargoCarrier) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param CombatRadius NOTYPE 
 function AI_CARGO_SHIP:SetCombatRadius(CombatRadius) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param ShippingLane NOTYPE 
 function AI_CARGO_SHIP:SetShippingLane(ShippingLane) end
 
@@ -122,7 +116,6 @@ function AI_CARGO_SHIP:SetShippingLane(ShippingLane) end
 ---Good time to remind people that Lua is case sensitive and Unload != UnLoad
 ---
 ------
----@param Ship GROUP 
 ---@param self AI_CARGO_SHIP 
 ---@param Coordinate NOTYPE 
 ---@param DeployZone NOTYPE 
@@ -131,7 +124,6 @@ function AI_CARGO_SHIP._Deploy(Ship, self, Coordinate, DeployZone) end
 ---Check if cargo ship is alive and trigger Load event
 ---
 ------
----@param Ship Group 
 ---@param self AI_CARGO_SHIP 
 ---@param Coordinate NOTYPE 
 ---@param Speed NOTYPE 
@@ -141,7 +133,6 @@ function AI_CARGO_SHIP._Pickup(Ship, self, Coordinate, Speed, PickupZone) end
 ---On after Deploy event.
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param SHIP GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -157,7 +148,6 @@ function AI_CARGO_SHIP:onafterDeploy(SHIP, From, Event, To, Coordinate, Speed, H
 
 ---
 ------
----@param self NOTYPE 
 ---@param Ship NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -172,7 +162,6 @@ function AI_CARGO_SHIP:onafterHome(Ship, From, Event, To, Coordinate, Speed, Hei
 
 ---
 ------
----@param self NOTYPE 
 ---@param Ship NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -183,7 +172,6 @@ function AI_CARGO_SHIP:onafterMonitor(Ship, From, Event, To) end
 ---on after Pickup event.
 ---
 ------
----@param AI_CARGO_SHIP NOTYPE Ship
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -199,7 +187,6 @@ function AI_CARGO_SHIP.onafterPickup(AI_CARGO_SHIP, From, Event, To, Coordinate,
 ---On after Unload event.
 ---
 ------
----@param self AI_CARGO_SHIP 
 ---@param Ship GROUP 
 ---@param From string From state.
 ---@param Event string Event.

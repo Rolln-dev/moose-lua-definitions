@@ -145,25 +145,21 @@ AI_BAI_ZONE = {}
 ---Synchronous Event Trigger for Event Abort.
 ---
 ------
----@param self AI_BAI_ZONE 
 function AI_BAI_ZONE:Abort() end
 
 ---Synchronous Event Trigger for Event Accomplish.
 ---
 ------
----@param self AI_BAI_ZONE 
 function AI_BAI_ZONE:Accomplish() end
 
 ---Synchronous Event Trigger for Event Destroy.
 ---
 ------
----@param self AI_BAI_ZONE 
 function AI_BAI_ZONE:Destroy() end
 
 ---Synchronous Event Trigger for Event Engage.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
 ---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
 ---@param EngageWeaponExpend? AI.Task.WeaponExpend (optional) Determines how much weapon will be released at each attack.  If parameter is not defined the unit / controllable will choose expend on its own discretion. Use the structure @{DCS#AI.Task.WeaponExpend} to define the amount of weapons to be release at each attack.
@@ -174,13 +170,11 @@ function AI_BAI_ZONE:Engage(EngageSpeed, EngageAltitude, EngageWeaponExpend, Eng
 ---Synchronous Event Trigger for Event Fired.
 ---
 ------
----@param self AI_BAI_ZONE 
 function AI_BAI_ZONE:Fired() end
 
 ---Creates a new AI_BAI_ZONE object
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
@@ -194,7 +188,6 @@ function AI_BAI_ZONE:New(PatrolZone, PatrolFloorAltitude, PatrolCeilingAltitude,
 ---OnAfter Transition Handler for Event Abort.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -204,7 +197,6 @@ function AI_BAI_ZONE:OnAfterAbort(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Accomplish.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -214,7 +206,6 @@ function AI_BAI_ZONE:OnAfterAccomplish(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Destroy.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -224,7 +215,6 @@ function AI_BAI_ZONE:OnAfterDestroy(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Engage.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -234,7 +224,6 @@ function AI_BAI_ZONE:OnAfterEngage(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Fired.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -244,7 +233,6 @@ function AI_BAI_ZONE:OnAfterFired(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Abort.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -255,7 +243,6 @@ function AI_BAI_ZONE:OnBeforeAbort(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Accomplish.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -266,7 +253,6 @@ function AI_BAI_ZONE:OnBeforeAccomplish(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Destroy.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -277,7 +263,6 @@ function AI_BAI_ZONE:OnBeforeDestroy(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Engage.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -288,7 +273,6 @@ function AI_BAI_ZONE:OnBeforeEngage(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Fired.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -299,7 +283,6 @@ function AI_BAI_ZONE:OnBeforeFired(Controllable, From, Event, To) end
 ---OnEnter Transition Handler for State Engaging.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -309,14 +292,12 @@ function AI_BAI_ZONE:OnEnterEngaging(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_BAI_ZONE:OnEventDead(EventData) end
 
 ---OnLeave Transition Handler for State Engaging.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -327,14 +308,12 @@ function AI_BAI_ZONE:OnLeaveEngaging(Controllable, From, Event, To) end
 ---If Search is Off, the current zone coordinate will be the center of the bombing.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@return AI_BAI_ZONE #
 function AI_BAI_ZONE:SearchOff() end
 
 ---If Search is On, BAI will search for potential targets in the zone.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@return AI_BAI_ZONE #
 function AI_BAI_ZONE:SearchOn() end
 
@@ -342,7 +321,6 @@ function AI_BAI_ZONE:SearchOn() end
 ---AI_BAI_ZONE will search for potential targets by default.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Search NOTYPE 
 ---@return AI_BAI_ZONE #
 function AI_BAI_ZONE:SearchOnOff(Search) end
@@ -351,7 +329,6 @@ function AI_BAI_ZONE:SearchOnOff(Search) end
 ---Note that if the EngageZone is changed, the AI needs to re-detect targets.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param EngageZone ZONE The zone where the AI is performing BOMB.
 ---@return AI_BAI_ZONE #self
 function AI_BAI_ZONE:SetEngageZone(EngageZone) end
@@ -359,28 +336,24 @@ function AI_BAI_ZONE:SetEngageZone(EngageZone) end
 ---Asynchronous Event Trigger for Event Abort.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_BAI_ZONE:__Abort(Delay) end
 
 ---Asynchronous Event Trigger for Event Accomplish.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Delay number The delay in seconds.  
 function AI_BAI_ZONE:__Accomplish(Delay) end
 
 ---Asynchronous Event Trigger for Event Destroy.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_BAI_ZONE:__Destroy(Delay) end
 
 ---Asynchronous Event Trigger for Event Engage.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Delay number The delay in seconds.
 ---@param EngageSpeed? number (optional) The speed the Group will hold when engaging to the target zone.
 ---@param EngageAltitude? Distance (optional) Desired altitude to perform the unit engagement.
@@ -392,14 +365,12 @@ function AI_BAI_ZONE:__Engage(Delay, EngageSpeed, EngageAltitude, EngageWeaponEx
 ---Asynchronous Event Trigger for Event Fired.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_BAI_ZONE:__Fired(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -410,7 +381,6 @@ function AI_BAI_ZONE:onafterAbort(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -421,7 +391,6 @@ function AI_BAI_ZONE:onafterAccomplish(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -433,7 +402,6 @@ function AI_BAI_ZONE:onafterDestroy(Controllable, From, Event, To, EventData) en
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -449,7 +417,6 @@ function AI_BAI_ZONE:onafterEngage(Controllable, From, Event, To, EngageSpeed, E
 ---onafter State Transition for Event Start.
 ---
 ------
----@param self AI_BAI_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -460,7 +427,6 @@ function AI_BAI_ZONE:onafterStart(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -471,7 +437,6 @@ function AI_BAI_ZONE:onafterTarget(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

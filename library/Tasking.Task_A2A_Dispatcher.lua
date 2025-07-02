@@ -187,7 +187,6 @@ TASK_A2A_DISPATCHER = {}
 ---Creates an ENGAGE task when there are human friendlies airborne near the targets.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 ---@return nil #If there are no targets to be set.
@@ -196,7 +195,6 @@ function TASK_A2A_DISPATCHER:EvaluateENGAGE(DetectedItem) end
 ---Creates an INTERCEPT task when there are targets for it.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 ---@return nil #If there are no targets to be set.
@@ -206,7 +204,6 @@ function TASK_A2A_DISPATCHER:EvaluateINTERCEPT(DetectedItem) end
 ---Can only occur when the DetectedItem is Changed AND the state of the Task is "Planned".
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param Mission MISSION 
 ---@param Task TASK 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
@@ -221,7 +218,6 @@ function TASK_A2A_DISPATCHER:EvaluateRemoveTask(Mission, Task, Detection, Detect
 ---Creates an SWEEP task when there are targets for it.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param DetectedItem DETECTION_BASE.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 ---@return nil #If there are no targets to be set.
@@ -230,7 +226,6 @@ function TASK_A2A_DISPATCHER:EvaluateSWEEP(DetectedItem) end
 ---Calculates which friendlies are nearby the area
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 ---@return REPORT #
 function TASK_A2A_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
@@ -238,7 +233,6 @@ function TASK_A2A_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
 ---Calculates which HUMAN friendlies are nearby the area
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 ---@return REPORT #
 function TASK_A2A_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
@@ -246,7 +240,6 @@ function TASK_A2A_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
 ---TASK_A2A_DISPATCHER constructor.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param Mission MISSION The mission for which the task dispatching is done.
 ---@param SetGroup SET_GROUP The set of groups that can join the tasks within the mission.
 ---@param Detection DETECTION_BASE The detection results that are used to dynamically assign new tasks to human players.
@@ -256,7 +249,6 @@ function TASK_A2A_DISPATCHER:New(Mission, SetGroup, Detection) end
 ---OnAfter Transition Handler for Event Assign.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -268,7 +260,6 @@ function TASK_A2A_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, Play
 ---Assigns tasks in relation to the detected items to the Core.Set#SET_GROUP.
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
 ---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
 function TASK_A2A_DISPATCHER:ProcessDetected(Detection) end
@@ -276,7 +267,6 @@ function TASK_A2A_DISPATCHER:ProcessDetected(Detection) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskIndex NOTYPE 
 function TASK_A2A_DISPATCHER:RemoveTask(TaskIndex) end
 
@@ -303,7 +293,6 @@ function TASK_A2A_DISPATCHER:RemoveTask(TaskIndex) end
 ---  TaskA2ADispatcher:SetEngageRadius() -- 100000 is the default value.
 ---```
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param EngageRadius number (Optional, Default = 100000) The radius to report friendlies near the target.
 ---@return TASK_A2A_DISPATCHER #
 function TASK_A2A_DISPATCHER:SetEngageRadius(EngageRadius) end
@@ -311,7 +300,6 @@ function TASK_A2A_DISPATCHER:SetEngageRadius(EngageRadius) end
 ---Set flashing player messages on or off
 ---
 ------
----@param self TASK_A2A_DISPATCHER 
 ---@param onoff boolean Set messages on (true) or off (false)
 function TASK_A2A_DISPATCHER:SetSendMessages(onoff) end
 

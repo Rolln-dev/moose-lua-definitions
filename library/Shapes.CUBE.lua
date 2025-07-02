@@ -16,7 +16,6 @@ CUBE = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param point NOTYPE 
 ---@param cube_points NOTYPE 
 function CUBE:ContainsPoint(point, cube_points) end
@@ -24,13 +23,11 @@ function CUBE:ContainsPoint(point, cube_points) end
 
 ---
 ------
----@param self NOTYPE 
 function CUBE:GetCenter() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param p1 NOTYPE 
 ---@param p2 NOTYPE 
 ---@param p3 NOTYPE 

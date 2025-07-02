@@ -117,7 +117,6 @@ AI_CARGO_DISPATCHER_AIRPLANE = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param Airplane NOTYPE 
 ---@param CargoSet NOTYPE 
 function AI_CARGO_DISPATCHER_AIRPLANE:AICargo(Airplane, CargoSet) end
@@ -146,7 +145,6 @@ function AI_CARGO_DISPATCHER_AIRPLANE:AICargo(Airplane, CargoSet) end
 ---     AICargoDispatcherAirplanes:Start()
 ---```
 ------
----@param self AI_CARGO_DISPATCHER_AIRPLANE 
 ---@param AirplaneSet SET_GROUP The set of @{Wrapper.Group#GROUP} objects of airplanes that will transport the cargo.
 ---@param CargoSet SET_CARGO The set of @{Cargo.Cargo#CARGO} objects, which can be CARGO_GROUP, CARGO_CRATE, CARGO_SLINGLOAD objects.
 ---@param PickupZoneSet SET_ZONE The set of zone airbases where the cargo has to be picked up.

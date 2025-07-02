@@ -33,6 +33,7 @@
 ---@field Name NOTYPE 
 ---@field Overhead NOTYPE 
 ---@field RadioFrequency NOTYPE 
+---@field ResourceCount NOTYPE 
 ---@field Spawn table 
 ---@field Takeoff NOTYPE 
 ---@field TankerName NOTYPE 
@@ -42,7 +43,6 @@ AI_AIR_SQUADRON = {}
 ---Add Resources to the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Resources number The Resources to be added.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:AddResources(Resources) end
@@ -50,70 +50,60 @@ function AI_AIR_SQUADRON:AddResources(Resources) end
 ---Get the EngageProbability of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron EngageProbability.
 function AI_AIR_SQUADRON:GetEngageProbability() end
 
 ---Get the FuelThreshold of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron FuelThreshold.
 function AI_AIR_SQUADRON:GetFuelThreshold() end
 
 ---Get the Grouping of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron Grouping.
 function AI_AIR_SQUADRON:GetGrouping() end
 
 ---Get the Landing of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron Landing.
 function AI_AIR_SQUADRON:GetLanding() end
 
 ---Get the Name of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return string #The Squadron Name.
 function AI_AIR_SQUADRON:GetName() end
 
 ---Get the Overhead of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron Overhead.
 function AI_AIR_SQUADRON:GetOverhead() end
 
 ---Get the ResourceCount of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron ResourceCount.
 function AI_AIR_SQUADRON:GetResourceCount() end
 
 ---Get the Takeoff of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return number #The Squadron Takeoff.
 function AI_AIR_SQUADRON:GetTakeoff() end
 
 ---Get the Tanker Name of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@return string #The Squadron Tanker Name.
 function AI_AIR_SQUADRON:GetTankerName() end
 
 ---Creates a new AI_AIR_SQUADRON object
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param SquadronName NOTYPE 
 ---@param AirbaseName NOTYPE 
 ---@param TemplatePrefixes NOTYPE 
@@ -124,7 +114,6 @@ function AI_AIR_SQUADRON:New(SquadronName, AirbaseName, TemplatePrefixes, Resour
 ---Remove Resources to the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Resources number The Resources to be removed.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:RemoveResources(Resources) end
@@ -132,7 +121,6 @@ function AI_AIR_SQUADRON:RemoveResources(Resources) end
 ---Set the EngageProbability of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param EngageProbability number The Squadron EngageProbability.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetEngageProbability(EngageProbability) end
@@ -140,7 +128,6 @@ function AI_AIR_SQUADRON:SetEngageProbability(EngageProbability) end
 ---Set the FuelThreshold of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param FuelThreshold number The Squadron FuelThreshold.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetFuelThreshold(FuelThreshold) end
@@ -148,7 +135,6 @@ function AI_AIR_SQUADRON:SetFuelThreshold(FuelThreshold) end
 ---Set the Grouping of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Grouping number The Squadron Grouping.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetGrouping(Grouping) end
@@ -156,7 +142,6 @@ function AI_AIR_SQUADRON:SetGrouping(Grouping) end
 ---Set the Landing of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Landing number The Squadron Landing.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetLanding(Landing) end
@@ -164,7 +149,6 @@ function AI_AIR_SQUADRON:SetLanding(Landing) end
 ---Set the Name of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Name string The Squadron Name.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetName(Name) end
@@ -172,7 +156,6 @@ function AI_AIR_SQUADRON:SetName(Name) end
 ---Set the Overhead of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Overhead number The Squadron Overhead.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetOverhead(Overhead) end
@@ -180,7 +163,6 @@ function AI_AIR_SQUADRON:SetOverhead(Overhead) end
 ---Set the Radio of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param RadioFrequency number The frequency of communication.
 ---@param RadioModulation number The modulation of communication.
 ---@param RadioPower number The power in Watts of communication.
@@ -191,7 +173,6 @@ function AI_AIR_SQUADRON:SetRadio(RadioFrequency, RadioModulation, RadioPower, L
 ---Set the ResourceCount of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param ResourceCount number The Squadron ResourceCount.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetResourceCount(ResourceCount) end
@@ -199,7 +180,6 @@ function AI_AIR_SQUADRON:SetResourceCount(ResourceCount) end
 ---Set the Takeoff of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param Takeoff number The Squadron Takeoff.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetTakeoff(Takeoff) end
@@ -207,7 +187,6 @@ function AI_AIR_SQUADRON:SetTakeoff(Takeoff) end
 ---Set the TankerName of the Squadron.
 ---
 ------
----@param self AI_AIR_SQUADRON 
 ---@param TankerName string The Squadron Tanker Name.
 ---@return AI_AIR_SQUADRON #The Squadron.
 function AI_AIR_SQUADRON:SetTankerName(TankerName) end

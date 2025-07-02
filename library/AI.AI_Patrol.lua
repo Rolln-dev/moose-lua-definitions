@@ -167,19 +167,16 @@ AI_PATROL_ZONE = {}
 ---Clears the list of Wrapper.Unit#UNITs that were detected by the AI.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:ClearDetectedUnits() end
 
 ---Synchronous Event Trigger for Event Detect.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Detect() end
 
 ---Synchronous Event Trigger for Event Detected.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Detected() end
 
 ---Gets a list of Wrapper.Unit#UNITs that were detected by the AI.
@@ -187,7 +184,6 @@ function AI_PATROL_ZONE:Detected() end
 ---It is up to the mission designer to use the Wrapper.Unit class and methods to filter the targets.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return table #The list of @{Wrapper.Unit#UNIT}s
 function AI_PATROL_ZONE:GetDetectedUnits() end
 
@@ -199,7 +195,6 @@ function AI_PATROL_ZONE:GetDetectedUnits() end
 ---So, in a group of 4 airplanes, 2 lost and 2 with damage 0.2, the damage threshold will be 0.25.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param PatrolDamageThreshold number The threshold in percentage (between 0 and 1) when the AI is considered to be damaged.
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:ManageDamage(PatrolDamageThreshold) end
@@ -210,7 +205,6 @@ function AI_PATROL_ZONE:ManageDamage(PatrolDamageThreshold) end
 ---Once the time is finished, the old AI will return to the base.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param PatrolFuelThresholdPercentage number The threshold in percentage (between 0 and 1) when the AIControllable is considered to get out of fuel.
 ---@param PatrolOutOfFuelOrbitTime number The amount of seconds the out of fuel AIControllable will orbit before returning to the base.
 ---@return AI_PATROL_ZONE #self
@@ -228,7 +222,6 @@ function AI_PATROL_ZONE:ManageFuel(PatrolFuelThresholdPercentage, PatrolOutOfFue
 ---PatrolArea = AI_PATROL_ZONE:New( PatrolZone, 3000, 6000, 600, 900 )
 ---```
 ------
----@param self AI_PATROL_ZONE 
 ---@param PatrolZone ZONE_BASE The @{Core.Zone} where the patrol needs to be executed.
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
@@ -241,7 +234,6 @@ function AI_PATROL_ZONE:New(PatrolZone, PatrolFloorAltitude, PatrolCeilingAltitu
 ---OnAfter Transition Handler for Event Detect.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -251,7 +243,6 @@ function AI_PATROL_ZONE:OnAfterDetect(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Detected.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -261,7 +252,6 @@ function AI_PATROL_ZONE:OnAfterDetected(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event RTB.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -271,7 +261,6 @@ function AI_PATROL_ZONE:OnAfterRTB(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Route.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -281,7 +270,6 @@ function AI_PATROL_ZONE:OnAfterRoute(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Start.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -291,7 +279,6 @@ function AI_PATROL_ZONE:OnAfterStart(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Status.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -301,7 +288,6 @@ function AI_PATROL_ZONE:OnAfterStatus(Controllable, From, Event, To) end
 ---OnAfter Transition Handler for Event Stop.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -311,7 +297,6 @@ function AI_PATROL_ZONE:OnAfterStop(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Detect.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -322,7 +307,6 @@ function AI_PATROL_ZONE:OnBeforeDetect(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Detected.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -333,7 +317,6 @@ function AI_PATROL_ZONE:OnBeforeDetected(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event RTB.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -344,7 +327,6 @@ function AI_PATROL_ZONE:OnBeforeRTB(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Route.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -355,7 +337,6 @@ function AI_PATROL_ZONE:OnBeforeRoute(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Start.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -366,7 +347,6 @@ function AI_PATROL_ZONE:OnBeforeStart(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Status.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -377,7 +357,6 @@ function AI_PATROL_ZONE:OnBeforeStatus(Controllable, From, Event, To) end
 ---OnBefore Transition Handler for Event Stop.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -388,21 +367,18 @@ function AI_PATROL_ZONE:OnBeforeStop(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_PATROL_ZONE:OnCrash(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_PATROL_ZONE:OnEjection(EventData) end
 
 ---OnEnter Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -412,7 +388,6 @@ function AI_PATROL_ZONE:OnEnterPatrolling(Controllable, From, Event, To) end
 ---OnEnter Transition Handler for State Returning.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -422,7 +397,6 @@ function AI_PATROL_ZONE:OnEnterReturning(Controllable, From, Event, To) end
 ---OnEnter Transition Handler for State Stopped.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -432,7 +406,6 @@ function AI_PATROL_ZONE:OnEnterStopped(Controllable, From, Event, To) end
 ---OnLeave Transition Handler for State Patrolling.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -443,7 +416,6 @@ function AI_PATROL_ZONE:OnLeavePatrolling(Controllable, From, Event, To) end
 ---OnLeave Transition Handler for State Returning.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -454,7 +426,6 @@ function AI_PATROL_ZONE:OnLeaveReturning(Controllable, From, Event, To) end
 ---OnLeave Transition Handler for State Stopped.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -465,26 +436,22 @@ function AI_PATROL_ZONE:OnLeaveStopped(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_PATROL_ZONE:OnPilotDead(EventData) end
 
 ---Synchronous Event Trigger for Event RTB.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:RTB() end
 
 ---Synchronous Event Trigger for Event Route.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Route() end
 
 ---Sets the floor and ceiling altitude of the patrol.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param PatrolFloorAltitude Altitude The lowest altitude in meters where to execute the patrol.
 ---@param PatrolCeilingAltitude Altitude The highest altitude in meters where to execute the patrol.
 ---@return AI_PATROL_ZONE #self
@@ -494,7 +461,6 @@ function AI_PATROL_ZONE:SetAltitude(PatrolFloorAltitude, PatrolCeilingAltitude) 
 ---The AI will detect for targets if the Detection is switched On.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetDetectionActivated() end
 
@@ -502,7 +468,6 @@ function AI_PATROL_ZONE:SetDetectionActivated() end
 ---The AI will NOT detect for targets.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetDetectionDeactivated() end
 
@@ -511,7 +476,6 @@ function AI_PATROL_ZONE:SetDetectionDeactivated() end
 ---However, the list of already detected targets will be kept and can be enquired!
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetDetectionOff() end
 
@@ -519,14 +483,12 @@ function AI_PATROL_ZONE:SetDetectionOff() end
 ---The AI will detect for targets.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetDetectionOn() end
 
 ---Set the detection zone where the AI is detecting targets.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param DetectionZone ZONE The zone where to detect targets.
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetDetectionZone(DetectionZone) end
@@ -538,7 +500,6 @@ function AI_PATROL_ZONE:SetDetectionZone(DetectionZone) end
 ---The default interval is 30 seconds.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Seconds number The interval in seconds.
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetRefreshTimeInterval(Seconds) end
@@ -546,7 +507,6 @@ function AI_PATROL_ZONE:SetRefreshTimeInterval(Seconds) end
 ---Sets (modifies) the minimum and maximum speed of the patrol.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param PatrolMinSpeed Speed The minimum speed of the @{Wrapper.Controllable} in km/h.
 ---@param PatrolMaxSpeed Speed The maximum speed of the @{Wrapper.Controllable} in km/h.
 ---@return AI_PATROL_ZONE #self
@@ -555,95 +515,81 @@ function AI_PATROL_ZONE:SetSpeed(PatrolMinSpeed, PatrolMaxSpeed) end
 ---Set the status checking off.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@return AI_PATROL_ZONE #self
 function AI_PATROL_ZONE:SetStatusOff() end
 
 ---Synchronous Event Trigger for Event Start.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Start() end
 
 ---Synchronous Event Trigger for Event Status.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Status() end
 
 ---Synchronous Event Trigger for Event Stop.
 ---
 ------
----@param self AI_PATROL_ZONE 
 function AI_PATROL_ZONE:Stop() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param AIControllable NOTYPE 
 function AI_PATROL_ZONE:_NewPatrolRoute(AIControllable) end
 
 ---Asynchronous Event Trigger for Event Detect.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Detect(Delay) end
 
 ---Asynchronous Event Trigger for Event Detected.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Detected(Delay) end
 
 ---Asynchronous Event Trigger for Event RTB.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__RTB(Delay) end
 
 ---Asynchronous Event Trigger for Event Route.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Route(Delay) end
 
 ---Asynchronous Event Trigger for Event Start.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Start(Delay) end
 
 ---Asynchronous Event Trigger for Event Status.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Status(Delay) end
 
 ---Asynchronous Event Trigger for Event Stop.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Delay number The delay in seconds.
 function AI_PATROL_ZONE:__Stop(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_PATROL_ZONE:onafterDead() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -654,14 +600,12 @@ function AI_PATROL_ZONE:onafterDetect(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_PATROL_ZONE:onafterRTB() end
 
 ---Defines a new patrol route using the #AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -672,7 +616,6 @@ function AI_PATROL_ZONE:onafterRoute(Controllable, From, Event, To) end
 ---Defines a new patrol route using the #AI_PATROL_ZONE parameters and settings.
 ---
 ------
----@param self AI_PATROL_ZONE 
 ---@param Controllable CONTROLLABLE The Controllable Object managed by the FSM.
 ---@param From string The From State string.
 ---@param Event string The Event string.
@@ -684,14 +627,12 @@ function AI_PATROL_ZONE:onafterStart(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_PATROL_ZONE:onafterStatus() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Controllable NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -702,7 +643,6 @@ function AI_PATROL_ZONE:onbeforeDetect(Controllable, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function AI_PATROL_ZONE:onbeforeStatus() end
 

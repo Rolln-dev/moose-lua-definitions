@@ -254,7 +254,6 @@ CHIEF = {}
 ---Add an AIRWING to the chief's commander.
 ---
 ------
----@param self CHIEF 
 ---@param Airwing AIRWING The airwing to add.
 ---@return CHIEF #self
 function CHIEF:AddAirwing(Airwing) end
@@ -264,7 +263,6 @@ function CHIEF:AddAirwing(Airwing) end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.AGGRESSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to add.
 ---@return CHIEF #self
 function CHIEF:AddAttackZone(Zone) end
@@ -272,7 +270,6 @@ function CHIEF:AddAttackZone(Zone) end
 ---Add an AWACS zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone.
 ---@param Altitude number Orbit altitude in feet. Default is 12,000 feet.
 ---@param Speed number Orbit speed in KIAS. Default 350 kts.
@@ -287,7 +284,6 @@ function CHIEF:AddAwacsZone(Zone, Altitude, Speed, Heading, Leg) end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.DEFENSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to be added.
 ---@return CHIEF #self
 function CHIEF:AddBorderZone(Zone) end
@@ -295,7 +291,6 @@ function CHIEF:AddBorderZone(Zone) end
 ---Add a BRIGADE to the chief's commander.
 ---
 ------
----@param self CHIEF 
 ---@param Brigade BRIGADE The brigade to add.
 ---@return CHIEF #self
 function CHIEF:AddBrigade(Brigade) end
@@ -304,7 +299,6 @@ function CHIEF:AddBrigade(Brigade) end
 ---Flights will engage detected targets inside this zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE CAP Zone. Has to be a circular zone.
 ---@param Altitude number Orbit altitude in feet. Default is 12,000 feet.
 ---@param Speed number Orbit speed in KIAS. Default 350 kts.
@@ -319,7 +313,6 @@ function CHIEF:AddCapZone(Zone, Altitude, Speed, Heading, Leg) end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.OFFENSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to be added.
 ---@return CHIEF #self
 function CHIEF:AddConflictZone(Zone) end
@@ -327,7 +320,6 @@ function CHIEF:AddConflictZone(Zone) end
 ---Add a FLEET to the chief's commander.
 ---
 ------
----@param self CHIEF 
 ---@param Fleet FLEET The fleet to add.
 ---@return CHIEF #self
 function CHIEF:AddFleet(Fleet) end
@@ -335,7 +327,6 @@ function CHIEF:AddFleet(Fleet) end
 ---Add a GCI CAP.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone, where the flight orbits.
 ---@param Altitude number Orbit altitude in feet. Default is 12,000 feet.
 ---@param Speed number Orbit speed in KIAS. Default 350 kts.
@@ -347,7 +338,6 @@ function CHIEF:AddGciCapZone(Zone, Altitude, Speed, Heading, Leg) end
 ---Add a LEGION to the chief's commander.
 ---
 ------
----@param self CHIEF 
 ---@param Legion LEGION The legion to add.
 ---@return CHIEF #self
 function CHIEF:AddLegion(Legion) end
@@ -355,7 +345,6 @@ function CHIEF:AddLegion(Legion) end
 ---Add mission to mission queue of the COMMANDER.
 ---
 ------
----@param self CHIEF 
 ---@param Mission AUFTRAG Mission to be added.
 ---@return CHIEF #self
 function CHIEF:AddMission(Mission) end
@@ -363,7 +352,6 @@ function CHIEF:AddMission(Mission) end
 ---Add transport to transport queue of the COMMANDER.
 ---
 ------
----@param self CHIEF 
 ---@param Transport OPSTRANSPORT Transport to be added.
 ---@return CHIEF #self
 function CHIEF:AddOpsTransport(Transport) end
@@ -371,7 +359,6 @@ function CHIEF:AddOpsTransport(Transport) end
 ---Add a rearming zone.
 ---
 ------
----@param self CHIEF 
 ---@param RearmingZone ZONE Rearming zone.
 ---@return BRIGADE.SupplyZone #The rearming zone data.
 function CHIEF:AddRearmingZone(RearmingZone) end
@@ -379,7 +366,6 @@ function CHIEF:AddRearmingZone(RearmingZone) end
 ---Add a refuelling zone.
 ---
 ------
----@param self CHIEF 
 ---@param RefuellingZone ZONE Refuelling zone.
 ---@return BRIGADE.SupplyZone #The refuelling zone data.
 function CHIEF:AddRefuellingZone(RefuellingZone) end
@@ -402,7 +388,6 @@ function CHIEF:AddRefuellingZone(RefuellingZone) end
 ---Resources can be created with the #CHIEF.CreateResource and #CHIEF.AddToResource functions.
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE OPS zone object.
 ---@param Priority number Priority. Default 50.
 ---@param Importance number Importance. Default `#nil`.
@@ -414,7 +399,6 @@ function CHIEF:AddStrategicZone(OpsZone, Priority, Importance, ResourceOccupied,
 ---Add a refuelling tanker zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone.
 ---@param Altitude number Orbit altitude in feet. Default is 12,000 feet.
 ---@param Speed number Orbit speed in KIAS. Default 350 kts.
@@ -427,7 +411,6 @@ function CHIEF:AddTankerZone(Zone, Altitude, Speed, Heading, Leg, RefuelSystem) 
 ---Add target.
 ---
 ------
----@param self CHIEF 
 ---@param Target TARGET Target object to be added.
 ---@return CHIEF #self
 function CHIEF:AddTarget(Target) end
@@ -435,7 +418,6 @@ function CHIEF:AddTarget(Target) end
 ---Add mission type and number of required assets to resource list.
 ---
 ------
----@param self CHIEF 
 ---@param Resource CHIEF.Resources List of resources.
 ---@param MissionType string Mission Type.
 ---@param Nmin number Min number of required assets. Default 1.
@@ -449,7 +431,6 @@ function CHIEF:AddToResource(Resource, MissionType, Nmin, Nmax, Attributes, Prop
 ---Define which assets will be transported and define the number and attributes/properties of the cargo carrier assets.
 ---
 ------
----@param self CHIEF 
 ---@param Resource CHIEF.Resource Resource table.
 ---@param Nmin number Min number of required assets. Default 1.
 ---@param Nmax number Max number of requried assets. Default is equal to `Nmin`.
@@ -464,14 +445,12 @@ function CHIEF:AddTransportToResource(Resource, Nmin, Nmax, CarrierAttributes, C
 ---if a destination can be reached on land.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:AllowGroundTransport() end
 
 ---Check if group is in a attack zone.
 ---
 ------
----@param self CHIEF 
 ---@param group GROUP The group.
 ---@return boolean #If true, group is in any attack zone.
 function CHIEF:CheckGroupInAttack(group) end
@@ -479,7 +458,6 @@ function CHIEF:CheckGroupInAttack(group) end
 ---Check if group is inside our border.
 ---
 ------
----@param self CHIEF 
 ---@param group GROUP The group.
 ---@return boolean #If true, group is in any border zone.
 function CHIEF:CheckGroupInBorder(group) end
@@ -487,7 +465,6 @@ function CHIEF:CheckGroupInBorder(group) end
 ---Check if group is in a conflict zone.
 ---
 ------
----@param self CHIEF 
 ---@param group GROUP The group.
 ---@return boolean #If true, group is in any conflict zone.
 function CHIEF:CheckGroupInConflict(group) end
@@ -495,7 +472,6 @@ function CHIEF:CheckGroupInConflict(group) end
 ---Check if group is inside a zone.
 ---
 ------
----@param self CHIEF 
 ---@param group GROUP The group.
 ---@param zoneset SET_ZONE Set of zones.
 ---@return boolean #If true, group is in any zone.
@@ -504,13 +480,11 @@ function CHIEF:CheckGroupInZones(group, zoneset) end
 ---Check strategic zone queue.
 ---
 ------
----@param self CHIEF 
 function CHIEF:CheckOpsZoneQueue() end
 
 ---Check if group is inside a zone.
 ---
 ------
----@param self CHIEF 
 ---@param target TARGET The target.
 ---@param zoneset SET_ZONE Set of zones.
 ---@return boolean #If true, group is in any zone.
@@ -519,13 +493,11 @@ function CHIEF:CheckTargetInZones(target, zoneset) end
 ---Check target queue and assign ONE valid target by adding it to the mission queue of the COMMANDER.
 ---
 ------
----@param self CHIEF 
 function CHIEF:CheckTargetQueue() end
 
 ---Create a new resource list of required assets.
 ---
 ------
----@param self CHIEF 
 ---@param MissionType string The mission type.
 ---@param Nmin number Min number of required assets. Default 1.
 ---@param Nmax number Max number of requried assets. Default 1.
@@ -539,7 +511,6 @@ function CHIEF:CreateResource(MissionType, Nmin, Nmax, Attributes, Properties, C
 ---Triggers the FSM event "DefconChange".
 ---
 ------
----@param self CHIEF 
 ---@param Defcon string New Defence Condition.
 function CHIEF:DefconChange(Defcon) end
 
@@ -547,7 +518,6 @@ function CHIEF:DefconChange(Defcon) end
 ---All running missions are cancelled.
 ---
 ------
----@param self CHIEF 
 ---@param Resource table Resource table.
 ---@param MissionType string Mission Type.
 ---@return CHIEF #self
@@ -557,21 +527,18 @@ function CHIEF:DeleteFromResource(Resource, MissionType) end
 ---Restrict to Helicopters. This is the default
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:ForbidGroundTransport() end
 
 ---Get the commander.
 ---
 ------
----@param self CHIEF 
 ---@return COMMANDER #The commander.
 function CHIEF:GetCommander() end
 
 ---Get defence condition.
 ---
 ------
----@param self CHIEF 
 ---@param Current string Defence condition. See @{#CHIEF.DEFCON}, e.g. `CHIEF.DEFCON.RED`.
 ---@param Defcon NOTYPE 
 function CHIEF:GetDefcon(Current, Defcon) end
@@ -579,7 +546,6 @@ function CHIEF:GetDefcon(Current, Defcon) end
 ---Get mission limit.
 ---
 ------
----@param self CHIEF 
 ---@param MissionType string Type of mission.
 ---@return number #Limit. Unlimited mission types are returned as 999.
 function CHIEF:GetMissionLimit(MissionType) end
@@ -587,7 +553,6 @@ function CHIEF:GetMissionLimit(MissionType) end
 ---Get the resource list of missions and assets employed when the zone is empty.
 ---
 ------
----@param self CHIEF 
 ---@param StrategicZone CHIEF.StrategicZone The strategic zone.
 ---@return CHIEF.Resource #Resource list of missions and assets.
 function CHIEF:GetStrategicZoneResourceEmpty(StrategicZone) end
@@ -595,7 +560,6 @@ function CHIEF:GetStrategicZoneResourceEmpty(StrategicZone) end
 ---Get the resource list of missions and assets employed when the zone is occupied by the enemy.
 ---
 ------
----@param self CHIEF 
 ---@param StrategicZone CHIEF.StrategicZone The strategic zone.
 ---@return CHIEF.Resource #Resource list of missions and assets.
 function CHIEF:GetStrategicZoneResourceOccupied(StrategicZone) end
@@ -603,42 +567,36 @@ function CHIEF:GetStrategicZoneResourceOccupied(StrategicZone) end
 ---Get current strategy.
 ---
 ------
----@param self CHIEF 
 ---@return string #Strategy.
 function CHIEF:GetStrategy() end
 
 ---Check if current strategy is aggressive.
 ---
 ------
----@param self CHIEF 
 ---@return boolean #If `true`, strategy is agressive.
 function CHIEF:IsAgressive() end
 
 ---Check if current strategy is defensive.
 ---
 ------
----@param self CHIEF 
 ---@return boolean #If `true`, strategy is defensive.
 function CHIEF:IsDefensive() end
 
 ---Check if current strategy is offensive.
 ---
 ------
----@param self CHIEF 
 ---@return boolean #If `true`, strategy is offensive.
 function CHIEF:IsOffensive() end
 
 ---Check if current strategy is passive.
 ---
 ------
----@param self CHIEF 
 ---@return boolean #If `true`, strategy is passive.
 function CHIEF:IsPassive() end
 
 ---Check if a TARGET is already in the queue.
 ---
 ------
----@param self CHIEF 
 ---@param Target TARGET Target object to be added.
 ---@return boolean #If `true`, target exists in the target queue.
 function CHIEF:IsTarget(Target) end
@@ -646,14 +604,12 @@ function CHIEF:IsTarget(Target) end
 ---Check if current strategy is total war.
 ---
 ------
----@param self CHIEF 
 ---@return boolean #If `true`, strategy is total war.
 function CHIEF:IsTotalWar() end
 
 ---Triggers the FSM event "LegionLost".
 ---
 ------
----@param self CHIEF 
 ---@param Legion LEGION The legion that was lost.
 ---@param Coalition coalition.side which captured the warehouse.
 ---@param Country country.id which has captured the warehouse.
@@ -662,7 +618,6 @@ function CHIEF:LegionLost(Legion, Coalition, Country) end
 ---Triggers the FSM event "MissionAssign".
 ---
 ------
----@param self CHIEF 
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The Legion(s) to which the mission is assigned.
 function CHIEF:MissionAssign(Mission, Legions) end
@@ -670,14 +625,12 @@ function CHIEF:MissionAssign(Mission, Legions) end
 ---Triggers the FSM event "MissionCancel".
 ---
 ------
----@param self CHIEF 
 ---@param Mission AUFTRAG The mission.
 function CHIEF:MissionCancel(Mission) end
 
 ---Create a new CHIEF object and start the FSM.
 ---
 ------
----@param self CHIEF 
 ---@param Coalition number Coalition side, e.g. `coaliton.side.BLUE`. Can also be passed as a string "red", "blue" or "neutral".
 ---@param AgentSet SET_GROUP Set of agents (groups) providing intel. Default is an empty set.
 ---@param Alias string An *optional* alias how this object is called in the logs etc.
@@ -687,7 +640,6 @@ function CHIEF:New(Coalition, AgentSet, Alias) end
 ---On after "DefconChange" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -697,7 +649,6 @@ function CHIEF:OnAfterDefconChange(From, Event, To, Defcon) end
 ---On after "LegionLost" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -709,7 +660,6 @@ function CHIEF:OnAfterLegionLost(From, Event, To, Legion, Coalition, Country) en
 ---On after "MissionAssign" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -720,7 +670,6 @@ function CHIEF:OnAfterMissionAssign(From, Event, To, Mission, Legions) end
 ---On after "MissionCancel" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -730,7 +679,6 @@ function CHIEF:OnAfterMissionCancel(From, Event, To, Mission) end
 ---On after "OpsOnMission" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -741,7 +689,6 @@ function CHIEF:OnAfterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---On after "StrategyChange" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -751,7 +698,6 @@ function CHIEF:OnAfterStrategyChange(From, Event, To, Strategy) end
 ---On after "TransportCancel" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -761,7 +707,6 @@ function CHIEF:OnAfterTransportCancel(From, Event, To, Transport) end
 ---On after "ZoneAttacked" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -771,7 +716,6 @@ function CHIEF:OnAfterZoneAttacked(From, Event, To, OpsZone) end
 ---On after "ZoneCaptured" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -781,7 +725,6 @@ function CHIEF:OnAfterZoneCaptured(From, Event, To, OpsZone) end
 ---On after "ZoneEmpty" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -791,7 +734,6 @@ function CHIEF:OnAfterZoneEmpty(From, Event, To, OpsZone) end
 ---On after "ZoneLost" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -801,7 +743,6 @@ function CHIEF:OnAfterZoneLost(From, Event, To, OpsZone) end
 ---Triggers the FSM event "OpsOnMission".
 ---
 ------
----@param self CHIEF 
 ---@param OpsGroup OPSGROUP The OPS group on mission.
 ---@param Mission AUFTRAG The mission.
 function CHIEF:OpsOnMission(OpsGroup, Mission) end
@@ -809,7 +750,6 @@ function CHIEF:OpsOnMission(OpsGroup, Mission) end
 ---Recruit assets for a given OPS zone.
 ---
 ------
----@param self CHIEF 
 ---@param StratZone CHIEF.StrategicZone The strategic zone.
 ---@param Resource CHIEF.Resource The required resources.
 ---@return boolean #If `true` enough assets could be recruited.
@@ -818,7 +758,6 @@ function CHIEF:RecruitAssetsForZone(StratZone, Resource) end
 ---Remove an attack zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to be removed.
 ---@return CHIEF #self
 function CHIEF:RemoveAttackZone(Zone) end
@@ -826,14 +765,12 @@ function CHIEF:RemoveAttackZone(Zone) end
 ---Remove a AWACS zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone, where the flight orbits.
 function CHIEF:RemoveAwacsZone(Zone) end
 
 ---Remove a border zone defining your territory.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to be removed.
 ---@return CHIEF #self
 function CHIEF:RemoveBorderZone(Zone) end
@@ -841,7 +778,6 @@ function CHIEF:RemoveBorderZone(Zone) end
 ---Remove a conflict zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE The zone to be removed.
 ---@return CHIEF #self
 function CHIEF:RemoveConflictZone(Zone) end
@@ -849,14 +785,12 @@ function CHIEF:RemoveConflictZone(Zone) end
 ---Remove a GCI CAP
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone, where the flight orbits.
 function CHIEF:RemoveGciCapZone(Zone) end
 
 ---Remove a LEGION to the chief's commander.
 ---
 ------
----@param self CHIEF 
 ---@param Legion LEGION The legion to add.
 ---@return CHIEF #self
 function CHIEF:RemoveLegion(Legion) end
@@ -864,7 +798,6 @@ function CHIEF:RemoveLegion(Legion) end
 ---Remove mission from queue.
 ---
 ------
----@param self CHIEF 
 ---@param Mission AUFTRAG Mission to be removed.
 ---@return CHIEF #self
 function CHIEF:RemoveMission(Mission) end
@@ -873,7 +806,6 @@ function CHIEF:RemoveMission(Mission) end
 ---All runing missions are cancelled.
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE OPS zone object.
 ---@param Delay number Delay in seconds before the zone is removed. Default immidiately.
 ---@return CHIEF #self
@@ -882,14 +814,12 @@ function CHIEF:RemoveStrategicZone(OpsZone, Delay) end
 ---Remove a refuelling tanker zone.
 ---
 ------
----@param self CHIEF 
 ---@param Zone ZONE Zone, where the flight orbits.
 function CHIEF:RemoveTankerZone(Zone) end
 
 ---Remove target from queue.
 ---
 ------
----@param self CHIEF 
 ---@param Target TARGET The target.
 ---@return CHIEF #self
 function CHIEF:RemoveTarget(Target) end
@@ -897,7 +827,6 @@ function CHIEF:RemoveTarget(Target) end
 ---Remove transport from queue.
 ---
 ------
----@param self CHIEF 
 ---@param Transport OPSTRANSPORT Transport to be removed.
 ---@return CHIEF #self
 function CHIEF:RemoveTransport(Transport) end
@@ -905,7 +834,6 @@ function CHIEF:RemoveTransport(Transport) end
 ---Set this to be an air-to-air dispatcher.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetAirToAir() end
 
@@ -913,7 +841,6 @@ function CHIEF:SetAirToAir() end
 ---engaging air, ground and naval targets. This is the default anyway.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetAirToAny() end
 
@@ -921,7 +848,6 @@ function CHIEF:SetAirToAny() end
 ---engage only ground units
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetAirToGround() end
 
@@ -929,7 +855,6 @@ function CHIEF:SetAirToGround() end
 ---engage only naval units.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetAirToSea() end
 
@@ -937,7 +862,6 @@ function CHIEF:SetAirToSea() end
 ---engaging ground and naval groups.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetAirToSurface() end
 
@@ -946,7 +870,6 @@ function CHIEF:SetAirToSurface() end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.AGGRESSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param ZoneSet SET_ZONE Set of zones.
 ---@return CHIEF #self
 function CHIEF:SetAttackZones(ZoneSet) end
@@ -957,7 +880,6 @@ function CHIEF:SetAttackZones(ZoneSet) end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.DEFENSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param BorderZoneSet SET_ZONE Set of zones defining our borders.
 ---@return CHIEF #self
 function CHIEF:SetBorderZones(BorderZoneSet) end
@@ -968,7 +890,6 @@ function CHIEF:SetBorderZones(BorderZoneSet) end
 ---* Enemies in these zones will only be engaged if strategy is at least `CHIEF.STRATEGY.OFFENSIVE`.
 ---
 ------
----@param self CHIEF 
 ---@param ZoneSet SET_ZONE Set of zones.
 ---@return CHIEF #self
 function CHIEF:SetConflictZones(ZoneSet) end
@@ -976,7 +897,6 @@ function CHIEF:SetConflictZones(ZoneSet) end
 ---Set defence condition.
 ---
 ------
----@param self CHIEF 
 ---@param Defcon string Defence condition. See @{#CHIEF.DEFCON}, e.g. `CHIEF.DEFCON.RED`.
 ---@return CHIEF #self
 function CHIEF:SetDefcon(Defcon) end
@@ -984,7 +904,6 @@ function CHIEF:SetDefcon(Defcon) end
 ---Set limit for number of total or specific missions to be executed simultaniously.
 ---
 ------
----@param self CHIEF 
 ---@param Limit number Number of max. mission of this type. Default 10.
 ---@param MissionType string Type of mission, e.g. `AUFTRAG.Type.BAI`. Default `"Total"` for total number of missions.
 ---@return CHIEF #self
@@ -993,7 +912,6 @@ function CHIEF:SetLimitMission(Limit, MissionType) end
 ---Set number of assets requested for detected targets.
 ---
 ------
----@param self CHIEF 
 ---@param NassetsMin number Min number of assets. Should be at least 1. Default 1.
 ---@param NassetsMax number Max number of assets. Default is same as `NassetsMin`.
 ---@param ThreatLevel number Only apply this setting if the target threat level is greater or equal this number. Default 0.
@@ -1008,7 +926,6 @@ function CHIEF:SetResponseOnTarget(NassetsMin, NassetsMax, ThreatLevel, TargetCa
 ---Set the resource list of missions and assets employed when the zone is empty.
 ---
 ------
----@param self CHIEF 
 ---@param StrategicZone CHIEF.StrategicZone The strategic zone.
 ---@param Resource CHIEF.Resource Resource list of missions and assets.
 ---@param NoCopy boolean If `true`, do **not** create a deep copy of the resource.
@@ -1018,7 +935,6 @@ function CHIEF:SetStrategicZoneResourceEmpty(StrategicZone, Resource, NoCopy) en
 ---Set the resource list of missions and assets employed when the zone is occupied by the enemy.
 ---
 ------
----@param self CHIEF 
 ---@param StrategicZone CHIEF.StrategicZone The strategic zone.
 ---@param Resource CHIEF.Resource Resource list of missions and assets.
 ---@param NoCopy boolean If `true`, do **not** create a deep copy of the resource.
@@ -1028,7 +944,6 @@ function CHIEF:SetStrategicZoneResourceOccupied(StrategicZone, Resource, NoCopy)
 ---Set strategy.
 ---
 ------
----@param self CHIEF 
 ---@param Strategy string Strategy. See @{#CHIEF.strategy}, e.g. `CHIEF.Strategy.DEFENSIVE` (default).
 ---@return CHIEF #self
 function CHIEF:SetStrategy(Strategy) end
@@ -1036,14 +951,12 @@ function CHIEF:SetStrategy(Strategy) end
 ---Set tactical overview off.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetTacticalOverviewOff() end
 
 ---Set tactical overview on.
 ---
 ------
----@param self CHIEF 
 ---@return CHIEF #self
 function CHIEF:SetTacticalOverviewOn() end
 
@@ -1052,7 +965,6 @@ function CHIEF:SetTacticalOverviewOn() end
 ---Targets with threat level 0 are usually harmless.
 ---
 ------
----@param self CHIEF 
 ---@param ThreatLevelMin number Min threat level. Default 1.
 ---@param ThreatLevelMax number Max threat level. Default 10.
 ---@return CHIEF #self
@@ -1061,61 +973,52 @@ function CHIEF:SetThreatLevelRange(ThreatLevelMin, ThreatLevelMax) end
 ---Triggers the FSM event "Start".
 ---
 ------
----@param self CHIEF 
 function CHIEF:Start() end
 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self CHIEF 
 function CHIEF:Status() end
 
 ---Triggers the FSM event "StrategyChange".
 ---
 ------
----@param self CHIEF 
 ---@param Strategy string New strategy.
 function CHIEF:StrategyChange(Strategy) end
 
 ---Triggers the FSM event "TransportCancel".
 ---
 ------
----@param self CHIEF 
 ---@param Transport OPSTRANSPORT The transport.
 function CHIEF:TransportCancel(Transport) end
 
 ---Triggers the FSM event "ZoneAttacked".
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE Zone that is being attacked.
 function CHIEF:ZoneAttacked(OpsZone) end
 
 ---Triggers the FSM event "ZoneCaptured".
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE Zone that was captured.
 function CHIEF:ZoneCaptured(OpsZone) end
 
 ---Triggers the FSM event "ZoneEmpty".
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE Zone that is empty now.
 function CHIEF:ZoneEmpty(OpsZone) end
 
 ---Triggers the FSM event "ZoneLost".
 ---
 ------
----@param self CHIEF 
 ---@param OpsZone OPSZONE Zone that was lost.
 function CHIEF:ZoneLost(OpsZone) end
 
 ---Check if a given asset has certain attribute(s).
 ---
 ------
----@param Asset WAREHOUSE.Assetitem The asset item.
 ---@param Attributes table The required attributes. See `WAREHOUSE.Attribute` enum. Can also be passed as a single attribute `#string`.
 ---@return boolean #Returns `true`, the asset has at least one requested attribute.
 function CHIEF._CheckAssetAttributes(Asset, Attributes) end
@@ -1123,7 +1026,6 @@ function CHIEF._CheckAssetAttributes(Asset, Attributes) end
 ---Check if a given asset has certain categories.
 ---
 ------
----@param Asset WAREHOUSE.Assetitem The asset item.
 ---@param Categories table DCS group categories.
 ---@return boolean #Returns `true`, the asset has at least one requested category.
 function CHIEF._CheckAssetCategories(Asset, Categories) end
@@ -1131,7 +1033,6 @@ function CHIEF._CheckAssetCategories(Asset, Categories) end
 ---Check if a given asset has certain properties.
 ---
 ------
----@param Asset WAREHOUSE.Assetitem The asset item.
 ---@param Categories table DCS group categories.
 ---@param Properties NOTYPE 
 ---@return boolean #Returns `true`, the asset has at least one requested property.
@@ -1140,7 +1041,6 @@ function CHIEF._CheckAssetProperties(Asset, Categories, Properties) end
 ---Check if limit of missions has been reached.
 ---
 ------
----@param self CHIEF 
 ---@param MissionType string Type of mission.
 ---@return boolean #If `true`, mission limit has **not** been reached. If `false`, limit has been reached.
 function CHIEF:_CheckMissionLimit(MissionType) end
@@ -1148,7 +1048,6 @@ function CHIEF:_CheckMissionLimit(MissionType) end
 ---Create a mission performance table.
 ---
 ------
----@param self CHIEF 
 ---@param MissionType string Mission type.
 ---@param Performance number Performance.
 ---@return CHIEF.MissionPerformance #Mission performance.
@@ -1157,7 +1056,6 @@ function CHIEF:_CreateMissionPerformance(MissionType, Performance) end
 ---Filter assets, which have certain categories, attributes and/or properties.
 ---
 ------
----@param Assets table The assets to be filtered.
 ---@param Categories table Group categories.
 ---@param Attributes table Generalized attributes.
 ---@param Properties table DCS attributes
@@ -1167,7 +1065,6 @@ function CHIEF._FilterAssets(Assets, Categories, Attributes, Properties) end
 ---Add mission type and number of required assets to resource.
 ---
 ------
----@param self CHIEF 
 ---@param Target TARGET The target.
 ---@param MissionType string Mission type.
 ---@return number #Number of min assets.
@@ -1177,7 +1074,6 @@ function CHIEF:_GetAssetsForTarget(Target, MissionType) end
 ---Get mission performance for a given TARGET.
 ---
 ------
----@param self CHIEF 
 ---@param Target TARGET The target.
 ---@return table #Mission performances of type `#CHIEF.MissionPerformance`.
 function CHIEF:_GetMissionPerformanceFromTarget(Target) end
@@ -1185,7 +1081,6 @@ function CHIEF:_GetMissionPerformanceFromTarget(Target) end
 ---Get mission performances for a given Group Attribute.
 ---
 ------
----@param self CHIEF 
 ---@param Attribute string Group attibute.
 ---@return table #Mission performances of type `#CHIEF.MissionPerformance`.
 function CHIEF:_GetMissionTypeForGroupAttribute(Attribute) end
@@ -1193,13 +1088,11 @@ function CHIEF:_GetMissionTypeForGroupAttribute(Attribute) end
 ---Display tactical overview.
 ---
 ------
----@param self CHIEF 
 function CHIEF:_TacticalOverview() end
 
 ---Triggers the FSM event "DefconChange" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Defcon string New Defence Condition.
 function CHIEF:__DefconChange(delay, Defcon) end
@@ -1207,7 +1100,6 @@ function CHIEF:__DefconChange(delay, Defcon) end
 ---Triggers the FSM event "LegionLost".
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Legion LEGION The legion that was lost.
 ---@param Coalition coalition.side which captured the warehouse.
@@ -1217,7 +1109,6 @@ function CHIEF:__LegionLost(delay, Legion, Coalition, Country) end
 ---Triggers the FSM event "MissionAssign" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The Legion(s) to which the mission is assigned.
@@ -1226,7 +1117,6 @@ function CHIEF:__MissionAssign(delay, Mission, Legions) end
 ---Triggers the FSM event "MissionCancel" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Mission AUFTRAG The mission.
 function CHIEF:__MissionCancel(delay, Mission) end
@@ -1234,7 +1124,6 @@ function CHIEF:__MissionCancel(delay, Mission) end
 ---Triggers the FSM event "OpsOnMission" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param OpsGroup OPSGROUP The OPS group on mission.
 ---@param Mission AUFTRAG The mission.
@@ -1243,28 +1132,24 @@ function CHIEF:__OpsOnMission(delay, OpsGroup, Mission) end
 ---Triggers the FSM event "Start" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 function CHIEF:__Start(delay) end
 
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 function CHIEF:__Status(delay) end
 
 ---Triggers the FSM event "Stop" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 function CHIEF:__Stop(delay) end
 
 ---Triggers the FSM event "StrategyChange" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Strategy string New strategy.
 function CHIEF:__StrategyChange(delay, Strategy) end
@@ -1272,7 +1157,6 @@ function CHIEF:__StrategyChange(delay, Strategy) end
 ---Triggers the FSM event "TransportCancel" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param Transport OPSTRANSPORT The transport.
 function CHIEF:__TransportCancel(delay, Transport) end
@@ -1280,7 +1164,6 @@ function CHIEF:__TransportCancel(delay, Transport) end
 ---Triggers the FSM event "ZoneAttacked" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param OpsZone OPSZONE Zone that is being attacked.
 function CHIEF:__ZoneAttacked(delay, OpsZone) end
@@ -1288,7 +1171,6 @@ function CHIEF:__ZoneAttacked(delay, OpsZone) end
 ---Triggers the FSM event "ZoneCaptured" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param OpsZone OPSZONE Zone that was captured.
 function CHIEF:__ZoneCaptured(delay, OpsZone) end
@@ -1296,7 +1178,6 @@ function CHIEF:__ZoneCaptured(delay, OpsZone) end
 ---Triggers the FSM event "ZoneEmpty" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param OpsZone OPSZONE Zone that is empty now.
 function CHIEF:__ZoneEmpty(delay, OpsZone) end
@@ -1304,7 +1185,6 @@ function CHIEF:__ZoneEmpty(delay, OpsZone) end
 ---Triggers the FSM event "ZoneLost" after a delay.
 ---
 ------
----@param self CHIEF 
 ---@param delay number Delay in seconds.
 ---@param OpsZone OPSZONE Zone that was lost.
 function CHIEF:__ZoneLost(delay, OpsZone) end
@@ -1312,7 +1192,6 @@ function CHIEF:__ZoneLost(delay, OpsZone) end
 ---On after "DefconChange" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1323,7 +1202,6 @@ function CHIEF:onafterDefconChange(From, Event, To, Defcon) end
 ---On after "MissionAssignToAny" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1335,7 +1213,6 @@ function CHIEF:onafterMissionAssign(From, Event, To, Mission, Legions) end
 ---On after "MissionCancel" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1346,7 +1223,6 @@ function CHIEF:onafterMissionCancel(From, Event, To, Mission) end
 ---On after "OpsOnMission".
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1358,7 +1234,6 @@ function CHIEF:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---On after Start event.
 ---
 ------
----@param self CHIEF 
 ---@param Group GROUP Flight group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1369,7 +1244,6 @@ function CHIEF:onafterStart(Group, From, Event, To) end
 ---On after "Status" event.
 ---
 ------
----@param self CHIEF 
 ---@param Group GROUP Flight group.
 ---@param From string From state.
 ---@param Event string Event.
@@ -1380,7 +1254,6 @@ function CHIEF:onafterStatus(Group, From, Event, To) end
 ---On after "StrategyChange" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1391,7 +1264,6 @@ function CHIEF:onafterStrategyChange(From, Event, To, Strategy) end
 ---On after "TransportCancel" event.
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1402,7 +1274,6 @@ function CHIEF:onafterTransportCancel(From, Event, To, Transport) end
 ---On after "ZoneAttacked".
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1413,7 +1284,6 @@ function CHIEF:onafterZoneAttacked(From, Event, To, OpsZone) end
 ---On after "ZoneCaptured".
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1424,7 +1294,6 @@ function CHIEF:onafterZoneCaptured(From, Event, To, OpsZone) end
 ---On after "ZoneEmpty".
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -1435,7 +1304,6 @@ function CHIEF:onafterZoneEmpty(From, Event, To, OpsZone) end
 ---On after "ZoneLost".
 ---
 ------
----@param self CHIEF 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

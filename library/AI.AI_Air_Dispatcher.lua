@@ -894,7 +894,6 @@ AI_AIR_DISPATCHER = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param Squadron NOTYPE 
 ---@param Defender NOTYPE 
 ---@param Size NOTYPE 
@@ -903,7 +902,6 @@ function AI_AIR_DISPATCHER:AddDefenderToSquadron(Squadron, Defender, Size) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DefenseCoordinateName NOTYPE 
 ---@param DefenseCoordinate NOTYPE 
 function AI_AIR_DISPATCHER:AddDefenseCoordinate(DefenseCoordinateName, DefenseCoordinate) end
@@ -911,21 +909,18 @@ function AI_AIR_DISPATCHER:AddDefenseCoordinate(DefenseCoordinateName, DefenseCo
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:ClearDefenderTask(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:ClearDefenderTaskTarget(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param AttackerDetection NOTYPE 
 ---@param DefenderCount NOTYPE 
 ---@param DefenderTaskType NOTYPE 
@@ -934,7 +929,6 @@ function AI_AIR_DISPATCHER:CountDefenders(AttackerDetection, DefenderCount, Defe
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param AttackerDetection NOTYPE 
 ---@param AttackerCount NOTYPE 
 function AI_AIR_DISPATCHER:CountDefendersEngaged(AttackerDetection, AttackerCount) end
@@ -942,7 +936,6 @@ function AI_AIR_DISPATCHER:CountDefendersEngaged(AttackerDetection, AttackerCoun
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName NOTYPE 
 ---@param DefenseTaskType NOTYPE 
 function AI_AIR_DISPATCHER:CountPatrolAirborne(SquadronName, DefenseTaskType) end
@@ -950,13 +943,11 @@ function AI_AIR_DISPATCHER:CountPatrolAirborne(SquadronName, DefenseTaskType) en
 ---Defend Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 function AI_AIR_DISPATCHER:Defend() end
 
 ---Engage Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 function AI_AIR_DISPATCHER:Engage() end
 
 ---Gets the default method at which flights will land and despawn as part of the defense system.
@@ -976,7 +967,6 @@ function AI_AIR_DISPATCHER:Engage() end
 ---  end
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_AIR_DISPATCHER:GetDefaultLanding() end
 
@@ -997,14 +987,12 @@ function AI_AIR_DISPATCHER:GetDefaultLanding() end
 ---  end
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_AIR_DISPATCHER:GetDefaultTakeoff() end
 
 ---Calculates which defender friendlies are nearby the area, to help protect the area.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DetectedItem NOTYPE 
 ---@return table #A list of the defender friendlies nearby, sorted by distance.
 function AI_AIR_DISPATCHER:GetDefenderFriendliesNearBy(DetectedItem) end
@@ -1012,41 +1000,35 @@ function AI_AIR_DISPATCHER:GetDefenderFriendliesNearBy(DetectedItem) end
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:GetDefenderTask(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:GetDefenderTaskFsm(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:GetDefenderTaskSquadronName(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:GetDefenderTaskTarget(Defender) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 function AI_AIR_DISPATCHER:GetDefenderTasks() end
 
 ---Calculates which friendlies are nearby the area.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DetectedItem NOTYPE The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_AIR_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
@@ -1054,7 +1036,6 @@ function AI_AIR_DISPATCHER:GetFriendliesNearBy(DetectedItem) end
 ---Calculates which HUMAN friendlies are nearby the area.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DetectedItem NOTYPE The detected item.
 ---@return REPORT #The amount of friendlies and a text string explaining which friendlies of which type.
 function AI_AIR_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
@@ -1062,7 +1043,6 @@ function AI_AIR_DISPATCHER:GetPlayerFriendliesNearBy(DetectedItem) end
 ---Get the AI.AI_Air_Squadron object from the Squadron Name given.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The Squadron Name to search the Squadron object.
 ---@return AI_AIR_SQUADRON #The Squadron object.
 function AI_AIR_DISPATCHER:GetSquadron(SquadronName) end
@@ -1070,7 +1050,6 @@ function AI_AIR_DISPATCHER:GetSquadron(SquadronName) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:GetSquadronFromDefender(Defender) end
 
@@ -1091,7 +1070,6 @@ function AI_AIR_DISPATCHER:GetSquadronFromDefender(Defender) end
 ---  end
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Landing The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 function AI_AIR_DISPATCHER:GetSquadronLanding(SquadronName) end
@@ -1114,7 +1092,6 @@ function AI_AIR_DISPATCHER:GetSquadronLanding(SquadronName) end
 ---  local SquadronOverhead = AIRDispatcher:GetSquadronOverhead( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_AIR_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance AIR missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_AIR_DISPATCHER #
@@ -1137,7 +1114,6 @@ function AI_AIR_DISPATCHER:GetSquadronOverhead(SquadronName) end
 ---  end
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return number #Takeoff From the airbase hot, from the airbase cold, in the air, from the runway.
 function AI_AIR_DISPATCHER:GetSquadronTakeoff(SquadronName) end
@@ -1153,7 +1129,6 @@ function AI_AIR_DISPATCHER:GetSquadronTakeoff(SquadronName) end
 ---       local IsVisible = AIRDispatcher:IsSquadronVisible( "Mineralnye" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@return boolean #true if visible.
 function AI_AIR_DISPATCHER:IsSquadronVisible(SquadronName) end
@@ -1161,7 +1136,6 @@ function AI_AIR_DISPATCHER:IsSquadronVisible(SquadronName) end
 ---Locks the DefenseItem from being defended.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DetectedItemIndex string The index of the detected item.
 function AI_AIR_DISPATCHER:Lock(DetectedItemIndex) end
 
@@ -1189,7 +1163,6 @@ function AI_AIR_DISPATCHER:Lock(DetectedItemIndex) end
 ---    AIRDispatcher = AI_AIR_DISPATCHER:New( Detection )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Detection DETECTION_BASE The DETECTION object that will detects targets using the the Early Warning Radar network.
 ---@return AI_AIR_DISPATCHER #self
 function AI_AIR_DISPATCHER:New(Detection) end
@@ -1197,7 +1170,6 @@ function AI_AIR_DISPATCHER:New(Detection) end
 ---OnAfter Transition Handler for Event Assign.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -1209,7 +1181,6 @@ function AI_AIR_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, Player
 ---Defend Handler OnAfter for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1218,7 +1189,6 @@ function AI_AIR_DISPATCHER:OnAfterDefend(From, Event, To) end
 ---Engage Handler OnAfter for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1227,7 +1197,6 @@ function AI_AIR_DISPATCHER:OnAfterEngage(From, Event, To) end
 ---Patrol Handler OnAfter for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1236,7 +1205,6 @@ function AI_AIR_DISPATCHER:OnAfterPatrol(From, Event, To) end
 ---Defend Handler OnBefore for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1246,7 +1214,6 @@ function AI_AIR_DISPATCHER:OnBeforeDefend(From, Event, To) end
 ---Engage Handler OnBefore for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1256,7 +1223,6 @@ function AI_AIR_DISPATCHER:OnBeforeEngage(From, Event, To) end
 ---Patrol Handler OnBefore for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1266,41 +1232,35 @@ function AI_AIR_DISPATCHER:OnBeforePatrol(From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR_DISPATCHER:OnEventBaseCaptured(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR_DISPATCHER:OnEventCrashOrDead(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR_DISPATCHER:OnEventEngineShutdown(EventData) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function AI_AIR_DISPATCHER:OnEventLand(EventData) end
 
 ---Patrol Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 function AI_AIR_DISPATCHER:Patrol() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param Squadron NOTYPE 
 ---@param Defender NOTYPE 
 function AI_AIR_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
@@ -1308,7 +1268,6 @@ function AI_AIR_DISPATCHER:RemoveDefenderFromSquadron(Squadron, Defender) end
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
 function AI_AIR_DISPATCHER:ResourceActivate(DefenderSquadron, DefendersNeeded) end
@@ -1316,14 +1275,12 @@ function AI_AIR_DISPATCHER:ResourceActivate(DefenderSquadron, DefendersNeeded) e
 
 ---
 ------
----@param self NOTYPE 
 ---@param DefenderSquadron NOTYPE 
 function AI_AIR_DISPATCHER:ResourcePark(DefenderSquadron) end
 
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Patrol NOTYPE 
 ---@param DefenderSquadron NOTYPE 
 ---@param DefendersNeeded NOTYPE 
@@ -1360,7 +1317,6 @@ function AI_AIR_DISPATCHER:ResourceQueue(Patrol, DefenderSquadron, DefendersNeed
 ---  
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param BorderZone ZONE_BASE An object derived from ZONE_BASE, or a list of objects derived from ZONE_BASE.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetBorderZone(BorderZone) end
@@ -1380,7 +1336,6 @@ function AI_AIR_DISPATCHER:SetBorderZone(BorderZone) end
 ---  AIRDispatcher:SetDefaultDamageThreshold( 0.90 ) -- Go RTB when the airplane 90% damaged.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DamageThreshold number A decimal number between 0 and 1, that expresses the % of the damage threshold before going RTB.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
@@ -1400,7 +1355,6 @@ function AI_AIR_DISPATCHER:SetDefaultDamageThreshold(DamageThreshold) end
 ---  AIRDispatcher:SetDefaultEngageLimit( 2 ) -- Maximum 2 engagements with the enemy per squadron.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param EngageLimit number The maximum engages that can be done at the same time per squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultEngageLimit(EngageLimit) end
@@ -1420,7 +1374,6 @@ function AI_AIR_DISPATCHER:SetDefaultEngageLimit(EngageLimit) end
 ---  AIRDispatcher:SetDefaultFuelThreshold( 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
@@ -1440,7 +1393,6 @@ function AI_AIR_DISPATCHER:SetDefaultFuelThreshold(FuelThreshold) end
 ---  AIRDispatcher:SetDefaultGrouping( 2 )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Grouping number The level of grouping that will be applied of the Patrol or GCI defenders. 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultGrouping(Grouping) end
@@ -1465,7 +1417,6 @@ function AI_AIR_DISPATCHER:SetDefaultGrouping(Grouping) end
 ---  AIRDispatcher:SetDefaultLanding( AI_AIR_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultLanding(Landing) end
@@ -1484,7 +1435,6 @@ function AI_AIR_DISPATCHER:SetDefaultLanding(Landing) end
 ---  AIRDispatcher:SetDefaultLandingAtEngineShutdown()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 
@@ -1502,7 +1452,6 @@ function AI_AIR_DISPATCHER:SetDefaultLandingAtEngineShutdown() end
 ---  AIRDispatcher:SetDefaultLandingAtRunway()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultLandingAtRunway() end
 
@@ -1520,7 +1469,6 @@ function AI_AIR_DISPATCHER:SetDefaultLandingAtRunway() end
 ---  AIRDispatcher:SetDefaultLandingNearAirbase()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultLandingNearAirbase() end
 
@@ -1542,7 +1490,6 @@ function AI_AIR_DISPATCHER:SetDefaultLandingNearAirbase() end
 ---  AIRDispatcher:SetDefaultOverhead( 1.5 )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_AIR_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance AIR missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultOverhead(Overhead) end
@@ -1562,7 +1509,6 @@ function AI_AIR_DISPATCHER:SetDefaultOverhead(Overhead) end
 ---  AIRDispatcher:SetDefaultPatrolLimit( 2 ) -- Maximum 2 Patrol per squadron.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param PatrolLimit number The maximum amount of Patrol that can be airborne at the same time for the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultPatrolLimit(PatrolLimit) end
@@ -1582,7 +1528,6 @@ function AI_AIR_DISPATCHER:SetDefaultPatrolLimit(PatrolLimit) end
 ---  AIRDispatcher:SetDefaultPatrolTimeInterval( 300, 1200 ) -- Between 300 and 1200 seconds.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param PatrolMinSeconds number The minimum amount of seconds for the random time interval.
 ---@param PatrolMaxSeconds number The maximum amount of seconds for the random time interval.
 ---@return AI_AIR_DISPATCHER #
@@ -1611,7 +1556,6 @@ function AI_AIR_DISPATCHER:SetDefaultPatrolTimeInterval(PatrolMinSeconds, Patrol
 ---  AIRDispatcher:SetDefaultTakeoff( AI_AIR_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoff(Takeoff) end
@@ -1630,7 +1574,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoff(Takeoff) end
 ---  AIRDispatcher:SetDefaultTakeoffFromParkingCold()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 
@@ -1648,7 +1591,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoffFromParkingCold() end
 ---  AIRDispatcher:SetDefaultTakeoffFromParkingHot()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 
@@ -1666,7 +1608,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoffFromParkingHot() end
 ---  AIRDispatcher:SetDefaultTakeoffFromRunway()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoffFromRunway() end
 
@@ -1684,7 +1625,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoffFromRunway() end
 ---  AIRDispatcher:SetDefaultTakeoffInAir()
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoffInAir() end
 
@@ -1702,7 +1642,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoffInAir() end
 ---  AIRDispatcher:SetDefaultTakeoffInAirAltitude( 2000 )  -- This makes planes start at 2000 meters above the ground.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param TakeoffAltitude number The altitude in meters above the ground.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
@@ -1724,7 +1663,6 @@ function AI_AIR_DISPATCHER:SetDefaultTakeoffInAirAltitude(TakeoffAltitude) end
 ---  AIRDispatcher:SetDefaultTanker( "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefaultTanker(TankerName) end
@@ -1732,7 +1670,6 @@ function AI_AIR_DISPATCHER:SetDefaultTanker(TankerName) end
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName NOTYPE 
 ---@param Defender NOTYPE 
 ---@param Type NOTYPE 
@@ -1744,7 +1681,6 @@ function AI_AIR_DISPATCHER:SetDefenderTask(SquadronName, Defender, Type, Fsm, Ta
 
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param AIGroup GROUP 
 ---@param Defender NOTYPE 
 ---@param AttackerDetection NOTYPE 
@@ -1753,14 +1689,12 @@ function AI_AIR_DISPATCHER:SetDefenderTaskTarget(AIGroup, Defender, AttackerDete
 ---Sets the method of the tactical approach of the defenses.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DefenseApproach number Use the structure AI_AIR_DISPATCHER.DefenseApproach to set the defense approach. The default defense approach is AI_AIR_DISPATCHER.DefenseApproach.Random.
 function AI_AIR_DISPATCHER:SetDefenseApproach(DefenseApproach) end
 
 ---Sets maximum zones to be engaged at one time by defenders.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DefenseLimit number The maximum amount of detected items to be engaged at the same time.
 function AI_AIR_DISPATCHER:SetDefenseLimit(DefenseLimit) end
 
@@ -1791,7 +1725,6 @@ function AI_AIR_DISPATCHER:SetDefenseLimit(DefenseLimit) end
 ---  AIRDispatcher:SetDefendRadius() -- 200000 is the default value.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DefenseRadius number (Optional, Default = 200000) The defense radius to engage detected targets from the nearest capable and available squadron airbase.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDefenseRadius(DefenseRadius) end
@@ -1799,19 +1732,16 @@ function AI_AIR_DISPATCHER:SetDefenseRadius(DefenseRadius) end
 
 ---
 ------
----@param self NOTYPE 
 function AI_AIR_DISPATCHER:SetDefenseReactivityHigh() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_AIR_DISPATCHER:SetDefenseReactivityLow() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_AIR_DISPATCHER:SetDefenseReactivityMedium() end
 
 ---Define the radius to disengage any target when the distance to the home base is larger than the specified meters.
@@ -1828,7 +1758,6 @@ function AI_AIR_DISPATCHER:SetDefenseReactivityMedium() end
 ---  AIRDispatcher:SetDisngageRadius() -- 300000 is the default value.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DisengageRadius number (Optional, Default = 300000) The radius to disengage a target when too far from the home base.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetDisengageRadius(DisengageRadius) end
@@ -1836,7 +1765,6 @@ function AI_AIR_DISPATCHER:SetDisengageRadius(DisengageRadius) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param InterceptDelay NOTYPE 
 function AI_AIR_DISPATCHER:SetIntercept(InterceptDelay) end
 
@@ -1867,7 +1795,6 @@ function AI_AIR_DISPATCHER:SetIntercept(InterceptDelay) end
 ---  AIRDispatcher = AI_AIR_DISPATCHER:New( Detection )  
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string A string (text) that defines the squadron identifier or the key of the Squadron.  It can be any name, for example `"104th Squadron"` or `"SQ SQUADRON1"`, whatever.  As long as you remember that this name becomes the identifier of your squadron you have defined.  You need to use this name in other methods too! 
 ---@param AirbaseName string The airbase name where you want to have the squadron located.  You need to specify here EXACTLY the name of the airbase as you see it in the mission editor.  Examples are `"Batumi"` or `"Tbilisi-Lochini"`.  EXACTLY the airbase name, between quotes `""`. To ease the airbase naming when using the LDT editor and IntelliSense, the @{Wrapper.Airbase#AIRBASE} class contains enumerations of the airbases of each map.        * Caucasus: @{Wrapper.Airbase#AIRBASE.Caucaus}    * Nevada or NTTR: @{Wrapper.Airbase#AIRBASE.Nevada}    * Normandy: @{Wrapper.Airbase#AIRBASE.Normandy} 
 ---@param TemplatePrefixes string A string or an array of strings specifying the **prefix names of the templates** (not going to explain what is templates here again).  Examples are `{ "104th", "105th" }` or `"104th"` or `"Template 1"` or `"BLUE PLANES"`.  Just remember that your template (groups late activated) need to start with the prefix you have specified in your code. If you have only one prefix name for a squadron, you don't need to use the `{ }`, otherwise you need to use the brackets. 
@@ -1905,7 +1832,6 @@ function AI_AIR_DISPATCHER:SetSquadron(SquadronName, AirbaseName, TemplatePrefix
 ---  AIRDispatcher = AI_AIR_DISPATCHER:New( Detection )  
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Squadron AI_AIR_SQUADRON The Air Squadron to be set active for the Air Dispatcher. 
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadron2(Squadron) end
@@ -1927,7 +1853,6 @@ function AI_AIR_DISPATCHER:SetSquadron2(Squadron) end
 ---       AIRDispatcher:SetSquadronEngageLimit( "Mineralnye", 2, "SEAD" ) -- Engage maximum 2 groups with the enemy for SEAD defense.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param EngageLimit number The maximum amount of groups to engage with the enemy for this squadron.
 ---@param DefenseTaskType string Should contain "SEAD", "CAS" or "BAI".
@@ -1950,7 +1875,6 @@ function AI_AIR_DISPATCHER:SetSquadronEngageLimit(SquadronName, EngageLimit, Def
 ---  AIRDispatcher:SetSquadronEngageProbability( "SquadronName", 0.5 )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param EngageProbability number The probability when the squadron will consider to engage the detected target. 
 ---@return AI_AIR_DISPATCHER #
@@ -1971,7 +1895,6 @@ function AI_AIR_DISPATCHER:SetSquadronEngageProbability(SquadronName, EngageProb
 ---  AIRDispatcher:SetSquadronRefuelThreshold( "SquadronName", 0.30 ) -- Go RTB when only 30% of fuel remaining in the tank.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param FuelThreshold number A decimal number between 0 and 1, that expresses the % of the threshold of fuel remaining in the tank when the plane will go RTB or Refuel.
 ---@return AI_AIR_DISPATCHER #
@@ -1992,7 +1915,6 @@ function AI_AIR_DISPATCHER:SetSquadronFuelThreshold(SquadronName, FuelThreshold)
 ---  AIRDispatcher:SetSquadronGrouping( "SquadronName", 2 )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Grouping number The level of grouping that will be applied of the Patrol or GCI defenders. 
 ---@return AI_AIR_DISPATCHER #
@@ -2018,7 +1940,6 @@ function AI_AIR_DISPATCHER:SetSquadronGrouping(SquadronName, Grouping) end
 ---  AIRDispatcher:SetSquadronLanding( "SquadronName", AI_AIR_Dispatcher.Landing.AtEngineShutdown )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Landing number The landing method which can be NearAirbase, AtRunway, AtEngineShutdown
 ---@return AI_AIR_DISPATCHER #
@@ -2038,7 +1959,6 @@ function AI_AIR_DISPATCHER:SetSquadronLanding(SquadronName, Landing) end
 ---  AIRDispatcher:SetSquadronLandingAtEngineShutdown( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
@@ -2057,7 +1977,6 @@ function AI_AIR_DISPATCHER:SetSquadronLandingAtEngineShutdown(SquadronName) end
 ---  AIRDispatcher:SetSquadronLandingAtRunway( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
@@ -2076,7 +1995,6 @@ function AI_AIR_DISPATCHER:SetSquadronLandingAtRunway(SquadronName) end
 ---  AIRDispatcher:SetSquadronLandingNearAirbase( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
@@ -2099,7 +2017,6 @@ function AI_AIR_DISPATCHER:SetSquadronLandingNearAirbase(SquadronName) end
 ---  AIRDispatcher:SetSquadronOverhead( "SquadronName", 1.5 )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Overhead number The % of Units that dispatching command will allocate to intercept in surplus of detected amount of units. The default overhead is 1, so equal balance. The @{#AI_AIR_DISPATCHER.SetOverhead}() method can be used to tweak the defense strength, taking into account the plane types of the squadron. For example, a MIG-31 with full long-distance AIR missiles payload, may still be less effective than a F-15C with short missiles... So in this case, one may want to use the Overhead method to allocate more defending planes as the amount of detected attacking planes. The overhead must be given as a decimal value with 1 as the neutral value, which means that Overhead values:     * Higher than 1, will increase the defense unit amounts.   * Lower than 1, will decrease the defense unit amounts.  The amount of defending units is calculated by multiplying the amount of detected attacking planes as part of the detected group  multiplied by the Overhead and rounded up to the smallest integer.   The Overhead value set for a Squadron, can be programmatically adjusted (by using this SetOverhead method), to adjust the defense overhead during mission execution.  See example below.  
 ---@return AI_AIR_DISPATCHER #
@@ -2123,7 +2040,6 @@ function AI_AIR_DISPATCHER:SetSquadronOverhead(SquadronName, Overhead) end
 ---       AIRDispatcher:SetSquadronPatrolInterval( "Mineralnye", 2, 30, 60, 1, "SEAD" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The squadron name.
 ---@param PatrolLimit? number (optional) The maximum amount of Patrol groups to be spawned. Note that a Patrol is a group, so can consist out of 1 to 4 airplanes. The default is 1 Patrol group.
 ---@param LowInterval? number (optional) The minimum time boundary in seconds when a new Patrol will be spawned. The default is 180 seconds.
@@ -2136,7 +2052,6 @@ function AI_AIR_DISPATCHER:SetSquadronPatrolInterval(SquadronName, PatrolLimit, 
 ---Set the frequency of communication and the mode of communication for voice overs.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param RadioFrequency number The frequency of communication.
 ---@param RadioModulation number The modulation of communication.
@@ -2167,7 +2082,6 @@ function AI_AIR_DISPATCHER:SetSquadronRadioFrequency(SquadronName, RadioFrequenc
 ---  AIRDispatcher:SetSquadronTakeoff( "SquadronName", AI_AIR_Dispatcher.Takeoff.Cold )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param Takeoff number From the airbase hot, from the airbase cold, in the air, from the runway.
 ---@return AI_AIR_DISPATCHER #
@@ -2187,7 +2101,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoff(SquadronName, Takeoff) end
 ---  AIRDispatcher:SetSquadronTakeoffFromParkingCold( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
@@ -2206,7 +2119,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffFromParkingCold(SquadronName) end
 ---  AIRDispatcher:SetSquadronTakeoffFromParkingHot( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
@@ -2225,7 +2137,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffFromParkingHot(SquadronName) end
 ---  AIRDispatcher:SetSquadronTakeoffFromRunway( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
@@ -2244,7 +2155,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffFromRunway(SquadronName) end
 ---  AIRDispatcher:SetSquadronTakeoffInAir( "SquadronName" )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude? number (optional) The altitude in meters above the ground. If not given, the default takeoff altitude will be used.
 ---@return AI_AIR_DISPATCHER #
@@ -2264,7 +2174,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffInAir(SquadronName, TakeoffAltitude
 ---  AIRDispatcher:SetSquadronTakeoffInAirAltitude( "SquadronName", 2000 ) -- This makes planes start at 2000 meters above the ground.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TakeoffAltitude number The altitude in meters above the ground.
 ---@return AI_AIR_DISPATCHER #
@@ -2273,7 +2182,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffInAirAltitude(SquadronName, Takeoff
 
 ---
 ------
----@param self NOTYPE 
 ---@param SquadronName NOTYPE 
 ---@param TakeoffInterval NOTYPE 
 function AI_AIR_DISPATCHER:SetSquadronTakeoffInterval(SquadronName, TakeoffInterval) end
@@ -2295,7 +2203,6 @@ function AI_AIR_DISPATCHER:SetSquadronTakeoffInterval(SquadronName, TakeoffInter
 ---  AIRDispatcher:SetSquadronTanker( "SquadronName", "Tanker" ) -- The group name of the tanker is "Tanker" in the Mission Editor.
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param SquadronName string The name of the squadron.
 ---@param TankerName string A string defining the group name of the Tanker as defined within the Mission Editor.
 ---@return AI_AIR_DISPATCHER #
@@ -2321,7 +2228,6 @@ function AI_AIR_DISPATCHER:SetSquadronTanker(SquadronName, TankerName) end
 ---  AIRDispatcher:SetTacticalDisplay( true )
 ---```
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param TacticalDisplay boolean Provide a value of **true** to display every 30 seconds a tactical overview.
 ---@return AI_AIR_DISPATCHER #
 function AI_AIR_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
@@ -2329,42 +2235,36 @@ function AI_AIR_DISPATCHER:SetTacticalDisplay(TacticalDisplay) end
 ---Shows the tactical display.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Detection NOTYPE 
 function AI_AIR_DISPATCHER:ShowTacticalDisplay(Detection) end
 
 ---Unlocks the DefenseItem from being defended.
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param DetectedItemIndex string The index of the detected item.
 function AI_AIR_DISPATCHER:Unlock(DetectedItemIndex) end
 
 ---Defend Asynchronous Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Delay number 
 function AI_AIR_DISPATCHER:__Defend(Delay) end
 
 ---Engage Asynchronous Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Delay number 
 function AI_AIR_DISPATCHER:__Engage(Delay) end
 
 ---Patrol Asynchronous Trigger for AI_AIR_DISPATCHER
 ---
 ------
----@param self AI_AIR_DISPATCHER 
 ---@param Delay number 
 function AI_AIR_DISPATCHER:__Patrol(Delay) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 

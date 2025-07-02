@@ -43,7 +43,6 @@ LEGION = {}
 ---Add cohort to cohort table of this legion.
 ---
 ------
----@param self LEGION 
 ---@param Cohort COHORT The cohort to be added.
 ---@return LEGION #self
 function LEGION:AddCohort(Cohort) end
@@ -52,7 +51,6 @@ function LEGION:AddCohort(Cohort) end
 ---It will pick the best available assets for the mission and lauch it when ready.
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG Mission for this legion.
 ---@return LEGION #self
 function LEGION:AddMission(Mission) end
@@ -60,7 +58,6 @@ function LEGION:AddMission(Mission) end
 ---Add transport assignment to queue.
 ---
 ------
----@param self LEGION 
 ---@param OpsTransport OPSTRANSPORT Transport assignment.
 ---@return LEGION #self
 function LEGION:AddOpsTransport(OpsTransport) end
@@ -69,7 +66,6 @@ function LEGION:AddOpsTransport(OpsTransport) end
 ---Note that each asset gets an escort.
 ---
 ------
----@param self LEGION 
 ---@param Cohorts table Cohorts for escorting assets.
 ---@param Assets table Table of assets to be escorted.
 ---@param NescortMin number Min number of escort groups required per escorted asset.
@@ -83,7 +79,6 @@ function LEGION:AssignAssetsForEscort(Cohorts, Assets, NescortMin, NescortMax, M
 ---Recruit and assign assets performing an OPSTRANSPORT for a given asset list.
 ---
 ------
----@param self LEGION 
 ---@param Legions table Transport legions.
 ---@param CargoAssets table Weight of the heaviest cargo group to be transported.
 ---@param NcarriersMin number Min number of carrier assets.
@@ -100,7 +95,6 @@ function LEGION:AssignAssetsForTransport(Legions, CargoAssets, NcarriersMin, Nca
 ---Calculate the mission score of an asset.
 ---
 ------
----@param asset WAREHOUSE.Assetitem Asset
 ---@param MissionType string Mission type for which the best assets are desired.
 ---@param TargetVec2 Vec2 Target 2D vector.
 ---@param IncludePayload boolean If `true`, include the payload in the calulation if the asset has one attached.
@@ -111,21 +105,18 @@ function LEGION.CalculateAssetMissionScore(asset, MissionType, TargetVec2, Inclu
 ---Check mission queue and assign ONE mission.
 ---
 ------
----@param self LEGION 
 ---@return boolean #If `true`, a mission was found and requested.
 function LEGION:CheckMissionQueue() end
 
 ---Check transport queue and assign ONE transport.
 ---
 ------
----@param self LEGION 
 ---@return boolean #If `true`, a transport was found and requested.
 function LEGION:CheckTransportQueue() end
 
 ---Count total number of assets of the legion.
 ---
 ------
----@param self LEGION 
 ---@param InStock boolean If `true`, only assets that are in the warehouse stock/inventory are counted. If `false`, only assets that are NOT in stock (i.e. spawned) are counted. If `nil`, all assets are counted.
 ---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
 ---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `GROUP.Attribute.AIR_BOMBER`.
@@ -135,7 +126,6 @@ function LEGION:CountAssets(InStock, MissionTypes, Attributes) end
 ---Count assets on mission.
 ---
 ------
----@param self LEGION 
 ---@param MissionTypes table Types on mission to be checked. Default all.
 ---@param Cohort COHORT Only count assets of this cohort. Default count assets of all cohorts.
 ---@return number #Number of pending and queued assets.
@@ -146,7 +136,6 @@ function LEGION:CountAssetsOnMission(MissionTypes, Cohort) end
 ---Count total number of assets in LEGION warehouse stock that also have a payload.
 ---
 ------
----@param self LEGION 
 ---@param Payloads? boolean (Optional) Specifc payloads to consider. Default all.
 ---@param MissionTypes? table (Optional) Count only assest that can perform certain mission type(s). Default is all types.
 ---@param Attributes? table (Optional) Count only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
@@ -156,7 +145,6 @@ function LEGION:CountAssetsWithPayloadsInStock(Payloads, MissionTypes, Attribute
 ---Count missions in mission queue.
 ---
 ------
----@param self LEGION 
 ---@param MissionTypes table Types on mission to be checked. Default *all* possible types `AUFTRAG.Type`.
 ---@return number #Number of missions that are not over yet.
 function LEGION:CountMissionsInQueue(MissionTypes) end
@@ -164,7 +152,6 @@ function LEGION:CountMissionsInQueue(MissionTypes) end
 ---Count payloads in stock.
 ---
 ------
----@param self LEGION 
 ---@param MissionTypes table Types on mission to be checked. Default *all* possible types `AUFTRAG.Type`.
 ---@param UnitTypes table Types of units.
 ---@param Payloads table Specific payloads to be counted only.
@@ -174,7 +161,6 @@ function LEGION:CountPayloadsInStock(MissionTypes, UnitTypes, Payloads) end
 ---Remove specific asset from legion.
 ---
 ------
----@param self LEGION 
 ---@param Asset WAREHOUSE.Assetitem The asset.
 ---@return LEGION #self
 function LEGION:DelAsset(Asset) end
@@ -182,7 +168,6 @@ function LEGION:DelAsset(Asset) end
 ---Remove cohort from cohor table of this legion.
 ---
 ------
----@param self LEGION 
 ---@param Cohort COHORT The cohort to be added.
 ---@return LEGION #self
 function LEGION:DelCohort(Cohort) end
@@ -191,7 +176,6 @@ function LEGION:DelCohort(Cohort) end
 ---The payload with the highest priority is preferred.
 ---
 ------
----@param self LEGION 
 ---@param UnitType string The type of the unit.
 ---@param MissionType string The mission type.
 ---@param Payloads table Specific payloads only to be considered.
@@ -202,7 +186,6 @@ function LEGION:FetchPayloadFromStock(UnitType, MissionType, Payloads) end
 ---These are the unit types of all assigned cohorts.
 ---
 ------
----@param self LEGION 
 ---@param onlyactive boolean Count only the active ones.
 ---@param cohorts table Table of cohorts. Default all.
 ---@return table #Table of unit types.
@@ -211,7 +194,6 @@ function LEGION:GetAircraftTypes(onlyactive, cohorts) end
 ---Get the current mission of the asset.
 ---
 ------
----@param self LEGION 
 ---@param asset WAREHOUSE.Assetitem The asset.
 ---@return AUFTRAG #Current mission or *nil*.
 function LEGION:GetAssetCurrentMission(asset) end
@@ -219,7 +201,6 @@ function LEGION:GetAssetCurrentMission(asset) end
 ---Get assets on mission.
 ---
 ------
----@param self LEGION 
 ---@param MissionTypes table Types on mission to be checked. Default all.
 ---@return table #Assets on pending requests.
 function LEGION:GetAssetsOnMission(MissionTypes) end
@@ -227,7 +208,6 @@ function LEGION:GetAssetsOnMission(MissionTypes) end
 ---Returns the mission for a given mission ID (Autragsnummer).
 ---
 ------
----@param self LEGION 
 ---@param mid number Mission ID (Auftragsnummer).
 ---@return AUFTRAG #Mission table.
 function LEGION:GetMissionByID(mid) end
@@ -235,7 +215,6 @@ function LEGION:GetMissionByID(mid) end
 ---Returns the mission for a given request.
 ---
 ------
----@param self LEGION 
 ---@param Request WAREHOUSE.Queueitem The warehouse request.
 ---@return AUFTRAG #Mission table or *nil*.
 function LEGION:GetMissionFromRequest(Request) end
@@ -243,7 +222,6 @@ function LEGION:GetMissionFromRequest(Request) end
 ---Returns the mission for a given request ID.
 ---
 ------
----@param self LEGION 
 ---@param RequestID number Unique ID of the request.
 ---@return AUFTRAG #Mission table or *nil*.
 function LEGION:GetMissionFromRequestID(RequestID) end
@@ -252,14 +230,12 @@ function LEGION:GetMissionFromRequestID(RequestID) end
 ---This is the alias of the warehouse.
 ---
 ------
----@param self LEGION 
 ---@return string #Name of legion.
 function LEGION:GetName() end
 
 ---Get OPSGROUPs that are spawned and alive.
 ---
 ------
----@param self LEGION 
 ---@param MissionTypes? table (Optional) Get only assest that can perform certain mission type(s). Default is all types.
 ---@param Attributes? table (Optional) Get only assest that have a certain attribute(s), e.g. `WAREHOUSE.Attribute.AIR_BOMBER`.
 ---@return SET_OPSGROUP #The set of OPSGROUPs. Can be empty if no groups are spawned or alive!
@@ -268,7 +244,6 @@ function LEGION:GetOpsGroups(MissionTypes, Attributes) end
 ---Returns the mission for a given ID.
 ---
 ------
----@param self LEGION 
 ---@param uid number Transport UID.
 ---@return OPSTRANSPORT #Transport assignment.
 function LEGION:GetTransportByID(uid) end
@@ -276,14 +251,12 @@ function LEGION:GetTransportByID(uid) end
 ---Check if the AIRWING class is calling.
 ---
 ------
----@param self LEGION 
 ---@return boolean #If true, this is an AIRWING.
 function LEGION:IsAirwing() end
 
 ---Check if an asset is currently on a mission (STARTED or EXECUTING).
 ---
 ------
----@param self LEGION 
 ---@param asset WAREHOUSE.Assetitem The asset.
 ---@param MissionTypes table Types on mission to be checked. Default all.
 ---@return boolean #If true, asset has at least one mission of that type in the queue.
@@ -292,14 +265,12 @@ function LEGION:IsAssetOnMission(asset, MissionTypes) end
 ---Check if a BRIGADE class is calling.
 ---
 ------
----@param self LEGION 
 ---@return boolean #If true, this is a BRIGADE.
 function LEGION:IsBrigade() end
 
 ---Check if cohort is part of this legion.
 ---
 ------
----@param self LEGION 
 ---@param CohortName string Name of the platoon.
 ---@return boolean #If `true`, cohort is part of this legion.
 function LEGION:IsCohort(CohortName) end
@@ -307,14 +278,12 @@ function LEGION:IsCohort(CohortName) end
 ---Check if the FLEET class is calling.
 ---
 ------
----@param self LEGION 
 ---@return boolean #If true, this is a FLEET.
 function LEGION:IsFleet() end
 
 ---Triggers the FSM event "LegionAssetReturned".
 ---
 ------
----@param self LEGION 
 ---@param Cohort COHORT The cohort the asset belongs to.
 ---@param Asset WAREHOUSE.Assetitem The asset that returned.
 function LEGION:LegionAssetReturned(Cohort, Asset) end
@@ -322,7 +291,6 @@ function LEGION:LegionAssetReturned(Cohort, Asset) end
 ---Triggers the FSM event "MissionAssign".
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The legion(s) from which the mission assets are requested.
 function LEGION:MissionAssign(Mission, Legions) end
@@ -330,14 +298,12 @@ function LEGION:MissionAssign(Mission, Legions) end
 ---Triggers the FSM event "MissionCancel".
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG The mission.
 function LEGION:MissionCancel(Mission) end
 
 ---Triggers the FSM event "MissionRequest".
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG The mission.
 ---@param Assets? table (Optional) Assets to add.
 function LEGION:MissionRequest(Mission, Assets) end
@@ -345,7 +311,6 @@ function LEGION:MissionRequest(Mission, Assets) end
 ---Create a new LEGION class object.
 ---
 ------
----@param self LEGION 
 ---@param WarehouseName string Name of the warehouse STATIC or UNIT object representing the warehouse.
 ---@param LegionName string Name of the legion. Must be **unique**!
 ---@return LEGION #self
@@ -355,7 +320,6 @@ function LEGION:New(WarehouseName, LegionName) end
 ---Triggered when an asset group returned to its Legion.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -366,7 +330,6 @@ function LEGION:OnAfterLegionAssetReturned(From, Event, To, Cohort, Asset) end
 ---On after "MissionAssign" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -377,7 +340,6 @@ function LEGION:OnAfterMissionAssign(From, Event, To, Mission, Legions) end
 ---On after "MissionCancel" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -387,7 +349,6 @@ function LEGION:OnAfterMissionCancel(From, Event, To, Mission) end
 ---On after "MissionRequest" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -398,7 +359,6 @@ function LEGION:OnAfterMissionRequest(From, Event, To, Mission, Assets) end
 ---On after "OpsOnMission" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -409,7 +369,6 @@ function LEGION:OnAfterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---On after "TransportAssign" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -420,7 +379,6 @@ function LEGION:OnAfterTransportAssign(From, Event, To, Transport, Legions) end
 ---On after "TransportCancel" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -430,7 +388,6 @@ function LEGION:OnAfterTransportCancel(From, Event, To, Transport) end
 ---On after "TransportRequest" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -440,7 +397,6 @@ function LEGION:OnAfterTransportRequest(From, Event, To, Transport) end
 ---Triggers the FSM event "OpsOnMission".
 ---
 ------
----@param self LEGION 
 ---@param OpsGroup OPSGROUP The OPS group on mission.
 ---@param Mission AUFTRAG The mission.
 function LEGION:OpsOnMission(OpsGroup, Mission) end
@@ -448,7 +404,6 @@ function LEGION:OpsOnMission(OpsGroup, Mission) end
 ---Recruit assets performing an escort mission for a given asset.
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG The mission.
 ---@param Assets table Table of assets.
 ---@return boolean #If `true`, enough assets could be recruited or no escort was required in the first place.
@@ -457,7 +412,6 @@ function LEGION:RecruitAssetsForEscort(Mission, Assets) end
 ---Recruit assets for a given mission.
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG The mission.
 ---@return boolean #If `true` enough assets could be recruited.
 ---@return table #Recruited assets.
@@ -467,7 +421,6 @@ function LEGION:RecruitAssetsForMission(Mission) end
 ---Recruit assets for a given OPS transport.
 ---
 ------
----@param self LEGION 
 ---@param Transport OPSTRANSPORT The OPS transport.
 ---@return boolean #If `true`, enough assets could be recruited.
 ---@return table #assets Recruited assets.
@@ -478,7 +431,6 @@ function LEGION:RecruitAssetsForTransport(Transport) end
 ---**NOTE** that we set the `asset.isReserved=true` flag so it cannot be recruited by anyone else.
 ---
 ------
----@param Cohorts table Cohorts included.
 ---@param MissionTypeRecruit string Mission type for recruiting the cohort assets.
 ---@param MissionTypeOpt string Mission type for which the assets are optimized. Default is the same as `MissionTypeRecruit`.
 ---@param NreqMin number Minimum number of required assets.
@@ -505,7 +457,6 @@ function LEGION.RecruitCohortAssets(Cohorts, MissionTypeRecruit, MissionTypeOpt,
 ---Cohort assets will not be available until relocation is finished.
 ---
 ------
----@param self LEGION 
 ---@param Cohort COHORT The cohort to be relocated.
 ---@param Legion LEGION The legion where the cohort is relocated to.
 ---@param Delay number Delay in seconds before relocation takes place. Default `nil`, *i.e.* ASAP.
@@ -518,7 +469,6 @@ function LEGION:RelocateCohort(Cohort, Legion, Delay, NcarriersMin, NcarriersMax
 ---Remove mission from queue.
 ---
 ------
----@param self LEGION 
 ---@param Mission AUFTRAG Mission to be removed.
 ---@return LEGION #self
 function LEGION:RemoveMission(Mission) end
@@ -526,21 +476,18 @@ function LEGION:RemoveMission(Mission) end
 ---Return payload from asset back to stock.
 ---
 ------
----@param self LEGION 
 ---@param asset WAREHOUSE.Assetitem The squadron asset.
 function LEGION:ReturnPayloadFromAsset(asset) end
 
 ---Set tactical overview on.
 ---
 ------
----@param self LEGION 
 ---@return LEGION #self
 function LEGION:SetTacticalOverviewOn() end
 
 ---Set verbosity level.
 ---
 ------
----@param self LEGION 
 ---@param VerbosityLevel number Level of output (higher=more). Default 0.
 ---@return LEGION #self
 function LEGION:SetVerbosity(VerbosityLevel) end
@@ -549,13 +496,11 @@ function LEGION:SetVerbosity(VerbosityLevel) end
 ---Starts the LEGION. Initializes parameters and starts event handlers.
 ---
 ------
----@param self LEGION 
 function LEGION:Start() end
 
 ---Triggers the FSM event "TransportAssign".
 ---
 ------
----@param self LEGION 
 ---@param Transport OPSTRANSPORT The transport.
 ---@param Legions table The legion(s) to which this transport is assigned.
 function LEGION:TransportAssign(Transport, Legions) end
@@ -563,14 +508,12 @@ function LEGION:TransportAssign(Transport, Legions) end
 ---Triggers the FSM event "TransportCancel".
 ---
 ------
----@param self LEGION 
 ---@param Transport OPSTRANSPORT The transport.
 function LEGION:TransportCancel(Transport) end
 
 ---Triggers the FSM event "TransportRequest".
 ---
 ------
----@param self LEGION 
 ---@param Transport OPSTRANSPORT The transport.
 function LEGION:TransportRequest(Transport) end
 
@@ -578,14 +521,12 @@ function LEGION:TransportRequest(Transport) end
 ---Set `isReserved` to false, return payload to airwing and (optionally) remove from assigned mission.
 ---
 ------
----@param Assets table List of assets.
 ---@param Mission? AUFTRAG (Optional) The mission from which the assets will be deleted.
 function LEGION.UnRecruitAssets(Assets, Mission) end
 
 ---Create a request and add it to the warehouse queue.
 ---
 ------
----@param self LEGION 
 ---@param AssetDescriptor WAREHOUSE.Descriptor Descriptor describing the asset that is requested.
 ---@param AssetDescriptorValue NOTYPE Value of the asset descriptor. Type depends on descriptor, i.e. could be a string, etc.
 ---@param nAsset number Number of groups requested that match the asset specification.
@@ -598,7 +539,6 @@ function LEGION:_AddRequest(AssetDescriptor, AssetDescriptorValue, nAsset, Prio,
 ---**NOTE** that we set the `asset.isReserved=true` flag so it cant be recruited by anyone else.
 ---
 ------
----@param Cohort COHORT The Cohort.
 ---@param MissionType string Misson type(s).
 ---@param Categories table Group categories.
 ---@param Attributes table Group attributes. See `GROUP.Attribute.`
@@ -615,7 +555,6 @@ function LEGION._CohortCan(Cohort, MissionType, Categories, Attributes, Properti
 ---Count payloads of all cohorts for all unit types.
 ---
 ------
----@param self LEGION 
 ---@param MissionType string Mission type.
 ---@param Cohorts table Cohorts included.
 ---@param Payloads? table (Optional) Special payloads.
@@ -625,7 +564,6 @@ function LEGION:_CountPayloads(MissionType, Cohorts, Payloads) end
 ---Create a new OPS group after an asset was spawned.
 ---
 ------
----@param self LEGION 
 ---@param asset WAREHOUSE.Assetitem The asset.
 ---@return FLIGHTGROUP #The created flightgroup object.
 function LEGION:_CreateFlightGroup(asset) end
@@ -633,7 +571,6 @@ function LEGION:_CreateFlightGroup(asset) end
 ---Get cohort by name.
 ---
 ------
----@param self LEGION 
 ---@param CohortName string Name of the platoon.
 ---@return COHORT #The Cohort object.
 function LEGION:_GetCohort(CohortName) end
@@ -641,7 +578,6 @@ function LEGION:_GetCohort(CohortName) end
 ---Get cohort of an asset.
 ---
 ------
----@param self LEGION 
 ---@param Asset WAREHOUSE.Assetitem The asset.
 ---@return COHORT #The Cohort object.
 function LEGION:_GetCohortOfAsset(Asset) end
@@ -649,7 +585,6 @@ function LEGION:_GetCohortOfAsset(Asset) end
 ---Get cohorts.
 ---
 ------
----@param Legions table Special legions.
 ---@param Cohorts table Special cohorts.
 ---@param Operation OPERATION Operation.
 ---@param OpsQueue table Queue of operations.
@@ -659,7 +594,6 @@ function LEGION._GetCohorts(Legions, Cohorts, Operation, OpsQueue) end
 ---Optimize chosen assets for the mission at hand.
 ---
 ------
----@param assets table Table of (unoptimized) assets.
 ---@param MissionType string Mission type.
 ---@param TargetVec2 Vec2 Target position as 2D vector.
 ---@param IncludePayload boolean If `true`, include the payload in the calulation if the asset has one attached.
@@ -669,13 +603,11 @@ function LEGION._OptimizeAssetSelection(assets, MissionType, TargetVec2, Include
 ---Display tactical overview.
 ---
 ------
----@param self LEGION 
 function LEGION:_TacticalOverview() end
 
 ---Triggers the FSM event "LegionAssetReturned" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds. 
 ---@param Cohort COHORT The cohort the asset belongs to.
 ---@param Asset WAREHOUSE.Assetitem The asset that returned.
@@ -684,7 +616,6 @@ function LEGION:__LegionAssetReturned(delay, Cohort, Asset) end
 ---Triggers the FSM event "MissionAssign" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Mission AUFTRAG The mission.
 ---@param Legions table The legion(s) from which the mission assets are requested.
@@ -693,7 +624,6 @@ function LEGION:__MissionAssign(delay, Mission, Legions) end
 ---Triggers the FSM event "MissionCancel" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Mission AUFTRAG The mission.
 function LEGION:__MissionCancel(delay, Mission) end
@@ -701,7 +631,6 @@ function LEGION:__MissionCancel(delay, Mission) end
 ---Triggers the FSM event "MissionRequest" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Mission AUFTRAG The mission.
 ---@param Assets? table (Optional) Assets to add.
@@ -710,7 +639,6 @@ function LEGION:__MissionRequest(delay, Mission, Assets) end
 ---Triggers the FSM event "OpsOnMission" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param OpsGroup OPSGROUP The OPS group on mission.
 ---@param Mission AUFTRAG The mission.
@@ -720,7 +648,6 @@ function LEGION:__OpsOnMission(delay, OpsGroup, Mission) end
 ---Starts the LEGION. Initializes parameters and starts event handlers.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 function LEGION:__Start(delay) end
 
@@ -728,14 +655,12 @@ function LEGION:__Start(delay) end
 ---Stops the LEGION and all its event handlers.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 function LEGION:__Stop(delay) end
 
 ---Triggers the FSM event "TransportAssign" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Transport OPSTRANSPORT The transport.
 ---@param Legions table The legion(s) to which this transport is assigned.
@@ -744,7 +669,6 @@ function LEGION:__TransportAssign(delay, Transport, Legions) end
 ---Triggers the FSM event "TransportCancel" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Transport OPSTRANSPORT The transport.
 function LEGION:__TransportCancel(delay, Transport) end
@@ -752,7 +676,6 @@ function LEGION:__TransportCancel(delay, Transport) end
 ---Triggers the FSM event "TransportRequest" after a delay.
 ---
 ------
----@param self LEGION 
 ---@param delay number Delay in seconds.
 ---@param Transport OPSTRANSPORT The transport.
 function LEGION:__TransportRequest(delay, Transport) end
@@ -760,7 +683,6 @@ function LEGION:__TransportRequest(delay, Transport) end
 ---On after "AssetDead" event triggered when an asset group died.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -773,7 +695,6 @@ function LEGION:onafterAssetDead(From, Event, To, asset, request) end
 ---Creates a new flightgroup element and adds the mission to the flightgroup queue.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -786,7 +707,6 @@ function LEGION:onafterAssetSpawned(From, Event, To, group, asset, request) end
 ---On after "Captured" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -799,7 +719,6 @@ function LEGION:onafterCaptured(From, Event, To, Coalition, Country) end
 ---Remove assets from cohorts. Stop cohorts.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -810,7 +729,6 @@ function LEGION:onafterDestroyed(From, Event, To) end
 ---Triggered when an asset group returned to its legion.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -823,7 +741,6 @@ function LEGION:onafterLegionAssetReturned(From, Event, To, Cohort, Asset) end
 ---Mission is added to a LEGION mission queue and already requested. Needs assets to be added to the mission already.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -836,7 +753,6 @@ function LEGION:onafterMissionAssign(From, Event, To, Mission, Legions) end
 ---Cancels the missions of all flightgroups. Deletes request from warehouse queue.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -848,7 +764,6 @@ function LEGION:onafterMissionCancel(From, Event, To, Mission) end
 ---Performs a self request to the warehouse for the mission assets. Sets mission status to REQUESTED.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -861,7 +776,6 @@ function LEGION:onafterMissionRequest(From, Event, To, Mission, Assets) end
 ---Asset is added to the given cohort (asset assignment).
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -873,7 +787,6 @@ function LEGION:onafterNewAsset(From, Event, To, asset, assignment) end
 ---On after "OpsOnMission".
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -885,7 +798,6 @@ function LEGION:onafterOpsOnMission(From, Event, To, OpsGroup, Mission) end
 ---On after "Request" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -896,7 +808,6 @@ function LEGION:onafterRequest(From, Event, To, Request) end
 ---On after "RequestSpawned" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -909,7 +820,6 @@ function LEGION:onafterRequestSpawned(From, Event, To, Request, CargoGroupSet, T
 ---On after "SelfRequest" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -921,7 +831,6 @@ function LEGION:onafterSelfRequest(From, Event, To, groupset, request) end
 ---Start LEGION FSM.
 ---
 ------
----@param self LEGION 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
 ---@param To NOTYPE 
@@ -932,7 +841,6 @@ function LEGION:onafterStart(From, Event, To) end
 ---Transport is added to a LEGION transport queue and assets are requested from the LEGION warehouse.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -944,7 +852,6 @@ function LEGION:onafterTransportAssign(From, Event, To, Transport, Legions) end
 ---On after "TransportCancel" event.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -956,7 +863,6 @@ function LEGION:onafterTransportCancel(From, Event, To, Transport) end
 ---Performs a self request to the warehouse for the transport assets. Sets transport status to REQUESTED.
 ---
 ------
----@param self LEGION 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.

@@ -175,7 +175,7 @@
 ---@field SRSPilot NOTYPE 
 ---@field SRSPilotVoice boolean 
 ---@field SRSQ NOTYPE 
----@field SRSRadio boolean 
+---@field SRSTTSRadio boolean 
 ---@field Speed number Default speed setting for the helicopter FLIGHTGROUP is 100kn.
 ---@field UseEventEject boolean In case Event LandingAfterEjection isn't working, use set this to true.
 ---@field private alias string Alias Name.
@@ -205,7 +205,6 @@ AICSAR = {}
 ---Add message files (.ogg) via "Sound to..." in the ME.
 ---
 ------
----@param self AICSAR 
 ---@param Soundfile string Name of the soundfile
 ---@param Duration number Duration of the sound
 ---@param Subtitle string Text to display
@@ -215,14 +214,12 @@ function AICSAR:DCSRadioBroadcast(Soundfile, Duration, Subtitle) end
 ---[Internal] Create the Moose TextAndSoundEntries
 ---
 ------
----@param self AICSAR 
 ---@return AICSAR #self
 function AICSAR:InitLocalization() end
 
 ---Function to create a new AICSAR object
 ---
 ------
----@param self AICSAR 
 ---@param Alias string Name of this instance.
 ---@param Coalition number Coalition as in coalition.side.BLUE, can also be passed as "blue", "red" or "neutral"
 ---@param Pilottemplate string Pilot template name.
@@ -235,7 +232,6 @@ function AICSAR:New(Alias, Coalition, Pilottemplate, Helotemplate, FARP, MASHZon
 ---On after "HeloDown" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -246,7 +242,6 @@ function AICSAR:OnAfterHeloDown(From, Event, To, Helo, Index) end
 ---On after "HeloOnDuty" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -256,7 +251,6 @@ function AICSAR:OnAfterHeloOnDuty(From, Event, To, Helo) end
 ---On after "PilotDown" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -267,7 +261,6 @@ function AICSAR:OnAfterPilotDown(From, Event, To, Coordinate, InReach) end
 ---On after "PilotKIA" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state. 
@@ -276,7 +269,6 @@ function AICSAR:OnAfterPilotKIA(From, Event, To) end
 ---On after "PilotPickedUp" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -288,7 +280,6 @@ function AICSAR:OnAfterPilotPickedUp(From, Event, To, Helo, CargoTable, Index) e
 ---On after "PilotRescued" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -298,7 +289,6 @@ function AICSAR:OnAfterPilotRescued(From, Event, To, PilotName) end
 ---On after "PilotUnloaded" event.
 ---
 ------
----@param self AICSAR 
 ---@param From string From state.
 ---@param Event string Event.
 ---@param To string To state.
@@ -309,7 +299,6 @@ function AICSAR:OnAfterPilotUnloaded(From, Event, To, Helo, OpsGroup) end
 ---[User] Switch sound output on and use normale (DCS) radio
 ---
 ------
----@param self AICSAR 
 ---@param OnOff boolean Switch on (true) or off (false).
 ---@param Frequency number Defaults to 243 (guard).
 ---@param Modulation number Radio modulation. Defaults to radio.modulation.AM.
@@ -321,7 +310,6 @@ function AICSAR:SetDCSRadio(OnOff, Frequency, Modulation, Group) end
 ---Note - AI might have other ideas. Defaults to 1500ft.
 ---
 ------
----@param self AICSAR 
 ---@param Feet number AGL set in feet.
 ---@return AICSAR #self
 function AICSAR:SetDefaultAltitude(Feet) end
@@ -330,7 +318,6 @@ function AICSAR:SetDefaultAltitude(Feet) end
 ---Note - AI might have other ideas. Defaults to 100kn.
 ---
 ------
----@param self AICSAR 
 ---@param Knots number Speed in knots.
 ---@return AICSAR #self
 function AICSAR:SetDefaultSpeed(Knots) end
@@ -339,7 +326,6 @@ function AICSAR:SetDefaultSpeed(Knots) end
 ---`AICSAR:SetSRSTTSRadio()` needs to be set first!
 ---
 ------
----@param self AICSAR 
 ---@param Voice string The voice to be used, e.g. `MSRS.Voices.Google.Standard.en_US_Standard_J` for Google or `MSRS.Voices.Microsoft.David` for Microsoft. Specific voices override culture and gender!
 ---@param Culture? string (Optional) The culture to be used, defaults to "en-GB"
 ---@param Gender? string (Optional)  The gender to be used, defaults to "female"
@@ -350,7 +336,6 @@ function AICSAR:SetOperatorTTSVoice(Voice, Culture, Gender) end
 ---`AICSAR:SetSRSTTSRadio()` needs to be set first!
 ---
 ------
----@param self AICSAR 
 ---@param Voice string The voice to be used, e.g. `MSRS.Voices.Google.Standard.en_US_Standard_J` for Google or `MSRS.Voices.Microsoft.David` for Microsoft.  Specific voices override culture and gender!
 ---@param Culture? string (Optional) The culture to be used, defaults to "en-US"
 ---@param Gender? string (Optional)  The gender to be used, defaults to "male"
@@ -360,7 +345,6 @@ function AICSAR:SetPilotTTSVoice(Voice, Culture, Gender) end
 ---[User] Switch sound output on and use SRS output for sound files.
 ---
 ------
----@param self AICSAR 
 ---@param OnOff boolean Switch on (true) or off (false).
 ---@param Path string Path to your SRS Server Component, e.g. "C:\\\\Program Files\\\\DCS-SimpleRadio-Standalone"
 ---@param Frequency number Defaults to 243 (guard)
@@ -375,7 +359,6 @@ function AICSAR:SetSRSRadio(OnOff, Path, Frequency, Modulation, SoundPath, Port)
 ---See `AICSAR:SetPilotTTSVoice()` and `AICSAR:SetOperatorTTSVoice()`
 ---
 ------
----@param self AICSAR 
 ---@param OnOff boolean Switch on (true) or off (false).
 ---@param Path string Path to your SRS Server Component, e.g. "E:\\\\Program Files\\\\DCS-SimpleRadio-Standalone"
 ---@param Frequency? number (Optional) Defaults to 243 (guard)
@@ -391,26 +374,22 @@ function AICSAR:SetSRSTTSRadio(OnOff, Path, Frequency, Modulation, Port, Voice, 
 ---Triggers the FSM event "Status".
 ---
 ------
----@param self AICSAR 
 function AICSAR:Status() end
 
 ---Triggers the FSM event "Stop".
 ---
 ------
----@param self AICSAR 
 function AICSAR:Stop() end
 
 ---[Internal] Check helo queue
 ---
 ------
----@param self AICSAR 
 ---@return AICSAR #self
 function AICSAR:_CheckHelos() end
 
 ---[Internal] Check if pilot arrived in rescue zone (MASH)
 ---
 ------
----@param self AICSAR 
 ---@param Pilot GROUP The pilot to be rescued.
 ---@return boolean #outcome
 function AICSAR:_CheckInMashZone(Pilot) end
@@ -418,7 +397,6 @@ function AICSAR:_CheckInMashZone(Pilot) end
 ---[Internal] Check pilot queue for next mission
 ---
 ------
----@param self AICSAR 
 ---@param OpsGroup OPSGROUP 
 ---@return AICSAR #self
 function AICSAR:_CheckQueue(OpsGroup) end
@@ -426,14 +404,12 @@ function AICSAR:_CheckQueue(OpsGroup) end
 ---[Internal] Count helos queue
 ---
 ------
----@param self AICSAR 
 ---@return number #Number of helos on mission
 function AICSAR:_CountHelos() end
 
 ---[Internal] Spawn a pilot
 ---
 ------
----@param self AICSAR 
 ---@param _LandingPos COORDINATE Landing Postion
 ---@param _coalition number Coalition side
 ---@return AICSAR #self
@@ -442,7 +418,6 @@ function AICSAR:_DelayedSpawnPilot(_LandingPos, _coalition) end
 ---[Internal] Catch the ejection and save the pilot name
 ---
 ------
----@param self AICSAR 
 ---@param EventData EVENTDATA 
 ---@return AICSAR #self
 function AICSAR:_EjectEventHandler(EventData) end
@@ -450,7 +425,6 @@ function AICSAR:_EjectEventHandler(EventData) end
 ---[Internal] Catch the landing after ejection and spawn a pilot in situ.
 ---
 ------
----@param self AICSAR 
 ---@param EventData EVENTDATA 
 ---@param FromEject boolean 
 ---@return AICSAR #self
@@ -459,14 +433,12 @@ function AICSAR:_EventHandler(EventData, FromEject) end
 ---[Internal] Get FlightGroup
 ---
 ------
----@param self AICSAR 
 ---@return FLIGHTGROUP #The FlightGroup
 function AICSAR:_GetFlight() end
 
 ---[Internal] Create a new rescue mission
 ---
 ------
----@param self AICSAR 
 ---@param Pilot GROUP The pilot to be rescued.
 ---@param Index number Index number of this pilot
 ---@return AICSAR #self
@@ -475,21 +447,18 @@ function AICSAR:_InitMission(Pilot, Index) end
 ---Triggers the FSM event "Status" after a delay.
 ---
 ------
----@param self AICSAR 
 ---@param delay number Delay in seconds.
 function AICSAR:__Status(delay) end
 
 ---Triggers the FSM event "Stop" after a delay.
 ---
 ------
----@param self AICSAR 
 ---@param delay number Delay in seconds.
 function AICSAR:__Stop(delay) end
 
 ---[Internal] onafterHeloDown
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -502,7 +471,6 @@ function AICSAR:onafterHeloDown(From, Event, To, Helo, Index) end
 ---[Internal] onafterPilotDown
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -515,7 +483,6 @@ function AICSAR:onafterPilotDown(From, Event, To, Coordinate, InReach) end
 ---[Internal] onafterPilotKIA
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -526,7 +493,6 @@ function AICSAR:onafterPilotKIA(From, Event, To) end
 ---[Internal] onafterPilotPickedUp
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -540,7 +506,6 @@ function AICSAR:onafterPilotPickedUp(From, Event, To, Helo, CargoTable, Index) e
 ---[Internal] onafterPilotRescued
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -552,7 +517,6 @@ function AICSAR:onafterPilotRescued(From, Event, To, PilotName) end
 ---[Internal] onafterPilotUnloaded
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -565,7 +529,6 @@ function AICSAR:onafterPilotUnloaded(From, Event, To, Helo, OpsGroup) end
 ---[Internal] onafterStart
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -576,7 +539,6 @@ function AICSAR:onafterStart(From, Event, To) end
 ---[Internal] onafterStatus
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -587,7 +549,6 @@ function AICSAR:onafterStatus(From, Event, To) end
 ---[Internal] onafterStop
 ---
 ------
----@param self AICSAR 
 ---@param From string 
 ---@param Event string 
 ---@param To string 

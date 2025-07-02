@@ -95,7 +95,6 @@ AI_CARGO_APC = {}
 ---Find a free Carrier within a radius.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Coordinate COORDINATE 
 ---@param Radius number 
 ---@return GROUP #NewCarrier
@@ -104,7 +103,6 @@ function AI_CARGO_APC:FindCarrier(Coordinate, Radius) end
 ---Follow Infantry to the Carrier.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Me AI_CARGO_APC 
 ---@param APCUnit UNIT 
 ---@param Cargo CARGO_GROUP 
@@ -115,7 +113,6 @@ function AI_CARGO_APC:FollowToCarrier(Me, APCUnit, Cargo, CargoGroup) end
 ---Creates a new AI_CARGO_APC object.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP The carrier APC group.
 ---@param CargoSet SET_CARGO The set of cargo to be transported.
 ---@param CombatRadius number Provide the combat radius to defend the carrier by unboarding the cargo when enemies are nearby. When the combat radius is 0, no defense will happen of the carrier.
@@ -125,7 +122,6 @@ function AI_CARGO_APC:New(APC, CargoSet, CombatRadius) end
 ---Set the Carrier.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param CargoCarrier GROUP 
 ---@return AI_CARGO_APC #
 function AI_CARGO_APC:SetCarrier(CargoCarrier) end
@@ -145,7 +141,6 @@ function AI_CARGO_APC:SetCarrier(CargoCarrier) end
 ---AICargoAPC:SetCombatRadius( false )
 ---```
 ------
----@param self AI_CARGO_APC 
 ---@param CombatRadius number Provide the combat radius to defend the carrier by unboarding the cargo when enemies are nearby.  When the combat radius is 0, no defense will happen of the carrier.  When the combat radius is not provided, no defense will happen!
 ---@return AI_CARGO_APC #
 function AI_CARGO_APC:SetCombatRadius(CombatRadius) end
@@ -153,7 +148,6 @@ function AI_CARGO_APC:SetCombatRadius(CombatRadius) end
 ---Set whether the carrier will *not* use roads to *deploy* the cargo.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Offroad boolean If true, carrier will not use roads.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_APC #self
@@ -162,7 +156,6 @@ function AI_CARGO_APC:SetDeployOffRoad(Offroad, Formation) end
 ---Set whether or not the carrier will use roads to *pickup* and *deploy* the cargo.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Offroad boolean If true, carrier will not use roads. If `nil` or `false` the carrier will use roads when available.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_APC #self
@@ -171,7 +164,6 @@ function AI_CARGO_APC:SetOffRoad(Offroad, Formation) end
 ---Set whether the carrier will *not* use roads to *pickup* the cargo.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Offroad boolean If true, carrier will not use roads.
 ---@param Formation number Offroad formation used. Default is `ENUMS.Formation.Vehicle.Offroad`.
 ---@return AI_CARGO_APC #self
@@ -181,7 +173,6 @@ function AI_CARGO_APC:SetPickupOffRoad(Offroad, Formation) end
 ---Triggers Unload event.
 ---
 ------
----@param APC GROUP The cargo carrier group.
 ---@param self AI_CARGO_APC `AI_CARGO_APC` class.
 ---@param Coordinate COORDINATE  The coordinate (not used).
 ---@param DeployZone ZONE Deploy zone.
@@ -191,7 +182,6 @@ function AI_CARGO_APC._Deploy(APC, self, Coordinate, DeployZone) end
 ---Triggers Load event.
 ---
 ------
----@param APC GROUP The cargo carrier group.
 ---@param sel AI_CARGO_APC `AI_CARGO_APC` class.
 ---@param Coordinate COORDINATE  The coordinate (not used).
 ---@param Speed number Speed (not used).
@@ -202,7 +192,6 @@ function AI_CARGO_APC._Pickup(APC, sel, Coordinate, Speed, PickupZone, self) end
 ---On after Deploy event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -217,7 +206,6 @@ function AI_CARGO_APC:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Hei
 ---On after Deployed event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -231,7 +219,6 @@ function AI_CARGO_APC:onafterDeployed(Carrier, From, Event, To, DeployZone, APC,
 ---On after Follow event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -242,7 +229,6 @@ function AI_CARGO_APC:onafterFollow(APC, From, Event, To) end
 ---On after Home event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -257,7 +243,6 @@ function AI_CARGO_APC:onafterHome(APC, From, Event, To, Coordinate, Speed, Heigh
 ---On after Monitor event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -268,7 +253,6 @@ function AI_CARGO_APC:onafterMonitor(APC, From, Event, To) end
 ---On after Pickup event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param APC GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -283,7 +267,6 @@ function AI_CARGO_APC:onafterPickup(APC, From, Event, To, Coordinate, Speed, Hei
 ---On after Unloaded event.
 ---
 ------
----@param self AI_CARGO_APC 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.

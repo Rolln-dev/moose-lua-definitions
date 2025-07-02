@@ -307,7 +307,6 @@ CARGO = {}
 ---The cargo must be in the **UnLoaded** state.
 ---
 ------
----@param self CARGO 
 ---@param ToCarrier CONTROLLABLE The Carrier that will hold the cargo.
 ---@param NearRadius number The radius when the cargo will board the Carrier (to avoid collision).
 function CARGO:Board(ToCarrier, NearRadius) end
@@ -315,43 +314,36 @@ function CARGO:Board(ToCarrier, NearRadius) end
 ---Check if the cargo can be Boarded.
 ---
 ------
----@param self CARGO 
 function CARGO:CanBoard() end
 
 ---Check if the cargo can be Loaded.
 ---
 ------
----@param self CARGO 
 function CARGO:CanLoad() end
 
 ---Check if the cargo can be Slingloaded.
 ---
 ------
----@param self CARGO 
 function CARGO:CanSlingload() end
 
 ---Check if the cargo can be Unboarded.
 ---
 ------
----@param self CARGO 
 function CARGO:CanUnboard() end
 
 ---Check if the cargo can be Unloaded.
 ---
 ------
----@param self CARGO 
 function CARGO:CanUnload() end
 
 ---Destroy the cargo.
 ---
 ------
----@param self CARGO 
 function CARGO:Destroy() end
 
 ---Find a CARGO in the _DATABASE.
 ---
 ------
----@param self CARGO 
 ---@param CargoName string The Cargo Name.
 ---@return CARGO #self
 function CARGO:FindByName(CargoName) end
@@ -359,171 +351,146 @@ function CARGO:FindByName(CargoName) end
 ---Signal a flare at the position of the CARGO.
 ---
 ------
----@param self CARGO 
 ---@param FlareColor FLARECOLOR 
 function CARGO:Flare(FlareColor) end
 
 ---Signal a green flare at the position of the CARGO.
 ---
 ------
----@param self CARGO 
 function CARGO:FlareGreen() end
 
 ---Signal a red flare at the position of the CARGO.
 ---
 ------
----@param self CARGO 
 function CARGO:FlareRed() end
 
 ---Signal a white flare at the position of the CARGO.
 ---
 ------
----@param self CARGO 
 function CARGO:FlareWhite() end
 
 ---Signal a yellow flare at the position of the CARGO.
 ---
 ------
----@param self CARGO 
 function CARGO:FlareYellow() end
 
 ---Get the coalition of the Cargo.
 ---
 ------
----@param self CARGO 
----@return  #Coalition
+---@return NOTYPE #Coalition
 function CARGO:GetCoalition() end
 
 ---Get the current coordinates of the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return COORDINATE #The coordinates of the Cargo.
 function CARGO:GetCoordinate() end
 
 ---Get the amount of Cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #The amount of Cargo.
 function CARGO:GetCount() end
 
 ---Get the heading of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #
 function CARGO:GetHeading() end
 
 ---Get the Load radius, which is the radius till when the Cargo can be loaded.
 ---
 ------
----@param self CARGO 
 ---@return number #The radius till Cargo can be loaded.
 function CARGO:GetLoadRadius() end
 
 ---Get the name of the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return string #The name of the Cargo.
 function CARGO:GetName() end
 
 ---Get the current active object representing or being the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return POSITIONABLE #The object representing or being the Cargo.
 function CARGO:GetObject() end
 
 ---Get the object name of the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return string #The object name of the Cargo.
 function CARGO:GetObjectName() end
 
 ---Get the current PointVec2 of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return COORDINATE #
 function CARGO:GetPointVec2() end
 
 ---Get the transportation method of the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return string #The transportation method of the Cargo.
 function CARGO:GetTransportationMethod() end
 
 ---Get the type of the Cargo.
 ---
 ------
----@param self CARGO 
 ---@return string #The type of the Cargo.
 function CARGO:GetType() end
 
 ---Get the volume of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #Volume The volume in kg.
 function CARGO:GetVolume() end
 
 ---Get the weight of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #Weight The weight in kg.
 function CARGO:GetWeight() end
 
 ---Get the x position of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #
 function CARGO:GetX() end
 
 ---Get the y position of the cargo.
 ---
 ------
----@param self CARGO 
 ---@return number #
 function CARGO:GetY() end
 
 ---Check if cargo is alive.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if unloaded
 function CARGO:IsAlive() end
 
 ---Check if cargo is boarding.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if boarding
 function CARGO:IsBoarding() end
 
 ---Is the cargo deployed
 ---
 ------
----@param self CARGO 
 ---@return boolean #
 function CARGO:IsDeployed() end
 
 ---Check if cargo is destroyed.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if destroyed
 function CARGO:IsDestroyed() end
 
 ---Check if Cargo is in the LoadRadius for the Cargo to be Boarded or Loaded.
 ---
 ------
----@param self CARGO 
 ---@param Coordinate COORDINATE 
 ---@return boolean #true if the CargoGroup is within the loading radius.
 function CARGO:IsInLoadRadius(Coordinate) end
@@ -531,7 +498,6 @@ function CARGO:IsInLoadRadius(Coordinate) end
 ---Check if the Cargo can report itself to be Boarded or Loaded.
 ---
 ------
----@param self CARGO 
 ---@param Coordinate COORDINATE 
 ---@return boolean #true if the Cargo can report itself.
 function CARGO:IsInReportRadius(Coordinate) end
@@ -539,7 +505,6 @@ function CARGO:IsInReportRadius(Coordinate) end
 ---Check if Cargo is the given Core.Zone.
 ---
 ------
----@param self CARGO 
 ---@param Zone ZONE_BASE 
 ---@return boolean #**true** if cargo is in the Zone, **false** if cargo is not in the Zone.
 function CARGO:IsInZone(Zone) end
@@ -547,14 +512,12 @@ function CARGO:IsInZone(Zone) end
 ---Check if cargo is loaded.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if loaded
 function CARGO:IsLoaded() end
 
 ---Check if cargo is loaded.
 ---
 ------
----@param self CARGO 
 ---@param Carrier UNIT 
 ---@return boolean #true if loaded
 function CARGO:IsLoadedInCarrier(Carrier) end
@@ -562,7 +525,6 @@ function CARGO:IsLoadedInCarrier(Carrier) end
 ---Check if CargoCarrier is near the coordinate within NearRadius.
 ---
 ------
----@param self CARGO 
 ---@param Coordinate COORDINATE 
 ---@param NearRadius number The radius when the cargo will board the Carrier (to avoid collision).
 ---@return boolean #
@@ -571,14 +533,12 @@ function CARGO:IsNear(Coordinate, NearRadius) end
 ---Check if cargo is unloaded.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if unloaded
 function CARGO:IsUnLoaded() end
 
 ---Check if cargo is unboarding.
 ---
 ------
----@param self CARGO 
 ---@return boolean #true if unboarding
 function CARGO:IsUnboarding() end
 
@@ -587,14 +547,12 @@ function CARGO:IsUnboarding() end
 ---The cargo must be in the **UnLoaded** state.
 ---
 ------
----@param self CARGO 
 ---@param ToCarrier CONTROLLABLE The Carrier that will hold the cargo.
 function CARGO:Load(ToCarrier) end
 
 ---Send a CC message to a Wrapper.Group.
 ---
 ------
----@param self CARGO 
 ---@param Message string 
 ---@param CarrierGroup GROUP The Carrier Group.
 ---@param Name? string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
@@ -604,7 +562,6 @@ function CARGO:MessageToGroup(Message, CarrierGroup, Name) end
 ---This class is an abstract class and should not be instantiated.
 ---
 ------
----@param self CARGO 
 ---@param Type string 
 ---@param Name string 
 ---@param Weight number 
@@ -616,7 +573,6 @@ function CARGO:New(Type, Name, Weight, LoadRadius, NearRadius) end
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 ---@param NearRadius number The radius when the cargo will board the Carrier (to avoid collision).
 function CARGO:OnEnterBoarding(Controllable, NearRadius) end
@@ -624,28 +580,24 @@ function CARGO:OnEnterBoarding(Controllable, NearRadius) end
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 function CARGO:OnEnterLoaded(Controllable) end
 
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 function CARGO:OnEnterUnBoarding(Controllable) end
 
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 function CARGO:OnEnterUnLoaded(Controllable) end
 
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 ---@return boolean #
 function CARGO:OnLeaveBoarding(Controllable) end
@@ -653,7 +605,6 @@ function CARGO:OnLeaveBoarding(Controllable) end
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 ---@return boolean #
 function CARGO:OnLeaveLoaded(Controllable) end
@@ -661,7 +612,6 @@ function CARGO:OnLeaveLoaded(Controllable) end
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 ---@return boolean #
 function CARGO:OnLeaveUnBoarding(Controllable) end
@@ -669,7 +619,6 @@ function CARGO:OnLeaveUnBoarding(Controllable) end
 
 ---
 ------
----@param self CARGO 
 ---@param Controllable CONTROLLABLE 
 ---@return boolean #
 function CARGO:OnLeaveUnLoaded(Controllable) end
@@ -677,7 +626,6 @@ function CARGO:OnLeaveUnLoaded(Controllable) end
 ---Report to a Carrier Group.
 ---
 ------
----@param self CARGO 
 ---@param Action string The string describing the action for the cargo.
 ---@param CarrierGroup GROUP The Carrier Group to send the report to.
 ---@param ReportText NOTYPE 
@@ -687,7 +635,6 @@ function CARGO:Report(Action, CarrierGroup, ReportText) end
 ---Report to a Carrier Group with a Flaring signal.
 ---
 ------
----@param self CARGO 
 ---@param FlareColor UTILS.FlareColor the color of the flare.
 ---@return CARGO #
 function CARGO:ReportFlare(FlareColor) end
@@ -695,7 +642,6 @@ function CARGO:ReportFlare(FlareColor) end
 ---Reset the reporting for a Carrier Group.
 ---
 ------
----@param self CARGO 
 ---@param Action string The string describing the action for the cargo.
 ---@param CarrierGroup GROUP The Carrier Group to send the report to.
 ---@return CARGO #
@@ -704,7 +650,6 @@ function CARGO:ReportReset(Action, CarrierGroup) end
 ---Reset all the reporting for a Carrier Group.
 ---
 ------
----@param self CARGO 
 ---@param CarrierGroup GROUP The Carrier Group to send the report to.
 ---@return CARGO #
 function CARGO:ReportResetAll(CarrierGroup) end
@@ -712,7 +657,6 @@ function CARGO:ReportResetAll(CarrierGroup) end
 ---Report to a Carrier Group with a Smoking signal.
 ---
 ------
----@param self CARGO 
 ---@param SmokeColor UTILS.SmokeColor the color of the smoke.
 ---@return CARGO #
 function CARGO:ReportSmoke(SmokeColor) end
@@ -720,21 +664,18 @@ function CARGO:ReportSmoke(SmokeColor) end
 ---Respawn the cargo when destroyed
 ---
 ------
----@param self CARGO 
 ---@param RespawnDestroyed boolean 
 function CARGO:RespawnOnDestroyed(RespawnDestroyed) end
 
 ---Set the cargo as deployed.
 ---
 ------
----@param self CARGO 
 ---@param Deployed boolean true if the cargo is to be deployed. false or nil otherwise.
 function CARGO:SetDeployed(Deployed) end
 
 ---Set the Load radius, which is the radius till when the Cargo can be loaded.
 ---
 ------
----@param self CARGO 
 ---@param LoadRadius number The radius till Cargo can be loaded.
 ---@return CARGO #
 function CARGO:SetLoadRadius(LoadRadius) end
@@ -742,7 +683,6 @@ function CARGO:SetLoadRadius(LoadRadius) end
 ---Set the volume of the cargo.
 ---
 ------
----@param self CARGO 
 ---@param Volume number The volume in kg.
 ---@return CARGO #
 function CARGO:SetVolume(Volume) end
@@ -750,7 +690,6 @@ function CARGO:SetVolume(Volume) end
 ---Set the weight of the cargo.
 ---
 ------
----@param self CARGO 
 ---@param Weight number The weight in kg.
 ---@return CARGO #
 function CARGO:SetWeight(Weight) end
@@ -758,7 +697,6 @@ function CARGO:SetWeight(Weight) end
 ---Smoke the CARGO.
 ---
 ------
----@param self CARGO 
 ---@param SmokeColor SMOKECOLOR The color of the smoke.
 ---@param Radius number The radius of randomization around the center of the Cargo.
 function CARGO:Smoke(SmokeColor, Radius) end
@@ -766,37 +704,31 @@ function CARGO:Smoke(SmokeColor, Radius) end
 ---Smoke the CARGO Blue.
 ---
 ------
----@param self CARGO 
 function CARGO:SmokeBlue() end
 
 ---Smoke the CARGO Green.
 ---
 ------
----@param self CARGO 
 function CARGO:SmokeGreen() end
 
 ---Smoke the CARGO Orange.
 ---
 ------
----@param self CARGO 
 function CARGO:SmokeOrange() end
 
 ---Smoke the CARGO Red.
 ---
 ------
----@param self CARGO 
 function CARGO:SmokeRed() end
 
 ---Smoke the CARGO White.
 ---
 ------
----@param self CARGO 
 function CARGO:SmokeWhite() end
 
 ---Template method to spawn a new representation of the CARGO in the simulator.
 ---
 ------
----@param self CARGO 
 ---@param PointVec2 NOTYPE 
 ---@return CARGO #
 function CARGO:Spawn(PointVec2) end
@@ -806,7 +738,6 @@ function CARGO:Spawn(PointVec2) end
 ---The cargo must be in the **Loaded** state.
 ---
 ------
----@param self CARGO 
 ---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
 function CARGO:UnBoard(ToPointVec2) end
 
@@ -815,7 +746,6 @@ function CARGO:UnBoard(ToPointVec2) end
 ---The cargo must be in the **Loaded** state.
 ---
 ------
----@param self CARGO 
 ---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
 function CARGO:UnLoad(ToPointVec2) end
 
@@ -824,7 +754,6 @@ function CARGO:UnLoad(ToPointVec2) end
 ---The cargo must be in the **UnLoaded** state.
 ---
 ------
----@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
 ---@param ToCarrier CONTROLLABLE The Carrier that will hold the cargo.
 ---@param NearRadius number The radius when the cargo will board the Carrier (to avoid collision).
@@ -835,7 +764,6 @@ function CARGO:__Board(DelaySeconds, ToCarrier, NearRadius) end
 ---The cargo must be in the **UnLoaded** state.
 ---
 ------
----@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
 ---@param ToCarrier CONTROLLABLE The Carrier that will hold the cargo.
 function CARGO:__Load(DelaySeconds, ToCarrier) end
@@ -845,7 +773,6 @@ function CARGO:__Load(DelaySeconds, ToCarrier) end
 ---The cargo must be in the **Loaded** state.
 ---
 ------
----@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
 ---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo should run after onboarding. If not provided, the cargo will run to 60 meters behind the Carrier location.
 function CARGO:__UnBoard(DelaySeconds, ToPointVec2) end
@@ -855,7 +782,6 @@ function CARGO:__UnBoard(DelaySeconds, ToPointVec2) end
 ---The cargo must be in the **Loaded** state.
 ---
 ------
----@param self CARGO 
 ---@param DelaySeconds number The amount of seconds to delay the action.
 ---@param ToPointVec2? COORDINATE (optional) @{Core.Point#COORDINATE) to where the cargo will be placed after unloading. If not provided, the cargo will be placed 60 meters behind the Carrier location.
 function CARGO:__UnLoad(DelaySeconds, ToPointVec2) end
@@ -863,7 +789,6 @@ function CARGO:__UnLoad(DelaySeconds, ToPointVec2) end
 
 ---
 ------
----@param self NOTYPE 
 ---@private
 function CARGO:onenterDestroyed() end
 
@@ -883,14 +808,12 @@ CARGO_REPRESENTABLE = {}
 ---CARGO_REPRESENTABLE Destructor.
 ---
 ------
----@param self CARGO_REPRESENTABLE 
 ---@return CARGO_REPRESENTABLE #
 function CARGO_REPRESENTABLE:Destroy() end
 
 ---Send a message to a Wrapper.Group through a communication channel near the cargo.
 ---
 ------
----@param self CARGO_REPRESENTABLE 
 ---@param Message string 
 ---@param TaskGroup GROUP 
 ---@param Name? string (optional) The name of the Group used as a prefix for the message to the Group. If not provided, there will be nothing shown.
@@ -899,7 +822,6 @@ function CARGO_REPRESENTABLE:MessageToGroup(Message, TaskGroup, Name) end
 ---CARGO_REPRESENTABLE Constructor.
 ---
 ------
----@param self CARGO_REPRESENTABLE 
 ---@param CargoObject POSITIONABLE The cargo object.
 ---@param Type string Type name
 ---@param Name string Name.
@@ -911,7 +833,6 @@ function CARGO_REPRESENTABLE:New(CargoObject, Type, Name, LoadRadius, NearRadius
 ---Route a cargo unit to a PointVec2.
 ---
 ------
----@param self CARGO_REPRESENTABLE 
 ---@param ToPointVec2 COORDINATE 
 ---@param Speed number 
 ---@return CARGO_REPRESENTABLE #

@@ -181,91 +181,78 @@ EVENT = {}
 ---Creation of a Cargo Deletion Event.
 ---
 ------
----@param self EVENT 
 ---@param Cargo AI_CARGO The Cargo created.
 function EVENT:CreateEventDeleteCargo(Cargo) end
 
 ---Creation of a Zone Deletion Event.
 ---
 ------
----@param self EVENT 
 ---@param Zone ZONE_BASE The Zone created.
 function EVENT:CreateEventDeleteZone(Zone) end
 
 ---Creation of a ZoneGoal Deletion Event.
 ---
 ------
----@param self EVENT 
 ---@param ZoneGoal ZONE_GOAL The ZoneGoal created.
 function EVENT:CreateEventDeleteZoneGoal(ZoneGoal) end
 
 ---Creation of a S_EVENT_DYNAMIC_CARGO_LOADED event.
 ---
 ------
----@param self EVENT 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function EVENT:CreateEventDynamicCargoLoaded(DynamicCargo) end
 
 ---Creation of a S_EVENT_DYNAMIC_CARGO_REMOVED event.
 ---
 ------
----@param self EVENT 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function EVENT:CreateEventDynamicCargoRemoved(DynamicCargo) end
 
 ---Creation of a S_EVENT_DYNAMIC_CARGO_UNLOADED event.
 ---
 ------
----@param self EVENT 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function EVENT:CreateEventDynamicCargoUnloaded(DynamicCargo) end
 
 ---Creation of a New Cargo Event.
 ---
 ------
----@param self EVENT 
 ---@param Cargo AI_CARGO The Cargo created.
 function EVENT:CreateEventNewCargo(Cargo) end
 
 ---Creation of a S_EVENT_NEW_DYNAMIC_CARGO event.
 ---
 ------
----@param self EVENT 
 ---@param DynamicCargo DYNAMICCARGO the dynamic cargo object
 function EVENT:CreateEventNewDynamicCargo(DynamicCargo) end
 
 ---Creation of a New Zone Event.
 ---
 ------
----@param self EVENT 
 ---@param Zone ZONE_BASE The Zone created.
 function EVENT:CreateEventNewZone(Zone) end
 
 ---Creation of a New ZoneGoal Event.
 ---
 ------
----@param self EVENT 
 ---@param ZoneGoal ZONE_GOAL The ZoneGoal created.
 function EVENT:CreateEventNewZoneGoal(ZoneGoal) end
 
 ---Creation of a S_EVENT_PLAYER_ENTER_AIRCRAFT event.
 ---
 ------
----@param self EVENT 
 ---@param PlayerUnit UNIT The aircraft unit the player entered.
 function EVENT:CreateEventPlayerEnterAircraft(PlayerUnit) end
 
 ---Creation of a S_EVENT_PLAYER_ENTER_UNIT Event.
 ---
 ------
----@param self EVENT 
 ---@param PlayerUnit UNIT 
 function EVENT:CreateEventPlayerEnterUnit(PlayerUnit) end
 
 ---Initializes the Events structure for the event.
 ---
 ------
----@param self EVENT 
 ---@param EventID world.event Event ID.
 ---@param EventClass BASE The class object for which events are handled.
 ---@return EVENT.Events #
@@ -274,14 +261,12 @@ function EVENT:Init(EventID, EventClass) end
 ---Create new event handler.
 ---
 ------
----@param self EVENT 
 ---@return EVENT #self
 function EVENT:New() end
 
 ---Create an OnBirth event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventGroup GROUP 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass NOTYPE The self instance of the class for which the event is.
@@ -292,7 +277,6 @@ function EVENT:OnBirthForTemplate(EventGroup, EventFunction, EventClass, EventTe
 ---Create an OnCrash event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventGroup GROUP 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass NOTYPE The self instance of the class for which the event is.
@@ -303,7 +287,6 @@ function EVENT:OnCrashForTemplate(EventGroup, EventFunction, EventClass, EventTe
 ---Create an OnDead event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventGroup GROUP The GROUP object.
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass table The self instance of the class for which the event is.
@@ -314,7 +297,6 @@ function EVENT:OnDeadForTemplate(EventGroup, EventFunction, EventClass, EventTem
 ---Create an OnDead event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventTemplate table 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass NOTYPE The self instance of the class for which the event is.
@@ -324,7 +306,6 @@ function EVENT:OnEngineShutDownForTemplate(EventTemplate, EventFunction, EventCl
 ---Set a new listener for an S_EVENT_X event for a GROUP.
 ---
 ------
----@param self EVENT 
 ---@param GroupName string The name of the GROUP.
 ---@param EventFunction function The function to be called when the event occurs for the GROUP.
 ---@param EventClass BASE The self instance of the class for which the event is.
@@ -336,7 +317,6 @@ function EVENT:OnEventForGroup(GroupName, EventFunction, EventClass, EventID, ..
 ---Create an OnDead event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventTemplate table 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass NOTYPE The instance of the class for which the event is.
@@ -348,7 +328,6 @@ function EVENT:OnEventForTemplate(EventTemplate, EventFunction, EventClass, OnEv
 ---Set a new listener for an `S_EVENT_X` event for a UNIT.
 ---
 ------
----@param self EVENT 
 ---@param UnitName string The name of the UNIT.
 ---@param EventFunction function The function to be called when the event occurs for the GROUP.
 ---@param EventClass BASE The self instance of the class for which the event is.
@@ -359,7 +338,6 @@ function EVENT:OnEventForUnit(UnitName, EventFunction, EventClass, EventID) end
 ---Set a new listener for an `S_EVENT_X` event independent from a unit or a weapon.
 ---
 ------
----@param self EVENT 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass BASE The self instance of the class for which the event is captured. When the event happens, the event process will be called in this class provided.
 ---@param EventID NOTYPE 
@@ -369,7 +347,6 @@ function EVENT:OnEventGeneric(EventFunction, EventClass, EventID) end
 ---Create an OnLand event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventTemplate table 
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass table The self instance of the class for which the event is.
@@ -379,7 +356,6 @@ function EVENT:OnLandForTemplate(EventTemplate, EventFunction, EventClass) end
 ---Create an OnTakeOff event handler for a group
 ---
 ------
----@param self EVENT 
 ---@param EventTemplate table Template table.
 ---@param EventFunction function The function to be called when the event occurs for the unit.
 ---@param EventClass table The self instance of the class for which the event is.
@@ -389,7 +365,6 @@ function EVENT:OnTakeOffForTemplate(EventTemplate, EventFunction, EventClass) en
 ---Clears all event subscriptions for a Core.Base#BASE derived object.
 ---
 ------
----@param self EVENT 
 ---@param EventClass BASE The self class object for which the events are removed.
 ---@return EVENT #self
 function EVENT:RemoveAll(EventClass) end
@@ -397,7 +372,6 @@ function EVENT:RemoveAll(EventClass) end
 ---Removes a subscription
 ---
 ------
----@param self EVENT 
 ---@param EventClass BASE The self instance of the class for which the event is.
 ---@param EventID world.event Event ID.
 ---@return EVENT #self
@@ -406,7 +380,6 @@ function EVENT:RemoveEvent(EventClass, EventID) end
 ---Resets subscriptions.
 ---
 ------
----@param self EVENT 
 ---@param EventClass BASE The self instance of the class for which the event is.
 ---@param EventID world.event Event ID.
 ---@param EventObject NOTYPE 
@@ -416,7 +389,6 @@ function EVENT:Reset(EventClass, EventID, EventObject) end
 ---Main event function.
 ---
 ------
----@param self EVENT 
 ---@param Event EVENTDATA Event data table.
 ---@private
 function EVENT:onEvent(Event) end
@@ -497,7 +469,6 @@ EVENTHANDLER = {}
 ---The EVENTHANDLER constructor.
 ---
 ------
----@param self EVENTHANDLER 
 ---@return EVENTHANDLER #self
 function EVENTHANDLER:New() end
 

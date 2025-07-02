@@ -49,7 +49,6 @@ CLIENTMENU = {}
 ---Link a child entry.
 ---
 ------
----@param self CLIENTMENU 
 ---@param Child CLIENTMENU The entry to link as a child.
 ---@return CLIENTMENU #self
 function CLIENTMENU:AddChild(Child) end
@@ -62,14 +61,12 @@ function CLIENTMENU.CallHandler() end
 ---Remove this entry and all subentries (children) from this entry.
 ---
 ------
----@param self CLIENTMENU 
 ---@return CLIENTMENU #self
 function CLIENTMENU:Clear() end
 
 ---Create a UUID
 ---
 ------
----@param self CLIENTMENU 
 ---@param Parent CLIENTMENU The parent object if any
 ---@param Text string The menu entry text
 ---@return string #UUID
@@ -78,21 +75,18 @@ function CLIENTMENU:CreateUUID(Parent, Text) end
 ---Get the menu path table.
 ---
 ------
----@param self CLIENTMENU 
 ---@return table #Path
 function CLIENTMENU:GetPath() end
 
 ---Get the UUID.
 ---
 ------
----@param self CLIENTMENU 
 ---@return string #UUID
 function CLIENTMENU:GetUUID() end
 
 ---Create an new CLIENTMENU object.
 ---
 ------
----@param self CLIENTMENU 
 ---@param Client CLIENT The client for whom this entry is. Leave as nil for a generic entry.
 ---@param Text string Text of the F10 menu entry.
 ---@param Parent CLIENTMENU The parent menu entry.
@@ -104,7 +98,6 @@ function CLIENTMENU:NewEntry(Client, Text, Parent, Function, ...) end
 ---Remove a child entry.
 ---
 ------
----@param self CLIENTMENU 
 ---@param Child CLIENTMENU The entry to remove from the children.
 ---@return CLIENTMENU #self
 function CLIENTMENU:RemoveChild(Child) end
@@ -112,21 +105,18 @@ function CLIENTMENU:RemoveChild(Child) end
 ---Remove the entry from the F10 menu.
 ---
 ------
----@param self CLIENTMENU 
 ---@return CLIENTMENU #self 
 function CLIENTMENU:RemoveF10() end
 
 ---Remove all subentries (children) from this entry.
 ---
 ------
----@param self CLIENTMENU 
 ---@return CLIENTMENU #self
 function CLIENTMENU:RemoveSubEntries() end
 
 ---Set the CLIENTMENUMANAGER for this entry.
 ---
 ------
----@param self CLIENTMENU 
 ---@param Controller CLIENTMENUMANAGER The controlling object.
 ---@return CLIENTMENU #self 
 function CLIENTMENU:SetController(Controller) end
@@ -134,7 +124,6 @@ function CLIENTMENU:SetController(Controller) end
 ---The entry will be deleted after being used used - for menu entries with functions only.
 ---
 ------
----@param self CLIENTMENU 
 ---@return CLIENTMENU #self 
 function CLIENTMENU:SetOnce() end
 
@@ -257,7 +246,6 @@ CLIENTMENUMANAGER = {}
 ---Push a single previously created entry into the F10 menu structure of all clients.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry to add.
 ---@param Client? CLIENT (optional) If given, make this change only for this client. 
 ---@return CLIENTMENUMANAGER #self
@@ -266,7 +254,6 @@ function CLIENTMENUMANAGER:AddEntry(Entry, Client) end
 ---Alter the text of a leaf entry in the generic structure and push to one specific client's F10 menu.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The menu entry.
 ---@param Text string New Text of the F10 menu entry.
 ---@param Client? CLIENT (optional) The client for whom to alter the entry, if nil done for all clients.
@@ -276,7 +263,6 @@ function CLIENTMENUMANAGER:ChangeEntryText(Entry, Text, Client) end
 ---Remove the entry and all entries below the given entry from the client's F10 menus.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry to remove
 ---@param Client? CLIENT (optional) If given, make this change only for this client. 
 ---@return CLIENTMENUMANAGER #self
@@ -285,7 +271,6 @@ function CLIENTMENUMANAGER:DeleteF10Entry(Entry, Client) end
 ---Remove the entry and all entries below the given entry from the generic tree.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry to remove
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:DeleteGenericEntry(Entry) end
@@ -293,7 +278,6 @@ function CLIENTMENUMANAGER:DeleteGenericEntry(Entry) end
 ---Check matching entry in the generic structure by UUID.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param UUID string UUID of the menu entry.
 ---@return boolean #Exists
 function CLIENTMENUMANAGER:EntryUUIDExists(UUID) end
@@ -301,7 +285,6 @@ function CLIENTMENUMANAGER:EntryUUIDExists(UUID) end
 ---Find matching entries in the generic structure under a parent.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Parent CLIENTMENU Find entries under this parent entry.
 ---@return table #Table of matching #CLIENTMENU objects.
 ---@return number #Number of matches
@@ -310,7 +293,6 @@ function CLIENTMENUMANAGER:FindEntriesByParent(Parent) end
 ---Find matching entries in the generic structure by the menu text.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Text string Text or partial text of the F10 menu entry.
 ---@param Parent? CLIENTMENU (Optional) Only find entries under this parent entry.
 ---@return table #Table of matching #CLIENTMENU objects.
@@ -320,7 +302,6 @@ function CLIENTMENUMANAGER:FindEntriesByText(Text, Parent) end
 ---Find matching entry in the generic structure by UUID.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param UUID string UUID of the menu entry.
 ---@return CLIENTMENU #Entry The #CLIENTMENU object found or nil.
 function CLIENTMENUMANAGER:FindEntryByUUID(UUID) end
@@ -328,7 +309,6 @@ function CLIENTMENUMANAGER:FindEntryByUUID(UUID) end
 ---Find matching entries under a parent in the generic structure by UUID.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Parent CLIENTMENU Find entries under this parent entry.
 ---@return table #Table of matching UUIDs of #CLIENTMENU objects
 ---@return table #Table of matching #CLIENTMENU objects
@@ -338,7 +318,6 @@ function CLIENTMENUMANAGER:FindUUIDsByParent(Parent) end
 ---Find matching entries by text in the generic structure by UUID.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Text string Text or partial text of the menu entry to find.
 ---@param Parent? CLIENTMENU (Optional) Only find entries under this parent entry.
 ---@return table #Table of matching UUIDs of #CLIENTMENU objects
@@ -350,14 +329,12 @@ function CLIENTMENUMANAGER:FindUUIDsByText(Text, Parent) end
 ---Useful if you have **one** menu structure only. Does not automatically push follow-up changes to the client(s).
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:InitAutoPropagation() end
 
 ---Create a new ClientManager instance.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param ClientSet SET_CLIENT The set of clients to manage.
 ---@param Alias string The name of this manager.
 ---@param Coalition? number (Optional) Coalition of this Manager, defaults to coalition.side.BLUE
@@ -367,7 +344,6 @@ function CLIENTMENUMANAGER:New(ClientSet, Alias, Coalition) end
 ---Create a new entry in the **generic** structure.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Text string Text of the F10 menu entry.
 ---@param Parent CLIENTMENU The parent menu entry.
 ---@param Function? string (optional) Function to call when the entry is used.
@@ -378,7 +354,6 @@ function CLIENTMENUMANAGER:NewEntry(Text, Parent, Function, ...) end
 ---Push the complete menu structure to each of the clients in the set - refresh the menu tree of the clients.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Client? CLIENT (optional) If given, propagate only for this client.
 ---@return CLIENTMENU #Entry
 function CLIENTMENUMANAGER:Propagate(Client) end
@@ -386,7 +361,6 @@ function CLIENTMENUMANAGER:Propagate(Client) end
 ---Remove all entries below the given entry from the client's F10 menus.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry where to start. This entry stays.
 ---@param Client? CLIENT (optional) If given, make this change only for this client. In this case the generic structure will not be touched.
 ---@return CLIENTMENUMANAGER #self
@@ -395,7 +369,6 @@ function CLIENTMENUMANAGER:RemoveF10SubEntries(Entry, Client) end
 ---Remove all entries below the given entry from the generic tree.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Entry CLIENTMENU The entry where to start. This entry stays.
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:RemoveGenericSubEntries(Entry) end
@@ -403,7 +376,6 @@ function CLIENTMENUMANAGER:RemoveGenericSubEntries(Entry) end
 ---Blank out the menu - remove **all root entries** and all entries below from the client's F10 menus, leaving the generic structure untouched.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param Client? CLIENT (optional) If given, remove only for this client.
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:ResetMenu(Client) end
@@ -411,14 +383,12 @@ function CLIENTMENUMANAGER:ResetMenu(Client) end
 ---Blank out the menu - remove **all root entries** and all entries below from all clients' F10 menus, and **delete** the generic structure.
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@return CLIENTMENUMANAGER #self
 function CLIENTMENUMANAGER:ResetMenuComplete() end
 
 ---[Internal] Event handling
 ---
 ------
----@param self CLIENTMENUMANAGER 
 ---@param EventData EVENTDATA 
 ---@param Retry NOTYPE 
 ---@return CLIENTMENUMANAGER #self

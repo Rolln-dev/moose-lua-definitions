@@ -55,14 +55,13 @@
 ---@field RouteHome boolean 
 ---@field RoutePickup boolean 
 ---@field Zone NOTYPE 
----@field private landingheight NOTYPE 
----@field private landingspeed NOTYPE 
+---@field private landingheight number 
+---@field private landingspeed number 
 AI_CARGO_HELICOPTER = {}
 
 ---Deploy Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Coordinate COORDINATE Place at which the cargo is deployed.
 ---@param Speed number Speed in km/h to fly to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 function AI_CARGO_HELICOPTER:Deploy(Coordinate, Speed) end
@@ -70,7 +69,6 @@ function AI_CARGO_HELICOPTER:Deploy(Coordinate, Speed) end
 ---Home Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Coordinate COORDINATE Place to which the helicopter will go.
 ---@param Speed? number (optional) Speed in km/h to fly to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 ---@param Height? number (optional) Height the Helicopter should be flying at.
@@ -79,7 +77,6 @@ function AI_CARGO_HELICOPTER:Home(Coordinate, Speed, Height) end
 ---Creates a new AI_CARGO_HELICOPTER object.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP 
 ---@param CargoSet SET_CARGO 
 ---@return AI_CARGO_HELICOPTER #
@@ -88,7 +85,6 @@ function AI_CARGO_HELICOPTER:New(Helicopter, CargoSet) end
 ---Deploy Handler OnAfter for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -99,7 +95,6 @@ function AI_CARGO_HELICOPTER:OnAfterDeploy(From, Event, To, Coordinate, Speed) e
 ---Deployed Handler OnAfter for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -108,7 +103,6 @@ function AI_CARGO_HELICOPTER:OnAfterDeployed(From, Event, To) end
 ---PickedUp Handler OnAfter for AI_CARGO_HELICOPTER - Cargo set has been picked up, ready to deploy
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP The helicopter #GROUP object
 ---@param From string 
 ---@param Event string 
@@ -119,7 +113,6 @@ function AI_CARGO_HELICOPTER:OnAfterPickedUp(Helicopter, From, Event, To, Unit) 
 ---Pickup Handler OnAfter for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -130,7 +123,6 @@ function AI_CARGO_HELICOPTER:OnAfterPickup(From, Event, To, Coordinate, Speed) e
 ---Unloaded Handler OnAfter for AI_CARGO_HELICOPTER - Cargo unloaded, carrier is empty
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -141,7 +133,6 @@ function AI_CARGO_HELICOPTER:OnAfterUnloaded(From, Event, To, Cargo, Unit) end
 ---Deploy Handler OnBefore for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -153,7 +144,6 @@ function AI_CARGO_HELICOPTER:OnBeforeDeploy(From, Event, To, Coordinate, Speed) 
 ---Pickup Handler OnBefore for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -164,7 +154,6 @@ function AI_CARGO_HELICOPTER:OnBeforePickup(From, Event, To, Coordinate) end
 ---Pickup Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Coordinate COORDINATE 
 ---@param Speed number Speed in km/h to fly to the pickup coordinate. Default is 50% of max possible speed the unit can go.
 function AI_CARGO_HELICOPTER:Pickup(Coordinate, Speed) end
@@ -172,7 +161,6 @@ function AI_CARGO_HELICOPTER:Pickup(Coordinate, Speed) end
 ---Set the Carrier.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP 
 ---@return AI_CARGO_HELICOPTER #
 function AI_CARGO_HELICOPTER:SetCarrier(Helicopter) end
@@ -193,7 +181,6 @@ function AI_CARGO_HELICOPTER:SetCarrier(Helicopter) end
 ---Adjust if necessary.
 ---```
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param speed number Landing speed in kph(!), e.g. 15
 ---@param height number Landing height in meters(!), e.g. 5.5
 ---@return AI_CARGO_HELICOPTER #self
@@ -202,7 +189,6 @@ function AI_CARGO_HELICOPTER:SetLandingSpeedAndHeight(speed, height) end
 ---Depoloy function and queue.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param AICargoHelicopter GROUP 
 ---@param Coordinate COORDINATE Coordinate
 ---@param DeployZone NOTYPE 
@@ -211,7 +197,6 @@ function AI_CARGO_HELICOPTER:_Deploy(AICargoHelicopter, Coordinate, DeployZone) 
 ---Deploy Asynchronous Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param Delay number Delay in seconds.
 ---@param self AI_CARGO_HELICOPTER 
 ---@param Coordinate COORDINATE Place at which the cargo is deployed.
 ---@param Speed number Speed in km/h to fly to the pickup coordinate. Default is 50% of max possible speed the unit can go.
@@ -220,7 +205,6 @@ function AI_CARGO_HELICOPTER.__Deploy(Delay, self, Coordinate, Speed) end
 ---Home Asynchronous Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param Delay number Delay in seconds.
 ---@param self AI_CARGO_HELICOPTER 
 ---@param Coordinate COORDINATE Place to which the helicopter will go.
 ---@param Speed? number (optional) Speed in km/h to fly to the pickup coordinate. Default is 50% of max possible speed the unit can go.
@@ -230,7 +214,6 @@ function AI_CARGO_HELICOPTER.__Home(Delay, self, Coordinate, Speed, Height) end
 ---Pickup Asynchronous Trigger for AI_CARGO_HELICOPTER
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Delay number Delay in seconds.
 ---@param Coordinate COORDINATE 
 ---@param Speed number Speed in km/h to go to the pickup coordinate. Default is 50% of max possible speed the unit can go.
@@ -239,7 +222,6 @@ function AI_CARGO_HELICOPTER:__Pickup(Delay, Coordinate, Speed) end
 ---On after Deploy event.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP Transport helicopter.
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -254,7 +236,6 @@ function AI_CARGO_HELICOPTER:onafterDeploy(Helicopter, From, Event, To, Coordina
 ---On after Deployed event.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -269,7 +250,6 @@ function AI_CARGO_HELICOPTER:onafterDeployed(Helicopter, From, Event, To, Cargo,
 ---On after Home event.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -284,7 +264,6 @@ function AI_CARGO_HELICOPTER:onafterHome(Helicopter, From, Event, To, Coordinate
 
 ---
 ------
----@param self NOTYPE 
 ---@param Helicopter NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -295,7 +274,6 @@ function AI_CARGO_HELICOPTER:onafterLanded(Helicopter, From, Event, To) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Helicopter NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -307,7 +285,6 @@ function AI_CARGO_HELICOPTER:onafterOrbit(Helicopter, From, Event, To, Coordinat
 ---On after Pickup event.
 ---
 ------
----@param self AI_CARGO_HELICOPTER 
 ---@param Helicopter GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -322,7 +299,6 @@ function AI_CARGO_HELICOPTER:onafterPickup(Helicopter, From, Event, To, Coordina
 
 ---
 ------
----@param self NOTYPE 
 ---@param Helicopter NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

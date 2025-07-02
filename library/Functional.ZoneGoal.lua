@@ -41,40 +41,34 @@ ZONE_GOAL = {}
 ---DestroyedUnit event.
 ---
 ------
----@param self ZONE_GOAL 
 function ZONE_GOAL:DestroyedUnit() end
 
 ---Flare the zone boundary.
 ---
 ------
----@param self ZONE_GOAL 
 ---@param FlareColor SMOKECOLOR.Color 
 function ZONE_GOAL:Flare(FlareColor) end
 
 ---Get the Zone.
 ---
 ------
----@param self ZONE_GOAL 
 ---@return ZONE_GOAL #
 function ZONE_GOAL:GetZone() end
 
 ---Get the name of the Zone.
 ---
 ------
----@param self ZONE_GOAL 
 ---@return string #
 function ZONE_GOAL:GetZoneName() end
 
 ---Activate the event UnitDestroyed to be fired when a unit is destroyed in the zone.
 ---
 ------
----@param self ZONE_GOAL 
 function ZONE_GOAL:MonitorDestroyedUnits() end
 
 ---ZONE_GOAL Constructor.
 ---
 ------
----@param self ZONE_GOAL 
 ---@param Zone ZONE_RADIUS A @{Core.Zone} object with the goal to be achieved. Alternatively, can be handed as the name of late activated group describing a ZONE_POLYGON with its waypoints.
 ---@return ZONE_GOAL #
 function ZONE_GOAL:New(Zone) end
@@ -82,7 +76,6 @@ function ZONE_GOAL:New(Zone) end
 ---DestroyedUnit Handler OnAfter for ZONE_GOAL
 ---
 ------
----@param self ZONE_GOAL 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -93,7 +86,6 @@ function ZONE_GOAL:OnAfterDestroyedUnit(From, Event, To, DestroyedUnit, PlayerNa
 ---Activate smoking of zone with the color or the current owner.
 ---
 ------
----@param self ZONE_GOAL 
 ---@param switch boolean If *true* or *nil* activate smoke. If *false* or *nil*, no smoke.
 ---@return ZONE_GOAL #
 function ZONE_GOAL:SetSmokeZone(switch) end
@@ -101,34 +93,29 @@ function ZONE_GOAL:SetSmokeZone(switch) end
 ---Set the smoke color.
 ---
 ------
----@param self ZONE_GOAL 
 ---@param SmokeColor SMOKECOLOR.Color 
 function ZONE_GOAL:Smoke(SmokeColor) end
 
 ---Check status Smoke.
 ---
 ------
----@param self ZONE_GOAL 
 function ZONE_GOAL:StatusSmoke() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param EventData NOTYPE 
 function ZONE_GOAL:__Destroyed(EventData) end
 
 ---DestroyedUnit delayed event
 ---
 ------
----@param self ZONE_GOAL 
 ---@param delay number Delay in seconds.
 function ZONE_GOAL:__DestroyedUnit(delay) end
 
 ---When started, check the Smoke and the Zone status.
 ---
 ------
----@param self ZONE_GOAL 
 ---@private
 function ZONE_GOAL:onafterGuard() end
 

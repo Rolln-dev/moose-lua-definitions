@@ -219,7 +219,6 @@
 ---
 ---===
 ---@class SCORING : BASE
----@field AutoSave NOTYPE 
 ---@field AutoSavePath NOTYPE 
 ---@field CoalitionChangePenalty NOTYPE 
 ---@field Fratricide NOTYPE 
@@ -237,7 +236,7 @@
 ---@field ScoringObjects table 
 ---@field ScoringPlayerScan NOTYPE 
 ---@field ScoringZones table 
----@field private penaltyoncoalitionchange NOTYPE 
+---@field private penaltyoncoalitionchange boolean 
 ---@field private penaltyonfratricide boolean 
 SCORING = {}
 
@@ -248,7 +247,6 @@ SCORING = {}
 ---The Score can be both positive and negative.
 ---
 ------
----@param self SCORING 
 ---@param PlayerUnit UNIT The @{Wrapper.Unit} of the Player. Other Properties for the scoring are taken from this PlayerUnit, like coalition, type etc.
 ---@param GoalTag string The string or identifier that is used in the CSV file to identify the goal (sort or group later in Excel).
 ---@param Text string A free text that is shown to the players.
@@ -262,7 +260,6 @@ function SCORING:AddGoalScore(PlayerUnit, GoalTag, Text, Score) end
 ---The Score can be both positive and negative.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the Player.
 ---@param GoalTag string The string or identifier that is used in the CSV file to identify the goal (sort or group later in Excel).
 ---@param Text string A free text that is shown to the players.
@@ -272,7 +269,6 @@ function SCORING:AddGoalScorePlayer(PlayerName, GoalTag, Text, Score) end
 ---Specify a special additional score for a Wrapper.Group.
 ---
 ------
----@param self SCORING 
 ---@param ScoreGroup GROUP The @{Wrapper.Group} for which each @{Wrapper.Unit} a Score is given.
 ---@param Score number The Score value.
 ---@return SCORING #
@@ -281,7 +277,6 @@ function SCORING:AddScoreGroup(ScoreGroup, Score) end
 ---Specify a special additional score for a Core.Set#SET_GROUP.
 ---
 ------
----@param self SCORING 
 ---@param Set SET_GROUP The @{Core.Set#SET_GROUP} for which each @{Wrapper.Unit} in each Group a Score is given.
 ---@param Score number The Score value.
 ---@return SCORING #
@@ -292,7 +287,6 @@ function SCORING:AddScoreSetGroup(Set, Score) end
 ---then the old Wrapper.Static  will be replaced with the new Wrapper.Static.
 ---
 ------
----@param self SCORING 
 ---@param ScoreStatic UNIT The @{Wrapper.Static} for which the Score needs to be given.
 ---@param Score number The Score value.
 ---@return SCORING #
@@ -303,7 +297,6 @@ function SCORING:AddStaticScore(ScoreStatic, Score) end
 ---then the old Wrapper.Unit  will be replaced with the new Wrapper.Unit.
 ---
 ------
----@param self SCORING 
 ---@param ScoreUnit UNIT The @{Wrapper.Unit} for which the Score needs to be given.
 ---@param Score number The Score value.
 ---@return SCORING #
@@ -314,7 +307,6 @@ function SCORING:AddUnitScore(ScoreUnit, Score) end
 ---This allows for a dynamic destruction zone evolution within your mission.
 ---
 ------
----@param self SCORING 
 ---@param ScoreZone ZONE_BASE The @{Core.Zone} which defines the destruction score perimeters. Note that a zone can be a polygon or a moving zone.
 ---@param Score number The Score value.
 ---@return SCORING #
@@ -323,49 +315,42 @@ function SCORING:AddZoneScore(ScoreZone, Score) end
 ---Close CSV file
 ---
 ------
----@param self SCORING 
 ---@return SCORING #self
 function SCORING:CloseCSV() end
 
 ---If to send messages after a target has been destroyed.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesDestroy() end
 
 ---If to send messages after a target has been hit.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesHit() end
 
 ---If to send messages after a target has been destroyed and receives additional scores.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesScore() end
 
 ---If to send messages to all players.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesToAll() end
 
 ---If to send messages to only those players within the same coalition as the player.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesToCoalition() end
 
 ---If to send messages after a target has been hit in a zone, and additional score is received.
 ---
 ------
----@param self SCORING 
 ---@return boolean #
 function SCORING:IfMessagesZone() end
 
@@ -380,7 +365,6 @@ function SCORING:IfMessagesZone() end
 ---  ScoringObject = SCORING:New( "Gori Valley" )
 ---```
 ------
----@param self SCORING 
 ---@param GameName string The name of the game. This name is also logged in the CSV score file.
 ---@param SavePath? string (Optional) Path where to save the CSV file, defaults to your **<User>\\Saved Games\\DCS\\Logs** folder.
 ---@param AutoSave? boolean (Optional) If passed as `false`, then swith autosave off.
@@ -390,21 +374,18 @@ function SCORING:New(GameName, SavePath, AutoSave) end
 ---Handles the OnBirth event for the scoring.
 ---
 ------
----@param self SCORING 
 ---@param Event EVENTDATA 
 function SCORING:OnEventBirth(Event) end
 
 ---Handles the OnPlayerLeaveUnit event for the scoring.
 ---
 ------
----@param self SCORING 
 ---@param Event EVENTDATA 
 function SCORING:OnEventPlayerLeaveUnit(Event) end
 
 ---Handles the event when one player kill another player
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The attacking player
 ---@param TargetUnitName string the name of the killed unit
 ---@param IsTeamKill boolean true if this kill was a team kill
@@ -416,7 +397,6 @@ function SCORING:OnKillPvE(PlayerName, TargetUnitName, IsTeamKill, TargetThreatL
 ---Handles the event when one player kill another player
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The attacking player
 ---@param TargetPlayerName string The name of the killed player
 ---@param IsTeamKill boolean true if this kill was a team kill
@@ -436,7 +416,6 @@ function SCORING:OnKillPvP(PlayerName, TargetPlayerName, IsTeamKill, TargetThrea
 ---ScoringObject:OpenCSV( "Player Scores" )
 ---```
 ------
----@param self SCORING 
 ---@param ScoringCSV string 
 ---@return SCORING #self
 function SCORING:OpenCSV(ScoringCSV) end
@@ -444,7 +423,6 @@ function SCORING:OpenCSV(ScoringCSV) end
 ---Removes a Wrapper.Static for additional scoring when the Wrapper.Static is destroyed.
 ---
 ------
----@param self SCORING 
 ---@param ScoreStatic UNIT The @{Wrapper.Static} for which the Score needs to be given.
 ---@return SCORING #
 function SCORING:RemoveStaticScore(ScoreStatic) end
@@ -452,7 +430,6 @@ function SCORING:RemoveStaticScore(ScoreStatic) end
 ---Removes a Wrapper.Unit for additional scoring when the Wrapper.Unit is destroyed.
 ---
 ------
----@param self SCORING 
 ---@param ScoreUnit UNIT The @{Wrapper.Unit} for which the Score needs to be given.
 ---@return SCORING #
 function SCORING:RemoveUnitScore(ScoreUnit) end
@@ -462,7 +439,6 @@ function SCORING:RemoveUnitScore(ScoreUnit) end
 ---This allows for a dynamic destruction zone evolution within your mission.
 ---
 ------
----@param self SCORING 
 ---@param ScoreZone ZONE_BASE The @{Core.Zone} which defines the destruction score perimeters. Note that a zone can be a polygon or a moving zone.
 ---@return SCORING #
 function SCORING:RemoveZoneScore(ScoreZone) end
@@ -470,7 +446,6 @@ function SCORING:RemoveZoneScore(ScoreZone) end
 ---Produce detailed report of player penalty scores because of changing the coalition.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@return string #The report.
 function SCORING:ReportDetailedPlayerCoalitionChanges(PlayerName) end
@@ -478,7 +453,6 @@ function SCORING:ReportDetailedPlayerCoalitionChanges(PlayerName) end
 ---Produce detailed report of player destroy scores.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@return string #The report.
 function SCORING:ReportDetailedPlayerDestroys(PlayerName) end
@@ -486,7 +460,6 @@ function SCORING:ReportDetailedPlayerDestroys(PlayerName) end
 ---Produce detailed report of player goal scores.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@return string #The report.
 function SCORING:ReportDetailedPlayerGoals(PlayerName) end
@@ -494,7 +467,6 @@ function SCORING:ReportDetailedPlayerGoals(PlayerName) end
 ---Produce detailed report of player hit scores.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@return string #The report.
 function SCORING:ReportDetailedPlayerHits(PlayerName) end
@@ -502,7 +474,6 @@ function SCORING:ReportDetailedPlayerHits(PlayerName) end
 ---Produce detailed report of player penalty scores because of changing the coalition.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@return string #The report.
 function SCORING:ReportDetailedPlayerMissions(PlayerName) end
@@ -510,28 +481,24 @@ function SCORING:ReportDetailedPlayerMissions(PlayerName) end
 ---Report all players score
 ---
 ------
----@param self SCORING 
 ---@param PlayerGroup GROUP The player group.
 function SCORING:ReportScoreAllSummary(PlayerGroup) end
 
 ---Report Group Score Detailed
 ---
 ------
----@param self SCORING 
 ---@param PlayerGroup GROUP The player group.
 function SCORING:ReportScoreGroupDetailed(PlayerGroup) end
 
 ---Report Group Score Summary
 ---
 ------
----@param self SCORING 
 ---@param PlayerGroup GROUP The player group.
 function SCORING:ReportScoreGroupSummary(PlayerGroup) end
 
 ---Registers a score for a player.
 ---
 ------
----@param self SCORING 
 ---@param PlayerName string The name of the player.
 ---@param TargetPlayerName string The name of the target player.
 ---@param ScoreType string The type of the score.
@@ -551,7 +518,6 @@ function SCORING:ScoreCSV(PlayerName, TargetPlayerName, ScoreType, ScoreTimes, S
 
 ---
 ------
----@param self NOTYPE 
 ---@param sSeconds NOTYPE 
 function SCORING:SecondsToClock(sSeconds) end
 
@@ -560,7 +526,6 @@ function SCORING:SecondsToClock(sSeconds) end
 ---By default, the penalty for changing coalition is the default penalty scale.
 ---
 ------
----@param self SCORING 
 ---@param CoalitionChangePenalty number The amount of penalty that is given.
 ---@return SCORING #
 function SCORING:SetCoalitionChangePenalty(CoalitionChangePenalty) end
@@ -568,7 +533,6 @@ function SCORING:SetCoalitionChangePenalty(CoalitionChangePenalty) end
 ---Set a prefix string that will be displayed at each scoring message sent.
 ---
 ------
----@param self SCORING 
 ---@param DisplayMessagePrefix string (Default="Scoring: ") The scoring prefix string.
 ---@return SCORING #
 function SCORING:SetDisplayMessagePrefix(DisplayMessagePrefix) end
@@ -578,7 +542,6 @@ function SCORING:SetDisplayMessagePrefix(DisplayMessagePrefix) end
 ---By default, the fratricide level is the default penalty multiplier * 2 for the penalty score.
 ---
 ------
----@param self SCORING 
 ---@param Fratricide number The amount of maximum penalty that may be inflicted by a friendly player before he gets kicked. 
 ---@return SCORING #
 function SCORING:SetFratricide(Fratricide) end
@@ -586,7 +549,6 @@ function SCORING:SetFratricide(Fratricide) end
 ---Configure to send messages after a target has been destroyed.
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean If true is given, the messages are sent.
 ---@return SCORING #
 function SCORING:SetMessagesDestroy(OnOff) end
@@ -594,7 +556,6 @@ function SCORING:SetMessagesDestroy(OnOff) end
 ---Configure to send messages after a target has been hit.
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean If true is given, the messages are sent.
 ---@return SCORING #
 function SCORING:SetMessagesHit(OnOff) end
@@ -602,7 +563,6 @@ function SCORING:SetMessagesHit(OnOff) end
 ---Configure to send messages after a target has been destroyed and receives additional scores.
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean If true is given, the messages are sent.
 ---@return SCORING #
 function SCORING:SetMessagesScore(OnOff) end
@@ -610,21 +570,18 @@ function SCORING:SetMessagesScore(OnOff) end
 ---Configure to send messages to all players.
 ---
 ------
----@param self SCORING 
 ---@return SCORING #
 function SCORING:SetMessagesToAll() end
 
 ---Configure to send messages to only those players within the same coalition as the player.
 ---
 ------
----@param self SCORING 
 ---@return SCORING #
 function SCORING:SetMessagesToCoalition() end
 
 ---Configure to send messages after a target has been hit in a zone, and additional score is received.
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean If true is given, the messages are sent.
 ---@return SCORING #
 function SCORING:SetMessagesZone(OnOff) end
@@ -634,7 +591,6 @@ function SCORING:SetMessagesZone(OnOff) end
 ---The scale magnifies the scores given to the players.
 ---
 ------
----@param self SCORING 
 ---@param Scale number The scale of the score given.
 ---@return SCORING #
 function SCORING:SetScaleDestroyPenalty(Scale) end
@@ -644,14 +600,12 @@ function SCORING:SetScaleDestroyPenalty(Scale) end
 ---The scale magnifies the scores given to the players.
 ---
 ------
----@param self SCORING 
 ---@param Scale number The scale of the score given.
 function SCORING:SetScaleDestroyScore(Scale) end
 
 ---Configure to increment score after a target has been hit.
 ---
 ------
----@param self SCORING 
 ---@param score number  amount of point to inclement score on each hit
 ---@return SCORING #
 function SCORING:SetScoreIncrementOnHit(score) end
@@ -659,7 +613,6 @@ function SCORING:SetScoreIncrementOnHit(score) end
 ---Sets the scoring menu.
 ---
 ------
----@param self SCORING 
 ---@param ScoringGroup NOTYPE 
 ---@return SCORING #
 function SCORING:SetScoringMenu(ScoringGroup) end
@@ -667,7 +620,6 @@ function SCORING:SetScoringMenu(ScoringGroup) end
 ---Registers a score for a player.
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean Switch saving to CSV on = true or off = false
 ---@return SCORING #self
 function SCORING:SwitchAutoSave(OnOff) end
@@ -675,7 +627,6 @@ function SCORING:SwitchAutoSave(OnOff) end
 ---Decide if fratricide is leading to penalties (true) or not (false)
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean Switch for Fratricide
 ---@return SCORING #
 function SCORING:SwitchFratricide(OnOff) end
@@ -683,7 +634,6 @@ function SCORING:SwitchFratricide(OnOff) end
 ---Decide if a change of coalition is leading to penalties (true) or not (false)
 ---
 ------
----@param self SCORING 
 ---@param OnOff boolean Switch for Coalition Changes.
 ---@return SCORING #
 function SCORING:SwitchTreason(OnOff) end
@@ -691,7 +641,6 @@ function SCORING:SwitchTreason(OnOff) end
 ---Registers Scores the players completing a Mission Task.
 ---
 ------
----@param self SCORING 
 ---@param Mission MISSION 
 ---@param PlayerName string 
 ---@param Text string 
@@ -701,7 +650,6 @@ function SCORING:_AddMissionGoalScore(Mission, PlayerName, Text, Score) end
 ---Registers Mission Scores for possible multiple players that contributed in the Mission.
 ---
 ------
----@param self SCORING 
 ---@param Mission MISSION 
 ---@param PlayerUnit UNIT 
 ---@param Text string 
@@ -711,7 +659,6 @@ function SCORING:_AddMissionScore(Mission, PlayerUnit, Text, Score) end
 ---Registers Scores the players completing a Mission Task.
 ---
 ------
----@param self SCORING 
 ---@param Mission MISSION 
 ---@param PlayerUnit UNIT 
 ---@param Text string 
@@ -721,21 +668,18 @@ function SCORING:_AddMissionTaskScore(Mission, PlayerUnit, Text, Score) end
 ---Add a new player entering a Unit.
 ---
 ------
----@param self SCORING 
 ---@param UnitData UNIT 
 function SCORING:_AddPlayerFromUnit(UnitData) end
 
 ---Track  DEAD or CRASH events for the scoring.
 ---
 ------
----@param self SCORING 
 ---@param Event EVENTDATA 
 function SCORING:_EventOnDeadOrCrash(Event) end
 
 ---Handles the OnHit event for the scoring.
 ---
 ------
----@param self SCORING 
 ---@param Event EVENTDATA 
 function SCORING:_EventOnHit(Event) end
 

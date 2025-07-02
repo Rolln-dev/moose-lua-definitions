@@ -40,7 +40,6 @@ AI_CARGO = {}
 ---Deploy Trigger for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Coordinate COORDINATE 
 ---@param Speed number Speed in km/h. Default is 50% of max possible speed the group can do.
 function AI_CARGO:Deploy(Coordinate, Speed) end
@@ -48,19 +47,16 @@ function AI_CARGO:Deploy(Coordinate, Speed) end
 
 ---
 ------
----@param self NOTYPE 
 function AI_CARGO:IsRelocating() end
 
 
 ---
 ------
----@param self NOTYPE 
 function AI_CARGO:IsTransporting() end
 
 ---Creates a new AI_CARGO object.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP Cargo carrier group.
 ---@param CargoSet SET_CARGO Set of cargo(s) to transport.
 ---@return AI_CARGO #self
@@ -69,7 +65,6 @@ function AI_CARGO:New(Carrier, CargoSet) end
 ---Deploy Handler OnAfter for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -80,7 +75,6 @@ function AI_CARGO:OnAfterDeploy(From, Event, To, Coordinate, Speed) end
 ---On after Deployed event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -92,7 +86,6 @@ function AI_CARGO:OnAfterDeployed(Carrier, From, Event, To, DeployZone, Defend) 
 ---Loaded Handler OnAfter for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string 
 ---@param Event string 
@@ -102,7 +95,6 @@ function AI_CARGO:OnAfterLoaded(Carrier, From, Event, To) end
 ---Pickup Handler OnAfter for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -113,7 +105,6 @@ function AI_CARGO:OnAfterPickup(From, Event, To, Coordinate, Speed) end
 ---Unloaded Handler OnAfter for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string 
 ---@param Event string 
@@ -123,7 +114,6 @@ function AI_CARGO:OnAfterUnloaded(Carrier, From, Event, To) end
 ---Deploy Handler OnBefore for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -135,7 +125,6 @@ function AI_CARGO:OnBeforeDeploy(From, Event, To, Coordinate, Speed) end
 ---Pickup Handler OnBefore for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -147,7 +136,6 @@ function AI_CARGO:OnBeforePickup(From, Event, To, Coordinate, Speed) end
 ---Pickup Trigger for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Coordinate COORDINATE 
 ---@param Speed number Speed in km/h. Default is 50% of max possible speed the group can do.
 function AI_CARGO:Pickup(Coordinate, Speed) end
@@ -155,7 +143,6 @@ function AI_CARGO:Pickup(Coordinate, Speed) end
 ---Deploy Asynchronous Trigger for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Delay number 
 ---@param Coordinate COORDINATE 
 ---@param Speed number Speed in km/h. Default is 50% of max possible speed the group can do.
@@ -164,7 +151,6 @@ function AI_CARGO:__Deploy(Delay, Coordinate, Speed) end
 ---Pickup Asynchronous Trigger for AI_CARGO
 ---
 ------
----@param self AI_CARGO 
 ---@param Delay number 
 ---@param Coordinate COORDINATE Pickup place. If not given, loading starts at the current location.
 ---@param Speed number Speed in km/h. Default is 50% of max possible speed the group can do.
@@ -173,7 +159,6 @@ function AI_CARGO:__Pickup(Delay, Coordinate, Speed) end
 ---On after Board event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -187,7 +172,6 @@ function AI_CARGO:onafterBoard(Carrier, From, Event, To, Cargo, CarrierUnit, Pic
 ---On after Deploy event.
 ---
 ------
----@param self AI_CARGO 
 ---@param APC GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -202,7 +186,6 @@ function AI_CARGO:onafterDeploy(APC, From, Event, To, Coordinate, Speed, Height,
 ---On after Deployed event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -215,7 +198,6 @@ function AI_CARGO:onafterDeployed(Carrier, From, Event, To, DeployZone, Defend) 
 ---On after Loaded event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -229,7 +211,6 @@ function AI_CARGO:onafterLoaded(Carrier, From, Event, To, PickupZone, Cargo) end
 ---On after PickedUp event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -241,7 +222,6 @@ function AI_CARGO:onafterPickedUp(Carrier, From, Event, To, PickupZone) end
 ---On after Pickup event.
 ---
 ------
----@param self AI_CARGO 
 ---@param APC GROUP 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -256,7 +236,6 @@ function AI_CARGO:onafterPickup(APC, From, Event, To, Coordinate, Speed, Height,
 ---On after Unboard event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -271,7 +250,6 @@ function AI_CARGO:onafterUnboard(Carrier, From, Event, To, Cargo, DeployZone, Ca
 ---On after Unload event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -284,7 +262,6 @@ function AI_CARGO:onafterUnload(Carrier, From, Event, To, DeployZone, Defend) en
 ---On after Unloaded event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -300,7 +277,6 @@ function AI_CARGO:onafterUnloaded(Carrier, From, Event, To, Cargo, Deployed, Dep
 ---On before Load event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.
@@ -312,7 +288,6 @@ function AI_CARGO:onbeforeLoad(Carrier, From, Event, To, PickupZone) end
 ---On before Reload event.
 ---
 ------
----@param self AI_CARGO 
 ---@param Carrier GROUP 
 ---@param From string From state.
 ---@param Event string Event.

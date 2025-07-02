@@ -37,7 +37,6 @@ TEXTANDSOUND = {}
 ---Add an entry
 ---
 ------
----@param self TEXTANDSOUND 
 ---@param Locale string Locale to set for this entry, e.g. "de".
 ---@param ID string Unique(!) ID of this entry under this locale (i.e. use the same ID to get localized text for the entry in another language).
 ---@param Text string Text for this entry.
@@ -50,21 +49,18 @@ function TEXTANDSOUND:AddEntry(Locale, ID, Text, Soundfile, Soundlength, Subtitl
 ---Flush all entries to the log
 ---
 ------
----@param self TEXTANDSOUND 
 ---@return TEXTANDSOUND #self
 function TEXTANDSOUND:FlushToLog() end
 
 ---Get the default locale of this object
 ---
 ------
----@param self TEXTANDSOUND 
 ---@return string #locale
 function TEXTANDSOUND:GetDefaultLocale() end
 
 ---Get an entry
 ---
 ------
----@param self TEXTANDSOUND 
 ---@param ID string The unique ID of the data to be retrieved.
 ---@param Locale? string (Optional) The locale of the text to be retrieved - defauls to default locale set with `New()`.
 ---@return string #Text Text or nil if not found and no fallback.
@@ -76,7 +72,6 @@ function TEXTANDSOUND:GetEntry(ID, Locale) end
 ---Check if a locale exists
 ---
 ------
----@param self TEXTANDSOUND 
 ---@param Locale NOTYPE 
 ---@return boolean #outcome
 function TEXTANDSOUND:HasLocale(Locale) end
@@ -84,7 +79,6 @@ function TEXTANDSOUND:HasLocale(Locale) end
 ---Instantiate a new object
 ---
 ------
----@param self TEXTANDSOUND 
 ---@param ClassName string Name of the class this instance is providing texts for.
 ---@param Defaultlocale? string (Optional) Default locale of this instance, defaults to "en". 
 ---@return TEXTANDSOUND #self
@@ -93,7 +87,6 @@ function TEXTANDSOUND:New(ClassName, Defaultlocale) end
 ---Set default locale of this object
 ---
 ------
----@param self TEXTANDSOUND 
 ---@param locale string 
 ---@return TEXTANDSOUND #self 
 function TEXTANDSOUND:SetDefaultLocale(locale) end

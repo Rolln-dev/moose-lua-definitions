@@ -57,7 +57,6 @@ BEACON = {}
 ---myBeacon:AATACAN(20, "TEXACO", true) -- Activate the beacon
 ---```
 ------
----@param self BEACON 
 ---@param TACANChannel number (the "10" part in "10Y"). Note that AA TACAN are only available on Y Channels
 ---@param Message string The Message that is going to be coded in Morse and broadcasted by the beacon
 ---@param Bearing boolean Can the BEACON be homed on ?
@@ -69,7 +68,6 @@ function BEACON:AATACAN(TACANChannel, Message, Bearing, BeaconDuration) end
 ---The unit the BEACON is attached to should be an aircraft carrier supporting this system.
 ---
 ------
----@param self BEACON 
 ---@param Channel number ICLS channel.
 ---@param Callsign string The Message that is going to be coded in Morse and broadcasted by the beacon.
 ---@param Duration number How long will the beacon last in seconds. Omit for forever.
@@ -80,7 +78,6 @@ function BEACON:ActivateICLS(Channel, Callsign, Duration) end
 ---The unit the BEACON is attached to should be an aircraft carrier supporting this system.
 ---
 ------
----@param self BEACON 
 ---@param Frequency number LINK4 FRequency in MHz, eg 336.
 ---@param Morse string The ID that is going to be coded in Morse and broadcasted by the beacon.
 ---@param Duration number How long will the beacon last in seconds. Omit for forever.
@@ -100,7 +97,6 @@ function BEACON:ActivateLink4(Frequency, Morse, Duration) end
 ---myBeacon:ActivateTACAN(20, "Y", "TEXACO", true) -- Activate the beacon
 ---```
 ------
----@param self BEACON 
 ---@param Channel number TACAN channel, i.e. the "10" part in "10Y".
 ---@param Mode string TACAN mode, i.e. the "Y" part in "10Y".
 ---@param Message string The Message that is going to be coded in Morse and broadcasted by the beacon.
@@ -114,7 +110,6 @@ function BEACON:ActivateTACAN(Channel, Mode, Message, Bearing, Duration) end
 ---If you want to create a BEACON, you probably should use Wrapper.Positionable#POSITIONABLE.GetBeacon() instead.
 ---
 ------
----@param self BEACON 
 ---@param Positionable POSITIONABLE The @{Wrapper.Positionable} that will receive radio capabilities.
 ---@return BEACON #Beacon object or #nil if the positionable is invalid.
 function BEACON:New(Positionable) end
@@ -144,7 +139,6 @@ function BEACON:New(Positionable) end
 ---UnitBeacon:RadioBeacon("MySoundFileSOS.ogg", 40, radio.modulation.FM, 20, 5*60)
 ---```
 ------
----@param self BEACON 
 ---@param FileName string The name of the audio file
 ---@param Frequency number in MHz
 ---@param Modulation number either radio.modulation.AM or radio.modulation.FM
@@ -156,21 +150,18 @@ function BEACON:RadioBeacon(FileName, Frequency, Modulation, Power, BeaconDurati
 ---Stops the AA TACAN BEACON
 ---
 ------
----@param self BEACON 
 ---@return BEACON #self
 function BEACON:StopAATACAN() end
 
 ---Stops the Radio Beacon
 ---
 ------
----@param self BEACON 
 ---@return BEACON #self
 function BEACON:StopRadioBeacon() end
 
 ---Converts a TACAN Channel/Mode couple into a frequency in Hz
 ---
 ------
----@param self BEACON 
 ---@param TACANChannel number 
 ---@param TACANMode string 
 ---@return number #Frequecy

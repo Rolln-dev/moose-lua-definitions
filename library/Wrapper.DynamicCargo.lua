@@ -68,7 +68,6 @@ DYNAMICCARGO = {}
 ---         -- will return the all dynamic cargos found ending in "-1-1" to "-9-9", but not e.g. "-10-1" or "-1-10"
 ---```
 ------
----@param self DYNAMICCARGO 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return table #Groups Table of matching #DYNAMICCARGO objects found
 function DYNAMICCARGO:FindAllByMatching(Pattern) end
@@ -89,7 +88,6 @@ function DYNAMICCARGO:FindAllByMatching(Pattern) end
 ---         -- will return the first dynamic cargo found ending in "-1-1" to "-9-9", but not e.g. "-10-1"
 ---```
 ------
----@param self DYNAMICCARGO 
 ---@param Pattern string The pattern to look for. Refer to [LUA patterns](http://www.easyuo.com/openeuo/wiki/index.php/Lua_Patterns_and_Captures_\(Regular_Expressions\)) for regular expressions in LUA.
 ---@return DYNAMICCARGO #The DYNAMICCARGO.
 function DYNAMICCARGO:FindByMatching(Pattern) end
@@ -97,7 +95,6 @@ function DYNAMICCARGO:FindByMatching(Pattern) end
 ---Find a DYNAMICCARGO in the **_DATABASE** using the name associated with it.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@param Name string The dynamic cargo name
 ---@return DYNAMICCARGO #self
 function DYNAMICCARGO:FindByName(Name) end
@@ -105,14 +102,12 @@ function DYNAMICCARGO:FindByName(Name) end
 ---Get the cargo display name from this dynamic cargo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return string #The display name
 function DYNAMICCARGO:GetCargoDisplayName() end
 
 ---Get the weight in kgs from this dynamic cargo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return number #Weight in kgs.
 function DYNAMICCARGO:GetCargoWeight() end
 
@@ -120,84 +115,72 @@ function DYNAMICCARGO:GetCargoWeight() end
 ---Always one.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return number #crate number, always one
 function DYNAMICCARGO:GetCratesNeeded() end
 
 ---Get DCS object.
 ---
 ------
----@param self DYNAMICCARGO 
----@return  #DCS static object
+---@return NOTYPE #DCS static object
 function DYNAMICCARGO:GetDCSObject() end
 
 ---Get last known owner name of this DYNAMICCARGO
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return string #Owner
 function DYNAMICCARGO:GetLastOwner() end
 
 ---Find last known position of this DYNAMICCARGO
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return Vec3 #Position in 3D space
 function DYNAMICCARGO:GetLastPosition() end
 
 ---Find current state of this DYNAMICCARGO
 ---
 ------
----@param self DYNAMICCARGO 
----@return  #string The current state
+---@return NOTYPE #string The current state
 function DYNAMICCARGO:GetState() end
 
 ---Get the #STORAGE object from this dynamic cargo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return STORAGE #Storage The #STORAGE object
 function DYNAMICCARGO:GetStorageObject() end
 
 ---[CTLD] Get CTLD_CARGO.Enum type of this DYNAMICCARGO
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return string #Type, only one at the moment is CTLD_CARGO.Enum.GCLOADABLE
 function DYNAMICCARGO:GetType() end
 
 ---Returns true if the cargo been loaded into a Helo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return boolean #Outcome
 function DYNAMICCARGO:IsLoaded() end
 
 ---Returns true if the cargo is new and has never been loaded into a Helo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return boolean #Outcome
 function DYNAMICCARGO:IsNew() end
 
 ---Returns true if the cargo has been removed.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return boolean #Outcome
 function DYNAMICCARGO:IsRemoved() end
 
 ---Returns true if the cargo has been unloaded from a Helo.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return boolean #Outcome
 function DYNAMICCARGO:IsUnloaded() end
 
 ---Create a new DYNAMICCARGO object from the DCS static cargo object.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@param CargoName string Name of the Cargo.
 ---@return DYNAMICCARGO #self
 function DYNAMICCARGO:Register(CargoName) end
@@ -206,21 +189,18 @@ function DYNAMICCARGO:Register(CargoName) end
 ---True if DYNAMICCARGO.State.UNLOADED
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return boolean #Dropped
 function DYNAMICCARGO:WasDropped() end
 
 ---[Internal] Track helos for loaded/unloaded decision making.
 ---
 ------
----@param client CLIENT 
 ---@return boolean #IsIn
 function DYNAMICCARGO._FilterHeloTypes(client) end
 
 ---[Internal] _Get Possible Player Helo Nearby
 ---
 ------
----@param self DYNAMICCARGO 
 ---@param pos COORDINATE 
 ---@param loading boolean If true measure distance for loading else for unloading
 ---@return boolean #Success
@@ -231,7 +211,6 @@ function DYNAMICCARGO:_GetPossibleHeloNearby(pos, loading) end
 ---[Internal] _Get helo hovering intel
 ---
 ------
----@param self DYNAMICCARGO 
 ---@param Unit UNIT The Unit to test
 ---@param ropelength number Ropelength to test
 ---@return boolean #Outcome
@@ -240,7 +219,6 @@ function DYNAMICCARGO:_HeloHovering(Unit, ropelength) end
 ---[Internal] Update internal states.
 ---
 ------
----@param self DYNAMICCARGO 
 ---@return DYNAMICCARGO #self
 function DYNAMICCARGO:_UpdatePosition() end
 

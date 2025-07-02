@@ -99,16 +99,14 @@ AI_BALANCER = {}
 ---Provide 2 identical seconds if the interval should be a fixed amount of seconds.
 ---
 ------
----@param self AI_BALANCER 
 ---@param Earliest number The earliest a new AI can be spawned in seconds.
 ---@param Latest number The latest a new AI can be spawned in seconds.
----@return  #self
+---@return NOTYPE #self
 function AI_BALANCER:InitSpawnInterval(Earliest, Latest) end
 
 ---Creates a new AI_BALANCER object
 ---
 ------
----@param self AI_BALANCER 
 ---@param SetClient SET_CLIENT A SET\_CLIENT object that will contain the CLIENT objects to be monitored if they are alive or not (joined by a player).
 ---@param SpawnAI SPAWN The default Spawn object to spawn new AI Groups when needed.
 ---@return AI_BALANCER #
@@ -117,14 +115,12 @@ function AI_BALANCER:New(SetClient, SpawnAI) end
 ---Returns the AI to the home Wrapper.Airbase#AIRBASE.
 ---
 ------
----@param self AI_BALANCER 
 ---@param ReturnThresholdRange Distance If there is an enemy @{Wrapper.Client#CLIENT} within the ReturnThresholdRange given in meters, the AI will not return to the nearest @{Wrapper.Airbase#AIRBASE}.
 function AI_BALANCER:ReturnToHomeAirbase(ReturnThresholdRange) end
 
 ---Returns the AI to the nearest friendly Wrapper.Airbase#AIRBASE.
 ---
 ------
----@param self AI_BALANCER 
 ---@param ReturnThresholdRange Distance If there is an enemy @{Wrapper.Client#CLIENT} within the ReturnThresholdRange given in meters, the AI will not return to the nearest @{Wrapper.Airbase#AIRBASE}.
 ---@param ReturnAirbaseSet SET_AIRBASE The SET of @{Core.Set#SET_AIRBASE}s to evaluate where to return to.
 function AI_BALANCER:ReturnToNearestAirbases(ReturnThresholdRange, ReturnAirbaseSet) end
@@ -132,7 +128,6 @@ function AI_BALANCER:ReturnToNearestAirbases(ReturnThresholdRange, ReturnAirbase
 ---AI_BALANCER:onenterDestroying
 ---
 ------
----@param self AI_BALANCER 
 ---@param SetGroup SET_GROUP 
 ---@param AIGroup GROUP 
 ---@param From NOTYPE 
@@ -145,7 +140,6 @@ function AI_BALANCER:onenterDestroying(SetGroup, AIGroup, From, Event, To, Clien
 ---AI_BALANCER:onenterMonitoring
 ---
 ------
----@param self AI_BALANCER 
 ---@param SetGroup NOTYPE 
 ---@private
 function AI_BALANCER:onenterMonitoring(SetGroup) end
@@ -153,7 +147,6 @@ function AI_BALANCER:onenterMonitoring(SetGroup) end
 ---RTB
 ---
 ------
----@param self AI_BALANCER 
 ---@param SetGroup SET_GROUP 
 ---@param From string 
 ---@param Event string 
@@ -165,7 +158,6 @@ function AI_BALANCER:onenterReturning(SetGroup, From, Event, To, AIGroup) end
 ---AI_BALANCER:onenterSpawning
 ---
 ------
----@param self AI_BALANCER 
 ---@param SetGroup SET_GROUP 
 ---@param ClientName string 
 ---@param AIGroup GROUP 

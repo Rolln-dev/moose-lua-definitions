@@ -45,7 +45,6 @@ TASK_A2A = {}
 ---This function is called from the Tasking.CommandCenter#COMMANDCENTER to determine the method of automatic task selection.
 ---
 ------
----@param self TASK_A2A 
 ---@param AutoAssignMethod number The method to be applied to the task.
 ---@param CommandCenter COMMANDCENTER The command center.
 ---@param TaskGroup GROUP The player group.
@@ -54,47 +53,40 @@ function TASK_A2A:GetAutoAssignPriority(AutoAssignMethod, CommandCenter, TaskGro
 
 ---
 ------
----@param self NOTYPE 
 function TASK_A2A:GetGoalTotal() end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_A2A:GetPlannedMenuText() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:GetRendezVousCoordinate(TaskUnit) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:GetRendezVousZone(TaskUnit) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:GetTargetCoordinate(TaskUnit) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:GetTargetZone(TaskUnit) end
 
 ---Instantiates a new TASK_A2A.
 ---
 ------
----@param self TASK_A2A 
 ---@param Mission MISSION 
 ---@param SetAttack SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -110,20 +102,17 @@ function TASK_A2A:New(Mission, SetAttack, TaskName, UnitSetTargets, TargetDistan
 ---Return the relative distance to the target vicinity from the player, in order to sort the targets in the reports per distance from the threats.
 ---
 ------
----@param self TASK_A2A 
 ---@param ReportGroup NOTYPE 
 function TASK_A2A:ReportOrder(ReportGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 function TASK_A2A:SetGoalTotal() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param RendezVousCoordinate NOTYPE 
 ---@param RendezVousRange NOTYPE 
 ---@param TaskUnit NOTYPE 
@@ -132,7 +121,6 @@ function TASK_A2A:SetRendezVousCoordinate(RendezVousCoordinate, RendezVousRange,
 
 ---
 ------
----@param self NOTYPE 
 ---@param RendezVousZone NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:SetRendezVousZone(RendezVousZone, TaskUnit) end
@@ -140,7 +128,6 @@ function TASK_A2A:SetRendezVousZone(RendezVousZone, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TargetCoordinate NOTYPE 
 ---@param TaskUnit NOTYPE 
 function TASK_A2A:SetTargetCoordinate(TargetCoordinate, TaskUnit) end
@@ -148,14 +135,12 @@ function TASK_A2A:SetTargetCoordinate(TargetCoordinate, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TargetSetUnit NOTYPE 
 function TASK_A2A:SetTargetSetUnit(TargetSetUnit) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TargetZone NOTYPE 
 ---@param Altitude NOTYPE 
 ---@param Heading NOTYPE 
@@ -165,14 +150,12 @@ function TASK_A2A:SetTargetZone(TargetZone, Altitude, Heading, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param DetectedItem NOTYPE 
 function TASK_A2A:UpdateTaskInfo(DetectedItem) end
 
 ---This method checks every 10 seconds if the goal has been reached of the task.
 ---
 ------
----@param self TASK_A2A 
 ---@param TaskUnit NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 
@@ -197,7 +180,6 @@ TASK_A2A_ENGAGE = {}
 ---Instantiates a new TASK_A2A_ENGAGE.
 ---
 ------
----@param self TASK_A2A_ENGAGE 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -209,7 +191,6 @@ function TASK_A2A_ENGAGE:New(Mission, SetGroup, TaskName, TargetSetUnit, TaskBri
 ---Set a penalty when the A2A attack has failed.
 ---
 ------
----@param self TASK_A2A_ENGAGE 
 ---@param PlayerName string The name of the player.
 ---@param Penalty number The penalty in points, must be a negative value!
 ---@param TaskUnit UNIT 
@@ -219,7 +200,6 @@ function TASK_A2A_ENGAGE:SetScoreOnFail(PlayerName, Penalty, TaskUnit) end
 ---Set a score when a target in scope of the A2A attack, has been destroyed .
 ---
 ------
----@param self TASK_A2A_ENGAGE 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points to be granted when task process has been achieved.
 ---@param TaskUnit UNIT 
@@ -229,7 +209,6 @@ function TASK_A2A_ENGAGE:SetScoreOnProgress(PlayerName, Score, TaskUnit) end
 ---Set a score when all the targets in scope of the A2A attack, have been destroyed.
 ---
 ------
----@param self TASK_A2A_ENGAGE 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -253,7 +232,6 @@ TASK_A2A_INTERCEPT = {}
 ---Instantiates a new TASK_A2A_INTERCEPT.
 ---
 ------
----@param self TASK_A2A_INTERCEPT 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -265,7 +243,6 @@ function TASK_A2A_INTERCEPT:New(Mission, SetGroup, TaskName, TargetSetUnit, Task
 ---Set a penalty when the A2A attack has failed.
 ---
 ------
----@param self TASK_A2A_INTERCEPT 
 ---@param PlayerName string The name of the player.
 ---@param Penalty number The penalty in points, must be a negative value!
 ---@param TaskUnit UNIT 
@@ -275,7 +252,6 @@ function TASK_A2A_INTERCEPT:SetScoreOnFail(PlayerName, Penalty, TaskUnit) end
 ---Set a score when a target in scope of the A2A attack, has been destroyed.
 ---
 ------
----@param self TASK_A2A_INTERCEPT 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points to be granted when task process has been achieved.
 ---@param TaskUnit UNIT 
@@ -285,7 +261,6 @@ function TASK_A2A_INTERCEPT:SetScoreOnProgress(PlayerName, Score, TaskUnit) end
 ---Set a score when all the targets in scope of the A2A attack, have been destroyed.
 ---
 ------
----@param self TASK_A2A_INTERCEPT 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -311,7 +286,6 @@ TASK_A2A_SWEEP = {}
 ---Instantiates a new TASK_A2A_SWEEP.
 ---
 ------
----@param self TASK_A2A_SWEEP 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -323,7 +297,6 @@ function TASK_A2A_SWEEP:New(Mission, SetGroup, TaskName, TargetSetUnit, TaskBrie
 ---Set a penalty when the A2A attack has failed.
 ---
 ------
----@param self TASK_A2A_SWEEP 
 ---@param PlayerName string The name of the player.
 ---@param Penalty number The penalty in points, must be a negative value!
 ---@param TaskUnit UNIT 
@@ -333,7 +306,6 @@ function TASK_A2A_SWEEP:SetScoreOnFail(PlayerName, Penalty, TaskUnit) end
 ---Set a score when a target in scope of the A2A attack, has been destroyed.
 ---
 ------
----@param self TASK_A2A_SWEEP 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points to be granted when task process has been achieved.
 ---@param TaskUnit UNIT 
@@ -343,7 +315,6 @@ function TASK_A2A_SWEEP:SetScoreOnProgress(PlayerName, Score, TaskUnit) end
 ---Set a score when all the targets in scope of the A2A attack, have been destroyed.
 ---
 ------
----@param self TASK_A2A_SWEEP 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -353,7 +324,6 @@ function TASK_A2A_SWEEP:SetScoreOnSuccess(PlayerName, Score, TaskUnit) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

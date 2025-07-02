@@ -99,7 +99,6 @@ ACT_ASSIGN = {}
 ---The process will accept the task by default, no player intervention accepted.
 ---
 ------
----@param self ACT_ASSIGN 
 ---@return ACT_ASSIGN #The task acceptance process.
 function ACT_ASSIGN:New() end
 
@@ -116,7 +115,6 @@ ACT_ASSIGN_ACCEPT = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param FsmAssign NOTYPE 
 function ACT_ASSIGN_ACCEPT:Init(FsmAssign) end
 
@@ -124,14 +122,12 @@ function ACT_ASSIGN_ACCEPT:Init(FsmAssign) end
 ---The process will accept the task by default, no player intervention accepted.
 ---
 ------
----@param self ACT_ASSIGN_ACCEPT 
 ---@param TaskBriefing string 
 function ACT_ASSIGN_ACCEPT:New(TaskBriefing) end
 
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -143,7 +139,6 @@ function ACT_ASSIGN_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -170,7 +165,6 @@ ACT_ASSIGN_MENU_ACCEPT = {}
 ---The process will request from the menu if it accepts the task, if not, the unit is removed from the simulator.
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param TaskBriefing string 
 ---@return ACT_ASSIGN_MENU_ACCEPT #self
 function ACT_ASSIGN_MENU_ACCEPT:Init(TaskBriefing) end
@@ -178,21 +172,18 @@ function ACT_ASSIGN_MENU_ACCEPT:Init(TaskBriefing) end
 ---Menu function.
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param TaskGroup NOTYPE 
 function ACT_ASSIGN_MENU_ACCEPT:MenuAssign(TaskGroup) end
 
 ---Menu function.
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param TaskGroup NOTYPE 
 function ACT_ASSIGN_MENU_ACCEPT:MenuReject(TaskGroup) end
 
 ---Init.
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param TaskBriefing string 
 ---@return ACT_ASSIGN_MENU_ACCEPT #self
 function ACT_ASSIGN_MENU_ACCEPT:New(TaskBriefing) end
@@ -200,7 +191,6 @@ function ACT_ASSIGN_MENU_ACCEPT:New(TaskBriefing) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -213,7 +203,6 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterAssign(ProcessUnit, Event, From, To, Task
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -226,7 +215,6 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterReject(ProcessUnit, Event, From, To, Task
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_MENU_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -238,7 +226,6 @@ function ACT_ASSIGN_MENU_ACCEPT:onafterStart(ProcessUnit, Event, From, To, Task)
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ASSIGN_ACCEPT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 

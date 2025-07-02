@@ -262,14 +262,12 @@ TASK_CARGO_TRANSPORT = {}
 
 ---
 ------
----@param self TASK_CARGO_TRANSPORT 
 ---@return boolean #
 function TASK_CARGO_TRANSPORT:IsAllCargoTransported() end
 
 ---Instantiates a new TASK_CARGO_TRANSPORT.
 ---
 ------
----@param self TASK_CARGO_TRANSPORT 
 ---@param Mission MISSION 
 ---@param SetGroup SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task.
@@ -281,14 +279,12 @@ function TASK_CARGO_TRANSPORT:New(Mission, SetGroup, TaskName, SetCargo, TaskBri
 
 ---
 ------
----@param self NOTYPE 
 ---@param ReportGroup NOTYPE 
 function TASK_CARGO_TRANSPORT:ReportOrder(ReportGroup) end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnit NOTYPE 
 ---@param From NOTYPE 
 ---@param Event NOTYPE 

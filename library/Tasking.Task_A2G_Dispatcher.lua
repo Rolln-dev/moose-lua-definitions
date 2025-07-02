@@ -437,7 +437,6 @@ TASK_A2G_DISPATCHER = {}
 ---Creates a BAI task when there are targets for it.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_AREAS.DetectedItem 
 ---@param FriendlyCoalition NOTYPE 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
@@ -447,7 +446,6 @@ function TASK_A2G_DISPATCHER:EvaluateBAI(DetectedItem, FriendlyCoalition) end
 ---Creates a CAS task when there are targets for it.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_AREAS.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 ---@return nil #If there are no targets to be set.
@@ -457,7 +455,6 @@ function TASK_A2G_DISPATCHER:EvaluateCAS(DetectedItem) end
 ---Can only occur when the DetectedItem is Changed AND the state of the Task is "Planned".
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param Mission MISSION 
 ---@param Task TASK 
 ---@param DetectedItemID boolean 
@@ -470,7 +467,6 @@ function TASK_A2G_DISPATCHER:EvaluateRemoveTask(Mission, Task, DetectedItemID, D
 ---Creates a SEAD task when there are targets for it.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param DetectedItem DETECTION_AREAS.DetectedItem 
 ---@return SET_UNIT #TargetSetUnit: The target set of units.
 ---@return nil #If there are no targets to be set.
@@ -479,7 +475,6 @@ function TASK_A2G_DISPATCHER:EvaluateSEAD(DetectedItem) end
 ---TASK_A2G_DISPATCHER constructor.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param Mission MISSION The mission for which the task dispatching is done.
 ---@param SetGroup SET_GROUP The set of groups that can join the tasks within the mission.
 ---@param Detection DETECTION_BASE The detection results that are used to dynamically assign new tasks to human players.
@@ -489,7 +484,6 @@ function TASK_A2G_DISPATCHER:New(Mission, SetGroup, Detection) end
 ---OnAfter Transition Handler for Event Assign.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param From string The From State string.
 ---@param Event string The Event string.
 ---@param To string The To State string.
@@ -501,7 +495,6 @@ function TASK_A2G_DISPATCHER:OnAfterAssign(From, Event, To, Task, TaskUnit, Play
 ---Assigns tasks in relation to the detected items to the Core.Set#SET_GROUP.
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param Detection DETECTION_BASE The detection created by the @{Functional.Detection#DETECTION_BASE} derived object.
 ---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
 function TASK_A2G_DISPATCHER:ProcessDetected(Detection) end
@@ -509,14 +502,12 @@ function TASK_A2G_DISPATCHER:ProcessDetected(Detection) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskIndex NOTYPE 
 function TASK_A2G_DISPATCHER:RemoveTask(TaskIndex) end
 
 ---Set flashing player messages on or off
 ---
 ------
----@param self TASK_A2G_DISPATCHER 
 ---@param onoff boolean Set messages on (true) or off (false)
 function TASK_A2G_DISPATCHER:SetSendMessages(onoff) end
 

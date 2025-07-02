@@ -58,7 +58,6 @@ SEAD = {}
 ---Set an object to call back when going evasive.
 ---
 ------
----@param self SEAD 
 ---@param Object table The object to call. Needs to have object functions as follows: `:SeadSuppressionPlanned(Group, Name, SuppressionStartTime, SuppressionEndTime)`  `:SeadSuppressionStart(Group, Name)`,  `:SeadSuppressionEnd(Group, Name)`, 
 ---@return SEAD #self
 function SEAD:AddCallBack(Object) end
@@ -67,7 +66,6 @@ function SEAD:AddCallBack(Object) end
 ---In this case, take evasive actions based on the skill level set within the ME.
 ---
 ------
----@param self SEAD 
 ---@param EventData EVENTDATA 
 ---@return SEAD #self
 function SEAD:HandleEventShot(EventData) end
@@ -85,7 +83,6 @@ function SEAD:HandleEventShot(EventData) end
 ---SEAD_RU_SAM_Defenses = SEAD:New( { 'RU SA-6 Kub', 'RU SA-6 Defenses', 'RU MI-26 Troops', 'RU Attack Gori' } )
 ---```
 ------
----@param self SEAD 
 ---@param SEADGroupPrefixes table Table of #string entries or single #string, which is a table of Prefixes of the SA Groups in the DCS mission editor on which evasive actions need to be taken.
 ---@param Padding? number (Optional) Extra number of seconds to add to radar switch-back-on time
 ---@return SEAD #self
@@ -95,7 +92,6 @@ function SEAD:New(SEADGroupPrefixes, Padding) end
 ---Defaults to 75% to make it more deadly. Feature Request #1355
 ---
 ------
----@param self SEAD 
 ---@param range number Set the engagement range in percent, e.g. 55 (default 75)
 ---@return SEAD #self
 function SEAD:SetEngagementRange(range) end
@@ -103,7 +99,6 @@ function SEAD:SetEngagementRange(range) end
 ---Set the padding in seconds, which extends the radar off time calculated by SEAD
 ---
 ------
----@param self SEAD 
 ---@param Padding number Extra number of seconds to add for the switch-on (default 10 seconds)
 ---@return SEAD #self
 function SEAD:SetPadding(Padding) end
@@ -111,7 +106,6 @@ function SEAD:SetPadding(Padding) end
 ---Set SEAD to use emissions on/off in addition to alarm state.
 ---
 ------
----@param self SEAD 
 ---@param Switch boolean True for on, false for off.
 ---@return SEAD #self
 function SEAD:SwitchEmissions(Switch) end
@@ -119,7 +113,6 @@ function SEAD:SwitchEmissions(Switch) end
 ---Update the active SEAD Set (while running)
 ---
 ------
----@param self SEAD 
 ---@param SEADGroupPrefixes table The prefixes to add, note: can also be a single #string
 ---@return SEAD #self
 function SEAD:UpdateSet(SEADGroupPrefixes) end
@@ -127,7 +120,6 @@ function SEAD:UpdateSet(SEADGroupPrefixes) end
 ---(Internal) Check if a known HARM was fired
 ---
 ------
----@param self SEAD 
 ---@param WeaponName string 
 ---@return boolean #Returns true for a match
 ---@return string #name Name of hit in table
@@ -136,7 +128,6 @@ function SEAD:_CheckHarms(WeaponName) end
 ---(Internal) Return distance in meters between two coordinates or -1 on error.
 ---
 ------
----@param self SEAD 
 ---@param _point1 COORDINATE Coordinate one
 ---@param _point2 COORDINATE Coordinate two
 ---@return number #Distance in meters
@@ -145,7 +136,6 @@ function SEAD:_GetDistance(_point1, _point2) end
 ---(Internal) Calculate hit zone of an AGM-88
 ---
 ------
----@param self SEAD 
 ---@param SEADWeapon table DCS.Weapon object
 ---@param pos0 COORDINATE Position of the plane when it fired
 ---@param height number Height when the missile was fired
@@ -161,7 +151,6 @@ function SEAD:onafterCalculateHitZone(SEADWeapon, pos0, height, SEADGroup, SEADW
 ---(Internal) Handle Evasion
 ---
 ------
----@param self SEAD 
 ---@param _targetskill string 
 ---@param _targetgroup GROUP 
 ---@param SEADPlanePos COORDINATE 

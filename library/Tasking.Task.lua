@@ -345,13 +345,11 @@ TASK = {}
 ---Use this event to Abort the Task.
 ---
 ------
----@param self TASK 
 function TASK:Abort() end
 
 ---A group aborting the task.
 ---
 ------
----@param self TASK 
 ---@param PlayerGroup GROUP The group aborting the task.
 ---@return TASK #
 function TASK:AbortGroup(PlayerGroup) end
@@ -359,7 +357,6 @@ function TASK:AbortGroup(PlayerGroup) end
 ---Gets the SET_GROUP assigned to the TASK.
 ---
 ------
----@param self TASK 
 ---@param GroupSet SET_GROUP 
 ---@return SET_GROUP #
 function TASK:AddGroups(GroupSet) end
@@ -367,7 +364,6 @@ function TASK:AddGroups(GroupSet) end
 ---Add Task Progress for a Player Name
 ---
 ------
----@param self TASK 
 ---@param PlayerName string The name of the player.
 ---@param ProgressText string The text that explains the Progress achieved.
 ---@param ProgressTime number The time the progress was achieved.
@@ -378,7 +374,6 @@ function TASK:AddProgress(PlayerName, ProgressText, ProgressTime, ProgressPoints
 ---Assign the #TASK to a Wrapper.Group.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@return TASK #
 function TASK:AssignToGroup(TaskGroup) end
@@ -386,7 +381,6 @@ function TASK:AssignToGroup(TaskGroup) end
 ---Assign the #TASK to an alive Wrapper.Unit.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@return TASK #self
 function TASK:AssignToUnit(TaskUnit) end
@@ -395,13 +389,11 @@ function TASK:AssignToUnit(TaskUnit) end
 ---Use this event to Cancel the Task.
 ---
 ------
----@param self TASK 
 function TASK:Cancel() end
 
 ---Clear the Wrapper.Group assignment from the #TASK.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@return TASK #
 function TASK:ClearGroupAssignment(TaskGroup) end
@@ -409,7 +401,6 @@ function TASK:ClearGroupAssignment(TaskGroup) end
 ---A group crashing and thus aborting from the task.
 ---
 ------
----@param self TASK 
 ---@param PlayerGroup GROUP The group aborting the task.
 ---@return TASK #
 function TASK:CrashGroup(PlayerGroup) end
@@ -418,83 +409,71 @@ function TASK:CrashGroup(PlayerGroup) end
 ---Use this event to Fail the Task.
 ---
 ------
----@param self TASK 
 function TASK:Fail() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskUnitName NOTYPE 
 function TASK:FailProcesses(TaskUnitName) end
 
 ---Gets the #TASK briefing.
 ---
 ------
----@param self TASK 
 ---@return string #The briefing text.
 function TASK:GetBriefing() end
 
 ---Get goal of a task
 ---
 ------
----@param self TASK 
 ---@return GOAL #The Goal
 function TASK:GetGoal() end
 
 ---Gets the SET_GROUP assigned to the TASK.
 ---
 ------
----@param self TASK 
 ---@return SET_GROUP #
 function TASK:GetGroups() end
 
 ---Gets the ID of the Task
 ---
 ------
----@param self TASK 
 ---@return string #TaskID
 function TASK:GetID() end
 
 ---Gets the Mission to where the TASK belongs.
 ---
 ------
----@param self TASK 
 ---@return MISSION #
 function TASK:GetMission() end
 
 ---Gets the Name of the Task
 ---
 ------
----@param self TASK 
 ---@return string #The Task Name
 function TASK:GetName() end
 
 ---Create a count of the players in the Task.
 ---
 ------
----@param self TASK 
 ---@return number #The total number of players in the task.
 function TASK:GetPlayerCount() end
 
 ---Create a list of the players in the Task.
 ---
 ------
----@param self TASK 
 ---@return map #A map of the players
 function TASK:GetPlayerNames() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param PlayerName NOTYPE 
 function TASK:GetPlayerProgress(PlayerName) end
 
 ---Get the default or currently assigned Core.Fsm#FSM_PROCESS template with key ProcessName.
 ---
 ------
----@param self TASK 
 ---@param ProcessName string 
 ---@return FSM_PROCESS #
 function TASK:GetProcessTemplate(ProcessName) end
@@ -502,14 +481,12 @@ function TASK:GetProcessTemplate(ProcessName) end
 ---Gets the Scoring of the task
 ---
 ------
----@param self TASK 
 ---@return SCORING #Scoring
 function TASK:GetScoring() end
 
 ---Gets the FiniteStateMachine of #TASK with key Wrapper.Unit.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@return FSM_PROCESS #
 function TASK:GetStateMachine(TaskUnit) end
@@ -517,20 +494,17 @@ function TASK:GetStateMachine(TaskUnit) end
 ---Gets the #TASK status.
 ---
 ------
----@param self TASK 
 function TASK:GetStateString() end
 
 ---Returns the #TASK briefing.
 ---
 ------
----@param self TASK 
 ---@return string #Task briefing.
 function TASK:GetTaskBriefing() end
 
 ---Get Task Control Menu
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT The @{Wrapper.Unit} that contains a player.
 ---@param TaskName NOTYPE 
 ---@return MENU_GROUP #TaskControlMenu The Task Control Menu
@@ -539,28 +513,24 @@ function TASK:GetTaskControlMenu(TaskUnit, TaskName) end
 ---Gets the Task Index, which is a combination of the Task type, the Task name.
 ---
 ------
----@param self TASK 
 ---@return string #The Task ID
 function TASK:GetTaskIndex() end
 
 ---Returns the #TASK name.
 ---
 ------
----@param self TASK 
 ---@return string #TaskName
 function TASK:GetTaskName() end
 
 ---Gets the Type of the Task
 ---
 ------
----@param self TASK 
 ---@return string #TaskType
 function TASK:GetType() end
 
 ---Get the Task FSM Process Template
 ---
 ------
----@param self TASK 
 ---@param TaskUnit NOTYPE 
 ---@return FSM_PROCESS #
 function TASK:GetUnitProcess(TaskUnit) end
@@ -568,7 +538,6 @@ function TASK:GetUnitProcess(TaskUnit) end
 ---Goal Trigger for TASK
 ---
 ------
----@param self TASK 
 ---@param PlayerUnit UNIT The @{Wrapper.Unit} of the player.
 ---@param PlayerName string The name of the player.
 function TASK:Goal(PlayerUnit, PlayerName) end
@@ -576,14 +545,12 @@ function TASK:Goal(PlayerUnit, PlayerName) end
 ---Returns if the #TASK has still alive and assigned Units.
 ---
 ------
----@param self TASK 
 ---@return boolean #
 function TASK:HasAliveUnits() end
 
 
 ---
 ------
----@param self TASK 
 ---@param FindGroup GROUP 
 ---@return boolean #
 function TASK:HasGroup(FindGroup) end
@@ -591,7 +558,6 @@ function TASK:HasGroup(FindGroup) end
 ---Checks if there is a FiniteStateMachine assigned to Wrapper.Unit for #TASK.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@return TASK #self
 function TASK:HasStateMachine(TaskUnit) end
@@ -599,15 +565,13 @@ function TASK:HasStateMachine(TaskUnit) end
 ---Init Task Control Menu
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT The @{Wrapper.Unit} that contains a player.
----@return  #Task Control Menu Refresh ID
+---@return NOTYPE #Task Control Menu Refresh ID
 function TASK:InitTaskControlMenu(TaskUnit) end
 
 ---Returns if the #TASK is assigned to the Group.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@return boolean #
 function TASK:IsGroupAssigned(TaskGroup) end
@@ -615,49 +579,41 @@ function TASK:IsGroupAssigned(TaskGroup) end
 ---Is the #TASK status **Aborted**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateAborted() end
 
 ---Is the #TASK status **Assigned**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateAssigned() end
 
 ---Is the #TASK status **Cancelled**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateCancelled() end
 
 ---Is the #TASK status **Failed**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateFailed() end
 
 ---Is the #TASK status **Hold**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateHold() end
 
 ---Is the #TASK status **Planned**.
 ---
 ------
----@param self TASK 
 function TASK:IsStatePlanned() end
 
 ---Is the #TASK status **Replanned**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateReplanned() end
 
 ---Is the #TASK status **Success**.
 ---
 ------
----@param self TASK 
 function TASK:IsStateSuccess() end
 
 ---Add a PlayerUnit to join the Task.
@@ -666,7 +622,6 @@ function TASK:IsStateSuccess() end
 ---If the Unit is part of the Task, true is returned.
 ---
 ------
----@param self TASK 
 ---@param PlayerUnit UNIT The CLIENT or UNIT of the Player joining the Mission.
 ---@param PlayerGroup GROUP The GROUP of the player joining the Mission.
 ---@return boolean #true if Unit is part of the Task.
@@ -675,14 +630,12 @@ function TASK:JoinUnit(PlayerUnit, PlayerGroup) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskGroup NOTYPE 
 function TASK:MenuAssignToGroup(TaskGroup) end
 
 ---Report the task status.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup NOTYPE 
 ---@param Flash NOTYPE 
 function TASK:MenuFlashTaskStatus(TaskGroup, Flash) end
@@ -690,28 +643,24 @@ function TASK:MenuFlashTaskStatus(TaskGroup, Flash) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param TaskGroup NOTYPE 
 function TASK:MenuMarkToGroup(TaskGroup) end
 
 ---Report the task status.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup NOTYPE 
 function TASK:MenuTaskAbort(TaskGroup) end
 
 ---Report the task status.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 function TASK:MenuTaskStatus(TaskGroup) end
 
 ---Send a message of the #TASK to the assigned Wrapper.Groups.
 ---
 ------
----@param self TASK 
 ---@param Message NOTYPE 
 function TASK:MessageToGroups(Message) end
 
@@ -719,7 +668,6 @@ function TASK:MessageToGroups(Message) end
 ---Should never be used. Interface Class.
 ---
 ------
----@param self TASK 
 ---@param Mission MISSION The mission wherein the Task is registered.
 ---@param SetGroupAssign SET_GROUP The set of groups for which the Task can be assigned.
 ---@param TaskName string The name of the Task
@@ -731,7 +679,6 @@ function TASK:New(Mission, SetGroupAssign, TaskName, TaskType, TaskBriefing) end
 ---Goal Handler OnAfter for TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -742,7 +689,6 @@ function TASK:OnAfterGoal(From, Event, To, PlayerUnit, PlayerName) end
 ---FSM PlayerAborted event handler prototype for TASK.
 ---
 ------
----@param self TASK 
 ---@param PlayerUnit UNIT The Unit of the Player when he went back to spectators or left the mission.
 ---@param PlayerName string The name of the Player.
 function TASK:OnAfterPlayerAborted(PlayerUnit, PlayerName) end
@@ -750,7 +696,6 @@ function TASK:OnAfterPlayerAborted(PlayerUnit, PlayerName) end
 ---FSM PlayerCrashed event handler prototype for TASK.
 ---
 ------
----@param self TASK 
 ---@param PlayerUnit UNIT The Unit of the Player when he crashed in the mission.
 ---@param PlayerName string The name of the Player.
 function TASK:OnAfterPlayerCrashed(PlayerUnit, PlayerName) end
@@ -758,7 +703,6 @@ function TASK:OnAfterPlayerCrashed(PlayerUnit, PlayerName) end
 ---FSM PlayerDead event handler prototype for TASK.
 ---
 ------
----@param self TASK 
 ---@param PlayerUnit UNIT The Unit of the Player when he died in the mission.
 ---@param PlayerName string The name of the Player.
 function TASK:OnAfterPlayerDead(PlayerUnit, PlayerName) end
@@ -766,7 +710,6 @@ function TASK:OnAfterPlayerDead(PlayerUnit, PlayerName) end
 ---Goal Handler OnBefore for TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -778,7 +721,6 @@ function TASK:OnBeforeGoal(From, Event, To, PlayerUnit, PlayerName) end
 ---Remove the menu option of the #TASK for a Wrapper.Group.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@param MenuTime number 
 ---@return TASK #self
@@ -787,7 +729,6 @@ function TASK:RefreshMenus(TaskGroup, MenuTime) end
 ---Refresh Task Control Menu
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT The @{Wrapper.Unit} that contains a player.
 ---@param MenuTime NOTYPE The refresh time that was used to refresh the Task Control Menu items.
 ---@param MenuTag NOTYPE The tag.
@@ -796,7 +737,6 @@ function TASK:RefreshTaskControlMenu(TaskUnit, MenuTime, MenuTag) end
 ---A group rejecting a planned task.
 ---
 ------
----@param self TASK 
 ---@param PlayerGroup GROUP The group rejecting the task.
 ---@return TASK #
 function TASK:RejectGroup(PlayerGroup) end
@@ -804,7 +744,6 @@ function TASK:RejectGroup(PlayerGroup) end
 ---Remove the assigned menu option of the #TASK for a Wrapper.Group.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@param MenuTime number 
 ---@return TASK #self
@@ -813,7 +752,6 @@ function TASK:RemoveAssignedMenuForGroup(TaskGroup, MenuTime) end
 ---Remove the menu options of the #TASK to all the groups in the SetGroup.
 ---
 ------
----@param self TASK 
 ---@param MenuTime number 
 ---@return TASK #
 function TASK:RemoveMenu(MenuTime) end
@@ -821,7 +759,6 @@ function TASK:RemoveMenu(MenuTime) end
 ---Remove FiniteStateMachines from #TASK with key Wrapper.Unit.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@return TASK #self
 function TASK:RemoveStateMachine(TaskUnit) end
@@ -829,7 +766,6 @@ function TASK:RemoveStateMachine(TaskUnit) end
 ---Remove Task Control Menu
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT The @{Wrapper.Unit} that contains a player.
 function TASK:RemoveTaskControlMenu(TaskUnit) end
 
@@ -837,14 +773,12 @@ function TASK:RemoveTaskControlMenu(TaskUnit) end
 ---Use this event to Replan the Task.
 ---
 ------
----@param self TASK 
 function TASK:Replan() end
 
 ---Create a detailed report of the Task.
 ---List the Task Status, and the Players assigned to the Task.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@param ReportGroup NOTYPE 
 ---@return string #
@@ -854,7 +788,6 @@ function TASK:ReportDetails(TaskGroup, ReportGroup) end
 ---List the Task Name and Status
 ---
 ------
----@param self TASK 
 ---@param ReportGroup NOTYPE 
 ---@return string #
 function TASK:ReportOverview(ReportGroup) end
@@ -863,7 +796,6 @@ function TASK:ReportOverview(ReportGroup) end
 ---List the Task Name and Status
 ---
 ------
----@param self TASK 
 ---@param ReportGroup GROUP 
 ---@return string #
 function TASK:ReportSummary(ReportGroup) end
@@ -871,20 +803,17 @@ function TASK:ReportSummary(ReportGroup) end
 ---Send the briefing message of the #TASK to the assigned Wrapper.Groups.
 ---
 ------
----@param self TASK 
 function TASK:SendBriefingToAssignedGroups() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param AcceptClass NOTYPE 
 function TASK:SetAssignMethod(AcceptClass) end
 
 ---Set the assigned menu options of the #TASK.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@param MenuTime number 
 ---@return TASK #self
@@ -893,7 +822,6 @@ function TASK:SetAssignedMenuForGroup(TaskGroup, MenuTime) end
 ---Sets a #TASK briefing.
 ---
 ------
----@param self TASK 
 ---@param TaskBriefing string 
 ---@return TASK #self
 function TASK:SetBriefing(TaskBriefing) end
@@ -901,7 +829,6 @@ function TASK:SetBriefing(TaskBriefing) end
 ---Set detection of a task
 ---
 ------
----@param self TASK 
 ---@param Detection DETECTION_BASE 
 ---@param DetectedItem NOTYPE 
 ---@return TASK #
@@ -910,7 +837,6 @@ function TASK:SetDetection(Detection, DetectedItem) end
 ---Set dispatcher of a task
 ---
 ------
----@param self TASK 
 ---@param Dispatcher DETECTION_MANAGER 
 ---@return TASK #
 function TASK:SetDispatcher(Dispatcher) end
@@ -918,7 +844,6 @@ function TASK:SetDispatcher(Dispatcher) end
 ---Set goal of a task
 ---
 ------
----@param self TASK 
 ---@param Goal GOAL 
 ---@return TASK #
 function TASK:SetGoal(Goal) end
@@ -926,7 +851,6 @@ function TASK:SetGoal(Goal) end
 ---Set Wrapper.Group assigned to the #TASK.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@return TASK #
 function TASK:SetGroupAssigned(TaskGroup) end
@@ -934,14 +858,12 @@ function TASK:SetGroupAssigned(TaskGroup) end
 ---Sets the ID of the Task
 ---
 ------
----@param self TASK 
 ---@param TaskID string 
 function TASK:SetID(TaskID) end
 
 ---Set the menu options of the #TASK to all the groups in the SetGroup.
 ---
 ------
----@param self TASK 
 ---@param MenuTime number 
 ---@return TASK #
 function TASK:SetMenu(MenuTime) end
@@ -949,7 +871,6 @@ function TASK:SetMenu(MenuTime) end
 ---Set the Menu for a Group
 ---
 ------
----@param self TASK 
 ---@param MenuTime number 
 ---@param TaskGroup NOTYPE 
 ---@return TASK #
@@ -958,14 +879,12 @@ function TASK:SetMenuForGroup(MenuTime, TaskGroup) end
 ---Sets the Name of the Task
 ---
 ------
----@param self TASK 
 ---@param TaskName string 
 function TASK:SetName(TaskName) end
 
 ---Set the planned menu option of the #TASK.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 ---@param MenuText string The menu text.
 ---@param MenuTime number 
@@ -975,7 +894,6 @@ function TASK:SetPlannedMenuForGroup(TaskGroup, MenuText, MenuTime) end
 ---Set a penalty when the A2A attack has failed.
 ---
 ------
----@param self TASK 
 ---@param PlayerName string The name of the player.
 ---@param Penalty number The penalty in points, must be a negative value!
 ---@param TaskUnit UNIT 
@@ -985,7 +903,6 @@ function TASK:SetScoreOnFail(PlayerName, Penalty, TaskUnit) end
 ---Set a score when progress has been made by the player.
 ---
 ------
----@param self TASK 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points to be granted when task process has been achieved.
 ---@param TaskUnit UNIT 
@@ -995,7 +912,6 @@ function TASK:SetScoreOnProgress(PlayerName, Score, TaskUnit) end
 ---Set a score when all the targets in scope of the A2A attack, have been destroyed.
 ---
 ------
----@param self TASK 
 ---@param PlayerName string The name of the player.
 ---@param Score number The score in points.
 ---@param TaskUnit UNIT 
@@ -1005,7 +921,6 @@ function TASK:SetScoreOnSuccess(PlayerName, Score, TaskUnit) end
 ---Add a FiniteStateMachine to #TASK with key Wrapper.Unit.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@param Fsm FSM_PROCESS 
 ---@return TASK #self
@@ -1015,7 +930,6 @@ function TASK:SetStateMachine(TaskUnit, Fsm) end
 ---If #TASK stayed planned for longer than TimeOut, it gets into Cancelled status.
 ---
 ------
----@param self TASK 
 ---@param Timer integer in seconds
 ---@return TASK #self
 function TASK:SetTimeOut(Timer) end
@@ -1023,14 +937,12 @@ function TASK:SetTimeOut(Timer) end
 ---Sets the Type of the Task
 ---
 ------
----@param self TASK 
 ---@param TaskType string 
 function TASK:SetType(TaskType) end
 
 ---Sets the Task FSM Process Template
 ---
 ------
----@param self TASK 
 ---@param Core NOTYPE Fsm#FSM_PROCESS
 ---@param FsmTemplate NOTYPE 
 function TASK:SetUnitProcess(Core, FsmTemplate) end
@@ -1038,75 +950,63 @@ function TASK:SetUnitProcess(Core, FsmTemplate) end
 ---Sets a #TASK to status **Aborted**.
 ---
 ------
----@param self TASK 
 function TASK:StateAborted() end
 
 ---Sets a #TASK to status **Assigned**.
 ---
 ------
----@param self TASK 
 function TASK:StateAssigned() end
 
 ---Sets a #TASK to status **Cancelled**.
 ---
 ------
----@param self TASK 
 function TASK:StateCancelled() end
 
 ---Sets a #TASK to status **Failed**.
 ---
 ------
----@param self TASK 
 function TASK:StateFailed() end
 
 ---Sets a #TASK to status **Hold**.
 ---
 ------
----@param self TASK 
 function TASK:StateHold() end
 
 ---Sets a #TASK to status **Planned**.
 ---
 ------
----@param self TASK 
 function TASK:StatePlanned() end
 
 ---Sets a #TASK to status **Replanned**.
 ---
 ------
----@param self TASK 
 function TASK:StateReplanned() end
 
 ---Sets a #TASK to status **Success**.
 ---
 ------
----@param self TASK 
 function TASK:StateSuccess() end
 
 ---FSM Success synchronous event function for TASK.
 ---Use this event to make the Task a Success.
 ---
 ------
----@param self TASK 
 function TASK:Success() end
 
 ---UnAssign the #TASK from a Wrapper.Group.
 ---
 ------
----@param self TASK 
 ---@param TaskGroup GROUP 
 function TASK:UnAssignFromGroup(TaskGroup) end
 
 ---UnAssign the #TASK from the Wrapper.Groups.
 ---
 ------
----@param self TASK 
 function TASK:UnAssignFromGroups() end
 
 ---UnAssign the #TASK from an alive Wrapper.Unit.
 ---
 ------
----@param self TASK 
 ---@param TaskUnit UNIT 
 ---@return TASK #self
 function TASK:UnAssignFromUnit(TaskUnit) end
@@ -1115,27 +1015,23 @@ function TASK:UnAssignFromUnit(TaskUnit) end
 ---Use this event to Abort the Task.
 ---
 ------
----@param self TASK 
 function TASK:__Abort() end
 
 ---FSM Cancel asynchronous event function for TASK.
 ---Use this event to Cancel the Task.
 ---
 ------
----@param self TASK 
 function TASK:__Cancel() end
 
 ---FSM Fail asynchronous event function for TASK.
 ---Use this event to Fail the Task.
 ---
 ------
----@param self TASK 
 function TASK:__Fail() end
 
 ---Goal Asynchronous Trigger for TASK
 ---
 ------
----@param self TASK 
 ---@param Delay number 
 ---@param PlayerUnit UNIT The @{Wrapper.Unit} of the player.
 ---@param PlayerName string The name of the player.
@@ -1145,20 +1041,17 @@ function TASK:__Goal(Delay, PlayerUnit, PlayerName) end
 ---Use this event to Replan the Task.
 ---
 ------
----@param self TASK 
 function TASK:__Replan() end
 
 ---FSM Success asynchronous event function for TASK.
 ---Use this event to make the Task a Success.
 ---
 ------
----@param self TASK 
 function TASK:__Success() end
 
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1168,7 +1061,6 @@ function TASK:onafterReplan(From, Event, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -1178,7 +1070,6 @@ function TASK:onbeforeTimeOut(Event, From, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1188,7 +1079,6 @@ function TASK:onenterAborted(From, Event, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -1200,7 +1090,6 @@ function TASK:onenterAssigned(Event, From, To, PlayerUnit, PlayerName) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1210,7 +1099,6 @@ function TASK:onenterCancelled(From, Event, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param From string 
 ---@param Event string 
 ---@param To string 
@@ -1220,7 +1108,6 @@ function TASK:onenterFailed(From, Event, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -1230,7 +1117,6 @@ function TASK:onenterPlanned(Event, From, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param Event string 
 ---@param From string 
 ---@param To string 
@@ -1240,7 +1126,6 @@ function TASK:onenterSuccess(Event, From, To) end
 ---FSM function for a TASK
 ---
 ------
----@param self TASK 
 ---@param Event string 
 ---@param From string 
 ---@param To string 

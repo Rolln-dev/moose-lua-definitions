@@ -19,7 +19,6 @@ POLYGON = {}
 ---The point is a table with 'x' and 'y' fields.
 ---
 ------
----@param point table The point to check
 ---@param points? table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
 ---@param self NOTYPE 
 ---@param polygon_points NOTYPE 
@@ -29,27 +28,23 @@ function POLYGON.ContainsPoint(point, points, self, polygon_points) end
 
 ---
 ------
----@param self NOTYPE 
 function POLYGON:CovarianceMatrix() end
 
 
 ---
 ------
----@param self NOTYPE 
 function POLYGON:Direction() end
 
 ---Draws the polygon on the map.
 ---The polygon can be drawn with or without inner triangles. This is just for debugging
 ---
 ------
----@param include_inner_triangles bool Whether to include inner triangles in the drawing
 ---@param self NOTYPE 
 function POLYGON.Draw(include_inner_triangles, self) end
 
 ---Finds a polygon by its name in the database.
 ---
 ------
----@param shape_name string Name of the polygon to find
 ---@param self NOTYPE 
 ---@return POLYGON #The found polygon, or nil if not found
 function POLYGON.Find(shape_name, self) end
@@ -58,7 +53,6 @@ function POLYGON.Find(shape_name, self) end
 ---The polygon must be added in the mission editor.
 ---
 ------
----@param shape_name string Name of the polygon to find
 ---@param self NOTYPE 
 ---@return POLYGON #The found polygon, or nil if not found
 function POLYGON.FindOnMap(shape_name, self) end
@@ -67,7 +61,6 @@ function POLYGON.FindOnMap(shape_name, self) end
 ---The zone must be defined in the mission.
 ---
 ------
----@param zone_name string Name of the zone
 ---@param self NOTYPE 
 ---@return POLYGON #The polygon created from the zone, or nil if the zone is not found
 function POLYGON.FromZone(zone_name, self) end
@@ -76,7 +69,6 @@ function POLYGON.FromZone(zone_name, self) end
 ---The bounding box is the smallest rectangle that contains the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The bounding box of the polygon
 function POLYGON:GetBoundingBox() end
 
@@ -84,7 +76,6 @@ function POLYGON:GetBoundingBox() end
 ---The centroid is the average of the 'x' and 'y' coordinates of the points.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The centroid of the polygon
 function POLYGON:GetCentroid() end
 
@@ -92,7 +83,6 @@ function POLYGON:GetCentroid() end
 ---Each coordinate is a COORDINATE object.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The coordinates of the polygon
 function POLYGON:GetCoordinates() end
 
@@ -100,7 +90,6 @@ function POLYGON:GetCoordinates() end
 ---The end coordinate is the last point of the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return COORDINATE #The end coordinate of the polygon
 function POLYGON:GetEndCoordinate() end
 
@@ -108,7 +97,6 @@ function POLYGON:GetEndCoordinate() end
 ---The end point is the last point of the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The end point of the polygon
 function POLYGON:GetEndPoint() end
 
@@ -116,7 +104,6 @@ function POLYGON:GetEndPoint() end
 ---Each point is a table with 'x' and 'y' fields.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The points of the polygon
 function POLYGON:GetPoints() end
 
@@ -124,7 +111,6 @@ function POLYGON:GetPoints() end
 ---The Vec2 is chosen from one of the triangles that make up the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The random non-weighted Vec2
 function POLYGON:GetRandomNonWeightedVec2() end
 
@@ -132,7 +118,6 @@ function POLYGON:GetRandomNonWeightedVec2() end
 ---The Vec2 is weighted by the areas of the triangles that make up the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The random Vec2
 function POLYGON:GetRandomVec2() end
 
@@ -140,7 +125,6 @@ function POLYGON:GetRandomVec2() end
 ---The start coordinate is the first point of the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return COORDINATE #The start coordinate of the polygon
 function POLYGON:GetStartCoordinate() end
 
@@ -148,7 +132,6 @@ function POLYGON:GetStartCoordinate() end
 ---The start point is the first point of the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return table #The start point of the polygon
 function POLYGON:GetStartPoint() end
 
@@ -156,7 +139,6 @@ function POLYGON:GetStartPoint() end
 ---The surface area is the sum of the areas of the triangles that make up the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return number #The surface area of the polygon
 function POLYGON:GetSurfaceArea() end
 
@@ -164,7 +146,6 @@ function POLYGON:GetSurfaceArea() end
 ---Each point is a table with 'x' and 'y' fields.
 ---
 ------
----@param ... table Points of the polygon
 ---@param self NOTYPE 
 ---@return POLYGON #The new polygon
 function POLYGON.New(..., self) end
@@ -172,14 +153,12 @@ function POLYGON.New(..., self) end
 
 ---
 ------
----@param self NOTYPE 
 function POLYGON:RemoveDraw() end
 
 ---Triangulates the polygon.
 ---The polygon is divided into triangles.
 ---
 ------
----@param points? table (optional) Points of the polygon or other points if you're just using the POLYGON class without an object of it
 ---@param self NOTYPE 
 ---@return table #The triangles of the polygon
 function POLYGON.Triangulate(points, self) end
@@ -188,7 +167,6 @@ function POLYGON.Triangulate(points, self) end
 ---The surface area is the sum of the areas of the triangles that make up the polygon.
 ---
 ------
----@param self NOTYPE 
 ---@return number #The surface area of the polygon
 function POLYGON:__CalculateSurfaceArea() end
 

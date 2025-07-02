@@ -22,7 +22,6 @@ MOVEMENT = {}
 
 ---
 ------
----@param self NOTYPE 
 ---@param MovePrefixes NOTYPE 
 ---@param MoveMaximum NOTYPE 
 function MOVEMENT:New(MovePrefixes, MoveMaximum) end
@@ -30,14 +29,12 @@ function MOVEMENT:New(MovePrefixes, MoveMaximum) end
 
 ---
 ------
----@param self NOTYPE 
 ---@param Event NOTYPE 
 function MOVEMENT:OnDeadOrCrash(Event) end
 
 ---Captures the birth events when new Units were spawned.
 ---
 ------
----@param self MOVEMENT 
 ---@param self EVENTDATA 
 ---@param EventData NOTYPE 
 function MOVEMENT:OnEventBirth(self, EventData) end
@@ -45,19 +42,16 @@ function MOVEMENT:OnEventBirth(self, EventData) end
 
 ---
 ------
----@param self NOTYPE 
 function MOVEMENT:ScheduleStart() end
 
 
 ---
 ------
----@param self NOTYPE 
 function MOVEMENT:ScheduleStop() end
 
 
 ---
 ------
----@param self NOTYPE 
 function MOVEMENT:_Scheduler() end
 
 

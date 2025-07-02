@@ -172,7 +172,6 @@ TASK_CAPTURE_DISPATCHER = {}
 ---
 ---```
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@param TaskPrefix? string (optional) The prefix of the capture zone task.  If no TaskPrefix is given, then "Capture" will be used as the TaskPrefix.  The TaskPrefix will be appended with a . + a number of 3 digits, if the TaskPrefix already exists in the task collection.
 ---@param CaptureZone ZONE_CAPTURE_COALITION The zone of the coalition to be captured as the task goal.
 ---@param Briefing string The briefing of the task to be shown to the player.
@@ -183,7 +182,6 @@ function TASK_CAPTURE_DISPATCHER:AddCaptureZoneTask(TaskPrefix, CaptureZone, Bri
 ---This is used for the tactical overview, so the players also know the zones attacked by the AI A2G dispatcher!
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@return AI_A2G_DISPATCHER #
 function TASK_CAPTURE_DISPATCHER:GetDefenseAIA2GDispatcher() end
 
@@ -191,14 +189,12 @@ function TASK_CAPTURE_DISPATCHER:GetDefenseAIA2GDispatcher() end
 ---This is used for the tactical overview, so the players also know the zones attacked by the other coalition!
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@return TASK_CAPTURE_DISPATCHER #
 function TASK_CAPTURE_DISPATCHER:GetDefenseTaskCaptureDispatcher() end
 
 ---Link an AI_A2G_DISPATCHER to the TASK_CAPTURE_DISPATCHER.
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@param AI_A2G_Dispatcher AI_A2G_DISPATCHER The AI Dispatcher to be linked to the tasking. 
 ---@return TASK_CAPTURE_ZONE #
 function TASK_CAPTURE_DISPATCHER:Link_AI_A2G_Dispatcher(AI_A2G_Dispatcher) end
@@ -206,14 +202,12 @@ function TASK_CAPTURE_DISPATCHER:Link_AI_A2G_Dispatcher(AI_A2G_Dispatcher) end
 ---Assigns tasks to the Core.Set#SET_GROUP.
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@return boolean #Return true if you want the task assigning to continue... false will cancel the loop.
 function TASK_CAPTURE_DISPATCHER:ManageTasks() end
 
 ---TASK_CAPTURE_DISPATCHER constructor.
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@param Mission MISSION The mission for which the task dispatching is done.
 ---@param SetGroup SET_GROUP The set of groups that can join the tasks within the mission.
 ---@return TASK_CAPTURE_DISPATCHER #self
@@ -223,7 +217,6 @@ function TASK_CAPTURE_DISPATCHER:New(Mission, SetGroup) end
 ---This is used for the tactical overview, so the players also know the zones attacked by the other AI A2G dispatcher!
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@param DefenseAIA2GDispatcher AI_A2G_DISPATCHER 
 function TASK_CAPTURE_DISPATCHER:SetDefenseAIA2GDispatcher(DefenseAIA2GDispatcher) end
 
@@ -231,7 +224,6 @@ function TASK_CAPTURE_DISPATCHER:SetDefenseAIA2GDispatcher(DefenseAIA2GDispatche
 ---This is used for the tactical overview, so the players also know the zones attacked by the other coalition!
 ---
 ------
----@param self TASK_CAPTURE_DISPATCHER 
 ---@param DefenseTaskCaptureDispatcher TASK_CAPTURE_DISPATCHER 
 function TASK_CAPTURE_DISPATCHER:SetDefenseTaskCaptureDispatcher(DefenseTaskCaptureDispatcher) end
 

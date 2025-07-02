@@ -41,7 +41,6 @@ SOCKET = {}
 ---Create a new SOCKET object.
 ---
 ------
----@param self SOCKET 
 ---@param Port number UDP port. Default `10042`.
 ---@param Host string Host. Default `"127.0.0.1"`.
 ---@return SOCKET #self
@@ -50,7 +49,6 @@ function SOCKET:New(Port, Host) end
 ---Send a table.
 ---
 ------
----@param self SOCKET 
 ---@param Table table Table to send.
 ---@return SOCKET #self
 function SOCKET:SendTable(Table) end
@@ -58,7 +56,6 @@ function SOCKET:SendTable(Table) end
 ---Send a text message.
 ---
 ------
----@param self SOCKET 
 ---@param Text string Text message.
 ---@return SOCKET #self
 function SOCKET:SendText(Text) end
@@ -66,7 +63,6 @@ function SOCKET:SendText(Text) end
 ---Send a text-to-speech message.
 ---
 ------
----@param self SOCKET 
 ---@param Text string The text message to speek.
 ---@param Provider number The TTS provider: 0=Microsoft (default), 1=Google.
 ---@param Voice string The specific voice to use, e.g. `"Microsoft David Desktop"` or "`en-US-Standard-A`". If not set, the service will choose a voice based on the other parameters such as culture and gender.
@@ -79,7 +75,6 @@ function SOCKET:SendTextToSpeech(Text, Provider, Voice, Culture, Gender, Volume)
 ---Set host.
 ---
 ------
----@param self SOCKET 
 ---@param Host string Host. Default `"127.0.0.1"`.
 ---@return SOCKET #self
 function SOCKET:SetHost(Host) end
@@ -87,7 +82,6 @@ function SOCKET:SetHost(Host) end
 ---Set port.
 ---
 ------
----@param self SOCKET 
 ---@param Port number Port. Default 10042.
 ---@return SOCKET #self
 function SOCKET:SetPort(Port) end

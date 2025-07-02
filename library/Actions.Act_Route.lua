@@ -98,7 +98,6 @@ ACT_ROUTE = {}
 ---The route mode determines the text displayed.
 ---
 ------
----@param self ACT_ROUTE 
 ---@param Controllable UNIT 
 ---@return string #
 function ACT_ROUTE:GetRouteText(Controllable) end
@@ -106,21 +105,18 @@ function ACT_ROUTE:GetRouteText(Controllable) end
 
 ---
 ------
----@param self NOTYPE 
 function ACT_ROUTE:MenuCancel() end
 
 ---Creates a new routing state machine.
 ---The process will route a CLIENT to a ZONE until the CLIENT is within that ZONE.
 ---
 ------
----@param self ACT_ROUTE 
 ---@return ACT_ROUTE #self
 function ACT_ROUTE:New() end
 
 ---Set a Cancel Menu item.
 ---
 ------
----@param self ACT_ROUTE 
 ---@param MenuGroup NOTYPE 
 ---@param MenuText NOTYPE 
 ---@param ParentMenu NOTYPE 
@@ -136,7 +132,6 @@ function ACT_ROUTE:SetMenuCancel(MenuGroup, MenuText, ParentMenu, MenuTime, Menu
 ---  * SetRouteMode( "C" ): Route mode is LL or MGRS according coordinate system setup.
 ---
 ------
----@param self ACT_ROUTE 
 ---@param RouteMode NOTYPE 
 ---@return ACT_ROUTE #
 function ACT_ROUTE:SetRouteMode(RouteMode) end
@@ -144,7 +139,6 @@ function ACT_ROUTE:SetRouteMode(RouteMode) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -155,7 +149,6 @@ function ACT_ROUTE:onafterStart(ProcessUnit, Event, From, To) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -166,7 +159,6 @@ function ACT_ROUTE:onbeforeRoute(ProcessUnit, Event, From, To) end
 ---Check if the controllable has arrived.
 ---
 ------
----@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
 ---@private
@@ -187,14 +179,12 @@ ACT_ROUTE_POINT = {}
 ---Get Coordinate
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@return COORDINATE #Coordinate The Coordinate to route to.
 function ACT_ROUTE_POINT:GetCoordinate() end
 
 ---Get Range around Coordinate
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@return number #The Range to consider the arrival. Default is 10000 meters.
 function ACT_ROUTE_POINT:GetRange() end
 
@@ -202,7 +192,6 @@ function ACT_ROUTE_POINT:GetRange() end
 ---The task will route a controllable to a Coordinate until the controllable is within the Range.
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param FsmRoute NOTYPE 
 function ACT_ROUTE_POINT:Init(FsmRoute) end
 
@@ -210,7 +199,6 @@ function ACT_ROUTE_POINT:Init(FsmRoute) end
 ---The task will route a controllable to a Coordinate until the controllable is within the Range.
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param The COORDINATE Coordinate to Target.
 ---@param Range number The Distance to Target.
 ---@param Zone ZONE_BASE 
@@ -220,21 +208,18 @@ function ACT_ROUTE_POINT:New(The, Range, Zone, Coordinate) end
 ---Set Coordinate
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param Coordinate COORDINATE The Coordinate to route to.
 function ACT_ROUTE_POINT:SetCoordinate(Coordinate) end
 
 ---Set Range around Coordinate
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param Range number The Range to consider the arrival. Default is 10000 meters.
 function ACT_ROUTE_POINT:SetRange(Range) end
 
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -245,7 +230,6 @@ function ACT_ROUTE_POINT:onafterReport(ProcessUnit, Event, From, To) end
 ---Method override to check if the controllable has arrived.
 ---
 ------
----@param self ACT_ROUTE_POINT 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
 ---@private
@@ -269,14 +253,12 @@ ACT_ROUTE_ZONE = {}
 ---Get Zone
 ---
 ------
----@param self ACT_ROUTE_ZONE 
 ---@return ZONE_BASE #Zone The Zone object where to route to.
 function ACT_ROUTE_ZONE:GetZone() end
 
 
 ---
 ------
----@param self NOTYPE 
 ---@param FsmRoute NOTYPE 
 function ACT_ROUTE_ZONE:Init(FsmRoute) end
 
@@ -284,14 +266,12 @@ function ACT_ROUTE_ZONE:Init(FsmRoute) end
 ---The task will route a controllable to a ZONE until the controllable is within that ZONE.
 ---
 ------
----@param self ACT_ROUTE_ZONE 
 ---@param Zone ZONE_BASE 
 function ACT_ROUTE_ZONE:New(Zone) end
 
 ---Set Zone
 ---
 ------
----@param self ACT_ROUTE_ZONE 
 ---@param Zone ZONE_BASE The Zone object where to route to.
 ---@param Altitude number 
 ---@param Heading number 
@@ -300,7 +280,6 @@ function ACT_ROUTE_ZONE:SetZone(Zone, Altitude, Heading) end
 ---StateMachine callback function
 ---
 ------
----@param self ACT_ROUTE_ZONE 
 ---@param ProcessUnit UNIT 
 ---@param Event string 
 ---@param From string 
@@ -311,7 +290,6 @@ function ACT_ROUTE_ZONE:onafterReport(ProcessUnit, Event, From, To) end
 ---Method override to check if the controllable has arrived.
 ---
 ------
----@param self ACT_ROUTE 
 ---@param ProcessUnit UNIT 
 ---@return boolean #
 ---@private
